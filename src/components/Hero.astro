@@ -2,68 +2,93 @@
 import { Image } from 'astro:assets';
 import heroImg from '../assets/img/wallpaper.jpg';
 
-const orgs = ['UGR', 'TSTC', 'OSL', {org: 'ETSIIT', rename: 'etsiit-horizontal-white.png'}, 'DEIIT', 'CSIRC', 'AESIT']
+const orgs = [
+  'UGR',
+  'TSTC',
+  'OSL',
+  { org: 'ETSIIT', rename: 'etsiit-horizontal-white.png' },
+  'DEIIT',
+  'CSIRC',
+  'AESIT',
+];
 ---
 
 <style>
-  @media{ 
+  @media {
     .texto-centrado {
-      text-align: center; 
-      padding: 0 20px; 
+      text-align: center;
+      padding: 0 20px;
     }
   }
 </style>
 
 <!-- ====== Hero Section Start -->
-<section id="home" class="overflow-hidden bg-gradient-to-bl from-primary/80 from-30% via-secondary/85 via-70% to-tertiary/95 h-[1300px] pt-[120px] md:pt-[150px] lg:pt-[200px] pb-[75px] md:pb-[85px] lg:pb-[115px]">
+<section
+  id="home"
+  class="overflow-hidden bg-gradient-to-bl from-primary/80 from-30% via-secondary/85 via-70% to-tertiary/95 h-[100vh] pt-[120px] md:pt-[150px] lg:pt-[200px] pb-[75px] md:pb-[85px] lg:pb-[115px]"
+>
   <div class="absolute inset-0 min-h-full min-w-full -z-10">
     <img src={heroImg.src} alt="" class="w-full h-full object-cover" />
   </div>
   <div class="flex flex-col items-center h-full">
-    <h1 class="pt-3 mb-5 lg:mb-8 text-3xl font-bold leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]">
+    <h1
+      class="pt-3 mb-5 lg:mb-8 text-3xl font-bold leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]"
+    >
       UGR LAN PARTY
     </h1>
 
-    <p class="texto-centrado mx-auto mb-4 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]" >
+    <p
+      class="texto-centrado mx-auto mb-4 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]"
+    >
       ¡El mayor evento universitario de eSports de Granada!
     </p>
 
-<div class="flex items-center justify-center px-5 py-5 my-3">
-    <div class="text-primary">
-        <div class="text-5xl text-center flex w-full items-center justify-center">
-            <div class="w-30 mx-1 p-2 bg-white rounded-lg">
-                <div class="font-mono leading-none" id="days">00</div>
-                <div class="font-mono uppercase text-sm leading-none">Días</div>
-            </div>
-            <div class="w-20 mx-1 p-2 bg-white rounded-lg">
-                <div class="font-mono leading-none" id="hours">00</div>
-                <div class="font-mono uppercase text-sm leading-none">Horas</div>
-            </div>
-            <div class="w-20 mx-1 p-2 bg-white rounded-lg">
-                <div class="font-mono leading-none" id="minutes">00</div>
-                <div class="font-mono uppercase text-sm leading-none">Minutos</div>
-            </div>
-            <!--<div class="text-2xl mx-1 font-extralight">and</div>-->
-            <div class="w-20 mx-1 p-2 bg-white rounded-lg">
-                <div class="font-mono leading-none" id="seconds">00</div>
-                <div class="font-mono uppercase text-sm leading-none">Segundos</div>
-            </div>
+    <div class="flex items-center justify-center px-5 py-5 my-3">
+      <div class="text-primary">
+        <div
+          class="text-5xl text-center flex w-full items-center justify-center"
+        >
+          <div class="w-30 mx-1 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="days">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Días</div>
+          </div>
+          <div class="w-20 mx-1 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="hours">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Horas</div>
+          </div>
+          <div class="w-20 mx-1 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="minutes">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Minutos</div>
+          </div>
+          <!--<div class="text-2xl mx-1 font-extralight">and</div>-->
+          <div class="w-20 mx-1 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="seconds">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Segundos</div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-    <p class="texto-centrado mx-auto mb-4 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]" >
+    <p
+      class="texto-centrado mx-auto mb-4 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]"
+    >
       ¡Nos volvemos a ver en 2025!
     </p>
 
-    <a href="/inscribete" class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2">
+    <a
+      href="/inscribete"
+      class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
+    >
       Inscríbete
     </a>
 
     <div class="mt-5 lg:mt-5 flex justify-center items-center">
-      <img src="/assets/participan/organizan.png" alt="Organizaciones participantes" class="max-w-[90%] max-h-[200px] h-auto" />
+      <img
+        src="/assets/participan/organizan.png"
+        alt="Organizaciones participantes"
+        class="max-w-[90%] max-h-[200px] h-auto"
+      />
     </div>
-
   </div>
 </section>
 <!-- ====== Hero Section End -->
