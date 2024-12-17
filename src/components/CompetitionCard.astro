@@ -1,0 +1,32 @@
+---
+const { competition } = Astro.props;
+---
+
+<a
+  class="group w-60 h-60 md:w-80 md:h-80 flex flex-col items-center cursor-pointer relative transition duration-500 ease-in-out transform"
+  href={competition.page}
+>
+  <div
+    class="w-full h-full relative flex flex-col items-center group-hover:shadow-2xl transition duration-500"
+  >
+    <picture
+      class="w-full p-4 h-full z-10 flex items-center justify-center group-hover:scale-110 transition duration-500"
+    >
+      <img src={competition.logo} class="w-60 md:w-72 h-auto" />
+    </picture>
+    <picture
+      class="w-full h-full absolute top-0 group-hover:scale-105 transition duration-500"
+    >
+      <img
+        src={competition.background}
+        class="w-full h-full overflow-clip absolute -z-10 top-0 object-cover"
+      />
+      <div class="absolute top-0 left-0 w-full h-full bg-primary/80"></div>
+    </picture>
+  </div>
+  <h5
+    class="h-12 font-bold text-2xl absolute opacity-0 group-hover:opacity-100 -bottom-16 transition duration-500"
+  >
+    {competition.title}
+  </h5>
+</a>

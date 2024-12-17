@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import CompetitionCard from '../components/CompetitionCard.astro';
+
+const Competitions = [
+  {
+    logo: '../../public/assets/competitions-logos/lol.png',
+    background: '../../public/assets/backgrounds/lol.jpeg',
+    title: 'League of Legends',
+    page: '/competiciones/league-of-legends',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/valorant.png',
+    background: '../../public/assets/backgrounds/valorant.png',
+    title: 'Valorant',
+    page: '/competiciones/valorant',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/rocket.png',
+    background: '../../public/assets/backgrounds/rocket-league.png',
+    title: 'Rocket League',
+    page: '/competiciones/rocket-league',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/fc25.webp',
+    background: '../../public/assets/backgrounds/ea-sports-fc-24.png',
+    title: 'FC 25',
+    page: '/competiciones/fc25',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/minecraft.png',
+    background: '../../public/assets/backgrounds/minecraft.png',
+    title: 'Minecraft',
+    page: '/competiciones/minecraft',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/mario.png',
+    background: '../../public/assets/backgrounds/mario-kart.png',
+    title: 'Mario Kart Deluxe',
+    page: '/competiciones/league-of-legends',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/wii.png',
+    background: '../../public/assets/backgrounds/wii-sports.png',
+    title: 'Wii Sports',
+    page: '/competiciones/wii-sports',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/smash.png',
+    background: '../../public/assets/backgrounds/smash.png',
+    title: 'Super Smash Bros Ultimate',
+    page: '/competiciones/smash',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/pokemon.png',
+    background: '../../public/assets/backgrounds/pokemon-showdown.png',
+    title: 'Pokemon',
+    page: '/competiciones/pokemon',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/futbolin.png',
+    background: '../../public/assets/backgrounds/futbolín.png',
+    title: 'Futbolín',
+    page: '/competiciones/futbolin',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/retro.png',
+    background: '../../public/assets/backgrounds/pokemon-showdown.png',
+    title: 'Juego Libre',
+    page: '/juego-libre',
+  },
+];
+---
+
+<Layout description="UGR LAN Party" title="Competiciones">
+  <Breadcrumb>
+    <Fragment slot="title">Competiciones</Fragment>
+  </Breadcrumb>
+  <div class="w-full items-center flex flex-col">
+    <div
+      class="grid sm:grid-cols-3 grid-cols-1 items-center justify-center m-16 gap-14"
+    >
+      {
+        Competitions.map((competition) => (
+          <CompetitionCard competition={competition} />
+        ))
+      }
+    </div>
+  </div>
+</Layout>
