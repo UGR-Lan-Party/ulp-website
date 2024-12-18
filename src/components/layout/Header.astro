@@ -98,57 +98,74 @@ const menuitems = [
             <ul class="block lg:flex 2xl:ml-20">
               {
                 menuitems.map((item, index) => {
-                  if (!item.children) {
-                    return (
-                      <li class="group relative">
-                        <a
-                          href={item.path}
-                          class={` ${index}
-                          ${Astro.url.pathname === '/' ? 'ud-menu-scroll mx-8 flex py-2 font-medium text-base text-dark dark:text-white group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10' : 'ud-menu-scroll mx-8 flex py-2 font-medium text-base text-dark dark:text-white group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-body-color dark:lg:text-dark-6 xl:ml-10'}
-                          `}
-                        >
-                          {item.title}
-                        </a>
-                      </li>
-                    );
-                  }
-
-                  if (item.children) {
-                    return (
-                      <li class="submenu-item group relative">
-                        <a
-                          href={item.path}
-                          class={` ${index}
-                          ${Astro.url.pathname === '/' ? 'relative mx-8 flex items-center justify-between py-2 font-medium text-base text-dark dark:text-white group-hover:text-primary lg:mr-0 lg:ml-8 lg:inline-flex lg:py-6 lg:pl-0 lg:pr-4 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10' : 'relative mx-8 flex items-center justify-between py-2 font-medium text-base text-primary group-hover:text-primary lg:mr-0 lg:ml-8 lg:inline-flex lg:py-6 lg:pl-0 lg:pr-4 xl:ml-10'}
-                          `}
-                        >
-                          {item.title}
-
-                          <svg
-                            class="fill-current ml-2"
-                            width="16"
-                            height="20"
-                            viewBox="0 0 16 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                  return (
+                    <li class={`group relative ${item.children ? 'submenu-item' : ''}`}>
+                      {item.children ? (
+                        <>
+                          <input type="checkbox" id={`submenu-toggler-${index}`} class="hidden peer lg:hidden" />
+                          <a
+                            href={item.path}
+                            class={`mx-8 flex items-center justify-between py-2 font-medium text-base text-dark dark:text-white group-hover:text-primary lg:mr-0 ${
+                              item.children ? 'lg:ml-8 lg:pl-0 lg:pr-4' : 'lg:ml-7 lg:px-0'
+                            } lg:inline-flex lg:py-6 ${
+                              Astro.url.pathname === '/'
+                                ? 'lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10'
+                                : 'lg:text-body-color dark:lg:text-dark-6 xl:ml-10'
+                            }`}
                           >
-                            <path d="M7.99999 14.9C7.84999 14.9 7.72499 14.85 7.59999 14.75L1.84999 9.10005C1.62499 8.87505 1.62499 8.52505 1.84999 8.30005C2.07499 8.07505 2.42499 8.07505 2.64999 8.30005L7.99999 13.525L13.35 8.25005C13.575 8.02505 13.925 8.02505 14.15 8.25005C14.375 8.47505 14.375 8.82505 14.15 9.05005L8.39999 14.7C8.27499 14.825 8.14999 14.9 7.99999 14.9Z" />
-                          </svg>
+                            {item.title}
+                            <label for={`submenu-toggler-${index}`} class="cursor-pointer lg:hidden">
+                              <svg
+                                class="fill-current ml-2"
+                                width="16"
+                                height="20"
+                                viewBox="0 0 16 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M7.99999 14.9C7.84999 14.9 7.72499 14.85 7.59999 14.75L1.84999 9.10005C1.62499 8.87505 1.62499 8.52505 1.84999 8.30005C2.07499 8.07505 2.42499 8.07505 2.64999 8.30005L7.99999 13.525L13.35 8.25005C13.575 8.02505 13.925 8.02505 14.15 8.25005C14.375 8.47505 14.375 8.82505 14.15 9.05005L8.39999 14.7C8.27499 14.825 8.14999 14.9 7.99999 14.9Z" />
+                              </svg>
+                            </label>
+                            {item.children && (
+                              <svg
+                                class="fill-current ml-2 hidden lg:block"
+                                width="16"
+                                height="20"
+                                viewBox="0 0 16 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M7.99999 14.9C7.84999 14.9 7.72499 14.85 7.59999 14.75L1.84999 9.10005C1.62499 8.87505 1.62499 8.52505 1.84999 8.30005C2.07499 8.07505 2.42499 8.07505 2.64999 8.30005L7.99999 13.525L13.35 8.25005C13.575 8.02505 13.925 8.02505 14.15 8.25005C14.375 8.47505 14.375 8.82505 14.15 9.05005L8.39999 14.7C8.27499 14.825 8.14999 14.9 7.99999 14.9Z" />
+                              </svg>
+                            )}
+                          </a>
+                          <div class="submenu hidden peer-checked:block lg:absolute lg:top-full lg:left-0 lg:w-[250px] lg:bg-white lg:dark:bg-dark-2 lg:shadow-lg lg:rounded-sm lg:p-4 lg:transition-transform lg:duration-300 lg:group-hover:opacity-100 lg:invisible lg:translate-y-2 lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:translate-y-0 lg:group-hover:opacity-100 ml-8 lg:ml-0">
+                            {item.children.map((child) => (
+                              <a
+                                href={child.path}
+                                class="block py-2 px-4 text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+                              >
+                                {child.title}
+                              </a>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <a
+                          href={item.path}
+                          class={`mx-8 flex py-2 font-medium text-base text-dark dark:text-white group-hover:text-primary lg:mr-0 ${
+                            item.children ? 'items-center justify-between' : ''
+                          } ${item.children ? 'lg:ml-8 lg:pl-0 lg:pr-4' : 'lg:ml-7 lg:px-0'} lg:inline-flex lg:py-6 ${
+                            Astro.url.pathname === '/'
+                              ? 'lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10'
+                              : 'lg:text-body-color dark:lg:text-dark-6 xl:ml-10'
+                          }`}
+                        >
+                          {item.title}
                         </a>
-
-                        <div class="submenu relative top-full left-0 hidden w-[250px] rounded-sm bg-white dark:bg-dark-2 p-4 transition-[top] duration-300 group-hover:opacity-100 lg:invisible lg:absolute lg:top-[110%] lg:block lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full">
-                          {item.children.map((item) => (
-                            <a
-                              href={item.path}
-                              class="block rounded py-[10px] px-4 text-sm text-body-color dark:text-dark-6 hover:text-primary dark:hover:text-primary"
-                            >
-                              {item.title}
-                            </a>
-                          ))}
-                        </div>
-                      </li>
-                    );
-                  }
+                      )}
+                    </li>
+                  );
                 })
               }
             </ul>
