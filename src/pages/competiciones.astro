@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import CompetitionCard from '../components/CompetitionCard.astro';
+
+const Competitions = [
+  {
+    logo: '../../public/assets/competitions/game-logos/fc25.webp',
+    hover:
+      '../../public/assets/competitions/card-characters/character-fc25.png',
+    background:
+      '../../public/assets/competitions/backgrounds/ea-sports-fc-24.png',
+    title: 'FC 25',
+    page: '/competiciones/ea-sports-fc-24',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/minecraft.png',
+    hover:
+      '../../public/assets/competitions/card-characters/character-minecraft.png',
+    background: '../../public/assets/competitions/backgrounds/minecraft.png',
+    title: 'Minecraft',
+    page: '/competiciones/minecraft',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/mario.png',
+    hover:
+      '../../public/assets/competitions/card-characters/character-mario.png',
+    background: '../../public/assets/competitions/backgrounds/mario-kart.png',
+    title: 'Mario Kart Deluxe',
+    page: '/competiciones/league-of-legends',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/lol.png',
+    hover:
+      '../../public/assets/competitions/card-characters/character-lol.webp',
+    background: '../../public/assets/competitions/backgrounds/lol.jpeg',
+    title: 'League of Legends',
+    page: '/competiciones/league-of-legends',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/valorant.png',
+    hover: '../../public/assets/competitions/card-characters/',
+    background: '../../public/assets/competitions/backgrounds/valorant.png',
+    title: 'Valorant',
+    page: '/competiciones/valorant',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/rocket.png',
+    hover:
+      '../../public/assets/competitions/card-characters/character-rocket.png',
+    background:
+      '../../public/assets/competitions/backgrounds/rocket-league.png',
+    title: 'Rocket League',
+    page: '/competiciones/rocket-league',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/wii.png',
+    hover: '../../public/assets/competitions/card-characters/',
+    background: '../../public/assets/competitions/backgrounds/wii-sports.png',
+    title: 'Wii Sports',
+    page: '/competiciones/wii-sports',
+  },
+  {
+    logo: '../../public/assets/competitions-logos/smash.png',
+    hover: '../../public/assets/competitions/card-characters/',
+    background: '../../public/assets/competitions/backgrounds/smash.png',
+    title: 'Super Smash Bros Ultimate',
+    page: '/competiciones/smash',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/pokemon.png',
+    hover: '../../public/assets/competitions/card-characters/',
+    background:
+      '../../public/assets/competitions/backgrounds/pokemon-showdown.png',
+    title: 'Pokemon',
+    page: '/competiciones/pokemon',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/futbolin.png',
+    hover: '../../public/assets/competitions/card-characters/',
+    background: '../../public/assets/competitions/backgrounds/futbolín.png',
+    title: 'Futbolín',
+    page: '/competiciones/futbolin',
+  },
+  {
+    logo: '../../public/assets/competitions/game-logos/retro.png',
+    hover: '../../public/assets/competitions/card-characters/',
+    background:
+      '../../public/assets/competitions/backgrounds/pokemon-showdown.png',
+    title: 'Juego Libre',
+    page: '/juego-libre',
+  },
+];
+---
+
+<Layout description="UGR LAN Party" title="Competiciones">
+  <Breadcrumb>
+    <Fragment slot="title">Competiciones</Fragment>
+  </Breadcrumb>
+  <div class="w-full items-center flex flex-col">
+    <div
+      class="grid sm:grid-cols-3 grid-cols-1 items-center justify-center m-16 gap-14"
+    >
+      {
+        Competitions.map((competition) => (
+          //<CompetitionCard competition={competition} />
+          <CompetitionCard competition={competition} />
+        ))
+      }
+    </div>
+  </div>
+</Layout>

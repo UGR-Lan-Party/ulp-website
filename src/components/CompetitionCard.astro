@@ -1,0 +1,203 @@
+---
+const { competition } = Astro.props;
+---
+
+<a href={competition.page} class="competition-card">
+  <picture class="card">
+    <img src={competition.background} class="card-image" />
+  </picture>
+  <img src={competition.logo} class="logo" />
+  <img src={competition.hover} class="character" />
+</a>
+
+<style>
+  .competition-card {
+    width: 300px; /* Ancho fijo de la tarjeta */
+    height: 400px; /* Alto fijo de la tarjeta */
+    position: relative; /* Permite posicionar elementos hijos con position:absolute */
+    display: flex; /* Utiliza flexbox para alinear los elementos dentro de la tarjeta */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: flex-end; /* Alinea los elementos al final del eje vertical */
+    padding: 0 36px; /* Espaciado interno horizontal (izquierda y derecha) de 36px */
+    perspective: 2500px; /* Añade una perspectiva 3D para los efectos de transformación */
+    margin: 0 50px; /* Margen horizontal de 50px entre tarjetas */
+    overflow: visible; /* Permite que los elementos hijos sobresalgan del contenedor */
+  }
+
+  .card {
+    transition: all 0.5s; /* Transición suave para todas las propiedades durante 0.5s */
+    position: absolute; /* Se posiciona dentro del contenedor `.competition-card` */
+    height: 100%; /* Ocupa todo el alto del contenedor */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    z-index: -5; /* Se envía detrás de otros elementos */
+    border-radius: 5% / 3.5%;
+    overflow: visible;
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    width: 105%;
+    height: 105%;
+    background-image: conic-gradient(
+      from var(--angle),
+      #ff4545,
+      #00ff99,
+      #006aff,
+      #ff0095,
+      #ff4545
+    ); /* Degradado circular */
+    left: 50%; /* Se alinean a la izquierda */
+    top: 50%; /* Se alinean arriba */
+    translate: -50% -50%;
+    z-index: -10;
+    opacity: 0; /* Comienzan ocultos */
+    border-radius: 5% / 3.5%;
+    animation: 3s spin linear infinite; /* Animación de rotación */
+    filter: blur(16px); /* Desenfoque para suavizar los colores */
+  }
+
+  /* Hacemos que el pseudoelemento con el aura sea visible cuando se haga hover */
+  .competition-card:hover .card::before {
+    opacity: 0.8; /* Se vuelven visibles */
+  }
+
+  @keyframes spin {
+    from {
+      --angle: 0deg;
+    }
+    to {
+      --angle: 360deg;
+    }
+  }
+
+  /* Pseudoelemento para que la carta tenga un degradado de sombra en la parte superior al inclinar */
+  .card::after {
+    border-radius: 5% / 3.5%;
+    content: ''; /* Se añade contenido a los pseudoelementos, es obligatorio poner algo */
+    opacity: 0; /* Comienzan ocultos */
+    width: 100%; /* Ocupan el ancho completo de la tarjeta */
+    height: 100%; /* Ocupan el alto completo de la tarjeta */
+    transition: all 0.5s; /* Transición suave de 0.5s para todas las propiedades */
+    position: absolute; /* Posicionamiento absoluto dentro de `.card` */
+    left: 0; /* Se alinean a la izquierda */
+    top: 0; /* Se alinean arriba */
+    /* background-image: linear-gradient(
+      to top,
+      transparent 70%,
+      rgba(12, 13, 19, 0.5) 100%,
+      rgba(12, 13, 19, 0.6) 100%
+    ); */
+    /* Degradado de sombra en la parte superior */
+    background-image: url('https://assets.codepen.io/13471/sparkles.gif'),
+      linear-gradient(
+        125deg,
+        #ff008450 15%,
+        #fca40040 30%,
+        #ffff0030 40%,
+        #00ff8a20 60%,
+        #00cfff40 70%,
+        #cc4cfa50 85%
+      );
+    mix-blend-mode: color-dodge;
+    background-position: 50% 50%;
+    background-size: 160%;
+    background-blend-mode: overlay;
+    z-index: 0;
+    filter: brightness(1) contrast(1);
+  }
+
+  .competition-card:hover .card {
+    /* Inclina la tarjeta hacia atrás en 3D y la levanta ligeramente hacia arriba. */
+    transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+    box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75); /* Añade una sombra proyectada para dar la sensación de elevación.*/
+  }
+
+  /* Hacemos que el pseudoelemento con la sombra sea visible cuando se haga hover */
+  .competition-card:hover .card::after {
+    opacity: 0; /* Se vuelven visibles */
+    animation: holoSparkle 12s ease 0s infinite;
+  }
+
+  /* Efecto de partículas animadas */
+  @keyframes holoSparkle {
+    0%,
+    30%,
+    100% {
+      opacity: 0.75;
+      filter: brightness(1.2) contrast(1.25);
+    }
+    35%,
+    38% {
+      opacity: 1;
+      background-position: 40% 40%;
+      filter: brightness(0.8) contrast(1.2);
+    }
+    43%,
+    46% {
+      opacity: 0.5;
+      filter: brightness(1.2) contrast(0.8);
+    }
+    65%,
+    68% {
+      opacity: 1;
+      filter: brightness(1) contrast(1);
+    }
+    85% {
+      opacity: 0.33;
+      filter: brightness(1.2) contrast(1.25);
+    }
+  }
+
+  .card-image {
+    width: 100%; /* La imagen ocupa el ancho completo de la tarjeta */
+    height: 100%; /* La imagen ocupa el alto completo de la tarjeta */
+    object-fit: cover; /* Ajusta la imagen para que cubra completamente el espacio sin distorsionarse */
+    border-radius: 5% / 3.5%; /* Bordes redondeados con un radio elíptico */
+  }
+
+  .logo {
+    position: relative;
+    bottom: 20px; /* Se desplaza 20px hacia arriba */
+    height: 100px; /* Altura del logotipo */
+    width: 100%; /* Ancho completo */
+    object-fit: contain; /* Mantiene las proporciones del logotipo */
+    z-index: 10; /* Se posiciona por encima de otros elementos */
+    transition: transform 0.5s; /* Transición suave para las transformaciones */
+  }
+
+  .competition-card:hover .logo {
+    transform: perspective(900px) translateY(-45%);
+  }
+
+  .character {
+    mask-image: linear-gradient(
+      black 70%,
+      transparent
+    ); /* Se usa una máscara para desvanecer la parte inferior */
+    height: 350px; /* Altura del personaje */
+    width: 320px; /* Ancho del personaje */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+    opacity: 0; /* Comienza invisible */
+    transition: all 0.5s; /* Transición suave para todas las propiedades */
+    position: absolute; /* Se posiciona dentro del contenedor */
+    top: 80px; /* Desplazamiento desde la parte superior */
+    z-index: 5; /* Se posiciona por debajo del logotipo */
+    overflow: visible; /* Permite que sobresalga del contenedor */
+  }
+
+  .competition-card:hover .character {
+    opacity: 1; /* Se vuelve visible */
+    transform: translate3d(
+      0%,
+      -30%,
+      100px
+    ); /* Pequeña translación para que parezca que aparece */
+  }
+</style>
