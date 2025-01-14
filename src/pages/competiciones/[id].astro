@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/layout/Breadcrumb.astro';
+import CompetitionPageCard from '../../components/CompetitionPageCard.astro';
+
+import type { CompetitionData, CompetitionCardData } from '../../lib/data.ts';
+import { Competitions, CompetitionsCards } from '../../lib/data.ts';
+
+const { id } = Astro.params;
+
+const competition: CompetitionData | undefined = Competitions.find(
+  (competition) => competition.id === id,
+);
+
+const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
+  (competition) => competition.id === id,
+);
+---
+
+<Layout description="UGR LAN Party" title={competition?.name}>
+  <Breadcrumb>
+    {(<Fragment slot="title">{competition?.name}</Fragment>)}
+  </Breadcrumb>
+  <main>
+    <section class="flex w-full justify-around items-center mt-16">
+      {competitionCard && <CompetitionPageCard competition={competitionCard} />}
+      <div>Inscripciones</div>
+      <div>Inscripciones</div>
+      <div>Fecha y lugar</div>
+    </section>
+    <section>
+      <h2>Premios</h2>
+      <canvas id="trophy"></canvas>
+    </section>
+  </main>
+</Layout>
+
+<style></style>

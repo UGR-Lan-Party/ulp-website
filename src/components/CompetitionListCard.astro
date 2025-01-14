@@ -1,13 +1,17 @@
 ---
-const { competition } = Astro.props;
+import type { CompetitionCardData } from '../lib/data.ts';
+interface Props {
+  competition: CompetitionCardData;
+}
+const { competition } = Astro.props as Props;
 ---
 
-<a href={competition.page} class="competition-card">
+<a href={'competiciones/' + competition.id} class="competition-card">
   <picture class="card">
-    <img src={competition.background} class="card-image" />
+    <img src={competition.card} class="card-image" />
   </picture>
   <img src={competition.logo} class="logo" />
-  <img src={competition.hover} class="character" />
+  <img src={competition.character} class="character" />
 </a>
 
 <style>

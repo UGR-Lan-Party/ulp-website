@@ -131,3 +131,4 @@ dist
 
 # Mac Dstore files
 .DS_Store
+.astro/

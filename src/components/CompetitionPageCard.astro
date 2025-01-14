@@ -1,0 +1,154 @@
+---
+import type { CompetitionCardData } from '../lib/data.ts';
+interface Props {
+  competition: CompetitionCardData;
+}
+const { competition } = Astro.props as Props;
+---
+
+<picture class="competition-page-card">
+  <img src={competition.card} class="card" />
+  <img src={competition.logo} class="logo" />
+  <img src={competition.character} class="character" />
+</picture>
+
+<style>
+  .competition-page-card {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 36px;
+    perspective: 2500px;
+    margin: 0 50px;
+    overflow: visible;
+  }
+
+  .card {
+    transition: all 0.5s; /* Transición suave para todas las propiedades durante 0.5s */
+    position: absolute; /* Se posiciona dentro del contenedor `.competition-page-card` */
+    height: 100%; /* Ocupa todo el alto del contenedor */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    z-index: -5; /* Se envía detrás de otros elementos */
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    width: 105%;
+    height: 105%;
+    background-image: conic-gradient(
+      from var(--angle),
+      #ff4545,
+      #00ff99,
+      #006aff,
+      #ff0095,
+      #ff4545
+    );
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    z-index: -10;
+    border-radius: 5% / 3.5%;
+    animation: 3s spin linear infinite;
+    filter: blur(16px);
+  }
+
+  @keyframes spin {
+    from {
+      --angle: 0deg;
+    }
+    to {
+      --angle: 360deg;
+    }
+  }
+
+  .card::after {
+    border-radius: 5% / 3.5%;
+    content: '';
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url('https://assets.codepen.io/13471/sparkles.gif'),
+      linear-gradient(
+        125deg,
+        #ff008450 15%,
+        #fca40040 30%,
+        #ffff0030 40%,
+        #00ff8a20 60%,
+        #00cfff40 70%,
+        #cc4cfa50 85%
+      );
+    mix-blend-mode: color-dodge;
+    background-position: 50% 50%;
+    background-size: 160%;
+    background-blend-mode: overlay;
+    z-index: 0;
+    filter: brightness(1) contrast(1);
+  }
+
+  /* Efecto de partículas animadas */
+  @keyframes holoSparkle {
+    0%,
+    30%,
+    100% {
+      opacity: 0.75;
+      filter: brightness(1.2) contrast(1.25);
+    }
+    35%,
+    38% {
+      opacity: 1;
+      background-position: 40% 40%;
+      filter: brightness(0.8) contrast(1.2);
+    }
+    43%,
+    46% {
+      opacity: 0.5;
+      filter: brightness(1.2) contrast(0.8);
+    }
+    65%,
+    68% {
+      opacity: 1;
+      filter: brightness(1) contrast(1);
+    }
+    85% {
+      opacity: 0.33;
+      filter: brightness(1.2) contrast(1.25);
+    }
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 30px; /* Se desplaza 20px hacia arriba */
+    height: 100px; /* Altura del logotipo */
+    width: 80%; /* Ancho completo */
+    object-fit: contain; /* Mantiene las proporciones del logotipo */
+    z-index: 10; /* Se posiciona por encima de otros elementos */
+  }
+
+  .character {
+    mask-image: linear-gradient(
+      black 70%,
+      transparent
+    ); /* Se usa una máscara para desvanecer la parte inferior */
+    width: 450px; /* Altura del personaje */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+    position: absolute; /* Se posiciona dentro del contenedor */
+    bottom: 60px; /* Desplazamiento desde la parte superior */
+    z-index: 5; /* Se posiciona por debajo del logotipo */
+    overflow: visible; /* Permite que sobresalga del contenedor */
+  }
+</style>
