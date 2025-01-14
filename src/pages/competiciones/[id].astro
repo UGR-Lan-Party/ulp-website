@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
-import CompetitionPageCard from '../../components/CompetitionPageCard.astro';
+import CompetitionCard from '../../components/CompetitionCard.astro';
 
 import type { CompetitionData, CompetitionCardData } from '../../lib/data.ts';
 import { Competitions, CompetitionsCards } from '../../lib/data.ts';
@@ -23,7 +23,11 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
   </Breadcrumb>
   <main>
     <section class="flex w-full justify-around items-center mt-16">
-      {competitionCard && <CompetitionPageCard competition={competitionCard} />}
+      {
+        competitionCard && (
+          <CompetitionCard competition={competitionCard} holographic={true} />
+        )
+      }
       <div>Inscripciones</div>
       <div>Inscripciones</div>
       <div>Fecha y lugar</div>
