@@ -1,37 +1,43 @@
 ---
 import Competicion from '../../components/plantilla-compe/Competicion.astro';
 
-const titulo = "Minecraft: Hunger Games";
-const desc = "Desata tu habilidad de supervivencia en los Juegos del Hambre. Participa en este clásico battle royale de supervivencia en un mundo de infinitas posibilidades y aventuras.";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/1jQpDmu7OnpwyyE0JFjlSM42piqnJ_U0J/view?usp=drive_link";
-const form_link = "https://forms.gle/66o2RZfnPPzDeLM56";
-const img_path = "/assets/backgrounds/minecraft.png";
-const aula = "A2 + B1";
-const horario = "16:00h";
+const titulo = 'Minecraft: Hunger Games';
+const desc =
+  'Desata tu habilidad de supervivencia en los Juegos del Hambre. Participa en este clásico battle royale de supervivencia en un mundo de infinitas posibilidades y aventuras.';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/1jQpDmu7OnpwyyE0JFjlSM42piqnJ_U0J/view?usp=drive_link';
+const form_link = 'https://forms.gle/66o2RZfnPPzDeLM56';
+const img_path = '/assets/competitions/backgrounds/minecraft.png';
+const aula = 'A2 + B1';
+const horario = '16:00h';
 const premios = [
-    {
-        puesto: '1º Primero',
-        bono: '70€',
-        listado: [
-            "Trofeo Minecraft",
-            "Medalla de Oro",
-            "Camiseta de la ULP",
-            "Alfombrillas"
-        ]
-    },
-    {
-        puesto: '2º Segundo',
-        bono: '35€',
-        listado: [
-            "Medalla de Plata",
-            "Llaveros ULP",
-            "Libreta ULP"
-        ]
-    }
+  {
+    puesto: '1º Primero',
+    bono: '70€',
+    listado: [
+      'Trofeo Minecraft',
+      'Medalla de Oro',
+      'Camiseta de la ULP',
+      'Alfombrillas',
+    ],
+  },
+  {
+    puesto: '2º Segundo',
+    bono: '35€',
+    listado: ['Medalla de Plata', 'Llaveros ULP', 'Libreta ULP'],
+  },
 ];
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios} >
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>

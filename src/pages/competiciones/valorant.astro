@@ -1,38 +1,43 @@
 ---
 import Competicion from '../../components/plantilla-compe/Competicion.astro';
 
-const titulo = "VALORANT";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/1CfceGvfOEMl5jpvdwdjWDJtVmQGRAfKu/view?usp=sharing";
-const form_link = "https://forms.gle/ZDj36k89vWCiXSBs8";
-const img_path = "/assets/backgrounds/valorant.png";
-const desc = "Enfréntate en el campo de batalla táctico de VALORANT, donde precisión, estrategia y habilidad determinarán el equipo vencedor. ¡Selecciona a tu agente y demuestra tu destreza en este emocionante shooter!";
-const aula = "A2 + B1";
-const horario = "14:00h";
+const titulo = 'VALORANT';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/1CfceGvfOEMl5jpvdwdjWDJtVmQGRAfKu/view?usp=sharing';
+const form_link = 'https://forms.gle/ZDj36k89vWCiXSBs8';
+const img_path = '/assets/competitions/backgrounds/valorant.png';
+const desc =
+  'Enfréntate en el campo de batalla táctico de VALORANT, donde precisión, estrategia y habilidad determinarán el equipo vencedor. ¡Selecciona a tu agente y demuestra tu destreza en este emocionante shooter!';
+const aula = 'A2 + B1';
+const horario = '14:00h';
 const premios = [
-    {
-        puesto: '1º Primer equipo',
-        bono: '70€',
-        listado: [
-            "Trofeo Valorant",
-            "Medallas de Oro",
-            "Camisetas de la ULP",
-            "Alfombrillas"
-        ]
-    },
-    {
-        puesto: '2º Segundo equipo',
-        bono: '35€',
-        listado: [
-            "Medallas de Plata",
-            "Llaveros ULP",
-            "Libretas ULP"
-        ]
-    }
+  {
+    puesto: '1º Primer equipo',
+    bono: '70€',
+    listado: [
+      'Trofeo Valorant',
+      'Medallas de Oro',
+      'Camisetas de la ULP',
+      'Alfombrillas',
+    ],
+  },
+  {
+    puesto: '2º Segundo equipo',
+    bono: '35€',
+    listado: ['Medallas de Plata', 'Llaveros ULP', 'Libretas ULP'],
+  },
 ];
-
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios} >
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>
