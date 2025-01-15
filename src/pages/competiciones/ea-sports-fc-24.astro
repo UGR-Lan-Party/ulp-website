@@ -1,39 +1,48 @@
 ---
 import Competicion from '../../components/plantilla-compe/CompeticionFifa.astro';
 
-const titulo = "EA Sports FC 24";
-const desc = "Demuestra tus habilidades futbolísticas en este torneo. Gestiona tu equipo, ejecuta jugadas maestras y anota goles espectaculares para convertirte en el campeón de esta 6ª Edición.";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/1fZNPucell0AbORSJbzovEsliH2-yktBb/view?usp=drive_link";
-const form_link = "https://forms.gle/4iPFNEefhWqGf6KV9";
-const img_path = "/assets/backgrounds/ea-sports-fc-24.png";
-const aula = "A1";
-const horario = "10:00h";
+const titulo = 'EA Sports FC 24';
+const desc =
+  'Demuestra tus habilidades futbolísticas en este torneo. Gestiona tu equipo, ejecuta jugadas maestras y anota goles espectaculares para convertirte en el campeón de esta 6ª Edición.';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/1fZNPucell0AbORSJbzovEsliH2-yktBb/view?usp=drive_link';
+const form_link = 'https://forms.gle/4iPFNEefhWqGf6KV9';
+const img_path = '/assets/competitions/backgrounds/ea-sports-fc-24.png';
+const aula = 'A1';
+const horario = '10:00h';
 const premios = [
-    {
-        puesto: '1º Primero',
-        bono: '2 Entradas para el Granada C.F. vs Valencia C.F. + Balón firmado por los jugadores del Granada C.F.',
-        listado: [
-            "Trofeo EA Sports",
-            "Medalla de Oro",
-            "Camiseta de la ULP",
-            "Dos balones firmados por los jugadores del Granada C.F."
-        ]
-    },
-    {
-        puesto: '2º Segundo',
-        bono: 'Balón firmado por los jugadores del Granada C.F.',
-        listado: [
-            "Periférico a elegir en NO SOLO PC Informática",
-            "Medalla de Plata",
-            "Llaveros ULP",
-            "Libreta ULP"
-        ]
-    }
+  {
+    puesto: '1º Primero',
+    bono: '2 Entradas para el Granada C.F. vs Valencia C.F. + Balón firmado por los jugadores del Granada C.F.',
+    listado: [
+      'Trofeo EA Sports',
+      'Medalla de Oro',
+      'Camiseta de la ULP',
+      'Dos balones firmados por los jugadores del Granada C.F.',
+    ],
+  },
+  {
+    puesto: '2º Segundo',
+    bono: 'Balón firmado por los jugadores del Granada C.F.',
+    listado: [
+      'Periférico a elegir en NO SOLO PC Informática',
+      'Medalla de Plata',
+      'Llaveros ULP',
+      'Libreta ULP',
+    ],
+  },
 ];
-
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios} >
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>

@@ -1,35 +1,38 @@
 ---
 import Competicion from '../../components/plantilla-compe/Competicion.astro';
 
-const titulo = "Pokémon";
-const desc = "Conviértete en el mejor entrenador de Pokémon Showdown en este torneo lleno de estrategia y combates. Lucha con tu equipo Pokémon para alcanzar la victoria.";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/1SRzoGj_tAauCoedHUUl7OsiWGLAQCec-/view?usp=drive_link";
-const form_link = "https://forms.gle/Grb7qTp628CFBkQz9";
-const img_path = "/assets/backgrounds/pokemon-showdown.png";
-const aula = "B1";
-const horario = "10:00h";
+const titulo = 'Pokémon';
+const desc =
+  'Conviértete en el mejor entrenador de Pokémon Showdown en este torneo lleno de estrategia y combates. Lucha con tu equipo Pokémon para alcanzar la victoria.';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/1SRzoGj_tAauCoedHUUl7OsiWGLAQCec-/view?usp=drive_link';
+const form_link = 'https://forms.gle/Grb7qTp628CFBkQz9';
+const img_path = '/assets/competitions/backgrounds/pokemon-showdown.png';
+const aula = 'B1';
+const horario = '10:00h';
 const premios = [
-    {
-        puesto: '1º Primero',
-        bono: '70€',
-        listado: [
-            "Trofeo Pokemon",
-            "Medalla de Oro",
-            "Camiseta de la ULP",
-        ]
-    },
-    {
-        puesto: '2º Segundo',
-        bono: '35€',
-        listado: [
-            "Medalla de Plata",
-            "Llaveros ULP",
-        ]
-    }
+  {
+    puesto: '1º Primero',
+    bono: '70€',
+    listado: ['Trofeo Pokemon', 'Medalla de Oro', 'Camiseta de la ULP'],
+  },
+  {
+    puesto: '2º Segundo',
+    bono: '35€',
+    listado: ['Medalla de Plata', 'Llaveros ULP'],
+  },
 ];
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios} >
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>

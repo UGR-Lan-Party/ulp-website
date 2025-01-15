@@ -1,39 +1,49 @@
 ---
 import Competicion from '../../components/plantilla-compe/CompeticionFifa.astro';
 
-const titulo = "Mario Kart 8 Deluxe";
-const desc = "Pisa a fondo el acelerador en las locas pistas de Mario Kart. Elige a tu personaje favorito, evade obstáculos, utiliza objetos estratégicamente y cruza la meta en primer lugar.";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/1OJIzEsMvE_8Z-hbQ5IXS-bMhfwvaocci/view?usp=drive_link";
-const form_link = "https://forms.gle/Z66KXHwwViBCtij86";
-const img_path = "/assets/backgrounds/mario-kart.png";
-const aula = "-1.1 + -1.2";
-const horario = "10:00h";
+const titulo = 'Mario Kart 8 Deluxe';
+const desc =
+  'Pisa a fondo el acelerador en las locas pistas de Mario Kart. Elige a tu personaje favorito, evade obstáculos, utiliza objetos estratégicamente y cruza la meta en primer lugar.';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/1OJIzEsMvE_8Z-hbQ5IXS-bMhfwvaocci/view?usp=drive_link';
+const form_link = 'https://forms.gle/Z66KXHwwViBCtij86';
+const img_path = '/assets/competitions/backgrounds/mario-kart.png';
+const aula = '-1.1 + -1.2';
+const horario = '10:00h';
 const premios = [
-    {
-        puesto: '1º Primero',
-        bono: 'Periféricos "NO SOLO PC Inormática"',
-        listado: [
-            "Trofeo Mario Kart",
-            "Medalla de Oro",
-            "4 Bonos para Fórmula Karting",
-            "Alfombrillas",
-            "Pack University Esports"
-        ]
-    },
-    {
-        puesto: '2º Segundo',
-        listado: [
-            "Medalla de Plata",
-            "2 Bonos para Fórmula Karting",
-            "Llaveros ULP",
-            "Libreta ULP",
-            "Pack University Esports"
-        ]
-    }
+  {
+    puesto: '1º Primero',
+    bono: 'Periféricos "NO SOLO PC Inormática"',
+    listado: [
+      'Trofeo Mario Kart',
+      'Medalla de Oro',
+      '4 Bonos para Fórmula Karting',
+      'Alfombrillas',
+      'Pack University Esports',
+    ],
+  },
+  {
+    puesto: '2º Segundo',
+    listado: [
+      'Medalla de Plata',
+      '2 Bonos para Fórmula Karting',
+      'Llaveros ULP',
+      'Libreta ULP',
+      'Pack University Esports',
+    ],
+  },
 ];
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios} >
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>

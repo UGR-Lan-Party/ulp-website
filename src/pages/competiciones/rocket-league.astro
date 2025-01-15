@@ -1,38 +1,43 @@
 ---
 import Competicion from '../../components/plantilla-compe/Competicion.astro';
 
-const titulo = "Rocket League";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/16dMcK0LvEfwqohHxIwwzK0lUA-ZTLSGf/view?usp=drive_link";
-const form_link = "https://forms.gle/XPv9TpXKKxsgsLWq7";
-const img_path = "/assets/backgrounds/rocket-league.png";
-const desc = "Combina la emoción del fútbol con la adrenalina de los coches de carrera en este torneo 3vs3. Marca goles asombrosos, realiza salvadas increíbles y lleva a tu equipo a la victoria en este deporte del futuro.";
-const aula = "A1";
-const horario = "10:00h";
+const titulo = 'Rocket League';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/16dMcK0LvEfwqohHxIwwzK0lUA-ZTLSGf/view?usp=drive_link';
+const form_link = 'https://forms.gle/XPv9TpXKKxsgsLWq7';
+const img_path = '/assets/competitions/backgrounds/rocket-league.png';
+const desc =
+  'Combina la emoción del fútbol con la adrenalina de los coches de carrera en este torneo 3vs3. Marca goles asombrosos, realiza salvadas increíbles y lleva a tu equipo a la victoria en este deporte del futuro.';
+const aula = 'A1';
+const horario = '10:00h';
 const premios = [
-    {
-        puesto: '1º Primer equipo',
-        bono: '70€',
-        listado: [
-            "Trofeo Rocket League",
-            "Medallas de Oro",
-            "Camisetas de la ULP",
-            "Alfombrillas"
-        ]
-    },
-    {
-        puesto: '2º Segundo equipo',
-        bono: '35€',
-        listado: [
-            "Medallas de Plata",
-            "Llaveros ULP",
-            "Libretas ULP"
-        ]
-    }
+  {
+    puesto: '1º Primer equipo',
+    bono: '70€',
+    listado: [
+      'Trofeo Rocket League',
+      'Medallas de Oro',
+      'Camisetas de la ULP',
+      'Alfombrillas',
+    ],
+  },
+  {
+    puesto: '2º Segundo equipo',
+    bono: '35€',
+    listado: ['Medallas de Plata', 'Llaveros ULP', 'Libretas ULP'],
+  },
 ];
-
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios} >
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>

@@ -1,36 +1,38 @@
 ---
 import Competicion from '../../components/plantilla-compe/Competicion.astro';
 
-const titulo = "Wii Sports";
-const desc = "Prepárate para servir, volear y golpear en el Torneo de Tenis de Wii Sports. Agarra tu mando de Wii y sumérgete en la emoción del torneo más divertido de la LAN Party.";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/1rbsNTgMUFIoaQdx-0V_u3OOi4chrEJgL/view?usp=drive_link";
-const form_link = "https://forms.gle/Y2Nm1A8RDWVJZWC66";
-const img_path = "/assets/backgrounds/wii-sports.png";
-const aula = "A1";
-const horario = "16:00h";
+const titulo = 'Wii Sports';
+const desc =
+  'Prepárate para servir, volear y golpear en el Torneo de Tenis de Wii Sports. Agarra tu mando de Wii y sumérgete en la emoción del torneo más divertido de la LAN Party.';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/1rbsNTgMUFIoaQdx-0V_u3OOi4chrEJgL/view?usp=drive_link';
+const form_link = 'https://forms.gle/Y2Nm1A8RDWVJZWC66';
+const img_path = '/assets/competitions/backgrounds/wii-sports.png';
+const aula = 'A1';
+const horario = '16:00h';
 const premios = [
-    {
-        puesto: '1º Primero',
-        bono: '70€',
-        listado: [
-            "Trofeo Wii Sports",
-            "Medalla de Oro",
-            "Camiseta de la ULP"
-        ]
-    },
-    {
-        puesto: '2º Segundo',
-        bono: '35€',
-        listado: [
-            "Medalla de Plata",
-            "Llaveros ULP"
-        ]
-    }
+  {
+    puesto: '1º Primero',
+    bono: '70€',
+    listado: ['Trofeo Wii Sports', 'Medalla de Oro', 'Camiseta de la ULP'],
+  },
+  {
+    puesto: '2º Segundo',
+    bono: '35€',
+    listado: ['Medalla de Plata', 'Llaveros ULP'],
+  },
 ];
-
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios} >
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>
