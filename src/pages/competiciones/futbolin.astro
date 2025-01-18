@@ -1,35 +1,41 @@
 ---
 import Competicion from '../../components/plantilla-compe/Competicion.astro';
 
-const titulo = "Futbolín";
-const desc = "Vuelve a los clásicos con el torneo de futbolín 2vs2. Demuestra tu habilidad y coordinación, maneja las barras con destreza y marca goles para llevar a tu equipo a la victoria.";
-const ex_link = "";
-const reg_link = "https://drive.google.com/file/d/1vbehoknBpkLsf4ZoOyzpm9g4qmoBdxge/view?usp=drive_link";
-const form_link = "https://forms.gle/NYofWoqrBUXBtLD49";
-const img_path = "/assets/backgrounds/futbolín.png";
-const aula = "Entrada: Bancos Rojos";
-const horario = "10:00h";
+const titulo = 'Futbolín';
+const desc =
+  'Vuelve a los clásicos con el torneo de futbolín 2vs2. Demuestra tu habilidad y coordinación, maneja las barras con destreza y marca goles para llevar a tu equipo a la victoria.';
+const ex_link = '';
+const reg_link =
+  'https://drive.google.com/file/d/1vbehoknBpkLsf4ZoOyzpm9g4qmoBdxge/view?usp=drive_link';
+const form_link = 'https://forms.gle/NYofWoqrBUXBtLD49';
+const img_path = '/assets/competitions/backgrounds/futbolín.png';
+const aula = 'Entrada: Bancos Rojos';
+const horario = '10:00h';
 const premios = [
-    {
-        puesto: '1º Primero',
-        listado: [
-            "Trofeo Futbolín",
-            "Medalla de Oro",
-            "Camiseta de la ULP",
-            "Alfombrillas"
-        ]
-    },
-    {
-        puesto: '2º Segundo',
-        listado: [
-            "Medalla de Plata",
-            "Llaveros ULP",
-            "Libreta ULP"
-        ]
-    }
+  {
+    puesto: '1º Primero',
+    listado: [
+      'Trofeo Futbolín',
+      'Medalla de Oro',
+      'Camiseta de la ULP',
+      'Alfombrillas',
+    ],
+  },
+  {
+    puesto: '2º Segundo',
+    listado: ['Medalla de Plata', 'Llaveros ULP', 'Libreta ULP'],
+  },
 ];
 ---
 
-<Competicion titulo={titulo} descripcion={desc} aula={aula} horario={horario}
-    ex_link={ex_link} reg_link={reg_link} form_link={form_link} img_path={img_path} premios={premios}>
-</Competicion>
+<Competicion
+  titulo={titulo}
+  descripcion={desc}
+  aula={aula}
+  horario={horario}
+  ex_link={ex_link}
+  reg_link={reg_link}
+  form_link={form_link}
+  img_path={img_path}
+  premios={premios}
+/>
