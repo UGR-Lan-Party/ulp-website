@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
-import CompetitionCard from '../../components/CompetitionCard.astro';
+import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
 
 import type { CompetitionData, CompetitionCardData } from '../../lib/data.ts';
 import { Competitions, CompetitionsCards } from '../../lib/data.ts';
@@ -28,7 +28,7 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
           <CompetitionCard competition={competitionCard} holographic={true} />
         )
       }
-      <div>Inscripciones</div>
+      <div>Reglamento</div>
       <div>Inscripciones</div>
       <div>Fecha y lugar</div>
     </section>

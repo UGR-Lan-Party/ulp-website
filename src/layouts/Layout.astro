@@ -2,6 +2,7 @@
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   description?: string;
@@ -30,6 +31,7 @@ const { description, title, image } = Astro.props;
     <meta property="twitter:image" content={image} />
 
     <title>{title ? title + ' | ULP' : 'UGR Lan Party'}</title>
+    <ViewTransitions fallback="none" />
   </head>
   <body>
     <Header />
@@ -112,6 +114,7 @@ const { description, title, image } = Astro.props;
       import '../scripts/testimonial.js';
       import '../scripts/countdown.js';
       import '../scripts/cardsMobile.js';
+      import '../scripts/holoCardsInteraction.js';
     </script>
   </body>
 </html>
