@@ -3,8 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
 
-import type { CompetitionData, CompetitionCardData } from '../../lib/data.ts';
-import { Competitions, CompetitionsCards } from '../../lib/data.ts';
+import type {
+  CompetitionData,
+  CompetitionCardData,
+} from '../../lib/competitions-data.ts';
+import {
+  Competitions,
+  CompetitionsCards,
+} from '../../lib/competitions-data.ts';
+import CompetitionTimePlace from '../../components/CompetitionTimePlace.astro';
 
 const { id } = Astro.params;
 
@@ -18,23 +25,41 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
 ---
 
 <Layout description="UGR LAN Party" title={competition?.name}>
-  <Breadcrumb>
-    {(<Fragment slot="title">{competition?.name}</Fragment>)}
-  </Breadcrumb>
-  <main>
-    <section class="flex w-full justify-around items-center mt-16">
+  <main class="mt-40 w-full flex flex-col items-center">
+    <section
+      class="flex flex-col lg:flex-row w-full justify-around items-center mt-8"
+    >
       {
         competitionCard && (
           <CompetitionCard competition={competitionCard} holographic={true} />
         )
       }
-      <div>Reglamento</div>
-      <div>Inscripciones</div>
-      <div>Fecha y lugar</div>
+      <div class="flex flex-col gap-24">
+        <a
+          href=""
+          class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
+        >
+          Inscribirme
+        </a>
+        <a
+          href=""
+          class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
+        >
+          Reglamento
+        </a>
+      </div>
+      <CompetitionTimePlace
+        place={competition?.place ?? []}
+        time={competition?.time ?? ''}
+      />
     </section>
-    <section>
-      <h2>Premios</h2>
-      <canvas id="trophy"></canvas>
+    <section class="w-full h-80 flex flex-col items-center mt-24 bg-slate-800">
+      <h2 class="text-4xl text-white mt-16">Premios</h2>
+      <h3 class="text-xl text-white">Increibles Recompensas</h3>
+      <h4 class="text-xl text-white">
+        Los premios se otorgarán a los ganadores al final del día en un breve
+        acto.
+      </h4>
     </section>
   </main>
 </Layout>

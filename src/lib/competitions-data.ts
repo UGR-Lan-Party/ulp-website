@@ -1,6 +1,10 @@
 export interface CompetitionData {
   id: string;
   name: string;
+  rules: string;
+  registration: string;
+  time: string;
+  place: string[];
 }
 
 export interface CompetitionCardData {
@@ -14,38 +18,74 @@ export const Competitions: CompetitionData[] = [
   {
     id: "fc-25",
     name: "FC25",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "minecraft",
     name: "Minecraft",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "mario-kart",
     name: "Mario Kart 8 Deluxe",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "league-of-legends",
     name: "League of Legends",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "valorant",
     name: "Valorant",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "rocket-league",
     name: "Rocket League",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "wii-sports",
     name: "Wii Sports",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "smash",
     name: "Super Smash Bros Ultimate",
+    rules: "",
+    registration: "",
+    time: "12:30",
+    place: ["Aula A2", "Prefabricadas patio"],
   },
   {
     id: "brawl-stars",
     name: "Brawl Stars",
+    rules: "",
+    registration: "",
+    time: "12:30 - 14:00",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
   },
 ];
 
