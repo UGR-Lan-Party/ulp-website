@@ -1,4 +1,4 @@
-FROM node:lts-alpine as builder
+FROM node:23.7.0-alpine3.20 as node-builder
 
 # Enable and configure pnpm
 ENV PNPM_HOME="/pnpm"
@@ -21,7 +21,7 @@ FROM nginx:alpine as runtime
 RUN rm -rf /usr/share/nginx/html
 
 # Copy built site
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=node-builder /app/dist /usr/share/nginx/html
 
 # Remove default nginx config
 RUN rm /etc/nginx/conf.d/default.conf
