@@ -27,6 +27,7 @@
             </button>
 
             <div class="h-[36rem] flex items-center justify-center" style="width: 35rem;">
+
               <template x-for="(image, index) in images">
                 <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
                   <img :src="image" alt="image" class="rounded-md object-cover" />
