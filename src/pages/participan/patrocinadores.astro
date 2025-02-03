@@ -150,13 +150,16 @@ const patrocinadores = [
 
     <div class="patrocinadores">
         {patrocinadores.map(patrocinador => (
-            <Colaborador {...patrocinador} />
+            <Colaborador {...patrocinador} class="patrocinador-item" />
         ))}
     </div>
 </Layout>
 
 <style>
-.patrocinadores {
-    /* Estilos para el contenedor de patrocinadores */
-}
+    .patrocinadores {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        overflow-x: hidden;
+    }
 </style>
