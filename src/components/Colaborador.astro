@@ -1,9 +1,9 @@
 ---
 // Colaborador.astro
-const { nombre, descripciones, logo, web, rrss } = Astro.props;
----
+const { nombre, descripciones, logo, web, rrss, class: additionalClass } = Astro.props;
+--- 
 
-<div class="colaborador">
+<div class={`colaborador ${additionalClass}`}>
     <img src={logo} alt={`Logotipo de ${nombre}`} class="logo" />
     <div class="contenido">
         <h3 class="nombre">{nombre}</h3>
@@ -20,111 +20,172 @@ const { nombre, descripciones, logo, web, rrss } = Astro.props;
 </div>
 
 <style>
-:root {
-    --color-fondo: #02475e;
-    --color-texto: #ffffff;
-    --color-acento: #00adb5;
-    --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --tamano-texto: 16px;
-    --espaciado: 20px;
-}
-
-.colaborador {
-    background-color: var(--color-fondo);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--espaciado);
-    padding-left: 10%;
-    padding-right: 10%;
-    transition: transform 0.3s ease;
-    max-width: 100%;
-    margin: 5%;
-
-}
-
-.logo {
-    width: 200px;
-    height: auto;
-    margin-bottom: var(--espaciado);
-}
-
-.contenido {
-    padding: 0 var(--espaciado);
-}
-
-.nombre {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--color-acento);
-    margin-bottom: var(--espaciado);
-    font-family: var(--fuente-principal);
-}
-
-.descripcion {
-    font-size: var(--tamano-texto);
-    color: var(--color-texto);
-    margin-bottom: var(--espaciado);
-    text-align: justify;
-    font-family: var(--fuente-principal);
-    padding: 0 var(--espaciado);
-}
-
-.web-link {
-    display: inline-block;
-    background-color: var(--color-acento);
-    color: var(--color-texto);
-    border-radius: 20px;
-    padding: 10px 15px;
-    margin: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.web-link:hover {
-    background-color: darken(var(--color-acento), 10%);
-}
-
-.redes-sociales {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: var(--espaciado);
-}
-
-.rrss-link {
-    /* Estilos para botones a redes sociales se mantienen */
-    display: inline-block;
-    background: rgb(0, 100, 113);
-    color: white;
-    border-radius: 20px;
-    padding: 5px 15px;
-    margin: 5px;
-    text-decoration: none;
-}
-
-.rrss-link:hover {
-    background: rgb(14, 40, 89);
-}
-
-@media (max-width: 768px) {
+    :root {
+        --color-fondo: #02475e;
+        --color-texto: #ffffff;
+        --color-acento: #00adb5;
+        --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        --tamano-texto: 16px;
+        --espaciado: 20px;
+    }
+    
     .colaborador {
+        background-color: var(--color-fondo);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--espaciado);
+        padding-left: 10%;
+        padding-right: 10%;
+        transition: transform 0.3s ease;
+        max-width: 100%;
+        margin: 5%;
+        opacity: 0;
+        overflow: hidden;
+    }
+    
+    .colaborador.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    .colaborador.right {
+        transform: translateX(100%);
     }
 
+    .colaborador.left {
+        transform: translateX(-100%);
+    }
+    
     .logo {
-        width: 80px; /* Menor tamaño en dispositivos móviles */
+        width: 200px;
+        height: auto;
+        margin-bottom: var(--espaciado);
     }
-
+    
+    .contenido {
+        padding: 0 var(--espaciado);
+    }
+    
     .nombre {
-        font-size: 1.1rem; /* Tamaño de texto ajustado para móviles */
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--color-acento);
+        margin-bottom: var(--espaciado);
+        font-family: var(--fuente-principal);
+    }
+    
+    .descripcion {
+        font-size: var(--tamano-texto);
+        color: var(--color-texto);
+        margin-bottom: var(--espaciado);
+        text-align: justify;
+        font-family: var(--fuente-principal);
+        padding: 0 var(--espaciado);
+    }
+    
+    .web-link {
+        display: inline-block;
+        background-color: var(--color-acento);
+        color: var(--color-texto);
+        border-radius: 20px;
+        padding: 10px 15px;
+        margin: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    
+    .web-link:hover {
+        background-color: darken(var(--color-acento), 10%);
+    }
+    
+    .redes-sociales {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: var(--espaciado);
+    }
+    
+    .rrss-link {
+        display: inline-block;
+        background: rgb(0, 100, 113);
+        color: white;
+        border-radius: 20px;
+        padding: 5px 15px;
+        margin: 5px;
+        text-decoration: none;
+        min-width: 120px;
+    }
+    
+    .rrss-link:hover {
+        background: rgb(14, 40, 89);
+    }
+    
+    @media (max-width: 768px) {
+        .colaborador {
+            flex-direction: column;
+        }
+    
+        .logo {
+            width: 80px;
+        }
+    
+        .nombre {
+            font-size: 1.1rem;
+        }
+    
+        .descripcion {
+            font-size: var(--tamano-texto);
+        }
+    }
+</style>
+
+<script>
+    function assignDirections() {
+        const colaboradores = document.querySelectorAll('.colaborador');
+        colaboradores.forEach((colaborador, index) => {
+            if (colaborador.classList.contains('patrocinador-item')) {
+                const direction = index % 2 === 0 ? 'left' : 'right';
+                if (!colaborador.classList.contains('left') && !colaborador.classList.contains('right')) {
+                    colaborador.classList.add(direction);
+                }
+            } else {
+                // Para los que no son de la clase .patrocinador-item, los hacemos visibles
+                colaborador.classList.add('visible');
+            }
+        });
     }
 
-    .descripcion {
-        font-size: var(--tamano-texto); /* Ajuste para mejor legibilidad en móviles */
+    function checkVisibility() {
+        const colaboradores = document.querySelectorAll('.patrocinador-item');
+        colaboradores.forEach((colaborador) => {
+            const rect = colaborador.getBoundingClientRect();
+            const height = rect.height;
+            const visibleHeight = Math.min(window.innerHeight, rect.bottom) - Math.max(0, rect.top);
+            
+            // Si al menos el 60% del elemento es visible
+            if (visibleHeight >= height * 0.7) {
+                if (colaborador.classList.contains('right')) {
+                    colaborador.classList.remove('right');
+                } else {
+                    colaborador.classList.remove('left');
+                }
+                colaborador.classList.add('visible');
+            }
+        });
     }
-}
-</style>
+
+    // Comprobar visibilidad al cargar la página
+    window.addEventListener('load', () => {
+        assignDirections();
+        checkVisibility();
+    });
+
+    // Script para animar los patrocinadores cuando se hace scroll
+    document.addEventListener('scroll', function() {
+        checkVisibility();
+    });
+</script>
