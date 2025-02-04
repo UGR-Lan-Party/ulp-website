@@ -1,5 +1,6 @@
 FROM node:23.7.0-alpine3.20 AS node-builder
 
+
 # Enable and configure pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
