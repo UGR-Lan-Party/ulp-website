@@ -1,5 +1,4 @@
 ---
-import Pagination from '../components/Pagination.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from "astro:content";
@@ -23,39 +22,46 @@ publishedBlogEntries.sort(function (a, b) {
     <Fragment slot="title">Blog</Fragment>
   </Breadcrumb>
   <section class="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-dark">
-    <div class="container card-container flex flex-wrap items-center justify-center w-full gap-14">
+    <div class="container card-container flex flex-wrap items-center justify-center w-full lg:gap-14">
         {
           publishedBlogEntries.map((blogPostEntry, index) => (
-              <a class="wow fadeInUp group block mb-10" data-wow-delay=".1s" href={`/blog/${blogPostEntry.slug}`}>
+              <div class="wow containerBlogCard fadeInUp group block mb-20 lg:mb-10 pt-4 lg:pt-0" data-wow-delay=".1s">
                 <div class="blogCard">
+                  
                   <div class="front rounded-[5px] overflow-hidden">
                     <img src={blogPostEntry.data.image.src} 
                     alt={blogPostEntry.data.image.alt}
                     class="w-full h-full object-cover">
                   </div>
+
                   <div class="back rounded-[5px] p-4 bg-secondary">
-                    <h3>
-                      <span
-                        class="inline-block mb-4 text-xl font-semibold text-dark dark:text-white hover:text-primary dark:hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl"
-                      >
-                        {blogPostEntry.data.title}
+                    <div>
+                      <h3>
+                        <span
+                          class="inline-block text-xl font-semibold text-white  sm:text-2xl lg:text-xl xl:text-2xl mb-2"
+                        >
+                          {blogPostEntry.data.title}
+                        </span>
+                      </h3>
+                      <span class="px-2 py-1 text-xs font-medium leading-loose text-center text-white rounded-[5px] bg-primary">
+                        {blogPostEntry.data.publishDate.toDateString()}
                       </span>
-                    </h3>
-                    <p class="max-w-[370px] text-base text-body-color dark:text-dark-6">
-                      {`${blogPostEntry.data.postDetails.paraOne.slice(0, 150)}...`}
-                    </p>
-                    <span
-                    class="px-2 py-1 mt-10 text-xs font-medium leading-loose text-center text-white rounded-[5px] bg-primary"
-                    >
-                      {blogPostEntry.data.publishDate.toDateString()}
-                    </span>
+                      <p class="max-w-[370px] text-base  text-dark-6 mt-4">
+                        {`${blogPostEntry.data.postDetails.paraOne.slice(0, 150)}...`}
+                      </p>
+                    </div>
+
+                    <a  href={`/blog/${blogPostEntry.slug}`}>
+                      <button class="bg-primary rounded-md px-4 py-2 text-white font-semibold transition-all ease-in-out duration-300">
+                        Ver más <span class="animation_button opacity-0 inline-block transition-all ease-in-out duration-300"> > </span>
+                      </button>
+                    </a>
                   </div>
                 </div>
-              </a>       
+              </div>       
           ))
         }
     </div>
-    <Pagination />
   </section>
 </Layout>
 
@@ -90,13 +96,22 @@ publishedBlogEntries.sort(function (a, b) {
 
   .back{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     transform: rotateY(180deg);
   }
 
-  a:hover .blogCard{
+  .containerBlogCard:hover .blogCard{
     transform: rotateY(180deg);
   }
+
+  button:hover .animation_button{
+    opacity: 1;
+    transform: translateX(24px);
+  }
+
+button:hover {
+    padding-right: 32px;
+}
 </style>
