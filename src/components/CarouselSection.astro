@@ -1,6 +1,14 @@
+---
+interface Props {
+  paddingClass?: string;
+}
+
+const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
+---
+
 <section
   id="about"
-  class="bg-gray-1 dark:bg-dark-2 pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]"
+  class={`bg-gray-1 dark:bg-dark-2 ${paddingClass}`}
 >
   <div class="container w-full px-4">
     <div class="wow fadeInUp" data-wow-delay=".2s">
