@@ -1,113 +1,6 @@
 ---
-import { getCollection } from "astro:content";
-
-// Filter blog entries with 'draft: false' & date before current date
-const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
-});
-
-// Sort content entries by publication date
-publishedBlogEntries.sort(function (a, b) {
-  return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
-});
 
 const footerLinks = [
-  {
-    header: 'Información',
-    links: [
-      {
-        name: '¿Quienes somos?',
-        href: '/info/about',
-        isExternal: false,
-      },
-      {
-        name: 'Ediciones Anteriores',
-        href: '/info/ediciones_anteriores',
-        isExternal: false,
-      },
-      {
-        name: 'FAQs',
-        href: '/info/preguntas_frecuentes',
-        isExternal: false,
-      },
-      {
-        name: 'Localización y Horarios',
-        href: '/info/localizacion',
-        isExternal: false,
-      },
-      {
-        name: 'Aviso Legal',
-        href: '/info/aviso_legal',
-        isExternal: false,
-      },
-    ],
-  },
-  {
-    header: 'Competiciones',
-    links: [
-      {
-        name: 'League of Legends',
-        href: '/competiciones/league-of-legends',
-        isExternal: false,
-      },
-      {
-        name: 'Valorant',
-        href: '/competiciones/valorant',
-        isExternal: false,
-      },
-      {
-        name: 'Rocket League',
-        href: '/competiciones/rocket-league',
-        isExternal: false,
-      },
-      {
-        name: 'EA Sports FC 24',
-        href: '/competiciones/ea-sports-fc-24',
-        isExternal: false,
-      },
-      {
-        name: 'Mario Kart',
-        href: '/competiciones/mario-kart',
-        isExternal: false,
-      },
-      {
-        name: 'Minecraft',
-        href: '/competiciones/minecraft',
-        isExternal: false,
-      },
-      {
-        name: 'Wii Sports',
-        href: '/competiciones/wii-sports',
-        isExternal: false,
-      },
-      {
-        name: 'Super Smash Bros. Ultimate',
-        href: '/competiciones/smash',
-        isExternal: false,
-      },
-      {
-        name: 'Pokémon',
-        href: '/competiciones/pokemon',
-        isExternal: false,
-      },
-      {
-        name: 'Futbolín',
-        href: '/competiciones/futbolin',
-        isExternal: false,
-      },
-      {
-        name: 'Juego Libre',
-        href: '/juego-libre',
-        isExternal: false,
-      },
-    ],
-  },
-  {
-    header: '',
-    links: [
-      
-    ],
-  },
   {
     header: 'Ubicación',
     links: [],
@@ -116,39 +9,37 @@ const footerLinks = [
 ---
 
 <!-- ====== Footer Section Start -->
-<footer
-  class="wow fadeInUp relative z-10 bg-[#090E34] pt-20 lg:pt-[100px]"
-  data-wow-delay=".15s"
->
-  <div class="container">
-    <div class="-mx-4 flex flex-wrap">
-      <div class="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-4/12 xl:w-3/12">
-        <div class="mb-10 w-full">
-          <a
-            href="/"
-            class="mb-6 inline-block max-w-[160px]"
-          >
-            <img
-              src="/assets/logo/logo-white.png"
-              alt="logo"
-              class="max-w-full"
-            />
-          </a>
-          <p class="mb-8 max-w-[270px] text-base text-gray-7">
-            Bienvenidos a ULP, el evento universitario de eSports más 
-            esperado de Granada!
-          </p>
-          <p class="mb-8 max-w-[270px] text-base text-gray-7">
-            <b>ulp.etsiit@gmail.com</b>
-          </p>
-          <div class="-mx-3 flex items-center">
-            <a href="https://www.facebook.com/UGRLanParty/" class="px-3 text-gray-7 hover:text-white">
+<footer class="relative bg-gradient-to-r from-[#0D1B3E] to-[#004E7C] pt-10 pb-5 z-10" data-wow-delay=".15s">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
+
+      <div class="w-full">
+        <a
+          href="/"
+          class="inline-block max-w-[180px]"
+        >
+          <img
+            src="/assets/logo/logo-white.png"
+            alt="logo"
+            class="max-w-full"
+          />
+        </a>
+        <p class="text-base text-gray-7">
+          <b>ulp.etsiit@gmail.com</b>
+        </p>
+      </div>
+  
+      <div class="flex flex-col items-center space-y-4 text-white">
+          <div class="flex items-center space-x-4 justify-center">
+
+            <a href="https://www.facebook.com/UGRLanParty/" class="px-3 text-gray-7 hover:scale-110">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256"
-style="fill:#000000;">
-<g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M24,4h-18c-1.105,0 -2,0.895 -2,2v18c0,1.105 0.895,2 2,2h10v-9h-3v-3h3v-1.611c0,-3.05 1.486,-4.389 4.021,-4.389c1.214,0 1.856,0.09 2.16,0.131v2.869h-1.729c-1.076,0 -1.452,0.568 -1.452,1.718v1.282h3.154l-0.428,3h-2.726v9h5c1.105,0 2,-0.895 2,-2v-18c0,-1.105 -0.896,-2 -2,-2z"></path></g></g>
-</svg>
+                style="fill:#000000;">
+                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M24,4h-18c-1.105,0 -2,0.895 -2,2v18c0,1.105 0.895,2 2,2h10v-9h-3v-3h3v-1.611c0,-3.05 1.486,-4.389 4.021,-4.389c1.214,0 1.856,0.09 2.16,0.131v2.869h-1.729c-1.076,0 -1.452,0.568 -1.452,1.718v1.282h3.154l-0.428,3h-2.726v9h5c1.105,0 2,-0.895 2,-2v-18c0,-1.105 -0.896,-2 -2,-2z"></path></g></g>
+              </svg>
             </a>
-            <a href="https://twitter.com/ulpugr" class="px-3 text-gray-7 hover:text-white">
+            
+            <a href="https://twitter.com/ulpugr" class="px-3 text-gray-7 hover:scale-110">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256" style="fill:#000000;">
                 <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                   <g transform="scale(8.53333,8.53333)">
@@ -157,94 +48,48 @@ style="fill:#000000;">
                 </g>
               </svg>
             </a>
-            <a href="https://www.instagram.com/ulpugr" class="px-3 text-gray-7 hover:text-white">
+      
+            <a href="https://www.instagram.com/ulpugr" class="px-3 text-gray-7 hover:scale-110">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256"
-style="fill:#000000;">
-<g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M9.99805,3c-3.859,0 -6.99805,3.14195 -6.99805,7.00195v10c0,3.859 3.14195,6.99805 7.00195,6.99805h10c3.859,0 6.99805,-3.14195 6.99805,-7.00195v-10c0,-3.859 -3.14195,-6.99805 -7.00195,-6.99805zM22,7c0.552,0 1,0.448 1,1c0,0.552 -0.448,1 -1,1c-0.552,0 -1,-0.448 -1,-1c0,-0.552 0.448,-1 1,-1zM15,9c3.309,0 6,2.691 6,6c0,3.309 -2.691,6 -6,6c-3.309,0 -6,-2.691 -6,-6c0,-3.309 2.691,-6 6,-6zM15,11c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4z"></path></g></g>
-</svg>
+                style="fill:#000000;">
+                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M9.99805,3c-3.859,0 -6.99805,3.14195 -6.99805,7.00195v10c0,3.859 3.14195,6.99805 7.00195,6.99805h10c3.859,0 6.99805,-3.14195 6.99805,-7.00195v-10c0,-3.859 -3.14195,-6.99805 -7.00195,-6.99805zM22,7c0.552,0 1,0.448 1,1c0,0.552 -0.448,1 -1,1c-0.552,0 -1,-0.448 -1,-1c0,-0.552 0.448,-1 1,-1zM15,9c3.309,0 6,2.691 6,6c0,3.309 -2.691,6 -6,6c-3.309,0 -6,-2.691 -6,-6c0,-3.309 2.691,-6 6,-6zM15,11c-2.20914,0 -4,1.79086 -4,4c0,2.20914 1.79086,4 4,4c2.20914,0 4,-1.79086 4,-4c0,-2.20914 -1.79086,-4 -4,-4z"></path></g></g>
+              </svg>
             </a>
-            <a href="https://tiktok.com/@ugrlanparty" class="px-3 text-gray-7 hover:text-white">
+      
+            <a href="https://tiktok.com/@ugrlanparty" class="px-3 text-gray-7 hover:scale-110">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256"
-style="fill:#000000;">
-<g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M24,4h-18c-1.105,0 -2,0.895 -2,2v18c0,1.105 0.895,2 2,2h18c1.105,0 2,-0.895 2,-2v-18c0,-1.105 -0.896,-2 -2,-2zM22.689,13.474c-0.13,0.012 -0.261,0.02 -0.393,0.02c-1.495,0 -2.809,-0.768 -3.574,-1.931c0,3.049 0,6.519 0,6.577c0,2.685 -2.177,4.861 -4.861,4.861c-2.684,-0.001 -4.861,-2.178 -4.861,-4.862c0,-2.685 2.177,-4.861 4.861,-4.861c0.102,0 0.201,0.009 0.3,0.015v2.396c-0.1,-0.012 -0.197,-0.03 -0.3,-0.03c-1.37,0 -2.481,1.111 -2.481,2.481c0,1.37 1.11,2.481 2.481,2.481c1.371,0 2.581,-1.08 2.581,-2.45c0,-0.055 0.024,-11.17 0.024,-11.17h2.289c0.215,2.047 1.868,3.663 3.934,3.811z"></path></g></g>
-</svg>
+                style="fill:#000000;">
+                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M24,4h-18c-1.105,0 -2,0.895 -2,2v18c0,1.105 0.895,2 2,2h18c1.105,0 2,-0.895 2,-2v-18c0,-1.105 -0.896,-2 -2,-2zM22.689,13.474c-0.13,0.012 -0.261,0.02 -0.393,0.02c-1.495,0 -2.809,-0.768 -3.574,-1.931c0,3.049 0,6.519 0,6.577c0,2.685 -2.177,4.861 -4.861,4.861c-2.684,-0.001 -4.861,-2.178 -4.861,-4.862c0,-2.685 2.177,-4.861 4.861,-4.861c0.102,0 0.201,0.009 0.3,0.015v2.396c-0.1,-0.012 -0.197,-0.03 -0.3,-0.03c-1.37,0 -2.481,1.111 -2.481,2.481c0,1.37 1.11,2.481 2.481,2.481c1.371,0 2.581,-1.08 2.581,-2.45c0,-0.055 0.024,-11.17 0.024,-11.17h2.289c0.215,2.047 1.868,3.663 3.934,3.811z"></path></g></g>
+              </svg>
             </a>
-            <a href="https://www.twitch.tv/ugr_lan_party" class="px-3 text-gray-7 hover:text-white">
+      
+            <a href="https://www.twitch.tv/ugr_lan_party" class="px-3 text-gray-7 hover:scale-110">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0,0,256,256"
-style="fill:#000000;">
-<g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M6,4l-2,4v16h5v3h4l3,-3h4l6,-6v-14zM8,6h16v11l-3,3h-6l-3,3v-3h-4zM13,9v7h2v-7zM17,9v7h2v-7z"></path></g></g>
-</svg>
+                style="fill:#000000;">
+                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8.53333,8.53333)"><path d="M6,4l-2,4v16h5v3h4l3,-3h4l6,-6v-14zM8,6h16v11l-3,3h-6l-3,3v-3h-4zM13,9v7h2v-7zM17,9v7h2v-7z"></path></g></g>
+              </svg>
             </a>
           </div>
-        </div>
       </div>
-      <div class="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-3/12 xl:w-2/12">
-        <div class="mb-10 w-full">
-          <h4 class="mb-9 text-lg font-semibold text-white">{footerLinks[0].header}</h4>
-          <ul>
-            {footerLinks[0].links.map(link => {
-              if('name' in link) {
-                return (
-                  <li>
-                    <a
-                      href={link.href}
-                      class="mb-3 inline-block text-base text-gray-7 hover:text-primary"
-                      target={link.isExternal ? '_blank' : undefined}
-                      rel={link.isExternal ? 'noopener' : undefined}
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                );
-              }
-            })}
-          </ul>
-        </div>
+
+      <div class="text-center md:text-left sm:ml-40">
+        <h4 class="text-white font-bold text-3xl">Ubicación</h4>
+          <p class="text-gray-300 mt-2 hover:text-gray-500 text-sm font-light">
+            <a href="https://maps.app.goo.gl/8c9WLkYAiw6cJRgu7">
+              <b>Calle Periodista Daniel Saucedo Aranda, s/n, 18014 Granada</b>
+            </a>
+          </p>
       </div>
-      <div class="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-5/12 xl:w-4/12">
-        <div class="mb-10 w-full">
-          <h4 class="mb-9 text-lg font-semibold text-white">{footerLinks[1].header}</h4>
-          <ul style="column-count: 2">
-            {footerLinks[1].links.map(link => {
-              if('name' in link) {
-                return (
-                  <li>
-                    <a
-                      href={link.href}
-                      class="mb-3 inline-block text-base text-gray-7 hover:text-primary"
-                      target={link.isExternal ? '_blank' : undefined}
-                      rel={link.isExternal ? 'noopener' : undefined}
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                );
-              }
-            })}
-          </ul>
-        </div>
-      </div>
-      
-      <div class="w-full px-4 md:w-2/3 lg:w-6/12 xl:w-3/12">
-        <div class="mb-10 w-full">
-          <h4 class="mb-9 text-lg font-semibold text-white">{footerLinks[3].header}</h4>
-          <ul class="flex flex-col gap-8">
-              <li>
-                <a href="https://maps.app.goo.gl/8c9WLkYAiw6cJRgu7">
-                  <span class="max-w-[180px] text-gray-7 text-base group-hover:text-white">
-                    <b>Calle Periodista Daniel Saucedo Aranda, s/n, 18014 Granada</b>
-                  </span>
-                </a>
-                <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3178.141314840517!2d-3.6249474!3d37.1968728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd71fc54f0f7fea1%3A0x5463cb956f4f4595!2sC.%20Periodista%20Daniel%20Saucedo%20Aranda%2C%20Chana%2C%2018014%20Granada!5e0!3m2!1sen!2ses!4v1707846866013!5m2!1sen!2ses" width="300" height="200" style="margin-top: 1rem; border-radius: 5%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
-              </li>
-          </ul>
-        </div>
-      </div>
+
     </div>
+
+  <div class="text-center text-gray-400 text-sm mt-5">
+    <p>2016 - 2025. UGR LAN Party © Universidad de Granada</p>
   </div>
+</div>
 
   <div>
-    <span class="absolute left-0 top-0 z-[-1]">
+    <span class="absolute left-0 top-0 z-[-1] h-40" style="width: 22rem">
       <img src="/assets/footer/shape-1.svg" alt="" />
     </span>
 
