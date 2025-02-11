@@ -1,4 +1,5 @@
-FROM node:lts-alpine as builder
+FROM node:23.7.0-alpine3.20 AS node-builder
+
 
 # Enable and configure pnpm
 ENV PNPM_HOME="/pnpm"
@@ -15,13 +16,13 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 # Build app
 RUN pnpm run build
 
-FROM nginx:alpine as runtime
+FROM nginx:alpine AS ningx-runtime
 
 # Remove default nginx static assets
 RUN rm -rf /usr/share/nginx/html
 
 # Copy built site
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=node-builder /app/dist /usr/share/nginx/html
 
 # Remove default nginx config
 RUN rm /etc/nginx/conf.d/default.conf

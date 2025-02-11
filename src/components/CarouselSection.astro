@@ -1,7 +1,14 @@
+---
+interface Props {
+  paddingClass?: string;
+}
+
+const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
+---
 
 <section
   id="about"
-  class="bg-gray-1 dark:bg-dark-2 pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]"
+  class={`bg-gray-1 dark:bg-dark-2 ${paddingClass}`}
 >
   <div class="container w-full px-4">
     <div class="wow fadeInUp" data-wow-delay=".2s">
@@ -15,21 +22,22 @@
             </div>
             -->
 
-            <button @click="previous()" class="absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <button @click="previous()" class="group absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 hover:bg-primary shadow-md">
+                <svg class="w-4 h-4 text-gray-800 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
                 </svg>
             </button>
 
-            <button @click="forward()" class="absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-              <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <button @click="forward()" class="group absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 hover:bg-primary shadow-md">
+              <svg class="w-4 h-4 text-gray-800 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
               </svg>
             </button>
 
-            <div class="h-80 flex items-center" style="width: 35rem;">
+            <div class="h-[36rem] flex items-center justify-center" style="width: 35rem;">
+
               <template x-for="(image, index) in images">
-                <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0">
+                <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
                   <img :src="image" alt="image" class="rounded-md object-cover" />
                 </div>
               </template>
@@ -41,22 +49,41 @@
   </div>
 </section>
 
-
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script is:inline>
+  async function getFlickrPhotos() {
+    const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
+    const ALBUM_ID = '72177720316026867';
+    const USER_ID = '195749897@N03';
+    
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${ALBUM_ID}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=url_k,o_dims`;
+    
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data.photoset.photo
+        .filter(photo => {
+          // Verificar si la foto es horizontal (ancho > alto)
+          return photo.width_k > photo.height_k;
+        })
+        .map(photo => photo.url_k)
+        .filter(url => url);
+    } catch (error) {
+      console.error('Error fetching Flickr photos:', error);
+      return [];
+    }
+  }
+
   document.addEventListener("alpine:init", () => {
     Alpine.data("imageSlider", () => ({
       currentIndex: 1,
-      images: [
-        "https://live.staticflickr.com/65535/52924373451_bef0da189e_k.jpg",
-        "https://live.staticflickr.com/65535/52924372821_b924ead954_k.jpg",
-        "https://live.staticflickr.com/65535/52923787472_7f8a337dad_k.jpg",
-        "https://live.staticflickr.com/65535/52924372156_2d32fc86f3_k.jpg",
-        "https://live.staticflickr.com/65535/52924373696_faa386b679_k.jpg",
-        "https://live.staticflickr.com/65535/52924759040_bef1cff9c8_k.jpg",
-        "https://live.staticflickr.com/65535/52924526539_61c6bc9b58_k.jpg",
-        "https://live.staticflickr.com/65535/52924758990_05baf97c5f_k.jpg",
-      ],
+      images: [],
+      loading: true,
+      async init() {
+        this.loading = true;
+        this.images = await getFlickrPhotos();
+        this.loading = false;
+      },
       previous() {
         if (this.currentIndex > 1) {
           this.currentIndex = this.currentIndex - 1;
