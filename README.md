@@ -12,6 +12,15 @@ Página web oficial de la UGR LAN Party.
 ![Lighthouse](https://img.shields.io/endpoint?url=<your-lighthouse-json>)
 ![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/)
 
+![performance](https://img.shields.io/badge/dynamic/json?label=Performance&query=$.categories.performance.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%)
+
+          
+          curl -o badges/accessibility.svg "https://img.shields.io/badge/dynamic/json?label=Accessibility&query=$.categories.accessibility.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
+          
+          curl -o badges/best-practices.svg "https://img.shields.io/badge/dynamic/json?label=Best%20Practices&query=$.categories.best-practices.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
+          
+          curl -o badges/seo.svg "https://img.shields.io/badge/dynamic/json?label=SEO&query=$.categories.seo.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
+
 
 ## Instalación para desarrollo
 
