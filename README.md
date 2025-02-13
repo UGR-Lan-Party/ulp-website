@@ -7,6 +7,12 @@
 
 Página web oficial de la UGR LAN Party.
 
+## Badges Importantes
+![Web](https://img.shields.io/website?url=http%3A//ulp.ugr.es/)
+![Lighthouse](https://img.shields.io/endpoint?url=<your-lighthouse-json>)
+![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/)
+
+
 ## Instalación para desarrollo
 
 La página web usa la herramienta [Astro](https://astro.build/). Para poder usarla en el entorno de desarollo, sigue los siguientes pasos:
