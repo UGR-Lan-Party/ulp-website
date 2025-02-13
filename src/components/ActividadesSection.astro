@@ -208,15 +208,6 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         gap: 10px;                /* Espacio entre los botones de filtros */
     }
 
-    .active-filter{
-        background: rgba(42, 112, 146, 0.6); 
-        border-radius: 5px;
-        padding: 10px;
-        textAlign: center;
-        cursor: pointer;
-        color: #ffffff
-    }
-
     /* Contenedor del Horario */
     .schedule {
         display: flex;
@@ -236,41 +227,6 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         padding-left: 0;
     }
 
-    .location {
-        padding-left: 20px;
-        font-family: 'Fragment Mono', sans-serif;
-        font-size: 0.9rem;
-        opacity: 0.8;
-        margin-top: 4px; /* Añadir un pequeño margen entre el botón y el texto */
-    }
-
-    .game {
-        background: rgba(42, 112, 146, 0.6);
-        color: white;
-        font-size: 1.2rem;
-        padding: 15px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        text-align: left;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: bold;
-        transition: all 0.3s ease-in-out;
-        user-select: none; /* Deshabilitar selección de texto */
-    }
-
-    .game:hover {
-        transform: scale(1.05);
-    }
-
-    .game.selected {
-        background: #ffffff;
-        color: #011627;
-    }
-
-
     /* Horarios */
     .times {
         display: flex;
@@ -283,22 +239,6 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
     .time-slot {
         display: flex;
         justify-content: space-between;
-    }
-
-    .time {
-        font-family: 'Fragment Mono', sans-serif;
-        padding:0.5rem;
-        font-size: 1rem;
-        padding-right: 1rem; /* Un poco de espacio entre la hora y la línea */
-        border-right: 1px solid rgba(255, 255, 255, 0.5); 
-    }
-
-    .event {
-        padding-left: 1rem; /* Un poco de espacio entre la línea y el evento */
-        font-family: 'Inter', sans-serif;
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-align: right;
     }
 
     .tabla{

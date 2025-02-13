@@ -16,6 +16,72 @@ document.addEventListener("DOMContentLoaded", () => {
     const gamesList = document.getElementById("gameList");
     const gameInfo = document.getElementById("gameInfo");
 
+    let gameButtons = {}; // Guardará los botones creados
+    function changeColor() {
+        setTimeout(() => {
+            const games = document.querySelectorAll(".game");
+
+            games.forEach(game => {
+                
+                // Estilos básicos
+                game.style.backgroundColor = "rgba(42, 112, 146, 0.6)";
+                game.style.color = "white";
+                game.style.padding = "15px 20px";
+                game.style.borderRadius = "10px";
+                game.style.fontSize = "1.2rem";
+                game.style.cursor = "pointer";
+                game.style.textAlign = "left";
+                game.style.width = "100%";
+                game.style.justifyContent = "space-between";
+                game.style.alignItems = "center";
+                game.style.fontWeight = "bold";
+                game.style.transition = "all 0.3s ease-in-out";
+                game.style.userSelect = "none";// Asegura que el padding no cambie el tamaño
+                game.style.height = "50px"; // La altura se ajusta al contenido
+            });
+
+            const selectedGame = document.querySelector(".game.selected");
+
+
+            if (selectedGame) {
+                selectedGame.style.backgroundColor = "white";
+                selectedGame.style.color = "#011627";
+            }
+        });
+    }
+
+    function createGameButtons() {
+        schedules.forEach(game => {
+            const button = document.createElement("button");
+            button.classList.add("game");
+            button.textContent = game.name;
+            button.dataset.name = game.name.trim();
+            
+            button.style.display = "flex";
+
+            const span = document.createElement("span");
+            span.textContent = game.aula;
+            span.classList.add("location");
+            span.style.paddingLeft = "20px";
+            span.style.fontSize = "1rem";
+            span.style.opacity = "0.8";
+
+            button.appendChild(span);
+            gamesList.appendChild(button);
+
+            // Almacenar el botón en el objeto con su ID
+            gameButtons[game.name] = button;
+
+            // Evento de selección
+            button.addEventListener("click", () => {
+                document.querySelectorAll(".game").forEach(btn => btn.classList.remove("selected"));
+                button.classList.add("selected");
+                showGameInfo(game);
+                changeColor();
+            });
+        });
+    }
+
 
     // Manejo de cambios en los filtros
     function handleTagToggle(event) {
@@ -79,76 +145,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function filterGames(){
         const searchQuery = searchInput.value.toLowerCase();
-        const filteredGames = schedules.filter(game => {
-            // Filtrar por búsqueda
+
+        schedules.forEach(game => {
+            const gameKey = game.name.trim(); // Asegurar coincidencia exacta
+            const button = gameButtons[gameKey];
+
+            if (!button) {
+                console.warn(`⚠ No se encontró botón para: ${game.name}`);
+                return;
+            }
+
             const matchesSearch = game.name.toLowerCase().includes(searchQuery);
+            const matchesTags = selectedTags.length === 0 || selectedTags.some(tag =>
+                game.tags.some(gameTag => gameTag.trim() === tag.trim())
+            );
 
-            // Filtrar por tags seleccionados
-            const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => game.tags.some(gameTag => gameTag.trim() === tag.trim()));
-
-            return matchesSearch && matchesTags;
+            // Mostrar u ocultar el botón sin afectar el tamaño
+            button.style.display = (matchesSearch && matchesTags) ? "flex" : "none";
         });
-
-        displayFilteredGames(filteredGames);
-    }
-
-    // Función para mostrar los juegos filtrados
-    function displayFilteredGames(filteredGames) {
-        gamesList.innerHTML = ""; // Limpiar la lista de juegos
-
-        filteredGames.forEach(game => {
-            const button = document.createElement("button");
-            button.classList.add("game");
-            button.textContent = game.name;
-
-            button.style.backgroundColor = "rgba(42, 112, 146, 0.6)";
-            button.style.color = "white";
-            button.style.padding = "15px 20px";
-            button.style.borderRadius = "10px";
-            button.style.fontSize = "1.2rem";
-            button.style.cursor = "pointer";
-            button.style.textAlign = "left";
-            button.style.widht = "100%";
-            button.style.display = "flex";
-            button.style.justifyContent = "space-between";
-            button.style.alignItems = "center";
-            button.style.fontWeight = "bold";
-            button.style.transition = "all 0.3s ease-in-out";
-            button.style.userSelect = "none";
-
-
-            const span = document.createElement("span");
-            span.textContent = game.aula;
-            span.classList.add("location");
-            span.style.paddingLeft = "20px";
-            span.style.fontFamily = "Fragment Mono', sans-serif";
-            span.style.fontSize = "1rem";
-            span.style.fontWeight = "normal";
-            span.style.opacity = "0.8";
-            span.style.marginTop = "4px";
-
-
-            button.appendChild(span);
-            gamesList.appendChild(button);
-
-            // Añadir el comportamiento de selección al hacer clic
-            button.addEventListener("click", () => {
-                
-                // Desmarcar todos los botones
-                document.querySelectorAll(".game").forEach(btn => btn.classList.remove("selected"));
-                // Marcar el botón actual como seleccionado
-                button.classList.add("selected");
-
-                button.style.backgroundColor = "white";
-                button.style.color = "#011627";
-                // Mostrar la información del juego seleccionado
-                showGameInfo(game);
-            });
-
-
-        });
-
-
     }
 
 
@@ -212,12 +226,10 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-
-    
-
-    filterGames();
+    createGameButtons();
 
     gamesList.children[0].click();
     
+    changeColor();
 
 });
