@@ -7,9 +7,10 @@
 
 Página web oficial de la UGR LAN Party.
 
-## 0adges Importantes
-
-![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/github.com/UGR-Lan-Party/ulp-website)
+## Badges Importantes
+![Web](https://img.shields.io/website?url=http%3A//ulp.ugr.es/)
+![Lighthouse](https://img.shields.io/endpoint?url=<your-lighthouse-json>)
+![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/)
 
 
 ## Instalación para desarrollo
