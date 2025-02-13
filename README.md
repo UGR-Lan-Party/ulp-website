@@ -12,7 +12,7 @@ Página web oficial de la UGR LAN Party.
 
 ![Chromium HSTS preload](https://img.shields.io/hsts/preload/secrets.SITE_URL)
 ![Chromium HSTS preload](https://img.shields.io/hsts/preload/ulp.ugr.es)
-![Mozilla HTTP Observatory Grade](https://img.shields.io/mozilla-observatory/grade-score/ulp.ugr.es)
+![Mozilla HTTP Observatory Grade](https://img.shields.io/mozilla-observatory/grade-score/secrets.SITE_URL)
 
 ![Web](https://img.shields.io/website?url=ulp.ugr.es)
 ![Lighthouse](https://img.shields.io/endpoint?url=<your-lighthouse-json>)
