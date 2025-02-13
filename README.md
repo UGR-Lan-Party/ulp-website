@@ -18,7 +18,7 @@ Página web oficial de la UGR LAN Party.
 ![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/)
 
 
-![performance](https://img.shields.io/badge/dynamic/json?label=Performance&query=$.categories.performance.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{secrets.SITE_URL}}&key=${{secrets.PSI_API_KEY}}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%)
+![performance](https://img.shields.io/badge/dynamic/json?label=Performance&query=$.categories.performance.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=ulp.ugr.es&key=AIzaSyDYQlskEt_I1Jzwy3uLZGOBTUVE4ehfWyw&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%)
 
 
 
