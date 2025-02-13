@@ -7,6 +7,11 @@
 
 Página web oficial de la UGR LAN Party.
 
+## 0adges Importantes
+
+![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/github.com/UGR-Lan-Party/ulp-website)
+
+
 ## Instalación para desarrollo
 
 La página web usa la herramienta [Astro](https://astro.build/). Para poder usarla en el entorno de desarollo, sigue los siguientes pasos:
