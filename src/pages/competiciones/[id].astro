@@ -25,9 +25,12 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
 ---
 
 <Layout description="UGR LAN Party" title={competition?.name}>
-  <main class="mt-40 w-full flex flex-col items-center">
+  <Breadcrumb>
+    <Fragment slot="title">{competition?.name}</Fragment>
+  </Breadcrumb>
+  <main class="w-full flex flex-col items-center dark:bg-[#01131B]">
     <section
-      class="flex flex-col lg:flex-row w-full justify-around items-center mt-8"
+      class="flex flex-col lg:flex-row w-full justify-around items-center mt-4"
     >
       {
         competitionCard && (

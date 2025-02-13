@@ -7,10 +7,12 @@ const { place, time } = Astro.props as Props;
 ---
 
 <div
-  class="w-[350px] mt-14 h-[420px] flex flex-col gap-8 relative z-10 overflow-hidden rounded-xl text-xl dark:text-white text-primary bg-white dark:bg-dark-2 p-8 shadow-pricing"
+  class="w-[350px] h-[420px] flex flex-col gap-8 relative z-10 overflow-hidden rounded-xl text-xl dark:text-white text-primary bg-white shadow-pricing dark:bg-[#0D2938] p-8 dark:border-[#21495C] border-[1px]"
 >
   <div>
-    <div class="flex flex-row gap-2 items-center justify-center">
+    <div
+      class="flex flex-row gap-2 items-center justify-center text-[#012536] dark:text-white"
+    >
       <svg width="29" height="35" viewBox="0 0 29 35" class="fill-current">
         <path
           d="M14.5 0.710938C6.89844 0.710938 0.664062 6.72656 0.664062 14.0547C0.664062 19.9062 9.03125 29.5859 12.6406 33.5234C13.1328 34.0703 13.7891 34.3437 14.5 34.3437C15.2109 34.3437 15.8672 34.0703 16.3594 33.5234C19.9688 29.6406 28.3359 19.9062 28.3359 14.0547C28.3359 6.67188 22.1016 0.710938 14.5 0.710938ZM14.9375 32.2109C14.6641 32.4844 14.2812 32.4844 14.0625 32.2109C11.3828 29.3125 2.57812 19.3594 2.57812 14.0547C2.57812 7.71094 7.9375 2.625 14.5 2.625C21.0625 2.625 26.4219 7.76562 26.4219 14.0547C26.4219 19.3594 17.6172 29.2578 14.9375 32.2109Z"
@@ -19,27 +21,49 @@ const { place, time } = Astro.props as Props;
           d="M14.5 8.58594C11.2734 8.58594 8.59375 11.2109 8.59375 14.4922C8.59375 17.7188 11.2187 20.3984 14.5 20.3984C17.7812 20.3984 20.4062 17.7734 20.4062 14.4922C20.4062 11.2109 17.7266 8.58594 14.5 8.58594ZM14.5 18.4297C12.3125 18.4297 10.5078 16.625 10.5078 14.4375C10.5078 12.25 12.3125 10.4453 14.5 10.4453C16.6875 10.4453 18.4922 12.25 18.4922 14.4375C18.4922 16.625 16.6875 18.4297 14.5 18.4297Z"
         ></path>
       </svg>
-      <h5 class="text-3xl font-semibold text-primary dark:text-white">
-        Ubicación
-      </h5>
+      <h5 class="text-3xl font-semibold">Ubicación</h5>
     </div>
-    <div
-      class="flex flex-col gap-2 mt-2 text-primary dark:text-white items-center justify-center"
-    >
-      <p class="text-2xl">{place[0]}</p>
-      <p class="">{place[1]}</p>
+    <div class="flex flex-col gap-2 mt-2 items-center justify-center">
+      <p class="text-2xl text-primary">{place[0]}</p>
+      <p class="text-[#266280]">{place[1]}</p>
       <a
-        class="text-primary mt-2 dark:text-white text-sm text-center"
+        class="text-[#96C1D6] mt-2 flex align-top items-center hover:text-[#004465] dark:text-white text-sm text-center"
         target="_blank"
         href="https://maps.app.goo.gl/iXsF2uzz81mDALP46"
-        >ETSIIT. C/ Periodista Daniel Saucedo Aranda, s/n, Chana, 18014 Granada</a
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          x="0px"
+          y="0px"
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+        >
+          <path
+            fill="#48b564"
+            d="M35.76,26.36h0.01c0,0-3.77,5.53-6.94,9.64c-2.74,3.55-3.54,6.59-3.77,8.06	C24.97,44.6,24.53,45,24,45s-0.97-0.4-1.06-0.94c-0.23-1.47-1.03-4.51-3.77-8.06c-0.42-0.55-0.85-1.12-1.28-1.7L28.24,22l8.33-9.88	C37.49,14.05,38,16.21,38,18.5C38,21.4,37.17,24.09,35.76,26.36z"
+          ></path><path
+            fill="#fcc60e"
+            d="M28.24,22L17.89,34.3c-2.82-3.78-5.66-7.94-5.66-7.94h0.01c-0.3-0.48-0.57-0.97-0.8-1.48L19.76,15	c-0.79,0.95-1.26,2.17-1.26,3.5c0,3.04,2.46,5.5,5.5,5.5C25.71,24,27.24,23.22,28.24,22z"
+          ></path><path
+            fill="#2c85eb"
+            d="M28.4,4.74l-8.57,10.18L13.27,9.2C15.83,6.02,19.69,4,24,4C25.54,4,27.02,4.26,28.4,4.74z"
+          ></path><path
+            fill="#ed5748"
+            d="M19.83,14.92L19.76,15l-8.32,9.88C10.52,22.95,10,20.79,10,18.5c0-3.54,1.23-6.79,3.27-9.3	L19.83,14.92z"
+          ></path><path
+            fill="#5695f6"
+            d="M28.24,22c0.79-0.95,1.26-2.17,1.26-3.5c0-3.04-2.46-5.5-5.5-5.5c-1.71,0-3.24,0.78-4.24,2L28.4,4.74	c3.59,1.22,6.53,3.91,8.17,7.38L28.24,22z"
+          ></path>
+        </svg>
+        ETSIIT. C/ Periodista Daniel Saucedo Aranda, s/n, Chana, 18014 Granada</a
       >
     </div>
   </div>
 
   <div class="mt-6">
     <div
-      class="flex flex-row gap-2 items-center justify-center mb-2 text-[32px] text-primary dark:text-white"
+      class="flex flex-row gap-2 items-center justify-center mb-2 text-[32px] text-[#012536] dark:text-white"
     >
       <svg
         class="fill-current"
@@ -56,13 +80,11 @@ const { place, time } = Astro.props as Props;
             fill-rule="evenodd"></path>
         </g></svg
       >
-      <h5 class="text-3xl font-semibold text-primary dark:text-white">
-        Horario
-      </h5>
+      <h5 class="text-3xl font-semibold">Horario</h5>
     </div>
     <div class="flex w-full flex-col gap-2 mt-2 items-center justify-center">
       <p class="text-3xl text-primary dark:text-white">{time}</p>
-      <p class="text-sm text-primary dark:text-white text-center">
+      <p class="text-sm text-[#266280] dark:text-white text-center">
         * La hora de finalización está sujeta a cambios en base al desarrollo
         del evento
       </p>
