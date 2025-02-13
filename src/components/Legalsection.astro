@@ -1,58 +1,76 @@
-<!-- ====== Aviso Legal Section Start -->
+---
+import { getEntry } from "astro:content";
+
+
+const legalContent = await getEntry("legal", "legal");
+const sections: Section[] = legalContent.data.sections; 
+
+interface Section {
+  title: string;
+  content: string;
+}
+
+const iconMap: { [key: string]: string } = {
+  "Condiciones Generales de Utilización y Aceptación de las mismas": `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+  <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+  <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+  </svg>`,
+  "Política de privacidad": `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-earmark-lock" viewBox="0 0 16 16">
+  <path d="M10 7v1.076c.54.166 1 .597 1 1.224v2.4c0 .816-.781 1.3-1.5 1.3h-3c-.719 0-1.5-.484-1.5-1.3V9.3c0-.627.46-1.058 1-1.224V7a2 2 0 1 1 4 0M7 7v1h2V7a1 1 0 0 0-2 0M6 9.3v2.4c0 .042.02.107.105.175A.64.64 0 0 0 6.5 12h3a.64.64 0 0 0 .395-.125c.085-.068.105-.133.105-.175V9.3c0-.042-.02-.107-.105-.175A.64.64 0 0 0 9.5 9h-3a.64.64 0 0 0-.395.125C6.02 9.193 6 9.258 6 9.3"/>
+  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+  </svg>`,
+  "Menores de edad": `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-earmark-person" viewBox="0 0 16 16">
+  <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5z"/>
+  </svg>`,
+  "Licencia de uso": `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
+  <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+  </svg>`,
+  "Ausencia de garantía y limitación de responsabilidades": `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-earmark-x" viewBox="0 0 16 16">
+  <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293z"/>
+  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+  </svg>`,
+  "Links externos": `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+  <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
+  <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+  </svg>`,
+  "Fotografías durante el evento": `<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-camera2" viewBox="0 0 16 16">
+  <path d="M5 8c0-1.657 2.343-3 4-3V4a4 4 0 0 0-4 4"/>
+  <path d="M12.318 3h2.015C15.253 3 16 3.746 16 4.667v6.666c0 .92-.746 1.667-1.667 1.667h-2.015A5.97 5.97 0 0 1 9 14a5.97 5.97 0 0 1-3.318-1H1.667C.747 13 0 12.254 0 11.333V4.667C0 3.747.746 3 1.667 3H2a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1h.682A5.97 5.97 0 0 1 9 2c1.227 0 2.367.368 3.318 1M2 4.5a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0M14 8A5 5 0 1 0 4 8a5 5 0 0 0 10 0"/>
+  </svg>`,
+};
+---
 <section class="relative z-10 overflow-hidden bg-gray-1 dark:bg-dark-2 py-20 lg:py-[115px]">
   <div class="container mx-auto">
-    <div class="relative overflow-hidden">
-      <div class="flex flex-wrap items-stretch -mx-4">
-        <div class="w-full lg:w-1/2 px-5">
-          <div class="mx-auto max-w-[650px] text-justify">
-            <p class="mb-6 mx-auto max-w-[650px] text-base leading-[1.5] text-dark dark:text-white">
-              <div class="mt-8 mb-3 font-bold text-dark dark:text-white">1. Condiciones Generales de Utilización y Aceptación de las mismas</div>
-              <div class="text-dark dark:text-white">La navegación y la utilización de los servicios del portal suponen la aceptación como Usuario y sin reservas de ningún tipo, de todas las condiciones generales de utilización, de las condiciones generales de contratación y cualesquiera otras que puedan existir en relación con la prestación de servicios de la ULP.</div>
-              <div class="mt-8 mb-3 font-bold text-dark dark:text-white">2. Política de privacidad</div>
-              <div class="text-dark dark:text-white">En cumplimiento de la LOPD 15/1999 y de la LSSICE 34/2002 y demás disposiciones legales, se le informa que los datos de carácter personal que voluntariamente facilita, incluido el correo electrónico, pasarán a formar parte de un fichero propiedad de la UGR. Además, presta su consentimiento para remitirle información comercial sobre nuestras actividades, productos y servicios pudiendo emplear para ello el correo electrónico. En cumplimiento de lo establecido en la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico, rogamos que si no desea que incluyamos sus datos en nuestros ficheros ni recibir comunicaciones publicitarias vía correo electrónico o a través de otros medios de comunicación electrónica, o si desea ejercitar los derechos de acceso, rectificación, cancelación, y oposición al tratamiento de sus datos personales establecidos en el artículo 5 de la Ley 15/1999 de 13 de diciembre, de Protección de Datos de Carácter Personal, nos lo comunique a través de la sección contacto de la página web.</div>
-              <div class="text-dark dark:text-white">Los usuarios permiten el uso de forma atemporal de las imágenes recabadas (fotografías o vídeos), tomadas en instalaciones y/o durante las actividades organizadas por la ULP, en cualquier publicación o acción publicitaria (página web, folletos informativos, tablones de exposición o correos electrónicos).</div>
-              <div class="mt-8 mb-3 font-bold text-dark dark:text-white">3. Menores de edad</div>
-              <div class="text-dark dark:text-white">Todos los participantes en las competiciones de la ULP deben de ser mayores de edad. Sin embargo, se permite la entrada al evento a menores, siempre y cuando vayan acompañados de su tutor/a legal.</div>
-              <div class="mt-8 font-bold text-dark dark:text-white">4. Licencia de uso</div>
-              <div class="text-dark dark:text-white">Los usuarios tienen una licencia universal, no exclusiva, de libre uso y revocable en cualquier momento para:
-                <ol class="list-disc list-inside">
-                  <li>Visualizar este Sitio Web y todo el material publicado en él (incluido el material de terceros) mediante el uso de un ordenador o dispositivo móvil a través de un navegador web.</li>
-                  <li>Copiar y almacenar una copia de este Sitio Web o/y de todo el material publicado en él, en la memoria caché de su navegador web.</li>
-                  <li>Imprimir las páginas a través de un dispositivo físico (impresora-papel) o dispositivo virtual (impresora-pdf) siempre y cuando sea, única y exclusivamente, para su uso personal y privado [y no tenga como fin un uso comercial]</li>
-                  <li>Visualizar y descargar los documentos (jpg o pdf) publicados en Este Sitio Web destinado a dicho fin</li>
-                </ol>
+    <div class="max-w-5xl mx-auto space-y-4">
+      {sections.length > 0 ? (
+        sections.map((section, index) => {
+          const iconSVG = iconMap[section.title] ?? "";
+          return (
+          <details 
+            class="group border border-gray-300 dark:border-gray-600 rounded-lg p-4 transition-all duration-300 ease-in-out overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-blue-400/50 hover:border-gray-400 dark:hover:border-blue-400"
+          >
+            <summary 
+              class="cursor-pointer font-semibold text-lg text-dark dark:text-white flex justify-between items-center select-none"
+            >
+              <div class="flex items-center gap-4">
+                <span set:html={iconSVG} />
+                <span>{section.title}</span> 
               </div>
-              <div class="mt-8 mb-3 font-bold text-dark dark:text-white">5. Licencia de uso</div>
-              <div class="text-dark dark:text-white">Los usuarios tienen una licencia universal, no exclusiva, de libre uso y revocable en cualquier momento para:
-                <ol class="list-disc list-inside">
-                  <li>Visualizar este Sitio Web y todo el material publicado en él (incluido el material de terceros) mediante el uso de un ordenador o dispositivo móvil a través de un navegador web.</li>
-                  <li>Copiar y almacenar una copia de este Sitio Web o/y de todo el material publicado en él, en la memoria caché de su navegador web.</li>
-                  <li>Imprimir las páginas a través de un dispositivo físico (impresora-papel) o dispositivo virtual (impresora-pdf) siempre y cuando sea, única y exclusivamente, para su uso personal y privado [y no tenga como fin un uso comercial]</li>
-                  <li>Visualizar y descargar los documentos (jpg o pdf) publicados en Este Sitio Web destinado a dicho fin</li>
-                </ol>
-                <div class="text-dark dark:text-white">No le autorizamos cualquier otro derecho sobre este sitio o sobre el material publicado en él (incluido el material de terceros). Esto significa que todos los derechos quedan reservados.</div>             
-              </div>
-            </p>
-          </div>
-        </div>
-        <div class="w-full lg:w-1/2 px-5">
-          <div class="mx-auto max-w-[650px] text-justify">
-            <p class="mb-6 mx-auto max-w-[650px] text-base leading-[1.5] text-dark dark:text-white">
-              <div class="mt-8 mb-3 font-bold text-dark dark:text-white">6. Ausencia de garantía y limitación de responsabilidades</div>
-              <div class="text-dark dark:text-white">La organización no controla, en todo momento, la utilización que los Usuarios hacen de este Sitio Web, en este sentido, no se responsabiliza de los actos que, incumpliendo lo previsto en este documento, hayan podido realizar los Usuarios de la misma.</div>
-              <div class="text-dark dark:text-white">El usuario reconoce y acepta que la utilización de este Sitio Web y de sus servicios se realiza bajo su entera responsabilidad. La organización únicamente responderá de los daños que el Usuario pueda sufrir como consecuencia de la utilización del portal cuando dichos daños sean imputables a una actuación dolosa de la organización. No obstante, declaramos haber adoptado todas las medidas necesarias, dentro de sus posibilidades y del estado de la tecnología, para garantizar el funcionamiento de Este Sitio Web y evitar la existencia y transmisión de virus y otros componentes que puedan perjudicar al Usuario.</div>
-              <div class="text-dark dark:text-white">No obstante, no garantizamos la ausencia de virus en Este Sitio Web o en el Servidor que lo suministra o, asimismo, cualesquiera otros elementos que puedan producir alteraciones en el sistema informático del Usuario por actos de terceros, ni el establecimiento por terceros de hiperenlaces no autorizados.</div>
-              <div class="text-dark dark:text-white">La organización no puede garantizar la exactitud de sus contenidos ni la continuidad de los mismos reservándose el derecho a realizar variaciones o modificaciones en los mismos de forma unilateral, total o parcialmente, así como interrumpir o suspender el acceso cuando así lo considere.</div>
-              <div class="text-dark dark:text-white">El usuario puede acceder, a través de enlaces, a páginas de información o de servicios ofrecidos por terceros. Las operaciones que el usuario pueda realizar o la información que pueda encontrar, son responsabilidad y obligan, en su caso, al usuario y al titular de la página de destino, declinando la organización cualquier responsabilidad al respecto.</div>
-              <div class="mt-8 mb-3 font-bold text-dark dark:text-white">7. Links externos</div>
-              <div class="text-dark dark:text-white">Los enlaces contenidos en este Sitio Web pueden dirigir a contenidos Web de terceros. La organización no asume ninguna responsabilidad por el contenido, informaciones o servicios que pudieran aparecer en dichos sitios, que tendrán exclusivamente carácter informativo y que en ningún caso implican relación alguna entre la organización y las personas o entidades titulares de tales contenidos o titulares de los sitios donde se encuentren. La organización tampoco será responsable del contenido de las páginas web de destino que se establezcan mediante vínculos en este Sitio Web ni tampoco de las infracciones de derechos de terceros en las que dichas páginas pudieran incurrir.</div>
-              <div class="mt-8 mb-3 font-bold text-dark dark:text-white">8. Fotografías durante el evento.</div>
-              <div class="text-dark dark:text-white">Todos aquellos que en los días del evento se encuentren en las zonas habilitadas   para realización de la UGR LAN PARTY, podrán aparecer en las fotos que se realicen durante el evento.</div>
-            </p>
-          </div>
-        </div>
-      </div>
+              <span class="transition-transform duration-300 ease-in-out group-open:rotate-180">
+                ▼
+              </span>
+            </summary>
+            <div class="mt-3 text-gray-700 dark:text-gray-300 transition-opacity duration-300 ease-in-out group-open:opacity-100 opacity-0">
+              {section.content}
+            </div>
+          </details>
+          );
+        })
+      ) : (
+        <p class="text-center text-gray-500">No se encontraron secciones.</p>
+      )}
     </div>
   </div>
 </section>
-<!-- ====== Aviso Legal Section End -->
