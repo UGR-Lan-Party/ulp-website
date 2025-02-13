@@ -1,0 +1,63 @@
+name: PageSpeed Insights
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Allow manual trigger
+  workflow_dispatch:
+  # Run daily to update badges
+  #schedule:
+  #  - cron: '0 0 * * *'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun \
+            --collect.url=${{ secrets.SITE_URL || 'http://localhost:3000' }} \
+            --upload.target=temporary-public-storage
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Run PageSpeed Insights and Generate Badges
+        uses: jakepartusch/psi-action@v1.3
+        with:
+          url: ${{ secrets.SITE_URL || 'http://localhost:3000' }}
+          strategy: mobile
+          threshold: 70
+          api_key: ${{ secrets.PSI_API_KEY }}
+
+      - name: Generate Badges
+        run: |
+          # Create badges directory if it doesn't exist
+          mkdir -p badges
+          
+          # Generate badges using shields.io
+          curl -o badges/performance.svg "https://img.shields.io/badge/dynamic/json?label=Performance&query=$.categories.performance.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
+          
+          curl -o badges/accessibility.svg "https://img.shields.io/badge/dynamic/json?label=Accessibility&query=$.categories.accessibility.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
+          
+          curl -o badges/best-practices.svg "https://img.shields.io/badge/dynamic/json?label=Best%20Practices&query=$.categories.best-practices.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
+          
+          curl -o badges/seo.svg "https://img.shields.io/badge/dynamic/json?label=SEO&query=$.categories.seo.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
+
+      - name: Commit and Push Badges
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add badges/
+          git commit -m "Update PageSpeed Insights badges" || exit 0
+          git push
