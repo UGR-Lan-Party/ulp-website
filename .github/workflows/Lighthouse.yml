@@ -1,4 +1,4 @@
-name: PageSpeed Insights
+name: Ligthhouse and Pagespeed Insights
 on:
   push:
     branches: [ main ]
