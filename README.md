@@ -8,6 +8,10 @@
 Página web oficial de la UGR LAN Party.
 
 ## Badges Importantes
+
+
+![Chromium HSTS preload](https://img.shields.io/hsts/preload/secrets.SITE_URL)
+
 ![Web](https://img.shields.io/website?url=http%3A//ulp.ugr.es/)
 ![Lighthouse](https://img.shields.io/endpoint?url=<your-lighthouse-json>)
 ![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/)
