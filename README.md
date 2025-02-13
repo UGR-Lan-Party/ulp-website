@@ -13,12 +13,7 @@ Página web oficial de la UGR LAN Party.
 ![Mozilla HTTP Observatory Grade](https://img.shields.io/mozilla-observatory/grade-score/ulp.ugr.es)
 ![Security Headers](https://img.shields.io/security-headers/ulp.ugr.es)
 
-![Web](https://img.shields.io/website?url=ulp.ugr.es)
-![Lighthouse](https://img.shields.io/endpoint?url=<your-lighthouse-json>)
-![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/)
-
-
-[performance](https://googlechrome.github.io/lighthouse/viewer/?gist=521d3ce3747c754c1b80dcae048bf21f)
+[Performance](https://googlechrome.github.io/lighthouse/viewer/?gist=521d3ce3747c754c1b80dcae048bf21f)
 
 
           
