@@ -18,7 +18,7 @@ Página web oficial de la UGR LAN Party.
 ![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/)
 
 
-![performance](https://googlechrome.github.io/lighthouse/viewer/?gist=521d3ce3747c754c1b80dcae048bf21f)
+[performance](https://googlechrome.github.io/lighthouse/viewer/?gist=521d3ce3747c754c1b80dcae048bf21f)
 
 
           
