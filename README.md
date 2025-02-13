@@ -5,23 +5,13 @@
 
 # ULP Website
 
-Página web oficial de la UGR LAN Party.
+[Página web oficial de la UGR LAN Party](https://ulp.ugr.es)
 
-## Badges Importantes
 
 ![Chromium HSTS preload](https://img.shields.io/hsts/preload/ulp.ugr.es)
 ![Mozilla HTTP Observatory Grade](https://img.shields.io/mozilla-observatory/grade-score/ulp.ugr.es)
-![Security Headers](https://img.shields.io/security-headers/ulp.ugr.es)
 
 [Performance](https://googlechrome.github.io/lighthouse/viewer/?gist=521d3ce3747c754c1b80dcae048bf21f)
-
-
-          
-          curl -o badges/accessibility.svg "https://img.shields.io/badge/dynamic/json?label=Accessibility&query=$.categories.accessibility.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
-          
-          curl -o badges/best-practices.svg "https://img.shields.io/badge/dynamic/json?label=Best%20Practices&query=$.categories.best-practices.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
-          
-          curl -o badges/seo.svg "https://img.shields.io/badge/dynamic/json?label=SEO&query=$.categories.seo.score&url=https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ secrets.SITE_URL }}&key=${{ secrets.PSI_API_KEY }}&strategy=mobile&multiply=100&style=flat&logo=lighthouse&suffix=%"
 
 
 ## Instalación para desarrollo
