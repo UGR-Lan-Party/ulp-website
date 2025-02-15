@@ -5,7 +5,7 @@
 
 # ULP Website
 
-Página web oficial de la UGR LAN Party 2024.
+Página web oficial de la UGR LAN Party.
 
 ## Instalación para desarrollo
 
