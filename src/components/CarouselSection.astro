@@ -1,44 +1,92 @@
----
-interface Props {
-  paddingClass?: string;
-}
-
-const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
----
-
 <section
   id="about"
-  class={`bg-gray-1 dark:bg-dark-2 ${paddingClass}`}
+  class="bg-gray-1 dark:bg-dark-2 pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]"
 >
   <div class="container w-full px-4">
     <div class="wow fadeInUp" data-wow-delay=".2s">
       <div class="flex flex-wrap items-center border-solid border-10">
         <div class="w-full px-4">
-
-          <div x-data="imageSlider" class="relative mx-auto max-w-3x2 overflow-hidden rounded-md p-2 sm:p-4">
-            <!-- items counter
-            <div class="absolute right-5 top-5 z-10 rounded-full bg-gray-600 px-2 text-center text-sm text-white">
-              <span x-text="currentIndex"></span>/<span x-text="images.length"></span>
-            </div>
-            -->
-
-            <button @click="previous()" class="group absolute left-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 hover:bg-primary shadow-md">
-                <svg class="w-4 h-4 text-gray-800 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          <div
+            x-data="imageSlider"
+            class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-md p-2 sm:p-4"
+          >
+            <div class="relative h-[38rem] w-full">
+              <button
+                @click="previous()"
+                class="group absolute left-8 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100/80 hover:bg-primary shadow-md backdrop-blur-sm"
+              >
+                <svg
+                  class="w-4 h-4 text-gray-800 group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 1 1 5l4 4"></path>
                 </svg>
-            </button>
+              </button>
 
-            <button @click="forward()" class="group absolute right-5 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 hover:bg-primary shadow-md">
-              <svg class="w-4 h-4 text-gray-800 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-              </svg>
-            </button>
+              <button
+                @click="forward()"
+                class="group absolute right-8 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100/80 hover:bg-primary shadow-md backdrop-blur-sm"
+              >
+                <svg
+                  class="w-4 h-4 text-gray-800 group-hover:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 9 4-4-4-4"></path>
+                </svg>
+              </button>
 
-            <div class="h-[36rem] flex items-center justify-center" style="width: 35rem;">
+              <div class="h-full w-full flex items-center justify-center">
+                <template x-for="(image, index) in images">
+                  <div
+                    x-show="currentIndex == index + 1"
+                    x-transition:enter="transition transform duration-300"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition transform duration-300"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    class="absolute inset-0 flex items-center justify-center"
+                  >
+                    <img
+                      :src="image"
+                      alt="image"
+                      class="rounded-md object-cover w-full h-full"
+                    />
+                  </div>
+                </template>
+              </div>
+            </div>
 
-              <template x-for="(image, index) in images">
-                <div x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-                  <img :src="image" alt="image" class="rounded-md object-cover" />
+            <!-- Thumbnails section -->
+            <div class="mt-8 flex gap-4 justify-between w-full">
+              <template x-for="i in 5">
+                <div
+                  x-show="currentIndex + i - 1 <= images.length"
+                  class="w-1/5 aspect-video cursor-pointer"
+                  @click="currentIndex = currentIndex + i - 1"
+                >
+                  <img
+                    :src="images[currentIndex + i - 2]"
+                    alt="thumbnail"
+                    class="w-full h-full object-cover rounded-md hover:opacity-75 transition-opacity"
+                    :class="{'border-2 border-primary': currentIndex === currentIndex + i - 1}"
+                  />
                 </div>
               </template>
             </div>
@@ -49,33 +97,34 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
   </div>
 </section>
 
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+></script>
 <script is:inline>
   async function getFlickrPhotos() {
     const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
     const ALBUM_ID = '72177720316026867';
     const USER_ID = '195749897@N03';
-    
+
     const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${ALBUM_ID}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=url_k,o_dims`;
-    
+
     try {
       const response = await fetch(url);
       const data = await response.json();
       return data.photoset.photo
-        .filter(photo => {
+        .filter((photo) => {
           // Verificar si la foto es horizontal (ancho > alto)
           return photo.width_k > photo.height_k;
         })
-        .map(photo => photo.url_k)
-        .filter(url => url);
+        .map((photo) => photo.url_k)
+        .filter((url) => url);
     } catch (error) {
       console.error('Error fetching Flickr photos:', error);
       return [];
     }
   }
 
-  document.addEventListener("alpine:init", () => {
-    Alpine.data("imageSlider", () => ({
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('imageSlider', () => ({
       currentIndex: 1,
       images: [],
       loading: true,
@@ -97,4 +146,3 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
     }));
   });
 </script>
-
