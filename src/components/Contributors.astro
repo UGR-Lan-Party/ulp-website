@@ -1,4 +1,6 @@
 ---
+import { darkStyles } from "../utils/all";
+
 const contributors = [
   { git: "https://github.com/mario-ca" },
   { git: "https://github.com/chelunike" },
@@ -91,7 +93,7 @@ try {
 ---
 
 <!-- ====== Contributors Section Start -->
-<section id="contributors" class="bg-gray-1 dark:bg-dark-2 overflow-hidden pt-10 pb-12 lg:pt-[120px] lg:pb-[90px]">
+<section id="contributors" class={`bg-gray-1 ${darkStyles} overflow-hidden pt-10 pb-12 lg:pt-[120px] lg:pb-[90px]`}>
   <div class="container">
     <div class="-mx-4 flex flex-wrap">
       <div class="w-full px-4">

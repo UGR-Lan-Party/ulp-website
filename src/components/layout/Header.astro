@@ -96,7 +96,7 @@ const menuitems = [
                           <input type="checkbox" id={`submenu-toggler-${index}`} class="hidden peer lg:hidden" />
                           <a
                             href={item.path}
-                            class={`mx-8 flex items-center justify-between py-2 font-medium text-base text-dark dark:text-white group-hover:text-primary lg:mr-0 ${
+                            class={`mx-8 flex items-center justify-between py-2 font-medium text-base text-dark dark:text-white group-hover:text-tertiary lg:mr-0 ${
                               item.children ? 'lg:ml-8 lg:pl-0 lg:pr-4' : 'lg:ml-7 lg:px-0'
                             } lg:inline-flex lg:py-6 ${
                               Astro.url.pathname === '/'
@@ -144,7 +144,7 @@ const menuitems = [
                       ) : (
                         <a
                           href={item.path}
-                          class={`mx-8 flex py-2 font-medium text-base text-dark dark:text-white group-hover:text-primary lg:mr-0 ${
+                          class={`mx-8 flex py-2 font-medium text-base text-dark dark:text-white group-hover:text-tertiary lg:mr-0 ${
                             item.children ? 'items-center justify-between' : ''
                           } ${item.children ? 'lg:ml-8 lg:pl-0 lg:pr-4' : 'lg:ml-7 lg:px-0'} lg:inline-flex lg:py-6 ${
                             Astro.url.pathname === '/'

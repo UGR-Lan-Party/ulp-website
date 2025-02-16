@@ -1,4 +1,6 @@
 ---
+import { darkStyles } from "../utils/all"
+
 const teams = [
   {name: "Antonio Miguel Mora", description: "Departamento de Teoría de la Señal, Telemática y Comunicaciones ", image: "/assets/team/team01.jpeg", linkedinLink: "https://www.linkedin.com/in/antoniomora",},
   {name: "Rafael Alejandro Rodríguez", description: "Departamento de Teoría de la Señal, Telemática y Comunicaciones ", image: "/assets/team/team02.jpeg", linkedinLink: "https://www.linkedin.com/in/rodgom",},
@@ -7,7 +9,7 @@ const teams = [
 ---
 
 <!-- ====== Team Section Start -->
-<section id="team" class="bg-gray-1 dark:bg-dark-2 overflow-hidden pt-10 pb-12 lg:pt-[120px] lg:pb-[90px]">
+<section id="team" class={`bg-gray-1 dark:bg-dark-2 overflow-hidden pt-10 pb-12 lg:pt-[120px] lg:pb-[90px] ${darkStyles}`}>
   <div class="container">
     <div class="-mx-4 flex flex-wrap">
       <div class="w-full px-4">
