@@ -1,0 +1,109 @@
+---
+import type { SponsorData } from '../data/sponsors.ts';
+
+interface Props {
+  sponsor: SponsorData;
+}
+const { sponsor } = Astro.props as Props;
+
+// Determinar la clase de degradado en función del tier
+const gradientClass =
+  sponsor.tier === 'platinum'
+    ? 'gradient-platinum'
+    : sponsor.tier === 'gold'
+      ? 'gradient-gold'
+      : sponsor.tier === 'silver'
+        ? 'gradient-silver'
+        : sponsor.tier === 'bronze'
+          ? 'gradient-bronze'
+          : '';
+
+const ulpTierLogo =
+  sponsor.tier === 'platinum'
+    ? 'gradient-platinum'
+    : sponsor.tier === 'gold'
+      ? 'gradient-gold'
+      : sponsor.tier === 'silver'
+        ? 'gradient-silver'
+        : sponsor.tier === 'bronze'
+          ? 'gradient-bronze'
+          : '';
+
+const tierColor =
+  sponsor.tier === 'platinum'
+    ? 'text-[#1771E6]'
+    : sponsor.tier === 'gold'
+      ? 'text-[#FFC002]'
+      : sponsor.tier === 'silver'
+        ? 'text-[#9a9ba0]'
+        : sponsor.tier === 'bronze'
+          ? 'text-[#BB5522]'
+          : '';
+---
+
+<section
+  class="w-[350px] h-[450px] relative mt-16 group bg-slate-100 dark:bg-slate-700 m-4 rounded-2xl"
+>
+  <div>
+    <img
+      alt="ulp-logo-black"
+      src="/public/assets/logo/logo-black.png"
+      class="dark:hidden w-40 absolute -top-20 left-1/2 transform -translate-x-1/2"
+    />
+    <img
+      alt="ulp-logo-white"
+      src="/public/assets/logo/logo-white.png"
+      class="hidden dark:block w-40 absolute -top-20 left-1/2 transform -translate-x-1/2"
+    />
+  </div>
+  <div class={`w-full h-[80px] shrink-0 ${gradientClass}`}></div>
+  <img
+    alt="sponsor-logo"
+    src={sponsor.logo}
+    class="w-full h-40 px-4 mb-4 object-contain"
+  />
+  <!-- grayscale transition-all duration-200 group-hover:grayscale-0 -->
+  <section class="m-4">
+    <p class="font-bold text-xl dark:text-white">{sponsor.name}</p>
+    <p class={`font-medium text-md ${tierColor}`}>{sponsor.bussiness}</p>
+    <p class="text-sm mt-2 dark:text-slate-100">{sponsor.description}</p>
+  </section>
+</section>
+
+<style>
+  .gradient-platinum {
+    background: radial-gradient(
+      35% 100% at 50% 0%,
+      #1771e6 0%,
+      #1771e6 20%,
+      #ffffff00 100%
+    );
+  }
+
+  .gradient-gold {
+    background: radial-gradient(
+      35% 100% at 50% 0%,
+      #ffd700 0%,
+      #ffd700 20%,
+      #ffffff00 100%
+    );
+  }
+
+  .gradient-silver {
+    background: radial-gradient(
+      35% 100% at 50% 0%,
+      #c0c0c0 0%,
+      #c0c0c0 20%,
+      #ffffff00 100%
+    );
+  }
+
+  .gradient-bronze {
+    background: radial-gradient(
+      35% 100% at 50% 0%,
+      #cd7f32 0%,
+      #cd7f32 20%,
+      #ffffff00 100%
+    );
+  }
+</style>
