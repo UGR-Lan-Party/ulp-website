@@ -21,7 +21,7 @@ publishedBlogEntries.sort(function (a, b) {
   <Breadcrumb>
     <Fragment slot="title">Blog</Fragment>
   </Breadcrumb>
-  <section class="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-dark">
+  <section class={`pt-20 pb-10 lg:pt-[120px] lg:pb-20`}>
     <div class="container card-container flex flex-wrap items-center justify-center w-full lg:gap-14">
         {
           publishedBlogEntries.map((blogPostEntry, index) => (
@@ -34,7 +34,7 @@ publishedBlogEntries.sort(function (a, b) {
                     class="w-full h-full object-cover">
                   </div>
 
-                  <div class="back rounded-[5px] p-4 bg-secondary">
+                  <div class="back rounded-[5px] p-4 bg-secondary dark:bg-gray-800">
                     <div>
                       <h3>
                         <span

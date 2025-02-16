@@ -7,3 +7,5 @@ export const getFormattedDate = (date) =>
         day: 'numeric',
       })
     : '';
+
+export const darkStyles = "dark:bg-gradient-to-r dark:from-[#0D1B3E] dark:to-[#004E7C]";
