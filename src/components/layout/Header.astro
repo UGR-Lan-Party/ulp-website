@@ -9,7 +9,8 @@ const menuitems = [
     path: 'javascript:void(0)',
     children: [
       { title: 'Sobre nosotros', path: '/info/about' },
-      { title: 'Localización y horarios', path: '/info/localizacion' },
+      { title: 'Actividades', path: '/info/actividades' },
+      { title: 'Localización', path: '/info/localizacion' },
       { title: 'Ediciones anteriores', path: '/info/ediciones_anteriores' },
       { title: 'FAQs', path: '/info/preguntas_frecuentes' },
       { title: 'Aviso legal', path: '/info/aviso_legal' },
@@ -51,28 +52,18 @@ const menuitems = [
     <div class="relative -mx-4 flex items-center justify-between">
       <div class="w-60 max-w-full px-4">
         <a href="/" class="navbar-logo block w-full py-5 transition-all duration-500 ease-in-out">
-          {
-            Astro.url.pathname === '/' ? (
-              <img
-                src="/assets/logo/logo-white.png"
-                alt=""
-                class="header-logo w-full"
-              />
-            ) : (
-              <>
-                <img
-                  src="/assets/logo/logo-black.png"
-                  alt="logo"
-                  class="w-full dark:hidden"
-                />
-                <img
-                  src="/assets/logo/logo-white.png"
-                  alt="logo"
-                  class="w-full hidden dark:block"
-                />
-              </>
-            )
-          }
+          
+          <img
+            src="/assets/logo/logo-black.png"
+            alt="logo"
+            class="w-full hidden dark:block"
+          />
+          <img
+            src="/assets/logo/logo-white.png"
+            alt="logo"
+            class="w-full dark:hidden"
+          />
+                
         </a>
       </div>
       <div class="flex w-full items-center justify-between px-4">
