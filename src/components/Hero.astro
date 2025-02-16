@@ -46,28 +46,45 @@ const orgs = [
     <div class="flex items-center justify-center px-5 py-5 my-3">
       <div class="text-primary">
         <div
-          class="text-5xl text-center flex w-full items-center justify-center"
+          class="text-5xl text-center flex w-full items-center justify-center xl:space-x-12 lg:space-x-12 md:space-x-12 sm:space-x-6"
         >
-          <div class="w-30 mx-1 p-2 bg-white rounded-lg">
-            <div class="font-mono leading-none" id="days">00</div>
-            <div class="font-mono uppercase text-sm leading-none">Días</div>
+          <div class="w-30 mx-1 p-2 text-white rounded-lg flex flex-col items-center">
+            <div class="font-mono leading-none text-5xl" id="days">00</div>
+            <div class="font-mono uppercase text-sm leading-none mt-2">Días</div>
           </div>
-          <div class="w-20 mx-1 p-2 bg-white rounded-lg">
-            <div class="font-mono leading-none" id="hours">00</div>
-            <div class="font-mono uppercase text-sm leading-none">Horas</div>
+          
+          <div class="relative w-20 mx-1 p-2 text-white flex flex-col items-center">
+            <div
+              class="absolute left-0 top-0 bottom-0 flex items-center xl:-translate-x-6 lg:-translate-x-6 md:-translate-x-6 sm:translate-x-3"
+            >
+              <div class="h-12 w-px bg-white"></div>
+            </div>
+            <div class="font-mono leading-none text-5xl" id="hours">00</div>
+            <div class="font-mono uppercase text-sm leading-none mt-2">Horas</div>
           </div>
-          <div class="w-20 mx-1 p-2 bg-white rounded-lg">
-            <div class="font-mono leading-none" id="minutes">00</div>
-            <div class="font-mono uppercase text-sm leading-none">Minutos</div>
+          
+          <div class="relative w-20 mx-1 p-2 text-white flex flex-col items-center">
+            <div
+              class="absolute left-0 top-0 bottom-0 flex items-center xl:-translate-x-6 lg:-translate-x-6 md:-translate-x-6 sm:translate-x-3"
+            >
+              <div class="h-12 w-px bg-white"></div>
+            </div>
+            <div class="font-mono leading-none text-5xl" id="minutes">00</div>
+            <div class="font-mono uppercase text-sm leading-none mt-2">Minutos</div>
           </div>
-          <!--<div class="text-2xl mx-1 font-extralight">and</div>-->
-          <div class="w-20 mx-1 p-2 bg-white rounded-lg">
-            <div class="font-mono leading-none" id="seconds">00</div>
-            <div class="font-mono uppercase text-sm leading-none">Segundos</div>
+          
+          <div class="relative w-20 mx-1 p-2 text-white flex flex-col items-center">
+            <div
+              class="absolute left-0 top-0 bottom-0 flex items-center xl:-translate-x-6 lg:-translate-x-6 md:-translate-x-6 sm:translate-x-3"
+            >
+              <div class="h-12 w-px bg-white"></div>
+            </div>
+            <div class="font-mono leading-none text-5xl" id="seconds">00</div>
+            <div class="font-mono uppercase text-sm leading-none mt-2">Segundos</div>
           </div>
         </div>
       </div>
-    </div>
+    </div>    
 
     <p
       class="texto-centrado mx-auto mb-4 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]"
