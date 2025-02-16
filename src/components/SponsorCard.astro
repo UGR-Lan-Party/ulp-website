@@ -1,5 +1,6 @@
 ---
 import type { SponsorData } from '../data/sponsors.ts';
+import SocialButton from './SocialButton.astro';
 
 interface Props {
   sponsor: SponsorData;
@@ -42,9 +43,9 @@ const tierColor =
 ---
 
 <section
-  class="w-[350px] h-[450px] relative mt-16 group bg-slate-100 dark:bg-slate-700 m-4 rounded-2xl"
+  class="w-[350px] h-[500px] relative mt-16 group bg-slate-100 dark:bg-slate-700 m-4 rounded-2xl"
 >
-  <div>
+  <!-- <div>
     <img
       alt="ulp-logo-black"
       src="/public/assets/logo/logo-black.png"
@@ -56,18 +57,27 @@ const tierColor =
       class="hidden dark:block w-40 absolute -top-20 left-1/2 transform -translate-x-1/2"
     />
   </div>
-  <div class={`w-full h-[80px] shrink-0 ${gradientClass}`}></div>
+  <div class={`w-full h-[80px] shrink-0 ${gradientClass}`}></div> -->
   <img
     alt="sponsor-logo"
     src={sponsor.logo}
-    class="w-full h-40 px-4 mb-4 object-contain"
+    class="w-full h-40 px-4 mb-6 object-contain mt-10"
   />
   <!-- grayscale transition-all duration-200 group-hover:grayscale-0 -->
   <section class="m-4">
-    <p class="font-bold text-xl dark:text-white">{sponsor.name}</p>
-    <p class={`font-medium text-md ${tierColor}`}>{sponsor.bussiness}</p>
-    <p class="text-sm mt-2 dark:text-slate-100">{sponsor.description}</p>
+    <p class="font-bold text-xl text-center dark:text-white">{sponsor.name}</p>
+    <p class={`font-medium text-md text-center ${tierColor}`}>
+      {sponsor.bussiness}
+    </p>
+    <p class="text-sm mt-2 dark:text-slate-100 text-justify">
+      {sponsor.description}
+    </p>
   </section>
+  <div
+    class="w-full h-20 absolute bottom-0 flex items-center justify-center gap-8"
+  >
+    {sponsor.links.map((link) => <SocialButton sponsorLink={link} />)}
+  </div>
 </section>
 
 <style>
