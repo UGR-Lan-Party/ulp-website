@@ -66,7 +66,8 @@
                     <img
                       :src="image"
                       alt="image"
-                      class="rounded-md object-cover w-full h-full"
+                      class="rounded-md object-cover w-full h-full cursor-pointer"
+                      @click="showModal = true; selectedImage = image"
                     />
                   </div>
                 </template>
@@ -89,6 +90,42 @@
                   />
                 </div>
               </template>
+            </div>
+
+            <!-- Modal para imagen completa -->
+            <div
+              x-cloak
+              x-show="!loading && showModal"
+              x-transition.opacity
+              class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-8"
+              @click="showModal = false"
+            >
+              <div class="relative bg-white rounded-lg p-2 w-[1280px] h-[720px]">
+                <img
+                  :src="selectedImage"
+                  alt="Full size image"
+                  class="w-full h-full object-cover rounded-lg"
+                  @click.stop
+                />
+                <button
+                  @click="showModal = false"
+                  class="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+                >
+                  <svg
+                    class="w-6 h-6 text-gray-800"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -128,6 +165,8 @@
       currentIndex: 1,
       images: [],
       loading: true,
+      showModal: false,
+      selectedImage: null,
       async init() {
         this.loading = true;
         this.images = await getFlickrPhotos();
@@ -146,3 +185,9 @@
     }));
   });
 </script>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>
