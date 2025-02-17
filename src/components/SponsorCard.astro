@@ -40,10 +40,21 @@ const tierColor =
         : sponsor.tier === 'bronze'
           ? 'text-[#BB5522]'
           : '';
+
+const shadowColor =
+  sponsor.tier === 'platinum'
+    ? 'hover:shadow-[0px_10px_30px_rgba(23,113,230,0.4)]'
+    : sponsor.tier === 'gold'
+      ? 'hover:shadow-[0px_10px_30px_rgba(255,192,2,0.4)]'
+      : sponsor.tier === 'silver'
+        ? 'hover:shadow-[0px_10px_30px_rgba(154,155,160,0.4)]'
+        : sponsor.tier === 'bronze'
+          ? 'hover:shadow-[0px_10px_30px_rgba(187,85,34,0.4)]'
+          : '';
 ---
 
 <section
-  class="w-[350px] h-[500px] relative mt-16 group bg-slate-100 dark:bg-gray-200 m-4 rounded-2xl"
+  class={`w-[350px] h-[500px] relative mt-16 group bg-slate-100 dark:bg-gray-200 m-4 rounded-2xl transition-shadow duration-300 ${shadowColor}`}
 >
   <!-- <div>
     <img
