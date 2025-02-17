@@ -1,0 +1,332 @@
+---
+import { darkStyles } from "../utils/all";
+
+export const schedules = [
+  {
+    name: "Brawl Stars",
+    aula: "B1",
+    tags: ["Movil", "Competición"],
+    eventos: [
+      { time: "10:00 - 14:00", event: "Brawl Stars" }
+    ]
+  },
+  {
+    name: "EA Sports FC 25",
+    aula: "A1",
+    tags: ["Competición"],
+    eventos: [
+      { time: "10:00 - 14:30", event: "Fase Clasificatoria" },
+      { time: "15:30 - 17:00", event: "Fase Final" }
+    ]
+  },
+  {
+    name: "Futbolín",
+    aula: "Entrada",
+    tags: ["Competición", "Aire Libre"],
+    eventos: [
+      { time: "10:00 - 14:00", event: "Fase Clasificatoria" },
+      { time: "16:00 - 18:00", event: "Final" }
+    ]
+  },
+  {
+    name: "League of Legends",
+    aula: "B1",
+    tags: ["PC", "Competición"],
+    eventos: [
+      { time: "10:00 - 15:00", event: "Fase de Grupos" },
+      { time: "18:00 - 19:00", event: "Semifinal I" },
+      { time: "19:00 - 20:00", event: "Semifinal II" },
+      { time: "20:30 - 21:30", event: "Final" }
+    ]
+  },
+  {
+    name: "Mario Kart 8 Deluxe",
+    aula: "-1.1 y -1.2",
+    tags: ["Competición", "Switch"],
+    eventos: [
+      { time: "17:00 - 20:00", event: "Fase Clasificatoria" },
+      { time: "20:00 - 21:00", event: "Final" }
+    ]
+  },
+  {
+    name: "Minecraft: Hunger Games",
+    aula: "B1",
+    tags: ["PC"],
+    eventos: [
+      { time: "15:30 - 18:00", event: "Minecraft" }
+    ]
+  },
+  {
+    name: "Ping Pong",
+    aula: "Bajo",
+    tags: ["Competición", "Aire Libre"],
+    eventos: [
+      { time: "10:00 - 14:30", event: "Fase Clasificatoria" },
+      { time: "15:30 - 16:30", event: "Final" }
+    ]
+  },
+  {
+    name: "Rocket League 2vs2",
+    aula: "A2",
+    tags: ["Competición", "PC"],
+    eventos: [
+      { time: "15:30 - 18:00", event: "Fase Eliminatoria" },
+      { time: "18:00 - 19:00", event: "Final" }
+    ]
+  },
+  {
+    name: "Super Smash Bros Ultimate",
+    aula: "-1.2",
+    tags: ["Competición", "Switch"],
+    eventos: [
+      { time: "10:00 - 14:30", event: "Fase de Grupos" },
+      { time: "15:30 - 18:30", event: "Fase Eliminatoria" },
+      { time: "18:30 - 19:30", event: "Final" }
+    ]
+  },
+  {
+    name: "Valorant",
+    aula: "A2",
+    tags: ["PC", "Competición"],
+    eventos: [
+      { time: "10:00 - 15:00", event: "Fase de Grupos" },
+      { time: "17:30 - 18:30", event: "Semifinal I" },
+      { time: "18:30 - 19:30", event: "Semifinal II" },
+      { time: "19:30 - 20:30", event: "Final" }
+    ]
+  },
+  {
+    name: "Wii Sports: Bolos",
+    aula: "-1.1 y -1.2",
+    tags: ["Wii Sports", "Competición"],
+    eventos: [
+      { time: "10:00 - 14:00", event: "Wii Sports: Bolos" }
+    ]
+  },
+  {
+    name: "Wii Sports: Tennis",
+    aula: "A1",
+    tags: ["Wii Sports", "Competición"],
+    eventos: [
+      { time: "17:00 - 20:00", event: "Fase Clasificatoria" },
+      { time: "20:00 - 21:00", event: "Final" }
+    ]
+  }
+];
+
+
+const allTags = [...new Set(schedules.flatMap(game => game.tags))];
+---
+<head>
+    
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+<style>
+    #schedule {
+
+        text-align: center;
+        padding: 2%;
+        margin: 0; /* Eliminar cualquier margen en el contenedor principal */
+    }
+
+    h1 {
+        font-family: 'Inter', sans-serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .subtext {
+        font-family: 'Fragment Mono', sans-serif;
+        font-size: 1rem;
+        opacity: 0.8;
+        margin-bottom: 25px;
+    }
+
+    /*Buscador*/
+    .buscador{
+        padding: 8px 12px;
+        fontSize: 1rem;
+        marginTop: 10px;
+        width: 50%;
+        borderRadius: 5px;
+        border-radius: 10px;
+        color: #333;
+    }
+
+    .button-filter {
+        padding: 8px 12px;
+    } 
+
+    .fa-filter {
+        position: relative;
+        cursor: pointer
+    }
+
+    .filter-option {
+        position: absolute;
+        left: 65%;
+        zIndex: 10;
+        width: 20%;
+        padding: 10px;
+        textAlign: left;
+        border: none;
+        fontSize: 14px;
+        visibility: hidden;
+    }
+
+    .tag{
+        background: white;
+        border-radius: 5px;
+        border: none;
+        padding: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+        textAlign: left;
+        cursor: pointer;
+        color: #333
+    }
+
+    .tag:hover {
+        transform: scale(1.05);
+    }
+
+    .tag .selected{
+        background: red;
+        color: #011627;
+    }
+
+    .active-filters {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;  /* Centra los filtros de izquierda a derecha */
+        align-items: center;      /* Centra los filtros de arriba a abajo */
+        flex-wrap: wrap;          /* Asegura que los filtros se ajusten al espacio si es necesario */
+        gap: 10px;                /* Espacio entre los botones de filtros */
+    }
+
+    /* Contenedor del Horario */
+    .schedule {
+        display: flex;
+        justify-content: space-x-2;
+        width: 80vw;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    /* Lista de Juegos */
+    .games {
+        font-family: 'Inter', sans-serif;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Crear 2 columnas iguales */
+        gap: 12px;
+        margin: 0;
+        padding-left: 0;
+    }
+
+    /* Horarios */
+    .times {
+        display: flex;
+        padding: 0 20px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .time-slot {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .tabla{
+        padding-top: 50px; 
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+        .schedule {
+        flex-direction: column;
+        align-items: center;
+        }
+
+        /* Cambiar la dirección de los juegos a horizontal en pantallas pequeñas */
+        .games {
+        display: flex;
+        flex-direction: row; /* En pantallas pequeñas se alinean horizontalmente */
+        overflow-x: auto; /* Permitir el desplazamiento horizontal */
+        overflow-y: hidden; /* Ocultar la barra de desplazamiento vertical */
+        -ms-overflow-style: none;  /* Ocultar barra de desplazamiento en IE */
+        scrollbar-width: none; /* Ocultar barra de desplazamiento en Firefox */
+        gap: 12px;
+        white-space: nowrap; /* Evitar que se ajusten en múltiples líneas */
+        width: 100%; /* Asegurarse de que ocupe el ancho completo */
+        padding-bottom: 10px; /* Añadir un poco de espacio para el scroll */
+        user-select: none; /* Deshabilitar selección de texto */
+        cursor: grab; /* Cambiar el cursor a "agarrar" para indicar que se puede arrastrar */
+        }
+
+        /* Estilo de las barras de desplazamiento */
+        .games::-webkit-scrollbar {
+        width: 0;  /* Eliminar el ancho de la barra de desplazamiento */
+        height: 0; /* Eliminar la altura de la barra de desplazamiento */
+        }
+        .games button {
+        width: 350px; /* Aumentar el tamaño de los botones */
+        flex-shrink: 0; /* Evitar que los botones se encojan */
+        }
+
+        .times {
+        padding: 30px;
+        width: 100%;
+        text-align: center;
+        }
+
+        .time-slot {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+        }
+    }
+</style>
+
+<script src = "../scripts/schedule.js"></script>
+
+</head>
+<section id="schedule" class={`${darkStyles} text-white bg-primary`}>
+    <h1>Cronograma de Actividades</h1>
+    <p class="subtext">No es necesario que asistas todo el día. Puedes venir para las actividades que más te interesen.</p>
+    <input type="text" class="buscador" placeholder="Buscar juego..." id="searchInput">
+    <button class="button-filter" id="filterButton">
+        <i class="fa fa-filter" id="filterIcon":style="{ color: isClick ? '#D1A000' : 'white' }"></i>
+    </button>
+    
+    
+    <div class="filter-option" id="filterDropdown">
+        {allTags.map(tag => (
+            <button class="tag">
+              {tag}
+            </button>
+          ))}
+    </div>
+
+    <div class="active-filters" id="activeFilters">
+        
+    </div>
+    
+    <div class="schedule">
+        <div class="games" id="gameList">
+        </div>
+        <div class="times" id="gameInfo">
+        </div>
+    </div>
+
+    <div class="tabla" style="margin: 0 5%">
+        <img src="/assets/local_horarios/cronograma.svg" alt="imagen del cronograma"
+          class="object-cover object-center w-full h-full" />
+    </div>
+    
+</section>
+

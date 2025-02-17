@@ -3,7 +3,6 @@ import Team from '../../components/Team.astro';
 import Localizacionsection from '../../components/Localizacionsection.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Layout from '../../layouts/Layout.astro';
-import Horariosection from '../../components/Horariosection.astro';
 ---
 
 <Layout
@@ -11,8 +10,7 @@ import Horariosection from '../../components/Horariosection.astro';
   title="Localizacion y Horarios"
 >
   <Breadcrumb>
-    <Fragment slot="title">Localización y Horarios</Fragment>
+    <Fragment slot="title">Localización</Fragment>
   </Breadcrumb>
-  <Horariosection />
   <Localizacionsection />
 </Layout>

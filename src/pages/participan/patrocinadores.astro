@@ -1,162 +1,78 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
-import Colaborador from '../../components/Colaborador.astro';
+import ContactButton from '../../components/contactButton.astro';
+import SponsorCard from '../../components/SponsorCard.astro';
+import { darkStyles } from '../../utils/all';
 
-const patrocinadores = [
-    {
-        nombre: "GRANADA C.F.",
-        descripciones: [
-            "Es un gran placer para nosotros anunciar que el Granada Club de Fútbol se une como colaborador oficial en los emocionantes torneos de FIFA y Rocket League. Con una rica historia en el mundo del fútbol, el Granada C.F. extiende su pasión hacia el ámbito de los eSports, ofreciendo una experiencia única para los estudiantes aficionados que participan en la UGR LAN Party.",
-            "En esta colaboración, el Granada C.F. no solo aportará su espíritu deportivo, sino también valiosos recursos para elevar la calidad y el entusiasmo de los torneos. Los participantes tendrán la oportunidad de competir utilizando 2 PlayStation 5 y 4 mandos para el torneo de EA Sports FC 24.",
-            "Además, el Granada C.F. otorgará premios excepcionales que incluyen entradas para asistir a partidos de fútbol, brindando la oportunidad de vivir la emoción del juego en vivo, así como visitas guiadas a las instalaciones del club, donde los aficionados podrán sumergirse en la historia y la cultura del Granada C.F.",
-            "Os invitamos a seguir sus redes sociales:"
-        ],
-        logo: '/assets/participan/White/Empresas/granada-cf-white.png',
-        web: "https://www.granadacf.es",
-        rrss: {
-            "Twitter / X": "https://twitter.com/GranadaCF",
-            "Instagram": "https://www.instagram.com/granadacf/",
-            "Tiktok": "https://www.tiktok.com/@granadacf"
-        }
-    },
-    {
-        nombre: "Verdeluz",
-        descripciones: [
-            "Nos complace enormemente contar con el apoyo de Verdeluz como uno de los patrocinadores clave en nuestro evento. Verdeluz no es solo un nombre en el sector de la energía renovable; es un símbolo de compromiso con el desarrollo sostenible y la innovación ecológica. Invitamos a todos los asistentes a conocer más sobre cómo Verdeluz está marcando la diferencia en el mundo de la energía sostenible y cómo su visión y servicios pueden inspirar un cambio positivo en nuestra cotidianidad.",
-            "En esta edición proporcionarán al staff de la UGR LAN Party todas las camisetas oficiales del evento, que están siendo rediseñadas por completo. Podéis obtener más información sobre Verdeluz en su página web y seguir sus redes sociales:"
-        ],
-        logo: '/assets/participan/White/Empresas/verdeluz-white.png',
-        web: "https://verdeluz.es",
-        rrss: {
-            "Instagram": "https://www.instagram.com/verdeluz_energia/"
-        }
-    },
-    {
-        nombre: "Nazaríes Intelligenia",
-        descripciones: [
-            "Nazaríes IT es una consultora tecnológica especializada en el desarrollo de software a medida y en el desarrollo de soluciones tecnológicas en el ámbito de la monitorización y sensorización.  Cuentan con más de 10 años de experiencia en desarrollo de software para proporcionar a sus clientes soluciones innovadoras y personalizadas.",
-            "Este año vuelven a colaborar con nosotros en la UGR LAN Party, como principales patrocinadores del torneo de League of Legends. Además, el día del evento contarán con un stand donde podréis conocer más sobre su empresa e interesaros por los perfiles tecnológicos de estudiantes que buscan.",
-            "Os invitamos a seguir sus redes sociales:"
-        ],
-        logo: '/assets/participan/White/Empresas/nazaries-white.png',
-        web: "https://www.nazaries.com",
-        rrss: {
-            "Twitter / X": "https://twitter.com/intelligenia",
-            "Instagram": "https://www.instagram.com/nazaries_intelligenia/",
-            "LinkedIn": "https://www.linkedin.com/company/nazaries-intelligenia/"
-        }
-    },
-    {
-        nombre: "University Esports",
-        descripciones: [
-            "Nos complace anunciar que University Esports se une como colaborador oficial de la UGR LAN PARTY. Siendo una empresa tecnológica multidisciplinar, University Esports se especializa en ofrecer soluciones tecnológicas y en el desarrollo de videojuegos. Han colaborado en proyectos junto a marcas de renombre como Amazon, Intel, Riot Games o Tencent, lo que garantiza su compromiso con la calidad y la innovación.",
-            "En esta edición proporcionarán 15 packs completos de merchandising así como una plaza para el próximo University Tour con todos los gastos pagados para quien se lleve el MVP del Torneo de VALORANT.",
-            "Podéis visitar su página web y seguir sus redes sociales:"
-        ],
-        logo: '/assets/participan/White/Empresas/university-esports-white.png',
-        web: "https://ggtech.gg",
-        rrss: {
-            "Twitter": "https://twitter.com/GGTech_gg",
-            "Instagram": "https://www.instagram.com/ggtech_gg/",
-            "YouTube": "https://www.youtube.com/@GGtech_gg"
-        }
-    },
-    {
-        nombre: "Cívica Software",
-        descripciones: [
-            "Se trata de una empresa del sector tecnológico especializada en la implantación de estrategias de autoservicio, BI operacional, uso de tecnologías Big Data y arquitecturas federadas que simplifiquen la utilización de datos  a nivel corporativo con la mayor sencillez y fiabilidad.",
-            "Diseñan modelos de aprovisionamiento, gobierno y distribución de información que permiten a sus clientes sacar el máximo provecho de todos los datos internos y externos y convertirlos en un activo que facilite modelos empresariales Data-Driven.",
-            "Este año volvemos a contar con su generoso patrocinio en los distintos torneos de la 6ª Edición de la UGR LAN Party. Os invitamos a seguir sus redes sociales e informaros de su amplio proyecto tecnológico:"
-        ],
-        logo: '/assets/participan/White/Empresas/civica-white.png',
-        web: "https://civica-soft.com",
-        rrss: {
-            "LinkedIn": "https://www.linkedin.com/company/civica-soft/"
-        }
-    },
-    {
-        nombre: "ESADA | Escuela Superior de Arte y Diseño de Andalucía",
-        descripciones: [
-            "Estudia las Carreras Oficiales en Diseño (Interiores, Producto, Moda y Gráfico) en pleno centro de Granada. ESADA es el único centro educativo Andaluz que ofrece una amplia gama de especializaciones en diseño, preparando a sus estudiantes para una carrera profesional exitosa en el mundo del arte y el diseño.",
-            "La oferta formativa oficial incluye Diseño de Interiores, donde se ofertan conocimientos para transformar espacios internos; Diseño Gráfico, que prepara a los estudiantes para comunicar visualmente mensajes claros y efectivos; y Diseño de Moda, donde se explora la moda como cultura y se estudia desde una perspectiva amplia y contemporánea.",
-            "ESADA ofrece también una Escuela Virtual, permitiendo a los estudiantes acceder a una educación de calidad en diseño desde cualquier parte, combinando la flexibilidad de la educación en línea con la rigurosidad y la calidad de sus programas presenciales."
-        ],
-        logo: '/assets/participan/White/Empresas/esada-white.png',
-        web: "https://www.esada.es/",
-        rrss: {
-            "Facebook": "https://es-es.facebook.com/esadagrx/",
-            "Instagram": "https://www.instagram.com/esadagrx/"
-        }
-    },
-    // {
-    //     nombre: "No Solo PC Informática",
-    //     descripciones: [
-    //         "Se trata de una tienda de Informática y Reparación que se encuentra en Granada y Jaén. Ofrecen soporte técnico y mantenimiento informático al consumidor final y a empresas, además de un servicio de reparación de telefonía, tablets, portátiles, ordenadores de sobremesa (tanto Mac como PC), consolas y todo tipo de televisiones. ",
-    //         "Como toda tienda de informática, también cuentan con la venta de móviles, portátiles, consolas, cables, periféricos, TV, consumibles (tintas y toners), tanto con marcas originales como compatibles, etc. Además, en caso de no poder llevar tu dispositivo, ellos pueden pasar a recogerlo estés donde estés. Su servicio técnico es rápido y barato. Reparaciones exprés, desde 20 minutos en función de la avería pueden tener listo tu dispositivo.",
-    //         "Desde el año 2022, cuentan con la Certificación de Apple, como empresa «Apple Independent Repair Provider». Esto les permite trabajar con piezas y recambios originales de Apple, además de utilizar técnicas, tecnología y formación de Apple. Todos sus técnicos cuentan con la Certificación Apple.",
-    //         "Son considerados algo más que una tienda de informática, pues, son Distribuidores Oficiales de Cashlogy by Azkoyen y Software Ágora en Granada y Jaén, por lo que brindan un servicio de calidad premium a empresas de Hostelería y Retail.",
-    //         "Os invitamos a visitar su página web:"
-    //     ],
-    //     logo: '/assets/participan/White/Empresas/no-solo-pc-white.png',
-    //     web: "https://www.informaticanosolopc.com",
-    //     rrss: {}
-    // },
-    {
-        nombre: "TAINE",
-        descripciones: [
-            "TAINE es una destacada empresa granadina, especializada en ofrecer una amplia gama de productos de papelería, material escolar y artículos para bellas artes. Con una sólida reputación en el mercado, TAINE se distingue por su compromiso con la calidad, ofreciendo tanto a particulares como a empresas una variada selección de mobiliario y material de oficina que satisface las necesidades más exigentes.",
-            "Comprometidos con la comunidad y el desarrollo local, TAINE invita a todos a explorar su catálogo de productos y descubrir cómo pueden mejorar su espacio de trabajo o estudio. Además, su presencia activa en redes sociales permite a clientes y entusiastas de la papelería estar al tanto de las últimas novedades y promociones.",
-            "Para saber más sobre TAINE y explorar su extenso catálogo de productos, no dudes en visitar sus plataformas digitales:"
-        ],
-        logo: '/assets/participan/White/Empresas/taine-white.png',
-        web: "https://www.taine.es",
-        rrss: {
-            "Instagram": "https://www.instagram.com/tecnica_taine/",
-            "Tiktok": "https://www.tiktok.com/@tecnicataine",
-            "Facebook": "https://www.facebook.com/tecnicataine"
-        }
-    },
-    {
-        nombre: "Fórmula Karting Granada",
-        descripciones: [
-            "Fórmula Karting Granada se posiciona como el destino predilecto para los aficionados al karting y la velocidad en Granada. Con instalaciones de primera línea diseñadas para ofrecer la máxima emoción y seguridad, este circuito invita tanto a principiantes como a pilotos experimentados a poner a prueba sus habilidades de conducción en un entorno competitivo y divertido.",
-            "Con una fuerte pasión por el deporte motor y un compromiso inquebrantable con la experiencia del cliente, Fórmula Karting Granada ofrece una variedad de karts para todas las edades, asegurando que cada visitante encuentre el desafío y la diversión que busca. Ya sea que busques organizar un evento inolvidable, celebrar una ocasión especial o simplemente disfrutar de la adrenalina del karting, este es el lugar ideal.",
-            "Descubre más sobre Fórmula Karting Granada y planea tu próxima aventura de alta velocidad visitando:"
-        ],
-        logo: '/assets/participan/White/Empresas/formula-karting-white.png',
-        web: "https://www.formulakarting.es",
-        rrss: {}
-    },
-    {
-        nombre: "GRX Customs",
-        descripciones: [
-            "GRX Customs es un proyecto de impresión 3D de dos antiguos alumnos de informática. Ofrecen impresiones personalizadas y únicas para cada cliente como por ejemplo llaveros, cuadros decorativos y accesorios para juegos de mesa.",
-            "Colaboran ofreciendo llaveros con el logo del evento para todos los campeones de los torneos. Si quieres ver algunos de los productos que ofrecen visita sus redes sociales y no dudes en enviarles un mensaje, estarán encantados de recibir propuestas."
-        ],
-        logo: '/assets/participan/White/Empresas/grx-customs-white.png',
-        web: "https://www.instagram.com/grx_customs",
-        rrss: {}
-    },
-];
+import {
+  sponsorsPlatinum,
+  sponsorsGold,
+  sponsorsSilver,
+  sponsorsBronze,
+} from '../../data/sponsors.ts';
 ---
 
 <Layout title="Patrocinadores">
+  <Breadcrumb>
+    <Fragment slot="title">Patrocinadores</Fragment>
+    <Fragment slot="texto">
+      Conoce a los patrocinadores que hacen posible este evento.
+    </Fragment>
+  </Breadcrumb>
+  <div
+    class={`w-full flex flex-col items-center justify-center ${darkStyles}`}
+  >
+    <section class="h-[200px] flex flex-col items-center justify-center gap-4">
+      <h3 class="text-2xl font-semibold text-center dark:text-white">
+        ¿Quieres ser parte del proyecto?
+      </h3>
+      <ContactButton />
+    </section>
 
-    <Breadcrumb>
-        <Fragment slot="title">Patrocinadores</Fragment>
-        <Fragment slot="texto">Conoce a los patrocinadores que hacen posible este evento.</Fragment>
-    </Breadcrumb>
-
-    <div class="patrocinadores">
-        {patrocinadores.map(patrocinador => (
-            <Colaborador {...patrocinador} />
-        ))}
-    </div>
+    <main class="flex flex-col items-center justify-center mx-4 mb-16 gap-8">
+      <div>
+        <h3 class="text-4xl font-extrabold text-[#1771E6] text-center">
+          Patrocinadores Platino
+        </h3>
+        <div
+          class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
+        >
+          {sponsorsPlatinum.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+        </div>
+      </div>
+      <div>
+        <h3 class="text-4xl font-extrabold text-[#FFC002] text-center">
+          Patrocinadores Oro
+        </h3>
+        <div
+          class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
+        >
+          {sponsorsGold.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+        </div>
+      </div>
+      <div>
+        <h3 class="text-4xl font-extrabold text-[#9a9ba0] text-center">
+          Patrocinadores Plata
+        </h3>
+        <div
+          class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
+        >
+          {sponsorsSilver.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+        </div>
+      </div>
+      <div>
+        <h3 class="text-4xl font-extrabold text-[#BB5522] text-center">
+          Patrocinadores Bronce
+        </h3>
+        <div
+          class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
+        >
+          {sponsorsBronze.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+        </div>
+      </div>
+    </main>
+  </div>
 </Layout>
 
-<style>
-.patrocinadores {
-    /* Estilos para el contenedor de patrocinadores */
-}
-</style>
+<style></style>

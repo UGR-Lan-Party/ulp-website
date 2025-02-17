@@ -1,0 +1,27 @@
+---
+import type { SponsorLink } from '../data/sponsors.ts';
+import XIcon from '../../public/assets/icons/XIcon.astro';
+import FacebookIcon from '../../public/assets/icons/FacebookIcon.astro';
+import InstagramIcon from '../../public/assets/icons/InstagramIcon.astro';
+import WebIcon from '../../public/assets/icons/WebIcon.astro';
+import TikTokIcon from '../../public/assets/icons/TikTokIcon.astro';
+import LinkedInIcon from '../../public/assets/icons/LinkedInIcon.astro';
+
+interface Props {
+  sponsorLink: SponsorLink;
+}
+const { sponsorLink } = Astro.props as Props;
+---
+
+<a
+  href={sponsorLink.link}
+  target="_blank"
+  class="dark:text-primary hover:text-slate-400 dark:hover:text-slate-500"
+>
+  {sponsorLink.rrss === 'X' && <XIcon />}
+  {sponsorLink.rrss === 'Facebook' && <FacebookIcon />}
+  {sponsorLink.rrss === 'Web' && <WebIcon />}
+  {sponsorLink.rrss === 'Instagram' && <InstagramIcon />}
+  {sponsorLink.rrss === 'LinkedIn' && <LinkedInIcon />}
+  {sponsorLink.rrss === 'TikTok' && <TikTokIcon />}
+</a>

@@ -190,6 +190,15 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
+"legal": {
+"legal.md": {
+	id: "legal.md";
+  slug: "legal";
+  body: string;
+  collection: "legal";
+  data: InferEntrySchema<"legal">
+} & { render(): Render[".md"] };
+};
 
 	};
 
