@@ -22,7 +22,7 @@ jobs:
         run: npm install -g unlighthouse
 
       - name: Run Unlighthouse
-        run: unlighthouse ci https://ulp.ugr.es --site-key ulp-ugr --budget '{"performance":90,"accessibility":90,"best-practices":90,"seo":90}'
+        run: unlighthouse ci --site https://ulp.ugr.es --site-key ulp-ugr --budget '{"performance":90,"accessibility":90,"best-practices":90,"seo":90}'
         # en el budget he definido los valores que considero aceptables para cada uno de los aspectos que se puede medir
         # los valores que yo es puesto son completamente subjetivos, y he puesto 90 porque me ha dado la gana jaja
 
