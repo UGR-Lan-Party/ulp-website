@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for(let i = 0; i < numberOfPages; i++){
         const pageButton = document.createElement('button');
         pageButton.textContent = i + 1;
-        pageButton.className = 'rounded-full duration-300 bg-primary text-white hover:bg-secondary min-w-[50px] min-h-[50px] min-h-4 text-xl lg:text-3xl transition-all ease-in-out shadow-black dark:shadow-white'
+        pageButton.className = 'rounded-full duration-300 bg-primary text-white hover:bg-secondary min-w-[50px] min-h-[50px] min-h-4 text-xl lg:text-3xl transition-all ease-in-out shadow-black'
         
         if(i === 0){
             pageButton.classList.remove('bg-primary');
