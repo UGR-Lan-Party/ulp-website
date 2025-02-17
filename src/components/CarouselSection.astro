@@ -2,16 +2,25 @@
 import { darkStyles } from '../utils/all';
 
 interface Props {
-  paddingClass?: string;
+  albumId: string;
+  userId: string;
+  withBackground?: boolean;
+  height?: string;
 }
 
-const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
+const { 
+  albumId, 
+  userId, 
+  withBackground = true,
+  height = "600px"
+} = Astro.props;
+
+const containerClass = withBackground 
+  ? `bg-gray-1 ${darkStyles} pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]`
+  : '';
 ---
 
-<section
-  id="about"
-  class={`bg-gray-1 ${darkStyles} ${paddingClass}`}
->
+<section class={containerClass}>
   <div class="container w-full px-4">
     <div class="wow fadeInUp" data-wow-delay=".2s">
       <div class="flex flex-wrap items-center border-solid border-10">
@@ -20,7 +29,7 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
             x-data="imageSlider"
             class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-md p-2 sm:p-4"
           >
-            <div class="relative h-[38rem] w-full">
+            <div class="relative" style={`height: ${height};`}>
               <button
                 @click="previous()"
                 class="group absolute left-8 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100/80 hover:bg-primary shadow-md backdrop-blur-sm"
@@ -146,11 +155,11 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
 ></script>
-<script is:inline>
+<script define:vars={{ albumId, userId }}>
   async function getFlickrPhotos() {
     const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
-    const ALBUM_ID = '72177720316026867';
-    const USER_ID = '195749897@N03';
+    const ALBUM_ID = albumId;
+    const USER_ID = userId;
 
     const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${ALBUM_ID}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=url_k,o_dims`;
 

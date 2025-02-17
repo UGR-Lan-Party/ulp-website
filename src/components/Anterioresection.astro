@@ -1,4 +1,6 @@
 ---
+import CarouselSection from './CarouselSection.astro';
+
 const anteriores = [
   {
     title: "Primera edición (2015/2016)",
@@ -29,56 +31,12 @@ const anteriores = [
 ---
 
 <!-- ====== Ediciones Anteriores Section Start -->
-<section class="relative z-20 overflow-hidden  pt-20 pb-8 lg:pt-[120px] lg:pb-[50px]">
-    <div class="container mx-auto">
-        <div class="flex flex-wrap">
-            <div class="w-full lg:w-1/2">
-                {
-                    anteriores.map((item, index) => {
-                        if (index % 2 == 0) {
-                            return (
-                                <div class="wow fadeInUp mb-12 flex lg:mb-[70px]" style="padding: 3rem" data-wow-delay=".1s">
-                                    <div class="mx-auto">
-                                        <a href={item.link}>
-                                        <div class="w-full">
-                                            <h3 class="mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                                                {item.title}
-                                            </h3>
-                                        </div>
-                                        <img src={item.path} alt="logo de edición anterior" class="object-cover object-center mx-auto h-[300px]" />
-                                        </a>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })
-                }
-            </div>
-
-            <div class="w-full px-4 lg:w-1/2">
-                {
-                    anteriores.map((item, index) => {
-                        if (index % 2 !== 0) {
-                            return (
-                                <div class="wow fadeInUp mb-12 flex lg:mb-[70px]" style="padding: 3rem" data-wow-delay=".1s">
-                                    <div class="mx-auto">
-                                        <a href={item.link}>
-                                        <div class="w-full">
-                                            <h3 class="mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
-                                                {item.title}
-                                            </h3>
-                                        </div>
-                                        <img src={item.path} alt="logo de edición anterior" class="object-cover object-center mx-auto h-[300px]" />
-                                        </a>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })
-                }
-            </div>
-        </div>
-    </div>
-
-</section>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <div class="md:col-span-2">
+    <slot name="carousel" />
+  </div>
+  <div class="md:col-span-1">
+    <slot name="content" />
+  </div>
+</div>
 <!-- ====== Ediciones Anteriores Section End -->
