@@ -34,10 +34,10 @@ const { description, title, image } = Astro.props;
 
     <title>{title ? title + ' | ULP' : 'UGR Lan Party'}</title>
   </head>
-  <body class={`${darkStyles}`}>
+  <body class={`h-screen ${darkStyles}`}>
     <Header />
     <!-- <Header client:load /> -->
-    <main>
+    <main class="min-h-screen">
       <slot />
     </main>
     <Footer />
