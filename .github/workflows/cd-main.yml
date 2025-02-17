@@ -1,0 +1,60 @@
+name: CD - Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build website
+        run: pnpm build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist  # Adjust this to your build output directory
+
+      # Wait for GitHub Pages deployment to complete
+      - name: Wait for deployment
+        run: |
+          # Extract repository name for the URL
+          REPO_NAME=${GITHUB_REPOSITORY#*/}
+          # Wait for GitHub Pages to be ready (usually takes 1-2 minutes)
+          sleep 120
+          # Store the GitHub Pages URL
+          echo "SITE_URL=https://${{ github.repository_owner }}.github.io/$REPO_NAME" >> $GITHUB_ENV
+
+      # Run Unlighthouse audit
+      - name: Install Unlighthouse
+        run: pnpm add -g @unlighthouse/cli
+
+      - name: Run Unlighthouse audit
+        run: unlighthouse-ci --site ${{ env.SITE_URL }} --config unlighthouse.config.ts
+
+      # Upload results as artifacts
+      - name: Upload Unlighthouse results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unlighthouse-results
+          path: .unlighthouse
