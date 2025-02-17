@@ -43,7 +43,7 @@ const tierColor =
 ---
 
 <section
-  class="w-[350px] h-[500px] relative mt-16 group bg-slate-100 dark:bg-slate-700 m-4 rounded-2xl"
+  class="w-[350px] h-[500px] relative mt-16 group bg-slate-100 dark:bg-gray-200 m-4 rounded-2xl"
 >
   <!-- <div>
     <img
@@ -65,11 +65,11 @@ const tierColor =
   />
   <!-- grayscale transition-all duration-200 group-hover:grayscale-0 -->
   <section class="m-4">
-    <p class="font-bold text-xl text-center dark:text-white">{sponsor.name}</p>
+    <p class="font-bold text-xl text-center dark:text-primary">{sponsor.name}</p>
     <p class={`font-medium text-md text-center ${tierColor}`}>
       {sponsor.bussiness}
     </p>
-    <p class="text-sm mt-2 dark:text-slate-100 text-justify">
+    <p class="text-sm mt-2 dark:text-tertiary text-justify">
       {sponsor.description}
     </p>
   </section>

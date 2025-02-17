@@ -34,11 +34,11 @@ publishedBlogEntries.sort(function (a, b) {
                     class="w-full h-full object-cover">
                   </div>
 
-                  <div class="back rounded-[5px] p-4 bg-secondary dark:bg-gray-800">
+                  <div class="back rounded-[5px] p-4 bg-secondary dark:bg-gray-200">
                     <div>
                       <h3>
                         <span
-                          class="inline-block text-xl font-semibold text-white  sm:text-2xl lg:text-xl xl:text-2xl mb-2"
+                          class="inline-block text-xl font-semibold text-white dark:text-primary  sm:text-2xl lg:text-xl xl:text-2xl mb-2"
                         >
                           {blogPostEntry.data.title}
                         </span>
@@ -46,7 +46,7 @@ publishedBlogEntries.sort(function (a, b) {
                       <span class="px-2 py-1 text-xs font-medium leading-loose text-center text-white rounded-[5px] bg-primary">
                         {blogPostEntry.data.publishDate.toDateString()}
                       </span>
-                      <p class="max-w-[370px] text-base  text-dark-6 mt-4">
+                      <p class="max-w-[370px] text-base  text-dark-6 dark:text-secondary mt-4">
                         {`${blogPostEntry.data.postDetails.paraOne.slice(0, 150)}...`}
                       </p>
                     </div>
