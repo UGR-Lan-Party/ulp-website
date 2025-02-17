@@ -3,6 +3,7 @@
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro'; // Ajusta la ruta según la ubicación de tu archivo Breadcrumb
 
+
 const menuItems = [
   { title: 'League of Legends', path: '/competiciones/league-of-legends' },
   { title: 'Valorant', path: '/competiciones/valorant' },
@@ -58,11 +59,11 @@ const menuItems = [
     <Fragment slot="texto">Explora las competiciones disponibles y únete a la que más te guste.</Fragment>
   </Breadcrumb>
 
-  <section class="relative overflow-hidden py-20 lg:py-[115px] bg-gradient-to-bl from-primary/80 from-30% via-secondary/85 via-70% to-tertiary/95">
+  <section class={`relative overflow-hidden py-20 lg:py-[115px] bg-gradient-to-bl`}>
     <div class="container mx-auto">
-      <h1 class="text-3xl font-bold text-white text-center mb-8">Competiciones disponibles</h1>
-      <p class="text-white text-center">Haz click sobre aquella que te interese.</p>
-      <p class="text-white text-center mb-12">Recuerda que puedes apuntarte a varias siempre y cuando no se solapen horarios entre sí.</p>
+      <h1 class="text-3xl font-bold dark:text-white text-center mb-8">Competiciones disponibles</h1>
+      <p class="dark:text-white text-center">Haz click sobre aquella que te interese.</p>
+      <p class="dark:text-white text-center mb-12">Recuerda que puedes apuntarte a varias siempre y cuando no se solapen horarios entre sí.</p>
       <div class="grid grid-cols-1 gap-6">
         {
           menuItems.map((item) => (

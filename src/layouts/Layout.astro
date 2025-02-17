@@ -2,6 +2,7 @@
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
+import { darkStyles } from '../utils/all';
 
 interface Props {
   description?: string;
@@ -33,7 +34,7 @@ const { description, title, image } = Astro.props;
 
     <title>{title ? title + ' | ULP' : 'UGR Lan Party'}</title>
   </head>
-  <body class="h-screen">
+  <body class="h-screen" class={`${darkStyles}`}>
     <Header />
     <!-- <Header client:load /> -->
     <main class="min-h-screen">

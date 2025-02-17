@@ -136,7 +136,7 @@ const colaboradores = [
         <Fragment slot="texto">Conoce a los colaboradores que hacen posible este evento.</Fragment>
     </Breadcrumb>
 
-    <div class="colaboradores">
+    <div class={`colaboradores`}>
         {colaboradores.map(colaborador => (
             <Colaborador {...colaborador} />
         ))}
@@ -146,5 +146,6 @@ const colaboradores = [
 <style>
 .colaboradores {
     /* Estilos para el contenedor de colaboradores */
+
 }
 </style>
