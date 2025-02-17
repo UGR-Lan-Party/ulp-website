@@ -1,4 +1,6 @@
 ---
+import { darkStyles } from "../utils/all";
+
 export const schedules = [
   {
     name: "Brawl Stars",
@@ -122,8 +124,7 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
 <style>
     #schedule {
-        background: #004465;
-        color: white;
+
         text-align: center;
         padding: 2%;
         margin: 0; /* Eliminar cualquier margen en el contenedor principal */
@@ -294,7 +295,7 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
 <script src = "../scripts/schedule.js"></script>
 
 </head>
-<section id="schedule">
+<section id="schedule" class={`${darkStyles} text-white bg-primary`}>
     <h1>Cronograma de Actividades</h1>
     <p class="subtext">No es necesario que asistas todo el día. Puedes venir para las actividades que más te interesen.</p>
     <input type="text" class="buscador" placeholder="Buscar juego..." id="searchInput">

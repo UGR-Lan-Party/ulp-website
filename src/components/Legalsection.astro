@@ -49,10 +49,10 @@ const iconMap: { [key: string]: string } = {
           const iconSVG = iconMap[section.title] ?? "";
           return (
           <details 
-            class="group border border-gray-300 dark:border-gray-600 rounded-lg p-4 transition-all duration-300 ease-in-out overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-blue-400/50 hover:border-gray-400 dark:hover:border-blue-400"
+            class="group border border-gray-300 dark:border-gray-200 dark:bg-gray-200 rounded-lg p-4 transition-all duration-300 ease-in-out overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-blue-400/50 hover:border-gray-400 dark:hover:border-blue-400"
           >
             <summary 
-              class="cursor-pointer font-semibold text-lg text-dark dark:text-white flex justify-between items-center select-none"
+              class="cursor-pointer font-semibold text-lg text-dark dark:text-primary  flex justify-between items-center select-none"
             >
               <div class="flex items-center gap-4">
                 <span set:html={iconSVG} />
@@ -62,7 +62,7 @@ const iconMap: { [key: string]: string } = {
                 ▼
               </span>
             </summary>
-            <div class="mt-3 text-gray-700 dark:text-gray-300 transition-opacity duration-300 ease-in-out group-open:opacity-100 opacity-0">
+            <div class="mt-3 text-gray-700 dark:text-secondary transition-opacity duration-300 ease-in-out group-open:opacity-100 opacity-0">
               {section.content}
             </div>
           </details>
