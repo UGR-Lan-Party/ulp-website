@@ -1,6 +1,6 @@
 ---
-import Anterioresection from '../../components/Anterioresection.astro';
-import CarouselSection from '../../components/CarouselSection.astro';
+import RightCarouselSection from '../../components/RightCarouselSection.astro';
+import LeftCarouselSection from '../../components/LeftCarouselSection.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Layout from '../../layouts/Layout.astro';
 import { darkStyles } from "../../utils/all"
@@ -14,40 +14,19 @@ import { darkStyles } from "../../utils/all"
     <Fragment slot="title">Ediciones Anteriores</Fragment>
   </Breadcrumb>
 
-  <section class={`bg-gray-1 ${darkStyles} pt-20 pb-8 lg:pt-[120px] lg:pb-[70px]`}>
-    <div class="container">
-      <div class="wow fadeInUp" data-wow-delay=".2s">
-        <div class="flex flex-wrap items-center">
-          <div class="w-full px-4 lg:w-2/5">
-            <div class="mb-12 max-w-[440px] lg:mb-0">
-              <h2 class="mb-5 text-3xl font-bold leading-tight text-dark dark:text-white sm:text-[40px] sm:leading-[1.2]">
-                Quinta Edición
-              </h2>
-              <span class="block text-xl mb-8 text-body-color dark:text-dark-6">Mayo 2023</span>
-              <p class="mb-10 text-base leading-relaxed text-body-color dark:text-dark-6 text-justify">
-                La UGR LAN Party ha sido testigo de numerosas ediciones exitosas donde la comunidad universitaria 
-                se ha reunido para disfrutar de los videojuegos y la tecnología.
-                <br><br>
-                A lo largo de los años, hemos organizado eventos memorables llenos de torneos, charlas y 
-                momentos inolvidables que han forjado nuestra historia.
-              </p>
-            </div>
-          </div>
+  <RightCarouselSection
+    title="Sexta Edición"
+    date="Octubre 2023"
+    description="En esta edición, superamos todas las expectativas con un evento que reunió a más de 300 participantes. Expandimos nuestras actividades incluyendo nuevos torneos y experiencias interactivas. Destacaron especialmente los torneos de VALORANT y League of Legends, así como las nuevas actividades de realidad virtual y los talleres de desarrollo de videojuegos."
+    albumId="72177720316026867"
+    userId="195749897@N03"
+  />
 
-          <div class="w-full px-4 lg:w-3/5">
-            <div class="flex flex-wrap">
-              <div class="w-full">
-                <CarouselSection 
-                  albumId="72177720316026867" 
-                  userId="195749897@N03"
-                  withBackground={false}
-                  height="400px"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <LeftCarouselSection
+    title="Quinta Edición"
+    date="Mayo 2023"
+    description="La UGR LAN Party ha sido testigo de numerosas ediciones exitosas donde la comunidad universitaria se ha reunido para disfrutar de los videojuegos y la tecnología. A lo largo de los años, hemos organizado eventos memorables llenos de torneos, charlas y momentos inolvidables que han forjado nuestra historia."
+    albumId="72177720308548822"
+    userId="195749897@N03"
+  />
 </Layout>

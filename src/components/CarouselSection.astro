@@ -6,13 +6,15 @@ interface Props {
   userId: string;
   withBackground?: boolean;
   height?: string;
+  instanceId?: string;
 }
 
 const { 
   albumId, 
   userId, 
   withBackground = true,
-  height = "600px"
+  height = "600px",
+  instanceId = `carousel-${albumId}`
 } = Astro.props;
 
 const containerClass = withBackground 
@@ -26,10 +28,16 @@ const containerClass = withBackground
       <div class="flex flex-wrap items-center border-solid border-10">
         <div class="w-full px-4">
           <div
-            x-data="imageSlider"
-            class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-md p-2 sm:p-4"
+            x-data={`imageSlider('${albumId}', '${userId}')`}
+            class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-lg"
           >
-            <div class="relative" style={`height: ${height};`}>
+            <div 
+              class={`relative rounded-lg overflow-hidden aspect-w-16 aspect-h-9`} 
+              style={`height: ${height}`}
+              data-album-id={albumId}
+              data-user-id={userId}
+              id={instanceId}
+            >
               <button
                 @click="previous()"
                 class="group absolute left-8 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100/80 hover:bg-primary shadow-md backdrop-blur-sm"
@@ -70,7 +78,7 @@ const containerClass = withBackground
                 </svg>
               </button>
 
-              <div class="h-full w-full flex items-center justify-center">
+              <div class="h-full w-full flex items-center justify-center overflow-hidden">
                 <template x-for="(image, index) in images">
                   <div
                     x-show="currentIndex == index + 1"
@@ -85,7 +93,7 @@ const containerClass = withBackground
                     <img
                       :src="image"
                       alt="image"
-                      class="rounded-md object-cover w-full h-full cursor-pointer"
+                      class="w-full h-full object-cover cursor-pointer"
                       @click="showModal = true; selectedImage = image"
                     />
                   </div>
@@ -156,40 +164,44 @@ const containerClass = withBackground
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
 ></script>
 <script define:vars={{ albumId, userId }}>
-  async function getFlickrPhotos() {
+  async function getFlickrPhotos(albumId, userId) {
     const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
-    const ALBUM_ID = albumId;
-    const USER_ID = userId;
+    const timestamp = new Date().getTime();
+    
+    console.log(`[Flickr API] Loading album ${albumId} for user ${userId}`);
 
-    const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${ALBUM_ID}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=url_k,o_dims`;
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${albumId}&user_id=${userId}&format=json&nojsoncallback=1&extras=url_k,o_dims&timestamp=${timestamp}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
+      console.log(`[Flickr API] Response for album ${albumId}:`, data);
       return data.photoset.photo
-        .filter((photo) => {
-          // Verificar si la foto es horizontal (ancho > alto)
-          return photo.width_k > photo.height_k;
-        })
-        .map((photo) => photo.url_k)
-        .filter((url) => url);
+        .filter(photo => photo.width_k > photo.height_k)
+        .map(photo => photo.url_k)
+        .filter(url => url);
     } catch (error) {
-      console.error('Error fetching Flickr photos:', error);
+      console.error(`[Flickr API] Error fetching photos for album ${albumId}:`, error);
       return [];
     }
   }
 
   document.addEventListener('alpine:init', () => {
-    Alpine.data('imageSlider', () => ({
+    Alpine.data('imageSlider', (albumId, userId) => ({
       currentIndex: 1,
       images: [],
       loading: true,
       showModal: false,
       selectedImage: null,
+      albumId,
+      userId,
+
       async init() {
+        console.log(`[Alpine] Initializing slider for album ${this.albumId}`);
         this.loading = true;
-        this.images = await getFlickrPhotos();
+        this.images = await getFlickrPhotos(this.albumId, this.userId);
         this.loading = false;
+        console.log(`[Alpine] Loaded ${this.images.length} images for album ${this.albumId}`);
       },
       previous() {
         if (this.currentIndex > 1) {
