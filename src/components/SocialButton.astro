@@ -16,7 +16,7 @@ const { sponsorLink } = Astro.props as Props;
 <a
   href={sponsorLink.link}
   target="_blank"
-  class="dark:text-primary hover:text-slate-400 dark:hover:text-slate-500"
+  class="text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-primary"
 >
   {sponsorLink.rrss === 'X' && <XIcon />}
   {sponsorLink.rrss === 'Facebook' && <FacebookIcon />}
