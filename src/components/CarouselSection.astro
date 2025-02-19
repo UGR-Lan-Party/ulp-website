@@ -19,7 +19,7 @@ const {
 
 const containerClass = withBackground 
   ? `bg-gray-1 ${darkStyles} pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]`
-  : '';
+  : 'bg-transparent';
 ---
 
 <section class={containerClass}>
@@ -29,10 +29,10 @@ const containerClass = withBackground
         <div class="w-full px-4">
           <div
             x-data={`imageSlider('${albumId}', '${userId}')`}
-            class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-lg"
+            class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-lg bg-transparent"
           >
             <div 
-              class={`relative rounded-lg overflow-hidden aspect-w-16 aspect-h-9`} 
+              class={`relative rounded-lg overflow-hidden aspect-w-16 aspect-h-9 bg-transparent`} 
               style={`height: ${height}`}
               data-album-id={albumId}
               data-user-id={userId}
