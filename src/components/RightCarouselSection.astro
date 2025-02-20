@@ -7,9 +7,10 @@ interface Props {
   description: string;
   albumId: string;
   userId: string;
+  unlimitedHeight?: boolean;
 }
 
-const { title, date, description, albumId, userId } = Astro.props;
+const { title, date, description, albumId, userId, unlimitedHeight = false } = Astro.props;
 // Agregar un ID único para cada instancia
 const instanceId = `right-carousel-${albumId}`;
 console.log(`[${instanceId}] Initializing with:`, { albumId, userId, title });
@@ -39,10 +40,11 @@ const darkStyles = "dark:bg-dark dark:text-white";
 
         <div class="w-full px-4 lg:w-3/5">
           <div class="flex flex-wrap justify-center">
-            <div class="w-full">
+            <div class="w-full relative h-fit">
               <CarouselSection 
                 albumId={albumId}
                 userId={userId}
+                unlimitedHeight={unlimitedHeight}
                 withBackground={false}
                 height="400px"
                 instanceId={instanceId}
