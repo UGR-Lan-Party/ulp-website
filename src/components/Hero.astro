@@ -1,92 +1,46 @@
 ---
-import { Image } from 'astro:assets';
-import heroImg from '../assets/img/wallpaper.jpg';
+import heroImg0 from '../assets/img/wallpaper_0.jpg';
+import heroImg1 from '../assets/img/wallpaper_1.jpg';
+import heroImg2 from '../assets/img/wallpaper_2.jpg';
+import heroImg3 from '../assets/img/wallpaper_3.jpg';
+import heroImg4 from '../assets/img/wallpaper_4.jpg';
+import heroImg5 from '../assets/img/wallpaper_5.jpg';
 
-const orgs = [
-  'UGR',
-  'TSTC',
-  { org: 'ETSIIT', rename: 'etsiit-horizontal-white.png' },
-  'DEIIT',
-  'CSIRC',
-  'AESIT',
-];
+const images = [heroImg0.src, heroImg1.src, heroImg2.src, heroImg3.src, heroImg4.src, heroImg5.src];
 ---
 
 <style>
-  @media {
-    .texto-centrado {
-      text-align: center;
-      padding: 0 20px;
-    }
+  .texto-centrado {
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .hero-bg {
+    transition: opacity 1s ease-in-out;
   }
 </style>
 
-<!-- ====== Hero Section Start -->
-<section
-  id="home"
-  class="overflow-hidden bg-gradient-to-bl from-primary/80 from-30% via-secondary/85 via-70% to-tertiary/95 h-[100vh] pt-[120px] md:pt-[150px] lg:pt-[200px] pb-[75px] md:pb-[85px] lg:pb-[115px] -mt-12 sm:-mt-12 lg:-mt-6"
+<section 
+  id="home" 
+  class="flex flex-col lg:flex-row items-center bg-gradient-to-bl from-[#01576C]/80 from-30% via-[#012C5F]/85 via-70% to-[#012C5F]/95 h-auto lg:h-[100vh] pt-[160px] lg:pt-[250px] pb-[75px] lg:pb-[115px] -mt-12 lg:-mt-6 overflow-hidden"
+  data-images={JSON.stringify(images)}
 >
-  <div class="absolute inset-0 min-h-full min-w-full -z-10">
-    <img src={heroImg.src} alt="" class="w-full h-full object-cover" />
-  </div>
-  <div class="flex flex-col items-center h-full mt-12 sm:mt-12 lg:mt-6">
-    <h1
-      class="pt-3 mb-5 lg:mb-8 text-3xl font-bold leading-snug text-white sm:text-4xl sm:leading-snug lg:text-[3.5rem] lg:leading-[1.2] mt-2"
-    >
+  <div class="lg:w-1/2 flex flex-col items-center h-full">
+    <div class="absolute inset-0 min-h-full min-w-full -z-10">
+      <img id="heroImage" src={images[0]} alt="" class="w-full h-full object-cover hero-bg" />
+    </div>
+
+    <h1 class="pt-3 mb-5 lg:mb-16 mt-8 lg:mt-20 sm:mt-8 text-3xl font-bold text-white sm:text-4xl lg:text-[3.5rem]">
       UGR LAN PARTY
     </h1>
 
-    <p
-      class="texto-centrado mx-auto mb-4 max-w-[800px] font-medium text-base text-white lg:text-2xl sm:text-lg sm:leading-[1.44]"
-    >
+    <p class="texto-centrado mx-auto mb-6 max-w-[800px] font-medium text-white lg:text-2xl">
       ¡El mayor evento universitario de eSports de Andalucía!
     </p>
 
-    <div class="flex items-center justify-center px-5 py-5 my-3">
-      <div class="text-primary">
-        <div
-          class="text-5xl text-center flex w-full items-center justify-center xl:space-x-12 lg:space-x-12 md:space-x-12 sm:space-x-6"
-        >
-          <div class="w-30 mx-1 p-2 text-white rounded-lg flex flex-col items-center">
-            <div class="font-mono leading-none text-5xl" id="days">00</div>
-            <div class="font-mono uppercase text-sm leading-none mt-2">Días</div>
-          </div>
-          
-          <div class="relative w-20 mx-1 p-2 text-white flex flex-col items-center">
-            <div
-              class="absolute left-0 top-0 bottom-0 flex items-center xl:-translate-x-6 lg:-translate-x-6 md:-translate-x-6 sm:translate-x-3"
-            >
-              <div class="h-12 w-px bg-white"></div>
-            </div>
-            <div class="font-mono leading-none text-5xl" id="hours">00</div>
-            <div class="font-mono uppercase text-sm leading-none mt-2">Horas</div>
-          </div>
-          
-          <div class="relative w-20 mx-1 p-2 text-white flex flex-col items-center">
-            <div
-              class="absolute left-0 top-0 bottom-0 flex items-center xl:-translate-x-6 lg:-translate-x-6 md:-translate-x-6 sm:translate-x-3"
-            >
-              <div class="h-12 w-px bg-white"></div>
-            </div>
-            <div class="font-mono leading-none text-5xl" id="minutes">00</div>
-            <div class="font-mono uppercase text-sm leading-none mt-2">Minutos</div>
-          </div>
-          
-          <div class="relative w-20 mx-1 p-2 text-white flex flex-col items-center">
-            <div
-              class="absolute left-0 top-0 bottom-0 flex items-center xl:-translate-x-6 lg:-translate-x-6 md:-translate-x-6 sm:translate-x-3"
-            >
-              <div class="h-12 w-px bg-white"></div>
-            </div>
-            <div class="font-mono leading-none text-5xl" id="seconds">00</div>
-            <div class="font-mono uppercase text-sm leading-none mt-2">Segundos</div>
-          </div>
-        </div>
-      </div>
-    </div>
     <a
       href="/competiciones"
-      class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2 mt-6"
+      class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-6"
     >
       Inscríbete
     </a>
@@ -99,5 +53,86 @@ const orgs = [
       />
     </div>
   </div>
+
+  <div class="lg:w-1/2 flex flex-col items-center pr-0 sm:pr-[5%] w-full">
+    <div class="flex items-center justify-center px-5 py-5 my-3">
+      <div class="text-primary flex space-x-4 sm:space-x-6 lg:space-x-14">
+        <div class="w-16 sm:w-24 lg:w-28 text-white text-center">
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-mono" id="days">00</div>
+          <div class="uppercase text-[10px] sm:text-xs lg:text-sm mt-1 sm:mt-2">Días</div>
+        </div>
+
+        <div class="relative w-16 sm:w-24 lg:w-28 text-white flex flex-col items-center">
+          <div class="absolute left-0 top-0 bottom-0 flex items-center -translate-x-3 sm:-translate-x-6 lg:-translate-x-8">
+            <div class="h-8 sm:h-12 lg:h-16 w-[0.5px] bg-white"></div>
+          </div>
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-mono" id="hours">00</div>
+          <div class="uppercase text-[10px] sm:text-xs lg:text-sm mt-1 sm:mt-2">Horas</div>
+        </div>
+
+        <div class="relative w-16 sm:w-24 lg:w-28 text-white flex flex-col items-center">
+          <div class="absolute left-0 top-0 bottom-0 flex items-center -translate-x-3 sm:-translate-x-6 lg:-translate-x-8">
+            <div class="h-8 sm:h-12 lg:h-16 w-[0.5px] bg-white"></div>
+          </div>
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-mono" id="minutes">00</div>
+          <div class="uppercase text-[10px] sm:text-xs lg:text-sm mt-1 sm:mt-2">Minutos</div>
+        </div>
+
+        <div class="relative w-16 sm:w-24 lg:w-28 text-white flex flex-col items-center">
+          <div class="absolute left-0 top-0 bottom-0 flex items-center -translate-x-3 sm:-translate-x-6 lg:-translate-x-8">
+            <div class="h-8 sm:h-12 lg:h-16 w-[0.5px] bg-white"></div>
+          </div>
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-mono" id="seconds">00</div>
+          <div class="uppercase text-[10px] sm:text-xs lg:text-sm mt-1 sm:mt-2">Segundos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAILER -->
+    <div class="flex justify-center items-center w-full max-w-[400px] sm:max-w-[900px] aspect-video mx-auto">
+      <iframe 
+        class="w-full h-full"
+        src="https://www.youtube-nocookie.com/embed/kaDpezuvTD0?si=sKSVZGucpf3yhTI5&amp;controls=0"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
 </section>
-<!-- ====== Hero Section End -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const section = document.getElementById("home");
+
+    if (!section) return;
+
+    const imagesData = section.getAttribute("data-images");
+    if (!imagesData) return;
+
+    const images = JSON.parse(imagesData);
+    if (!Array.isArray(images) || images.length === 0) return;
+
+    let index = 0;
+    const heroImage = document.getElementById("heroImage");
+
+    if (!(heroImage instanceof HTMLImageElement)) return;
+
+    // Precargar todas las imágenes en memoria
+    const preloadedImages = images.map(src => {
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
+
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      heroImage.style.opacity = "0";
+
+      setTimeout(() => {
+        heroImage.src = preloadedImages[index].src; // Usar la imagen precargada
+        heroImage.style.opacity = "1";
+      }, 1000);
+    }, 5000);
+  });
+</script>
