@@ -81,6 +81,14 @@ const containerClass = withBackground
               </button>
 
               <div class="h-full w-full flex items-center justify-center overflow-hidden">
+                <!-- Loading indicator -->
+                <div 
+                  x-show="loading" 
+                  class="absolute inset-0 flex items-center justify-center bg-gray-100/50 backdrop-blur-sm"
+                >
+                  <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                </div>
+
                 <template x-for="(image, index) in images">
                   <div
                     x-show="currentIndex == index + 1"
@@ -97,6 +105,9 @@ const containerClass = withBackground
                       alt="image"
                       class="w-full h-full object-cover cursor-pointer"
                       @click="showModal = true; selectedImage = image"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="high"
                     />
                   </div>
                 </template>
@@ -105,16 +116,18 @@ const containerClass = withBackground
 
             <!-- Thumbnails section -->
             <div class="mt-8 flex gap-4 justify-between w-full">
-              <template x-for="i in Math.min(5, images.length)">
+              <template x-for="i in 5">
                 <div
-                  :class="`cursor-pointer ${images.length < 5 ? `w-1/${images.length}` : 'w-1/5'}`"
-                  @click="currentIndex = getThumbnailIndex(i)"
+                  class="w-1/5 cursor-pointer transition-transform duration-300"
+                  @click="currentIndex = getVisibleThumbnailIndex(i)"
                 >
                   <img
                     :src="getThumbnailImage(i)"
                     alt="thumbnail"
                     class="w-full h-full object-cover rounded-md hover:opacity-75 transition-opacity aspect-video"
-                    :class="{'border-2 border-primary': currentIndex === getThumbnailIndex(i)}"
+                    :class="{'border-2 border-primary': currentIndex === getVisibleThumbnailIndex(i)}"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </template>
@@ -134,6 +147,8 @@ const containerClass = withBackground
                   alt="Full size image"
                   class="w-full h-full object-cover rounded-lg"
                   @click.stop
+                  loading="lazy"
+                  decoding="async"
                 />
                 <button
                   @click="showModal = false"
@@ -162,13 +177,27 @@ const containerClass = withBackground
   </div>
 </section>
 
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-></script>
+<!-- Cargar Alpine.js de manera más eficiente -->
+<script>
+  // Precargar Alpine.js
+  const alpineScript = document.createElement('script');
+  alpineScript.defer = true;
+  alpineScript.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js';
+  document.head.appendChild(alpineScript);
+</script>
+
 <script define:vars={{ albumId, userId }}>
   async function getFlickrPhotos(albumId, userId) {
     const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
     const timestamp = new Date().getTime();
+    const cacheKey = `flickr_${albumId}_${userId}`;
     
+    // Intentar obtener del cache
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+
     const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${albumId}&user_id=${userId}&format=json&nojsoncallback=1&extras=url_k,url_h,url_b,url_c,o_dims&timestamp=${timestamp}`;
 
     try {
@@ -181,21 +210,24 @@ const containerClass = withBackground
         '72177720308548822'  // 5ª edición
       ];
 
-      // Procesar las fotos según el álbum
-      return data.photoset.photo.map(photo => {
-        const bestUrl = photo.url_k || photo.url_h || photo.url_b || photo.url_c;
-        
-        // Para 5ª y 6ª edición, filtrar solo horizontales
-        if (newEditionAlbums.includes(albumId)) {
-          if (photo.width_k && photo.height_k && photo.width_k > photo.height_k) {
-            return bestUrl;
+      const processedImages = data.photoset.photo
+        .map(photo => {
+          const bestUrl = photo.url_k || photo.url_h || photo.url_b || photo.url_c;
+          
+          if (newEditionAlbums.includes(albumId)) {
+            if (photo.width_k && photo.height_k && photo.width_k > photo.height_k) {
+              return bestUrl;
+            }
+            return null;
           }
-          return null;
-        }
-        
-        // Para el resto de ediciones, mostrar todas las fotos
-        return bestUrl;
-      }).filter(url => url); // Eliminar null/undefined
+          
+          return bestUrl;
+        })
+        .filter(url => url);
+
+      // Guardar en cache
+      sessionStorage.setItem(cacheKey, JSON.stringify(processedImages));
+      return processedImages;
     } catch (error) {
       console.error(`[Flickr API] Error fetching photos for album ${albumId}:`, error);
       return [];
@@ -211,11 +243,15 @@ const containerClass = withBackground
       selectedImage: null,
       albumId,
       userId,
+      thumbnailStartIndex: 0, // Nueva propiedad para seguir el índice inicial de miniaturas
 
       async init() {
         this.loading = true;
         this.images = await getFlickrPhotos(this.albumId, this.userId);
         this.loading = false;
+        
+        // Precargar imágenes adyacentes
+        this.preloadAdjacentImages();
       },
       
       getThumbnailIndex(position) {
@@ -228,27 +264,59 @@ const containerClass = withBackground
         return ((baseIndex - 1) % this.images.length) + 1;
       },
 
+      getVisibleThumbnailIndex(position) {
+        return ((this.thumbnailStartIndex + position - 1) % this.images.length) + 1;
+      },
+
       getThumbnailImage(position) {
-        const index = this.getThumbnailIndex(position) - 1;
+        const index = this.getVisibleThumbnailIndex(position) - 1;
         return this.images[index] || '';
       },
 
       previous() {
         if (this.currentIndex > 1) {
-          this.currentIndex = this.currentIndex - 1;
+          this.currentIndex--;
         } else {
-          // Volver al final si estamos en la primera imagen
           this.currentIndex = this.images.length;
         }
+        this.updateThumbnailStartIndex();
       },
 
       forward() {
         if (this.currentIndex < this.images.length) {
-          this.currentIndex = this.currentIndex + 1;
+          this.currentIndex++;
         } else {
-          // Volver al inicio si estamos en la última imagen
           this.currentIndex = 1;
         }
+        this.updateThumbnailStartIndex();
+      },
+
+      updateThumbnailStartIndex() {
+        // Calcula el índice inicial de las miniaturas para mantener la imagen actual centrada
+        let newStartIndex = this.currentIndex - 3;
+        
+        // Ajusta el índice si está fuera de los límites
+        if (newStartIndex < 0) {
+          newStartIndex = this.images.length + newStartIndex;
+        }
+        
+        this.thumbnailStartIndex = newStartIndex;
+      },
+
+      preloadAdjacentImages() {
+        const preloadImage = (index) => {
+          if (index >= 0 && index < this.images.length) {
+            const img = new Image();
+            img.src = this.images[index];
+          }
+        };
+
+        // Precargar siguiente y anterior
+        this.$watch('currentIndex', (index) => {
+          preloadImage(index);
+          preloadImage(index - 2);
+          preloadImage(index);
+        });
       },
     }));
   });
