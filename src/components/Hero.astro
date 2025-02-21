@@ -22,39 +22,10 @@ const images = [heroImg0.src, heroImg1.src, heroImg2.src, heroImg3.src, heroImg4
 
 <section 
   id="home" 
-  class="flex flex-col lg:flex-row items-center bg-gradient-to-bl from-[#01576C]/80 from-30% via-[#012C5F]/85 via-70% to-[#012C5F]/95 h-auto lg:h-[100vh] pt-[160px] lg:pt-[250px] pb-[75px] lg:pb-[115px] -mt-12 lg:-mt-6 overflow-hidden"
+  class="flex flex-col lg:flex-row justify-center items-center bg-gradient-to-bl from-[#01576C]/80 from-30% via-[#012C5F]/85 via-70% to-[#012C5F]/95 h-auto lg:h-[100vh] pt-[160px] lg:pt-[250px] pb-[75px] lg:pb-[115px] -mt-12 lg:-mt-6 overflow-hidden"
   data-images={JSON.stringify(images)}
 >
-  <div class="lg:w-1/2 flex flex-col items-center h-full">
-    <div class="absolute inset-0 min-h-full min-w-full -z-10">
-      <img id="heroImage" src={images[0]} alt="" class="w-full h-full object-cover hero-bg" />
-    </div>
-
-    <h1 class="pt-3 mb-5 lg:mb-16 mt-8 lg:mt-20 sm:mt-8 text-3xl font-bold text-white sm:text-4xl lg:text-[3.5rem]">
-      UGR LAN PARTY
-    </h1>
-
-    <p class="texto-centrado mx-auto mb-6 max-w-[800px] font-medium text-white lg:text-2xl">
-      ¡El mayor evento universitario de eSports de Andalucía!
-    </p>
-
-    <a
-      href="/competiciones"
-      class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-6"
-    >
-      Inscríbete
-    </a>
-
-    <div class="mt-6 flex justify-center items-center">
-      <img
-        src="/assets/participan/organizan.png"
-        alt="Organizaciones participantes"
-        class="max-w-[100%] max-h-[200px] h-auto"
-      />
-    </div>
-  </div>
-
-  <div class="lg:w-1/2 flex flex-col items-center pr-0 sm:pr-[5%] w-full">
+  <div class="lg:w-1/2 flex flex-col items-center h-full max-w-[1000px]">
     <div class="flex items-center justify-center px-5 py-5 my-3">
       <div class="text-primary flex space-x-4 sm:space-x-6 lg:space-x-14">
         <div class="w-16 sm:w-24 lg:w-28 text-white text-center">
@@ -88,15 +59,31 @@ const images = [heroImg0.src, heroImg1.src, heroImg2.src, heroImg3.src, heroImg4
       </div>
     </div>
 
-    <!-- TRAILER -->
-    <div class="flex justify-center items-center w-full max-w-[400px] sm:max-w-[900px] aspect-video mx-auto">
-      <iframe 
-        class="w-full h-full"
-        src="https://www.youtube-nocookie.com/embed/kaDpezuvTD0?si=sKSVZGucpf3yhTI5&amp;controls=0"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
+    <div class="absolute inset-0 min-h-full min-w-full -z-10">
+      <img id="heroImage" src={images[0]} alt="" class="w-full h-full object-cover hero-bg" />
+    </div>
+
+    <h1 class="pt-3 mb-5 lg:mb-16 mt-8 text-3xl font-bold text-white sm:text-4xl lg:text-[3.5rem]">
+      UGR LAN PARTY
+    </h1>
+
+    <p class="texto-centrado mx-auto mb-6 max-w-[800px] font-medium text-white lg:text-2xl">
+      ¡El mayor evento universitario de eSports de Andalucía!
+    </p>
+
+    <a
+      href="/competiciones"
+      class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-6"
+    >
+      Inscríbete
+    </a>
+
+    <div class="mt-6 flex justify-center items-center">
+      <img
+        src="/assets/participan/organizan.png"
+        alt="Organizaciones participantes"
+        class="max-w-[100%] max-h-[200px] h-auto"
+      />
     </div>
   </div>
 </section>
@@ -118,7 +105,6 @@ const images = [heroImg0.src, heroImg1.src, heroImg2.src, heroImg3.src, heroImg4
 
     if (!(heroImage instanceof HTMLImageElement)) return;
 
-    // Precargar todas las imágenes en memoria
     const preloadedImages = images.map(src => {
       const img = new Image();
       img.src = src;
@@ -130,7 +116,7 @@ const images = [heroImg0.src, heroImg1.src, heroImg2.src, heroImg3.src, heroImg4
       heroImage.style.opacity = "0";
 
       setTimeout(() => {
-        heroImage.src = preloadedImages[index].src; // Usar la imagen precargada
+        heroImage.src = preloadedImages[index].src;
         heroImage.style.opacity = "1";
       }, 1000);
     }, 5000);
