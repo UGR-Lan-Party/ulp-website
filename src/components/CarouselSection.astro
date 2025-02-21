@@ -169,14 +169,11 @@ const containerClass = withBackground
     const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
     const timestamp = new Date().getTime();
     
-    console.log(`[Flickr API] Loading album ${albumId} for user ${userId}`);
-
     const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${albumId}&user_id=${userId}&format=json&nojsoncallback=1&extras=url_k,url_h,url_b,url_c,o_dims&timestamp=${timestamp}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(`[Flickr API] Response for album ${albumId}:`, data);
 
       // IDs de los álbumes de la 5ª y 6ª edición
       const newEditionAlbums = [
@@ -216,11 +213,9 @@ const containerClass = withBackground
       userId,
 
       async init() {
-        console.log(`[Alpine] Initializing slider for album ${this.albumId}`);
         this.loading = true;
         this.images = await getFlickrPhotos(this.albumId, this.userId);
         this.loading = false;
-        console.log(`[Alpine] Loaded ${this.images.length} images for album ${this.albumId}`);
       },
       
       getThumbnailIndex(position) {

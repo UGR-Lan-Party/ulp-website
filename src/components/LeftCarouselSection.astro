@@ -8,9 +8,22 @@ interface Props {
   albumId: string;
   userId: string;
   unlimitedHeight?: boolean;
+  hasExternalLink?: boolean;
+  externalLink?: string;
+  buttonText?: string;
 }
 
-const { title, date, description, albumId, userId, unlimitedHeight = false } = Astro.props;
+const { 
+  title, 
+  date, 
+  description, 
+  albumId, 
+  userId, 
+  unlimitedHeight = false,
+  hasExternalLink = false,
+  externalLink = "",
+  buttonText = ""
+} = Astro.props;
 const darkStyles = "dark:bg-dark dark:text-white";
 ---
 
@@ -27,8 +40,8 @@ const darkStyles = "dark:bg-dark dark:text-white";
   <div class="container pb-8 lg:pb-[70px]">
     <div class="wow fadeInUp" data-wow-delay=".2s">
       <div class="flex flex-wrap items-center">
-        <div class="w-full px-4 lg:w-3/5">
-          <div class="flex flex-wrap justify-center">
+        <div class="w-full px-4 lg:w-3/5 xl:w-2/3 order-1">
+          <div class="flex flex-wrap justify-center items-center h-full mb-8 lg:mb-0">
             <div class="w-full">
               <CarouselSection 
                 albumId={albumId}
@@ -41,11 +54,35 @@ const darkStyles = "dark:bg-dark dark:text-white";
           </div>
         </div>
 
-        <div class="w-full px-4 lg:w-2/5">
-          <div class="mb-12 max-w-[440px] lg:mb-0">
-            <p class="mb-10 text-base leading-relaxed text-body-color dark:text-dark-6 text-justify">
+        <div class="w-full px-4 lg:w-2/5 xl:w-1/3 order-2">
+          <div class="mb-12 lg:mb-0 flex flex-col items-center h-full">
+            <p class="text-base leading-relaxed text-body-color dark:text-dark-6 text-justify whitespace-pre-line mb-4">
               {description}
             </p>
+            {hasExternalLink && (
+              <a
+                href={externalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-white bg-primary rounded-md shadow-lg transition duration-300 ease-in-out hover:bg-blue-dark"
+              >
+                {buttonText}
+                <span class="ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12.172 7L6.808 1.636L8.222 0.222L16 8L8.222 15.778L6.808 14.364L12.172 9H0V7H12.172Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              </a>
+            )}
           </div>
         </div>
       </div>
