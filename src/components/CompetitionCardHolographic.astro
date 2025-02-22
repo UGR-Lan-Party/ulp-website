@@ -9,22 +9,13 @@ const { competition, holographic = false } = Astro.props as Props;
 
 <section id="holo-card" class="holographic-competition-card holo-animation">
   <picture class="holographic-card">
-    <img
-      src={competition.card}
-      class="holographic-card-image"
-      transition:name=`${competition.id} Card`
-    />
+    <img src={competition.card} class="holographic-card-image" />
+    <!-- transition:name=`${competition.id} Card` -->
   </picture>
-  <img
-    src={competition.logo}
-    class="holographic-logo holographic-reflection"
-    transition:name=`${competition.id} Logo`
-  />
-  <img
-    src={competition.character}
-    class="holographic-character"
-    transition:name=`${competition.id} Character`
-  />
+  <img src={competition.logo} class="holographic-logo holographic-reflection" />
+  <!-- transition:name=`${competition.id} Logo` -->
+  <img src={competition.character} class="holographic-character" />
+  <!-- transition:name=`${competition.id} Character` -->
 </section>
 
 <style>
