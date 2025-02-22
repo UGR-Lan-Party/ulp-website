@@ -99,6 +99,9 @@ const containerClass = withBackground
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
                     class="absolute inset-0 flex items-center justify-center"
+                    @touchstart="handleTouchStart($event)"
+                    @touchmove="handleTouchMove($event)"
+                    @touchend="handleTouchEnd($event)"
                   >
                     <img
                       :src="image"
@@ -119,13 +122,13 @@ const containerClass = withBackground
               <template x-for="i in 5">
                 <div
                   class="w-1/5 cursor-pointer transition-transform duration-300"
-                  @click="currentIndex = getThumbnailIndex(i)"
+                  @click="currentIndex = getVisibleThumbnailIndex(i)"
                 >
                   <img
                     :src="getThumbnailImage(i)"
                     alt="thumbnail"
                     class="w-full h-full object-cover rounded-md hover:opacity-75 transition-opacity aspect-video"
-                    :class="{'border-2 border-primary': currentIndex === getThumbnailIndex(i)}"
+                    :class="{'border-2 border-primary': currentIndex === getVisibleThumbnailIndex(i)}"
                     loading="lazy"
                     decoding="async"
                   />
@@ -138,24 +141,36 @@ const containerClass = withBackground
               x-cloak
               x-show="!loading && showModal"
               x-transition.opacity
-              class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-8"
+              class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-8"
               @click="showModal = false"
             >
-              <div class="relative bg-white rounded-lg p-2 w-[1280px] h-[720px]">
+              <!-- Fondo con desenfoque y vista previa -->
+              <div 
+                class="absolute inset-0 bg-black/30 backdrop-blur-xl"
+                :style="`background-image: url('${selectedImage}'); background-size: cover; background-position: center; filter: blur(20px) brightness(0.3);`"
+              ></div>
+
+              <!-- Contenedor principal -->
+              <div 
+                class="relative max-w-[95vw] max-h-[90vh] rounded-xl overflow-hidden shadow-2xl"
+                @click.stop
+              >
+                <!-- Imagen -->
                 <img
                   :src="selectedImage"
                   alt="Full size image"
-                  class="w-full h-full object-cover rounded-lg"
-                  @click.stop
+                  class="w-full h-full object-contain max-h-[90vh]"
                   loading="lazy"
                   decoding="async"
                 />
+
+                <!-- Botón de cierre mejorado -->
                 <button
                   @click="showModal = false"
-                  class="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+                  class="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
                 >
                   <svg
-                    class="w-6 h-6 text-gray-800"
+                    class="w-6 h-6"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -249,21 +264,68 @@ const containerClass = withBackground
         this.loading = true;
         this.images = await getFlickrPhotos(this.albumId, this.userId);
         this.loading = false;
-        
-        // Precargar imágenes adyacentes
         this.preloadAdjacentImages();
+
+        // Variables para control táctil y modal
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+        this.touchStartTime = 0;
+        this.minSwipeDistance = 50;
+        this.maxTapDuration = 200;
+        this.hasMoved = false;
+        this.showModal = false;
+        this.selectedImage = null;
       },
-      
+
+      handleTouchStart(event) {
+        this.touchStartX = event.touches[0].clientX;
+        this.touchStartTime = new Date().getTime();
+        this.hasMoved = false;
+      },
+
+      handleTouchMove(event) {
+        this.touchEndX = event.touches[0].clientX;
+        this.hasMoved = true;
+      },
+
+      handleTouchEnd(event) {
+        const touchDuration = new Date().getTime() - this.touchStartTime;
+        const swipeDistance = this.touchEndX - this.touchStartX;
+
+        // Si no se movió y el toque fue corto, tratar como click
+        if (!this.hasMoved && touchDuration < this.maxTapDuration) {
+          this.showModal = true;
+          this.selectedImage = this.images[this.currentIndex - 1];
+          return;
+        }
+
+        // Solo procesar el swipe si la distancia es suficiente
+        if (Math.abs(swipeDistance) >= this.minSwipeDistance) {
+          if (swipeDistance > 0) {
+            this.previous();
+          } else {
+            this.forward();
+          }
+        }
+
+        // Resetear valores
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+        this.hasMoved = false;
+      },
+
       getThumbnailIndex(position) {
-        let currentBaseIndex = this.currentIndex - 1;
-        let index = (currentBaseIndex + position - 1) % this.images.length;
-        return index + 1;
+        // Si hay menos de 5 imágenes, usar el índice directamente
+        if (this.images.length <= 5) {
+          return position;
+        }
+        // Para más de 5 imágenes, usar la lógica original
+        let baseIndex = Math.floor((this.currentIndex - 1) / 5) * 5 + position;
+        return ((baseIndex - 1) % this.images.length) + 1;
       },
 
       getVisibleThumbnailIndex(position) {
-        let currentBaseIndex = this.currentIndex - 1;
-        let index = (currentBaseIndex + position - 1) % this.images.length;
-        return index + 1;
+        return ((this.thumbnailStartIndex + position - 1) % this.images.length) + 1;
       },
 
       getThumbnailImage(position) {
@@ -335,5 +397,31 @@ const containerClass = withBackground
   /* Mantener la vista completa en el modal */
   .fixed.inset-0 img {
     object-fit: contain !important;
+  }
+
+  /* Estilos para el modal */
+  .fixed.inset-0 {
+    perspective: 1000px;
+  }
+
+  /* Animación suave para la apertura del modal */
+  .fixed.inset-0[x-show] {
+    animation: modalFadeIn 0.3s ease-out;
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Optimizar renderizado */
+  .backdrop-blur-xl {
+    will-change: backdrop-filter;
   }
 </style>
