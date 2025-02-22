@@ -12,4 +12,5 @@ export default defineConfig({
     "/201718" : "/",
     "/201819" : "/",
   },
+  output: "server"
 });

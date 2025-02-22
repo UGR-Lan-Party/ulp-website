@@ -14,6 +14,14 @@ import {
 import CompetitionTimePlace from '../../components/CompetitionTimePlace.astro';
 import Inscripsection from '../../components/Inscripsection.astro';
 
+// Generate a new path for every collection entry
+export async function getStaticPaths() {
+  return Competitions.map((compe) => ({
+    params: { id: compe.id },
+    props: { compe },
+  }));
+}
+
 const { id } = Astro.params;
 
 const competition: CompetitionData | undefined = Competitions.find(
