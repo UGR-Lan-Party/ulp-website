@@ -4,11 +4,12 @@ import Layout from '../layouts/Layout.astro';
 const { titulo, descripcion, imgPath, link } = Astro.props;
 ---
 
-<section class="relative overflow-hidden py-20 lg:py-[115px] bg-gradient-to-bl from-primary/80 from-30% via-secondary/85 via-70% to-tertiary/95">
-  <div class="absolute inset-0 min-h-full min-w-full -z-10">
+<section class="relative overflow-hidden py-20 lg:py-[115px]">
+  <div class="top-0 overflow-hidden absolute bg-gradient-to-bl from-primary/80 from-30% via-secondary/85 via-70% to-tertiary/95 
+  dark:from-black/90 dark:via-gray-700/85 dark:to-gray-600 min-h-full min-w-full z-20"></div>  <div class="top-0 absolute w-full h-full z-10">
     <img src={imgPath} alt="" class="w-full h-full object-cover" />
   </div>
-  <div class="container relative z-10">
+  <div class="container relative z-30">
     <div class="flex flex-wrap items-center">
       <div class="w-full px-4">
         <div class="mx-auto max-w-[780px] text-center">

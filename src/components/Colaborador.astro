@@ -1,19 +1,20 @@
 ---
 // Colaborador.astro
-const { nombre, descripciones, logo, web, rrss } = Astro.props;
+const { nombre, descripciones, logo, logoColor, web, rrss } = Astro.props;
 ---
 
-<div class="colaborador">
-    <img src={logo} alt={`Logotipo de ${nombre}`} class="logo" />
+<div class="colaborador bg-tertiary dark:bg-gray-200">
+    <img src={logo} alt={`Logotipo de ${nombre}`} class="logo dark:hidden" />
+    <img src={logoColor} alt={`Logotipo de ${nombre}`} class="logo hidden dark:block" />
     <div class="contenido">
-        <h3 class="nombre">{nombre}</h3>
+        <h3 class="nombre text-white dark:text-primary">{nombre}</h3>
         {descripciones && descripciones.map((descripcion: string, index: string) => (
-            <p data-key={index} class="descripcion">{descripcion}</p>
+            <p data-key={index} class="descripcion text-gray-200 dark:text-secondary">{descripcion}</p>
         ))}
-        <a href={web} target="_blank" class="web-link">Sitio Web</a>
+        <a href={web} target="_blank" class="web-link bg-white text-primary hover:bg-primary hover:text-white dark:bg-primary dark:text-gray-200 dark:hover:bg-tertiary">Sitio Web</a>
         <div class="redes-sociales">
             {Object.entries(rrss).map(([red, enlace]) => (
-                <a href={enlace as string} target="_blank" class="rrss-link">{red}</a>
+                <a href={enlace as string} target="_blank" class="rrss-link dark:text-tertiary text-gray-300">{red}</a>
             ))}
         </div>
     </div>
@@ -30,7 +31,6 @@ const { nombre, descripciones, logo, web, rrss } = Astro.props;
 }
 
 .colaborador {
-    background-color: var(--color-fondo);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -59,14 +59,12 @@ const { nombre, descripciones, logo, web, rrss } = Astro.props;
 .nombre {
     font-size: 1.25rem;
     font-weight: bold;
-    color: var(--color-acento);
     margin-bottom: var(--espaciado);
     font-family: var(--fuente-principal);
 }
 
 .descripcion {
     font-size: var(--tamano-texto);
-    color: var(--color-texto);
     margin-bottom: var(--espaciado);
     text-align: justify;
     font-family: var(--fuente-principal);
@@ -75,8 +73,6 @@ const { nombre, descripciones, logo, web, rrss } = Astro.props;
 
 .web-link {
     display: inline-block;
-    background-color: var(--color-acento);
-    color: var(--color-texto);
     border-radius: 20px;
     padding: 10px 15px;
     margin: 5px;
@@ -84,9 +80,6 @@ const { nombre, descripciones, logo, web, rrss } = Astro.props;
     transition: background-color 0.3s ease;
 }
 
-.web-link:hover {
-    background-color: darken(var(--color-acento), 10%);
-}
 
 .redes-sociales {
     display: flex;
@@ -98,17 +91,12 @@ const { nombre, descripciones, logo, web, rrss } = Astro.props;
 .rrss-link {
     /* Estilos para botones a redes sociales se mantienen */
     display: inline-block;
-    background: rgb(0, 100, 113);
-    color: white;
     border-radius: 20px;
     padding: 5px 15px;
     margin: 5px;
     text-decoration: none;
 }
 
-.rrss-link:hover {
-    background: rgb(14, 40, 89);
-}
 
 @media (max-width: 768px) {
     .colaborador {

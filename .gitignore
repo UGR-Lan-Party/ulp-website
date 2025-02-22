@@ -131,4 +131,13 @@ dist
 
 # Mac Dstore files
 .DS_Store
-.astro/
+
+
+# Astro Files
+.astro/*
+
+# Freeze Package files
+package-lock.yaml
+package.json
+pnpm-lock.yaml
+
