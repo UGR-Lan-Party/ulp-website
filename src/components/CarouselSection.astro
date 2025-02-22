@@ -119,13 +119,13 @@ const containerClass = withBackground
               <template x-for="i in 5">
                 <div
                   class="w-1/5 cursor-pointer transition-transform duration-300"
-                  @click="currentIndex = getVisibleThumbnailIndex(i)"
+                  @click="currentIndex = getThumbnailIndex(i)"
                 >
                   <img
                     :src="getThumbnailImage(i)"
                     alt="thumbnail"
                     class="w-full h-full object-cover rounded-md hover:opacity-75 transition-opacity aspect-video"
-                    :class="{'border-2 border-primary': currentIndex === getVisibleThumbnailIndex(i)}"
+                    :class="{'border-2 border-primary': currentIndex === getThumbnailIndex(i)}"
                     loading="lazy"
                     decoding="async"
                   />
@@ -255,17 +255,15 @@ const containerClass = withBackground
       },
       
       getThumbnailIndex(position) {
-        // Si hay menos de 5 imágenes, usar el índice directamente
-        if (this.images.length <= 5) {
-          return position;
-        }
-        // Para más de 5 imágenes, usar la lógica original
-        let baseIndex = Math.floor((this.currentIndex - 1) / 5) * 5 + position;
-        return ((baseIndex - 1) % this.images.length) + 1;
+        let currentBaseIndex = this.currentIndex - 1;
+        let index = (currentBaseIndex + position - 1) % this.images.length;
+        return index + 1;
       },
 
       getVisibleThumbnailIndex(position) {
-        return ((this.thumbnailStartIndex + position - 1) % this.images.length) + 1;
+        let currentBaseIndex = this.currentIndex - 1;
+        let index = (currentBaseIndex + position - 1) % this.images.length;
+        return index + 1;
       },
 
       getThumbnailImage(position) {
