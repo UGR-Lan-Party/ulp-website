@@ -80,7 +80,7 @@ import { darkStyles } from "../utils/all"
   {
     id: 15,
     title: "Tengo una duda o pregunta que no está resuelta en las FAQs",
-    description: "Puedes contactar con nosotros por varias vías. La más rápida son las redes sociales, especialmente Twitter, donde puedes escribirnos un mensaje directo e intentaremos resolver tu duda o problema lo antes posible. Además, disponemos de un correo electrónico de contacto: ulp.etsiit@gmail.com.",
+    description: "Puedes contactar con nosotros por varias vías. La más rápida son las redes sociales, especialmente Twitter, donde puedes escribirnos un mensaje directo e intentaremos resolver tu duda o problema lo antes posible. Además, disponemos de un correo electrónico de contacto: ulp@ugr.es",
   },
 ]
 ---
@@ -130,11 +130,11 @@ import { darkStyles } from "../utils/all"
                         d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z" />
                     </svg>
                   </div>
-                  <details class="w-full">
+                  <details class="w-full min-h-[90px]">
                     <summary class="cursor-pointer mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                       {faq.title}
                     </summary>
-                    <p class="text-base text-body-color dark:text-dark-6">
+                    <p class="text-base text-body-color dark:text-dark-6 text-justify">
                       {faq.description}
                     </p>
                   </div>
@@ -166,11 +166,11 @@ import { darkStyles } from "../utils/all"
                         d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z" />
                     </svg>
                   </div>
-                  <details class="w-full">
+                  <details class="w-full min-h-[90px]">
                     <summary class="cursor-pointer mb-6 text-xl font-semibold text-dark dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                       {faq.title}
                     </summary>
-                    <p class="text-base text-body-color dark:text-dark-6">
+                    <p class="text-base text-body-color dark:text-dark-6 text-justify">
                       {faq.description}
                     </p>
                   </div>
@@ -181,9 +181,9 @@ import { darkStyles } from "../utils/all"
         }
       </div>
 
-      <div class="flex w-full justify-center items-center">
-        <div class="pagination flex gap-2 items-center justify-center dark:bg-gray-200 px-4 py-2 
-        rounded-lg dark:border-[1px] dark:border-black" id="pagination"></div>
+      <div class="flex w-full justify-center items-center px-4 py-2 flex gap-4" id="pagination">
+        <!-- <div class="pagination flex gap-2 items-center justify-center dark:bg-gray-200 px-4 py-2 
+        rounded-lg dark:border-[1px] dark:border-black" id="pagination"></div> -->
       </div>
       
     </div>

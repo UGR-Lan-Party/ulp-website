@@ -75,20 +75,20 @@ const menuitems = [
             class="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
           >
             <span
-              class="relative my-[6px] block h-[2px] w-[30px] bg-dark dark:bg-white"
+              class="relative my-[6px] block h-[2px] w-[40px] bg-dark dark:bg-white"
             ></span>
             <span
-              class="relative my-[6px] block h-[2px] w-[30px] bg-dark dark:bg-white"
+              class="relative my-[6px] block h-[2px] w-[40px] bg-dark dark:bg-white"
             ></span>
             <span
-              class="relative my-[6px] block h-[2px] w-[30px] bg-dark dark:bg-white"
+              class="relative my-[6px] block h-[2px] w-[40px] bg-dark dark:bg-white"
             ></span>
           </button>
           <nav
             id="navbarCollapse"
             class="absolute right-4 top-full hidden w-full max-w-[250px] rounded-lg bg-white dark:bg-dark-2 py-5 shadow-lg lg:static lg:block lg:w-full lg:max-w-full lg:bg-transparent dark:lg:bg-transparent lg:py-0 xl:px-4 lg:shadow-none 2xl:px-6"
           >
-            <ul class="block lg:flex 2xl:ml-20">
+            <ul class="block lg:flex 2xl:ml-0">
               {
                 menuitems.map((item, index) => {
                   return (
@@ -164,7 +164,7 @@ const menuitems = [
             </ul>
           </nav>
         </div>
-        <div class="justify-end pr-16 flex items-center lg:pr-0">
+        <div class="justify-end pr-20 flex items-center lg:pr-0">
           <button
             class="inline-flex cursor-pointer items-center"
             id="themeSwitcher"
@@ -238,3 +238,17 @@ const menuitems = [
     </div>
   </div>
 </header>
+
+<style>
+  /* Aplica el tamaño de fuente solo en pantallas grandes (mínimo 1024px) */
+  @media (min-width: 1024px) {
+    .text-base {
+      font-size: 1.2rem;
+    }
+
+    .lg\:py-6 {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+</style>
