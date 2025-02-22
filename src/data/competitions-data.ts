@@ -1,0 +1,239 @@
+export interface CompetitionData {
+  id: string;
+  name: string;
+  rules: string;
+  registration: string;
+  time: string;
+  place: string[];
+  backgroundImage: string;
+}
+
+export interface CompetitionCardData {
+  id: string;
+  card: string;
+  logo: string;
+  character: string;
+}
+
+export const Competitions: CompetitionData[] = [
+  {
+    id: "fc-25",
+    name: "FC25",
+    rules: "https://drive.google.com/file/d/1KBCYVnNKJ2m4Q_j5CSHq4n1lUZmxoqAd/view?usp=drive_link",
+    registration: "https://forms.gle/kHXsJTe3g5SjqTKs6",
+    time: "10:00",
+    place: ["Aula A1", "Prefabricadas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/fc.webp",
+  },
+  {
+    id: "minecraft",
+    name: "Minecraft",
+    rules: "https://drive.google.com/file/d/1_eVDYx9was7lMLm0LiJzEakdfUdOOQ7f/view?usp=drive_link",
+    registration: "https://forms.gle/iuYJNF8kDWtVwmZ16",
+    time: "15:30",
+    place: ["Aula B1", "Prefabricadas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/minecraft.webp",
+  },
+  {
+    id: "mario-kart",
+    name: "Mario Kart 8 Deluxe",
+    rules: "https://drive.google.com/file/d/1SP9zxLgV6QBD36V8jUksmjPI5gg051Kt/view?usp=drive_link",
+    registration: "https://forms.gle/gXXBEi6uS5JJ2fdU8",
+    time: "16:30",
+    place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/mario-kart.webp",
+  },
+  {
+    id: "league-of-legends",
+    name: "League of Legends",
+    rules: "https://drive.google.com/file/d/1eWemc-2lhWcy81stMaKWEZe92TU_DIJH/view?usp=drive_link",
+    registration: "https://forms.gle/W1rza8HK2UH6Hbpa7",
+    time: "10:00",
+    place: ["Aula B1", "Prefabricadas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/lol.webp",
+  },
+  {
+    id: "valorant",
+    name: "Valorant",
+    rules: "https://drive.google.com/file/d/1arYwliYEhKM7AUeXROuzHF-Bf7iJhPRI/view?usp=drive_link",
+    registration: "https://forms.gle/79agiKuf9Zrf1YoX6",
+    time: "10:00",
+    place: ["Aula A2", "Prefabricadas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/valorant.webp",
+  },
+  {
+    id: "rocket-league",
+    name: "Rocket League",
+    rules: "https://drive.google.com/file/d/16k3FnsHeWu36lwKaJwJajKKlpcPLcfIn/view?usp=drive_link",
+    registration: "https://forms.gle/ZBi4qcr7svX6Sba69",
+    time: "15:30",
+    place: ["Aula A2", "Prefabricadas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/rocket-league.webp",
+  },
+  {
+    id: "wii-sports-tenis",
+    name: "Wii Sports Tenis",
+    rules: "https://drive.google.com/file/d/1VO_NCYy_wJo-7MA_BZEsttZJUWiknnuS/view?usp=drive_link",
+    registration: "https://forms.gle/5jiNDTjhk3hZTbZp8",
+    time: "17:00",
+    place: ["Aula A1", "Prefabricadas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/wii-tenis.webp",
+  },
+  {
+    id: "wii-sports-bolos",
+    name: "Wii Sports Bolos",
+    rules: "https://drive.google.com/file/d/1Mhq-ee0y76jIhDh1Ha1opyxt0OD-m1Xq/view?usp=drive_link",
+    registration: "https://forms.gle/AZdTMt1KZJFcqPPUA",
+    time: "10:00",
+    place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/wii-bolos.webp",
+  },
+  {
+    id: "smash",
+    name: "Super Smash Bros Ultimate",
+    rules: "https://drive.google.com/file/d/1Sqggc4Aub52DJXdIpKd38Yl3QdqQHb-_/view?usp=drive_link",
+    registration: "https://forms.gle/8Vd425yMriEJ9Z4a9",
+    time: "10:00",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/smash.webp",
+  },
+  {
+    id: "brawl-stars",
+    name: "Brawl Stars",
+    rules: "https://drive.google.com/file/d/1cL7Lrf2DJGcEEHoDZnR351TM8tvQHj2j/view?usp=drive_link",
+    registration: "https://forms.gle/cDYSmqfsebQFvDzK6",
+    time: "10:00",
+    place: ["Aula B1", "Prefabricadas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/brawl-stars.webp",
+  },
+  {
+    id: "dragon-ball",
+    name: "Dragon Ball Sparking Zero",
+    rules: "",
+    registration: "https://forms.gle/gTW14FsJsHeNSWSz8",
+    time: "Todo el día",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/dragon-ball.webp",
+  },
+  {
+    id: "f1",
+    name: "F1",
+    rules: "",
+    registration: "https://forms.gle/yJr9pVwbSMY5KKn29",
+    time: "Todo el día",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/f1.webp",
+  },
+  {
+    id: "futbolin",
+    name: "Futbolín",
+    rules: "https://drive.google.com/file/d/1_13VbVHWr5L-Qt9PwmsLtZb6ImDQkKY7/view?usp=drive_link",
+    registration: "https://forms.gle/1iNwZ5xw8JXnsyeG6",
+    time: "10:00",
+    place: ["Entrada", "Entrada rejas patio"],
+    backgroundImage: "/assets/competitions/backgrounds/futbolin.webp",
+  },
+  /* {
+    id: "juego-libre",
+    name: "Juego Libre",
+    rules: "",
+    registration: "",
+    time: "12:30 - 14:00",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/juego-libre.png",
+  }, */
+];
+
+export const CompetitionsCards: CompetitionCardData[] = [
+  {
+    id: "mario-kart",
+    card: '/assets/competitions/cards/mario-kart.webp',
+    logo: '/assets/competitions/logos/mario.webp',
+    character: '/assets/competitions/characters/character-mario.webp',
+  },
+  {
+    id: "wii-sports-tenis",
+    card: '/assets/competitions/cards/wii-tenis.webp',
+    logo: '/assets/competitions/logos/wii.webp',
+    character: '/assets/competitions/characters/wii-tenis.webp',
+  },
+  {
+    id: "wii-sports-bolos",
+    card: '/assets/competitions/cards/wii-bolos.webp',
+    logo: '/assets/competitions/logos/wii.webp',
+    character: '/assets/competitions/characters/wii-bolos.webp',
+  },
+  {
+    id: "valorant",
+    card: '/assets/competitions/cards/valorant.webp',
+    logo: '/assets/competitions/logos/valorant.webp',
+    character: '/assets/competitions/characters/valorant.webp',
+  },
+  {
+    id: "league-of-legends",
+    card: '/assets/competitions/cards/lol.webp',
+    logo: '/assets/competitions/logos/lol.webp',
+    character: '/assets/competitions/characters/character-lol.webp',
+  },
+
+  {
+    id: "rocket-league",
+    card: '/assets/competitions/cards/rocket.webp',
+    logo: '/assets/competitions/logos/rocket.webp',
+    character: '/assets/competitions/characters/character-rocket.webp',
+  },
+  {
+    id: "brawl-stars",
+    card: '/assets/competitions/cards/brawls-stars.webp',
+    logo: '/assets/competitions/logos/brawl-stars.webp',
+    character:
+      '/assets/competitions/characters/character-brawl-stars.webp',
+  },
+  {
+    id: "smash",
+    card: '/assets/competitions/cards/smash.webp',
+    logo: '/assets/competitions/logos/smash.webp',
+    character: '/assets/competitions/characters/character-smash.webp',
+  },
+  {
+    id: "fc-25",
+    card: '/assets/competitions/cards/fc25.webp',
+    logo: '/assets/competitions/logos/fc25.webp',
+    character: '/assets/competitions/characters/character-fc25.webp',
+  },
+  {
+    id: "minecraft",
+    card: '/assets/competitions/cards/minecraft.webp',
+    logo: '/assets/competitions/logos/minecraft.webp',
+    character:
+      '/assets/competitions/characters/character-minecraft.webp',
+  },
+  {
+    id: "dragon-ball",
+    card: '/assets/competitions/cards/dragon-ball.webp',
+    logo: '/assets/competitions/logos/dragon-ball.webp',
+    character:
+      '/assets/competitions/characters/character-dragon-ball.webp',
+  },
+  {
+    id: "f1",
+    card: '/assets/competitions/cards/f1.webp',
+    logo: '/assets/competitions/logos/f1.webp',
+    character:
+      '/assets/competitions/characters/character-f1.webp',
+  },
+  {
+    id: "futbolin",
+    card: '/assets/competitions/cards/futbolin.webp',
+    logo: '/assets/competitions/logos/futbolin.webp',
+    character:
+      '/assets/competitions/characters/character-futbolin.webp',
+  },
+  /* {
+    id: "juego-libre",
+    card: '/assets/competitions/cards/juego-libre.webp',
+    logo: '/assets/competitions/logos/juego-libre.webp',
+    character:
+      '/assets/competitions/characters/character-juego-libre.webp',
+  }, */
+];

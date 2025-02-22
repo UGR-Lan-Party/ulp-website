@@ -1,14 +1,31 @@
 ---
-const { competition } = Astro.props;
+import type { CompetitionCardData } from '../data/competitions-data.ts';
+interface Props {
+  competition: CompetitionCardData;
+  holographic?: boolean;
+}
+const { competition, holographic = false } = Astro.props as Props;
 ---
 
-<a href={competition.page} class="competition-card">
+<section class="competition-card">
   <picture class="card">
-    <img src={competition.background} class="card-image" />
+    <img
+      src={competition.card}
+      class="card-image"
+      transition:name=`${competition.id} Card`
+    />
   </picture>
-  <img src={competition.logo} class="logo" />
-  <img src={competition.hover} class="character" />
-</a>
+  <img
+    src={competition.logo}
+    class="logo"
+    transition:name=`${competition.id} Logo`
+  />
+  <img
+    src={competition.character}
+    class="character"
+    transition:name=`${competition.id} Character`
+  />
+</section>
 
 <style>
   .competition-card {
@@ -88,7 +105,8 @@ const { competition } = Astro.props;
     position: absolute; /* Posicionamiento absoluto dentro de `.card` */
     left: 0; /* Se alinean a la izquierda */
     top: 0; /* Se alinean arriba */
-    background-image: url('/assets/competitions/effects/sparkles.gif'),
+    background-image:
+      url('/assets/competitions/effects/sparkles.gif'),
       linear-gradient(
         125deg,
         #ff008450 15%,

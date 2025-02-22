@@ -2,6 +2,7 @@
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
+import { ViewTransitions } from 'astro:transitions';
 import { darkStyles } from '../utils/all';
 
 interface Props {
@@ -30,14 +31,18 @@ const { description, title, image } = Astro.props;
     <meta property="og:image" content={image} />
     <meta property="twitter:image" content={image} />
 
-    <script defer src="https://analytics.wupp.dev/script.js" data-website-id="bf67b9c0-6b15-4d11-af7b-3c56661b8f2e"></script>
+    <script
+      defer
+      src="https://analytics.wupp.dev/script.js"
+      data-website-id="bf67b9c0-6b15-4d11-af7b-3c56661b8f2e"></script>
 
     <title>{title ? title + ' | ULP' : 'UGR Lan Party'}</title>
+    <ViewTransitions fallback="none" />
   </head>
   <body class={`h-screen ${darkStyles}`}>
     <Header />
     <!-- <Header client:load /> -->
-    <main class="min-h-screen">
+    <main class="min-h-screen mt-12 sm:mt-12 lg:mt-6">
       <slot />
     </main>
     <Footer />
@@ -115,6 +120,7 @@ const { description, title, image } = Astro.props;
       import '../scripts/testimonial.js';
       import '../scripts/countdown.js';
       import '../scripts/cardsMobile.js';
+      import '../scripts/holoCardsInteraction.js';
     </script>
   </body>
 </html>
