@@ -132,6 +132,7 @@ dist
 # Mac Dstore files
 .DS_Store
 
+
 # Astro Files
 .astro/*
 
@@ -139,3 +140,4 @@ dist
 package-lock.yaml
 package.json
 pnpm-lock.yaml
+

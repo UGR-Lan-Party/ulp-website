@@ -2,67 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../components/CompetitionCard.astro';
+import { CompetitionsCards } from '../data/competitions-data.ts';
 import { darkStyles } from '../utils/all';
-
-const Competitions = [
-  {
-    logo: '/assets/competitions/logos/mario.webp',
-    hover: '/assets/competitions/characters/character-mario.webp',
-    background: '/assets/competitions/cards/mario-kart.webp',
-    title: 'Mario Kart Deluxe',
-    page: '/competiciones/mario-kart',
-  },
-  {
-    logo: '/assets/competitions/logos/wii.webp',
-    hover: '/assets/competitions/characters/wii.webp',
-    background: '/assets/competitions/cards/wii.webp',
-    title: 'Wii Sports',
-    page: '/competiciones/wii-sports',
-  },
-  {
-    logo: '/assets/competitions/logos/valorant.webp',
-    hover: '/assets/competitions/characters/valorant.webp',
-    background: '/assets/competitions/cards/valorant.webp',
-    title: 'Valorant',
-    page: '/competiciones/valorant',
-  },
-  {
-    logo: '/assets/competitions/logos/lolname.webp',
-    hover: '/assets/competitions/characters/character-lol.webp',
-    background: '/assets/competitions/cards/lol.webp',
-    title: 'League of Legends',
-    page: '/competiciones/league-of-legends',
-  },
-
-  {
-    logo: '/assets/competitions/logos/rocket.webp',
-    hover: '/assets/competitions/characters/character-rocket.webp',
-    background: '/assets/competitions/cards/rocket.webp',
-    title: 'Rocket League',
-    page: '/competiciones/rocket-league',
-  },
-  {
-    logo: '/assets/competitions/logos/smash.webp',
-    hover: '/assets/competitions/characters/character-smash.webp',
-    background: '/assets/competitions/cards/smash.webp',
-    title: 'Super Smash Bros Ultimate',
-    page: '/competiciones/smash',
-  },
-  {
-    logo: '/assets/competitions/logos/fc25.webp',
-    hover: '/assets/competitions/characters/character-fc25.webp',
-    background: '/assets/competitions/cards/fc25.webp',
-    title: 'FC 25',
-    page: '/competiciones/ea-sports-fc-24',
-  },
-  {
-    logo: '/assets/competitions/logos/minecraft.webp',
-    hover: '/assets/competitions/characters/character-minecraft.webp',
-    background: '/assets/competitions/cards/minecraft.webp',
-    title: 'Minecraft',
-    page: '/competiciones/minecraft',
-  },
-];
 ---
 
 <Layout description="UGR LAN Party" title="Competiciones">
@@ -76,8 +17,10 @@ const Competitions = [
       class="w-[80%] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center justify-items-center m-16 gap-32"
     >
       {
-        Competitions.map((competition) => (
-          <CompetitionCard competition={competition} />
+        CompetitionsCards.map((competition) => (
+          <a href={'competiciones/' + competition.id}>
+            <CompetitionCard competition={competition} />
+          </a>
         ))
       }
     </div>

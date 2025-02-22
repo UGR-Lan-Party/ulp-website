@@ -1,0 +1,254 @@
+---
+import type { CompetitionCardData } from '../data/competitions-data.ts';
+interface Props {
+  competition: CompetitionCardData;
+  holographic?: boolean;
+}
+const { competition, holographic = false } = Astro.props as Props;
+---
+
+<section id="holo-card" class="holographic-competition-card holo-animation">
+  <picture class="holographic-card">
+    <img
+      src={competition.card}
+      class="holographic-card-image"
+      transition:name=`${competition.id} Card`
+    />
+  </picture>
+  <img
+    src={competition.logo}
+    class="holographic-logo holographic-reflection"
+    transition:name=`${competition.id} Logo`
+  />
+  <img
+    src={competition.character}
+    class="holographic-character"
+    transition:name=`${competition.id} Character`
+  />
+</section>
+
+<style>
+  .holographic-competition-card {
+    width: 300px; /* Ancho fijo de la tarjeta */
+    height: 400px; /* Alto fijo de la tarjeta */
+    position: relative; /* Permite posicionar elementos hijos con position:absolute */
+    display: flex; /* Utiliza flexbox para alinear los elementos dentro de la tarjeta */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: flex-end; /* Alinea los elementos al final del eje vertical */
+    padding: 0 36px; /* Espaciado interno horizontal (izquierda y derecha) de 36px */
+    margin: 50px 35px 20px 35px; /* Margen horizontal de 50px entre tarjetas */
+    overflow: visible; /* Permite que los elementos hijos sobresalgan del contenedor */
+    transform-style: preserve-3d;
+    transform: perspective(1500px);
+  }
+
+  #holo-card {
+    transition: all 0.1s ease-out;
+  }
+
+  .holographic-competition-card.holo-animation {
+    animation: holoCard 12s ease 0s infinite;
+  }
+
+  .holographic-card {
+    transition: all 0.5s; /* Transición suave para todas las propiedades durante 0.5s */
+    position: absolute; /* Se posiciona dentro del contenedor `.competition-card` */
+    height: 100%; /* Ocupa todo el alto del contenedor */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    z-index: -5; /* Se envía detrás de otros elementos */
+    border-radius: 5% / 3.5%;
+    overflow: visible;
+
+    transform: translateZ(-50px);
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .holographic-competition-card .holographic-card::before {
+    content: '';
+    position: absolute;
+    width: 105%;
+    height: 105%;
+    background-image: conic-gradient(
+      from var(--angle),
+      #ff4545,
+      #00ff99,
+      #006aff,
+      #ff0095,
+      #ff4545
+    ); /* Degradado circular */
+    left: 50%; /* Se alinean a la izquierda */
+    top: 50%; /* Se alinean arriba */
+    translate: -50% -50%;
+    z-index: -10;
+    opacity: 0; /* Comienzan ocultos */
+    border-radius: 5% / 3.5%;
+    animation: 3s spin linear infinite; /* Animación de rotación */
+    filter: blur(16px); /* Desenfoque para suavizar los colores */
+  }
+
+  .holographic-competition-card.holo-animation .holographic-card::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    mix-blend-mode: color-dodge;
+    background-position: center center;
+    background-size: 300% 300%;
+    background-image: linear-gradient(
+      115deg,
+      transparent 0%,
+      #54a29e 25%,
+      transparent 47%,
+      transparent 53%,
+      #a79d66 75%,
+      transparent 100%
+    );
+    filter: brightness(0.5) contrast(1);
+    z-index: 1;
+    transition: none;
+    animation: holoGradient 12s ease 0s infinite;
+  }
+
+  .holographic-competition-card:hover .holographic-card::before {
+    opacity: 1; /* Se hacen visibles al hacer hover */
+  }
+
+  /* Pseudoelemento para que la carta tenga un degradado de sombra en la parte superior al inclinar */
+  .holographic-card::after {
+    border-radius: 5% / 3.5%;
+    content: ''; /* Se añade contenido a los pseudoelementos, es obligatorio poner algo */
+    opacity: 1; /* Comienzan ocultos */
+    width: 100%; /* Ocupan el ancho completo de la tarjeta */
+    height: 100%; /* Ocupan el alto completo de la tarjeta */
+    transition: all 0.5s; /* Transición suave de 0.5s para todas las propiedades */
+    position: absolute; /* Posicionamiento absoluto dentro de `.card` */
+    left: 0; /* Se alinean a la izquierda */
+    top: 0; /* Se alinean arriba */
+    background-image:
+      url('/assets/competitions/effects/sparkles.gif'),
+      linear-gradient(
+        125deg,
+        #ff008450 15%,
+        #fca40040 30%,
+        #ffff0030 40%,
+        #00ff8a20 60%,
+        #00cfff40 70%,
+        #cc4cfa50 85%
+      );
+    mix-blend-mode: color-dodge;
+    background-position: 50% 50%;
+    background-size: 160%;
+    background-blend-mode: overlay;
+    z-index: 0;
+    filter: brightness(1) contrast(1);
+  }
+
+  .holographic-competition-card .holographic-card {
+    box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75); /* Añade una sombra proyectada para dar la sensación de elevación.*/
+  }
+
+  /* Hacemos que el pseudoelemento con la sombra sea visible cuando se haga hover */
+  .holographic-competition-card .holographic-card::after {
+    animation: holoSparkle 12s ease 0s infinite;
+  }
+
+  .holographic-card-image {
+    width: 100%; /* La imagen ocupa el ancho completo de la tarjeta */
+    height: 100%; /* La imagen ocupa el alto completo de la tarjeta */
+    object-fit: cover; /* Ajusta la imagen para que cubra completamente el espacio sin distorsionarse */
+    border-radius: 5% / 3.5%; /* Bordes redondeados con un radio elíptico */
+    position: relative; /* Se posiciona dentro del contenedor */
+  }
+
+  .holographic-character {
+    width: 105%; /* Ancho del personaje */
+    height: 105%;
+    object-fit: contain;
+    opacity: 1; /* Comienza invisible */
+    transition: all 0.5s; /* Transición suave para todas las propiedades */
+    position: absolute; /* Se posiciona dentro del contenedor */
+    bottom: 40px;
+    overflow: visible; /* Permite que sobresalga del contenedor */
+    transform: translateZ(0px);
+  }
+
+  .holographic-logo {
+    position: relative;
+    bottom: 30px; /* Se desplaza 20px hacia arriba */
+    height: 100px; /* Altura del logotipo */
+    width: 100%; /* Ancho completo */
+    object-fit: contain; /* Mantiene las proporciones del logotipo */
+    transform: translateZ(50px);
+  }
+
+  @keyframes spin {
+    from {
+      --angle: 0deg;
+    }
+    to {
+      --angle: 360deg;
+    }
+  }
+
+  @keyframes holoCard {
+    0%,
+    30%,
+    100% {
+      transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg);
+    }
+    35%,
+    38% {
+      transform: rotateZ(0deg) rotateX(6deg) rotateY(-20deg);
+    }
+    43%,
+    46% {
+      transform: rotateZ(0deg) rotateX(-9deg) rotateY(32deg);
+    }
+    65%,
+    68% {
+      transform: rotateZ(3deg) rotateX(12deg) rotateY(20deg);
+    }
+    85% {
+      transform: rotateZ(-3deg) rotateX(-12deg) rotateY(-27deg);
+    }
+  }
+
+  @keyframes holoGradient {
+    0%,
+    30%,
+    100% {
+      opacity: 0.5;
+      background-position: 50% 50%;
+      filter: brightness(0.5) contrast(1);
+    }
+    35%,
+    39% {
+      background-position: 100% 100%;
+      opacity: 1;
+      filter: brightness(0.75) contrast(1.25);
+    }
+    43%,
+    47% {
+      background-position: 0% 0%;
+      opacity: 0.88;
+    }
+    65%,
+    69% {
+      background-position: 100% 100%;
+      opacity: 1;
+      filter: brightness(0.5) contrast(1);
+    }
+    85% {
+      background-position: 0% 0%;
+      opacity: 1;
+      filter: brightness(0.75) contrast(1.25);
+    }
+  }
+</style>
