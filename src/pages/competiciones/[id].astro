@@ -6,12 +6,13 @@ import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
 import type {
   CompetitionData,
   CompetitionCardData,
-} from '../../lib/competitions-data.ts';
+} from '../../data/competitions-data.ts';
 import {
   Competitions,
   CompetitionsCards,
-} from '../../lib/competitions-data.ts';
+} from '../../data/competitions-data.ts';
 import CompetitionTimePlace from '../../components/CompetitionTimePlace.astro';
+import Inscripsection from '../../components/Inscripsection.astro';
 
 const { id } = Astro.params;
 
@@ -28,27 +29,30 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
   <Breadcrumb>
     <Fragment slot="title">{competition?.name}</Fragment>
   </Breadcrumb>
-  <main class="w-full flex flex-col items-center dark:bg-[#01131B]">
+  <main class="w-full flex flex-col items-center">
+    <Inscripsection
+      link={competition?.registration}
+      img_path={competition?.backgroundImage}
+    />
     <section
-      class="flex flex-col lg:flex-row w-full justify-around items-center mt-4"
+      class="flex flex-col my-10 mx-10 xl:flex-row justify-center w-full gap-16 items-center"
     >
       {
         competitionCard && (
           <CompetitionCard competition={competitionCard} holographic={true} />
         )
       }
-      <div class="flex flex-col gap-24">
-        <a
-          href=""
-          class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
+      <div class="flex flex-col gap-6">
+        <h3
+          class="text-center text-3xl font-bold md:leading-[1.44] text-dark dark:text-white md:text-[38px]"
         >
-          Inscribirme
-        </a>
+          Normas
+        </h3>
         <a
-          href=""
-          class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
+          href={competition?.rules}
+          class="inline-flex items-center justify-center py-3 z-10 text-base font-medium text-center text-white border border-primary rounded-md px-7 bg-primary shadow-lg hover:bg-blue-dark hover:border-blue-dark"
         >
-          Reglamento
+          Consultar Reglas y Formato
         </a>
       </div>
       <CompetitionTimePlace
@@ -56,13 +60,12 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
         time={competition?.time ?? ''}
       />
     </section>
-    <section class="w-full h-80 flex flex-col items-center mt-24 bg-slate-800">
-      <h2 class="text-4xl text-white mt-16">Premios</h2>
-      <h3 class="text-xl text-white">Increibles Recompensas</h3>
-      <h4 class="text-xl text-white">
-        Los premios se otorgarán a los ganadores al final del día en un breve
-        acto.
-      </h4>
+    <section
+      class="w-full h-[200px] flex flex-col gap-6 items-center bg-slate-800"
+    >
+      <h2 class="text-4xl text-center font-bold text-white mt-16">Premios</h2>
+      <h4 class="text-2xl text-white">Próximamente...</h4>
+      <!-- <div id="#WebGL-output" class="w-[350px] h-[500px] m-6 border"></div> -->
     </section>
   </main>
 </Layout>

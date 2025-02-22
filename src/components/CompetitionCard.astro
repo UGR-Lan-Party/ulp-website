@@ -1,5 +1,5 @@
 ---
-import type { CompetitionCardData } from '../lib/competitions-data.ts';
+import type { CompetitionCardData } from '../data/competitions-data.ts';
 interface Props {
   competition: CompetitionCardData;
   holographic?: boolean;
@@ -105,7 +105,8 @@ const { competition, holographic = false } = Astro.props as Props;
     position: absolute; /* Posicionamiento absoluto dentro de `.card` */
     left: 0; /* Se alinean a la izquierda */
     top: 0; /* Se alinean arriba */
-    background-image: url('/assets/competitions/effects/sparkles.gif'),
+    background-image:
+      url('/assets/competitions/effects/sparkles.gif'),
       linear-gradient(
         125deg,
         #ff008450 15%,
