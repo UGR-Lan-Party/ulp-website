@@ -13,75 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterDropDown = document.getElementById("filterDropdown");
     const activeFilters = document.getElementById("activeFilters");
 
-    const gamesList = document.getElementById("gameList");
+    const gameButtons = document.querySelectorAll(".game");
     const gameInfo = document.getElementById("gameInfo");
-
-    let gameButtons = {}; // Guardará los botones creados
-    function changeColor() {
-        setTimeout(() => {
-            const games = document.querySelectorAll(".game");
-
-            games.forEach(game => {
-                
-                // Estilos básicos
-                game.style.backgroundColor = "rgba(42, 112, 146, 0.6)";
-                game.style.color = "white";
-                game.style.padding = "15px 20px";
-                game.style.borderRadius = "10px";
-                game.style.fontSize = "1.2rem";
-                game.style.cursor = "pointer";
-                game.style.textAlign = "left";
-                game.style.width = "100%";
-                game.style.justifyContent = "space-between";
-                game.style.alignItems = "center";
-                game.style.fontWeight = "bold";
-                game.style.transition = "all 0.3s ease-in-out";
-                game.style.userSelect = "none";// Asegura que el padding no cambie el tamaño
-                game.style.height = "50px"; // La altura se ajusta al contenido
-            });
-
-            const selectedGame = document.querySelector(".game.selected");
-
-
-            if (selectedGame) {
-                selectedGame.style.backgroundColor = "white";
-                selectedGame.style.color = "#011627";
-            }
-        });
-    }
-
-    function createGameButtons() {
-        schedules.forEach(game => {
-            const button = document.createElement("button");
-            button.classList.add("game");
-            button.textContent = game.name;
-            button.dataset.name = game.name.trim();
-            
-            button.style.display = "flex";
-
-            const span = document.createElement("span");
-            span.textContent = game.aula;
-            span.classList.add("location");
-            span.style.paddingLeft = "20px";
-            span.style.fontSize = "1rem";
-            span.style.opacity = "0.8";
-
-            button.appendChild(span);
-            gamesList.appendChild(button);
-
-            // Almacenar el botón en el objeto con su ID
-            gameButtons[game.name] = button;
-
-            // Evento de selección
-            button.addEventListener("click", () => {
-                document.querySelectorAll(".game").forEach(btn => btn.classList.remove("selected"));
-                button.classList.add("selected");
-                showGameInfo(game);
-                changeColor();
-            });
-        });
-    }
-
 
     // Manejo de cambios en los filtros
     function handleTagToggle(event) {
@@ -114,13 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
             button.textContent = tag;  // El texto del botón es la etiqueta
             button.classList.add("active-filter");
 
-            button.style.backgroundColor = "rgba(42, 112, 146, 0.6)";
-            button.style.color = "white";
-            button.style.padding = "10px";
-            button.style.borderRadius = "5px";
-            button.style.textAlign = "center";
-            button.style.cursor = "pointer";
-
             // Puedes agregar una acción al botón si lo deseas
             button.addEventListener("click", () => {
                 // Eliminar la etiqueta de 'selectedTags'
@@ -128,12 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 // Actualizar la interfaz
                 updateSelectedTagsUI();
-                console.log(`${tag} filtro eliminado`);
             });
 
             const cross = document.createElement("i");
+            cross.classList.add("cross");
             cross.className = "fas fa-times";
-            cross.style.marginLeft = "5px";
     
             // Agregar el botón al contenedor
             activeFilters.appendChild(button);
@@ -146,22 +71,22 @@ document.addEventListener("DOMContentLoaded", () => {
     function filterGames(){
         const searchQuery = searchInput.value.toLowerCase();
 
-        schedules.forEach(game => {
-            const gameKey = game.name.trim(); // Asegurar coincidencia exacta
-            const button = gameButtons[gameKey];
+        gameButtons.forEach(game => {
+            const gameName = game.dataset.name.toLowerCase();
+            const gameTags = game.dataset.tags.trim().toLowerCase().split(",");
 
-            if (!button) {
-                console.warn(`⚠ No se encontró botón para: ${game.name}`);
-                return;
+            // Verificar si el nombre del juego coincide con la búsqueda
+            const matchesSearch = gameName.includes(searchQuery);
+            // Verificar si el juego tiene la etiqueta seleccionada (o ninguna si no se seleccionó ninguna etiqueta)
+            const matchesTag = selectedTags.length === 0 || selectedTags.some(tag => gameTags.includes(tag.toLowerCase()));
+
+
+            // Mostrar el botón solo si coincide con ambos filtros
+            if (matchesSearch && matchesTag) {
+                game.style.display = "flex";
+            } else {
+                game.style.display = "none";
             }
-
-            const matchesSearch = game.name.toLowerCase().includes(searchQuery);
-            const matchesTags = selectedTags.length === 0 || selectedTags.some(tag =>
-                game.tags.some(gameTag => gameTag.trim() === tag.trim())
-            );
-
-            // Mostrar u ocultar el botón sin afectar el tamaño
-            button.style.display = (matchesSearch && matchesTags) ? "flex" : "none";
         });
     }
 
@@ -169,44 +94,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para mostrar la información del juego seleccionado
     function showGameInfo(game) {
         gameInfo.innerHTML = ""; // Limpiar la información previa
-
+    
         if (game) {
             game.eventos.forEach((evento) => {
                 const timeSlot = document.createElement("div");
                 timeSlot.classList.add("time-slot");
 
-                timeSlot.style.display = "flex";
-                timeSlot.style.justifyContent = "space-between";
-
                 const time = document.createElement("span");
                 time.textContent = evento.time;
                 time.classList.add("time");
 
-                time.style.fontFamily = "Fragment Mono', sans-serif";
-                time.style.fontSize = "1rem";
-                time.style.padding = "0.5rem";
-                time.style.paddingRight = "1rem";
-                time.style.borderRight = "1px solid rgba(255, 255, 255, 0.5)";
-
                 timeSlot.appendChild(time);
-
+    
                 const eventName = document.createElement("span");
                 eventName.textContent = evento.event;
                 eventName.classList.add("event");
 
-                eventName.style.fontFamily = "'Inter', sans-serif";
-                eventName.style.fontSize = "1.5rem";
-                eventName.style.fontWeight = "bold";
-                eventName.style.textAlign = "right";
-                eventName.style.paddingLeft = "1rem";
-
-
                 timeSlot.appendChild(eventName);
-
+    
                 gameInfo.appendChild(timeSlot);
             });
         }
     }
+    
 
     // Añadir event listener al campo de búsqueda
     searchInput.addEventListener("input", filterGames);
@@ -226,10 +136,92 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-    createGameButtons();
+    function handleGameClick(event) {
+        const selectedButton = event.currentTarget;
+        
+        // Remover la clase "selected" de todos los juegos
+        document.querySelectorAll(".game").forEach(btn => btn.classList.remove("selected"));
+        
+        // Agregar la clase "selected" al botón clickeado
+        selectedButton.classList.add("selected");
+        showGameInfo(schedules.find(game => game.name === selectedButton.dataset.name));
 
-    gamesList.children[0].click();
-    
-    changeColor();
+    }
 
+    // Asignar el evento "click" a cada juego en el HTML
+    document.querySelectorAll(".game").forEach(button => {
+        button.addEventListener("click", handleGameClick);
+    });
+
+    document.querySelector(".game").click();
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+
+        .active-filter {
+            background-color: rgba(42, 112, 146, 0.6);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .fas.fa-times {
+            margin-left: 5px;
+        }
+
+        .time-slot {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .time {
+            font-family: 'Fragment Mono', sans-serif;
+            font-size: 1rem;
+            padding: 0.5rem;
+            padding-right: 1rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+
+        }
+
+        .event {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            padding-left: 1rem;
+            margin-top: 0.2rem;
+        }
+
+
+        @media (max-width: 800px) {
+
+            .time {
+                font-size: clamp(0.9rem, 4vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+            }
+
+            .event {
+                font-size: clamp(0.9rem, 4vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+                margin-top: 0.2rem;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+            .time {
+                font-size: clamp(0.8rem, 2vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+            }
+
+            .event {
+                font-size: clamp(0.8rem, 2vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+                margin-top: 0.3rem;
+            }
+        }
+    `;
+
+document.head.appendChild(style);
 });
