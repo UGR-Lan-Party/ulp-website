@@ -1,37 +1,47 @@
-const card = document.getElementById("holo-card");
+(function(){
 
-card.addEventListener("mousemove", (event) => {
-  card.classList.remove("holo-animation");
-  const pointerX = event.clientX;
-  const pointerY = event.clientY;
+document.addEventListener('DOMContentLoaded', () => {
+  
+  const card = document.getElementById("holo-card");
 
-  const cardRec = card.getBoundingClientRect();
+  card.addEventListener("mousemove", (event) => {
+    card.classList.remove("holo-animation");
+    const pointerX = event.clientX;
+    const pointerY = event.clientY;
 
-  const halfWidth = cardRec.width / 2;
-  const halfHeight = cardRec.height / 2;
+    const cardRec = card.getBoundingClientRect();
 
-  const cardCenterX = cardRec.left + halfWidth;
-  const cardCenterY = cardRec.top + halfHeight;
+    const halfWidth = cardRec.width / 2;
+    const halfHeight = cardRec.height / 2;
 
-  const deltaX = pointerX - cardCenterX;
-  const deltaY = pointerY - cardCenterY;
+    const cardCenterX = cardRec.left + halfWidth;
+    const cardCenterY = cardRec.top + halfHeight;
 
-  const rx = deltaY / halfHeight;
-  const ry = deltaX / halfWidth;
+    const deltaX = pointerX - cardCenterX;
+    const deltaY = pointerY - cardCenterY;
 
-  const distanceToTheCenter = Math.sqrt(
-    Math.pow(deltaX, 2) + Math.pow(deltaY, 2)
-  );
+    const rx = deltaY / halfHeight;
+    const ry = deltaX / halfWidth;
 
-  const maxDistance = Math.max(halfWidth, halfHeight);
-  const degree = (distanceToTheCenter * 10) / maxDistance;
+    const distanceToTheCenter = Math.sqrt(
+      Math.pow(deltaX, 2) + Math.pow(deltaY, 2)
+    );
 
-  card.style.transform = `perspective(1500px) rotate3D(${rx}, ${-ry}, 0, ${degree}deg)`;
+    const maxDistance = Math.max(halfWidth, halfHeight);
+    const degree = (distanceToTheCenter * 10) / maxDistance;
 
-  console.log(cardRec);
-});
+    card.style.transform = `perspective(1500px) rotate3D(${rx}, ${-ry}, 0, ${degree}deg)`;
 
-card.addEventListener("mouseleave", () => {
-  card.style = `perspective(1500px) rotate3D(0, 0, 0, 0deg)`;
-  card.classList.add("holo-animation");
-});
+    console.log(cardRec);
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style = `perspective(1500px) rotate3D(0, 0, 0, 0deg)`;
+    card.classList.add("holo-animation");
+  });
+
+}); // End Loaded Event
+
+}());
+
+
