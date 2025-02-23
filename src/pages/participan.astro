@@ -1,28 +1,27 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Breadcrumb from '../../components/layout/Breadcrumb.astro';
-import ContactButton from '../../components/contactButton.astro';
-import SponsorCard from '../../components/SponsorCard.astro';
-import { darkStyles } from '../../utils/all';
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import ContactButton from '../components/contactButton.astro';
+import SponsorCard from '../components/SponsorCard.astro';
+import { darkStyles } from '../utils/all';
 
 import {
   sponsorsPlatinum,
   sponsorsGold,
   sponsorsSilver,
   sponsorsBronze,
-} from '../../data/sponsors.ts';
+  sponsorsRegular,
+} from '../data/sponsors.ts';
 ---
 
-<Layout title="Patrocinadores">
+<Layout title="Participan">
   <Breadcrumb>
-    <Fragment slot="title">Patrocinadores</Fragment>
+    <Fragment slot="title">Participan</Fragment>
     <Fragment slot="texto">
-      Conoce a los patrocinadores que hacen posible este evento.
+      Conoce a las entidades que hacen posible este evento.
     </Fragment>
   </Breadcrumb>
-  <div
-    class={`w-full flex flex-col items-center justify-center ${darkStyles}`}
-  >
+  <div class={`w-full flex flex-col items-center justify-center ${darkStyles}`}>
     <section class="h-[200px] flex flex-col items-center justify-center gap-4">
       <h3 class="text-2xl font-semibold text-center dark:text-white">
         ¿Quieres ser parte del proyecto?
@@ -69,6 +68,18 @@ import {
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
           {sponsorsBronze.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+        </div>
+      </div>
+      <div>
+        <h3
+          class="text-4xl font-extrabold text-[#414247] dark:text-[#CACACA] text-center"
+        >
+          Patrocinadores y Colaboradores
+        </h3>
+        <div
+          class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
+        >
+          {sponsorsRegular.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
         </div>
       </div>
     </main>
