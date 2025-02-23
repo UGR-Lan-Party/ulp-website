@@ -157,6 +157,14 @@ const Sponsors: SponsorData[] = [
         rrss: "Web",
         link: "https://www.formulakarting.es/",
       },
+      {
+        rrss: "Instagram",
+        link: "https://www.instagram.com/formulakarting/",
+      },
+      {
+        rrss: "YouTube",
+        link: "https://www.youtube.com/@ClubFormulaKartingGranada",
+      },
     ]
   },
   {
@@ -178,8 +186,52 @@ const Sponsors: SponsorData[] = [
     ]
   },
   {
+    name: "UGR",
+    tier: 'regular',
+    description: "Universidad pública española con sede en Granada y con campus en las ciudades de Granada, Ceuta y Melilla. Reconocida como una de las 10 mejores universidades de España y entre las 500 mejores del mundo. Recibe cada año más de 2000 alumnos del programa Erasmus, siendo el destino europeo favorito.​",
+    logo: '/assets/participan/Color/Organismos/ugr.png',
+    bussiness: "Universidad de Granada",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://ugr.es/",
+      },
+      {
+        rrss: "X",
+        link: "https://x.com/canalugr",
+      },
+      {
+        rrss: "Facebook",
+        link: "https://www.facebook.com/universidadgranada/",
+      },
+      {
+        rrss: "YouTube",
+        link: "https://www.youtube.com/user/UGRmedios",
+      },
+    ]
+  },
+  {
+    name: "ETSIIT",
+    tier: 'regular',
+    description: "Centro universitario dedicado a la docencia e investigación de los estudios relacionados con la informática, las ciencias de la computación y las telecomunicaciones. Reconocido por su prestigio en la enseñanza de Ingeniería Informática, como mejor de España, sexta de Europa y entre las cincuenta mejores del mundo. ",
+    logo: '/assets/participan/Color/Organismos/etsiit.png',
+    bussiness: "Universidad de Granada",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://etsiit.ugr.es/",
+      },
+      {
+        rrss: "X",
+        link: "https://x.com/etsiit_ugr",
+      }
+    ]
+  },
+  {
     name: "The Game Kitchen",
-    tier: 'bronze',
+    tier: 'regular',
     description: "Estudio de desarrollo de videojuegos independiente de Sevilla. Especializados en títulos de aventura y acción con estética retro y temáticas inspiradas en el folclore andaluz. Son conocidos por juegos como “The Last Door” y “Blasphemous”.",
     logo: '/assets/participan/Color/Empresas/game-kitchen.png',
     bussiness: "Desarrolladora de videojuegos",
@@ -199,6 +251,80 @@ const Sponsors: SponsorData[] = [
       },
     ]
   },
+  {
+    name: "EMYCET",
+    tier: 'regular',
+    description: "Agencia que se dedica a organizar circuitos, excursiones, viajes a medida y eventos, enfocándose en crear experiencias únicas y memorables para sus clientes. Su objetivo es inspirar a las personas a cumplir sus sueños a través del viaje y la diversión, promoviendo la felicidad y recuerdos inolvidables.",
+    logo: '/assets/participan/Color/Empresas/emycet.png',
+    bussiness: "Viajes y eventos",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://thegamekitchen.com/",
+      },
+    ]
+  },
+  {
+    name: "TSTC",
+    tier: 'bronze',
+    description: "El Departamento de Teoría de la Señal, Telemática y Comunicaciones (TSTC) de la Universidad de Granada fue creado en el curso 2004/2005, estando adscritas al mismo las áreas de conocimiento de Ingeniería Telemática (IT) y de Teoría de la Señal y Comunicaciones (TSC).",
+    logo: '/assets/participan/Color/Organismos/logo-tstc.png',
+    bussiness: "Departamento de la UGR",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://tstc.ugr.es/",
+      },
+    ]
+  },
+  {
+    name: "LSI",
+    tier: 'silver',
+    description: "Departamento de Lenguajes y Sistemas Informáticos de la Universidad. Fundado en 1989, imparte docencia en 20 grados y 15 másteres, en materias relacionadas con la ingeniería del software, sistemas operativos, metodologías de desarrollo, ingeniería web, sistemas gráficos, concurrentes, distribuidos, bases de datos...",
+    logo: '/assets/participan/Color/Organismos/lsi.png',
+    bussiness: "Departamento de la UGR",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://lsi.ugr.es/",
+      },
+    ]
+  },
+  {
+    name: "AESIT",
+    tier: 'regular',
+    description: "Nace en el año 2016 con el fin de fomentar y reforzar los lazos de los egresados con la ETSIIT. Realiza actividades de interés, colaborando y prestando apoyo a los estudiantes que están finalizando sus estudios y fomentar una buena convivencia en la escuela.",
+    logo: '/assets/participan/Color/Organismos/aesit.png',
+    bussiness: "Asociación de Antiguos Estudiantes",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://aesit.es/",
+      },
+      {
+        rrss: "X",
+        link: "https://x.com/aesit_ugr",
+      }
+    ]
+  },
+  {
+    name: "CSIRC",
+    tier: 'regular',
+    description: "Centro de Servicios de Informática y Redes de Comunicaciones de la Universidad de Granada. Tiene como misión desarrollar, mejorar y potenciar el uso de las Tecnologías de Información y Comunicación, dando soporte a la docencia, investigación y gestión de manera eficiente, e impulsando la innovación y la calidad de la UGR.",
+    logo: '/assets/participan/Color/Organismos/csirc.png',
+    bussiness: "Universidad de Granada",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://csirc.ugr.es/",
+      },
+    ]
+  },
 ];
 
 export const sponsorsPlatinum: SponsorData[] = Sponsors.filter(
@@ -212,4 +338,7 @@ export const sponsorsSilver: SponsorData[] = Sponsors.filter(
 );
 export const sponsorsBronze: SponsorData[] = Sponsors.filter(
   (sponsor) => sponsor.tier === 'bronze',
+);
+export const sponsorsRegular: SponsorData[] = Sponsors.filter(
+  (sponsor) => sponsor.tier === 'regular',
 );
