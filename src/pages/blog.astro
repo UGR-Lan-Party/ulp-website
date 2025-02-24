@@ -3,115 +3,75 @@ import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from "astro:content";
 
-// Filter blog entries with 'draft: false' & date before current date
+// Filtrar entradas de blog que no estén en draft y cuya fecha sea anterior a la actual
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
   return !data.draft && data.publishDate < new Date();
 });
 
-// Sort content entries by publication date
-publishedBlogEntries.sort(function (a, b) {
+// Ordenar las entradas por fecha de publicación (más reciente primero)
+publishedBlogEntries.sort((a, b) => {
   return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
 });
 ---
 
 <Layout
-  description="Blog de la UGR LAN Party" 
+  description="Blog de la UGR LAN Party"
   title="Blog - UGR LAN Party"
 >
   <Breadcrumb>
     <Fragment slot="title">Blog</Fragment>
   </Breadcrumb>
-  <section class={`pt-20 pb-10 lg:pt-[120px] lg:pb-20`}>
-    <div class="container card-container flex flex-wrap items-center justify-center w-full lg:gap-14">
+
+  <!-- Sección principal del blog -->
+  <section class="py-10 sm:py-16">
+    <div class="container mx-auto px-4">
+      <!-- Título de sección -->
+      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">
+        Últimas Entradas
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {
-          publishedBlogEntries.map((blogPostEntry, index) => (
-              <div class="wow containerBlogCard fadeInUp group block mb-20 lg:mb-10 pt-4 lg:pt-0" data-wow-delay=".1s">
-                <div class="blogCard">
-                  
-                  <div class="front rounded-[5px] overflow-hidden">
-                    <img src={blogPostEntry.data.image.src} 
-                    alt={blogPostEntry.data.image.alt}
-                    class="w-full h-full object-cover">
-                  </div>
+          publishedBlogEntries.map((blogPostEntry) => (
+            <article 
+              class="
+                bg-white dark:bg-gray-800 
+                rounded-lg shadow-md 
+                overflow-hidden 
+                transform transition-all duration-300 
+                hover:-translate-y-1 hover:shadow-lg
+              "
+            >
+              <!-- Imagen de la tarjeta -->
+              <img
+                src={blogPostEntry.data.image.src}
+                alt={blogPostEntry.data.image.alt}
+                class="w-full h-48 object-cover"
+              />
 
-                  <div class="back rounded-[5px] p-4 bg-secondary dark:bg-gray-200">
-                    <div>
-                      <h3>
-                        <span
-                          class="inline-block text-xl font-semibold text-white dark:text-primary  sm:text-2xl lg:text-xl xl:text-2xl mb-2"
-                        >
-                          {blogPostEntry.data.title}
-                        </span>
-                      </h3>
-                      <span class="px-2 py-1 text-xs font-medium leading-loose text-center text-white rounded-[5px] bg-primary">
-                        {blogPostEntry.data.publishDate.toDateString()}
-                      </span>
-                      <p class="max-w-[370px] text-base  text-dark-6 dark:text-secondary mt-4">
-                        {`${blogPostEntry.data.postDetails.paraOne.slice(0, 150)}...`}
-                      </p>
-                    </div>
+              <!-- Contenido de la tarjeta -->
+              <div class="p-5">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                  {blogPostEntry.data.title}
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  {blogPostEntry.data.publishDate.toDateString()}
+                </p>
+                <p class="text-base text-gray-600 dark:text-gray-200">
+                  {`${blogPostEntry.data.postDetails.paraOne.slice(0, 150)}...`}
+                </p>
 
-                    <a  href={`/blog/${blogPostEntry.slug}`}>
-                      <button class="bg-primary rounded-md px-4 py-2 text-white font-semibold transition-all ease-in-out duration-300">
-                        Ver más <span class="animation_button opacity-0 inline-block transition-all ease-in-out duration-300"> > </span>
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>       
+                <!-- Botón/Enlace de "Ver más" -->
+                <a 
+                  href={`/blog/${blogPostEntry.slug}`} 
+                  class="inline-block mt-4 text-primary font-medium hover:underline dark:text-emerald-500"
+                >
+                  Ver más
+                </a>
+              </div>
+            </article>
           ))
         }
+      </div>
     </div>
   </section>
 </Layout>
-
-<style type="text/css">
-  .card-container{
-    perspective: 1000px;
-  }
-
-  .blogCard{
-    width: 300px;
-    height: 400px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s;
-  }
-
-  .front,.back{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    backface-visibility: hidden;
-  }
-
-  .front{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    transform: rotateY(0deg);
-  }
-
-  .back{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    transform: rotateY(180deg);
-  }
-
-  .containerBlogCard:hover .blogCard{
-    transform: rotateY(180deg);
-  }
-
-  button:hover .animation_button{
-    opacity: 1;
-    transform: translateX(24px);
-  }
-
-button:hover {
-    padding-right: 32px;
-}
-</style>
