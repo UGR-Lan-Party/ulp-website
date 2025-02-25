@@ -168,9 +168,9 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
 
     .filter-option {
         position: absolute;
-        left: 65%;
+        left: 70%;
         zIndex: 10;
-        width: 20%;
+        width: 10%;
         padding: 10px;
         textAlign: left;
         border: none;
@@ -228,6 +228,42 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         padding-left: 0;
     }
 
+    .game {
+      
+        height: 60px;
+        background-color: rgba(42, 112, 146, 0.6);
+        display: flex;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        text-align: left;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+        user-select: none;
+        transition: transform 0.2s ease, background 0.3s;
+        word-wrap: break-word; /* Fuerza el ajuste de palabras largas */
+        overflow-wrap: break-word; /* Asegura que las palabras largas no se salgan */
+    }
+
+    .game:hover {
+      transform: scale(1.03); /* Aumenta el tamaño en un 8% */
+    }
+    .game.selected {
+      background-color: white;
+      color: #011627;
+    }
+
+    .location {
+      padding-left: 20px;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
     /* Horarios */
     .times {
         display: flex;
@@ -237,63 +273,195 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         gap: 18px;
     }
 
-    .time-slot {
-        display: flex;
-        justify-content: space-between;
-    }
-
     .tabla{
         padding-top: 50px; 
     }
     /* Responsive */
-    @media (max-width: 768px) {
-        .schedule {
-        flex-direction: column;
-        align-items: center;
-        }
-
-        /* Cambiar la dirección de los juegos a horizontal en pantallas pequeñas */
-        .games {
+    @media (max-width: 1500px) {
+      .schedule {
         display: flex;
-        flex-direction: row; /* En pantallas pequeñas se alinean horizontalmente */
-        overflow-x: auto; /* Permitir el desplazamiento horizontal */
-        overflow-y: hidden; /* Ocultar la barra de desplazamiento vertical */
-        -ms-overflow-style: none;  /* Ocultar barra de desplazamiento en IE */
-        scrollbar-width: none; /* Ocultar barra de desplazamiento en Firefox */
+        justify-content: space-between; /* Cambié space-x-2 por space-between para que los elementos se distribuyan a los extremos */
+        width: 80vw;
+        margin: 0 auto;
+        padding-top: 30px;
+      }
+
+      /* Ajustar las columnas de los juegos */
+      .games {
+        flex: 1.5;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Crear 2 columnas iguales */
         gap: 12px;
-        white-space: nowrap; /* Evitar que se ajusten en múltiples líneas */
-        width: 100%; /* Asegurarse de que ocupe el ancho completo */
-        padding-bottom: 10px; /* Añadir un poco de espacio para el scroll */
-        user-select: none; /* Deshabilitar selección de texto */
-        cursor: grab; /* Cambiar el cursor a "agarrar" para indicar que se puede arrastrar */
-        }
+        margin: 0;
+        padding-left: 0;
+      }
 
-        /* Estilo de las barras de desplazamiento */
-        .games::-webkit-scrollbar {
-        width: 0;  /* Eliminar el ancho de la barra de desplazamiento */
-        height: 0; /* Eliminar la altura de la barra de desplazamiento */
-        }
-        .games button {
-        width: 350px; /* Aumentar el tamaño de los botones */
-        flex-shrink: 0; /* Evitar que los botones se encojan */
-        }
+      .game {
+        width: 100%; /* Asegura que los botones ocupen el ancho completo */
+        font-size: clamp(0.9rem, 4vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+      }
 
-        .times {
+      .location{
+        font-size: clamp(0.9rem, 4vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+      }
+
+      .times {
+        flex:1;
         padding: 30px;
         width: 100%;
         text-align: center;
-        }
+      }
 
-        .time-slot {
+      .time-slot {
         width: 100%;
         justify-content: space-between;
         gap: 10px;
-        }
+      }
+      
+
+      /* Estilos para el filtro */
+      .filter-option {
+        display: flex;
+        flex-direction: column;
+        left: 90%;
+        transform: translateX(-50%);
+        visibility: visible; /* Hacer visible el filtro en pantallas pequeñas */
+        width: 30%;
+        z-index: 20;
+        padding: 10px;
+        text-align: center;
+        visibility: hidden;
+      }
+
+      /* Estilos del buscador */
+      .buscador {
+        width: 80%; /* Asegura que el buscador tenga el tamaño adecuado */
+        font-size: 1rem;
+      }
+
+    }
+
+    @media (max-width: 1150px) {
+      /* Ajustar contenedor del cronograma */
+      .schedule {
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* Asegura que ocupe el ancho completo */
+      }
+
+      /* Ajustar las columnas de los juegos */
+      .games {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 12px;
+        white-space: nowrap;
+        width: 100%;
+        padding-bottom: 10px;
+        user-select: none;
+        cursor: grab;
+      }
+
+      /* Estilo de las barras de desplazamiento */
+      .games::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      .games button {
+        width: 300px; /* Reducir el tamaño de los botones en pantallas pequeñas */
+        flex-shrink: 1;
+      }
+
+      .game {
+        font-size: clamp(0.9rem, 4vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+      }
+      .location {
+        font-size: clamp(0.9rem, 4vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */	
+      }
+
+      .times {
+        padding: 30px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .time-slot {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      
+      /* Estilos para el filtro */
+      .filter-option {
+        display: flex;
+        flex-direction: column;
+        left: 80%;
+        transform: translateX(-50%);
+        visibility: visible; /* Hacer visible el filtro en pantallas pequeñas */
+        width: 20%;
+        z-index: 20;
+        padding: 10px;
+        text-align: center;
+        visibility: hidden;
+      }
+
+      /* Estilos del buscador */
+      .buscador {
+        width: 80%; /* Asegura que el buscador tenga el tamaño adecuado */
+        font-size: 1rem;
+      }
+
+    }
+
+    /* Para pantallas muy pequeñas */
+    @media (max-width: 500px) {
+      .games::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      
+      .games button {
+        width: 250px; /* Reducir el tamaño de los botones en pantallas pequeñas */
+        flex-shrink: 2;
+      }
+      .game {
+        font-size: clamp(0.8rem, 2vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */
+      }
+      .location {
+        font-size: clamp(0.8rem, 2vw, 1rem); /* Reducir aún más en pantallas muy pequeñas */	
+      }
+
+      
+      .times {
+        padding: 30px;
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Estilos para el filtro */
+      .filter-option {
+        display: flex;
+        flex-direction: column;
+        left: 70%;
+        transform: translateX(-50%);
+        visibility: visible; /* Hacer visible el filtro en pantallas pequeñas */
+        width: 40%;
+        z-index: 20;
+        padding: 10px;
+        text-align: center;
+        visibility: hidden;
+      }
+
+      /* Estilos del buscador */
+      .buscador {
+        width: 80%; /* Asegura que el buscador tenga el tamaño adecuado */
+        font-size: 1rem;
+      }
+        
     }
 </style>
-
-<script src = "../scripts/schedule.js"></script>
-
 </head>
 <section id="schedule" class={`${darkStyles} text-white bg-primary`}>
     <h1>Cronograma de Actividades</h1>
@@ -318,6 +486,13 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
     
     <div class="schedule">
         <div class="games" id="gameList">
+            {schedules.map(game => (
+                <button class="game" data-tags={game.tags} data-name={game.name} data-aula={game.aula}>
+
+                        {game.name}
+                        <span class="location">{game.aula}</span>
+                </button>
+            ))}
         </div>
         <div class="times" id="gameInfo">
         </div>
@@ -329,4 +504,6 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
     </div>
     
 </section>
+
+<script src = "../scripts/schedule.js"></script>
 

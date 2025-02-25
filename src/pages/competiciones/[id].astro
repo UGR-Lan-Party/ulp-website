@@ -50,19 +50,21 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
           <CompetitionCard competition={competitionCard} holographic={true} />
         )
       }
-      <div class="flex flex-col gap-6">
-        <h3
-          class="text-center text-3xl font-bold md:leading-[1.44] text-dark dark:text-white md:text-[38px]"
-        >
-          Normas
-        </h3>
-        <a
-          href={competition?.rules}
-          class="inline-flex items-center justify-center py-3 z-10 text-base font-medium text-center text-white border border-primary rounded-md px-7 bg-primary shadow-lg hover:bg-blue-dark hover:border-blue-dark"
-        >
-          Consultar Reglas y Formato
-        </a>
-      </div>
+      {
+        competition?.rules && competition.rules !== '' && (
+          <div class="flex flex-col gap-6">
+            <h3 class="text-center text-3xl font-bold md:leading-[1.44] text-dark dark:text-white md:text-[38px]">
+              Normas
+            </h3>
+            <a
+              href={competition?.rules}
+              class="inline-flex items-center justify-center py-3 z-10 text-base font-medium text-center text-white border border-primary rounded-md px-7 bg-primary shadow-lg hover:bg-blue-dark hover:border-blue-dark"
+            >
+              Consultar Reglas y Formato
+            </a>
+          </div>
+        )
+      }
       <CompetitionTimePlace
         place={competition?.place ?? []}
         time={competition?.time ?? ''}
@@ -79,3 +81,4 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
 </Layout>
 
 <style></style>
+<script src="../../scripts/holoCardsInteraction.js"></script>
