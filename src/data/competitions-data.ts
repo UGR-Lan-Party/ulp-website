@@ -133,15 +133,42 @@ export const Competitions: CompetitionData[] = [
     place: ["Entrada", "Entrada rejas patio"],
     backgroundImage: "/assets/competitions/backgrounds/futbolin.webp",
   },
-  /* {
-    id: "juego-libre",
-    name: "Juego Libre",
+  {
+    id: "retro",
+    name: "Juego Retro",
     rules: "",
     registration: "",
-    time: "12:30 - 14:00",
+    time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
-    backgroundImage: "/assets/competitions/backgrounds/juego-libre.png",
-  }, */
+    backgroundImage: "/assets/competitions/backgrounds/retro.webp",
+  },
+  {
+    id: "street-fighter",
+    name: "Street Fighter V",
+    rules: "",
+    registration: "",
+    time: "Todo el día",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/street-fighter.png",
+  },
+  {
+    id: "beat-saber",
+    name: "Beat Saber",
+    rules: "",
+    registration: "",
+    time: "Todo el día",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/beat-saber.webp",
+  },
+  {
+    id: "hacking",
+    name: "Hacking Ético",
+    rules: "",
+    registration: "",
+    time: "Todo el día",
+    place: ["Aula -1.2", "Bajando escaleras futbolín"],
+    backgroundImage: "/assets/competitions/backgrounds/hacking.webp",
+  },
 ];
 
 export const CompetitionsCards: CompetitionCardData[] = [
@@ -229,11 +256,25 @@ export const CompetitionsCards: CompetitionCardData[] = [
     character:
       '/assets/competitions/characters/character-futbolin.webp',
   },
-  /* {
-    id: "juego-libre",
-    card: '/assets/competitions/cards/juego-libre.webp',
-    logo: '/assets/competitions/logos/juego-libre.webp',
+  {
+    id: "retro",
+    card: '/assets/competitions/cards/retro.webp',
+    logo: '/assets/competitions/logos/retro.webp',
     character:
-      '/assets/competitions/characters/character-juego-libre.webp',
-  }, */
+      '/assets/competitions/characters/character-retro.webp',
+  },
+  {
+    id: "beat-saber",
+    card: '/assets/competitions/cards/beat-saber.webp',
+    logo: '/assets/competitions/logos/beat-saber.webp',
+    character:
+      '/assets/competitions/characters/character-beat-saber.webp',
+  },
+  {
+    id: "hacking",
+    card: '/assets/competitions/cards/hacking.webp',
+    logo: '/assets/competitions/logos/hacking.webp',
+    character:
+      '/assets/competitions/characters/character-hacking.webp',
+  },
 ];
