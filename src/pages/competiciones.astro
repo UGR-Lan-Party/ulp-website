@@ -18,11 +18,13 @@ import { darkStyles } from '../utils/all';
     >
       {
         CompetitionsCards.map((competition) => (
-          <a href={'competiciones/' + competition.id}>
+          <a href={'/competiciones/' + competition.id}>
             <CompetitionCard competition={competition} />
           </a>
         ))
       }
     </div>
   </div>
+
+  <script src="../scripts/cardsMobile.js"></script>
 </Layout>

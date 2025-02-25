@@ -2,25 +2,44 @@
 import { darkStyles } from '../utils/all';
 
 interface Props {
-  paddingClass?: string;
+  albumId: string;
+  userId: string;
+  withBackground?: boolean;
+  height?: string;
+  instanceId?: string;
+  unlimitedHeight?: boolean;
 }
 
-const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
+const { 
+  albumId, 
+  userId, 
+  withBackground = true,
+  height = "600px",
+  instanceId = `carousel-${albumId}`,
+  unlimitedHeight = false
+} = Astro.props;
+
+const containerClass = withBackground 
+  ? `bg-gray-1 ${darkStyles} pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]`
+  : 'bg-transparent';
 ---
 
-<section
-  id="about"
-  class={`bg-gray-1 ${darkStyles} ${paddingClass}`}
->
+<section class={containerClass}>
   <div class="container w-full px-4">
     <div class="wow fadeInUp" data-wow-delay=".2s">
       <div class="flex flex-wrap items-center border-solid border-10">
         <div class="w-full px-4">
           <div
-            x-data="imageSlider"
-            class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-md p-2 sm:p-4"
+            x-data={`imageSlider('${albumId}', '${userId}')`}
+            class="relative mx-auto w-full max-w-[90rem] overflow-hidden rounded-lg bg-transparent"
           >
-            <div class="relative h-[38rem] w-full">
+            <div 
+              class={`relative rounded-lg overflow-hidden aspect-w-16 aspect-h-9 bg-transparent`} 
+              style={`height: ${height}`}
+              data-album-id={albumId}
+              data-user-id={userId}
+              id={instanceId}
+            >
               <button
                 @click="previous()"
                 class="group absolute left-8 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100/80 hover:bg-primary shadow-md backdrop-blur-sm"
@@ -61,7 +80,15 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
                 </svg>
               </button>
 
-              <div class="h-full w-full flex items-center justify-center">
+              <div class="h-full w-full flex items-center justify-center overflow-hidden">
+                <!-- Loading indicator -->
+                <div 
+                  x-show="loading" 
+                  class="absolute inset-0 flex items-center justify-center bg-gray-100/50 backdrop-blur-sm"
+                >
+                  <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                </div>
+
                 <template x-for="(image, index) in images">
                   <div
                     x-show="currentIndex == index + 1"
@@ -72,12 +99,18 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
                     class="absolute inset-0 flex items-center justify-center"
+                    @touchstart="handleTouchStart($event)"
+                    @touchmove="handleTouchMove($event)"
+                    @touchend="handleTouchEnd($event)"
                   >
                     <img
                       :src="image"
                       alt="image"
-                      class="rounded-md object-cover w-full h-full cursor-pointer"
+                      class="w-full h-full object-cover cursor-pointer"
                       @click="showModal = true; selectedImage = image"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="high"
                     />
                   </div>
                 </template>
@@ -88,15 +121,16 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
             <div class="mt-8 flex gap-4 justify-between w-full">
               <template x-for="i in 5">
                 <div
-                  x-show="currentIndex + i - 1 <= images.length"
-                  class="w-1/5 aspect-video cursor-pointer"
-                  @click="currentIndex = currentIndex + i - 1"
+                  class="w-1/5 cursor-pointer transition-transform duration-300"
+                  @click="currentIndex = getVisibleThumbnailIndex(i)"
                 >
                   <img
-                    :src="images[currentIndex + i - 2]"
+                    :src="getThumbnailImage(i)"
                     alt="thumbnail"
-                    class="w-full h-full object-cover rounded-md hover:opacity-75 transition-opacity"
-                    :class="{'border-2 border-primary': currentIndex === currentIndex + i - 1}"
+                    class="w-full h-full object-cover rounded-md hover:opacity-75 transition-opacity aspect-video"
+                    :class="{'border-2 border-primary': currentIndex === getVisibleThumbnailIndex(i)}"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </template>
@@ -107,22 +141,36 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
               x-cloak
               x-show="!loading && showModal"
               x-transition.opacity
-              class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-8"
+              class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-8"
               @click="showModal = false"
             >
-              <div class="relative bg-white rounded-lg p-2 w-[1280px] h-[720px]">
+              <!-- Fondo con desenfoque y vista previa -->
+              <div 
+                class="absolute inset-0 bg-black/30 backdrop-blur-xl"
+                :style="`background-image: url('${selectedImage}'); background-size: cover; background-position: center; filter: blur(20px) brightness(0.3);`"
+              ></div>
+
+              <!-- Contenedor principal -->
+              <div 
+                class="relative max-w-[95vw] max-h-[90vh] rounded-xl overflow-hidden shadow-2xl"
+                @click.stop
+              >
+                <!-- Imagen -->
                 <img
                   :src="selectedImage"
                   alt="Full size image"
-                  class="w-full h-full object-cover rounded-lg"
-                  @click.stop
+                  class="w-full h-full object-contain max-h-[90vh]"
+                  loading="lazy"
+                  decoding="async"
                 />
+
+                <!-- Botón de cierre mejorado -->
                 <button
                   @click="showModal = false"
-                  class="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+                  class="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
                 >
                   <svg
-                    class="w-6 h-6 text-gray-800"
+                    class="w-6 h-6"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -144,53 +192,191 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
   </div>
 </section>
 
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-></script>
-<script is:inline>
-  async function getFlickrPhotos() {
-    const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
-    const ALBUM_ID = '72177720316026867';
-    const USER_ID = '195749897@N03';
+<!-- Cargar Alpine.js de manera más eficiente -->
+<script>
+  // Precargar Alpine.js
+  const alpineScript = document.createElement('script');
+  alpineScript.defer = true;
+  alpineScript.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js';
+  document.head.appendChild(alpineScript);
+</script>
 
-    const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${ALBUM_ID}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=url_k,o_dims`;
+<script define:vars={{ albumId, userId }}>
+  async function getFlickrPhotos(albumId, userId) {
+    const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
+    const timestamp = new Date().getTime();
+    const cacheKey = `flickr_${albumId}_${userId}`;
+    
+    // Intentar obtener del cache
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${albumId}&user_id=${userId}&format=json&nojsoncallback=1&extras=url_k,url_h,url_b,url_c,o_dims&timestamp=${timestamp}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
-      return data.photoset.photo
-        .filter((photo) => {
-          // Verificar si la foto es horizontal (ancho > alto)
-          return photo.width_k > photo.height_k;
+
+      // IDs de los álbumes de la 5ª y 6ª edición
+      const newEditionAlbums = [
+        '72177720316026867', // 6ª edición
+        '72177720308548822'  // 5ª edición
+      ];
+
+      const processedImages = data.photoset.photo
+        .map(photo => {
+          const bestUrl = photo.url_k || photo.url_h || photo.url_b || photo.url_c;
+          
+          if (newEditionAlbums.includes(albumId)) {
+            if (photo.width_k && photo.height_k && photo.width_k > photo.height_k) {
+              return bestUrl;
+            }
+            return null;
+          }
+          
+          return bestUrl;
         })
-        .map((photo) => photo.url_k)
-        .filter((url) => url);
+        .filter(url => url);
+
+      // Guardar en cache
+      sessionStorage.setItem(cacheKey, JSON.stringify(processedImages));
+      return processedImages;
     } catch (error) {
-      console.error('Error fetching Flickr photos:', error);
+      console.error(`[Flickr API] Error fetching photos for album ${albumId}:`, error);
       return [];
     }
   }
 
   document.addEventListener('alpine:init', () => {
-    Alpine.data('imageSlider', () => ({
+    Alpine.data('imageSlider', (albumId, userId) => ({
       currentIndex: 1,
       images: [],
       loading: true,
       showModal: false,
       selectedImage: null,
+      albumId,
+      userId,
+      thumbnailStartIndex: 0, // Nueva propiedad para seguir el índice inicial de miniaturas
+
       async init() {
         this.loading = true;
-        this.images = await getFlickrPhotos();
+        this.images = await getFlickrPhotos(this.albumId, this.userId);
         this.loading = false;
+        this.preloadAdjacentImages();
+
+        // Variables para control táctil y modal
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+        this.touchStartTime = 0;
+        this.minSwipeDistance = 50;
+        this.maxTapDuration = 200;
+        this.hasMoved = false;
+        this.showModal = false;
+        this.selectedImage = null;
       },
+
+      handleTouchStart(event) {
+        this.touchStartX = event.touches[0].clientX;
+        this.touchStartTime = new Date().getTime();
+        this.hasMoved = false;
+      },
+
+      handleTouchMove(event) {
+        this.touchEndX = event.touches[0].clientX;
+        this.hasMoved = true;
+      },
+
+      handleTouchEnd(event) {
+        const touchDuration = new Date().getTime() - this.touchStartTime;
+        const swipeDistance = this.touchEndX - this.touchStartX;
+
+        // Si no se movió y el toque fue corto, tratar como click
+        if (!this.hasMoved && touchDuration < this.maxTapDuration) {
+          this.showModal = true;
+          this.selectedImage = this.images[this.currentIndex - 1];
+          return;
+        }
+
+        // Solo procesar el swipe si la distancia es suficiente
+        if (Math.abs(swipeDistance) >= this.minSwipeDistance) {
+          if (swipeDistance > 0) {
+            this.previous();
+          } else {
+            this.forward();
+          }
+        }
+
+        // Resetear valores
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+        this.hasMoved = false;
+      },
+
+      getThumbnailIndex(position) {
+        // Si hay menos de 5 imágenes, usar el índice directamente
+        if (this.images.length <= 5) {
+          return position;
+        }
+        // Para más de 5 imágenes, usar la lógica original
+        let baseIndex = Math.floor((this.currentIndex - 1) / 5) * 5 + position;
+        return ((baseIndex - 1) % this.images.length) + 1;
+      },
+
+      getVisibleThumbnailIndex(position) {
+        return ((this.thumbnailStartIndex + position - 1) % this.images.length) + 1;
+      },
+
+      getThumbnailImage(position) {
+        const index = this.getVisibleThumbnailIndex(position) - 1;
+        return this.images[index] || '';
+      },
+
       previous() {
         if (this.currentIndex > 1) {
-          this.currentIndex = this.currentIndex - 1;
+          this.currentIndex--;
+        } else {
+          this.currentIndex = this.images.length;
         }
+        this.updateThumbnailStartIndex();
       },
+
       forward() {
         if (this.currentIndex < this.images.length) {
-          this.currentIndex = this.currentIndex + 1;
+          this.currentIndex++;
+        } else {
+          this.currentIndex = 1;
         }
+        this.updateThumbnailStartIndex();
+      },
+
+      updateThumbnailStartIndex() {
+        // Calcula el índice inicial de las miniaturas para mantener la imagen actual centrada
+        let newStartIndex = this.currentIndex - 3;
+        
+        // Ajusta el índice si está fuera de los límites
+        if (newStartIndex < 0) {
+          newStartIndex = this.images.length + newStartIndex;
+        }
+        
+        this.thumbnailStartIndex = newStartIndex;
+      },
+
+      preloadAdjacentImages() {
+        const preloadImage = (index) => {
+          if (index >= 0 && index < this.images.length) {
+            const img = new Image();
+            img.src = this.images[index];
+          }
+        };
+
+        // Precargar siguiente y anterior
+        this.$watch('currentIndex', (index) => {
+          preloadImage(index);
+          preloadImage(index - 2);
+          preloadImage(index);
+        });
       },
     }));
   });
@@ -199,5 +385,43 @@ const { paddingClass = "pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]" } = Astro.props;
 <style>
   [x-cloak] {
     display: none !important;
+  }
+
+  /* Asegurar que todas las imágenes se ajustan correctamente */
+  [data-album-id] img {
+    object-fit: cover !important;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Mantener la vista completa en el modal */
+  .fixed.inset-0 img {
+    object-fit: contain !important;
+  }
+
+  /* Estilos para el modal */
+  .fixed.inset-0 {
+    perspective: 1000px;
+  }
+
+  /* Animación suave para la apertura del modal */
+  .fixed.inset-0[x-show] {
+    animation: modalFadeIn 0.3s ease-out;
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Optimizar renderizado */
+  .backdrop-blur-xl {
+    will-change: backdrop-filter;
   }
 </style>

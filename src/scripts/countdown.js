@@ -31,10 +31,12 @@
                 }
 
                 // Set counter on page
-                document.getElementById('days').textContent = this.days;
-                document.getElementById('hours').textContent = this.hours;
-                document.getElementById('minutes').textContent = this.minutes;
-                document.getElementById('seconds').textContent = this.seconds;
+                try {
+                    document.getElementById('days').textContent = this.days;
+                    document.getElementById('hours').textContent = this.hours;
+                    document.getElementById('minutes').textContent = this.minutes;
+                    document.getElementById('seconds').textContent = this.seconds;
+                } catch (e) {}  
             },100);
         },
         padNum: function(num) {

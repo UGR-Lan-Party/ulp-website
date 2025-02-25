@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hacemos que la navegación se ejecute tras 1s, tiempo suficiente para ver la animación
         setTimeout(() => {
-          window.location.href = card.href;
+          window.location.href = card.parentElement.href;
         }, 1000);
       }
     });

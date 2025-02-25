@@ -6,6 +6,7 @@ import InstagramIcon from '../../public/assets/icons/InstagramIcon.astro';
 import WebIcon from '../../public/assets/icons/WebIcon.astro';
 import TikTokIcon from '../../public/assets/icons/TikTokIcon.astro';
 import LinkedInIcon from '../../public/assets/icons/LinkedInIcon.astro';
+import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
 
 interface Props {
   sponsorLink: SponsorLink;
@@ -24,4 +25,5 @@ const { sponsorLink } = Astro.props as Props;
   {sponsorLink.rrss === 'Instagram' && <InstagramIcon />}
   {sponsorLink.rrss === 'LinkedIn' && <LinkedInIcon />}
   {sponsorLink.rrss === 'TikTok' && <TikTokIcon />}
+  {sponsorLink.rrss === 'YouTube' && <YouTubeIcon />}
 </a>
