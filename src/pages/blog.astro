@@ -3,12 +3,11 @@ import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from "astro:content";
 
-// Filtrar entradas de blog que no estén en draft y cuya fecha sea anterior a la actual
+
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
   return !data.draft && data.publishDate < new Date();
 });
 
-// Ordenar las entradas por fecha de publicación (más reciente primero)
 publishedBlogEntries.sort((a, b) => {
   return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
 });
@@ -22,10 +21,8 @@ publishedBlogEntries.sort((a, b) => {
     <Fragment slot="title">Blog</Fragment>
   </Breadcrumb>
 
-  <!-- Sección principal del blog -->
   <section class="py-10 sm:py-16">
     <div class="container mx-auto px-4">
-      <!-- Título de sección -->
       <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">
         Últimas Entradas
       </h2>
@@ -35,22 +32,19 @@ publishedBlogEntries.sort((a, b) => {
             <article 
               class="
                 bg-white dark:bg-gray-800 
-                rounded-lg shadow-md 
+                rounded-lg shadow-lg 
                 overflow-hidden 
                 transform transition-all duration-300 
-                hover:-translate-y-1 hover:shadow-lg
+                hover:-translate-y-1 hover:shadow-2xl
               "
             >
-              <!-- Imagen de la tarjeta -->
               <img
                 src={blogPostEntry.data.image.src}
                 alt={blogPostEntry.data.image.alt}
-                class="w-full h-48 object-cover"
+                class="w-full h-56 object-cover"
               />
-
-              <!-- Contenido de la tarjeta -->
               <div class="p-5">
-                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+                <h3 class="text-xl font-semibold text-gray-800 min-h-14 dark:text-gray-100 mb-2">
                   {blogPostEntry.data.title}
                 </h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
@@ -60,12 +54,10 @@ publishedBlogEntries.sort((a, b) => {
                   {`${blogPostEntry.data.postDetails.paraOne.slice(0, 150)}...`}
                 </p>
 
-                <!-- Botón/Enlace de "Ver más" -->
-                <a 
-                  href={`/blog/${blogPostEntry.slug}`} 
-                  class="inline-block mt-4 text-primary font-medium hover:underline dark:text-emerald-500"
-                >
-                  Ver más
+                <a  href={`/blog/${blogPostEntry.slug}`}>
+                  <button class="bg-primary rounded-md mt-3 px-4 py-2 text-white font-semibold transition-all ease-in-out duration-300">
+                    Ver más <span class="animation_button opacity-0 inline-block transition-all ease-in-out duration-300"> > </span>
+                  </button>
                 </a>
               </div>
             </article>
@@ -75,3 +67,14 @@ publishedBlogEntries.sort((a, b) => {
     </div>
   </section>
 </Layout>
+
+<style type="text/css">
+  button:hover .animation_button{
+    opacity: 1;
+    transform: translateX(24px);
+  }
+
+button:hover {
+    padding-right: 32px;
+}
+</style>
