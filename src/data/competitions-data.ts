@@ -257,6 +257,13 @@ export const CompetitionsCards: CompetitionCardData[] = [
       '/assets/competitions/characters/character-futbolin.webp',
   },
   {
+    id: "retro",
+    card: '/assets/competitions/cards/retro.webp',
+    logo: '/assets/competitions/logos/retro.webp',
+    character:
+      '/assets/competitions/characters/character-retro.webp',
+  },
+  {
     id: "beat-saber",
     card: '/assets/competitions/cards/beat-saber.webp',
     logo: '/assets/competitions/logos/beat-saber.webp',
@@ -269,12 +276,5 @@ export const CompetitionsCards: CompetitionCardData[] = [
     logo: '/assets/competitions/logos/hacking.webp',
     character:
       '/assets/competitions/characters/character-hacking.webp',
-  },
-  {
-    id: "retro",
-    card: '/assets/competitions/cards/retro.webp',
-    logo: '/assets/competitions/logos/retro.webp',
-    character:
-      '/assets/competitions/characters/character-retro.webp',
   },
 ];
