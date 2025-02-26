@@ -1,4 +1,4 @@
-/* ========  themeSwitcher Mejorado con Logo en Inicio ========= */
+/* ========  themeSwitcher Mejorado ========= */
 document.addEventListener('DOMContentLoaded', () => {
   const themeSwitcher = document.getElementById('themeSwitcher');
   const darkLogo = document.getElementById('img-modo-oscuro');
@@ -8,11 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const isHomePage = window.location.pathname === '/';
 
   const aplicarTema = () => {
-    if (isHomePage) {
-      darkLogo.classList.add('hidden');
-      lightLogo.classList.remove('hidden');
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    const isSticky = document.body.classList.contains('sticky-active');
+
+    if (isHomePage && !isSticky) {
+      darkLogo.classList.remove('hidden');
+      lightLogo.classList.add('hidden');
+
     } else {
-      if (document.documentElement.classList.contains('dark')) {
+      if (isDarkMode) {
         darkLogo.classList.remove('hidden');
         lightLogo.classList.add('hidden');
       } else {
@@ -38,13 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const themeSwitch = () => {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem(
+      'theme',
+      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+    );
     aplicarTema();
   };
 
