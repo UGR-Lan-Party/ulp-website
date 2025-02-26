@@ -1,13 +1,31 @@
-/* ========  themeSwitcher start ========= */
+/* ========  themeSwitcher Mejorado ========= */
 document.addEventListener('DOMContentLoaded', () => {
-  // themeSwitcher
   const themeSwitcher = document.getElementById('themeSwitcher');
-
-  // Theme Vars
+  const darkLogo = document.getElementById('img-modo-oscuro');
+  const lightLogo = document.getElementById('img-modo-claro');
   const userTheme = localStorage.getItem('theme');
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isHomePage = window.location.pathname === '/';
 
-  // Initial Theme Check
+  const aplicarTema = () => {
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    const isSticky = document.body.classList.contains('sticky-active');
+
+    if (isHomePage && !isSticky) {
+      darkLogo.classList.remove('hidden');
+      lightLogo.classList.add('hidden');
+
+    } else {
+      if (isDarkMode) {
+        darkLogo.classList.remove('hidden');
+        lightLogo.classList.add('hidden');
+      } else {
+        darkLogo.classList.add('hidden');
+        lightLogo.classList.remove('hidden');
+      }
+    }
+  };
+
   const themeCheck = () => {
     if (userTheme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -20,24 +38,21 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.classList.remove('dark');
       }
     }
+    aplicarTema(); 
   };
 
-  // Manual Theme Switch
   const themeSwitch = () => {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem(
+      'theme',
+      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+    );
+    aplicarTema();
   };
 
-  // call theme switch on clicking buttons
-  themeSwitcher.addEventListener('click', () => {
-    themeSwitch();
-  });
+  if (themeSwitcher) {
+    themeSwitcher.addEventListener('click', themeSwitch);
+  }
 
-  // invoke theme check on initial load
   themeCheck();
 });
