@@ -6,7 +6,7 @@ export class ULPTrophy extends THREE.Object3D {
     super();
 
     // Usar el valor de competition para la ruta
-    const trophyModelPath = `../src/scripts/ThreeJS/models/${competition}.obj`;
+    const trophyModelPath = `/assets/models/${competition}.obj`;
 
     const trophy = new OBJLoader();
     trophy.load(trophyModelPath, (object: THREE.Object3D) => {
@@ -30,7 +30,7 @@ export class ULPTrophy extends THREE.Object3D {
 
     const base = new OBJLoader();
     base.load(
-      '../src/scripts/ThreeJS/models/BaseULP.obj',
+      '/assets/models/BaseULP.obj',
       (object: THREE.Object3D) => {
         object.traverse((child: THREE.Object3D) => {
           if (child instanceof THREE.Mesh) {
@@ -52,7 +52,7 @@ export class ULPTrophy extends THREE.Object3D {
 
     const ULPLogo = new OBJLoader();
     ULPLogo.load(
-      '../src/scripts/ThreeJS/models/LogoULP.obj',
+      '/assets/models/LogoULP.obj',
       (object: THREE.Object3D) => {
         object.traverse((child: THREE.Object3D) => {
           if (child instanceof THREE.Mesh) {
