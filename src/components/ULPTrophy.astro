@@ -14,8 +14,8 @@ const { competition } = Astro.props;
 
 <script>
   import * as THREE from 'three';
-  import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+  import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
   // Esperar a que el DOM esté listo
   document.addEventListener('DOMContentLoaded', () => {
@@ -26,7 +26,7 @@ const { competition } = Astro.props;
     }
 
     // Obtener el valor del html de data-competition, que contiene el id de la competicion
-    let competition = container.dataset.competition;
+    let competition = container.dataset.competition || 'default-competition';
     if (
       competition === 'wii-sports-tenis' ||
       competition === 'wii-sports-bolos'
@@ -127,24 +127,43 @@ const { competition } = Astro.props;
   });
 
   class ULPTrophy extends THREE.Object3D {
-    constructor(competition) {
+    constructor(competition: string) {
       super();
 
       // Usar el valor de competition para la ruta
       const trophyModelPath = `../src/scripts/ThreeJS/models/${competition}.obj`;
 
       const trophy = new OBJLoader();
-      trophy.load(
-        trophyModelPath,
-        (object) => {
-          object.traverse((child) => {
+      trophy.load(trophyModelPath, (object: THREE.Object3D) => {
+        object.traverse((child: THREE.Object3D) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = new THREE.MeshPhysicalMaterial({
+              color: 0xffd700,
+              emissive: 0x322b06,
+              roughness: 0.3,
+              metalness: 0.8,
+              reflectivity: 0,
+            });
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+        });
+        object.rotateX(-Math.PI / 2);
+
+        this.add(object);
+      });
+
+      const base = new OBJLoader();
+      base.load(
+        '../src/scripts/ThreeJS/models/BaseULP.obj',
+        (object: THREE.Object3D) => {
+          object.traverse((child: THREE.Object3D) => {
             if (child instanceof THREE.Mesh) {
               child.material = new THREE.MeshPhysicalMaterial({
-                color: 0xffd700,
-                emissive: 0x322b06,
+                color: 0x141414,
+                emissive: 0x030303,
                 roughness: 0.3,
                 metalness: 0.8,
-                reflectivity: 0,
               });
               child.castShadow = true;
               child.receiveShadow = true;
@@ -154,53 +173,29 @@ const { competition } = Astro.props;
 
           this.add(object);
         },
-        // Manejador de progreso (opcional)
-        (xhr) => {
-          console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-        },
-        // Manejador de error
-        (error) => {
-          console.error('Error loading model:', error);
-        },
       );
 
-      const base = new OBJLoader();
-      base.load('../src/scripts/ThreeJS/models/BaseULP.obj', (object) => {
-        object.traverse((child) => {
-          if (child instanceof THREE.Mesh) {
-            child.material = new THREE.MeshPhysicalMaterial({
-              color: 0x141414,
-              emissive: 0x030303,
-              roughness: 0.3,
-              metalness: 0.8,
-            });
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-        object.rotateX(-Math.PI / 2);
-
-        this.add(object);
-      });
-
       const ULPLogo = new OBJLoader();
-      ULPLogo.load('../src/scripts/ThreeJS/models/LogoULP.obj', (object) => {
-        object.traverse((child) => {
-          if (child instanceof THREE.Mesh) {
-            child.material = new THREE.MeshPhongMaterial({
-              color: 0xffffff,
-              shininess: 100,
-              emissive: 0x47401a,
-              specular: 0xffffff,
-            });
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-        object.rotateX(-Math.PI / 2);
+      ULPLogo.load(
+        '../src/scripts/ThreeJS/models/LogoULP.obj',
+        (object: THREE.Object3D) => {
+          object.traverse((child: THREE.Object3D) => {
+            if (child instanceof THREE.Mesh) {
+              child.material = new THREE.MeshPhongMaterial({
+                color: 0xffffff,
+                shininess: 100,
+                emissive: 0x47401a,
+                specular: 0xffffff,
+              });
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          });
+          object.rotateX(-Math.PI / 2);
 
-        this.add(object);
-      });
+          this.add(object);
+        },
+      );
     }
 
     update() {
