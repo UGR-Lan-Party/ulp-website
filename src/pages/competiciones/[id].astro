@@ -84,7 +84,7 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
         Premios
       </h2>
       <div class="flex flex-col gap-2">
-        <ULPTrophy client:only competition={competition?.id ?? ''} />
+        <ULPTrophy client:load competition={competition?.id ?? ''} />
         <h4 class="full-effect-text m-0">Mueve y explora el trofeo</h4>
       </div>
       <h4
