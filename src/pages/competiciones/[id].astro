@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
+import ULPTrophy from '../../components/ULPTrophy.astro';
+import { darkStyles } from '../../utils/all';
 
 import type {
   CompetitionData,
@@ -31,6 +33,13 @@ const competition: CompetitionData | undefined = Competitions.find(
 const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
   (competition) => competition.id === id,
 );
+
+const competitionsWithoutTrophy = [
+  'retro',
+  'street-fighter',
+  'beat-saber',
+  'hacking',
+];
 ---
 
 <Layout description="UGR LAN Party" title={competition?.name}>
@@ -47,7 +56,10 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
     >
       {
         competitionCard && (
-          <CompetitionCard competition={competitionCard} holographic={true} />
+          <div class="flex flex-col gap-6">
+            <CompetitionCard competition={competitionCard} holographic={true} />
+            <h4 class="full-effect-text">Carta holográfica interactiva</h4>
+          </div>
         )
       }
       {
@@ -71,14 +83,72 @@ const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
       />
     </section>
     <section
-      class="w-full h-[200px] flex flex-col gap-6 items-center bg-slate-800"
+      class={`w-full flex flex-col gap-6 items-center bg-gray-1 ${darkStyles}`}
     >
-      <h2 class="text-4xl text-center font-bold text-white mt-16">Premios</h2>
-      <h4 class="text-2xl text-white">Próximamente...</h4>
-      <!-- <div id="#WebGL-output" class="w-[350px] h-[500px] m-6 border"></div> -->
+      <h2
+        class="text-4xl text-center font-bold text-dark dark:text-white mt-16"
+      >
+        Premios
+      </h2>
+      {
+        competition?.id &&
+          !competitionsWithoutTrophy.includes(competition.id) && (
+            <div class="flex flex-col gap-2">
+              <ULPTrophy competition={competition?.id ?? ''} />
+              <h4 class="full-effect-text m-0">Mueve y explora el trofeo</h4>
+            </div>
+          )
+      }
+      <h4
+        class="text-2xl text-dark text-center m-4 font-semibold dark:text-white"
+      >
+        Proximamente...
+      </h4>
     </section>
   </main>
 </Layout>
 
-<style></style>
 <script src="../../scripts/holoCardsInteraction.js"></script>
+
+<style>
+  .full-effect-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(77, 181, 202);
+    animation: opacity-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes blue-theme-animation {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes opacity-pulse {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes blue-shadow-pulse {
+    0% {
+      text-shadow: 0 0 4px rgba(0, 68, 101, 0.8);
+    }
+    50% {
+      text-shadow: 0 0 18px rgba(38, 158, 188, 1);
+    }
+    100% {
+      text-shadow: 0 0 4px rgba(0, 68, 101, 0.8);
+    }
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+interface Props {
+  competition: string;
+}
+const { competition } = Astro.props;
+---
+
+<div
+  id="three-container"
+  class="min-w-[350px] w-full max-w-[600px] h-[600px] mt-4"
+  data-competition={competition}
+>
+</div>
+
+<script>
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+  import { ULPTrophy } from '../scripts/ThreeJs/ULPTrophy';
+
+  // Esperar a que el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('three-container');
+    if (!container) {
+      console.error('Container not found');
+      return;
+    }
+
+    // Obtener el valor del html de data-competition, que contiene el id de la competicion
+    let competition = container.dataset.competition || 'default-competition';
+    if (
+      competition === 'wii-sports-tenis' ||
+      competition === 'wii-sports-bolos'
+    ) {
+      competition = 'wii-sports';
+    }
+
+    // Configuración básica
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    // Crear escena, renderer y cámara
+    const scene = new THREE.Scene();
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setClearColor(0x000000, 0); // Asegura transparencia total
+
+    renderer.setSize(width, height);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.appendChild(renderer.domElement);
+
+    let camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(20, 6, 20);
+    let look = new THREE.Vector3(0, 10, 0);
+    camera.lookAt(look);
+    let cameraControl = new OrbitControls(camera, renderer.domElement);
+    // Se configuran las velocidades de los movimientos
+    cameraControl.minDistance = 10;
+    cameraControl.maxDistance = 30;
+    cameraControl.maxPolarAngle = Math.PI / 2;
+    cameraControl.target = look;
+
+    const ulpTrophy = new ULPTrophy(competition);
+    scene.add(ulpTrophy);
+
+    const groundGeo = new THREE.BoxGeometry(50, 0.2, 50);
+    const groundMat = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+    });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.position.set(0, 0, 0);
+    ground.receiveShadow = true;
+    ground.castShadow = true;
+    //scene.add(ground);
+
+    // Agregar luces
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+
+    let directionalLight = new THREE.DirectionalLight(0xffffff, 6);
+    directionalLight.castShadow = true;
+    directionalLight.position.set(15, 20, 15);
+    directionalLight.target = new THREE.Object3D();
+    directionalLight.target.position.set(0, 8, 0);
+    scene.add(directionalLight);
+    let directionalLightHelper = new THREE.DirectionalLightHelper(
+      directionalLight,
+      1,
+    );
+    //scene.add(directionalLightHelper);
+
+    let directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight2.castShadow = true;
+    directionalLight2.position.set(5, 8, -15);
+    directionalLight2.target = new THREE.Object3D();
+    directionalLight2.target.position.set(0, 8, 0);
+    scene.add(directionalLight2);
+    let directionalLightHelper2 = new THREE.DirectionalLightHelper(
+      directionalLight2,
+      1,
+    );
+    //scene.add(directionalLightHelper2);
+
+    // Manejar el redimensionamiento de la ventana
+    window.addEventListener('resize', () => {
+      const newWidth = container.clientWidth;
+      const newHeight = container.clientHeight;
+
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(newWidth, newHeight);
+    });
+
+    // Función de animación
+    function animate() {
+      requestAnimationFrame(animate);
+
+      ulpTrophy.update();
+
+      cameraControl.update();
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  });
+</script>
