@@ -1,14 +1,14 @@
 ---
 interface Props {
-  competition: string;
+  trophy: string;
 }
-const { competition } = Astro.props;
+const { trophy } = Astro.props;
 ---
 
 <div
   id="three-container"
   class="min-w-[350px] w-full max-w-[600px] h-[600px] mt-4"
-  data-competition={competition}
+  data-trophy={trophy}
 >
 </div>
 
@@ -25,14 +25,8 @@ const { competition } = Astro.props;
       return;
     }
 
-    // Obtener el valor del html de data-competition, que contiene el id de la competicion
-    let competition = container.dataset.competition || 'default-competition';
-    if (
-      competition === 'wii-sports-tenis' ||
-      competition === 'wii-sports-bolos'
-    ) {
-      competition = 'wii-sports';
-    }
+    // Obtener el valor del html de data-competition, que contiene la ruta del trofeo
+    let trophy = container.dataset.trophy || '';
 
     // Configuración básica
     const width = container.clientWidth;
@@ -60,7 +54,7 @@ const { competition } = Astro.props;
     cameraControl.maxPolarAngle = Math.PI / 2;
     cameraControl.target = look;
 
-    const ulpTrophy = new ULPTrophy(competition);
+    const ulpTrophy = new ULPTrophy(trophy);
     scene.add(ulpTrophy);
 
     const groundGeo = new THREE.BoxGeometry(50, 0.2, 50);
@@ -83,11 +77,6 @@ const { competition } = Astro.props;
     directionalLight.target = new THREE.Object3D();
     directionalLight.target.position.set(0, 8, 0);
     scene.add(directionalLight);
-    let directionalLightHelper = new THREE.DirectionalLightHelper(
-      directionalLight,
-      1,
-    );
-    //scene.add(directionalLightHelper);
 
     let directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight2.castShadow = true;
@@ -95,11 +84,6 @@ const { competition } = Astro.props;
     directionalLight2.target = new THREE.Object3D();
     directionalLight2.target.position.set(0, 8, 0);
     scene.add(directionalLight2);
-    let directionalLightHelper2 = new THREE.DirectionalLightHelper(
-      directionalLight2,
-      1,
-    );
-    //scene.add(directionalLightHelper2);
 
     // Manejar el redimensionamiento de la ventana
     window.addEventListener('resize', () => {
