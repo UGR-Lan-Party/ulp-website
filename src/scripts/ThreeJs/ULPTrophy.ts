@@ -5,11 +5,9 @@ export class ULPTrophy extends THREE.Object3D {
   constructor(competition: string) {
     super();
 
-    // Usar el valor de competition para la ruta
-    const trophyModelPath = `/assets/models/${competition}.obj`;
 
     const trophy = new OBJLoader();
-    trophy.load(trophyModelPath, (object: THREE.Object3D) => {
+    trophy.load(competition, (object: THREE.Object3D) => {
       object.traverse((child: THREE.Object3D) => {
         if (child instanceof THREE.Mesh) {
           child.material = new THREE.MeshPhysicalMaterial({

@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
-import ULPTrophy from '../../components/ULPTrophy.astro';
+import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import { darkStyles } from '../../utils/all';
 
 import type {
@@ -91,13 +91,12 @@ const competitionsWithoutTrophy = [
         Premios
       </h2>
       {
-        competition?.id &&
-          !competitionsWithoutTrophy.includes(competition.id) && (
-            <div class="flex flex-col gap-2">
-              <ULPTrophy competition={competition?.id ?? ''} />
-              <h4 class="full-effect-text m-0">Mueve y explora el trofeo</h4>
-            </div>
-          )
+        competition?.trophy && (
+          <div class="flex flex-col gap-2">
+            <ULPTrophyCanvas trophy={competition?.trophy ?? ''} />
+            <h4 class="full-effect-text m-0">Mueve y explora el trofeo</h4>
+          </div>
+        )
       }
       <h4
         class="text-2xl text-dark text-center m-4 font-semibold dark:text-white"

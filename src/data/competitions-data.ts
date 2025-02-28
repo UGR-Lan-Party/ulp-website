@@ -6,6 +6,7 @@ export interface CompetitionData {
   time: string;
   place: string[];
   backgroundImage: string;
+  trophy: string;
 }
 
 export interface CompetitionCardData {
@@ -24,6 +25,7 @@ export const Competitions: CompetitionData[] = [
     time: "10:00",
     place: ["Aula A1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/fc.webp",
+    trophy: "/assets/models/fc-25.obj",
   },
   {
     id: "minecraft",
@@ -33,6 +35,7 @@ export const Competitions: CompetitionData[] = [
     time: "15:30",
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/minecraft.webp",
+    trophy: "/assets/models/minecraft.obj",
   },
   {
     id: "mario-kart",
@@ -42,6 +45,7 @@ export const Competitions: CompetitionData[] = [
     time: "16:30",
     place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/mario-kart.webp",
+    trophy: "/assets/models/mario-kart.obj",
   },
   {
     id: "league-of-legends",
@@ -51,6 +55,7 @@ export const Competitions: CompetitionData[] = [
     time: "10:00",
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/lol.webp",
+    trophy: "/assets/models/league-of-legends.obj",
   },
   {
     id: "valorant",
@@ -60,6 +65,7 @@ export const Competitions: CompetitionData[] = [
     time: "10:00",
     place: ["Aula A2", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/valorant.webp",
+    trophy: "/assets/models/valorant.obj",
   },
   {
     id: "rocket-league",
@@ -69,6 +75,7 @@ export const Competitions: CompetitionData[] = [
     time: "15:30",
     place: ["Aula A2", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/rocket-league.webp",
+    trophy: "/assets/models/rocket-league.obj",
   },
   {
     id: "wii-sports-tenis",
@@ -78,6 +85,7 @@ export const Competitions: CompetitionData[] = [
     time: "17:00",
     place: ["Aula A1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/wii-tenis.webp",
+    trophy: "/assets/models/wii-sports.obj",
   },
   {
     id: "wii-sports-bolos",
@@ -87,6 +95,7 @@ export const Competitions: CompetitionData[] = [
     time: "10:00",
     place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/wii-bolos.webp",
+    trophy: "/assets/models/wii-sports.obj",
   },
   {
     id: "smash",
@@ -96,6 +105,7 @@ export const Competitions: CompetitionData[] = [
     time: "10:00",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/smash.webp",
+    trophy: "/assets/models/smash.obj",
   },
   {
     id: "brawl-stars",
@@ -105,6 +115,7 @@ export const Competitions: CompetitionData[] = [
     time: "10:00",
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/brawl-stars.webp",
+    trophy: "/assets/models/brawl-stars.obj",
   },
   {
     id: "dragon-ball",
@@ -114,15 +125,17 @@ export const Competitions: CompetitionData[] = [
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/dragon-ball.webp",
+    trophy: "/assets/models/dragon-ball.obj",
   },
   {
-    id: "f1",
+    id: "futbolin",
     name: "F1",
     rules: "",
     registration: "https://forms.gle/yJr9pVwbSMY5KKn29",
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/f1.webp",
+    trophy: "/assets/models/futbolin.obj",
   },
   {
     id: "futbolin",
@@ -132,6 +145,7 @@ export const Competitions: CompetitionData[] = [
     time: "10:00",
     place: ["Entrada", "Entrada rejas patio"],
     backgroundImage: "/assets/competitions/backgrounds/futbolin.webp",
+    trophy: "/assets/models/futbolin.obj",
   },
   {
     id: "retro",
@@ -141,6 +155,7 @@ export const Competitions: CompetitionData[] = [
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/retro.webp",
+    trophy: "",
   },
   {
     id: "street-fighter",
@@ -150,6 +165,7 @@ export const Competitions: CompetitionData[] = [
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/street-fighter.webp",
+    trophy: "",
   },
   {
     id: "beat-saber",
@@ -159,6 +175,7 @@ export const Competitions: CompetitionData[] = [
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/beat-saber.webp",
+    trophy: "",
   },
   {
     id: "hacking",
@@ -168,6 +185,7 @@ export const Competitions: CompetitionData[] = [
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/hacking.webp",
+    trophy: "",
   },
 ];
 
