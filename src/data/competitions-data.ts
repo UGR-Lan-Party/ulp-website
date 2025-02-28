@@ -159,12 +159,12 @@ export const Competitions: CompetitionData[] = [
   },
   {
     id: "street-fighter",
-    name: "Street Fighter V",
+    name: "Street Fighter II",
     rules: "",
     registration: "",
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
-    backgroundImage: "/assets/competitions/backgrounds/street-fighter.png",
+    backgroundImage: "/assets/competitions/backgrounds/street-fighter.webp",
     trophy: "",
   },
   {
@@ -294,5 +294,12 @@ export const CompetitionsCards: CompetitionCardData[] = [
     logo: '/assets/competitions/logos/hacking.webp',
     character:
       '/assets/competitions/characters/character-hacking.webp',
+  },
+  {
+    id: "street-fighter",
+    card: '/assets/competitions/cards/street-fighter.webp',
+    logo: '/assets/competitions/logos/street-fighter.webp',
+    character:
+      '/assets/competitions/characters/character-street-fighter.webp',
   },
 ];
