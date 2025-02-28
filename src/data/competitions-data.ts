@@ -128,14 +128,14 @@ export const Competitions: CompetitionData[] = [
     trophy: "/assets/models/dragon-ball.obj",
   },
   {
-    id: "futbolin",
+    id: "f1",
     name: "F1",
     rules: "",
     registration: "https://forms.gle/yJr9pVwbSMY5KKn29",
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/f1.webp",
-    trophy: "/assets/models/futbolin.obj",
+    trophy: "/assets/models/f1.obj",
   },
   {
     id: "futbolin",
