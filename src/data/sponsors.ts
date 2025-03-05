@@ -295,7 +295,7 @@ const Sponsors: SponsorData[] = [
   },
   {
     name: "AESIT",
-    tier: 'regular',
+    tier: 'bronze',
     description: "Nace en el año 2016 con el fin de fomentar y reforzar los lazos de los egresados con la ETSIIT. Realiza actividades de interés, colaborando y prestando apoyo a los estudiantes que están finalizando sus estudios y fomentar una buena convivencia en la escuela.",
     logo: '/assets/participan/Color/Organismos/aesit.png',
     bussiness: "Asociación de Antiguos Estudiantes",
