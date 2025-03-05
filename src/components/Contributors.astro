@@ -10,6 +10,8 @@ const contributors = [
   { git: "https://github.com/Juanjomrtz19" },
   { git: "https://github.com/danilo-ck" },
   { git: "https://github.com/roberto3554" },
+  { git: "https://github.com/FernanDezlo92"},
+  { git: "https://github.com/carmenxufdz" },
 ];
 
 // Datos alternativos en caso de fallo
@@ -62,9 +64,21 @@ const fallbackContributors = [
     image: "/assets/contributors/contributor08.jpg",
     git: "https://github.com/roberto3554",
   },
+  {
+    name: " Fernando Fernández Aguiló",
+    description: "💻 Full Stack Developer | 🔐 Cybersecurity Enthusiast | Always learning & breaking things (ethically) 😆",
+    image: "/assets/contributors/contributor09.jpg",
+    git: "https://github.com/FernanDezlo92",
+  },
+  {
+    name: "Carmen Fernández",
+    description: "Computer Engineer specialized in Software Engineering",
+    image: "/assets/contributors/contributor10.jpg",
+    git: "https://github.com/carmenxufdz",
+  },
 ];
 
-const usernames = contributors.map(c => c.git.split("/").pop());
+const usernames = contributors.map(c => c.git?.split("/").pop());
 
 let contributorsData;
 
