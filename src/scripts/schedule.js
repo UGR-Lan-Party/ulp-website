@@ -16,11 +16,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameButtons = document.querySelectorAll(".game");
     const gameInfo = document.getElementById("gameInfo");
 
+    const isDarkMode = document.documentElement.classList.contains("dark");
+    iconFilter.style.color = showFiltersDropDown ? "#D1A000" : (isDarkMode ? "white" : "black");
+
+
+    function updateIconColor() {
+        const isDarkMode = document.documentElement.classList.contains("dark");
+        iconFilter.style.color = showFiltersDropDown ? "#D1A000" : (isDarkMode ? "white" : "black");
+    }
+    
+    // Observador de cambios en la clase del <html>
+    const observer = new MutationObserver(() => updateIconColor());
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    
+    // También actualizar cuando `showFiltersDropDown` cambie (esto depende de cómo lo manejas en tu código)
+    document.addEventListener("DOMContentLoaded", updateIconColor);
+
     // Manejo de cambios en los filtros
     function handleTagToggle(event) {
+        const isDarkMode = document.documentElement.classList.contains("dark");
         const tag = event.target.textContent;  // Obtener el texto del botón
         showFiltersDropDown = false;
-        iconFilter.style.color = showFiltersDropDown ? "#D1A000" : "white";
+        iconFilter.style.color = showFiltersDropDown ? "#D1A000" : (isDarkMode ? "white" : "black");
         filterDropDown.style.visibility = showFiltersDropDown ? "visible" : "hidden";
     
         if (selectedTags.includes(tag)) {
@@ -124,8 +141,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     buttonFilter.addEventListener("click", () => {
+        const isDarkMode = document.documentElement.classList.contains("dark");
         showFiltersDropDown = !showFiltersDropDown;
-        iconFilter.style.color = showFiltersDropDown ? "#D1A000" : "white";
+        iconFilter.style.color = showFiltersDropDown ? "#D1A000" : (isDarkMode ? "white" : "black");
+
 
         filterDropDown.style.visibility = showFiltersDropDown ? "visible" : "hidden";
     });
@@ -171,12 +190,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         .fas.fa-times {
             margin-left: 5px;
+            
         }
 
         .time-slot {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
+            color: black;
         }
 
         .time {
@@ -185,7 +206,16 @@ document.addEventListener("DOMContentLoaded", () => {
             padding: 0.5rem;
             padding-right: 1rem;
             border-right: 1px solid rgba(255, 255, 255, 0.5);
+            border-color: black;
 
+        }
+
+        .dark .time-slot {
+            color: white;
+        }
+
+        .dark .time {
+            border-color: white;
         }
 
         .event {

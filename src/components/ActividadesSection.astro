@@ -121,22 +121,6 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         margin: 0; /* Eliminar cualquier margen en el contenedor principal */
     }
 
-    h1 {
-        font-family: 'Inter', sans-serif;
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 15px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    .subtext {
-        font-family: 'Fragment Mono', sans-serif;
-        font-size: 1rem;
-        opacity: 0.8;
-        margin-bottom: 25px;
-    }
-
     /*Buscador*/
     .buscador{
         padding: 8px 12px;
@@ -145,7 +129,7 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         width: 50%;
         borderRadius: 5px;
         border-radius: 10px;
-        color: #333;
+        color: #333333;
     }
 
     .button-filter {
@@ -178,16 +162,16 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         width: 100%;
         textAlign: left;
         cursor: pointer;
-        color: #333
+        color: black;
+        background-color: #e0e0e0;
+    }
+
+    .dark .tag{
+        background-color: white;
     }
 
     .tag:hover {
         transform: scale(1.05);
-    }
-
-    .tag .selected{
-        background: red;
-        color: #011627;
     }
 
     .active-filters {
@@ -222,9 +206,9 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
     .game {
       
         height: 60px;
-        background-color: rgba(42, 112, 146, 0.6);
+        background-color: rgba(34, 119, 161, 0.3);
         display: flex;
-        color: white;
+        color: black;
         padding: 15px 20px;
         border-radius: 10px;
         font-size: 1.2rem;
@@ -241,12 +225,22 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
         overflow-wrap: break-word; /* Asegura que las palabras largas no se salgan */
     }
 
+    html.dark .game{
+      background-color: rgba(42, 112, 146, 0.6);
+      color: white;
+    }
+
     .game:hover {
       transform: scale(1.03); /* Aumenta el tamaño en un 8% */
     }
     .game.selected {
-      background-color: white;
-      color: #011627;
+      background-color: #15578dfa;
+      color: white;
+    }
+
+    html.dark .game.selected{
+        background-color: white;
+        color: #011627;
     }
 
     .location {
@@ -454,12 +448,15 @@ const allTags = [...new Set(schedules.flatMap(game => game.tags))];
     }
 </style>
 </head>
-<section id="schedule" class={`${darkStyles} text-white bg-primary`}>
-    <h1>Cronograma de Actividades</h1>
-    <p class="subtext">No es necesario que asistas todo el día. Puedes venir para las actividades que más te interesen.</p>
-    <input type="text" class="buscador" placeholder="Buscar juego..." id="searchInput">
+<section id="schedule" class={`${darkStyles} text-white bg-primary lg:pb-20 bg-white` }>
+    <h1 
+    class="mb-5 text-3xl font-bold leading-tight text-dark dark:text-white sm:text-[40px] sm:leading-[1.2]">
+    Cronograma de Actividades
+    </h1>
+    <p class="mb-10 text-base leading-relaxed text-body-color dark:text-dark-6">No es necesario que asistas todo el día. Puedes venir para las actividades que más te interesen.</p>
+    <input type="text" class="buscador bg-gray-200 dark:bg-white" placeholder="Buscar juego..." id="searchInput">
     <button class="button-filter" id="filterButton">
-        <i class="fa fa-filter" id="filterIcon":style="{ color: isClick ? '#D1A000' : 'white' }"></i>
+        <i class="fa fa-filter" id="filterIcon"></i>
     </button>
     
     
