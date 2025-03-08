@@ -295,7 +295,7 @@ const Sponsors: SponsorData[] = [
   },
   {
     name: "AESIT",
-    tier: 'regular',
+    tier: 'bronze',
     description: "Nace en el año 2016 con el fin de fomentar y reforzar los lazos de los egresados con la ETSIIT. Realiza actividades de interés, colaborando y prestando apoyo a los estudiantes que están finalizando sus estudios y fomentar una buena convivencia en la escuela.",
     logo: '/assets/participan/Color/Organismos/aesit.png',
     bussiness: "Asociación de Antiguos Estudiantes",
@@ -323,6 +323,32 @@ const Sponsors: SponsorData[] = [
         rrss: "Web",
         link: "https://csirc.ugr.es/",
       },
+    ]
+  },
+  {
+    name: "ESADA",
+    tier: 'regular',
+    description: "ESADA forma profesionales en Diseño Gráfico, de Moda, de Interiores y de Producto, ofreciendo grados oficiales equivalentes a títulos universitarios. Se basa en enseñanza de calidad, con un sistema educativo innovador basado en proyectos, preparando para anticipar y resolver retos del mundo laboral.",
+    logo: '/assets/participan/Color/Organismos/esada.webp',
+    bussiness: "Escuela Superior de Arte y Diseño",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://www.esada.es/",
+      },
+      {
+        rrss: "Instagram",
+        link: "https://www.instagram.com/esadagrx/",
+      },
+      {
+        rrss: "Facebook",
+        link: "https://www.facebook.com/esadagrx/",
+      },
+      {
+        rrss: "LinkedIn",
+        link: "https://www.linkedin.com/school/escuela-superior-de-arte-y-diseno-andalucia/",
+      }
     ]
   },
 ];
