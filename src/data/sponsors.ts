@@ -325,32 +325,6 @@ const Sponsors: SponsorData[] = [
       },
     ]
   },
-  {
-    name: "ESADA",
-    tier: 'regular',
-    description: "ESADA forma profesionales en Diseño Gráfico, de Moda, de Interiores y de Producto, ofreciendo grados oficiales equivalentes a títulos universitarios. Se basa en enseñanza de calidad, con un sistema educativo innovador basado en proyectos, preparando para anticipar y resolver retos del mundo laboral.",
-    logo: '/assets/participan/Color/Organismos/esada.webp',
-    bussiness: "Escuela Superior de Arte y Diseño",
-    links: 
-    [
-      {
-        rrss: "Web",
-        link: "https://www.esada.es/",
-      },
-      {
-        rrss: "Instagram",
-        link: "https://www.instagram.com/esadagrx/",
-      },
-      {
-        rrss: "Facebook",
-        link: "https://www.facebook.com/esadagrx/",
-      },
-      {
-        rrss: "LinkedIn",
-        link: "https://www.linkedin.com/school/escuela-superior-de-arte-y-diseno-andalucia/",
-      }
-    ]
-  },
 ];
 
 export const sponsorsPlatinum: SponsorData[] = Sponsors.filter(
