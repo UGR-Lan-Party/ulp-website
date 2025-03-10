@@ -325,6 +325,20 @@ const Sponsors: SponsorData[] = [
       },
     ]
   },
+  {
+    name: "DGE",
+    tier: 'regular',
+    description: "La Delegación de Estudiantes es el órgano de representación de los estudiantes de la Universidad de Granada. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.",
+    logo: '/assets/participan/Color/Organismos/dge.png',
+    bussiness: "Delegación de Estudiantes",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://dge.ugr.es/",
+      },
+    ]
+  },
 ];
 
 export const sponsorsPlatinum: SponsorData[] = Sponsors.filter(
