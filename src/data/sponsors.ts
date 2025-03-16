@@ -229,7 +229,7 @@ const Sponsors: SponsorData[] = [
       }
     ]
   },
-  {
+  /* {
     name: "The Game Kitchen",
     tier: 'regular',
     description: "Estudio de desarrollo de videojuegos independiente de Sevilla. Especializados en títulos de aventura y acción con estética retro y temáticas inspiradas en el folclore andaluz. Son conocidos por juegos como “The Last Door” y “Blasphemous”.",
@@ -250,7 +250,7 @@ const Sponsors: SponsorData[] = [
         link: "https://x.com/TheGameKitchen",
       },
     ]
-  },
+  }, */
   {
     name: "EMYCET",
     tier: 'regular',
@@ -267,7 +267,7 @@ const Sponsors: SponsorData[] = [
   },
   {
     name: "TSTC",
-    tier: 'bronze',
+    tier: 'silver',
     description: "El Departamento de Teoría de la Señal, Telemática y Comunicaciones (TSTC) de la Universidad de Granada fue creado en el curso 2004/2005, estando adscritas al mismo las áreas de conocimiento de Ingeniería Telemática (IT) y de Teoría de la Señal y Comunicaciones (TSC).",
     logo: '/assets/participan/Color/Organismos/logo-tstc.png',
     bussiness: "Departamento de la UGR",
