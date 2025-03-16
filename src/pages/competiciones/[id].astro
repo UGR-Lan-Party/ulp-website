@@ -49,8 +49,10 @@ const competitionsWithoutTrophy = [
   </Breadcrumb>
   <main class="w-full flex flex-col items-center">
     <Inscripsection
-      link={competition?.registration}
-      img_path={competition?.backgroundImage}
+      registrationPeriodOpen={competition?.registrationPeriodOpen}
+      registrationLink={competition?.registration}
+      participantsLink={competition?.participants}
+      background_img={competition?.backgroundImage}
     />
     <section
       class="flex flex-col my-10 mx-10 xl:flex-row justify-center w-full gap-16 items-center"
