@@ -49,29 +49,31 @@ const {
               )
           }
           {
-            !registrationPeriodOpen && (
-              <div>
-                <h1 class="mb-6 text-4xl font-bold leading-snug text-white lg:text-5xl lg:leading-[1.2]">
-                  ¡Lo habéis petado!
-                </h1>
-                <h3 class="mb-6 text-xl font-medium leading-snug text-white lg:text-2xl lg:leading-[1.2]">
-                  Inscripciones cerradas.
-                </h3>
-                {participantsLink && participantsLink !== '' && (
-                  <div>
-                    <p class="mx-auto mb-9 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]">
-                      Consulta el listado de participantes y suplentes.
-                    </p>
-                    <a
-                      href={participantsLink}
-                      class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
-                    >
-                      Participantes
-                    </a>
-                  </div>
-                )}
-              </div>
-            )
+            !registrationPeriodOpen &&
+              registrationLink &&
+              registrationLink !== '' && (
+                <div>
+                  <h1 class="mb-6 text-4xl font-bold leading-snug text-white lg:text-5xl lg:leading-[1.2]">
+                    ¡Lo habéis petado!
+                  </h1>
+                  <h3 class="mb-6 text-xl font-medium leading-snug text-white lg:text-2xl lg:leading-[1.2]">
+                    Inscripciones cerradas.
+                  </h3>
+                  {participantsLink && participantsLink !== '' && (
+                    <div>
+                      <p class="mx-auto mb-9 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]">
+                        Consulta el listado de participantes y suplentes.
+                      </p>
+                      <a
+                        href={participantsLink}
+                        class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
+                      >
+                        Participantes
+                      </a>
+                    </div>
+                  )}
+                </div>
+              )
           }
           {
             registrationLink == '' && (
