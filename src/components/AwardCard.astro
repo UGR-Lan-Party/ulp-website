@@ -1,0 +1,21 @@
+---
+interface Props {
+  position: string;
+  //awards: object;
+}
+const { position } = Astro.props as Props;
+
+const positionStyles =
+  position === 'first'
+    ? 'bg-[#FFC002AA] border-8 border-[#FFC002]'
+    : position === 'second'
+      ? 'bg-[#9a9ba0AA] border-8 border-[#9a9ba0] xl:top-24 xl:transform  xl:translate-x-[-370px] '
+      : position === 'third'
+        ? 'bg-[#BB5522AA] border-8 border-[#BB5522] xl:top-48 xl:transform  xl:translate-x-[370px]'
+        : '';
+---
+
+<div
+  class={`w-[350px] h-[420px] xl:absolute m-4 rounded-2xl  ${positionStyles}`}
+>
+</div>

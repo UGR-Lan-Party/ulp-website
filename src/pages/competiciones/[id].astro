@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
 import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import { darkStyles } from '../../utils/all';
+import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
 
 import type {
   CompetitionData,
@@ -98,11 +99,11 @@ const competitionsWithoutTrophy = [
           </div>
         )
       }
-      <h4
-        class="text-2xl text-dark text-center m-4 font-semibold dark:text-white"
-      >
-        Proximamente...
-      </h4>
+      {
+        typeof competition?.awards === 'object' && (
+          <CompetitionAwardsSection competitionAwards={competition.awards} />
+        )
+      }
     </section>
   </main>
 </Layout>

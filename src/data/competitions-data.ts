@@ -7,6 +7,7 @@ export interface CompetitionData {
   place: string[];
   backgroundImage: string;
   trophy: string;
+  awards: object;
 }
 
 export interface CompetitionCardData {
@@ -26,6 +27,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/fc.webp",
     trophy: "/assets/models/fc-25.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "minecraft",
@@ -36,6 +42,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/minecraft.webp",
     trophy: "/assets/models/minecraft.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "mario-kart",
@@ -46,6 +57,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/mario-kart.webp",
     trophy: "/assets/models/mario-kart.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "league-of-legends",
@@ -56,6 +72,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/lol.webp",
     trophy: "/assets/models/league-of-legends.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "valorant",
@@ -66,6 +87,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A2", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/valorant.webp",
     trophy: "/assets/models/valorant.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "rocket-league",
@@ -76,6 +102,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A2", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/rocket-league.webp",
     trophy: "/assets/models/rocket-league.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "wii-sports-tenis",
@@ -86,6 +117,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/wii-tenis.webp",
     trophy: "/assets/models/wii-sports.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "wii-sports-bolos",
@@ -96,6 +132,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/wii-bolos.webp",
     trophy: "/assets/models/wii-sports.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "smash",
@@ -106,6 +147,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/smash.webp",
     trophy: "/assets/models/smash.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "brawl-stars",
@@ -116,6 +162,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/brawl-stars.webp",
     trophy: "/assets/models/brawl-stars.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "dragon-ball",
@@ -126,6 +177,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/dragon-ball.webp",
     trophy: "/assets/models/dragon-ball.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "f1",
@@ -136,6 +192,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/f1.webp",
     trophy: "/assets/models/f1.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "futbolin",
@@ -146,6 +207,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Entrada", "Entrada rejas patio"],
     backgroundImage: "/assets/competitions/backgrounds/futbolin.webp",
     trophy: "/assets/models/futbolin.obj",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "retro",
@@ -156,6 +222,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/retro.webp",
     trophy: "",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "street-fighter",
@@ -166,6 +237,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/street-fighter.webp",
     trophy: "",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "beat-saber",
@@ -176,6 +252,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/beat-saber.webp",
     trophy: "",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
   {
     id: "hacking",
@@ -186,6 +267,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/hacking.webp",
     trophy: "",
+    awards: {
+      first: ["Trofeo y Medalla"],
+      second: ["Trofeo y Medalla"],
+      third: ["Trofeo y Medalla"],
+    },
   },
 ];
 
