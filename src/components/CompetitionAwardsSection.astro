@@ -8,9 +8,25 @@ const { competitionAwards } = Astro.props as Props;
 ---
 
 <section
-  class="w-full xl:h-[650px] flex flex-col xl:relative xl:flex-row items-center xl:items-start justify-center gap-6 py-12 px-4"
+  class="w-full flex flex-col items-center justify-center gap-6 py-12 px-4"
 >
-  <AwardCard position="first" />
-  <AwardCard position="second" />
-  <AwardCard position="third" />
+  <div
+    class="w-full xl:h-[650px] flex flex-col xl:relative xl:flex-row items-center xl:items-start justify-center gap-6 py-12 px-4"
+  >
+    <AwardCard position="first" awards={competitionAwards.first} />
+    <AwardCard position="second" awards={competitionAwards.second} />
+    <AwardCard position="third" awards={competitionAwards.third} />
+  </div>
+
+  {
+    competitionAwards.mvp && (
+      <div class="w-full xl:h-[450px] flex flex-col items-center justify-center">
+        <AwardCard position="mvp" awards={competitionAwards.mvp} />
+      </div>
+    )
+  }
+
+  <p class="text-lg">
+    *Los premios se otorgarán a los ganadores al finalizar el evento.
+  </p>
 </section>
