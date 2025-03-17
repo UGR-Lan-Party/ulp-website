@@ -18,13 +18,13 @@ const positionStyles =
 
 const medalImage =
   position === 'first'
-    ? '/public/assets/competitions/medals/gold-medal.webp'
+    ? '/assets/competitions/medals/gold-medal.webp'
     : position === 'second'
-      ? '/public/assets/competitions/medals/silver-medal.webp'
+      ? '/assets/competitions/medals/silver-medal.webp'
       : position === 'third'
-        ? '/public/assets/competitions/medals/bronze-medal.webp'
+        ? '/assets/competitions/medals/bronze-medal.webp'
         : position === 'mvp'
-          ? '/public/assets/competitions/medals/mvp-medal.webp'
+          ? '/assets/competitions/medals/mvp-medal.webp'
           : '';
 
 const positionSpanish =
@@ -40,7 +40,7 @@ const positionSpanish =
 ---
 
 <div
-  class={`w-[350px] h-[420px] xl:absolute m-4 rounded-2xl  ${positionStyles}`}
+  class={`w-[350px] h-[420px] xl:absolute m-4 rounded-2xl dark:text-white  ${positionStyles}`}
 >
   <img
     class="w-full h-1/2 items-center justify-center object-contain"
@@ -54,7 +54,7 @@ const positionSpanish =
 
     {
       awards.map((award) => (
-        <p class="text-xl w-[80%] items-center justify-center font-regular text-center">
+        <p class="text-xl w-[80%] items-center justify-center font-regular text-center ">
           {award}
         </p>
       ))
