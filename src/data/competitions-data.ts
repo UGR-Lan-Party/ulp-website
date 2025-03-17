@@ -9,6 +9,7 @@ export interface CompetitionData {
   place: string[];
   backgroundImage: string;
   trophy: string;
+  awards?: Awards;
 }
 
 export interface CompetitionCardData {
@@ -16,6 +17,13 @@ export interface CompetitionCardData {
   card: string;
   logo: string;
   character: string;
+}
+
+export interface Awards {
+  first: string[];
+  second: string[];
+  third: string[];
+  mvp?: string[];
 }
 
 export const Competitions: CompetitionData[] = [
@@ -30,18 +38,29 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/fc.webp",
     trophy: "/assets/models/fc-25.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "minecraft",
     name: "Minecraft",
     rules: "https://drive.google.com/file/d/1_eVDYx9was7lMLm0LiJzEakdfUdOOQ7f/view?usp=drive_link",
     registration: "https://forms.gle/iuYJNF8kDWtVwmZ16",
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: "https://drive.google.com/file/d/1mfOE0-qC7HxUAxlkT0LbDkuDS4IxQJ0q/view?usp=sharing",
     time: "15:30",
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/minecraft.webp",
     trophy: "/assets/models/minecraft.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+      mvp: ["x1 Tarjeta Amazon 25€"],
+    },
   },
   {
     id: "mario-kart",
@@ -54,18 +73,29 @@ export const Competitions: CompetitionData[] = [
     place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/mario-kart.webp",
     trophy: "/assets/models/mario-kart.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 50€ ", "x3 Bonos Fórmula Karting"],
+      second: ["Trofeo y Medalla ULP", "x3 Bonos Fórmula Karting"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "league-of-legends",
     name: "League of Legends",
     rules: "https://drive.google.com/file/d/1eWemc-2lhWcy81stMaKWEZe92TU_DIJH/view?usp=drive_link",
     registration: "https://forms.gle/W1rza8HK2UH6Hbpa7",
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: "https://drive.google.com/file/d/1JSpGlIdGQmjXgxfyyiB_vjPI5egpqOcM/view?usp=sharing",
     time: "10:00",
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/lol.webp",
     trophy: "/assets/models/league-of-legends.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x10 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x5 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+      mvp: ["x1 Tarjeta Amazon 25€"],
+    },
   },
   {
     id: "valorant",
@@ -78,6 +108,12 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A2", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/valorant.webp",
     trophy: "/assets/models/valorant.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x5 Tarjeta Amazon 50€", "x5 Bonos Scape Room"],
+      second: ["Trofeo y Medalla ULP", "x5 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+      mvp: ["x1 Tarjeta Amazon 25€ y x1 Bono Scape Room"],
+    },
   },
   {
     id: "rocket-league",
@@ -90,6 +126,12 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A2", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/rocket-league.webp",
     trophy: "/assets/models/rocket-league.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x4 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+      mvp: ["x1 Tarjeta Amazon 25€"],
+    },
   },
   {
     id: "wii-sports-tenis",
@@ -102,6 +144,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula A1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/wii-tenis.webp",
     trophy: "/assets/models/wii-sports.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 50€", "x2 Viajes de un día"],
+      second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "wii-sports-bolos",
@@ -114,6 +161,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/wii-bolos.webp",
     trophy: "/assets/models/wii-sports.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€", "x2 Viajes de un día"],
+      second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "smash",
@@ -126,6 +178,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/smash.webp",
     trophy: "/assets/models/smash.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "brawl-stars",
@@ -138,6 +195,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula B1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/brawl-stars.webp",
     trophy: "/assets/models/brawl-stars.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x6 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x3 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "dragon-ball",
@@ -150,6 +212,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/dragon-ball.webp",
     trophy: "/assets/models/dragon-ball.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "f1",
@@ -162,6 +229,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/f1.webp",
     trophy: "/assets/models/f1.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x4 Bonos Fórmula Karting"],
+      second: ["Trofeo y Medalla ULP"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "futbolin",
@@ -171,9 +243,14 @@ export const Competitions: CompetitionData[] = [
     registrationPeriodOpen: false,
     participants: "https://drive.google.com/file/d/19CoHOAjvX6oWvWLWNn4O4b_SFajgg_VD/view?usp=sharing",
     time: "10:00",
-    place: ["Entrada", "Entrada rejas patio"],
+    place: ["Entrada", "Entrada çrejas patio"],
     backgroundImage: "/assets/competitions/backgrounds/futbolin.webp",
     trophy: "/assets/models/futbolin.obj",
+    awards: {
+      first: ["Trofeo y Medalla ULP", "x4 Tarjeta Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      third: ["Trofeo y Medalla ULP"],
+    },
   },
   {
     id: "retro",
@@ -186,6 +263,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/retro.webp",
     trophy: "",
+    awards: {
+      first: ["Llaveros e imanes frikis", "x1 Tarjeta Amazon 25€"],
+      second: ["Llaveros e imanes frikis", "x2 Bonos Fórmula Karting"],
+      third: ["Llaveros e imanes frikis"],
+    },
   },
   {
     id: "street-fighter",
@@ -198,6 +280,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/street-fighter.webp",
     trophy: "",
+    awards: {
+      first: ["Llaveros e imanes frikis", "x1 Tarjeta Amazon 25€"],
+      second: ["Llaveros e imanes frikis", "x2 Bonos Fórmula Karting"],
+      third: ["Llaveros e imanes frikis"],
+    },
   },
   {
     id: "beat-saber",
@@ -210,6 +297,11 @@ export const Competitions: CompetitionData[] = [
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/beat-saber.webp",
     trophy: "",
+    awards: {
+      first: ["Llaveros e imanes frikis", "x2 Bonos Fórmula Karting"],
+      second: ["Llaveros e imanes frikis"],
+      third: ["Llaveros e imanes frikis"],
+    },
   },
   {
     id: "hacking",
@@ -221,6 +313,23 @@ export const Competitions: CompetitionData[] = [
     time: "Todo el día",
     place: ["Aula -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/hacking.webp",
+    trophy: "",
+    awards: {
+      first: ["Llaveros e imanes frikis", "x1 Tarjeta Amazon 25€"],
+      second: ["Llaveros e imanes frikis","x1 Tarjeta Amazon 25€"],
+      third: ["Llaveros e imanes frikis"],
+    },
+  },
+  {
+    id: "juegos-mesa",
+    name: "Juegos de Mesa",
+    rules: "",
+    registration: "",
+    registrationPeriodOpen: false,
+    participants: "",
+    time: "Todo el día",
+    place: ["Cafetería", "Bajando escaleras metálicas del fondo"],
+    backgroundImage: "/assets/competitions/backgrounds/juegos-mesa.webp",
     trophy: "",
   },
 ];
@@ -337,5 +446,12 @@ export const CompetitionsCards: CompetitionCardData[] = [
     logo: '/assets/competitions/logos/street-fighter.webp',
     character:
       '/assets/competitions/characters/character-street-fighter.webp',
+  },
+  {
+    id: "juegos-mesa",
+    card: '/assets/competitions/cards/juegos-mesa.webp',
+    logo: '/assets/competitions/logos/juegos-mesa.webp',
+    character:
+      '/assets/competitions/characters/character-juegos-mesa.webp',
   },
 ];

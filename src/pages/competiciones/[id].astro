@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
 import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import { darkStyles } from '../../utils/all';
+import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
 
 import type {
   CompetitionData,
@@ -87,24 +88,31 @@ const competitionsWithoutTrophy = [
     <section
       class={`w-full flex flex-col gap-6 items-center bg-gray-1 ${darkStyles}`}
     >
-      <h2
-        class="text-4xl text-center font-bold text-dark dark:text-white mt-16"
-      >
-        Premios
-      </h2>
       {
-        competition?.trophy && (
-          <div class="flex flex-col gap-2">
-            <ULPTrophyCanvas trophy={competition?.trophy ?? ''} />
-            <h4 class="full-effect-text m-0">Mueve y explora el trofeo</h4>
-          </div>
-        )
+        competition?.trophy &&
+          typeof competition?.awards === 'object' &&
+          Object.keys(competition.awards).length > 0 && (
+            <div>
+              <h2 class="text-4xl text-center font-bold text-dark dark:text-white mt-16">
+                Premios
+              </h2>
+              {competition?.trophy && (
+                <div class="flex flex-col gap-2">
+                  <ULPTrophyCanvas trophy={competition?.trophy ?? ''} />
+                  <h4 class="full-effect-text m-0">
+                    Mueve y explora el trofeo
+                  </h4>
+                </div>
+              )}
+              {typeof competition?.awards === 'object' &&
+                Object.keys(competition.awards).length > 0 && (
+                  <CompetitionAwardsSection
+                    competitionAwards={competition.awards}
+                  />
+                )}
+            </div>
+          )
       }
-      <h4
-        class="text-2xl text-dark text-center m-4 font-semibold dark:text-white"
-      >
-        Proximamente...
-      </h4>
     </section>
   </main>
 </Layout>
