@@ -214,7 +214,7 @@ export const Competitions: CompetitionData[] = [
   {
     id: "hacking",
     name: "Hacking Ético",
-    rules: "",
+    rules: "https://ulp.hackiit.org/rules",
     registration: "https://ctf.hackiit.org",
     registrationPeriodOpen: true,
     participants: "",
