@@ -9,7 +9,7 @@ export interface CompetitionData {
   place: string[];
   backgroundImage: string;
   trophy: string;
-  awards: object;
+  awards?: Awards;
 }
 
 export interface CompetitionCardData {
@@ -17,6 +17,13 @@ export interface CompetitionCardData {
   card: string;
   logo: string;
   character: string;
+}
+
+export interface Awards {
+  first: string[];
+  second: string[];
+  third: string[];
+  mvp?: string[];
 }
 
 export const Competitions: CompetitionData[] = [
@@ -324,7 +331,6 @@ export const Competitions: CompetitionData[] = [
     place: ["Cafetería", "Bajando escaleras metálicas del fondo"],
     backgroundImage: "/assets/competitions/backgrounds/juegos-mesa.webp",
     trophy: "",
-    awards: {},
   },
 ];
 

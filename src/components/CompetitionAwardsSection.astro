@@ -1,8 +1,9 @@
 ---
 import AwardCard from './AwardCard.astro';
+import type { Awards } from '../data/competitions-data.ts';
 
 interface Props {
-  competitionAwards: object;
+  competitionAwards: Awards;
 }
 const { competitionAwards } = Astro.props as Props;
 ---
