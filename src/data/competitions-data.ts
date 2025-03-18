@@ -69,8 +69,8 @@ export const Competitions: CompetitionData[] = [
     registration: "https://forms.gle/gXXBEi6uS5JJ2fdU8",
     registrationPeriodOpen: false,
     participants: "https://drive.google.com/file/d/1slVr_e_8o76RVzIz8ji_BcCdtlqzGske/view?usp=sharing",
-    time: "16:30",
-    place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
+    time: "16:00",
+    place: ["Aula A1", "Prefabricadas patio"],
     backgroundImage: "/assets/competitions/backgrounds/mario-kart.webp",
     trophy: "/assets/models/mario-kart.obj",
     awards: {
@@ -140,8 +140,8 @@ export const Competitions: CompetitionData[] = [
     registration: "https://forms.gle/5jiNDTjhk3hZTbZp8",
     registrationPeriodOpen: false,
     participants: "https://drive.google.com/file/d/1suPy_eEYJCs7xLMTK4FFCUBSEJca1PJY/view?usp=sharing",
-    time: "17:00",
-    place: ["Aula A1", "Prefabricadas patio"],
+    time: "16:00",
+    place: ["Aulas -1.1 y -1.2", "Bajando escaleras futbolín"],
     backgroundImage: "/assets/competitions/backgrounds/wii-tenis.webp",
     trophy: "/assets/models/wii-sports.obj",
     awards: {
