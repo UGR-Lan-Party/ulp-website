@@ -39,7 +39,7 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/fc.webp",
     trophy: "/assets/models/fc-25.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x2 Tarjetas Amazon 25€"],
       second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
     },
@@ -56,10 +56,10 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/minecraft.webp",
     trophy: "/assets/models/minecraft.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x2 Tarjetas Amazon 25€"],
       second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
-      mvp: ["x1 Tarjeta Amazon 25€"],
+      mvp: ["Top Kills","x1 Tarjeta Amazon 25€"],
     },
   },
   {
@@ -91,8 +91,8 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/lol.webp",
     trophy: "/assets/models/league-of-legends.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x10 Tarjeta Amazon 25€"],
-      second: ["Trofeo y Medalla ULP", "x5 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x10 Tarjetas Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x5 Tarjetas Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
       mvp: ["x1 Tarjeta Amazon 25€"],
     },
@@ -109,8 +109,8 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/valorant.webp",
     trophy: "/assets/models/valorant.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x5 Tarjeta Amazon 50€", "x5 Bonos Scape Room"],
-      second: ["Trofeo y Medalla ULP", "x5 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x5 Tarjetas Amazon 50€", "x5 Bonos Scape Room"],
+      second: ["Trofeo y Medalla ULP", "x5 Tarjetas Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
       mvp: ["x1 Tarjeta Amazon 25€ y x1 Bono Scape Room"],
     },
@@ -127,8 +127,8 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/rocket-league.webp",
     trophy: "/assets/models/rocket-league.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x4 Tarjeta Amazon 25€"],
-      second: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x4 Tarjetas Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x2 Tarjetas Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
       mvp: ["x1 Tarjeta Amazon 25€"],
     },
@@ -162,7 +162,7 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/wii-bolos.webp",
     trophy: "/assets/models/wii-sports.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€", "x2 Viajes de un día"],
+      first: ["Trofeo y Medalla ULP", "x2 Tarjetas Amazon 25€", "x2 Viajes de un día"],
       second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
     },
@@ -179,7 +179,7 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/smash.webp",
     trophy: "/assets/models/smash.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x2 Tarjetas Amazon 25€"],
       second: ["Trofeo y Medalla ULP", "x1 Tarjeta Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
     },
@@ -196,8 +196,8 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/brawl-stars.webp",
     trophy: "/assets/models/brawl-stars.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x6 Tarjeta Amazon 25€"],
-      second: ["Trofeo y Medalla ULP", "x3 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x6 Tarjetas Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x3 Tarjetas Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
     },
   },
@@ -247,8 +247,8 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: "/assets/competitions/backgrounds/futbolin.webp",
     trophy: "/assets/models/futbolin.obj",
     awards: {
-      first: ["Trofeo y Medalla ULP", "x4 Tarjeta Amazon 25€"],
-      second: ["Trofeo y Medalla ULP", "x2 Tarjeta Amazon 25€"],
+      first: ["Trofeo y Medalla ULP", "x4 Tarjetas Amazon 25€"],
+      second: ["Trofeo y Medalla ULP", "x2 Tarjetas Amazon 25€"],
       third: ["Trofeo y Medalla ULP"],
     },
   },
