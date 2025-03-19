@@ -229,7 +229,7 @@ const Sponsors: SponsorData[] = [
       }
     ]
   },
-  /* {
+  {
     name: "The Game Kitchen",
     tier: 'regular',
     description: "Estudio de desarrollo de videojuegos independiente de Sevilla. Especializados en títulos de aventura y acción con estética retro y temáticas inspiradas en el folclore andaluz. Son conocidos por juegos como “The Last Door” y “Blasphemous”.",
@@ -250,7 +250,7 @@ const Sponsors: SponsorData[] = [
         link: "https://x.com/TheGameKitchen",
       },
     ]
-  }, */
+  },
   {
     name: "EMYCET",
     tier: 'regular',
@@ -336,6 +336,20 @@ const Sponsors: SponsorData[] = [
       {
         rrss: "Web",
         link: "https://dge.ugr.es/",
+      },
+    ]
+  },
+  {
+    name: "DEIIT",
+    tier: 'regular',
+    description: "La Delegación de Estudiantes de Ingeniería Informática y Telecomunicaciones. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.",
+    logo: '/assets/participan/Color/Organismos/deiit.png',
+    bussiness: "Delegación de Estudiantes",
+    links: 
+    [
+      {
+        rrss: "Web",
+        link: "https://deiit.ugr.es/",
       },
     ]
   },
