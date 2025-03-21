@@ -27,7 +27,8 @@ postDetails: {
     paraThree: "",
     titleTwo: "",
     paraFour: "",
-    paraFive: ""
+    paraFive: "",
+    paraSix: ""
 }
 quotes : {
     quote: "",
