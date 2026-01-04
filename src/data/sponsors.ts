@@ -267,7 +267,7 @@ const Sponsors: SponsorData[] = [
   },
   {
     name: "TSTC",
-    tier: 'bronze',
+    tier: 'silver',
     description: "El Departamento de Teoría de la Señal, Telemática y Comunicaciones (TSTC) de la Universidad de Granada fue creado en el curso 2004/2005, estando adscritas al mismo las áreas de conocimiento de Ingeniería Telemática (IT) y de Teoría de la Señal y Comunicaciones (TSC).",
     logo: '/assets/participan/Color/Organismos/logo-tstc.png',
     bussiness: "Departamento de la UGR",
@@ -326,29 +326,31 @@ const Sponsors: SponsorData[] = [
     ]
   },
   {
-    name: "ESADA",
+    name: "DGE",
     tier: 'regular',
-    description: "ESADA forma profesionales en Diseño Gráfico, de Moda, de Interiores y de Producto, ofreciendo grados oficiales equivalentes a títulos universitarios. Se basa en enseñanza de calidad, con un sistema educativo innovador basado en proyectos, preparando para anticipar y resolver retos del mundo laboral.",
-    logo: '/assets/participan/Color/Organismos/esada.webp',
-    bussiness: "Escuela Superior de Arte y Diseño",
+    description: "La Delegación de Estudiantes es el órgano de representación de los estudiantes de la Universidad de Granada. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.",
+    logo: '/assets/participan/Color/Organismos/dge.png',
+    bussiness: "Delegación de Estudiantes",
     links: 
     [
       {
         rrss: "Web",
-        link: "https://www.esada.es/",
+        link: "https://dge.ugr.es/",
       },
+    ]
+  },
+  {
+    name: "DEIIT",
+    tier: 'regular',
+    description: "La Delegación de Estudiantes de Ingeniería Informática y Telecomunicaciones. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.",
+    logo: '/assets/participan/Color/Organismos/deiit.png',
+    bussiness: "Delegación de Estudiantes",
+    links: 
+    [
       {
-        rrss: "Instagram",
-        link: "https://www.instagram.com/esadagrx/",
+        rrss: "Web",
+        link: "https://deiit.ugr.es/",
       },
-      {
-        rrss: "Facebook",
-        link: "https://www.facebook.com/esadagrx/",
-      },
-      {
-        rrss: "LinkedIn",
-        link: "https://www.linkedin.com/school/escuela-superior-de-arte-y-diseno-andalucia/",
-      }
     ]
   },
 ];

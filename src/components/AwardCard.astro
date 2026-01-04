@@ -1,0 +1,63 @@
+---
+interface Props {
+  position: string;
+  awards: string[];
+}
+const { position, awards } = Astro.props as Props;
+
+const positionStyles =
+  position === 'first'
+    ? 'bg-[#FFC00220] border-2 border-[#FFC00299] shadow-[10px_10px_30px_rgba(255,192,2,0.4)]'
+    : position === 'second'
+      ? 'bg-[#9a9ba020] border-2 border-[#9a9ba099] xl:top-28 xl:transform  xl:translate-x-[-370px] shadow-[10px_10px_30px_rgba(154,155,160,0.4)]'
+      : position === 'third'
+        ? 'bg-[#BB552220] border-2 border-[#BB552299] xl:top-48 xl:transform  xl:translate-x-[370px] shadow-[10px_10px_30px_rgba(187,85,34,0.4)]'
+        : position === 'mvp'
+          ? 'bg-[#F9FAFB20] border-2 border-[#D7D7FF99] shadow-2xl'
+          : '';
+
+const medalImage =
+  position === 'first'
+    ? '/assets/competitions/medals/gold-medal.webp'
+    : position === 'second'
+      ? '/assets/competitions/medals/silver-medal.webp'
+      : position === 'third'
+        ? '/assets/competitions/medals/bronze-medal.webp'
+        : position === 'mvp'
+          ? '/assets/competitions/medals/mvp-medal.webp'
+          : '';
+
+const positionSpanish =
+  position === 'first'
+    ? 'Primer puesto'
+    : position === 'second'
+      ? 'Segundo puesto'
+      : position === 'third'
+        ? 'Tercer puesto'
+        : position === 'mvp'
+          ? 'MVP de la final'
+          : '';
+---
+
+<div
+  class={`w-[350px] h-[420px] xl:absolute m-4 rounded-2xl dark:text-white  ${positionStyles}`}
+>
+  <img
+    class="w-full h-1/2 items-center justify-center object-contain"
+    src={medalImage}
+  />
+
+  <div class="flex h-1/2 flex-col items-center mt-2 justify-start gap-4">
+    <p class="text-2xl items-center justify-center mb-2 font-bold text-justify">
+      {positionSpanish}
+    </p>
+
+    {
+      awards.map((award) => (
+        <p class="text-xl w-[80%] items-center justify-center font-regular text-center ">
+          {award}
+        </p>
+      ))
+    }
+  </div>
+</div>

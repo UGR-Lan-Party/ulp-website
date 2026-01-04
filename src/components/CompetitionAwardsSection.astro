@@ -1,0 +1,27 @@
+---
+import AwardCard from './AwardCard.astro';
+import type { Awards } from '../data/competitions-data.ts';
+
+interface Props {
+  competitionAwards: Awards;
+}
+const { competitionAwards } = Astro.props as Props;
+---
+
+<section class="w-full flex flex-col items-center justify-center gap-6 py-12">
+  <div
+    class="w-full xl:h-[650px] flex flex-col xl:relative xl:flex-row items-center xl:items-start justify-center gap-6 py-12"
+  >
+    <AwardCard position="first" awards={competitionAwards.first} />
+    <AwardCard position="second" awards={competitionAwards.second} />
+    <AwardCard position="third" awards={competitionAwards.third} />
+  </div>
+
+  {
+    competitionAwards.mvp && (
+      <div class="w-full xl:h-[450px] flex flex-col items-center justify-center">
+        <AwardCard position="mvp" awards={competitionAwards.mvp} />
+      </div>
+    )
+  }
+</section>
