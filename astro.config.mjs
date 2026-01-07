@@ -12,4 +12,10 @@ export default defineConfig({
     "/201718" : "/",
     "/201819" : "/",
   },
+  // Not optimize images, to improve build time
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/noop',
+    },
+  },
 });
