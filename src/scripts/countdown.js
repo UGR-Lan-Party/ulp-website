@@ -6,7 +6,7 @@
         days: '00',
         distance: 0,
         countdown: null,
-        endTime: new Date('March 22, 2025 10:00:00').getTime(),
+        endTime: new Date('March 21, 2026 09:30:00').getTime(),
         now: new Date().getTime(),
         start: function() {
             this.countdown = setInterval(() => {
