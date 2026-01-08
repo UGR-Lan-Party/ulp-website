@@ -197,15 +197,15 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
     /* Lista de Juegos */
     .games {
       font-family: 'Inter', sans-serif;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Crear 2 columnas iguales */
+      display: flex;
+      flex-wrap: wrap;          
       gap: 12px;
-      margin: 0;
-      padding-left: 0;
     }
 
     .game {
       height: 60px;
+      min-width: 160px;        /* 🔥 clave */
+      max-width: 220px;
       background-color: rgba(34, 119, 161, 0.3);
       display: flex;
       color: black;
@@ -214,7 +214,7 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
       font-size: 1.2rem;
       cursor: pointer;
       text-align: left;
-      width: 100%;
+      width: fit-content;
       justify-content: space-between;
       align-items: center;
       font-weight: bold;
@@ -466,6 +466,146 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
         font-size: 1rem;
       }
     }
+/* =========================
+   VARIABLES DE COLOR
+========================= */
+:root {
+  --bg-main: #0b4d57;
+  --bg-header: #063b44;
+  --bg-hour: #0a3f48;
+  --bg-cell: #0b4d57;
+  --bg-separator: #d9d9d9;
+
+  --text-main: #ffffff;
+  --text-muted: #cfd8dc;
+
+  --block-radius: 6px;
+  --block-padding: 6px 8px;
+  --block-font-size: 0.75rem;
+}
+
+/* =========================
+   TABLA GENERAL
+========================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* =========================
+   CABECERA
+========================= */
+thead th {
+  background-color: var(--bg-header);
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 2px solid rgba(255,255,255,0.15);
+}
+
+/* Columna hora */
+thead th.sticky {
+  text-align: center;
+}
+
+/* =========================
+   FILAS / HORAS
+========================= */
+tbody th.sticky {
+  background-color: var(--bg-hour);
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 6px;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+/* =========================
+   CELDAS
+========================= */
+tbody td {
+  background-color: var(--bg-cell);
+  vertical-align: top;
+  padding: 4px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+/* =========================
+   SEPARADORES (Descanso)
+========================= */
+tr.descanso td,
+tr.descanso th {
+  background-color: var(--bg-separator);
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+/* =========================
+   BLOQUES (ACTIVIDADES)
+========================= */
+.bloque {
+  border-radius: var(--block-radius);
+  padding: var(--block-padding);
+  font-size: var(--block-font-size);
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  cursor: default;
+}
+
+/* =========================
+   EFECTO HOVER
+========================= */
+.bloque:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  table {
+    font-size: 0.7rem;
+  }
+
+  .bloque {
+    font-size: 0.65rem;
+  }
+}
+
+.schedule-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: flex-end;
+}
+
+.schedule-actions button {
+  background-color: #063b44;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.schedule-actions button:hover {
+  background-color: #0b4d57;
+}
   </style>
 </head>
 <section
@@ -508,21 +648,26 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
             data-aula={game.aula}
           >
             {game.name}
-            <span class="location">{game.aula}</span>
           </button>
         ))
       }
     </div>
     <div class="times" id="gameInfo"></div>
   </div>
+<div class="schedule-actions">
+  <button id="showAllGames">Mostrar todos</button>
+  <button id="hideAllGames">Quitar todos</button>
+</div>
+<div id="controls"></div>
 
-  <div class="tabla" style="margin: 0 5%">
-    <img
-      src="/assets/local_horarios/cronograma.svg"
-      alt="imagen del cronograma"
-      class="object-cover object-center w-full h-full"
-    />
-  </div>
+<div class="table-wrapper">
+  <table class="cronograma">
+    <thead id="thead"></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<script type="module" src="/src/scripts/schedule.js"></script>
 </section>
 
 <script src="../scripts/schedule.js"></script>
