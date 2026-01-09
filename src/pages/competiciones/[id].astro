@@ -92,18 +92,22 @@ const competitionsWithoutTrophy = [
         competition?.trophy &&
           typeof competition?.awards === 'object' &&
           Object.keys(competition.awards).length > 0 && (
-            <div>
+            <div class="w-full">
               <h2 class="text-4xl text-center font-bold text-dark dark:text-white mt-16">
                 Premios
               </h2>
               {competition?.trophy && (
-                <div class="flex flex-col gap-2">
+                <div class="relative flex flex-col gap-2 w-full items-center">
+                  <div class="absolute z-10 pulse-effect" />
                   <ULPTrophyCanvas trophy={competition?.trophy ?? ''} />
                   <h4 class="full-effect-text m-0">
                     Mueve y explora el trofeo
                   </h4>
                 </div>
               )}
+              <p class="mt-16 text-2xl font-semibold text-center">
+                Próximamente...
+              </p>
               {typeof competition?.awards === 'object' &&
                 Object.keys(competition.awards).length > 0 && (
                   <CompetitionAwardsSection
@@ -158,6 +162,31 @@ const competitionsWithoutTrophy = [
     }
     100% {
       text-shadow: 0 0 4px rgba(0, 68, 101, 0.8);
+    }
+  }
+
+  .pulse-effect {
+    width: 0rem;
+    height: 0rem;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: interaction-pulse 4s linear infinite;
+  }
+
+  @keyframes interaction-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+    }
+    20% {
+      box-shadow: 0 0 0 350px rgba(0, 0, 0, 0);
+    }
+    80% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
   }
 </style>

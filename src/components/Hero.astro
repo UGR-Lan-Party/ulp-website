@@ -1,37 +1,45 @@
 ---
 interface FlickrPhoto {
-    id: string;
-    width_k?: number;
-    height_k?: number;
-    url_k?: string;
+  id: string;
+  width_k?: number;
+  height_k?: number;
+  url_k?: string;
 }
 
 async function getFlickrPhotos(): Promise<string[]> {
-    const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
-    const ALBUM_ID = '72177720316026867';
-    const USER_ID = '195749897@N03';
+  const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
+  const ALBUM_ID = '72177720316026867';
+  const USER_ID = '195749897@N03';
 
-    const ALLOWED_IDS = new Set([
-        "53635695855", "53635584524", "53635576249", 
-        "53635686025", "53635573539", "53635570934"
-    ]);
+  const ALLOWED_IDS = new Set([
+    '53635695855',
+    '53635584524',
+    '53635576249',
+    '53635686025',
+    '53635573539',
+    '53635570934',
+  ]);
 
-    const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${ALBUM_ID}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=url_k,o_dims`;
+  const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${ALBUM_ID}&user_id=${USER_ID}&format=json&nojsoncallback=1&extras=url_k,o_dims`;
 
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
 
-        const images: string[] = data.photoset.photo
-            .filter((photo: FlickrPhoto) => ALLOWED_IDS.has(photo.id) && (photo.width_k ?? 0) > (photo.height_k ?? 0))
-            .map((photo: FlickrPhoto) => photo.url_k ?? "")
-            .filter((url: string) => url !== "");
+    const images: string[] = data.photoset.photo
+      .filter(
+        (photo: FlickrPhoto) =>
+          ALLOWED_IDS.has(photo.id) &&
+          (photo.width_k ?? 0) > (photo.height_k ?? 0),
+      )
+      .map((photo: FlickrPhoto) => photo.url_k ?? '')
+      .filter((url: string) => url !== '');
 
-        return images;
-    } catch (error) {
-        console.error('Error fetching Flickr photos:', error);
-        return [];
-    }
+    return images;
+  } catch (error) {
+    console.error('Error fetching Flickr photos:', error);
+    return [];
+  }
 }
 
 const images = await getFlickrPhotos();
@@ -48,40 +56,68 @@ const images = await getFlickrPhotos();
   }
 </style>
 
-<section 
-  id="home" 
+<section
+  id="home"
   class="flex flex-col lg:flex-row justify-center items-center bg-gradient-to-bl from-[#01576C]/80 from-30% via-[#012C5F]/85 via-70% to-[#012C5F]/95 h-auto lg:h-[100vh] pt-[160px] lg:pt-[250px] pb-[75px] lg:pb-[115px] -mt-12 lg:-mt-6 overflow-hidden"
   data-images={JSON.stringify(images)}
 >
   <div class="lg:w-1/2 flex flex-col items-center h-full max-w-[1000px]">
-    <p class="texto-centrado mx-auto mb-6 max-w-[800px] font-semibold text-white lg:text-3xl flex items-center justify-center gap-3">
-      <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.163c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.176 0l-3.37 2.448c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.4 9.384c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.957z" />
-      </svg>
-      ¡Nos vemos el año que viene!
-      <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.163c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.176 0l-3.37 2.448c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.4 9.384c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.957z" />
-      </svg>
-    </p>
-    <div class="absolute inset-0 min-h-full min-w-full -z-10" id="heroContainer">
-      <img id="heroImage" src={images[0]} alt="" class="w-full h-full object-cover hero-bg" />
+    <div
+      class="absolute inset-0 min-h-full min-w-full -z-10"
+      id="heroContainer"
+    >
+      <img
+        id="heroImage"
+        src={images[0]}
+        alt=""
+        class="w-full h-full object-cover hero-bg"
+      />
     </div>
-    <h1 class="pt-3 mb-5 lg:mb-16 mt-8 text-3xl font-bold text-white sm:text-4xl lg:text-[3.5rem]">
+    <h1
+      class="pt-3 mb-5 lg:mb-16 mt-8 text-3xl font-bold text-white sm:text-4xl lg:text-[3.5rem]"
+    >
       UGR LAN PARTY
     </h1>
 
-    <p class="texto-centrado mx-auto mb-6 max-w-[800px] font-medium text-white lg:text-2xl">
+    <p
+      class="texto-centrado mx-auto mb-6 max-w-[800px] font-medium text-white lg:text-2xl"
+    >
       ¡El mayor evento universitario de eSports de Andalucía!
     </p>
 
+    <div class="flex items-center justify-center px-5 py-5 my-6">
+      <div class="text-primary">
+        <div
+          class="text-5xl text-center flex w-full items-center justify-center gap-2"
+        >
+          <div class="w-24 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="days">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Días</div>
+          </div>
+          <div class="w-20 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="hours">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Horas</div>
+          </div>
+          <div class="w-20 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="minutes">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Minutos</div>
+          </div>
+          <div class="w-20 p-2 bg-white rounded-lg">
+            <div class="font-mono leading-none" id="seconds">00</div>
+            <div class="font-mono uppercase text-sm leading-none">Segundos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <a
       href="/competiciones"
-      class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-6"
+      class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-0"
     >
       Inscríbete
     </a>
 
-    <div class="mt-6 flex justify-center items-center">
+    <div class="mt-0 flex justify-center items-center">
       <img
         src="/assets/participan/organizan.png"
         alt="Organizaciones participantes"
@@ -93,50 +129,52 @@ const images = await getFlickrPhotos();
 
 <script src="../scripts/countdown.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const section = document.getElementById("home");
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.getElementById('home');
     if (!section) return console.log("No se encontró la sección 'home'");
 
-    const imagesData = section.getAttribute("data-images");
-    if (!imagesData) return console.log("No se encontraron datos de imágenes");
+    const imagesData = section.getAttribute('data-images');
+    if (!imagesData) return console.log('No se encontraron datos de imágenes');
 
     const images = JSON.parse(imagesData);
-    if (!Array.isArray(images) || images.length === 0) return console.log("El array de imágenes está vacío");
+    if (!Array.isArray(images) || images.length === 0)
+      return console.log('El array de imágenes está vacío');
 
     let index = 0;
-    let heroContainer = document.getElementById("heroContainer");
-    
-    if (!heroContainer) return console.log("No se encontró la sección 'heroContainer'");;
+    let heroContainer = document.getElementById('heroContainer');
 
-    const img1 = document.createElement("img");
-    const img2 = document.createElement("img");
+    if (!heroContainer)
+      return console.log("No se encontró la sección 'heroContainer'");
 
-    [img1, img2].forEach(img => {
-      img.style.position = "absolute";
-      img.style.top = "0";
-      img.style.left = "0";
-      img.style.width = "100%";
-      img.style.height = "100%";
-      img.style.objectFit = "cover";
-      img.style.transition = "opacity 1s ease-in-out";
-      img.style.opacity = "0";
+    const img1 = document.createElement('img');
+    const img2 = document.createElement('img');
+
+    [img1, img2].forEach((img) => {
+      img.style.position = 'absolute';
+      img.style.top = '0';
+      img.style.left = '0';
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
+      img.style.transition = 'opacity 1s ease-in-out';
+      img.style.opacity = '0';
       heroContainer.appendChild(img);
     });
 
     img1.src = images[index];
-    img1.style.opacity = "1";
+    img1.style.opacity = '1';
     let currentImg = img1;
     let nextImg = img2;
 
     setInterval(() => {
       index = (index + 1) % images.length;
       nextImg.src = images[index];
-      nextImg.style.zIndex = "1";
-      currentImg.style.zIndex = "0";
-      nextImg.style.opacity = "1";
+      nextImg.style.zIndex = '1';
+      currentImg.style.zIndex = '0';
+      nextImg.style.opacity = '1';
 
       setTimeout(() => {
-        currentImg.style.opacity = "0";
+        currentImg.style.opacity = '0';
         [currentImg, nextImg] = [nextImg, currentImg];
       }, 1000);
     }, 5000);
