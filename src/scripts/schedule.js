@@ -212,6 +212,161 @@ function handleGameClick(event) {
                 margin-top: 0.3rem;
             }
         }
+/* =========================
+   TABLA CRONOGRAMA
+========================= */
+
+table.cronograma {
+  width: 100%;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  background-color: #002b36;
+  color: white;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+/* =========================
+   BORDES (Tailwind override)
+========================= */
+
+table.cronograma th,
+table.cronograma td {
+  border-width: 0px !important;
+  border-style: solid;
+  border-color: #ffffff;
+  padding: 0;
+  vertical-align: top;
+
+}
+
+/* Bordes exteriores */
+table.cronograma thead tr:first-child th {
+  border-top-width: 0px;
+}
+
+table.cronograma tr th:first-child,
+table.cronograma tr td:first-child {
+  border-left-width: 0px;
+}
+
+/* =========================
+   CABECERA Y COLUMNA HORA
+========================= */
+
+table.cronograma thead th{
+  background-color: #001f27;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  width: 80px;
+}
+  table.cronograma .sticky {
+  background-color: #013844;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  width: 80px;
+}
+
+
+/* =========================
+   CUERPO
+========================= */
+
+table.cronograma td {
+  background-color: #013844;
+  height: 42px;
+}
+
+/* Alternar filas para legibilidad */
+table.cronograma tbody tr:nth-child(even) td {
+  background-color: #014150;
+}
+
+/* =========================
+   BLOQUES DE JUEGO
+========================= */
+
+table.cronograma .bloque {
+  margin: 4px;
+  height: auto; 
+  min-height: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: 600;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Hover */
+table.cronograma .bloque:hover {
+  filter: brightness(1.15);
+  transform: scale(1.02);
+}
+
+/* =========================
+   COLORES POR JUEGO
+========================= */
+
+[data-game="Brawl Stars"] {
+  background-color: #ffd966;
+  color: #333;
+}
+
+[data-game="EA Sports FC 25"] {
+  background-color: #93c47d;
+  color: #111;
+}
+
+[data-game="Valorant"] {
+  background-color: #e06666;
+  color: white;
+}
+
+[data-game="Super Smash Bros Ultimate"] {
+  background-color: #f6b26b;
+  color: #111;
+}
+
+[data-game="Rocket League 2vs2"] {
+  background-color: #6fa8dc;
+  color: white;
+}
+
+[data-game="Minecraft: Hunger Games"] {
+  background-color: #b4a7d6;
+  color: #111;
+}
+
+[data-game="Wii Sports: Bolos"],
+[data-game="Wii Sports: Tennis"] {
+  background-color: #bf9000;
+  color: white;
+}
+
+[data-game="Futbolín"] {
+  background-color: #76a5af;
+  color: white;
+}
+
+[data-game="League of Legends"] {
+  background-color: #45818e;
+  color: white;
+}
+
+[data-game="Mario Kart 8 Deluxe"] {
+  background-color: #a64d79;
+  color: white;
+}
+
+
     `;
 
 document.head.appendChild(style);
@@ -285,7 +440,7 @@ function renderHead() {
   thead.innerHTML = "";
 
   const tr = document.createElement("tr");
-  tr.innerHTML = `<th class="sticky">Hora</th>`;
+  tr.innerHTML = `<th class="">Hora</th>`;
 
   aulas.forEach(aula => {
     const th = document.createElement("th");
@@ -303,7 +458,7 @@ function renderBody() {
 
   times.forEach(time => {
     const tr = document.createElement("tr");
-    tr.classList.add(`time-${slug(time)}`);
+    tr.classList.add(`time`);
 
     tr.innerHTML = `<th class="sticky">${time}</th>`;
 

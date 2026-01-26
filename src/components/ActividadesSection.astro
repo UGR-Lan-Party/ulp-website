@@ -6,15 +6,15 @@ export const schedules = [
     name: 'Brawl Stars',
     aula: 'A1 y B1',
     tags: ['Movil', 'Competición'],
-    eventos: [{ time: '10:00 - 14:00', event: 'Brawl Stars' }],
+    eventos: [{ time_start: '10:00',time_end:'14:00', event: 'Brawl Stars' }],
   },
   {
     name: 'EA Sports FC 25',
     aula: 'A1',
     tags: ['Competición'],
     eventos: [
-      { time: '10:00 - 14:30', event: 'Fase Clasificatoria' },
-      { time: '15:30 - 17:00', event: 'Fase Final' },
+      { time_start: '10:00',time_end:'14:30', event: 'Fase Clasificatoria' },
+      { time_start: '15:30',time_end:'17:00', event: 'Fase Final' },
     ],
   },
   {
@@ -22,8 +22,8 @@ export const schedules = [
     aula: 'Entrada',
     tags: ['Competición', 'Aire Libre'],
     eventos: [
-      { time: '10:00 - 14:00', event: 'Fase Clasificatoria' },
-      { time: '16:00 - 18:00', event: 'Final' },
+      { time_start: '10:00',time_end:'14:00', event: 'Fase Clasificatoria' },
+      { time_start: '16:00',time_end:'18:00', event: 'Final' },
     ],
   },
   {
@@ -31,10 +31,10 @@ export const schedules = [
     aula: 'B1',
     tags: ['PC', 'Competición'],
     eventos: [
-      { time: '10:00 - 15:00', event: 'Fase de Grupos' },
-      { time: '18:00 - 19:00', event: 'Semifinal I' },
-      { time: '19:00 - 20:00', event: 'Semifinal II' },
-      { time: '20:30 - 21:30', event: 'Final' },
+      { time_start: '10:00',time_end:'15:00', event: 'Fase de Grupos' },
+      { time_start: '18:00',time_end:'19:00', event: 'Semifinal I' },
+      { time_start: '19:00',time_end:'20:00', event: 'Semifinal II' },
+      { time_start: '20:30',time_end:'21:30', event: 'Final' },
     ],
   },
   {
@@ -42,23 +42,23 @@ export const schedules = [
     aula: 'A1',
     tags: ['Competición', 'Switch'],
     eventos: [
-      { time: '16:00 - 20:00', event: 'Fase Clasificatoria' },
-      { time: '20:00 - 21:00', event: 'Final' },
+      { time_start: '16:00',time_end:'20:00', event: 'Fase Clasificatoria' },
+      { time_start: '20:00',time_end:'21:00', event: 'Final' },
     ],
   },
   {
     name: 'Minecraft: Hunger Games',
     aula: 'B1',
     tags: ['PC'],
-    eventos: [{ time: '15:30 - 18:00', event: 'Minecraft' }],
+    eventos: [{ time_start: '15:30',time_end:'18:00', event: 'Minecraft' }],
   },
   {
     name: 'Rocket League 2vs2',
     aula: 'A2',
     tags: ['Competición', 'PC'],
     eventos: [
-      { time: '15:30 - 18:00', event: 'Fase Eliminatoria' },
-      { time: '18:00 - 19:00', event: 'Final' },
+      { time_start: '15:30',time_end:'18:00', event: 'Fase Eliminatoria' },
+      { time_start: '18:00',time_end:'19:00', event: 'Final' },
     ],
   },
   {
@@ -66,9 +66,9 @@ export const schedules = [
     aula: '-1.2',
     tags: ['Competición', 'Switch'],
     eventos: [
-      { time: '10:00 - 14:30', event: 'Fase de Grupos' },
-      { time: '15:30 - 19:00', event: 'Fase Eliminatoria' },
-      { time: '19:00 - 20:00', event: 'Final' },
+      { time_start: '10:00',time_end:'14:30', event: 'Fase de Grupos' },
+      { time_start: '15:30',time_end:'19:00', event: 'Fase Eliminatoria' },
+      { time_start: '19:00',time_end:'20:00', event: 'Final' },
     ],
   },
   {
@@ -76,25 +76,25 @@ export const schedules = [
     aula: 'A2',
     tags: ['PC', 'Competición'],
     eventos: [
-      { time: '10:00 - 15:00', event: 'Fase de Grupos' },
-      { time: '17:30 - 18:30', event: 'Semifinal I' },
-      { time: '18:30 - 19:30', event: 'Semifinal II' },
-      { time: '19:30 - 20:30', event: 'Final' },
+      { time_start: '10:00', time_end:'15:00', event: 'Fase de Grupos' },
+      { time_start: '17:30', time_end:'18:30', event: 'Semifinal I' },
+      { time_start: '18:30', time_end:'9:30', event: 'Semifinal II' },
+      { time_start: '19:30', time_end:'20:30', event: 'Final' },
     ],
   },
   {
     name: 'Wii Sports: Bolos',
     aula: '-1.1 y -1.2',
     tags: ['Wii Sports', 'Competición'],
-    eventos: [{ time: '10:00 - 14:00', event: 'Wii Sports: Bolos' }],
+    eventos: [{ time_start: '10:00',time_end:'14:00', event: '' }],
   },
   {
     name: 'Wii Sports: Tennis',
     aula: '-1.1 y -1.2',
     tags: ['Wii Sports', 'Competición'],
     eventos: [
-      { time: '16:00 - 20:00', event: 'Fase Clasificatoria' },
-      { time: '20:00 - 21:00', event: 'Final' },
+      { time_start: '16:00', time_end:'20:00', event: 'Fase Clasificatoria' },
+      { time_start: '20:00',time_end:'21:00', event: 'Final' },
     ],
   },
 ];
@@ -187,8 +187,6 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
 
     /* Contenedor del Horario */
     .schedule {
-      display: flex;
-      justify-content: space-x-2;
       width: 80vw;
       margin: 0 auto;
       padding-top: 30px;
@@ -196,16 +194,17 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
 
     /* Lista de Juegos */
     .games {
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      flex-wrap: wrap;          
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      font-family: 'Inter', sans-serif;      
       gap: 12px;
     }
 
     .game {
       height: 60px;
-      min-width: 160px;        /* 🔥 clave */
-      max-width: 220px;
+      min-width: 160px;        
+      max-width: 180px;
       background-color: rgba(34, 119, 161, 0.3);
       display: flex;
       color: black;
@@ -275,9 +274,9 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
 
       /* Ajustar las columnas de los juegos */
       .games {
-        flex: 1.5;
+        width: 100%;
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Crear 2 columnas iguales */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 12px;
         margin: 0;
         padding-left: 0;
@@ -290,6 +289,7 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
           4vw,
           1rem
         ); /* Reducir aún más en pantallas muy pequeñas */
+        overflow-wrap: break-word;
       }
 
       .location {
@@ -360,6 +360,10 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
         width: 0;
         height: 0;
       }
+      cronograma::-webkit-scrollbar{
+        width: 0;
+        height: 0;
+      }
 
       .games button {
         width: 300px; /* Reducir el tamaño de los botones en pantallas pequeñas */
@@ -372,6 +376,7 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
           4vw,
           1rem
         ); /* Reducir aún más en pantallas muy pequeñas */
+        overflow-wrap: break-word;
       }
       .location {
         font-size: clamp(
@@ -431,6 +436,7 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
           2vw,
           1rem
         ); /* Reducir aún más en pantallas muy pequeñas */
+        overflow-wrap: break-word;
       }
       .location {
         font-size: clamp(
@@ -466,126 +472,10 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
         font-size: 1rem;
       }
     }
-/* =========================
-   VARIABLES DE COLOR
-========================= */
-:root {
-  --bg-main: #0b4d57;
-  --bg-header: #063b44;
-  --bg-hour: #0a3f48;
-  --bg-cell: #0b4d57;
-  --bg-separator: #d9d9d9;
-
-  --text-main: #ffffff;
-  --text-muted: #cfd8dc;
-
-  --block-radius: 6px;
-  --block-padding: 6px 8px;
-  --block-font-size: 0.75rem;
-}
-
-/* =========================
-   TABLA GENERAL
-========================= */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  font-family: "Inter", system-ui, sans-serif;
-}
-
-/* =========================
-   CABECERA
-========================= */
-thead th {
-  background-color: var(--bg-header);
-  color: white;
-  font-weight: 600;
-  font-size: 0.8rem;
-  padding: 8px;
-  text-align: center;
-  border-bottom: 2px solid rgba(255,255,255,0.15);
-}
-
-/* Columna hora */
-thead th.sticky {
-  text-align: center;
-}
-
-/* =========================
-   FILAS / HORAS
-========================= */
-tbody th.sticky {
-  background-color: var(--bg-hour);
-  font-weight: 500;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  text-align: center;
-  padding: 6px;
-  white-space: nowrap;
-  border-right: 1px solid rgba(255,255,255,0.1);
-}
-
-/* =========================
-   CELDAS
-========================= */
-tbody td {
-  background-color: var(--bg-cell);
-  vertical-align: top;
-  padding: 4px;
-  border-right: 1px solid rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-/* =========================
-   SEPARADORES (Descanso)
-========================= */
-tr.descanso td,
-tr.descanso th {
-  background-color: var(--bg-separator);
-  color: #000;
-  text-align: center;
-  font-weight: 600;
-  font-size: 0.75rem;
-}
-
-/* =========================
-   BLOQUES (ACTIVIDADES)
-========================= */
-.bloque {
-  border-radius: var(--block-radius);
-  padding: var(--block-padding);
-  font-size: var(--block-font-size);
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 4px;
-  line-height: 1.2;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
-  cursor: default;
-}
-
-/* =========================
-   EFECTO HOVER
-========================= */
-.bloque:hover {
-  transform: scale(1.02);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-}
 
 /* =========================
    RESPONSIVE
 ========================= */
-@media (max-width: 900px) {
-  table {
-    font-size: 0.7rem;
-  }
-
-  .bloque {
-    font-size: 0.65rem;
-  }
-}
-
 .schedule-actions {
   display: flex;
   gap: 10px;
@@ -597,13 +487,14 @@ tr.descanso th {
   background-color: #063b44;
   color: white;
   border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 12px 18px;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
 }
 
 .schedule-actions button:hover {
+  transform: scale(1.03); /* Aumenta el tamaño en un 8% */
   background-color: #0b4d57;
 }
   </style>
