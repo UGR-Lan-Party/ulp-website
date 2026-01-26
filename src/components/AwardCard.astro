@@ -16,48 +16,52 @@ const positionStyles =
           ? 'bg-[#F9FAFB20] border-2 border-[#D7D7FF99] shadow-2xl'
           : '';
 
-const medalImage =
+const badgeImage =
   position === 'first'
-    ? '/assets/competitions/medals/gold-medal.webp'
+    ? '/assets/competitions/medals/ulp-gold-badge.png'
     : position === 'second'
-      ? '/assets/competitions/medals/silver-medal.webp'
+      ? '/assets/competitions/medals/ulp-silver-badge.png'
       : position === 'third'
-        ? '/assets/competitions/medals/bronze-medal.webp'
+        ? '/assets/competitions/medals/ulp-bronze-badge.png'
         : position === 'mvp'
-          ? '/assets/competitions/medals/mvp-medal.webp'
+          ? '/assets/competitions/medals/ulp-mvp-badge.png'
           : '';
 
 const positionSpanish =
   position === 'first'
-    ? 'Primer puesto'
+    ? 'Campeón'
     : position === 'second'
-      ? 'Segundo puesto'
+      ? '2º puesto'
       : position === 'third'
-        ? 'Tercer puesto'
+        ? '3º puesto'
         : position === 'mvp'
-          ? 'MVP de la final'
+          ? 'MVP'
           : '';
 ---
 
 <div
-  class={`w-[350px] h-[420px] xl:absolute m-4 rounded-2xl dark:text-white  ${positionStyles}`}
+  class={`w-[350px] h-[420px] flex flex-col items-center xl:absolute m-4 rounded-2xl dark:text-white  ${positionStyles}`}
 >
-  <img
-    class="w-full h-1/2 items-center justify-center object-contain"
-    src={medalImage}
-  />
+  <img class="w-52 items-center object-contain -mt-28" src={badgeImage} />
 
   <div class="flex h-1/2 flex-col items-center mt-2 justify-start gap-4">
-    <p class="text-2xl items-center justify-center mb-2 font-bold text-justify">
+    <p
+      class="text-2xl items-center justify-center mb-2 font-semibold text-justify"
+    >
       {positionSpanish}
     </p>
 
-    {
+    <img
+      class="w-52 items-center object-contain"
+      src={'/assets/competitions/medals/lucky-box-ulp.gif'}
+    />
+    <!-- Cuando sepamos los premios definitivos los pondremos aquí. -->
+    <!-- {
       awards.map((award) => (
         <p class="text-xl w-[80%] items-center justify-center font-regular text-center ">
           {award}
         </p>
       ))
-    }
+    } -->
   </div>
 </div>
