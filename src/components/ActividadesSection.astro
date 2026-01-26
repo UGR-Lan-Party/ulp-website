@@ -6,15 +6,15 @@ export const schedules = [
     name: 'Brawl Stars',
     aula: 'A1 y B1',
     tags: ['Movil', 'Competición'],
-    eventos: [{ time: '10:00 - 14:00', event: 'Brawl Stars' }],
+    eventos: [{ time_start: '10:00',time_end:'14:00', event: '' }],
   },
   {
     name: 'EA Sports FC 25',
     aula: 'A1',
     tags: ['Competición'],
     eventos: [
-      { time: '10:00 - 14:30', event: 'Fase Clasificatoria' },
-      { time: '15:30 - 17:00', event: 'Fase Final' },
+      { time_start: '10:00',time_end:'14:30', event: 'Fase Clasificatoria' },
+      { time_start: '15:30',time_end:'17:00', event: 'Fase Final' },
     ],
   },
   {
@@ -22,8 +22,8 @@ export const schedules = [
     aula: 'Entrada',
     tags: ['Competición', 'Aire Libre'],
     eventos: [
-      { time: '10:00 - 14:00', event: 'Fase Clasificatoria' },
-      { time: '16:00 - 18:00', event: 'Final' },
+      { time_start: '10:00',time_end:'14:00', event: 'Fase Clasificatoria' },
+      { time_start: '16:00',time_end:'18:00', event: 'Final' },
     ],
   },
   {
@@ -31,10 +31,10 @@ export const schedules = [
     aula: 'B1',
     tags: ['PC', 'Competición'],
     eventos: [
-      { time: '10:00 - 15:00', event: 'Fase de Grupos' },
-      { time: '18:00 - 19:00', event: 'Semifinal I' },
-      { time: '19:00 - 20:00', event: 'Semifinal II' },
-      { time: '20:30 - 21:30', event: 'Final' },
+      { time_start: '10:00',time_end:'15:00', event: 'Fase de Grupos' },
+      { time_start: '18:00',time_end:'19:00', event: 'Semifinal I' },
+      { time_start: '19:00',time_end:'20:00', event: 'Semifinal II' },
+      { time_start: '20:30',time_end:'21:30', event: 'Final' },
     ],
   },
   {
@@ -42,23 +42,23 @@ export const schedules = [
     aula: 'A1',
     tags: ['Competición', 'Switch'],
     eventos: [
-      { time: '16:00 - 20:00', event: 'Fase Clasificatoria' },
-      { time: '20:00 - 21:00', event: 'Final' },
+      { time_start: '16:00',time_end:'20:00', event: 'Fase Clasificatoria' },
+      { time_start: '20:00',time_end:'21:00', event: 'Final' },
     ],
   },
   {
     name: 'Minecraft: Hunger Games',
     aula: 'B1',
     tags: ['PC'],
-    eventos: [{ time: '15:30 - 18:00', event: 'Minecraft' }],
+    eventos: [{ time_start: '15:30',time_end:'18:00', event: '' }],
   },
   {
     name: 'Rocket League 2vs2',
     aula: 'A2',
     tags: ['Competición', 'PC'],
     eventos: [
-      { time: '15:30 - 18:00', event: 'Fase Eliminatoria' },
-      { time: '18:00 - 19:00', event: 'Final' },
+      { time_start: '15:30',time_end:'18:00', event: 'Fase Eliminatoria' },
+      { time_start: '18:00',time_end:'19:00', event: 'Final' },
     ],
   },
   {
@@ -66,9 +66,9 @@ export const schedules = [
     aula: '-1.2',
     tags: ['Competición', 'Switch'],
     eventos: [
-      { time: '10:00 - 14:30', event: 'Fase de Grupos' },
-      { time: '15:30 - 19:00', event: 'Fase Eliminatoria' },
-      { time: '19:00 - 20:00', event: 'Final' },
+      { time_start: '10:00',time_end:'14:30', event: 'Fase de Grupos' },
+      { time_start: '15:30',time_end:'19:00', event: 'Fase Eliminatoria' },
+      { time_start: '19:00',time_end:'20:00', event: 'Final' },
     ],
   },
   {
@@ -76,25 +76,25 @@ export const schedules = [
     aula: 'A2',
     tags: ['PC', 'Competición'],
     eventos: [
-      { time: '10:00 - 15:00', event: 'Fase de Grupos' },
-      { time: '17:30 - 18:30', event: 'Semifinal I' },
-      { time: '18:30 - 19:30', event: 'Semifinal II' },
-      { time: '19:30 - 20:30', event: 'Final' },
+      { time_start: '10:00', time_end:'15:00', event: 'Fase de Grupos' },
+      { time_start: '17:30', time_end:'18:30', event: 'Semifinal I' },
+      { time_start: '18:30', time_end:'19:30', event: 'Semifinal II' },
+      { time_start: '19:30', time_end:'20:30', event: 'Final' },
     ],
   },
   {
     name: 'Wii Sports: Bolos',
     aula: '-1.1 y -1.2',
     tags: ['Wii Sports', 'Competición'],
-    eventos: [{ time: '10:00 - 14:00', event: 'Wii Sports: Bolos' }],
+    eventos: [{ time_start: '10:00',time_end:'14:00', event: '' }],
   },
   {
     name: 'Wii Sports: Tennis',
     aula: '-1.1 y -1.2',
     tags: ['Wii Sports', 'Competición'],
     eventos: [
-      { time: '16:00 - 20:00', event: 'Fase Clasificatoria' },
-      { time: '20:00 - 21:00', event: 'Final' },
+      { time_start: '16:00', time_end:'20:00', event: 'Fase Clasificatoria' },
+      { time_start: '20:00',time_end:'21:00', event: 'Final' },
     ],
   },
 ];

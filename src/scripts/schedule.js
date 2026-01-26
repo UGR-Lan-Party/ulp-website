@@ -3,7 +3,8 @@ import "../components/ActividadesSection.astro"
 let selectedGames = new Set();
 const normalizedSchedules = normalizeSchedules(schedules);
 const aulas = getUniqueAulas(normalizedSchedules);
-const times = getUniqueTimes(normalizedSchedules);
+const times = generateHalfHourSlots(8, 22);
+
 
 document.addEventListener("DOMContentLoaded", () => {
     renderTable();
@@ -218,170 +219,173 @@ function handleGameClick(event) {
 
 table.cronograma {
   width: 100%;
-  border-collapse: separate !important;
-  border-spacing: 0;
+  border-collapse: collapse !important; /* Cambiado a collapse para que los bordes se unan */
   background-color: #002b36;
   color: white;
   font-family: sans-serif;
   font-size: 12px;
+  table-layout: fixed;
 }
 
 /* =========================
-   BORDES (Tailwind override)
+   GUÍAS DE FILAS (HORIZONTALES)
 ========================= */
 
-table.cronograma th,
+table.cronograma td, 
+table.cronograma th.sticky {
+  height: 48px;
+  padding: 0 !important;
+  position: relative;
+  /* Línea horizontal translúcida */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-sizing: border-box;
+}
+
+/* Línea vertical muy tenue para separar aulas */
 table.cronograma td {
-  border-width: 0px !important;
-  border-style: solid;
-  border-color: #ffffff;
-  padding: 0;
-  vertical-align: top;
-
-}
-
-/* Bordes exteriores */
-table.cronograma thead tr:first-child th {
-  border-top-width: 0px;
-}
-
-table.cronograma tr th:first-child,
-table.cronograma tr td:first-child {
-  border-left-width: 0px;
+  background-color: #013844;
 }
 
 /* =========================
    CABECERA Y COLUMNA HORA
 ========================= */
 
-table.cronograma thead th{
+table.cronograma thead th {
   background-color: #001f27;
   text-align: center;
   font-weight: bold;
-  padding: 10px;
-  width: 80px;
+  padding: 12px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
 }
-  table.cronograma .sticky {
+
+table.cronograma .sticky {
   background-color: #013844;
   text-align: center;
   font-weight: bold;
-  padding: 10px;
   width: 80px;
+  color: rgba(255, 255, 255, 0.6);
+  /* Aseguramos que la línea horizontal también pase por la hora */
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-
 /* =========================
-   CUERPO
-========================= */
-
-table.cronograma td {
-  background-color: #013844;
-  height: 42px;
-}
-
-
-/* =========================
-   BLOQUES DE JUEGO
+   BLOQUES DE JUEGO (ESTIRADOS)
 ========================= */
 
 table.cronograma .bloque {
-  margin: 4px;
-  height: auto; 
-  min-height: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  text-align: center;
+  position: absolute; 
+  /* Los bloques flotan sobre las líneas */
+  top: 4px;
+  left: 8px;
+  right: 8px;
+  /* El bottom de 8px asegura que no tapen la línea de la fila inferior */
+  bottom: 8px; 
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  
   border-radius: 6px;
+  box-sizing: border-box;
+  padding: 6px;
+  text-align: center;
   font-weight: 600;
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  z-index: 1;
 }
 
-/* Hover */
+/* Estilo de texto */
+table.cronograma .bloque strong {
+  font-size: 0.85rem;
+  line-height: 1;
+  margin-bottom: 2px;
+  pointer-events: none; /* Evita interferir con el hover del bloque */
+}
 table.cronograma .bloque:hover {
-  filter: brightness(1.15);
-  transform: scale(1.02);
+  filter: brightness(1.1);
+  transform: scale(1.03);
+}
+table.cronograma .bloque span {
+  font-size: 0.7rem;
+  font-weight: normal;
+  opacity: 0.9;
 }
 
-/* =========================
-   COLORES POR JUEGO
-========================= */
+/* Colores de los juegos (mantenemos los tuyos) */
+[data-game="Brawl Stars"] { background-color: #ffd966; color: #333; }
+[data-game="EA Sports FC 25"] { background-color: #93c47d; color: #111; }
+[data-game="Valorant"] { background-color: #e06666; color: white; }
+[data-game="Super Smash Bros Ultimate"] { background-color: #f6b26b; color: #111; }
+[data-game="Rocket League 2vs2"] { background-color: #6fa8dc; color: white; }
+[data-game="Minecraft: Hunger Games"] { background-color: #b4a7d6; color: #111; }
+[data-game="Wii Sports: Bolos"], [data-game="Wii Sports: Tennis"] { background-color: #bf9000; color: white; }
+[data-game="Futbolín"] { background-color: #76a5af; color: white; }
+[data-game="League of Legends"] { background-color: #45818e; color: white; }
+[data-game="Mario Kart 8 Deluxe"] { background-color: #a64d79; color: white; }
 
-[data-game="Brawl Stars"] {
-  background-color: #ffd966;
-  color: #333;
+@media (max-width: 600px) {
+    /* Hacemos las celdas un poco más altas en móvil para dar aire */
+    table.cronograma td {
+        height: 60px;
+    }
+
+    /* Ocultamos el detalle del evento si el bloque es muy estrecho */
+    table.cronograma .bloque span {
+        display: none; 
+    }
+
+    table.cronograma .bloque strong {
+        -webkit-line-clamp: 3; /* Permitimos una línea más para el nombre ya que quitamos el span */
+        font-size: 0.7rem;
+    }
 }
-
-[data-game="EA Sports FC 25"] {
-  background-color: #93c47d;
-  color: #111;
-}
-
-[data-game="Valorant"] {
-  background-color: #e06666;
-  color: white;
-}
-
-[data-game="Super Smash Bros Ultimate"] {
-  background-color: #f6b26b;
-  color: #111;
-}
-
-[data-game="Rocket League 2vs2"] {
-  background-color: #6fa8dc;
-  color: white;
-}
-
-[data-game="Minecraft: Hunger Games"] {
-  background-color: #b4a7d6;
-  color: #111;
-}
-
-[data-game="Wii Sports: Bolos"],
-[data-game="Wii Sports: Tennis"] {
-  background-color: #bf9000;
-  color: white;
-}
-
-[data-game="Futbolín"] {
-  background-color: #76a5af;
-  color: white;
-}
-
-[data-game="League of Legends"] {
-  background-color: #45818e;
-  color: white;
-}
-
-[data-game="Mario Kart 8 Deluxe"] {
-  background-color: #a64d79;
-  color: white;
-}
-
-
     `;
 
 document.head.appendChild(style);
 });
+
+function isStartSlot(time, eventStart) {
+  return timeToMinutes(time) === timeToMinutes(eventStart);
+}
+
+function generateHalfHourSlots(startHour = 8, endHour = 22) {
+  const slots = [];
+  let minutes = startHour * 60;
+  const endMinutes = endHour * 60;
+
+  while (minutes < endMinutes) {
+    const h = String(Math.floor(minutes / 60)).padStart(2, "0");
+    const m = String(minutes % 60).padStart(2, "0");
+    slots.push(`${h}:${m}`);
+    minutes += 30;
+  }
+
+  return slots;
+}
+function timeToMinutes(time) {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
 function normalizeSchedules(schedules) {
-  return schedules.flatMap(game => {
-    return game.eventos.flatMap(ev => {
-      return game.aula.split(" y ").map(aula => ({
-        time: ev.time,
+  return schedules.flatMap(game =>
+    game.eventos.flatMap(ev =>
+      game.aula.split(" y ").map(aula => ({
+        time_start: ev.time_start, // "09:00"
+        time_end: ev.time_end,     // "10:30"
         place: aula.trim(),
         name: game.name,
         event: ev.event,
-      }));
-    });
-  });
+      }))
+    )
+  );
 }
+
 function applyScheduleFilter() {
   const rows = document.querySelectorAll("#tbody tr");
-
+renderTable();
   rows.forEach(row => {
     let rowHasVisibleBlock = false;
 
@@ -397,7 +401,6 @@ function applyScheduleFilter() {
       }
     });
 
-    // 👇 mostrar la hora SOLO si tiene algún bloque visible
     row.style.display =
       selectedGames.size === 0
         ? "none"
@@ -451,55 +454,82 @@ function renderHead() {
 function renderBody() {
   const tbody = document.getElementById("tbody");
   tbody.innerHTML = "";
+  
+  // Rastrear hasta qué minuto está ocupada cada aula
+  const busyUntil = {};
+  aulas.forEach(aula => busyUntil[aula] = 0);
 
   times.forEach(time => {
+    const currentMinutes = timeToMinutes(time);
     const tr = document.createElement("tr");
-    tr.classList.add(`time`);
-
+    tr.style.borderBottom = "1px solid rgba(255, 255, 255, 0.05)"; // Línea de guía directa
+    
+    // Columna de hora
     tr.innerHTML = `<th class="sticky">${time}</th>`;
 
     aulas.forEach(aula => {
+      // SI EL AULA ESTÁ OCUPADA POR UN ROWSPAN ANTERIOR, NO CREAR TD
+      if (busyUntil[aula] > currentMinutes) return;
+
       const td = document.createElement("td");
       td.classList.add(slug(aula));
 
-    const competitionsInCell = normalizedSchedules.filter(
-      c => c.time === time && c.place === aula
-    );
+      const event = normalizedSchedules.find(c => 
+        c.place === aula && 
+        isStartSlot(time, c.time_start) &&
+        selectedGames.has(c.name) // Solo renderiza si el juego está en el Set
+      );
 
-    competitionsInCell.forEach(c => {
-      const div = document.createElement("div");
-      div.className = "bloque";
-      div.innerHTML = `<strong>${c.name}</strong><br>${c.event}`;
-      div.dataset.game = c.name;
-      td.appendChild(div);
-    });
+      if (event) {
+        const start = timeToMinutes(event.time_start);
+        const end = timeToMinutes(event.time_end);
+        const durationSteps = Math.ceil((end - start) / 30);
+
+        if (durationSteps > 1) {
+          td.rowSpan = durationSteps;
+        }
+        
+        // Bloquear las siguientes celdas de esta columna
+        busyUntil[aula] = end;
+
+        const div = document.createElement("div");
+        div.className = "bloque";
+        div.dataset.game = event.name;
+        div.innerHTML = `<strong>${event.name}</strong><span>${event.event}</span>`;
+        td.appendChild(div);
+      }
+
       tr.appendChild(td);
     });
-
     tbody.appendChild(tr);
   });
 }
 
-
 function showAllGamesInSchedule() {
+  // 1. Limpiamos para evitar duplicados
   selectedGames.clear();
 
+  // 2. Agregamos todos los juegos al Set y marcamos botones
   document.querySelectorAll(".game").forEach(btn => {
     selectedGames.add(btn.dataset.name);
     btn.classList.add("selected");
   });
 
-  applyScheduleFilter();
+  // 3. Renderizamos la tabla de nuevo
+  renderTable();
 }
 
 function hideAllGamesInSchedule() {
+  // 1. Vaciamos el Set
   selectedGames.clear();
 
+  // 2. Quitamos la clase de los botones
   document.querySelectorAll(".game").forEach(btn => {
     btn.classList.remove("selected");
   });
 
-  applyScheduleFilter();
+  // 3. Renderizamos la tabla vacía (solo las horas y aulas)
+  renderTable();
 }
 
 
