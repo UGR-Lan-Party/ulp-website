@@ -279,10 +279,6 @@ table.cronograma td {
   height: 42px;
 }
 
-/* Alternar filas para legibilidad */
-table.cronograma tbody tr:nth-child(even) td {
-  background-color: #014150;
-}
 
 /* =========================
    BLOQUES DE JUEGO
