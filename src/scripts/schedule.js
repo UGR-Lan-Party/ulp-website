@@ -233,7 +233,7 @@ table.cronograma {
 
 table.cronograma td, 
 table.cronograma th.sticky {
-  height: 48px;
+  height: 28px;
   padding: 0 !important;
   position: relative;
   /* Línea horizontal translúcida */
