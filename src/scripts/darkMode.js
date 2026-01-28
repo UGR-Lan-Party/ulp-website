@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const darkLogo = document.getElementById('img-modo-oscuro');
   const lightLogo = document.getElementById('img-modo-claro');
   const userTheme = localStorage.getItem('theme');
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const isHomePage = window.location.pathname === '/';
 
   const aplicarTema = () => {
