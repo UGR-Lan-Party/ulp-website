@@ -303,10 +303,7 @@ table.cronograma .bloque strong {
   margin-bottom: 2px;
   pointer-events: none; /* Evita interferir con el hover del bloque */
 }
-table.cronograma .bloque:hover {
-  filter: brightness(1.1);
-  transform: scale(1.03);
-}
+
 table.cronograma .bloque span {
   font-size: 0.7rem;
   font-weight: normal;
@@ -325,11 +322,7 @@ table.cronograma .bloque span {
 [data-game="League of Legends"] { background-color: #45818e; color: white; }
 [data-game="Mario Kart 8 Deluxe"] { background-color: #a64d79; color: white; }
 
-@media (max-width: 600px) {
-    /* Hacemos las celdas un poco más altas en móvil para dar aire */
-    table.cronograma td {
-        height: 60px;
-    }
+@media (max-width: 900px) {
 
     /* Ocultamos el detalle del evento si el bloque es muy estrecho */
     table.cronograma .bloque span {
@@ -338,7 +331,12 @@ table.cronograma .bloque span {
 
     table.cronograma .bloque strong {
         -webkit-line-clamp: 3; /* Permitimos una línea más para el nombre ya que quitamos el span */
-        font-size: 0.7rem;
+        font-size: clamp(
+          0.5rem,
+          2vw,
+          1rem
+        ); /* Reducir aún más en pantallas muy pequeñas */
+        overflow-wrap: break-word;
     }
 }
     `;
