@@ -1,92 +1,10 @@
 ---
-import { darkStyles } from "../utils/all"
-
- export const faqs = [
-  {
-    id: 0,
-    title: "¿Quién puede participar en los torneos de la ULP?",
-    description: "Puede participar cualquier estudiante o antiguo estudiante de la UGR, así como profesores y resto de personal de la universidad. Además, permitimos la participación de miembros externos a la universidad en competiciones y actividades bajo los requisitos especificados en las normas de las mismas.",
-  },
-  {
-    id: 1,
-    title: "¿Puedo participar en los torneos si no pertenezco a la UGR?",
-    description: "Sí. Cada miembro registrado puede invitar a personas que no pertenezcan a la UGR. Si tienes un amigo en la universidad, ¡apuntaos juntos y pasadlo bien con nosotros!",
-  },
-  {
-    id: 2,
-    title: "¿Quién puede asistir al evento?",
-    description: "Puede asistir cualquier persona interesada, no es necesario pertenecer a la UGR.",
-  },
-  {
-    id: 3,
-    title: "¿Cómo me apunto a un torneo?",
-    description: "Deberás rellenar el formulario de inscripción especificado en la sección “Competiciones” ubicada en la barra de navegación.",
-  },
-  {
-    id: 4,
-    title: "¿Puedo participar en varios torneos a la vez?",
-    description: "Sí, puedes apuntarte a todos los torneos que quieras. Pero debes tener en cuenta que es posible que haya solapamientos de horarios entre torneos.",
-  },
-  {
-    id: 5,
-    title: "¿Habrá premios en los torneos?",
-    description: "Sí. Los confirmaremos próximamente.",
-  },
-  {
-    id: 6,
-    title: "Quiero apuntarme a un torneo pero no encuentro equipo, ¿qué puedo hacer?",
-    description: "Para encontrar compañeros de equipo hemos habilitado varias opciones que faciliten el proceso: Excel, Discord y Telegram.",
-  },
-  {
-    id: 7,
-    title: "¿En qué plataformas se jugarán los torneos?",
-    description: "Dependiendo el torneo, se utilizarán distintas plataformas como PC, Playstation, Nintendo Switch, Nintendo Wii o Dispositivos móviles.",
-  },
-  {
-    id: 8,
-    title: "¿Qué normas se usarán en los torneos?",
-    description: "En la sección juegos y torneos puedes encontrar las bases para cada juego. Además también puedes consultar el reglamento general de todos los torneos.",
-  },
-  {
-    id: 9,
-    title: "¿Puedo traer a un amigo que no es participante como espectador de mis partidas?",
-    description: "¡Por supuesto! Se habilitarán zonas con proyectores para poder visualizar en tiempo real las partidas. Por motivos de seguridad, en las salas de juegos solo está permitida la presencia de los participantes y del personal de la ULP durante el desarrollo de las competiciones.",
-  },
-  {
-    id: 10,
-    title: "Entonces, ¿hay alguna forma de ver los torneos como espectador?",
-    description: "Además de poder asistir presencialmente para ver las partidas, estas podrán seguirse a través de la plataforma Twitch (https://www.twitch.tv/ugr_lan_party).",
-  },
-  {
-    id: 11,
-    title: "¿Qué puedo hacer para estar al día de las novedades de la ULP?",
-    description: "Puedes consultar la sección de noticias de nuestra página web y seguirnos en nuestras redes sociales.",
-  },
-  {
-    id: 12,
-    title: "¿Es posible que mi empresa colabore con la ULP?",
-    description: "Sí. Podéis colaborar con nosotros como patrocinador o colaborador de la ULP. Podéis contactar con nosotros a través de nuestras redes sociales o el correo electrónico y atenderemos tu petición lo antes posible.",
-  },
-  {
-    id: 13,
-    title: "¿Puedo modificar mi inscripción a torneos en cualquier momento?",
-    description: "Sí, antes de que se acabe el periodo de inscripción.",
-  },
-  {
-    id: 14,
-    title: "¿Se van a tomar fotos durante el evento?",
-    description: "Todos aquellos que se encuentren en las zonas habilitadas  para realización de la UGR LAN PARTY, podrán aparecer en las fotos que se realicen durante el evento.",
-  },
-  {
-    id: 15,
-    title: "Tengo una duda o pregunta que no está resuelta en las FAQs",
-    description: "Puedes contactar con nosotros por varias vías. La más rápida son las redes sociales, especialmente Twitter, donde puedes escribirnos un mensaje directo e intentaremos resolver tu duda o problema lo antes posible. Además, disponemos de un correo electrónico de contacto: ulp@ugr.es",
-  },
-]
+import { darkStyles } from '../utils/all';
+import { faqs } from '../data/faqs';
 ---
 
 <!-- ====== Faq Section Start -->
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <section
   class={`relative z-20 overflow-hidden bg-white ${darkStyles}  pt-20 pb-8 lg:pt-[120px] lg:pb-[50px]`}
 >
@@ -94,13 +12,19 @@ import { darkStyles } from "../utils/all"
     <div class="flex flex-wrap">
       <div class="w-full px-4">
         <div class="mx-auto mb-[60px] max-w-[520px] text-center">
-          <span class="block mb-2 text-lg font-semibold text-primary dark:text-dark-6">
+          <span
+            class="block mb-2 text-lg font-semibold text-primary dark:text-dark-6"
+          >
             FAQ - PREGUNTAS FRECUENTES
           </span>
-          <h2 class="text-dark dark:text-white mb-3 text-3xl leading-[1.2] font-bold sm:text-4xl md:text-[40px]">
+          <h2
+            class="text-dark dark:text-white mb-3 text-3xl leading-[1.2] font-bold sm:text-4xl md:text-[40px]"
+          >
             ¿Tienes alguna pregunta?
           </h2>
-          <p class="mx-auto max-w-[485px] text-base text-body-color dark:text-dark-6">
+          <p
+            class="mx-auto max-w-[485px] text-base text-body-color dark:text-dark-6"
+          >
             Hay muchas preguntas que hemos recibido con frecuencia a lo largo de
             estas semanas y hemos dejado las respuestas recogidas aquí.
           </p>
@@ -119,15 +43,16 @@ import { darkStyles } from "../utils/all"
                   data-wow-delay=".1s"
                   id={`${faq.id}-faq`}
                 >
-                  <div
-                    class= "bg-primary dark:bg-gray-200 mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
-                    <svg width="32" height="32" viewBox="0 0 34 34" class="fill-current dark:text-primary">
-                      <path
-                        d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z" />
-                      <path
-                        d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z" />
-                      <path
-                        d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z" />
+                  <div class="bg-primary dark:bg-gray-200 mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 34 34"
+                      class="fill-current dark:text-primary"
+                    >
+                      <path d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z" />
+                      <path d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z" />
+                      <path d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z" />
                     </svg>
                   </div>
                   <details class="w-full min-h-[90px]">
@@ -137,9 +62,9 @@ import { darkStyles } from "../utils/all"
                     <p class="text-base text-body-color dark:text-dark-6 text-justify">
                       {faq.description}
                     </p>
-                  </div>
+                  </details>
                 </div>
-              )
+              );
             }
           })
         }
@@ -155,15 +80,16 @@ import { darkStyles } from "../utils/all"
                   data-wow-delay=".1s"
                   id={`${faq.id}-faq`}
                 >
-                  <div
-                    class="bg-primary dark:bg-gray-200 mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
-                    <svg width="32" height="32" viewBox="0 0 34 34" class="fill-current dark:text-primary">
-                      <path
-                        d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z" />
-                      <path
-                        d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z" />
-                      <path
-                        d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z" />
+                  <div class="bg-primary dark:bg-gray-200 mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 34 34"
+                      class="fill-current dark:text-primary"
+                    >
+                      <path d="M17.0008 0.690674C7.96953 0.690674 0.691406 7.9688 0.691406 17C0.691406 26.0313 7.96953 33.3625 17.0008 33.3625C26.032 33.3625 33.3633 26.0313 33.3633 17C33.3633 7.9688 26.032 0.690674 17.0008 0.690674ZM17.0008 31.5032C9.03203 31.5032 2.55078 24.9688 2.55078 17C2.55078 9.0313 9.03203 2.55005 17.0008 2.55005C24.9695 2.55005 31.5039 9.0313 31.5039 17C31.5039 24.9688 24.9695 31.5032 17.0008 31.5032Z" />
+                      <path d="M17.9039 6.32194C16.3633 6.05631 14.8227 6.48131 13.707 7.43756C12.5383 8.39381 11.8477 9.82819 11.8477 11.3688C11.8477 11.9532 11.9539 12.5376 12.1664 13.0688C12.3258 13.5469 12.857 13.8126 13.3352 13.6532C13.8133 13.4938 14.0789 12.9626 13.9195 12.4844C13.8133 12.1126 13.707 11.7938 13.707 11.3688C13.707 10.4126 14.132 9.50944 14.8758 8.87194C15.6195 8.23444 16.5758 7.96881 17.5852 8.18131C18.9133 8.39381 19.9758 9.50944 20.1883 10.7844C20.4539 12.3251 19.657 13.8126 18.2227 14.3969C16.8945 14.9282 16.0445 16.2563 16.0445 17.7969V21.1969C16.0445 21.7282 16.4695 22.1532 17.0008 22.1532C17.532 22.1532 17.957 21.7282 17.957 21.1969V17.7969C17.957 17.0532 18.382 16.3626 18.9664 16.1501C21.1977 15.2469 22.4727 12.9094 22.0477 10.4657C21.6758 8.39381 19.9758 6.69381 17.9039 6.32194Z" />
+                      <path d="M17.0531 24.8625H16.8937C16.3625 24.8625 15.9375 25.2875 15.9375 25.8188C15.9375 26.35 16.3625 26.7751 16.8937 26.7751H17.0531C17.5844 26.7751 18.0094 26.35 18.0094 25.8188C18.0094 25.2875 17.5844 24.8625 17.0531 24.8625Z" />
                     </svg>
                   </div>
                   <details class="w-full min-h-[90px]">
@@ -173,74 +99,278 @@ import { darkStyles } from "../utils/all"
                     <p class="text-base text-body-color dark:text-dark-6 text-justify">
                       {faq.description}
                     </p>
-                  </div>
+                  </details>
                 </div>
-              )
+              );
             }
           })
         }
       </div>
 
-      <div class="flex w-full justify-center items-center px-4 py-2 flex gap-4" id="pagination">
+      <div
+        class="flex w-full justify-center items-center px-4 py-2 gap-4"
+        id="pagination"
+      >
         <!-- <div class="pagination flex gap-2 items-center justify-center dark:bg-gray-200 px-4 py-2 
         rounded-lg dark:border-[1px] dark:border-black" id="pagination"></div> -->
       </div>
-      
     </div>
   </div>
 
   <div>
     <span class="absolute top-4 left-4 -z-[1]">
-      <svg width="48" height="134" viewBox="0 0 48 134" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="45.6673" cy="132" r="1.66667" transform="rotate(180 45.6673 132)" fill="#13C296" />
-        <circle cx="45.6673" cy="117.333" r="1.66667" transform="rotate(180 45.6673 117.333)" fill="#13C296" />
-        <circle cx="45.6673" cy="102.667" r="1.66667" transform="rotate(180 45.6673 102.667)" fill="#13C296" />
-        <circle cx="45.6673" cy="88.0001" r="1.66667" transform="rotate(180 45.6673 88.0001)" fill="#13C296" />
-        <circle cx="45.6673" cy="73.3335" r="1.66667" transform="rotate(180 45.6673 73.3335)" fill="#13C296" />
-        <circle cx="45.6673" cy="45.0001" r="1.66667" transform="rotate(180 45.6673 45.0001)" fill="#13C296" />
-        <circle cx="45.6673" cy="16.0001" r="1.66667" transform="rotate(180 45.6673 16.0001)" fill="#13C296" />
-        <circle cx="45.6673" cy="59.0001" r="1.66667" transform="rotate(180 45.6673 59.0001)" fill="#13C296" />
-        <circle cx="45.6673" cy="30.6668" r="1.66667" transform="rotate(180 45.6673 30.6668)" fill="#13C296" />
-        <circle cx="45.6673" cy="1.66683" r="1.66667" transform="rotate(180 45.6673 1.66683)" fill="#13C296" />
-        <circle cx="31.0013" cy="132" r="1.66667" transform="rotate(180 31.0013 132)" fill="#13C296" />
-        <circle cx="31.0013" cy="117.333" r="1.66667" transform="rotate(180 31.0013 117.333)" fill="#13C296" />
-        <circle cx="31.0013" cy="102.667" r="1.66667" transform="rotate(180 31.0013 102.667)" fill="#13C296" />
-        <circle cx="31.0013" cy="88.0001" r="1.66667" transform="rotate(180 31.0013 88.0001)" fill="#13C296" />
-        <circle cx="31.0013" cy="73.3335" r="1.66667" transform="rotate(180 31.0013 73.3335)" fill="#13C296" />
-        <circle cx="31.0013" cy="45.0001" r="1.66667" transform="rotate(180 31.0013 45.0001)" fill="#13C296" />
-        <circle cx="31.0013" cy="16.0001" r="1.66667" transform="rotate(180 31.0013 16.0001)" fill="#13C296" />
-        <circle cx="31.0013" cy="59.0001" r="1.66667" transform="rotate(180 31.0013 59.0001)" fill="#13C296" />
-        <circle cx="31.0013" cy="30.6668" r="1.66667" transform="rotate(180 31.0013 30.6668)" fill="#13C296" />
-        <circle cx="31.0013" cy="1.66683" r="1.66667" transform="rotate(180 31.0013 1.66683)" fill="#13C296" />
-        <circle cx="16.3333" cy="132" r="1.66667" transform="rotate(180 16.3333 132)" fill="#13C296" />
-        <circle cx="16.3333" cy="117.333" r="1.66667" transform="rotate(180 16.3333 117.333)" fill="#13C296" />
-        <circle cx="16.3333" cy="102.667" r="1.66667" transform="rotate(180 16.3333 102.667)" fill="#13C296" />
-        <circle cx="16.3333" cy="88.0001" r="1.66667" transform="rotate(180 16.3333 88.0001)" fill="#13C296" />
-        <circle cx="16.3333" cy="73.3335" r="1.66667" transform="rotate(180 16.3333 73.3335)" fill="#13C296" />
-        <circle cx="16.3333" cy="45.0001" r="1.66667" transform="rotate(180 16.3333 45.0001)" fill="#13C296" />
-        <circle cx="16.3333" cy="16.0001" r="1.66667" transform="rotate(180 16.3333 16.0001)" fill="#13C296" />
-        <circle cx="16.3333" cy="59.0001" r="1.66667" transform="rotate(180 16.3333 59.0001)" fill="#13C296" />
-        <circle cx="16.3333" cy="30.6668" r="1.66667" transform="rotate(180 16.3333 30.6668)" fill="#13C296" />
-        <circle cx="16.3333" cy="1.66683" r="1.66667" transform="rotate(180 16.3333 1.66683)" fill="#13C296" />
-        <circle cx="1.66732" cy="132" r="1.66667" transform="rotate(180 1.66732 132)" fill="#13C296" />
-        <circle cx="1.66732" cy="117.333" r="1.66667" transform="rotate(180 1.66732 117.333)" fill="#13C296" />
-        <circle cx="1.66732" cy="102.667" r="1.66667" transform="rotate(180 1.66732 102.667)" fill="#13C296" />
-        <circle cx="1.66732" cy="88.0001" r="1.66667" transform="rotate(180 1.66732 88.0001)" fill="#13C296" />
-        <circle cx="1.66732" cy="73.3335" r="1.66667" transform="rotate(180 1.66732 73.3335)" fill="#13C296" />
-        <circle cx="1.66732" cy="45.0001" r="1.66667" transform="rotate(180 1.66732 45.0001)" fill="#13C296" />
-        <circle cx="1.66732" cy="16.0001" r="1.66667" transform="rotate(180 1.66732 16.0001)" fill="#13C296" />
-        <circle cx="1.66732" cy="59.0001" r="1.66667" transform="rotate(180 1.66732 59.0001)" fill="#13C296" />
-        <circle cx="1.66732" cy="30.6668" r="1.66667" transform="rotate(180 1.66732 30.6668)" fill="#13C296" />
-        <circle cx="1.66732" cy="1.66683" r="1.66667" transform="rotate(180 1.66732 1.66683)" fill="#13C296" />
+      <svg
+        width="48"
+        height="134"
+        viewBox="0 0 48 134"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="45.6673"
+          cy="132"
+          r="1.66667"
+          transform="rotate(180 45.6673 132)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="117.333"
+          r="1.66667"
+          transform="rotate(180 45.6673 117.333)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="102.667"
+          r="1.66667"
+          transform="rotate(180 45.6673 102.667)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="88.0001"
+          r="1.66667"
+          transform="rotate(180 45.6673 88.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="73.3335"
+          r="1.66667"
+          transform="rotate(180 45.6673 73.3335)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="45.0001"
+          r="1.66667"
+          transform="rotate(180 45.6673 45.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="16.0001"
+          r="1.66667"
+          transform="rotate(180 45.6673 16.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="59.0001"
+          r="1.66667"
+          transform="rotate(180 45.6673 59.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="30.6668"
+          r="1.66667"
+          transform="rotate(180 45.6673 30.6668)"
+          fill="#13C296"></circle>
+        <circle
+          cx="45.6673"
+          cy="1.66683"
+          r="1.66667"
+          transform="rotate(180 45.6673 1.66683)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="132"
+          r="1.66667"
+          transform="rotate(180 31.0013 132)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="117.333"
+          r="1.66667"
+          transform="rotate(180 31.0013 117.333)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="102.667"
+          r="1.66667"
+          transform="rotate(180 31.0013 102.667)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="88.0001"
+          r="1.66667"
+          transform="rotate(180 31.0013 88.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="73.3335"
+          r="1.66667"
+          transform="rotate(180 31.0013 73.3335)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="45.0001"
+          r="1.66667"
+          transform="rotate(180 31.0013 45.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="16.0001"
+          r="1.66667"
+          transform="rotate(180 31.0013 16.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="59.0001"
+          r="1.66667"
+          transform="rotate(180 31.0013 59.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="30.6668"
+          r="1.66667"
+          transform="rotate(180 31.0013 30.6668)"
+          fill="#13C296"></circle>
+        <circle
+          cx="31.0013"
+          cy="1.66683"
+          r="1.66667"
+          transform="rotate(180 31.0013 1.66683)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="132"
+          r="1.66667"
+          transform="rotate(180 16.3333 132)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="117.333"
+          r="1.66667"
+          transform="rotate(180 16.3333 117.333)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="102.667"
+          r="1.66667"
+          transform="rotate(180 16.3333 102.667)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="88.0001"
+          r="1.66667"
+          transform="rotate(180 16.3333 88.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="73.3335"
+          r="1.66667"
+          transform="rotate(180 16.3333 73.3335)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="45.0001"
+          r="1.66667"
+          transform="rotate(180 16.3333 45.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="16.0001"
+          r="1.66667"
+          transform="rotate(180 16.3333 16.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="59.0001"
+          r="1.66667"
+          transform="rotate(180 16.3333 59.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="30.6668"
+          r="1.66667"
+          transform="rotate(180 16.3333 30.6668)"
+          fill="#13C296"></circle>
+        <circle
+          cx="16.3333"
+          cy="1.66683"
+          r="1.66667"
+          transform="rotate(180 16.3333 1.66683)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="132"
+          r="1.66667"
+          transform="rotate(180 1.66732 132)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="117.333"
+          r="1.66667"
+          transform="rotate(180 1.66732 117.333)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="102.667"
+          r="1.66667"
+          transform="rotate(180 1.66732 102.667)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="88.0001"
+          r="1.66667"
+          transform="rotate(180 1.66732 88.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="73.3335"
+          r="1.66667"
+          transform="rotate(180 1.66732 73.3335)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="45.0001"
+          r="1.66667"
+          transform="rotate(180 1.66732 45.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="16.0001"
+          r="1.66667"
+          transform="rotate(180 1.66732 16.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="59.0001"
+          r="1.66667"
+          transform="rotate(180 1.66732 59.0001)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="30.6668"
+          r="1.66667"
+          transform="rotate(180 1.66732 30.6668)"
+          fill="#13C296"></circle>
+        <circle
+          cx="1.66732"
+          cy="1.66683"
+          r="1.66667"
+          transform="rotate(180 1.66732 1.66683)"
+          fill="#13C296"></circle>
       </svg>
     </span>
-
   </div>
 </section>
 <!-- ====== Faq Section End -->
 
-
 <!--======= Code to pagination function -->
-<script src="../scripts/pagination.js">
-
-</script>
+<script src="../scripts/pagination.js"></script>
