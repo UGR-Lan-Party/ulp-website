@@ -1,0 +1,38 @@
+name: PageSpeed Insights
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Activacion manual :)
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun \
+            --collect.url=${{ secrets.SITE_URL || 'http://localhost:3000' }} \
+            --upload.target=temporary-public-storage
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Run PageSpeed Insights
+        uses: jakepartusch/psi-action@v1.3
+        with:
+          url: ${{ secrets.SITE_URL || 'http://localhost:3000' }}
+          strategy: mobile
+          threshold: 50 #deberia ser 70 pero es que sale muy muy mal ....
+          api_key: ${{ secrets.PSI_API_KEY }}

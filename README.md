@@ -5,7 +5,14 @@
 
 # ULP Website
 
-Página web oficial de la UGR LAN Party.
+[Página web oficial de la UGR LAN Party](https://ulp.ugr.es)
+
+
+![Chromium HSTS preload](https://img.shields.io/hsts/preload/ulp.ugr.es)
+![Mozilla HTTP Observatory Grade](https://img.shields.io/mozilla-observatory/grade-score/ulp.ugr.es)
+
+[Performance](https://googlechrome.github.io/lighthouse/viewer/?gist=521d3ce3747c754c1b80dcae048bf21f)
+
 
 ## Instalación para desarrollo
 
