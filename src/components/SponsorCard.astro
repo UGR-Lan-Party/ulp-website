@@ -7,51 +7,121 @@ interface Props {
 }
 const { sponsor } = Astro.props as Props;
 
-const tierColor =
-  sponsor.tier === 'platinum'
-    ? 'text-[#1771E6]'
-    : sponsor.tier === 'gold'
-      ? 'text-[#FFC002]'
-      : sponsor.tier === 'silver'
-        ? 'text-[#9a9ba0]'
-        : sponsor.tier === 'bronze'
-          ? 'text-[#BB5522]'
-          : '';
+const getTierColor = (tier: string, name: string) => {
+  // Definimos los colores base
+  const colors: Record<string, string> = {
+    platinum: 'text-[#1771E6]',
+    gold: 'text-[#FFC002]',
+    silver: 'text-[#9a9ba0]',
+    bronze: 'text-[#BB5522]',
+  };
 
-const shadowColor =
-  sponsor.tier === 'platinum'
-    ? 'hover:shadow-[0px_10px_30px_rgba(23,113,230,0.4)]'
-    : sponsor.tier === 'gold'
-      ? 'hover:shadow-[0px_10px_30px_rgba(255,192,2,0.4)]'
-      : sponsor.tier === 'silver'
-        ? 'hover:shadow-[0px_10px_30px_rgba(154,155,160,0.4)]'
-        : sponsor.tier === 'bronze'
-          ? 'hover:shadow-[0px_10px_30px_rgba(187,85,34,0.4)]'
-          : '';
+  // Lógica especial para Diamond
+  if (tier === 'diamond') {
+    const diamondColors: Record<string, string> = {
+      'T-Systems Iberia': 'text-[#E30075]',
+      'Gen.G Global Academy': 'text-[#f2ca18]',
+      'SIDN Digital Thinking': 'text-[#EC602C]',
+    };
+    // Retorna el color por nombre o un color diamond por defecto
+    return diamondColors[name] || '';
+  }
+
+  return colors[tier] || '';
+};
+
+const tierColor = getTierColor(sponsor.tier, sponsor.name);
+const patternId = `bg_pattern_${sponsor.name
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '_')
+  .replace(/^_+|_+$/g, '')}`;
 ---
 
-<section
-  class={`w-[350px] h-[500px] relative mt-16 group bg-slate-100 dark:bg-gray-200 m-4 rounded-2xl transition-shadow duration-300 ${shadowColor}`}
->
-  <img
-    alt="sponsor-logo"
-    src={sponsor.logo}
-    class="w-full h-40 px-4 mb-6 object-contain mt-10"
-  />
-  <section class="m-4">
-    <p class="font-bold text-xl text-center dark:text-primary">
-      {sponsor.name}
-    </p>
-    <p class={`font-medium text-md text-center ${tierColor}`}>
-      {sponsor.bussiness}
-    </p>
-    <p class="text-sm mt-2 dark:text-tertiary text-justify">
-      {sponsor.description}
-    </p>
-  </section>
-  <div
-    class="w-full h-20 absolute bottom-0 flex items-center justify-center gap-8"
+<section id="sponsor-card" class="w-[444px] h-[677px] relative">
+  <svg
+    class="absolute z-0 top-0 left-0"
+    id="sponsor-card-shape"
+    xmlns="http://www.w3.org/2000/svg"
+    width="444"
+    height="677"
+    viewBox="0 0 444 677"
+    fill="none"
   >
-    {sponsor.links.map((link) => <SocialButton sponsorLink={link} />)}
-  </div>
+    <defs>
+      <filter
+        id="filter0_d_30_615"
+        x="0"
+        y="0"
+        width="444"
+        height="677"
+        filterUnits="userSpaceOnUse"
+      >
+        <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+        <feOffset dy="4"></feOffset>
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+        <feBlend mode="normal" in="SourceGraphic"></feBlend>
+      </filter>
+
+      <pattern
+        id={patternId}
+        patternUnits="userSpaceOnUse"
+        width="444"
+        height="677"
+        class=""
+      >
+        <rect width="444" height="677" fill="#00000090"></rect>
+        <image
+          href={sponsor.cardBg}
+          x="0"
+          y="0"
+          width="444"
+          height="677"
+          preserveAspectRatio="xMidYMid slice"
+          class="blur-sm opacity-70"
+        />
+      </pattern>
+    </defs>
+
+    <g filter="url(#filter0_d_30_615)">
+      <path
+        d="M438.035 76.1602V580.16C438.035 580.16 437.535 604.16 429.035 617.66C420.535 631.16 390.535 634.16 390.535 634.16C390.535 634.16 329.535 631.66 291.035 640.66C252.535 649.66 222.535 667.16 222.535 667.16C222.535 667.16 198 649.66 154.035 640.66C110.07 631.66 52.5349 634.16 52.5349 634.16C52.5349 634.16 24.1318 628.964 14.0349 617.66C3.93803 606.357 5.03495 580.16 5.03495 580.16V76.1602C5.03495 76.1602 42.1119 71.1602 85.0349 41.1602C127.958 11.1602 171.035 11.1602 171.035 11.1602C171.035 11.1602 182.987 25.6535 193.535 26.1602C204.083 26.6668 221.035 1.66016 221.035 1.66016C221.035 1.66016 242.728 27.6558 252.535 26.1602C262.342 24.6645 273.035 11.1602 273.035 11.1602C273.035 11.1602 326.535 11.1602 357.535 41.1602C388.535 71.1602 438.035 76.1602 438.035 76.1602Z"
+        fill={`url(#${patternId})`}
+        stroke="white"
+        stroke-width="2"></path>
+    </g>
+  </svg>
+
+  <section
+    id="sponsor-card-info"
+    class="flex flex-col items-center w-full h-[80%] my-20 text-white relative z-10"
+  >
+    <picture
+      class="w-[400px] h-[220px] rounded-2xl mt-2 relative overflow-hidden border border-white/20 backdrop-blur-lg"
+    >
+      <img
+        alt="sponsor-logo"
+        src={sponsor.logo}
+        class="h-full w-full p-2 object-contain"
+      />
+    </picture>
+    <section class="w-[400px] h-[250px] mt-4 flex flex-col items-center gap-1">
+      <p class="font-bold text-3xl text-center">
+        {sponsor.name}
+      </p>
+      <p class={`font-semibold text-xl text-center ${tierColor}`}>
+        {sponsor.bussiness}
+      </p>
+      <p class="text-md text-center text-balance">
+        {sponsor.description}
+      </p>
+    </section>
+
+    <div
+      class="w-full flex mb-2 items-center justify-center gap-8 absolute bottom-0"
+    >
+      {sponsor.links.map((link) => <SocialButton sponsorLink={link} />)}
+    </div>
+  </section>
 </section>
