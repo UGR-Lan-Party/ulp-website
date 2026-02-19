@@ -219,10 +219,11 @@ const containerClass = withBackground
       const response = await fetch(url);
       const data = await response.json();
 
-      // IDs de los álbumes de la 5ª y 6ª edición
+      // IDs de los álbumes de la 5ª, 6ª y 7ª edición
       const newEditionAlbums = [
-        '72177720316026867', // 6ª edición
-        '72177720308548822'  // 5ª edición
+        //'72177720316026867', // 6ª edición
+        //'72177720308548822', // 5ª edición
+        '72177720328590176'  // 7ª edición
       ];
 
       const processedImages = data.photoset.photo
