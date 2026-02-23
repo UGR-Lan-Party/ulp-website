@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content';
 
 const legalContent = await getEntry('legal', 'legal');
-const sections: Section[] = legalContent.data.sections || [];
+const sections: Section[] = legalContent?.data.sections || [];
 
 interface Section {
   title: string;
