@@ -1,46 +1,65 @@
 ---
 import type { SponsorData } from '../data/sponsors.ts';
+import { secretSponsor } from '../data/sponsors.ts';
 import SocialButton from './SocialButton.astro';
+import { gsap } from 'gsap';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+import { SplitText } from 'gsap/SplitText';
+import { TextPlugin } from 'gsap/TextPlugin';
+
+gsap.registerPlugin(ScrambleTextPlugin, SplitText, TextPlugin);
 
 interface Props {
   sponsor: SponsorData;
 }
-const { sponsor } = Astro.props as Props;
+
+let { sponsor } = Astro.props as Props;
+
+if (sponsor.isSecret) {
+  sponsor = secretSponsor[0];
+}
+
+const colors: Record<string, string> = {
+  platinum: '[#1771E6]',
+  gold: '[#FFC002]',
+  silver: '[#9a9ba0]',
+  bronze: '[#BB5522]',
+};
+
+const diamondColors: Record<string, string> = {
+  'T-Systems Iberia': '[#E30075]',
+  'Gen.G Global Academy': '[#f2ca18]',
+  'SIDN Digital Thinking': '[#EC602C]',
+};
 
 const getTierColor = (tier: string, name: string) => {
-  // Definimos los colores base
-  const colors: Record<string, string> = {
-    platinum: 'text-[#1771E6]',
-    gold: 'text-[#FFC002]',
-    silver: 'text-[#9a9ba0]',
-    bronze: 'text-[#BB5522]',
-  };
-
-  // Lógica especial para Diamond
+  if (sponsor.isSecret) {
+    return colors['gold'] || '';
+  }
   if (tier === 'diamond') {
-    const diamondColors: Record<string, string> = {
-      'T-Systems Iberia': 'text-[#E30075]',
-      'Gen.G Global Academy': 'text-[#f2ca18]',
-      'SIDN Digital Thinking': 'text-[#EC602C]',
-    };
-    // Retorna el color por nombre o un color diamond por defecto
     return diamondColors[name] || '';
   }
-
   return colors[tier] || '';
 };
 
 const tierColor = getTierColor(sponsor.tier, sponsor.name);
+const tierColorHex = tierColor.replace(/^\[|\]$/g, '');
 const patternId = `bg_pattern_${sponsor.name
   .toLowerCase()
   .replace(/[^a-z0-9]+/g, '_')
   .replace(/^_+|_+$/g, '')}`;
+
+const sponsorName = sponsor.name;
+
+// Separar descripción en palabras para el DOM
+const descriptionWords = sponsor.description.split(' ');
 ---
 
 <section
   id="sponsor-card"
-  class="w-[444px] h-[677px] relative scale-[90%] md:scale-100"
+  class={`sponsor-card-${patternId} w-[444px] h-[677px] relative scale-[90%] md:scale-100`}
 >
+  <!-- ── SVG principal de la carta ─────────────────────────────── -->
   <svg
     class="absolute z-0 top-0 left-0"
     id="sponsor-card-shape"
@@ -72,9 +91,8 @@ const patternId = `bg_pattern_${sponsor.name
         patternUnits="userSpaceOnUse"
         width="444"
         height="677"
-        class=""
       >
-        <rect width="444" height="677" fill="#00000090"></rect>
+        <rect width="444" height="677" fill="#000000"></rect>
         <image
           href={sponsor.cardBg}
           x="0"
@@ -82,7 +100,7 @@ const patternId = `bg_pattern_${sponsor.name
           width="444"
           height="677"
           preserveAspectRatio="xMidYMid slice"
-          class="blur-sm opacity-70"
+          class="blur-sm opacity-20"
         />
       </pattern>
     </defs>
@@ -96,6 +114,7 @@ const patternId = `bg_pattern_${sponsor.name
     </g>
   </svg>
 
+  <!-- ── Contenido de la carta ─────────────────────────────────── -->
   <section
     id="sponsor-card-info"
     class="flex flex-col items-center w-full h-[80%] my-20 text-white relative z-10"
@@ -110,14 +129,41 @@ const patternId = `bg_pattern_${sponsor.name
       />
     </picture>
     <section class="w-[400px] h-[250px] mt-4 flex flex-col items-center gap-1">
-      <p class="font-bold text-3xl text-center">
-        {sponsor.name}
+      <p class="font-bold text-3xl text-center" data-name={sponsorName}>
+        {sponsorName}
       </p>
-      <p class={`font-semibold text-xl text-center ${tierColor}`}>
+      <p
+        class="font-semibold text-xl text-center"
+        style={`color: ${tierColorHex};`}
+      >
         {sponsor.bussiness}
       </p>
-      <p class="text-md text-center text-balance">
-        {sponsor.description}
+
+      <!-- Descripción animada: cada palabra en su propio span con blur -->
+      <p id="gsap-sponsor-description" class="text-md text-center text-balance leading-relaxed">
+        {descriptionWords.map((word, i) => (
+          <span
+            class="word-wrapper inline-block relative mx-[2px]"
+            data-word={word}
+            data-index={i}
+          >
+            <!-- Capa blur (visible por defecto) -->
+            <span
+              class="word-blur absolute inset-0 inline-block select-none pointer-events-none"
+              aria-hidden="true"
+              style="filter: blur(4px); backdrop-filter: blur(6px); background: rgba(255,255,255,0.08); border-radius: 3px; padding: 0 2px;"
+            >
+              {word}
+            </span>
+            <!-- Texto real (invisible por defecto, revelado con scramble) -->
+            <span
+              class="word-text inline-block opacity-0 px-[2px]"
+              data-original={word}
+            >
+              {word}
+            </span>
+          </span>
+        ))}
       </p>
     </section>
 
@@ -128,3 +174,97 @@ const patternId = `bg_pattern_${sponsor.name
     </div>
   </section>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+
+  gsap.registerPlugin(ScrambleTextPlugin);
+
+  document.querySelectorAll('[id^="sponsor-card"]').forEach((card) => {
+    // Busca la sección contenedora más cercana con la clase sponsor-card-*
+    const cardEl = card.closest
+      ? card.closest('[class*="sponsor-card-"]') ?? card
+      : card;
+
+    let scrambleTl: gsap.core.Timeline | null = null;
+    let isAnimating = false;
+
+    const wordWrappers = card.querySelectorAll<HTMLElement>('.word-wrapper');
+
+    const totalDuration = 5; // segundos totales para revelar todas las palabras
+    const delayPerWord = wordWrappers.length > 1
+      ? totalDuration / wordWrappers.length
+      : totalDuration;
+
+    function revealWords() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      scrambleTl = gsap.timeline({
+        onComplete: () => { isAnimating = false; },
+      });
+
+      wordWrappers.forEach((wrapper, i) => {
+        const blurEl = wrapper.querySelector<HTMLElement>('.word-blur');
+        const textEl = wrapper.querySelector<HTMLElement>('.word-text');
+        if (!blurEl || !textEl) return;
+
+        const original = textEl.dataset.original ?? textEl.textContent ?? '';
+        const startTime = i * delayPerWord;
+        const scrambleDuration = Math.max(0.6, delayPerWord * 1.2);
+
+        // 1. Revelar el texto real y hacer scramble
+        scrambleTl!.to(
+          textEl,
+          {
+            duration: scrambleDuration,
+            scrambleText: {
+              text: original,
+              chars: 'lowerCase',
+              revealDelay: 0.1,
+              speed: 0.6,
+            },
+            opacity: 1,
+            ease: 'none',
+          },
+          startTime
+        );
+
+        // 2. Al mismo tiempo, disolver el blur
+        scrambleTl!.to(
+          blurEl,
+          {
+            duration: scrambleDuration * 0.6,
+            filter: 'blur(0px)',
+            opacity: 0,
+            ease: 'power2.out',
+          },
+          startTime
+        );
+      });
+    }
+
+    function resetWords() {
+      if (scrambleTl) {
+        scrambleTl.kill();
+        scrambleTl = null;
+      }
+      isAnimating = false;
+
+      wordWrappers.forEach((wrapper) => {
+        const blurEl = wrapper.querySelector<HTMLElement>('.word-blur');
+        const textEl = wrapper.querySelector<HTMLElement>('.word-text');
+        if (!blurEl || !textEl) return;
+
+        gsap.set(blurEl, { filter: 'blur(6px)', opacity: 1 });
+        gsap.set(textEl, { opacity: 0 });
+        // Restaurar texto original por si scramble lo dejó a medias
+        textEl.textContent = textEl.dataset.original ?? '';
+      });
+    }
+
+    cardEl.addEventListener('mouseenter', revealWords);
+    cardEl.addEventListener('mouseleave', resetWords);
+  });
+</script>

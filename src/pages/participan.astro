@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import ContactButton from '../components/contactButton.astro';
 import SponsorCard from '../components/SponsorCard.astro';
+import LightningSponsorCard from '../components/LightningSponsorCard.astro';
 import { darkStyles } from '../utils/all';
 
 import {
@@ -38,21 +39,21 @@ import {
         <div
           class="w-full flex flex-col mt-8 gap-5 items-center justify-center md:flex-row md:flex-wrap"
         >
-          {sponsorsDiamond.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+          {
+            sponsorsDiamond.map((sponsor) => (
+              <LightningSponsorCard sponsor={sponsor} />
+            ))
+          }
         </div>
       </div>
-      <!-- <div>
+      <div>
         <h3 class="text-4xl font-extrabold text-[#c9dbf1] text-center">
           Patrocinadores Platino
         </h3>
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {
-            sponsorsPlatinum.map((sponsor) => (
-              <SponsorCard sponsor={sponsor} />
-            ))
-          }
+          {sponsorsPlatinum.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
         </div>
       </div>
       <div>
@@ -72,11 +73,7 @@ import {
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {
-            sponsorsSilver.map((sponsor) => (
-              <SponsorCard sponsor={sponsor} />
-            ))
-          }
+          {sponsorsSilver.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
         </div>
       </div>
       <div>
@@ -86,11 +83,7 @@ import {
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {
-            sponsorsBronze.map((sponsor) => (
-              <SponsorCard sponsor={sponsor} />
-            ))
-          }
+          {sponsorsBronze.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
         </div>
       </div>
       <div>
@@ -102,13 +95,9 @@ import {
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {
-            sponsorsRegular.map((sponsor) => (
-              <SponsorCard sponsor={sponsor} />
-            ))
-          }
+          {sponsorsRegular.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
         </div>
-      </div> -->
+      </div>
     </main>
   </div>
 </Layout>
