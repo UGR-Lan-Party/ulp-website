@@ -15,10 +15,11 @@
     "@astrojs/tailwind": "^5.1.5",
     "@fontsource-variable/inter": "^5.1.1",
     "@types/three": "^0.173.0",
-    "astro": "^3.6.5",
+    "astro": "^5.17.3",
     "astro-compress": "^2.3.6",
+    "gsap": "^3.14.2",
     "sharp": "^0.33.5",
-    "swiper": "^11.2.4",
+    "swiper": "^12.1.2",
     "tailwindcss": "^3.4.17",
     "three": "^0.173.0",
     "typescript": "^5.7.3"

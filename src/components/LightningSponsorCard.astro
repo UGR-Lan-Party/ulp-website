@@ -1,0 +1,451 @@
+---
+import type { SponsorData } from '../data/sponsors.ts';
+import SocialButton from './SocialButton.astro';
+
+interface Props {
+  sponsor: SponsorData;
+}
+
+const { sponsor } = Astro.props as Props;
+
+const colors: Record<string, string> = {
+  platinum: '[#1771E6]',
+  gold: '[#FFC002]',
+  silver: '[#9a9ba0]',
+  bronze: '[#BB5522]',
+};
+
+const diamondColors: Record<string, string> = {
+  'T-Systems Iberia': '[#E30075]',
+  'Gen.G Global Academy': '[#F2CA18]',
+  'SIDN Digital Thinking': '[#EC602C]',
+};
+
+const getTierColor = (tier: string, name: string) => {
+  if (tier === 'diamond') {
+    return diamondColors[name] || '';
+  }
+  return colors[tier] || '';
+};
+
+const tierColor = getTierColor(sponsor.tier, sponsor.name);
+const tierColorHex = tierColor.replace(/^\[|\]$/g, '');
+const patternId = `bg_pattern_${sponsor.name
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '_')
+  .replace(/^_+|_+$/g, '')}`;
+
+// ID único para los filtros SVG del relámpago
+const uid = `lc-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<section
+  id="sponsor-card"
+  class="w-[444px] h-[677px] relative scale-[90%] md:scale-100"
+  data-uid={uid}
+  data-tier-color={tierColorHex}
+>
+  <!-- ── SVG principal de la carta ─────────────────────────────── -->
+  <svg
+    class="absolute z-0 top-0 left-0"
+    id="sponsor-card-shape"
+    xmlns="http://www.w3.org/2000/svg"
+    width="444"
+    height="677"
+    viewBox="0 0 444 677"
+    fill="none"
+  >
+    <defs>
+      <filter
+        id="filter0_d_30_615"
+        x="0"
+        y="0"
+        width="444"
+        height="677"
+        filterUnits="userSpaceOnUse"
+      >
+        <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+        <feOffset dy="4"></feOffset>
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></feColorMatrix>
+        <feBlend mode="normal" in="SourceGraphic"></feBlend>
+      </filter>
+
+      <pattern
+        id={patternId}
+        patternUnits="userSpaceOnUse"
+        width="444"
+        height="677"
+      >
+        <rect width="444" height="677" fill="#00000090"></rect>
+        <image
+          href={sponsor.cardBg}
+          x="0"
+          y="0"
+          width="444"
+          height="677"
+          preserveAspectRatio="xMidYMid slice"
+          class="blur-sm opacity-70"
+        />
+      </pattern>
+    </defs>
+
+    <g filter="url(#filter0_d_30_615)">
+      <path
+        d="M438.035 76.1602V580.16C438.035 580.16 437.535 604.16 429.035 617.66C420.535 631.16 390.535 634.16 390.535 634.16C390.535 634.16 329.535 631.66 291.035 640.66C252.535 649.66 222.535 667.16 222.535 667.16C222.535 667.16 198 649.66 154.035 640.66C110.07 631.66 52.5349 634.16 52.5349 634.16C52.5349 634.16 24.1318 628.964 14.0349 617.66C3.93803 606.357 5.03495 580.16 5.03495 580.16V76.1602C5.03495 76.1602 42.1119 71.1602 85.0349 41.1602C127.958 11.1602 171.035 11.1602 171.035 11.1602C171.035 11.1602 182.987 25.6535 193.535 26.1602C204.083 26.6668 221.035 1.66016 221.035 1.66016C221.035 1.66016 242.728 27.6558 252.535 26.1602C262.342 24.6645 273.035 11.1602 273.035 11.1602C273.035 11.1602 326.535 11.1602 357.535 41.1602C388.535 71.1602 438.035 76.1602 438.035 76.1602Z"
+        fill={`url(#${patternId})`}
+        stroke="white"
+        stroke-width="2"></path>
+    </g>
+  </svg>
+
+  <!-- ── SVG overlay para los relámpagos ───────────────────────── -->
+  <!-- Mismo viewBox que la carta para que las coordenadas coincidan -->
+  <svg
+    class="lightning-svg absolute z-20 top-0 left-0 pointer-events-none"
+    xmlns="http://www.w3.org/2000/svg"
+    width="444"
+    height="677"
+    viewBox="0 0 444 677"
+    overflow="visible"
+    aria-hidden="true"
+  >
+    <defs>
+      <filter id={`${uid}-glow`} x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b1"
+        ></feGaussianBlur>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b2"
+        ></feGaussianBlur>
+        <feMerge>
+          <feMergeNode in="b2"></feMergeNode>
+          <feMergeNode in="b1"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+      </filter>
+      <filter id={`${uid}-core`} x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="b1"
+        ></feGaussianBlur>
+        <feMerge>
+          <feMergeNode in="b1"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+      </filter>
+    </defs>
+    <!-- Los grupos de relámpago se inyectan aquí por JS -->
+  </svg>
+
+  <!-- ── Contenido de la carta ─────────────────────────────────── -->
+  <section
+    id="sponsor-card-info"
+    class="flex flex-col items-center w-full h-[80%] my-20 text-white relative z-10"
+  >
+    <picture
+      class="w-[400px] h-[220px] rounded-2xl mt-2 relative overflow-hidden border border-white/20 backdrop-blur-lg"
+    >
+      <img
+        alt="sponsor-logo"
+        src={sponsor.logo}
+        class="h-full w-full p-2 object-contain"
+      />
+    </picture>
+    <section class="w-[400px] h-[250px] mt-4 flex flex-col items-center gap-1">
+      <p class="font-bold text-3xl text-center">
+        {sponsor.name}
+      </p>
+      <p
+        class="font-semibold text-xl text-center"
+        style={`color: ${tierColorHex};`}
+      >
+        {sponsor.bussiness}
+      </p>
+      <p class="text-md text-center text-balance">
+        {sponsor.description}
+      </p>
+    </section>
+
+    <div
+      class="w-full flex mb-2 items-center justify-center gap-8 absolute bottom-0"
+    >
+      {sponsor.links.map((link) => <SocialButton sponsorLink={link} />)}
+    </div>
+  </section>
+</section>
+
+<script>
+  // ═══════════════════════════════════════════════════════════════
+  //  SPONSOR CARD — Relámpagos sobre el path SVG personalizado
+  //
+  //  La forma de la carta NO es un rectángulo: es un path irregular
+  //  con salientes en la parte superior y curvas en la inferior.
+  //
+  //  Estrategia:
+  //  1. Pre-calculamos ~600 puntos equidistantes sobre el path SVG
+  //     usando getPointAtLength() + getTotalLength().
+  //  2. Para cada punto calculamos la normal outward (perpendicular
+  //     al path en esa posición) con una diferencia finita pequeña.
+  //  3. Un rayo toma un arco continuo de esos puntos y aplica
+  //     midpoint-displacement en dirección normal → serpentea a lo
+  //     largo del contorno real de la carta.
+  //  4. Flash → hold → fade out, igual que el componente original.
+  // ═══════════════════════════════════════════════════════════════
+
+  type Vec2 = { x: number; y: number; nx: number; ny: number };
+
+  // Cache de puntos muestreados por UID de carta
+  const pathCache = new Map<string, Vec2[]>();
+
+  // ── Pre-muestreo del path SVG ──────────────────────────────────
+  function sampleSVGPath(pathEl: SVGPathElement, N = 600): Vec2[] {
+    const total = pathEl.getTotalLength();
+    const pts: Vec2[] = [];
+    const DELTA = (total / N) * 0.3; // pequeño delta para la normal
+
+    for (let i = 0; i < N; i++) {
+      const len = (i / N) * total;
+      const p = pathEl.getPointAtLength(len);
+      // Normal: diferencia finita hacia adelante
+      const pFwd = pathEl.getPointAtLength((len + DELTA) % total);
+      const dx = pFwd.x - p.x;
+      const dy = pFwd.y - p.y;
+      const mag = Math.sqrt(dx * dx + dy * dy) || 1;
+      // Normal outward: perpendicular a la tangente, apuntando hacia fuera
+      // Para un path recorrido en sentido horario, la normal outward es (+dy, -dx)
+      pts.push({
+        x: p.x,
+        y: p.y,
+        nx: dy / mag, // outward normal
+        ny: -dx / mag,
+      });
+    }
+    return pts;
+  }
+
+  function ptsToD(pts: { x: number; y: number }[]): string {
+    if (pts.length < 2) return '';
+    return pts
+      .map(
+        (p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`,
+      )
+      .join(' ');
+  }
+
+  // ── Construcción del bolt sobre el path muestreado ─────────────
+  function buildBorderBolt(
+    samples: Vec2[],
+    iStart: number, // índice inicial en samples[]
+    arcCount: number, // cuántos samples abarca el bolt
+    amplitude: number, // px máx de desplazamiento normal
+  ): { x: number; y: number }[] {
+    const N = samples.length;
+
+    // Extraemos los puntos base del arco
+    const disps = new Float32Array(arcCount + 1);
+
+    // Midpoint displacement sobre los índices del arco
+    function subdivide(a: number, b: number, amp: number, depth: number) {
+      if (depth === 0 || b - a <= 1) return;
+      const m = Math.floor((a + b) / 2);
+      disps[m] +=
+        amp * (Math.random() < 0.5 ? 1 : -1) * (0.4 + Math.random() * 0.6);
+      subdivide(a, m, amp * 0.62, depth - 1);
+      subdivide(m, b, amp * 0.62, depth - 1);
+    }
+    subdivide(0, arcCount, amplitude, 6);
+
+    // Aplicar desplazamiento normal en cada punto
+    const result: { x: number; y: number }[] = [];
+    for (let i = 0; i <= arcCount; i++) {
+      const s = samples[(iStart + i) % N];
+      result.push({
+        x: s.x + s.nx * disps[i],
+        y: s.y + s.ny * disps[i],
+      });
+    }
+    return result;
+  }
+
+  // ── Clase Bolt ─────────────────────────────────────────────────
+  class Bolt {
+    g: SVGGElement;
+    alive = true;
+    frame = 0;
+    flashEnd: number;
+    holdEnd: number;
+    totalEnd: number;
+
+    constructor(
+      svg: SVGSVGElement,
+      samples: Vec2[],
+      color: string,
+      glowId: string,
+      coreId: string,
+    ) {
+      this.g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+      const N = samples.length;
+      const iStart = Math.floor(Math.random() * N);
+      // Arco: 7%-20% del perímetro total
+      const arcFrac = 0.07 + Math.random() * 0.13;
+      const arcCount = Math.floor(arcFrac * N);
+      const amplitude = 5 + Math.random() * 10;
+
+      const pts = buildBorderBolt(samples, iStart, arcCount, amplitude);
+      this.addPath(svg, pts, color, glowId, '2.2');
+      this.addPath(svg, pts, 'rgba(255,255,255,0.90)', coreId, '0.75');
+
+      // Rama secundaria (45% prob)
+      if (Math.random() < 0.45) {
+        const bStart =
+          iStart + Math.floor(arcCount * (0.2 + Math.random() * 0.4));
+        const bCount = Math.floor(arcCount * (0.2 + Math.random() * 0.25));
+        const bAmp = amplitude * 0.55;
+        const bPts = buildBorderBolt(samples, bStart, bCount, bAmp);
+        this.addPath(svg, bPts, color, glowId, '1.3');
+        this.addPath(svg, bPts, 'rgba(255,255,255,0.72)', coreId, '0.5');
+      }
+
+      this.g.style.opacity = '0';
+      svg.appendChild(this.g);
+
+      this.flashEnd = 3;
+      this.holdEnd = this.flashEnd + 4 + Math.floor(Math.random() * 9);
+      this.totalEnd = this.holdEnd + 10;
+    }
+
+    addPath(
+      svg: SVGSVGElement,
+      pts: { x: number; y: number }[],
+      stroke: string,
+      filterId: string,
+      sw: string,
+    ) {
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', stroke);
+      p.setAttribute('stroke-width', sw);
+      p.setAttribute('stroke-linecap', 'round');
+      p.setAttribute('stroke-linejoin', 'round');
+      p.setAttribute('filter', `url(#${filterId})`);
+      p.setAttribute('d', ptsToD(pts));
+      this.g.appendChild(p);
+    }
+
+    tick(): boolean {
+      if (!this.alive) return false;
+      this.frame++;
+      let op: number;
+
+      if (this.frame <= this.flashEnd) {
+        op = this.frame % 2 === 1 ? 1.0 : 0.15;
+      } else if (this.frame <= this.holdEnd) {
+        op = Math.random() < 0.06 ? 0.3 : 0.88;
+      } else {
+        op = Math.max(
+          0,
+          1 - (this.frame - this.holdEnd) / (this.totalEnd - this.holdEnd),
+        );
+      }
+
+      if (this.frame >= this.totalEnd) {
+        this.alive = false;
+        this.g.remove();
+        return false;
+      }
+
+      this.g.style.opacity = op.toFixed(3);
+      return true;
+    }
+  }
+
+  // ── Controlador por carta ──────────────────────────────────────
+  class SponsorLightning {
+    card: HTMLElement;
+    svg: SVGSVGElement;
+    color: string;
+    uid: string;
+    samples: Vec2[] = [];
+    bolts: Bolt[] = [];
+    raf: number | null = null;
+    active = false;
+    spawnTimer = 0;
+    nextSpawn = 0;
+
+    constructor(card: HTMLElement) {
+      this.card = card;
+      this.svg = card.querySelector('.lightning-svg') as SVGSVGElement;
+      this.color = card.dataset.tierColor || '#FF0000';
+      this.uid = card.dataset.uid || 'lc';
+      this.nextSpawn = this.rand();
+
+      // Pre-muestreamos el path de la forma una sola vez
+      // El path está dentro del SVG hermano (sponsor-card-shape)
+      const shapeSvg = card.querySelector(
+        '#sponsor-card-shape',
+      ) as SVGSVGElement | null;
+      const shapePath = shapeSvg?.querySelector(
+        'g path',
+      ) as SVGPathElement | null;
+
+      if (shapePath) {
+        const cacheKey = shapePath.getAttribute('d')!.slice(0, 40);
+        if (pathCache.has(cacheKey)) {
+          this.samples = pathCache.get(cacheKey)!;
+        } else {
+          this.samples = sampleSVGPath(shapePath, 600);
+          pathCache.set(cacheKey, this.samples);
+        }
+      }
+
+      // La animación siempre está activa; start() se llama en el init
+    }
+
+    rand() {
+      return 12 + Math.floor(Math.random() * 14);
+    }
+
+    spawn() {
+      if (this.samples.length === 0) return;
+      this.bolts.push(
+        new Bolt(
+          this.svg,
+          this.samples,
+          this.color,
+          `${this.uid}-glow`,
+          `${this.uid}-core`,
+        ),
+      );
+    }
+
+    tick = () => {
+      this.spawnTimer++;
+      if (this.spawnTimer >= this.nextSpawn) {
+        this.spawnTimer = 0;
+        this.nextSpawn = this.rand();
+        const burst = Math.random() < 0.18 ? 2 : 1;
+        for (let i = 0; i < burst; i++) this.spawn();
+      }
+      this.bolts = this.bolts.filter((b) => b.tick());
+      this.raf = requestAnimationFrame(this.tick);
+    };
+
+    start() {
+      if (this.active) return;
+      this.active = true;
+      this.spawn();
+      if (!this.raf) this.raf = requestAnimationFrame(this.tick);
+    }
+
+    stop() {
+      this.active = false;
+    }
+  }
+
+  // ── Init — arranca siempre, sin esperar hover ───────────────────
+  document
+    .querySelectorAll<HTMLElement>('#sponsor-card[data-uid]')
+    .forEach((card) => {
+      const effect = new SponsorLightning(card);
+      effect.start();
+    });
+</script>
