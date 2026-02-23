@@ -15,12 +15,14 @@ interface Props {
 
 let { sponsor } = Astro.props as Props;
 
+const isSecret = sponsor.isSecret;
+
 if (sponsor.isSecret) {
   sponsor = secretSponsor[0];
 }
 
 const colors: Record<string, string> = {
-  platinum: '[#1771E6]',
+  platinum: '[#CADCF1]',
   gold: '[#FFC002]',
   silver: '[#9a9ba0]',
   bronze: '[#BB5522]',
@@ -33,7 +35,7 @@ const diamondColors: Record<string, string> = {
 };
 
 const getTierColor = (tier: string, name: string) => {
-  if (sponsor.isSecret) {
+  if (isSecret) {
     return colors['gold'] || '';
   }
   if (tier === 'diamond') {
@@ -50,8 +52,6 @@ const patternId = `bg_pattern_${sponsor.name
   .replace(/^_+|_+$/g, '')}`;
 
 const sponsorName = sponsor.name;
-
-// Separar descripción en palabras para el DOM
 const descriptionWords = sponsor.description.split(' ');
 ---
 
@@ -59,7 +59,6 @@ const descriptionWords = sponsor.description.split(' ');
   id="sponsor-card"
   class={`sponsor-card-${patternId} w-[444px] h-[677px] relative scale-[90%] md:scale-100`}
 >
-  <!-- ── SVG principal de la carta ─────────────────────────────── -->
   <svg
     class="absolute z-0 top-0 left-0"
     id="sponsor-card-shape"
@@ -114,7 +113,6 @@ const descriptionWords = sponsor.description.split(' ');
     </g>
   </svg>
 
-  <!-- ── Contenido de la carta ─────────────────────────────────── -->
   <section
     id="sponsor-card-info"
     class="flex flex-col items-center w-full h-[80%] my-20 text-white relative z-10"
@@ -139,31 +137,33 @@ const descriptionWords = sponsor.description.split(' ');
         {sponsor.bussiness}
       </p>
 
-      <!-- Descripción animada: cada palabra en su propio span con blur -->
+      <!-- Descripción: con blur animado si isSecret, texto plano si no -->
       <p id="gsap-sponsor-description" class="text-md text-center text-balance leading-relaxed">
-        {descriptionWords.map((word, i) => (
-          <span
-            class="word-wrapper inline-block relative mx-[2px]"
-            data-word={word}
-            data-index={i}
-          >
-            <!-- Capa blur (visible por defecto) -->
+        {isSecret ? (
+          descriptionWords.map((word, i) => (
             <span
-              class="word-blur absolute inset-0 inline-block select-none pointer-events-none"
-              aria-hidden="true"
-              style="filter: blur(4px); backdrop-filter: blur(6px); background: rgba(255,255,255,0.08); border-radius: 3px; padding: 0 2px;"
+              class="word-wrapper inline-block relative mx-[2px]"
+              data-word={word}
+              data-index={i}
             >
-              {word}
+              <span
+                class="word-blur absolute inset-0 inline-block select-none pointer-events-none"
+                aria-hidden="true"
+                style="filter: blur(4px); backdrop-filter: blur(6px); background: rgba(255,255,255,0.08); border-radius: 3px; padding: 0 2px;"
+              >
+                {word}
+              </span>
+              <span
+                class="word-text inline-block opacity-0 px-[2px]"
+                data-original={word}
+              >
+                {word}
+              </span>
             </span>
-            <!-- Texto real (invisible por defecto, revelado con scramble) -->
-            <span
-              class="word-text inline-block opacity-0 px-[2px]"
-              data-original={word}
-            >
-              {word}
-            </span>
-          </span>
-        ))}
+          ))
+        ) : (
+          sponsor.description
+        )}
       </p>
     </section>
 
@@ -175,96 +175,93 @@ const descriptionWords = sponsor.description.split(' ');
   </section>
 </section>
 
-<script>
-  import { gsap } from 'gsap';
-  import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
+{isSecret && (
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 
-  gsap.registerPlugin(ScrambleTextPlugin);
+    gsap.registerPlugin(ScrambleTextPlugin);
 
-  document.querySelectorAll('[id^="sponsor-card"]').forEach((card) => {
-    // Busca la sección contenedora más cercana con la clase sponsor-card-*
-    const cardEl = card.closest
-      ? card.closest('[class*="sponsor-card-"]') ?? card
-      : card;
+    document.querySelectorAll('#sponsor-card').forEach((card) => {
+      let scrambleTl: gsap.core.Timeline | null = null;
+      let isAnimating = false;
 
-    let scrambleTl: gsap.core.Timeline | null = null;
-    let isAnimating = false;
+      const wordWrappers = card.querySelectorAll<HTMLElement>('.word-wrapper');
 
-    const wordWrappers = card.querySelectorAll<HTMLElement>('.word-wrapper');
+      // Solo proceder si hay palabras con blur (es decir, es una carta secret)
+      if (wordWrappers.length === 0) return;
 
-    const totalDuration = 5; // segundos totales para revelar todas las palabras
-    const delayPerWord = wordWrappers.length > 1
-      ? totalDuration / wordWrappers.length
-      : totalDuration;
+      const totalDuration = 5;
+      const delayPerWord = wordWrappers.length > 1
+        ? totalDuration / wordWrappers.length
+        : totalDuration;
 
-    function revealWords() {
-      if (isAnimating) return;
-      isAnimating = true;
+      function revealWords() {
+        if (isAnimating) return;
+        isAnimating = true;
 
-      scrambleTl = gsap.timeline({
-        onComplete: () => { isAnimating = false; },
-      });
+        scrambleTl = gsap.timeline({
+          onComplete: () => { isAnimating = false; },
+        });
 
-      wordWrappers.forEach((wrapper, i) => {
-        const blurEl = wrapper.querySelector<HTMLElement>('.word-blur');
-        const textEl = wrapper.querySelector<HTMLElement>('.word-text');
-        if (!blurEl || !textEl) return;
+        wordWrappers.forEach((wrapper, i) => {
+          const blurEl = wrapper.querySelector<HTMLElement>('.word-blur');
+          const textEl = wrapper.querySelector<HTMLElement>('.word-text');
+          if (!blurEl || !textEl) return;
 
-        const original = textEl.dataset.original ?? textEl.textContent ?? '';
-        const startTime = i * delayPerWord;
-        const scrambleDuration = Math.max(0.6, delayPerWord * 1.2);
+          const original = textEl.dataset.original ?? textEl.textContent ?? '';
+          const startTime = i * delayPerWord;
+          const scrambleDuration = Math.max(0.6, delayPerWord * 1.2);
 
-        // 1. Revelar el texto real y hacer scramble
-        scrambleTl!.to(
-          textEl,
-          {
-            duration: scrambleDuration,
-            scrambleText: {
-              text: original,
-              chars: 'lowerCase',
-              revealDelay: 0.1,
-              speed: 0.6,
+          scrambleTl!.to(
+            textEl,
+            {
+              duration: scrambleDuration,
+              scrambleText: {
+                text: original,
+                chars: 'lowerCase',
+                revealDelay: 0.1,
+                speed: 0.6,
+              },
+              opacity: 1,
+              ease: 'none',
             },
-            opacity: 1,
-            ease: 'none',
-          },
-          startTime
-        );
+            startTime
+          );
 
-        // 2. Al mismo tiempo, disolver el blur
-        scrambleTl!.to(
-          blurEl,
-          {
-            duration: scrambleDuration * 0.6,
-            filter: 'blur(0px)',
-            opacity: 0,
-            ease: 'power2.out',
-          },
-          startTime
-        );
-      });
-    }
-
-    function resetWords() {
-      if (scrambleTl) {
-        scrambleTl.kill();
-        scrambleTl = null;
+          scrambleTl!.to(
+            blurEl,
+            {
+              duration: scrambleDuration * 0.6,
+              filter: 'blur(0px)',
+              opacity: 0,
+              ease: 'power2.out',
+            },
+            startTime
+          );
+        });
       }
-      isAnimating = false;
 
-      wordWrappers.forEach((wrapper) => {
-        const blurEl = wrapper.querySelector<HTMLElement>('.word-blur');
-        const textEl = wrapper.querySelector<HTMLElement>('.word-text');
-        if (!blurEl || !textEl) return;
+      function resetWords() {
+        if (scrambleTl) {
+          scrambleTl.kill();
+          scrambleTl = null;
+        }
+        isAnimating = false;
 
-        gsap.set(blurEl, { filter: 'blur(6px)', opacity: 1 });
-        gsap.set(textEl, { opacity: 0 });
-        // Restaurar texto original por si scramble lo dejó a medias
-        textEl.textContent = textEl.dataset.original ?? '';
-      });
-    }
+        wordWrappers.forEach((wrapper) => {
+          const blurEl = wrapper.querySelector<HTMLElement>('.word-blur');
+          const textEl = wrapper.querySelector<HTMLElement>('.word-text');
+          if (!blurEl || !textEl) return;
 
-    cardEl.addEventListener('mouseenter', revealWords);
-    cardEl.addEventListener('mouseleave', resetWords);
-  });
-</script>
+          gsap.set(blurEl, { filter: 'blur(4px)', opacity: 1 });
+          gsap.set(textEl, { opacity: 0 });
+          textEl.textContent = textEl.dataset.original ?? '';
+        });
+      }
+
+      card.addEventListener('mouseenter', revealWords);
+      card.addEventListener('mouseleave', resetWords);
+    });
+  </script>
+)}

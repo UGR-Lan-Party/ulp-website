@@ -17,7 +17,7 @@ export interface SponsorLink {
 const Sponsors: SponsorData[] = [
   {
     name: 'Patrocinador Secreto',
-    tier: 'gold',
+    tier: '',
     logo: '/assets/participan/Color/Empresas/secretSponsor.png',
     cardBg: '/assets/participan/BG-Sponsors/secretSponsor.webp',
     isSecret: true,
@@ -128,13 +128,41 @@ const Sponsors: SponsorData[] = [
     ],
   },
   {
+    name: 'Nacon España',
+    tier: 'platinum',
+    description:
+      'Empresa líder en el sector del gaming, especializada en el diseño y distribución de accesorios premium para consolas y PC, así como en la edición de videojuegos. Nacon ofrece una amplia gama de productos enfocados en mejorar la experiencia y el rendimiento de los jugadores.',
+    logo: '/assets/participan/Color/Empresas/nacon.png',
+    cardBg: '/assets/participan/BG-Sponsors/nacon.webp',
+    isSecret: false,
+    bussiness: 'Videojuegos y Accesorios Gaming',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.nacongaming.com/es-ES/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/nacon-gaming-españa/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/nacongamers_es/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/nacongaminges',
+      },
+    ],
+  },
+  {
     name: 'LSI',
     tier: 'platinum',
     description:
       'Departamento de Lenguajes y Sistemas Informáticos de la Universidad. Fundado en 1989, imparte docencia en 20 grados y 15 másteres, en materias relacionadas con la ingeniería del software, sistemas operativos, metodologías de desarrollo, ingeniería web, sistemas gráficos, concurrentes, distribuidos, bases de datos...',
     logo: '/assets/participan/Color/Organismos/lsi.png',
     cardBg: null,
-    isSecret: true,
+    isSecret: false,
     bussiness: 'Departamento de la UGR',
     links: [
       {
@@ -144,30 +172,50 @@ const Sponsors: SponsorData[] = [
     ],
   },
   {
-    name: 'Nazaríes Intelligenia',
-    tier: 'silver',
+    name: 'Cívica Software',
+    tier: 'gold',
     description:
-      'Consultora tecnológica especializada en el desarrollo de software a medida y en el desarrollo de soluciones tecnológicas en el ámbito de la monitorización y sensorización.  Cuentan con más de 10 años de experiencia en desarrollo de software.',
-    logo: '/assets/participan/Color/Empresas/nazaríes.png',
+      'Empresa del sector tecnológico especializada en la implantación de estrategias de autoservicio, BI operacional, uso de tecnologías Big Data y arquitecturas federadas que simplifiquen la utilización de datos  a nivel corporativo con la mayor sencillez y fiabilidad.',
+    logo: '/assets/participan/Color/Empresas/cívica.png',
     cardBg: null,
-    isSecret: true,
-    bussiness: 'Servicios y consultoría de TI',
+    isSecret: false,
+    bussiness: 'Servicios y Consultoría de TI',
     links: [
       {
         rrss: 'Web',
-        link: 'https://www.nazaries.com',
-      },
-      {
-        rrss: 'X',
-        link: 'https://twitter.com/intelligenia',
-      },
-      {
-        rrss: 'Instagram',
-        link: 'https://www.instagram.com/nazaries_intelligenia/',
+        link: 'https://civica-soft.com',
       },
       {
         rrss: 'LinkedIn',
-        link: 'https://www.linkedin.com/company/nazaries-intelligenia/',
+        link: 'https://www.linkedin.com/company/civica-soft/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/civica.official/',
+      },
+    ],
+  },
+  {
+    name: 'JTSEC Beyond IT Security',
+    tier: 'gold',
+    description:
+      'Consultora especializada en certificación de ciberseguridad y evaluaciones de productos IT. Expertos en estándares internacionales como Common Criteria, LINCE y normativas ENS, ayudan a sus clientes a garantizar que sus soluciones cumplen con los más altos niveles de seguridad.',
+    logo: '/assets/participan/Color/Empresas/jtsec.png',
+    cardBg: '/assets/participan/BG-Sponsors/jtsec.webp',
+    isSecret: false,
+    bussiness: 'Ciberseguridad y Certificación',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.jtsec.es/es',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/jtsec/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/JTSecES',
       },
     ],
   },
@@ -176,7 +224,7 @@ const Sponsors: SponsorData[] = [
     tier: 'gold',
     logo: '/assets/participan/Color/Empresas/concejalia-juventud.png',
     cardBg: null,
-    isSecret: true,
+    isSecret: false,
     bussiness: 'Concejalía de Juventud Ayto. de Granada',
     description:
       'Granajoven es la Concejalía de Juventud del Ayuntamiento de Granada, dedicada a promover actividades culturales, formativas y de ocio para jóvenes, fomentando su participación activa en la sociedad.',
@@ -200,26 +248,206 @@ const Sponsors: SponsorData[] = [
     ],
   },
   {
-    name: 'Cívica Software',
+    name: 'Wiber',
     tier: 'gold',
     description:
-      'Empresa del sector tecnológico especializada en la implantación de estrategias de autoservicio, BI operacional, uso de tecnologías Big Data y arquitecturas federadas que simplifiquen la utilización de datos  a nivel corporativo con la mayor sencillez y fiabilidad.',
-    logo: '/assets/participan/Color/Empresas/cívica.png',
-    cardBg: null,
-    isSecret: true,
-    bussiness: 'Servicios y Consultoría de TI',
+      'Operador de telecomunicaciones de proximidad que ofrece servicios de fibra óptica de alta velocidad, telefonía móvil, fija y televisión. La compañía se distingue por su trato humano y cercano, ofreciendo soluciones de conectividad con red propia y sin permanencia, adaptándose a las necesidades reales de sus clientes.',
+    logo: '/assets/participan/Color/Empresas/wiber.png',
+    cardBg: '/assets/participan/BG-Sponsors/wiber.webp',
+    isSecret: false,
+    bussiness: 'Telecomunicaciones',
     links: [
       {
         rrss: 'Web',
-        link: 'https://civica-soft.com',
+        link: 'https://wiber.es/',
       },
       {
         rrss: 'LinkedIn',
-        link: 'https://www.linkedin.com/company/civica-soft/',
+        link: 'https://www.linkedin.com/company/wiber-fibra/',
       },
       {
         rrss: 'Instagram',
-        link: 'https://www.instagram.com/civica.official/',
+        link: 'https://www.instagram.com/wiberfibra/',
+      },
+      {
+        rrss: 'Facebook',
+        link: 'https://www.facebook.com/wiberfibraoptica/',
+      },
+    ],
+  },
+  {
+    name: 'AESIT',
+    tier: 'silver',
+    description:
+      'Nace en el año 2016 con el fin de fomentar y reforzar los lazos de los egresados con la ETSIIT. Realiza actividades de interés, colaborando y prestando apoyo a los estudiantes que están finalizando sus estudios y fomentar una buena convivencia en la escuela.',
+    logo: '/assets/participan/Color/Organismos/aesit.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Asociación de Antiguos Estudiantes',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://aesit.es/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/aesit_ugr',
+      },
+    ],
+  },
+  {
+    name: "McDonald's España",
+    tier: 'silver',
+    description:
+      'Líder en el sector de la restauración en España, con más de 40 años de presencia en el país. La compañía se enfoca en ofrecer una experiencia de servicio rápido de alta calidad, basada en pilares de sostenibilidad, apoyo al producto local y un firme compromiso con la generación de empleo y la innovación en el servicio al cliente.',
+    logo: '/assets/participan/Color/Empresas/mcdonals.png',
+    cardBg: '/assets/participan/BG-Sponsors/mcdonalds.webp',
+    isSecret: false,
+    bussiness: 'Restauración y Hostelería',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.mcdonalds.es/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/mcdonalds_es/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/mcdonalds_es',
+      },
+    ],
+  },
+  {
+    name: 'TSTC',
+    tier: 'silver',
+    description:
+      'El Departamento de Teoría de la Señal, Telemática y Comunicaciones (TSTC) de la Universidad de Granada fue creado en el curso 2004/2005, estando adscritas al mismo las áreas de conocimiento de Ingeniería Telemática (IT) y de Teoría de la Señal y Comunicaciones (TSC).',
+    logo: '/assets/participan/Color/Organismos/logo-tstc.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Departamento de la UGR',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://tstc.ugr.es/',
+      },
+    ],
+  },
+  {
+    name: 'DEIIT',
+    tier: 'silver',
+    description:
+      'La Delegación de Estudiantes de Ingeniería Informática y Telecomunicaciones. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.',
+    logo: '/assets/participan/Color/Organismos/deiit.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Delegación de Estudiantes',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://deiit.ugr.es/',
+      },
+    ],
+  },
+  {
+    name: 'Mars Gaming',
+    tier: 'silver',
+    description:
+      'Marca española referente en periféricos y componentes de hardware para videojuegos. Se especializa en productos con una relación calidad-precio competitiva, abarcando desde componentes y periféricos hasta mobiliario.',
+    logo: '/assets/participan/Color/Empresas/marsgaming.png',
+    cardBg: '/assets/participan/BG-Sponsors/marsgaming.webp',
+    isSecret: false,
+    bussiness: 'Periféricos y Componentes Gaming',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://marsgaming.eu/es/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/mars-gaming/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/marsgaming/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/MarsGaming_',
+      },
+    ],
+  },
+  {
+    name: 'Llaveros Frikis',
+    tier: 'silver',
+    description:
+      'Tienda online especializada en productos frikis impresos en 3D y encargos personalizados. Diseñamos y fabricamos llaveros y artículos únicos, combinando creatividad, calidad y producción propia para ofrecer regalos originales y totalmente personalizados.',
+    logo: '/assets/participan/Color/Empresas/llaverosfrikis.webp',
+    cardBg: '/assets/participan/BG-Sponsors/llaveros-frikis.webp',
+    isSecret: false,
+    bussiness: 'Tienda objetos 3D personalizados',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://llaverosfrikis.com/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/llaverosfrikis_/',
+      },
+    ],
+  },
+  {
+    name: 'Nazaríes Intelligenia',
+    tier: 'silver',
+    description:
+      'Consultora tecnológica especializada en el desarrollo de software a medida y en el desarrollo de soluciones tecnológicas en el ámbito de la monitorización y sensorización.  Cuentan con más de 10 años de experiencia en desarrollo de software.',
+    logo: '/assets/participan/Color/Empresas/nazaríes.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Servicios y consultoría de TI',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.nazaries.com',
+      },
+      {
+        rrss: 'X',
+        link: 'https://twitter.com/intelligenia',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/nazaries_intelligenia/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/nazaries-intelligenia/',
+      },
+    ],
+  },
+  {
+    name: 'The Game Kitchen',
+    tier: 'silver',
+    description:
+      'Estudio de desarrollo de videojuegos independiente de Sevilla. Especializados en títulos de aventura y acción con estética retro y temáticas inspiradas en el folclore andaluz. Son conocidos por juegos como “The Last Door” y “Blasphemous”.',
+    logo: '/assets/participan/Color/Empresas/game-kitchen.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Desarrolladora de videojuegos',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://thegamekitchen.com/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/the-game-kitchen/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/TheGameKitchen',
       },
     ],
   },
@@ -230,7 +458,7 @@ const Sponsors: SponsorData[] = [
       'Destino predilecto para los aficionados al karting y la velocidad en Granada. Con instalaciones de primera línea diseñadas para ofrecer la máxima emoción y seguridad, este circuito para poner a prueba tanto a principiantes como a pilotos experimentados.',
     logo: '/assets/participan/Color/Empresas/formula-karting.png',
     cardBg: null,
-    isSecret: true,
+    isSecret: false,
     bussiness: 'Circuito indoor de karts en Granada',
     links: [
       {
@@ -247,7 +475,101 @@ const Sponsors: SponsorData[] = [
       },
     ],
   },
-
+  {
+    name: 'Iction Games',
+    tier: 'bronze',
+    description:
+      'Estudio independiente de desarrollo de videojuegos con sede en Granada. Se dedican a la creación de experiencias interactivas de calidad, con un enfoque en títulos arcade y retro como "John Mambo", "Virtus" o "Viking Kingdoms", destacando por su compromiso con la comunidad de jugadores y la producción de ediciones coleccionista.',
+    logo: '/assets/participan/Color/Empresas/ictiongames.jpg',
+    cardBg: '/assets/participan/BG-Sponsors/ictiongames.webp',
+    isSecret: false,
+    bussiness: 'Desarrollo de Videojuegos',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.ictiongames.com/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/ictiongames/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/IctionGames',
+      },
+    ],
+  },
+  {
+    name: 'EMYCET',
+    tier: 'bronze',
+    description:
+      'Agencia que se dedica a organizar circuitos, excursiones, viajes a medida y eventos, enfocándose en crear experiencias únicas y memorables para sus clientes. Su objetivo es inspirar a las personas a cumplir sus sueños a través del viaje y la diversión, promoviendo la felicidad y recuerdos inolvidables.',
+    logo: '/assets/participan/Color/Empresas/emycet.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Viajes y eventos',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.emycet.com/',
+      },
+    ],
+  },
+  {
+    name: 'GGTech Entertainment',
+    tier: 'bronze',
+    description:
+      'Empresa tecnológica líder a nivel internacional especializada en proyectos vinculados a los videojuegos, la educación y los esports. Con presencia en múltiples continentes, GGTech destaca por la creación de IPs globales como UNIVERSITY Esports y la organización de grandes festivales como GAMERGY.',
+    logo: '/assets/participan/Color/Empresas/ggtech.png',
+    cardBg: '/assets/participan/BG-Sponsors/ggtech.webp',
+    isSecret: false,
+    bussiness: 'Tecnología, Educación y Esports',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.ggtech.gg/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/ggtech_es',
+      },
+      {
+        rrss: 'YouTube',
+        link: 'https://www.youtube.com/@ggtechentertainment',
+      },
+    ],
+  },
+  {
+    name: 'Bibliomaker',
+    tier: 'bronze',
+    description:
+      'Servicio que ofrece espacios de colaboración destinados a la comunidad universitaria, en los que se ponen a disposición recursos, herramientas y maquinaria. En él cualquier persona o grupo de personas puede diseñar y construir proyectos, así como compartir recursos y conocimientos en proyectos creativos y de innovación.',
+    logo: '/assets/participan/Color/Empresas/bibliomaker.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Sala de creación y fabricación',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://biblioteca.ugr.es/servicios/espacios/bibliomaker',
+      },
+    ],
+  },
+  {
+    name: 'Hackiit',
+    tier: 'bronze',
+    description: '',
+    logo: '/assets/participan/Color/Empresas/hackiit.png',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Sala de creación y fabricación',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.hackiit.org/',
+      },
+    ],
+  },
   {
     name: 'UGR',
     tier: 'regular',
@@ -255,7 +577,7 @@ const Sponsors: SponsorData[] = [
       'Universidad pública española con sede en Granada y con campus en las ciudades de Granada, Ceuta y Melilla. Reconocida como una de las 10 mejores universidades de España y entre las 500 mejores del mundo. Recibe cada año más de 2000 alumnos del programa Erasmus, siendo el destino europeo favorito.​',
     logo: '/assets/participan/Color/Organismos/ugr.png',
     cardBg: null,
-    isSecret: true,
+    isSecret: false,
     bussiness: 'Universidad de Granada',
     links: [
       {
@@ -283,7 +605,7 @@ const Sponsors: SponsorData[] = [
       'Centro universitario dedicado a la docencia e investigación de los estudios relacionados con la informática, las ciencias de la computación y las telecomunicaciones. Reconocido por su prestigio en la enseñanza de Ingeniería Informática, como mejor de España, sexta de Europa y entre las cincuenta mejores del mundo. ',
     logo: '/assets/participan/Color/Organismos/etsiit.png',
     cardBg: null,
-    isSecret: true,
+    isSecret: false,
     bussiness: 'Universidad de Granada',
     links: [
       {
@@ -297,105 +619,13 @@ const Sponsors: SponsorData[] = [
     ],
   },
   {
-    name: 'The Game Kitchen',
-    tier: 'silver',
-    description:
-      'Estudio de desarrollo de videojuegos independiente de Sevilla. Especializados en títulos de aventura y acción con estética retro y temáticas inspiradas en el folclore andaluz. Son conocidos por juegos como “The Last Door” y “Blasphemous”.',
-    logo: '/assets/participan/Color/Empresas/game-kitchen.png',
-    cardBg: null,
-    isSecret: true,
-    bussiness: 'Desarrolladora de videojuegos',
-    links: [
-      {
-        rrss: 'Web',
-        link: 'https://thegamekitchen.com/',
-      },
-      {
-        rrss: 'LinkedIn',
-        link: 'https://www.linkedin.com/company/the-game-kitchen/',
-      },
-      {
-        rrss: 'X',
-        link: 'https://x.com/TheGameKitchen',
-      },
-    ],
-  },
-  {
-    name: 'EMYCET',
-    tier: 'bronze',
-    description:
-      'Agencia que se dedica a organizar circuitos, excursiones, viajes a medida y eventos, enfocándose en crear experiencias únicas y memorables para sus clientes. Su objetivo es inspirar a las personas a cumplir sus sueños a través del viaje y la diversión, promoviendo la felicidad y recuerdos inolvidables.',
-    logo: '/assets/participan/Color/Empresas/emycet.png',
-    cardBg: null,
-    isSecret: true,
-    bussiness: 'Viajes y eventos',
-    links: [
-      {
-        rrss: 'Web',
-        link: 'https://www.emycet.com/',
-      },
-    ],
-  },
-  {
-    name: 'TSTC',
-    tier: 'silver',
-    description:
-      'El Departamento de Teoría de la Señal, Telemática y Comunicaciones (TSTC) de la Universidad de Granada fue creado en el curso 2004/2005, estando adscritas al mismo las áreas de conocimiento de Ingeniería Telemática (IT) y de Teoría de la Señal y Comunicaciones (TSC).',
-    logo: '/assets/participan/Color/Organismos/logo-tstc.png',
-    cardBg: null,
-    isSecret: true,
-    bussiness: 'Departamento de la UGR',
-    links: [
-      {
-        rrss: 'Web',
-        link: 'https://tstc.ugr.es/',
-      },
-    ],
-  },
-  {
-    name: 'AESIT',
-    tier: 'silver',
-    description:
-      'Nace en el año 2016 con el fin de fomentar y reforzar los lazos de los egresados con la ETSIIT. Realiza actividades de interés, colaborando y prestando apoyo a los estudiantes que están finalizando sus estudios y fomentar una buena convivencia en la escuela.',
-    logo: '/assets/participan/Color/Organismos/aesit.png',
-    cardBg: null,
-    isSecret: true,
-    bussiness: 'Asociación de Antiguos Estudiantes',
-    links: [
-      {
-        rrss: 'Web',
-        link: 'https://aesit.es/',
-      },
-      {
-        rrss: 'X',
-        link: 'https://x.com/aesit_ugr',
-      },
-    ],
-  },
-  {
-    name: 'CSIRC',
-    tier: 'regular',
-    description:
-      'Centro de Servicios de Informática y Redes de Comunicaciones de la Universidad de Granada. Tiene como misión desarrollar, mejorar y potenciar el uso de las Tecnologías de Información y Comunicación, dando soporte a la docencia, investigación y gestión de manera eficiente, e impulsando la innovación y la calidad de la UGR.',
-    logo: '/assets/participan/Color/Organismos/csirc.png',
-    cardBg: null,
-    isSecret: true,
-    bussiness: 'Universidad de Granada',
-    links: [
-      {
-        rrss: 'Web',
-        link: 'https://csirc.ugr.es/',
-      },
-    ],
-  },
-  {
     name: 'DGE',
     tier: 'regular',
     description:
       'La Delegación de Estudiantes es el órgano de representación de los estudiantes de la Universidad de Granada. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.',
     logo: '/assets/participan/Color/Organismos/dge.png',
     cardBg: null,
-    isSecret: true,
+    isSecret: false,
     bussiness: 'Delegación de Estudiantes',
     links: [
       {
@@ -405,18 +635,162 @@ const Sponsors: SponsorData[] = [
     ],
   },
   {
-    name: 'DEIIT',
+    name: 'AEVI',
     tier: 'regular',
     description:
-      'La Delegación de Estudiantes de Ingeniería Informática y Telecomunicaciones. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.',
-    logo: '/assets/participan/Color/Organismos/deiit.png',
-    cardBg: null,
-    isSecret: true,
-    bussiness: 'Delegación de Estudiantes',
+      'La principal organización del sector del videojuego en España. Representa a toda la cadena de valor, desde desarrolladores y distribuidores hasta ligas de esports, defendiendo los intereses de la industria y promoviendo su desarrollo tecnológico y cultural.',
+    logo: '/assets/participan/Color/Empresas/aevi.png',
+    cardBg: '/assets/participan/BG-Sponsors/aevi.webp',
+    isSecret: false,
+    bussiness: 'Asociación Sectorial',
     links: [
       {
         rrss: 'Web',
-        link: 'https://deiit.ugr.es/',
+        link: 'https://aevi.org.es/',
+      },
+    ],
+  },
+  {
+    name: 'Asociación Granada Tech',
+    tier: 'regular',
+    description:
+      'Asociación que agrupa a las principales empresas del sector IT en Granada. Su objetivo es fomentar el ecosistema tecnológico local, impulsar la innovación y posicionar a la ciudad como un referente internacional en la economía digital.',
+    logo: '/assets/participan/Color/Empresas/granadaTech.png',
+    cardBg: '/assets/participan/BG-Sponsors/granadatech.webp',
+    isSecret: false,
+    bussiness: 'Asociación Tecnológica',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://www.granadatech.org/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/granadatech',
+      },
+    ],
+  },
+  {
+    name: 'Have Fun Gamers',
+    tier: 'regular',
+    description:
+      'Agencia especializada en la creación de experiencias gaming y esports. Se dedican al diseño de espacios tecnológicos a medida, organización de eventos y actividades de team building, conectando marcas con la comunidad gamer a través de la formación y el entretenimiento.',
+    logo: '/assets/participan/Color/Empresas/haveFunGamers.png',
+    cardBg: '/assets/participan/BG-Sponsors/havefungamers.webp',
+    isSecret: false,
+    bussiness: 'Eventos y Consultoría de Esports',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://havefungamers.com/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/in/havefungamers/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/havefungamers',
+      },
+      {
+        rrss: 'X',
+        link: 'https://www.x.com/havefungamers/',
+      },
+    ],
+  },
+  {
+    name: 'FEJUVES',
+    tier: 'regular',
+    description:
+      'Federación nacional que representa y defiende los intereses de los jugadores de videojuegos y esports en España. Su objetivo es profesionalizar el sector, promover el juego responsable y fomentar la competición saludable a través de eventos y formación.',
+    logo: '/assets/participan/Color/Empresas/fejuves.png',
+    cardBg: '/assets/participan/BG-Sponsors/fejuves.webp',
+    isSecret: false,
+    bussiness: 'Federación de Esports y Videojuegos',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://fejuves.es/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/fejuves/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/fejuves/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://twitter.com/FejuvES',
+      },
+    ],
+  },
+  {
+    name: 'GDG Granada',
+    tier: 'regular',
+    description:
+      'Comunidad local de desarrolladores respaldada por Google. Se dedica a compartir conocimientos sobre tecnología a través de charlas, talleres y eventos como el DevFest, fomentando la colaboración y el aprendizaje en el ecosistema tecnológico de Granada.',
+    logo: '/assets/participan/Color/Empresas/gdcgranada.png',
+    cardBg: '/assets/participan/BG-Sponsors/gdg-granada.webp',
+    isSecret: false,
+    bussiness: 'Comunidad de Desarrolladores',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://gdggranada.com/',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/gdg-granada/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/GDGGranada',
+      },
+    ],
+  },
+  {
+    name: 'DEFC',
+    tier: 'regular',
+    description:
+      'Órgano de representación estudiantil de la Facultad de Ciencias de la UGR. Se encarga de canalizar las necesidades de los alumnos, dinamizar la vida universitaria mediante eventos y asegurar el cumplimiento de sus derechos académicos.',
+    logo: '/assets/participan/Color/Empresas/defc.png',
+    cardBg: '/assets/participan/BG-Sponsors/defc.webp',
+    isSecret: false,
+    bussiness: 'Representación Estudiantil',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://defc.ugr.es/',
+      },
+    ],
+  },
+  {
+    name: 'RadioLab UGR',
+    tier: 'regular',
+    description:
+      'Laboratorio de radio digital universitaria de la Universidad de Granada. Un espacio experimental y abierto que sirve como plataforma de comunicación para la comunidad académica y la ciudadanía, fomentando la divulgación científica y cultural.',
+    logo: '/assets/participan/Color/Empresas/radioLab.webp',
+    cardBg: '/assets/participan/BG-Sponsors/radiolab.webp',
+    isSecret: false,
+    bussiness: 'Radio y Medio de Comunicación UGR',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://radiolab.ugr.es/',
+      },
+      {
+        rrss: 'YouTube',
+        link: 'https://www.youtube.com/playlist?list=PLbkFIGlP1fzkTxXMvJkHiFfxnuw_lg3fe',
+      },
+      {
+        rrss: 'Facebook',
+        link: 'https://www.facebook.com/people/RadioLab-UGR/100063936763508/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://twitter.com/radiolabugr',
       },
     ],
   },
