@@ -34,8 +34,14 @@ const blogCollection = defineCollection({
       titleTwo: z.string(),
       paraFour: z.string(),
       paraFive: z.string(),
-      paraSix: z.string(),
+      paraSix: z.string().optional(),
     }),
+    socialLinks: z.object({
+      web: z.string().optional(),
+      twitter: z.string().optional(),
+      instagram: z.string().optional(),
+      tiktok: z.string().optional(),
+    }).optional(),
     quotes: z.object({
       quote: z.string(),
       author: z.string(),

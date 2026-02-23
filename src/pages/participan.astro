@@ -53,7 +53,11 @@ import {
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {sponsorsPlatinum.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+          {
+            sponsorsPlatinum.map((sponsor) => (
+              <SponsorCard sponsor={sponsor} />
+            ))
+          }
         </div>
       </div>
       <div>
@@ -73,7 +77,11 @@ import {
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {sponsorsSilver.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+          {
+            sponsorsSilver.map((sponsor) => (
+              <SponsorCard sponsor={sponsor} />
+            ))
+          }
         </div>
       </div>
       <div>
@@ -83,7 +91,11 @@ import {
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {sponsorsBronze.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+          {
+            sponsorsBronze.map((sponsor) => (
+              <SponsorCard sponsor={sponsor} />
+            ))
+          }
         </div>
       </div>
       <div>
@@ -95,9 +107,13 @@ import {
         <div
           class="w-full flex flex-col items-center justify-center md:flex-row md:flex-wrap"
         >
-          {sponsorsRegular.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+          {
+            sponsorsRegular.map((sponsor) => (
+              <SponsorCard sponsor={sponsor} />
+            ))
+          }
         </div>
-      </div>
+      </div> -->
     </main>
   </div>
 </Layout>

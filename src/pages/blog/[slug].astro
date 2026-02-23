@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import SocialButton from '../../components/SocialButton.astro';
 
 // Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -14,6 +15,16 @@ export async function getStaticPaths() {
 // Get the entry directly from the prop on render
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+const socialLinks = entry.data.socialLinks || {};
+const mappedLinks = socialLinks
+  ? [
+      socialLinks.web && { rrss: 'Web', link: socialLinks.web },
+      socialLinks.twitter && { rrss: 'X', link: socialLinks.twitter },
+      socialLinks.instagram && { rrss: 'Instagram', link: socialLinks.instagram },
+      socialLinks.tiktok && { rrss: 'TikTok', link: socialLinks.tiktok },
+    ].filter(Boolean)
+  : [];
 ---
 
 <Layout
@@ -107,7 +118,22 @@ const { Content } = await entry.render();
                   class="wow fadeInUp mb-8 text-base text-body-color dark:text-dark-6 text-justify"
                   data-wow-delay=".1s"
                 >
-                  {entry.data.postDetails.paraSix}
+                  {entry.data.postDetails.paraSix && (
+                    <p
+                      class="wow fadeInUp mb-8 text-base text-body-color dark:text-dark-6 text-justify"
+                      data-wow-delay=".1s"
+                    >
+                      {entry.data.postDetails.paraSix}
+                    </p>
+                  )}
+
+                  {mappedLinks.length > 0 && (
+                    <div class="wow fadeInUp mb-10 mt-6 flex items-center justify-center gap-6">
+                      {mappedLinks.map((sponsorLink: any) => (
+                        <SocialButton sponsorLink={sponsorLink} />
+                      ))}
+                    </div>
+                  )}
                 </p>
               </div>
             </div>

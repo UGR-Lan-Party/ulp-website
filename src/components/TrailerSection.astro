@@ -1,18 +1,26 @@
 ---
-import { darkStyles } from "../utils/all"
+import { darkStyles } from '../utils/all';
 ---
 
-<!-- ====== About Section Start -->
 <section
   id="about"
-  class={`bg-gray-1  ${darkStyles} pt-10 pb-2 lg:pt-[120px] lg:pb-[70px]`}
+  class={`bg-gray-1 ${darkStyles} pt-10 pb-2 lg:pt-[120px] lg:pb-[70px]`}
 >
-  <div class="container">
-    <div class="wow fadeInUp " data-wow-delay=".2s">
+  <div class="container mx-auto px-4">
+    <div class="wow fadeInUp" data-wow-delay=".2s">
       <div class="flex justify-center items-center">
-        <iframe class="max-w-[1200] max-h-[630px] relative dark:bg-white bg-[#01576C] rounded-lg p-2 w-[1280px] h-[720px]" width="1200" height="630" src="https://www.youtube-nocookie.com/embed/WnjzXopHa_0?si=sKSVZGucpf3yhTI5&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div
+          class="relative w-full max-w-[1200px] aspect-video dark:bg-white bg-[#01576C] rounded-xl p-2 shadow-2xl"
+        >
+          <iframe
+            class="w-full h-full rounded-lg"
+            src="https://www.youtube-nocookie.com/embed/WnjzXopHa_0?controls=1&rel=0&modestbranding=1"
+            title="Evento Trailer"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
