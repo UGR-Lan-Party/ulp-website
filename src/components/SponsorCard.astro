@@ -59,6 +59,7 @@ const descriptionWords = sponsor.description.split(' ');
   id="sponsor-card"
   class={`sponsor-card-${patternId} w-[444px] h-[677px] relative scale-[90%] md:scale-100`}
 >
+  <!-- ── SVG principal de la carta ─────────────────────────────── -->
   <svg
     class="absolute z-0 top-0 left-0"
     id="sponsor-card-shape"
@@ -113,6 +114,7 @@ const descriptionWords = sponsor.description.split(' ');
     </g>
   </svg>
 
+  <!-- ── Contenido de la carta ─────────────────────────────────── -->
   <section
     id="sponsor-card-info"
     class="flex flex-col items-center w-full h-[80%] my-20 text-white relative z-10"
