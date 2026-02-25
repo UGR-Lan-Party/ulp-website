@@ -25,7 +25,7 @@ const colors: Record<string, string> = {
   platinum: '[#CADCF1]',
   gold: '[#FFC002]',
   silver: '[#9a9ba0]',
-  bronze: '[#BB5522]',
+  bronze: '[#ee7c42]',
 };
 
 const diamondColors: Record<string, string> = {
@@ -99,7 +99,7 @@ const descriptionWords = sponsor.description.split(' ');
           width="444"
           height="677"
           preserveAspectRatio="xMidYMid slice"
-          class="blur-sm opacity-20"
+          class="blur-sm opacity-80"
         />
       </pattern>
     </defs>
@@ -132,7 +132,7 @@ const descriptionWords = sponsor.description.split(' ');
       </p>
       <p
         class="font-semibold text-xl text-center"
-        style={`color: ${tierColorHex};`}
+        style={`color: ${tierColorHex}; -webkit-text-stroke: 0.5px black;`}
       >
         {sponsor.bussiness}
       </p>
