@@ -52,7 +52,7 @@ export const Competitions: CompetitionData[] = [
     name: 'Minecraft',
     rules:
       'https://drive.google.com/file/d/1_eVDYx9was7lMLm0LiJzEakdfUdOOQ7f/view?usp=drive_link',
-    registration: 'https://forms.gle/iuYJNF8kDWtVwmZ16',
+    registration: 'https://forms.gle/X8fPY1enBJoHs7xD9',
     registrationPeriodOpen: true,
     participants: '',
     time: '15:30',
