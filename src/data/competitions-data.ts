@@ -248,8 +248,8 @@ export const Competitions: CompetitionData[] = [
     },
   },
   {
-    id: 'X2KO',
-    name: 'X2KO',
+    id: '2XKO',
+    name: '2XKO',
     rules:
       'https://drive.google.com/file/d/1BMqIb4iaA_J6lE0TXf_cLCXfJpnlTxdT/view?usp=sharing',
     registration: '',
@@ -257,8 +257,8 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     time: 'Todo el día',
     place: ['Aula -1.2', 'Bajando escaleras futbolín'],
-    backgroundImage: '/assets/competitions/backgrounds/x2ko.webp',
-    trophy: '/assets/models/X2KO.obj',
+    backgroundImage: '/assets/competitions/backgrounds/2xko.webp',
+    trophy: '/assets/models/2XKO.obj',
     awards: {
       first: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
       second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
@@ -453,10 +453,10 @@ export const CompetitionsCards: CompetitionCardData[] = [
     character: '/assets/competitions/characters/character-minecraft.webp',
   },
   {
-    id: 'X2KO',
-    card: '/assets/competitions/cards/x2ko.webp',
-    logo: '/assets/competitions/logos/x2ko.webp',
-    character: '/assets/competitions/characters/character-x2ko.webp',
+    id: '2XKO',
+    card: '/assets/competitions/cards/2xko.webp',
+    logo: '/assets/competitions/logos/2xko.webp',
+    character: '/assets/competitions/characters/character-2xko.webp',
   },
   {
     id: 'street-fighter',
