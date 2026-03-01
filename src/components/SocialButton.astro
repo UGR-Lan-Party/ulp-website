@@ -16,12 +16,12 @@ const { sponsorLink } = Astro.props as Props;
 // 🎨 Colores oficiales por red
 const hoverColors: Record<string, string> = {
   X: "hover:text-black dark:hover:text-white",
-  Instagram: "hover:text-pink-500",
-  Facebook: "hover:text-blue-600",
-  LinkedIn: "hover:text-blue-700",
-  TikTok: "hover:text-cyan-400",
-  YouTube: "hover:text-red-600",
-  Web: "hover:text-primary",
+  Instagram: "hover:text-pink-500 hover:dark:text-pink-400",
+  Facebook: "hover:text-blue-600 hover:dark:text-blue-400",
+  LinkedIn: "hover:text-blue-700 hover:dark:text-blue-500",
+  TikTok: "hover:text-cyan-400 hover:dark:text-cyan-300",
+  YouTube: "hover:text-red-600 hover:dark:text-red-500",
+  Web: "hover:text-primary hover:dark:text-primary",
 };
 
 const hoverClass = hoverColors[sponsorLink.rrss] ?? "hover:text-primary";
@@ -31,7 +31,7 @@ const hoverClass = hoverColors[sponsorLink.rrss] ?? "hover:text-primary";
   href={sponsorLink.link}
   target="_blank"
   rel="noopener noreferrer"
-  class={`text-gray-100 dark:text-gray-300 ${hoverClass}
+  class={`text-gray-300 dark:text-gray-600 ${hoverClass}
           transition-all duration-300 ease-in-out
           hover:scale-110`}
 >

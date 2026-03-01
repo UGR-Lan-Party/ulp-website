@@ -2,12 +2,6 @@
 import type { SponsorData } from '../data/sponsors.ts';
 import { secretSponsor } from '../data/sponsors.ts';
 import SocialButton from './SocialButton.astro';
-import { gsap } from 'gsap';
-import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
-import { SplitText } from 'gsap/SplitText';
-import { TextPlugin } from 'gsap/TextPlugin';
-
-gsap.registerPlugin(ScrambleTextPlugin, SplitText, TextPlugin);
 
 interface Props {
   sponsor: SponsorData;
