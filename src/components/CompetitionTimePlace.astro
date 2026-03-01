@@ -1,10 +1,22 @@
 ---
-// No props needed — content is fixed
+interface ScheduleItem {
+  time: string;
+  round: string;
+}
+
+interface Props {
+  place: string;
+  time: ScheduleItem[];
+}
+
+const { place, time } = Astro.props as Props;
+
+const hasPlace = place && place.trim() !== '';
+const hasSchedule = time && time.length > 0;
 ---
 
 <div class="location-card">
   <div class="card-inner">
-    <!-- Decorative background blobs -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
 
@@ -29,7 +41,13 @@
         </div>
         <div class="section-body">
           <p class="section-title">Ubicación</p>
-          <p class="section-value tbd">Zona por determinar</p>
+          {
+            hasPlace ? (
+              <p class="section-value">{place}</p>
+            ) : (
+              <p class="section-value tbd">Zona por determinar</p>
+            )
+          }
         </div>
       </div>
 
@@ -52,14 +70,31 @@
         </div>
         <div class="section-body">
           <p class="section-title">Horario</p>
-          <p class="section-value tbd">Por determinar</p>
+          {
+            hasSchedule ? (
+              <ul class="schedule-list">
+                {time.map((item) => (
+                  <li class="schedule-item">
+                    <span class="schedule-round">{item.round}</span>
+                    <span class="schedule-time">{item.time}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="section-value tbd">Por determinar</p>
+            )
+          }
         </div>
       </div>
 
-      <!-- Footer note -->
-      <p class="footer-note">
-        📣 Toda la información se actualizará próximamente
-      </p>
+      <!-- Footer note (only shown when data is missing) -->
+      {
+        (!hasPlace || !hasSchedule) && (
+          <p class="footer-note">
+            📣 Toda la información se actualizará próximamente
+          </p>
+        )
+      }
     </div>
   </div>
 </div>
@@ -85,7 +120,6 @@
     padding: 2rem;
   }
 
-  /* Decorative glowing blobs */
   .blob {
     position: absolute;
     border-radius: 50%;
@@ -118,7 +152,6 @@
     gap: 1.25rem;
   }
 
-  /* Header */
   .card-header {
     display: flex;
     align-items: center;
@@ -127,7 +160,6 @@
   }
 
   .card-label {
-    font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
     font-weight: 500;
     letter-spacing: 0.2em;
@@ -145,7 +177,6 @@
     );
   }
 
-  /* Sections */
   .section {
     display: flex;
     align-items: flex-start;
@@ -170,6 +201,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+    flex: 1;
   }
 
   .section-title {
@@ -194,7 +226,40 @@
     font-style: italic;
   }
 
-  /* Separator */
+  /* Schedule list */
+  .schedule-list {
+    list-style: none;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .schedule-item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
+  }
+
+  .schedule-time {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: #ffffff;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .schedule-round {
+    font-size: 0.75rem;
+    color: rgba(150, 193, 214, 0.75);
+    letter-spacing: 0.03em;
+  }
+
   .separator {
     height: 1px;
     background: linear-gradient(
@@ -206,7 +271,6 @@
     margin: 0.25rem 0;
   }
 
-  /* Footer note */
   .footer-note {
     font-size: 0.72rem;
     color: rgba(150, 193, 214, 0.6);

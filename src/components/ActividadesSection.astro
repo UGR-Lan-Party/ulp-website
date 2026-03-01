@@ -1,7 +1,7 @@
 ---
 import { darkStyles } from '../utils/all';
-import { schedules } from '../data/schedules';
-const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
+import { Competitions } from '../data/competitions-data.ts';
+const allTags = [...new Set(Competitions.flatMap((game) => game.tags))];
 ---
 
 <head>
@@ -399,15 +399,15 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
   <div class="schedule">
     <div class="games" id="gameList">
       {
-        schedules.map((game) => (
+        Competitions.map((game) => (
           <button
             class="game"
             data-tags={game.tags}
             data-name={game.name}
-            data-aula={game.aula}
+            data-place={game.place}
           >
             {game.name}
-            <span class="location">{game.aula}</span>
+            <span class="location">{game.place}</span>
           </button>
         ))
       }
@@ -424,4 +424,4 @@ const allTags = [...new Set(schedules.flatMap((game) => game.tags))];
   </div>
 </section>
 
-<script src="../scripts/schedule.js"></script>
+<!-- <script src="../scripts/schedule.js"></script> -->
