@@ -5,8 +5,9 @@ export interface CompetitionData {
   registration: string;
   registrationPeriodOpen: boolean;
   participants: string;
-  time: string;
-  place: string[];
+  schedule: { time: string; round: string }[];
+  place: string;
+  tags: string[];
   backgroundImage: string;
   trophy: string;
   awards?: Awards;
@@ -29,15 +30,15 @@ export interface Awards {
 export const Competitions: CompetitionData[] = [
   {
     id: 'ajedrez',
-    name: 'ajedrez',
+    name: 'Ajedrez',
     rules:
       'https://drive.google.com/file/d/17o4kUmzgLb0nZHfv500aAdQbF3zxf2kh/view?usp=drive_link',
     registration: 'https://forms.gle/hRk68DAWJcEAStmf7',
     registrationPeriodOpen: true,
-    participants:
-      'https://drive.google.com/file/d/1mfOE0-qC7HxUAxlkT0LbDkuDS4IxQJ0q/view?usp=sharing',
-    time: '15:30',
-    place: ['Aula B1', 'Prefabricadas patio'],
+    participants: '',
+    schedule: [{ time: '10:00 - 14:00', round: 'Torneo Ajedrez' }],
+    place: 'Sala de Juntas.',
+    tags: ['Competición'],
     backgroundImage: '/assets/competitions/backgrounds/ajedrez.webp',
     trophy: '/assets/models/minecraft.obj',
     awards: {
@@ -55,8 +56,9 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/X8fPY1enBJoHs7xD9',
     registrationPeriodOpen: true,
     participants: '',
-    time: '15:30',
-    place: ['Aula B1', 'Prefabricadas patio'],
+    schedule: [{ time: '14:30 - 16:30', round: 'Torneo Minecraft' }],
+    place: 'Prefabricada B1.',
+    tags: ['Competición', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/minecraft.webp',
     trophy: '/assets/models/minecraft.obj',
     awards: {
@@ -74,8 +76,12 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/v1iYnEvuJYjfChjC7',
     registrationPeriodOpen: true,
     participants: '',
-    time: '16:00',
-    place: ['Aula A1', 'Prefabricadas patio'],
+    schedule: [
+      { time: '16:30 - 20:00', round: 'Eliminatoria' },
+      { time: '20:00 - 21:00', round: 'Fase Final' },
+    ],
+    place: 'Prefabricada A1.',
+    tags: ['Competición', 'Switch 2'],
     backgroundImage: '/assets/competitions/backgrounds/mario-kart.webp',
     trophy: '/assets/models/mario-kart.obj',
     awards: {
@@ -96,8 +102,14 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/irjKuCsbp1pRMDh69',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Aula B1', 'Prefabricadas patio'],
+    schedule: [
+      { time: '10:00 - 14:00', round: 'Fase de Grupos' },
+      { time: '17:30 - 18:30', round: 'Semifinal I' },
+      { time: '18:30 - 19:30', round: 'Semifinal II' },
+      { time: '20:00 - 21:00', round: 'Final' },
+    ],
+    place: 'Prefabricada B1.',
+    tags: ['PC', 'Competición'],
     backgroundImage: '/assets/competitions/backgrounds/lol.webp',
     trophy: '/assets/models/league-of-legends.obj',
     awards: {
@@ -115,8 +127,14 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/LD8GxbuYMgMUxuxj8',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Aula A2', 'Prefabricadas patio'],
+    schedule: [
+      { time: '10:00 - 15:30', round: 'Fase de Grupos' },
+      { time: '17:00 - 18:00', round: 'Semifinal I' },
+      { time: '18:00 - 19:00', round: 'Semifinal II' },
+      { time: '19:00 - 20:00', round: 'Final' },
+    ],
+    place: 'Prefabricada A2.',
+    tags: ['PC', 'Competición'],
     backgroundImage: '/assets/competitions/backgrounds/valorant.webp',
     trophy: '/assets/models/valorant.obj',
     awards: {
@@ -138,8 +156,12 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/wEgWNqQRuq1ocoPp9',
     registrationPeriodOpen: true,
     participants: '',
-    time: '15:30',
-    place: ['Aula A2', 'Prefabricadas patio'],
+    schedule: [
+      { time: '15:30 - 18:00', round: 'Fase de Grupos' },
+      { time: '18:00 - 19:00', round: 'Final' },
+    ],
+    place: 'Prefabricada A2.',
+    tags: ['Competición', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/rocket-league.webp',
     trophy: '/assets/models/rocket-league.obj',
     awards: {
@@ -157,8 +179,12 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/HsQDEKmqzy92Ges47',
     registrationPeriodOpen: true,
     participants: '',
-    time: '16:00',
-    place: ['Aulas -1.1 y -1.2', 'Bajando escaleras futbolín'],
+    schedule: [
+      { time: '16:00 - 19:00', round: 'Fase de Grupos' },
+      { time: '19:00 - 20:00', round: 'Final' },
+    ],
+    place: 'Aulas -1.1 y -1.2.',
+    tags: ['Wii', 'Competición'],
     backgroundImage: '/assets/competitions/backgrounds/wii-tenis.webp',
     trophy: '/assets/models/wii-sports.obj',
     awards: {
@@ -179,8 +205,12 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/LmPpLQZMJSqLuzbw8',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Aulas -1.1 y -1.2', 'Bajando escaleras futbolín'],
+    schedule: [
+      { time: '10:00 - 13:00', round: 'Fase de Grupos' },
+      { time: '13:00 - 14:00', round: 'Final' },
+    ],
+    place: 'Aulas -1.1 y -1.2.',
+    tags: ['Wii', 'Competición'],
     backgroundImage: '/assets/competitions/backgrounds/wii-bolos.webp',
     trophy: '/assets/models/wii-sports.obj',
     awards: {
@@ -201,8 +231,12 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/psgLvwYrHsULbfDC7',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Aula -1.2', 'Bajando escaleras futbolín'],
+    schedule: [
+      { time: '10:00 - 19:00', round: 'Fase de Grupos' },
+      { time: '19:00 - 20:00', round: 'Final' },
+    ],
+    place: 'Aula -1.2.',
+    tags: ['Competición', 'Switch'],
     backgroundImage: '/assets/competitions/backgrounds/smash.webp',
     trophy: '/assets/models/smash.obj',
     awards: {
@@ -219,8 +253,12 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/TguVfCWCfjrMi92g6',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Aula B1', 'Prefabricadas patio'],
+    schedule: [
+      { time: '10:00 - 14:00', round: 'Fase de Grupos' },
+      { time: '15:30 - 16:30', round: 'Final' },
+    ],
+    place: 'Prefabricadas A1 y B1.',
+    tags: ['Competición', 'Móvil'],
     backgroundImage: '/assets/competitions/backgrounds/brawl-stars.webp',
     trophy: '/assets/models/brawl-stars.obj',
     awards: {
@@ -237,8 +275,12 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/J2o7v6bkZj51pXiBA',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Aula B1', 'Prefabricadas patio'],
+    schedule: [
+      { time: '10:00 - 14:00', round: 'Fase de Grupos' },
+      { time: '15:30 - 16:30', round: 'Final' },
+    ],
+    place: 'Prefabricada A1.',
+    tags: ['Competición', 'Móvil'],
     backgroundImage: '/assets/competitions/backgrounds/clash-royale.webp',
     trophy: '/assets/models/clash-royale.obj',
     awards: {
@@ -255,8 +297,9 @@ export const Competitions: CompetitionData[] = [
     registration: '',
     registrationPeriodOpen: true,
     participants: '',
-    time: 'Todo el día',
-    place: ['Aula -1.2', 'Bajando escaleras futbolín'],
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Aula -1.1.',
+    tags: ['Competición', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/2xko.webp',
     trophy: '/assets/models/2XKO.obj',
     awards: {
@@ -272,8 +315,9 @@ export const Competitions: CompetitionData[] = [
     registration: '',
     registrationPeriodOpen: true,
     participants: '',
-    time: 'Todo el día',
-    place: ['Aula -1.2', 'Bajando escaleras futbolín'],
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Aula -1.1.',
+    tags: ['Competición', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/f1.webp',
     trophy: '/assets/models/f1.obj',
     awards: {
@@ -290,8 +334,13 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/rWzswNKrAYvpgLRW6',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Entrada', 'Entrada çrejas patio'],
+    schedule: [
+      { time: '10:00 - 14:00', round: 'Fase de Grupos' },
+      { time: '15:00 - 16:30', round: 'Fase de Grupos' },
+      { time: '16:30 - 18:00', round: 'Final' },
+    ],
+    place: 'Entrada patio.',
+    tags: ['Competición', 'Móvil'],
     backgroundImage: '/assets/competitions/backgrounds/futbolin.webp',
     trophy: '/assets/models/futbolin.obj',
     awards: {
@@ -308,8 +357,9 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/hxri8zkoXdnoogD69',
     registrationPeriodOpen: true,
     participants: '',
-    time: '10:00',
-    place: ['Entrada', 'Entrada çrejas patio'],
+    schedule: [{ time: '10:00 - 14:00', round: 'Eliminatoria.' }],
+    place: 'Bajo de cafetería.',
+    tags: ['Competición', 'Aire Libre'],
     backgroundImage: '/assets/competitions/backgrounds/ping-pong.webp',
     trophy: '/assets/models/ping-pong.obj',
     awards: {
@@ -325,8 +375,9 @@ export const Competitions: CompetitionData[] = [
     registration: '',
     registrationPeriodOpen: true,
     participants: '',
-    time: 'Todo el día',
-    place: ['Aula -1.2', 'Bajando escaleras futbolín'],
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Aula -1.1.',
+    tags: ['Competición', 'Retro'],
     backgroundImage: '/assets/competitions/backgrounds/retro.webp',
     trophy: '',
     awards: {
@@ -342,8 +393,9 @@ export const Competitions: CompetitionData[] = [
     registration: '',
     registrationPeriodOpen: true,
     participants: '',
-    time: 'Todo el día',
-    place: ['Aula -1.2', 'Bajando escaleras futbolín'],
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Aula -1.1.',
+    tags: ['Competición', 'Retro'],
     backgroundImage: '/assets/competitions/backgrounds/street-fighter.webp',
     trophy: '',
     awards: {
@@ -360,8 +412,9 @@ export const Competitions: CompetitionData[] = [
     registration: '',
     registrationPeriodOpen: true,
     participants: '',
-    time: 'Todo el día',
-    place: ['Aula -1.2', 'Bajando escaleras futbolín'],
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Hall Edificio Principal.',
+    tags: ['Competición', 'VR'],
     backgroundImage: '/assets/competitions/backgrounds/beat-saber.webp',
     trophy: '',
     awards: {
@@ -378,8 +431,9 @@ export const Competitions: CompetitionData[] = [
     registration: 'https://forms.gle/PsfNEL5DswXSp4dH8',
     registrationPeriodOpen: true,
     participants: '',
-    time: 'Todo el día',
-    place: ['Aula -1.2', 'Bajando escaleras futbolín'],
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Prefabricada A2.',
+    tags: ['Competición'],
     backgroundImage: '/assets/competitions/backgrounds/hacking.webp',
     trophy: '',
     awards: {
