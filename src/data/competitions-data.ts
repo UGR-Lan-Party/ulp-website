@@ -299,7 +299,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
-    tags: ['Competición', 'PC'],
+    tags: ['Reto', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/2xko.webp',
     trophy: '/assets/models/2XKO.obj',
     awards: {
@@ -317,7 +317,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
-    tags: ['Competición', 'PC'],
+    tags: ['Reto', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/f1.webp',
     trophy: '/assets/models/f1.obj',
     awards: {
@@ -377,7 +377,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
-    tags: ['Competición', 'Retro'],
+    tags: ['Reto', 'Retro'],
     backgroundImage: '/assets/competitions/backgrounds/retro.webp',
     trophy: '',
     awards: {
@@ -395,7 +395,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
-    tags: ['Competición', 'Retro'],
+    tags: ['Reto', 'Retro'],
     backgroundImage: '/assets/competitions/backgrounds/street-fighter.webp',
     trophy: '',
     awards: {
@@ -414,7 +414,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Hall Edificio Principal.',
-    tags: ['Competición', 'VR'],
+    tags: ['Reto', 'VR'],
     backgroundImage: '/assets/competitions/backgrounds/beat-saber.webp',
     trophy: '',
     awards: {
@@ -435,6 +435,43 @@ export const Competitions: CompetitionData[] = [
     place: 'Prefabricada A2.',
     tags: ['Competición'],
     backgroundImage: '/assets/competitions/backgrounds/hacking.webp',
+    trophy: '',
+    awards: {
+      first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
+      second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
+      third: ['Llaveros e imanes frikis'],
+    },
+  },
+  {
+    id: 'tetris',
+    name: 'Tetris',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: true,
+    participants: '',
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Aula -1.1.',
+    tags: ['Reto'],
+    backgroundImage: '/assets/competitions/backgrounds/tetris.webp',
+    trophy: '',
+    awards: {
+      first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
+      second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
+      third: ['Llaveros e imanes frikis'],
+    },
+  },
+  {
+    id: 'cars',
+    name: 'CARS',
+    rules:
+      'https://drive.google.com/file/d/1IfoHrrR0FGOcC39AEaV_NWQU4qxXRhm3/view?usp=sharing',
+    registration: '',
+    registrationPeriodOpen: true,
+    participants: '',
+    schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
+    place: 'Aula -1.1.',
+    tags: ['Reto'],
+    backgroundImage: '/assets/competitions/backgrounds/cars.webp',
     trophy: '',
     awards: {
       first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
@@ -559,5 +596,17 @@ export const CompetitionsCards: CompetitionCardData[] = [
     card: '/assets/competitions/cards/ping-pong.webp',
     logo: '/assets/competitions/logos/ping-pong.webp',
     character: '/assets/competitions/characters/character-ping-pong.webp',
+  },
+  {
+    id: 'tetris',
+    card: '/assets/competitions/cards/tetris.webp',
+    logo: '/assets/competitions/logos/tetris.webp',
+    character: '/assets/competitions/characters/character-tetris.webp',
+  },
+  {
+    id: 'cars',
+    card: '/assets/competitions/cards/cars.webp',
+    logo: '/assets/competitions/logos/cars.webp',
+    character: '/assets/competitions/characters/character-cars.webp',
   },
 ];
