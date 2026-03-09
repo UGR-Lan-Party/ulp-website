@@ -1,0 +1,401 @@
+---
+import type { Activity } from '../data/activities.ts';
+import { activities } from '../data/activities.ts';
+
+const N = activities.length;
+---
+
+<!-- ════════════════════════════════════════════════════
+     OUTER: altura total = N actividades × 160vh
+     Cada actividad tiene 160vh de recorrido de scroll.
+════════════════════════════════════════════════════ -->
+<div id="timeline-outer" class="relative  bg-[#050810]" style={`height: calc(${N} * 160vh);`}>
+
+  <!-- ──────────────────────────────────────────────────
+       STICKY: el viewport fijo mientras dura el scroll
+  ────────────────────────────────────────────────── -->
+  <div id="timeline-sticky" class="sticky top-8 bottom-8 bg-[#050810] " style="height: 100vh;">
+
+    <!-- Fondo noise sutil -->
+    <div class="absolute inset-0 pointer-events-none z-0"
+      style="opacity:0.15; background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 180px;">
+    </div>
+
+    <!-- Layout principal -->
+    <div class="relative z-10 h-[80%] max-w-6xl mx-auto flex gap-8 md:gap-14 px-4 md:px-12 py-10">
+
+      <!-- ╔══════════════════════════════════════════╗
+           ║  COLUMNA IZQUIERDA — línea temporal      ║
+           ╚══════════════════════════════════════════╝ -->
+      <div id="tl-column" class="relative flex-shrink-0 " style="width: 76px;">
+
+        <!-- Linea base -->
+        <div id="tl-track"
+          class="absolute left-1/2 -translate-x-1/2 w-[2px] rounded-full bg-white/10"
+          style="top: 0; height: 0;">
+        </div>
+
+        <!-- Línea de progreso animada -->
+        <div id="tl-progress"
+          class="absolute left-1/2 -translate-x-1/2 w-[3px] rounded-full"
+          style="top: 0; height: 0; background: #00f5ff; box-shadow: 0 0 10px #00f5ff80; transition: background 0.4s, box-shadow 0.4s;">
+        </div>
+
+        <!-- Nodos de actividad (JS posiciona el top) -->
+        {activities.map((act, i) => (
+          <div class="tl-node absolute left-1/2 flex flex-col items-center z-10"
+            data-index={i} data-color={act.color}
+            style="transform: translateX(-50%); top: 0;">
+            <!-- Anillo exterior -->
+            <div class="node-ring w-11 h-11 rounded-full border-2 border-white/20 flex items-center justify-center relative">
+              <div class="node-dot w-[10px] h-[10px] rounded-full bg-white/30"></div>
+              <div class="node-glow absolute inset-[-4px] rounded-full opacity-0"
+                style={`background: radial-gradient(circle, ${act.color}45, transparent 65%);`}></div>
+            </div>
+            <span class="node-time text-[9px] font-mono text-white/30 mt-[5px] whitespace-nowrap">
+              {act.horario.inicio}
+            </span>
+          </div>
+        ))}
+
+        <!-- Nodo final -->
+        <div id="tl-node-end" class="absolute left-1/2 flex flex-col items-center z-10"
+          style="transform: translateX(-50%); top: 0;">
+          <div class="w-8 h-8 rounded-full border-2 border-white/20 flex items-center justify-center">
+            <div class="w-2 h-2 rounded-full bg-white/30"></div>
+          </div>
+          <span class="text-[9px] font-mono text-white/30 mt-[5px] whitespace-nowrap">
+            {activities[N - 1].horario.fin}
+          </span>
+        </div>
+
+      </div>
+
+      <!-- ╔══════════════════════════════════════════╗
+           ║  COLUMNA DERECHA — tarjetas              ║
+           ╚══════════════════════════════════════════╝ -->
+      <div id="tl-cards-area" class="flex-1 relative overflow-hidden">
+
+        {activities.map((act, i) => (
+          <div class="activity-card absolute inset-x-0"
+            data-index={i} data-color={act.color}
+            style="top: 0; bottom: 0; margin: auto; height: fit-content; transform: translateX(110%); opacity: 0; max-height: calc(100vh - 80px); overflow-y: auto; scrollbar-width: thin;">
+
+            <!-- Tarjeta -->
+            <div class="relative rounded-2xl overflow-hidden border border-white/10"
+              style={`background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); box-shadow: 0 0 0 1px ${act.color}18, 0 24px 70px rgba(0,0,0,0.65);`}>
+
+              <!-- Barra de color superior -->
+              <div class="h-[3px] w-full" style={`background: linear-gradient(90deg, ${act.color} 0%, ${act.color}00 80%);`}></div>
+
+              <div class="p-6 md:p-8">
+                <!-- Meta -->
+                <div class="flex items-start justify-between gap-4 mb-4">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-[11px] font-mono px-3 py-[5px] rounded-full border w-fit"
+                      style={`color:${act.color}; border-color:${act.color}45; background:${act.color}10;`}>
+                      {act.horario.inicio} → {act.horario.fin}
+                    </span>
+                    <div class="flex items-center gap-1.5 text-white/40 text-[11px] font-mono">
+                      <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                      {act.ubicacion}
+                    </div>
+                  </div>
+                  <span class="text-[72px] font-black leading-none select-none"
+                    style="color: rgba(255,255,255,0.035); font-family: 'Space Mono', monospace; margin-top: -8px;">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <!-- Título -->
+                <h3 class="text-2xl md:text-[1.75rem] font-black text-white mb-3 leading-tight"
+                  style="font-family: 'Space Mono', monospace;">
+                  {act.nombre}
+                </h3>
+
+                <!-- Descripción -->
+                <p class="text-white/55 text-[13px] leading-relaxed mb-5">
+                  {act.descripcion}
+                </p>
+
+                <!-- Grid de imágenes -->
+                <div class={`grid gap-2 ${act.imagenes.length <= 3 ? 'grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
+                  {act.imagenes.map((img, j) => (
+                    <div class="relative overflow-hidden rounded-xl" style="aspect-ratio: 16/9;">
+                      <img src={img} alt={`${act.nombre} img ${j+1}`}
+                        class="w-full h-full object-cover" loading="lazy"
+                        style="filter: contrast(1.05) saturate(1.1);" />
+                      <div class="absolute inset-0 opacity-[0.12] mix-blend-color"
+                        style={`background: ${act.color};`}></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Scanlines CRT -->
+              <div class="absolute inset-0 pointer-events-none"
+                style="opacity:0.02; background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, white 2px, white 3px);"></div>
+            </div>
+          </div>
+        ))}
+
+      </div>
+    </div><!-- /layout -->
+  </div><!-- /sticky -->
+</div><!-- /outer -->
+
+<!-- ════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════ -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<script>
+  declare const gsap: any;
+  declare const ScrollTrigger: any;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Parámetros de timing por tarjeta
+  // Cada tarjeta ocupa 1/N del total del scroll.
+  // Dentro de ese slot:
+  //   0%  → ENTER_END%  : entra deslizando desde la derecha
+  //   ENTER_END% → EXIT_START% : se mantiene estática (zona de lectura)
+  //   EXIT_START% → 100%       : sale deslizando hacia la derecha
+  //
+  // EXIT de tarjeta i termina en 100% de su slot = inicio del slot i+1.
+  // ENTER de tarjeta i+1 empieza en 0% de su slot = mismo punto.
+  // → Salida completa antes de que empiece la siguiente entrada.
+  // ─────────────────────────────────────────────────────────────────────────
+  const ENTER_END   = 0.12;   // entra en el primer 12% del slot
+  const EXIT_START  = 0.88;   // sale en el último 12% del slot
+
+  const GAMING_COLORS = ['#00f5ff','#ff006e','#8b5cf6','#f59e0b','#10b981','#ff4d00'];
+
+  /** Remapea v de [inA..inB] a [outA..outB], clampeado */
+  function remap(inA: number, inB: number, outA: number, outB: number, v: number): number {
+    const t = Math.max(0, Math.min(1, (v - inA) / (inB - inA)));
+    return outA + (outB - outA) * t;
+  }
+
+  function initTimeline() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initTimeline, 80);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+
+    const outer      = document.getElementById('timeline-outer');
+    const sticky     = document.getElementById('timeline-sticky');
+    const progressEl = document.getElementById('tl-progress');
+    const trackEl    = document.getElementById('tl-track');
+    const nodeEndEl  = document.getElementById('tl-node-end');
+    const cards      = Array.from(document.querySelectorAll<HTMLElement>('.activity-card'));
+    const nodes      = Array.from(document.querySelectorAll<HTMLElement>('.tl-node'));
+    const header     = document.getElementById('timeline-header');
+
+    if (!outer || !sticky || !progressEl || !cards.length) return;
+
+    const N = cards.length;
+
+    // ── Animar el header al entrar en viewport ──────────────────────────
+    gsap.timeline({
+      scrollTrigger: { trigger: header, start: 'top 88%', once: true },
+    })
+    .to('.tlh-sub',   { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0)
+    .to('.tlh-title', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.15)
+    .to('.tlh-line',  { width: 180,       duration: 1.0, ease: 'power3.out' }, 0.35);
+
+    // ── Calcular y aplicar posiciones de los nodos ──────────────────────
+    const PAD_TOP    = 44;
+    const PAD_BOTTOM = 56;
+
+    function positionNodes() {
+      const h      = sticky!.clientHeight;
+      const usable = h - PAD_TOP - PAD_BOTTOM;
+      const step   = usable / N;
+
+      // Actualizar track
+      if (trackEl) {
+        trackEl.style.top    = `${PAD_TOP}px`;
+        trackEl.style.height = `${usable}px`;
+        trackEl.style.bottom = 'auto';
+      }
+      if (progressEl) {
+        progressEl.style.top = `${PAD_TOP}px`;
+      }
+
+      // Posicionar nodos de inicio
+      nodes.forEach((node, i) => {
+        node.style.top = `${PAD_TOP + i * step}px`;
+      });
+
+      // Nodo final
+      if (nodeEndEl) {
+        nodeEndEl.style.top = `${PAD_TOP + N * step}px`;
+      }
+    }
+
+    positionNodes();
+
+    // ── ScrollTrigger principal ─────────────────────────────────────────
+    ScrollTrigger.create({
+      trigger : outer,
+      start   : 'top top',
+      end     : 'bottom bottom',
+      scrub   : 0.8,          // suavidad del scrub; > 0 = con inercia
+      onUpdate(self: any) {
+        const P         = self.progress;          // 0 → 1
+        const slotSize  = 1 / N;                  // fracción de P por tarjeta
+
+        // ── A. Línea de progreso ────────────────────────────────────────
+        const h      = sticky!.clientHeight;
+        const usable = h - PAD_TOP - PAD_BOTTOM;
+        progressEl!.style.height = `${Math.max(0, P * usable)}px`;
+
+        // Color de la línea según progreso
+        const ci    = Math.min(N - 1, Math.floor(P * N));
+        const color = GAMING_COLORS[ci % GAMING_COLORS.length];
+        const cprev = GAMING_COLORS[Math.max(0, ci - 1) % GAMING_COLORS.length];
+        progressEl!.style.background = `linear-gradient(180deg, ${cprev} 0%, ${color} 100%)`;
+        progressEl!.style.boxShadow  = `0 0 14px ${color}80`;
+
+        // ── B. Tarjetas: mapeo progress → translateX, opacity ───────────
+        // Cada tarjeta ocupa el slot [i*slotSize … (i+1)*slotSize] del progreso.
+        // Dentro del slot calculamos un "localP" en [0..1]:
+        //   localP < ENTER_END  → tarjeta entrando  (de 110% a 0%)
+        //   ENTER_END < localP < EXIT_START → tarjeta quieta (0%)
+        //   localP > EXIT_START → tarjeta saliendo (de 0% a 110%)
+        //   localP fuera de [0..1] → off-screen
+
+        cards.forEach((card, i) => {
+          const slotStart = i * slotSize;
+          const slotEnd   = slotStart + slotSize;
+          const localP    = (P - slotStart) / slotSize; // puede ser <0 o >1
+
+          let tx: number;
+          let op: number;
+
+          if (localP <= 0) {
+            // Aún no ha llegado el turno de esta tarjeta
+            tx = 110; op = 0;
+          } else if (localP < ENTER_END) {
+            // ENTRANDO desde la derecha
+            tx = remap(0, ENTER_END, 110, 0, localP);
+            op = remap(0, ENTER_END, 0, 1, localP);
+          } else if (localP < EXIT_START) {
+            // QUIETA — zona de lectura (76% del slot = ≈122vh de scroll)
+            tx = 0; op = 1;
+          } else if (localP < 1) {
+            // SALIENDO hacia la derecha
+            tx = remap(EXIT_START, 1, 0, 110, localP);
+            op = remap(EXIT_START, 1, 1, 0, localP);
+          } else {
+            // Ya ha pasado su slot
+            tx = 110; op = 0;
+          }
+
+          // Aplicar transform directamente (más eficiente con scrub que gsap.to)
+          card.style.transform = `translateX(${tx}%)`;
+          card.style.opacity   = `${Math.max(0, Math.min(1, op))}`;
+        });
+
+        // ── C. Nodos: iluminar al alcanzar su slot ──────────────────────
+        nodes.forEach((node, i) => {
+          const activated = P >= i * slotSize;
+          const c = GAMING_COLORS[i % GAMING_COLORS.length];
+
+          const ring = node.querySelector<HTMLElement>('.node-ring');
+          const dot  = node.querySelector<HTMLElement>('.node-dot');
+          const glow = node.querySelector<HTMLElement>('.node-glow');
+          const time = node.querySelector<HTMLElement>('.node-time');
+
+          if (activated) {
+            if (ring) { ring.style.borderColor = c; ring.style.boxShadow = `0 0 16px ${c}65, 0 0 32px ${c}25`; ring.style.transform = 'scale(1.12)'; }
+            if (dot)  { dot.style.backgroundColor = c; dot.style.transform = 'scale(1.4)'; }
+            if (glow) { glow.style.opacity = '1'; }
+            if (time) { time.style.color = c; time.style.opacity = '1'; }
+          } else {
+            if (ring) { ring.style.borderColor = 'rgba(255,255,255,0.18)'; ring.style.boxShadow = 'none'; ring.style.transform = 'scale(1)'; }
+            if (dot)  { dot.style.backgroundColor = 'rgba(255,255,255,0.28)'; dot.style.transform = 'scale(1)'; }
+            if (glow) { glow.style.opacity = '0'; }
+            if (time) { time.style.color = 'rgba(255,255,255,0.28)'; time.style.opacity = '0.6'; }
+          }
+        });
+
+        // Nodo final: se ilumina al llegar casi al 100%
+        if (nodeEndEl) {
+          const done = P >= 1 - slotSize * 0.1;
+          const lastColor = GAMING_COLORS[(N - 1) % GAMING_COLORS.length];
+          const er = nodeEndEl.querySelector<HTMLElement>(':scope > div');
+          if (er) {
+            er.style.borderColor = done ? lastColor : 'rgba(255,255,255,0.18)';
+            er.style.boxShadow   = done ? `0 0 14px ${lastColor}60` : 'none';
+          }
+        }
+      },
+    });
+
+    // ── Recalcular en resize ────────────────────────────────────────────
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        positionNodes();
+        ScrollTrigger.refresh();
+      }, 150);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initTimeline);
+  document.addEventListener('astro:page-load', initTimeline);
+</script>
+
+<style>
+  /* ── Tipografía base ── */
+  #timeline-header,
+  #timeline-sticky {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* ── Header animado ── */
+  .tlh-sub,
+  .tlh-title {
+    will-change: transform, opacity;
+  }
+
+  /* ── Nodos ── */
+  .tl-node,
+  #tl-node-end { will-change: top; }
+
+  .node-ring,
+  .node-dot,
+  .node-glow,
+  .node-time {
+    transition:
+      border-color   0.3s ease,
+      box-shadow     0.3s ease,
+      background-color 0.3s ease,
+      transform      0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      color          0.3s ease,
+      opacity        0.3s ease;
+  }
+
+  /* ── Tarjetas ── */
+  .activity-card {
+    will-change: transform, opacity;
+    /* scroll interno si la tarjeta es más alta que el viewport */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .activity-card::-webkit-scrollbar       { width: 3px; }
+  .activity-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+  /* ── Scrollbar global ── */
+  ::-webkit-scrollbar       { width: 4px; }
+  ::-webkit-scrollbar-track { background: #050810; }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 245, 255, 0.2); border-radius: 2px; }
+</style>
