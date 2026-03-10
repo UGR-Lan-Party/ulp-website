@@ -60,7 +60,7 @@ export const Competitions: CompetitionData[] = [
     place: 'Prefabricada B1.',
     tags: ['Competición', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/minecraft.webp',
-    trophy: '/assets/models/minecraft.obj',
+    trophy: '/assets/models/mc.obj',
     awards: {
       first: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
       second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
