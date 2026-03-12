@@ -1,0 +1,331 @@
+---
+import type { Activity } from '../data/activities.ts';
+import { marked } from 'marked';
+import SocialButton from './SocialButton.astro';
+
+interface Props {
+  act: Activity;
+  i: number;
+}
+
+const { act, i } = Astro.props;
+
+const descripcionHtml = marked.parse(act.descripcion);
+---
+
+<div
+  class="activity-card absolute inset-x-0"
+  data-index={i}
+  data-color={act.color}
+  style={`top: 0; bottom: 0; margin: auto; height: fit-content; transform: translateX(110%); opacity: 0; max-height: calc(100vh - 110px); overflow-y: auto; scrollbar-width: thin; --act-color: ${act.color};`}
+>
+
+  <div class="relative rounded-2xl overflow-hidden border border-white/10"
+    style={`background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); box-shadow: 0 0 0 1px ${act.color}18, 0 24px 70px rgba(0,0,0,0.65);`}>
+
+    <!-- Barra de color superior -->
+    <div class="h-[3px] w-full" style={`background: linear-gradient(90deg, ${act.color} 0%, ${act.color}00 80%);`}></div>
+
+    <div class="p-2 md:p-4 flex flex-col gap-2 md:gap-4">
+
+      <!-- Sección Superior -->
+      <div id="actividad-superior" class="flex flex-col  md:flex-row h-fit w-full justify-between gap-8">
+        <div id="hora-nombre" class="flex flex-col w-full flex-1 justify-around">
+          <div id="hora-lugar-aforo" class="flex flex-col md:flex-row md:space-between gap-2 md:pr-4 md:gap-8 items-center w-full h-auto">
+            <span class="text-xs md:text-md md:w-[163px] text-center px-2 py-1 md:px-3 md:py-2 rounded-full border-2"
+              style={`color:${act.color}; border-color:${act.color}45; background:${act.color}10;`}>
+              {act.horario.inicio} → {act.horario.fin}
+            </span>
+            <div class="flex items-center md:text-base text-xs w-full justify-around px-2 pb-2 md:pb-0 text-white/40 ">
+              <div class="flex items-center gap-1.5 text-white/40 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0" /></svg>
+                {act.ubicacion}
+              </div>
+              <div class="flex items-center gap-1.5 text-white/40">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" /><path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" /></svg>
+                <p class=" text-balance max-w-48">{act.aforo}</p>
+                <p class="hidden md:flex text-balance max-w-48"> personas</p>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-sm/4 md:text-2xl text-center font-semibold md:font-black text-white">
+            {act.nombre}
+          </h3>
+        </div>
+
+        {act.logo && (
+          <div class="flex-shrink-0 hidden md:flex w-[184px] h-[104px] md:w-[230px] md:h-[130px] items-center justify-center rounded-xl overflow-hidden p-2"
+            style={`background: ${act.color}10; border: 1px solid ${act.color}25;`}>
+            <img src={act.logo} alt="Logo del evento"
+              class="w-full h-full object-contain" style="filter: brightness(1.1);" />
+          </div>
+        )}
+      </div>
+
+      <!-- Descripción -->
+      <div class="descripcion max-h-[180px] md:max-h-[260px] md:text-base text-xs/3 md:overflow-hidden overflow-scroll text-center text-balance text-white/55 leading-relaxed mb-2" set:html={descripcionHtml} />
+
+      <!-- Parte inferior: ponentes + imágenes -->
+      <div id="parte-inferior-actividad" class="flex md:border-t w-full md:border-white/10 pt-0  md:pt-4">
+
+        {act.ponentes.length > 0 && (
+          <div class="md:mr-6 w-full md:w-fit flex flex-col items-center justify-center md:border-r border-white/10 md:pr-6">
+            <h4 class="text-white/40 text-sm font-bold uppercase tracking-wide mb-3"
+              style="font-family: 'Space Mono', monospace;">
+              Ponentes
+            </h4>
+            <div class="flex gap-2 w-[162px] md:w-fit md:overflow-hidden overflow-x-auto h-52 md:h-60">
+              {act.ponentes.map((ponente) =>
+                <div class="flex flex-col items-center gap-1 p-1 md:gap-2 md:p-2 rounded-xl border"
+                  style={`background: ${act.color}08; border-color: ${act.color}20;`}>
+                  {ponente.image && (
+                    <div class="flex-shrink-0 w-24 h-24 rounded-full overflow-hidden border-2"
+                      style={`border-color: ${act.color}50;`}>
+                      <img src={ponente.image} alt={ponente.nombre} class="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div class="flex-1 w-36 gap-1 text-center">
+                    <p class="text-white text-sm md:text-base font-bold leading-tight mb-1">{ponente.nombre}</p>
+                    <p class="text-white/60 text-xs font-light leading-tight">{ponente.role}</p>
+                  </div>
+                  {ponente.links && ponente.links.length > 0 && (
+                    <div class="flex gap-2">
+                      {ponente.links.map((link) => <SocialButton sponsorLink={link} />)}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <!-- Grid de imágenes -->
+        <div class="md:flex flex-col flex-1 hidden ">
+          <h4 class="text-white/40 text-sm font-bold uppercase tracking-wide mb-3"
+            style="font-family: 'Space Mono', monospace;">
+            Imágenes
+          </h4>
+
+          <div class="grid grid-cols-3 gap-2 h-60">
+            {act.imagenes.length === 1 ? (
+              <button
+                class="img-trigger col-span-3 relative overflow-hidden rounded-xl group"
+                data-src={act.imagenes[0]}
+                data-alt={`${act.nombre} img 1`}
+                aria-label="Ver imagen en grande"
+              >
+                <img src={act.imagenes[0]} alt={`${act.nombre} img 1`}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy" style="filter: contrast(1.05) saturate(1.1);" />
+                <div class="absolute inset-0 opacity-[0.12] mix-blend-color" style={`background: ${act.color};`}></div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style="background: rgba(0,0,0,0.4);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
+                  </svg>
+                </div>
+              </button>
+            ) : (
+              <>
+                <button
+                  class="img-trigger col-span-2 relative overflow-hidden rounded-xl group"
+                  data-src={act.imagenes[0]}
+                  data-alt={`${act.nombre} img 1`}
+                  aria-label="Ver imagen en grande"
+                >
+                  <img src={act.imagenes[0]} alt={`${act.nombre} img 1`}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy" style="filter: contrast(1.05) saturate(1.1);" />
+                  <div class="absolute inset-0 opacity-[0.12] mix-blend-color" style={`background: ${act.color};`}></div>
+                  <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style="background: rgba(0,0,0,0.4);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
+                    </svg>
+                  </div>
+                </button>
+
+                <button
+                  class="img-trigger col-span-1 relative overflow-hidden rounded-xl group"
+                  data-src={act.imagenes[1]}
+                  data-alt={`${act.nombre} img 2`}
+                  aria-label="Ver imagen en grande"
+                >
+                  <img src={act.imagenes[1]} alt={`${act.nombre} img 2`}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy" style="filter: contrast(1.05) saturate(1.1);" />
+                  <div class="absolute inset-0 opacity-[0.12] mix-blend-color" style={`background: ${act.color};`}></div>
+                  <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style="background: rgba(0,0,0,0.4);">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
+                    </svg>
+                  </div>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scanlines CRT -->
+    <div class="absolute inset-0 pointer-events-none"
+      style="opacity:0.02; background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, white 2px, white 3px);"></div>
+  </div>
+</div>
+
+<script>
+  // ─────────────────────────────────────────────────────────────────────
+  // Modal global: se inyecta UNA SOLA VEZ en el <body> mediante JS.
+  // Así no importa cuántas tarjetas haya — siempre hay un único modal
+  // que se reutiliza para todas las imágenes de todas las actividades.
+  // ─────────────────────────────────────────────────────────────────────
+  function initImageModal() {
+    if ((window as any).__imgModalInit) return;
+    (window as any).__imgModalInit = true;
+
+    // ── Crear el modal y añadirlo al body ──────────────────────────────
+    const modal = document.createElement('div');
+    modal.id = 'img-modal-global';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Imagen ampliada');
+    modal.innerHTML = `
+      <!-- Backdrop -->
+      <div id="img-modal-backdrop"
+        style="position:absolute; inset:0; cursor:pointer;"></div>
+
+      <!-- Contenedor imagen -->
+      <div style="position:relative; z-index:10; max-width:90vw; width:100%; display:flex; align-items:flex-start; justify-content:center;">
+
+        <!-- Botón cerrar: X negra con borde blanco, esquina superior derecha -->
+        <button id="img-modal-close" aria-label="Cerrar imagen"
+          style="
+            position:absolute;
+            top: -18px;
+            right: -18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #000;
+            border: 2px solid rgba(255,255,255,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+            transition: transform 0.15s ease, background 0.15s ease;
+          ">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="white" stroke-width="3" stroke-linecap="round">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+
+        <img id="img-modal-img"
+          src="" alt=""
+          style="
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 0 80px rgba(0,0,0,0.9);
+            display: block;
+          "
+        />
+      </div>
+    `;
+
+    // Estilos del contenedor principal del modal
+    Object.assign(modal.style, {
+      position:       'fixed',
+      inset:          '0',
+      zIndex:         '9999',
+      display:        'none',
+      alignItems:     'center',
+      justifyContent: 'center',
+      background:     'rgba(0,0,0,0.88)',
+      backdropFilter: 'blur(10px)',
+      opacity:        '0',
+      transition:     'opacity 0.22s ease',
+    });
+
+    document.body.appendChild(modal);
+
+    const modalImg  = document.getElementById('img-modal-img')    as HTMLImageElement;
+    const closeBtn  = document.getElementById('img-modal-close')  as HTMLButtonElement;
+    const backdrop  = document.getElementById('img-modal-backdrop') as HTMLDivElement;
+
+    // ── Hover en el botón cerrar ───────────────────────────────────────
+    closeBtn.addEventListener('mouseenter', () => {
+      closeBtn.style.transform = 'scale(1.1)';
+      closeBtn.style.background = '#222';
+    });
+    closeBtn.addEventListener('mouseleave', () => {
+      closeBtn.style.transform = 'scale(1)';
+      closeBtn.style.background = '#000';
+    });
+
+    // ── Abrir / Cerrar ─────────────────────────────────────────────────
+    function openModal(src: string, alt: string) {
+      modalImg.src = src;
+      modalImg.alt = alt;
+      modal.style.display = 'flex';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        modal.style.opacity = '1';
+      }));
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.style.opacity = '0';
+      setTimeout(() => {
+        modal.style.display = 'none';
+        modalImg.src = '';
+        document.body.style.overflow = '';
+      }, 220);
+    }
+
+    // ── Eventos ────────────────────────────────────────────────────────
+    // Delegación: funciona para cualquier .img-trigger del documento,
+    // sin importar qué actividad esté activa en el sticky scroll.
+    document.addEventListener('click', (e) => {
+      const trigger = (e.target as Element).closest<HTMLElement>('.img-trigger');
+      if (trigger) {
+        openModal(trigger.dataset.src ?? '', trigger.dataset.alt ?? '');
+      }
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display !== 'none') closeModal();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initImageModal);
+  document.addEventListener('astro:page-load', initImageModal);
+</script>
+
+<style>
+  .img-trigger {
+    cursor: zoom-in;
+  }
+
+  /* Links del markdown usan el color de la actividad */
+  .descripcion :global(a) {
+    color: var(--act-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s;
+    opacity: 0.9;
+  }
+  .descripcion :global(a:hover)  { opacity: 1; }
+  .descripcion :global(strong)   { color: white; font-weight: 700; }
+  .descripcion :global(em)       { color: rgba(255,255,255,0.75); }
+  .descripcion :global(p + p)    { margin-top: 0.5em; }
+</style>

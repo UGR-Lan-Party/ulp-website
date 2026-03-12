@@ -1,5 +1,5 @@
 ---
-import type { SponsorLink } from '../data/sponsors.ts';
+import type { RRSSLink } from '../data/sponsors.ts';
 import XIcon from '../../public/assets/icons/XIcon.astro';
 import FacebookIcon from '../../public/assets/icons/FacebookIcon.astro';
 import InstagramIcon from '../../public/assets/icons/InstagramIcon.astro';
@@ -9,22 +9,22 @@ import LinkedInIcon from '../../public/assets/icons/LinkedInIcon.astro';
 import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
 
 interface Props {
-  sponsorLink: SponsorLink;
+  sponsorLink: RRSSLink;
 }
 const { sponsorLink } = Astro.props as Props;
 
 // 🎨 Colores oficiales por red
 const hoverColors: Record<string, string> = {
-  X: "hover:text-black dark:hover:text-white",
-  Instagram: "hover:text-pink-500 hover:dark:text-pink-400",
-  Facebook: "hover:text-blue-600 hover:dark:text-blue-400",
-  LinkedIn: "hover:text-blue-700 hover:dark:text-blue-500",
-  TikTok: "hover:text-cyan-400 hover:dark:text-cyan-300",
-  YouTube: "hover:text-red-600 hover:dark:text-red-500",
-  Web: "hover:text-primary hover:dark:text-primary",
+  X: 'hover:text-black dark:hover:text-white',
+  Instagram: 'hover:text-pink-500 hover:dark:text-pink-400',
+  Facebook: 'hover:text-blue-600 hover:dark:text-blue-400',
+  LinkedIn: 'hover:text-blue-700 hover:dark:text-blue-500',
+  TikTok: 'hover:text-cyan-400 hover:dark:text-cyan-300',
+  YouTube: 'hover:text-red-600 hover:dark:text-red-500',
+  Web: 'hover:text-primary hover:dark:text-primary',
 };
 
-const hoverClass = hoverColors[sponsorLink.rrss] ?? "hover:text-primary";
+const hoverClass = hoverColors[sponsorLink.rrss] ?? 'hover:text-primary';
 ---
 
 <a
