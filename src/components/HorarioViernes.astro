@@ -1,0 +1,464 @@
+---
+import { activities } from '../data/activities.ts';
+import ActivityCard from './ActivityCard.astro';
+
+const N = activities.length;
+---
+
+<!-- ════════════════════════════════════════════════════
+     HEADER ESTÁTICO (fuera del sticky, se scrollea)
+════════════════════════════════════════════════════ -->
+<div
+  id="timeline-header"
+  class="bg-[#050810] pt-12 pb-12 px-4 text-center overflow-hidden"
+>
+  <p
+    class="tlh-sub text-xs tracking-[0.4em] text-[#0facfa] uppercase font-mono mb-3"
+    style="opacity:0; transform: translateY(16px);"
+  >
+    Programa Oficial
+  </p>
+  <h2
+    class="tlh-title text-3xl md:text-5xl font-black uppercase text-white leading-none"
+    style="font-family: 'Space Mono', monospace; letter-spacing: -0.02em; opacity:0; transform: translateY(16px);"
+  >
+    Viernes 20 de Marzo
+  </h2>
+  <div
+    class="tlh-line mx-auto mt-5 h-[2px] bg-gradient-to-r from-transparent via-[#0facfa] to-transparent"
+    style="width: 0px;"
+  >
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     OUTER: altura total = N actividades × 160vh
+════════════════════════════════════════════════════ -->
+<div
+  id="timeline-outer"
+  class="relative bg-[#050810]"
+  style={`height: calc(${N} * 160vh);`}
+>
+  <!-- ──────────────────────────────────────────────────
+       STICKY: el viewport fijo mientras dura el scroll
+  ────────────────────────────────────────────────── -->
+  <div
+    id="timeline-sticky"
+    class="sticky bg-[#050810] overflow-hidden"
+    style="top: 90px; height: calc(100vh - 90px);"
+  >
+    <!-- Fondo noise sutil -->
+    <div
+      class="absolute inset-0 pointer-events-none z-0"
+      style="opacity:0.15; background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 180px;"
+    >
+    </div>
+
+    <!-- Layout principal -->
+    <div
+      class="relative z-10 h-full max-w-6xl mx-auto flex gap-8 md:gap-14 px-4 md:px-12 py-10"
+    >
+      <!-- ╔══════════════════════════════════════════╗
+           ║  COLUMNA IZQUIERDA — línea temporal      ║
+           ╚══════════════════════════════════════════╝ -->
+      <div id="tl-column" class="relative flex-shrink-0" style="width: 110px;">
+        <!-- Track base (fondo gris, siempre visible) -->
+        <div
+          id="tl-track"
+          class="absolute w-[2px] rounded-full bg-white/10"
+          style="left: 21px; top: 0; height: 0;"
+        >
+        </div>
+
+        <!-- CAMBIO 1: contenedor de segmentos de color.
+             El antiguo #tl-progress se elimina.
+             JS inyecta aquí un div por cada tramo nodo→nodo. -->
+        <div id="tl-segments" class="absolute inset-0 pointer-events-none">
+        </div>
+
+        <!-- Nodos de actividad (JS posiciona el top) -->
+        {
+          activities.map((act, i) => (
+            <div
+              class="tl-node absolute flex items-center z-10"
+              data-index={i}
+              data-color={act.color}
+              style="left: 0; top: 0;"
+            >
+              <div class="node-ring w-11 h-11 rounded-full border-2 border-white/20 flex items-center justify-center relative flex-shrink-0">
+                <div class="node-dot w-[10px] h-[10px] rounded-full bg-white/30" />
+                <div
+                  class="node-glow absolute inset-[-4px] rounded-full opacity-0"
+                  style={`background: radial-gradient(circle, ${act.color}45, transparent 65%);`}
+                />
+              </div>
+
+              <span class="node-time text-sm font-mono font-bold text-white/40 ml-3 whitespace-nowrap leading-none">
+                {act.horario.inicio}
+              </span>
+            </div>
+          ))
+        }
+
+        <!-- Nodo final -->
+        <div
+          id="tl-node-end"
+          class="absolute flex items-center z-10"
+          style="left: 3px; top: 0;"
+        >
+          <div
+            class="w-8 h-8 rounded-full border-2 border-white/20 flex items-center justify-center flex-shrink-0"
+            style="margin-left: 3px;"
+          >
+            <div class="w-[10px] h-[10px] rounded-full bg-white/30"></div>
+          </div>
+          <span
+            class="text-sm font-mono font-bold text-white/40 ml-3 whitespace-nowrap leading-none"
+          >
+            {activities[N - 1].horario.fin}
+          </span>
+        </div>
+      </div>
+
+      <!-- ╔══════════════════════════════════════════╗
+           ║  COLUMNA DERECHA — tarjetas              ║
+           ╚══════════════════════════════════════════╝ -->
+      <div id="tl-cards-area" class="flex-1 relative overflow-hidden">
+        {activities.map((act, i) => <ActivityCard act={act} i={i} />)}
+      </div>
+    </div><!-- /layout -->
+  </div><!-- /sticky -->
+</div><!-- /outer -->
+
+<!-- ════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════ -->
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<script>
+  declare const gsap: any;
+  declare const ScrollTrigger: any;
+
+  const ENTER_END = 0.22;
+  const EXIT_START = 0.78;
+
+  function getActivityColors(): string[] {
+    return Array.from(document.querySelectorAll<HTMLElement>('.tl-node')).map(
+      (n) => n.dataset.color ?? '#00f5ff',
+    );
+  }
+
+  function remap(
+    inA: number,
+    inB: number,
+    outA: number,
+    outB: number,
+    v: number,
+  ): number {
+    const t = Math.max(0, Math.min(1, (v - inA) / (inB - inA)));
+    return outA + (outB - outA) * t;
+  }
+
+  function initTimeline() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initTimeline, 80);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+
+    const outer = document.getElementById('timeline-outer');
+    const sticky = document.getElementById('timeline-sticky');
+    const trackEl = document.getElementById('tl-track');
+    const segmentsContainer = document.getElementById('tl-segments')!; // CAMBIO 2
+    const nodeEndEl = document.getElementById('tl-node-end');
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>('.activity-card'),
+    );
+    const nodes = Array.from(
+      document.querySelectorAll<HTMLElement>('.tl-node'),
+    );
+    const header = document.getElementById('timeline-header');
+
+    if (!outer || !sticky || !cards.length) return;
+
+    const N = cards.length;
+    const GAMING_COLORS = getActivityColors();
+
+    // ── Animar header ───────────────────────────────────────────────────
+    gsap
+      .timeline({
+        scrollTrigger: { trigger: header, start: 'top 88%', once: true },
+      })
+      .to(
+        '.tlh-sub',
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
+        0,
+      )
+      .to(
+        '.tlh-title',
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+        0.15,
+      )
+      .to('.tlh-line', { width: 180, duration: 1.0, ease: 'power3.out' }, 0.35);
+
+    // ── Posicionado de nodos y segmentos ────────────────────────────────
+    const tlColumn = document.getElementById('tl-column')!;
+    const NODE_PAD = 28;
+
+    // CAMBIO 2: array de segmentos creados por JS
+    const segments: HTMLElement[] = [];
+
+    function positionNodes() {
+      const colH = tlColumn.clientHeight;
+      const usable = colH - NODE_PAD * 2;
+      const step = usable / N;
+
+      // Track base
+      if (trackEl) {
+        trackEl.style.top = `${NODE_PAD}px`;
+        trackEl.style.height = `${usable}px`;
+        trackEl.style.bottom = 'auto';
+      }
+
+      // Nodos
+      nodes.forEach((node, i) => {
+        node.style.top = `${NODE_PAD + i * step - 22}px`;
+      });
+      if (nodeEndEl) {
+        nodeEndEl.style.top = `${NODE_PAD + N * step - 22}px`;
+      }
+
+      // CAMBIO 2: reconstruir segmentos (también al hacer resize)
+      // Cada segmento va del nodo i al nodo i+1 con el gradiente entre sus colores.
+      segmentsContainer.innerHTML = '';
+      segments.length = 0;
+
+      for (let i = 0; i < N; i++) {
+        const colorFrom = GAMING_COLORS[i % GAMING_COLORS.length];
+        // El último segmento termina en el color del nodo final (mismo que último nodo)
+        const colorTo = GAMING_COLORS[(i + 1) % GAMING_COLORS.length];
+
+        const segTop = NODE_PAD + i * step; // alineado con el centro del nodo
+        const maxHeight = step; // distancia exacta hasta el siguiente nodo
+
+        const seg = document.createElement('div');
+        seg.style.cssText = `
+          position: absolute;
+          left: 21px;
+          top: ${segTop}px;
+          width: 3px;
+          height: 0px;
+          max-height: ${maxHeight}px;
+          border-radius: 9999px;
+          background: linear-gradient(180deg, ${colorFrom} 0%, ${colorTo} 100%);
+          box-shadow: none;
+          transform-origin: top;
+          will-change: height;
+        `;
+        segmentsContainer.appendChild(seg);
+        segments.push(seg);
+      }
+    }
+
+    positionNodes();
+
+    // ── ScrollTrigger principal ─────────────────────────────────────────
+    ScrollTrigger.create({
+      trigger: outer,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.8,
+      onUpdate(self: any) {
+        const P = self.progress;
+        const slotSize = 1 / N;
+        const maxH = (tlColumn.clientHeight - NODE_PAD * 2) / N;
+
+        // ── A. Segmentos de color ───────────────────────────────────────
+        // Cada segmento solo crece dentro de su slot. El gradiente está
+        // fijado a la altura máxima del div, CSS lo recorta desde arriba
+        // conforme height va de 0 → maxH, revelando colorFrom → colorTo.
+        segments.forEach((seg, i) => {
+          const localP = (P - i * slotSize) / slotSize; // [0..1] dentro del slot
+          const filledH = Math.max(0, Math.min(1, localP)) * maxH;
+
+          seg.style.height = `${filledH}px`;
+
+          // Glow: transiciona entre los dos colores del tramo
+          if (localP > 0 && localP <= 1) {
+            const colorFrom = GAMING_COLORS[i % GAMING_COLORS.length];
+            const colorTo = GAMING_COLORS[(i + 1) % GAMING_COLORS.length];
+            const glowColor = localP < 0.5 ? colorFrom : colorTo;
+            seg.style.boxShadow = `0 0 10px ${glowColor}90`;
+          } else {
+            seg.style.boxShadow = 'none';
+          }
+        });
+
+        // ── B. Tarjetas ─────────────────────────────────────────────────
+        cards.forEach((card, i) => {
+          const localP = (P - i * slotSize) / slotSize;
+          let tx: number, op: number;
+
+          if (localP <= 0) {
+            tx = 110;
+            op = 0;
+          } else if (localP < ENTER_END) {
+            tx = remap(0, ENTER_END, 110, 0, localP);
+            op = remap(0, ENTER_END, 0, 1, localP);
+          } else if (localP < EXIT_START) {
+            tx = 0;
+            op = 1;
+          } else if (localP < 1) {
+            tx = remap(EXIT_START, 1, 0, 110, localP);
+            op = remap(EXIT_START, 1, 1, 0, localP);
+          } else {
+            tx = 110;
+            op = 0;
+          }
+
+          card.style.transform = `translateX(${tx}%)`;
+          card.style.opacity = `${Math.max(0, Math.min(1, op))}`;
+        });
+
+        // ── C. Nodos ────────────────────────────────────────────────────
+        nodes.forEach((node, i) => {
+          const activated = P >= i * slotSize;
+          const c = GAMING_COLORS[i % GAMING_COLORS.length];
+
+          const ring = node.querySelector<HTMLElement>('.node-ring');
+          const dot = node.querySelector<HTMLElement>('.node-dot');
+          const glow = node.querySelector<HTMLElement>('.node-glow');
+          const time = node.querySelector<HTMLElement>('.node-time');
+
+          if (activated) {
+            if (ring) {
+              ring.style.borderColor = c;
+              ring.style.boxShadow = `0 0 16px ${c}65, 0 0 32px ${c}25`;
+              ring.style.transform = 'scale(1.12)';
+            }
+            if (dot) {
+              dot.style.backgroundColor = c;
+              dot.style.transform = 'scale(1.4)';
+            }
+            if (glow) {
+              glow.style.opacity = '1';
+            }
+            if (time) {
+              time.style.color = c;
+              time.style.opacity = '1';
+            }
+          } else {
+            if (ring) {
+              ring.style.borderColor = 'rgba(255,255,255,0.18)';
+              ring.style.boxShadow = 'none';
+              ring.style.transform = 'scale(1)';
+            }
+            if (dot) {
+              dot.style.backgroundColor = 'rgba(255,255,255,0.28)';
+              dot.style.transform = 'scale(1)';
+            }
+            if (glow) {
+              glow.style.opacity = '0';
+            }
+            if (time) {
+              time.style.color = 'rgba(255,255,255,0.28)';
+              time.style.opacity = '0.6';
+            }
+          }
+        });
+
+        // Nodo final
+        if (nodeEndEl) {
+          const done = P >= 1 - slotSize * 0.1;
+          const lastColor = GAMING_COLORS[(N - 1) % GAMING_COLORS.length];
+          const er = nodeEndEl.querySelector<HTMLElement>(':scope > div');
+          if (er) {
+            er.style.borderColor = done ? lastColor : 'rgba(255,255,255,0.18)';
+            er.style.boxShadow = done ? `0 0 14px ${lastColor}60` : 'none';
+          }
+        }
+      },
+    });
+
+    // ── Resize ──────────────────────────────────────────────────────────
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        positionNodes(); // recrea los segmentos con las nuevas medidas
+        ScrollTrigger.refresh();
+      }, 150);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initTimeline);
+  document.addEventListener('astro:page-load', initTimeline);
+</script>
+
+<style>
+  #timeline-header,
+  #timeline-sticky {
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  .tlh-sub,
+  .tlh-title {
+    will-change: transform, opacity;
+  }
+
+  .tl-node,
+  #tl-node-end {
+    will-change: top;
+  }
+
+  .node-ring,
+  .node-dot,
+  .node-glow,
+  .node-time {
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease,
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      color 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .activity-card {
+    will-change: transform, opacity;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  }
+  .activity-card::-webkit-scrollbar {
+    width: 3px;
+  }
+  .activity-card::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050810;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 245, 255, 0.2);
+    border-radius: 2px;
+  }
+</style>

@@ -6,10 +6,10 @@ export interface SponsorData {
   isSecret: boolean;
   bussiness: string;
   description: string;
-  links: SponsorLink[];
+  links: RRSSLink[];
 }
 
-export interface SponsorLink {
+export interface RRSSLink {
   rrss: string;
   link: string;
 }
