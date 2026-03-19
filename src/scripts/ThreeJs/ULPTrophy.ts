@@ -1,74 +1,40 @@
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 
 export class ULPTrophy extends THREE.Object3D {
   constructor(competition: string) {
     super();
 
+    // competition sería la ruta sin extensión, ej: '/assets/models/TrofeoULP'
+    // O puedes seguir pasando la ruta del .obj y derivar el .mtl
+    const mtlPath = competition.replace('.obj', '.mtl');
 
-    const trophy = new OBJLoader();
-    trophy.load(competition, (object: THREE.Object3D) => {
-      object.traverse((child: THREE.Object3D) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = new THREE.MeshPhysicalMaterial({
-            color: 0xffd700,
-            emissive: 0x322b06,
-            roughness: 0.3,
-            metalness: 0.8,
-            reflectivity: 0,
-          });
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
+    // --- Trofeo principal ---
+    const trophyMtlLoader = new MTLLoader();
+    trophyMtlLoader.load(mtlPath, (materials) => {
+      materials.preload();
+
+      // Forzar DoubleSide en todos los materiales del MTL
+      Object.values(materials.materials).forEach((mat) => {
+        mat.side = THREE.DoubleSide;
       });
-      object.rotateX(-Math.PI / 2);
 
-      this.add(object);
+      const objLoader = new OBJLoader();
+      objLoader.setMaterials(materials);
+      objLoader.load(competition, (object) => {
+        object.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            // Recalcular normales por si acaso
+            child.geometry.computeVertexNormals();
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+        });
+        object.scale.set(50, 50, 50);
+        this.add(object);
+      });
     });
-
-    const base = new OBJLoader();
-    base.load(
-      '/assets/models/BaseULP.obj',
-      (object: THREE.Object3D) => {
-        object.traverse((child: THREE.Object3D) => {
-          if (child instanceof THREE.Mesh) {
-            child.material = new THREE.MeshPhysicalMaterial({
-              color: 0x141414,
-              emissive: 0x030303,
-              roughness: 0.3,
-              metalness: 0.8,
-            });
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-        object.rotateX(-Math.PI / 2);
-
-        this.add(object);
-      },
-    );
-
-    const ULPLogo = new OBJLoader();
-    ULPLogo.load(
-      '/assets/models/LogoULP.obj',
-      (object: THREE.Object3D) => {
-        object.traverse((child: THREE.Object3D) => {
-          if (child instanceof THREE.Mesh) {
-            child.material = new THREE.MeshPhongMaterial({
-              color: 0xffffff,
-              shininess: 100,
-              emissive: 0x47401a,
-              specular: 0xffffff,
-            });
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-        object.rotateX(-Math.PI / 2);
-
-        this.add(object);
-      },
-    );
   }
 
   update() {

@@ -1,0 +1,710 @@
+---
+// HorarioSabado.astro
+// Horario del Sábado 21 de Marzo — misma estética que el Viernes
+
+const schedule = [
+  {
+    id: 0,
+    inicio: "9:30",
+    fin: "10:00",
+    titulo: "Acto de Bienvenida",
+    descripcion:
+      "Se dará la bienvenida a los asistentes, se repasará el itinerario y las normas de convivencia del evento. ¡Se inaugura oficialmente!",
+    icono: "🎙️",
+    color: "#f59e0b",
+    tipo: "bienvenida",
+  },
+  {
+    id: 1,
+    inicio: "10:00",
+    fin: "21:00",
+    titulo: "Actividades del Evento",
+    descripcion:
+      "Disfruta del evento, date una vuelta por todas las zonas y participa en lo que más te guste. Tenemos todo tipo de actividades.",
+    icono: "🎮",
+    color: "#10b981",
+    tipo: "actividades",
+  },
+  {
+    id: 2,
+    inicio: "21:00",
+    fin: "22:00",
+    titulo: "Acto de Despedida y Entrega de Premios",
+    descripcion:
+      "Entrega a los ganadores de sus trofeos personalizados y sus premios por conquistar la cima.",
+    icono: "🏆",
+    color: "#a855f7",
+    tipo: "despedida",
+  },
+];
+
+const N = schedule.length;
+---
+
+<!-- ════════════ LIGHTBOX ════════════ -->
+<div
+  id="sab-lightbox"
+  class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95"
+  style="opacity:0; pointer-events:none; transition: opacity 0.3s ease;"
+>
+  <button
+    id="sab-lightbox-close"
+    class="absolute top-5 right-6 text-white/70 hover:text-white text-3xl font-mono leading-none z-10 cursor-pointer"
+    aria-label="Cerrar">✕</button
+  >
+  <div
+    class="relative w-full h-full flex items-center justify-center p-4 md:p-10"
+  >
+    <img
+      id="sab-lightbox-img"
+      src=""
+      alt="Mapa de actividades ampliado"
+      class="max-w-full max-h-full object-contain rounded"
+      style="cursor: zoom-out;"
+    />
+  </div>
+</div>
+
+<!-- ════════════ HEADER ════════════ -->
+<div
+  id="sab-header"
+  class="bg-[#050810] pt-12 pb-12 px-4 text-center overflow-hidden"
+>
+  <p
+    class="sabh-sub text-xs tracking-[0.4em] text-[#f59e0b] uppercase font-mono mb-3"
+    style="opacity:0; transform: translateY(16px);"
+  >
+    Programa Oficial
+  </p>
+  <h2
+    class="sabh-title text-3xl md:text-5xl font-black uppercase text-white leading-none"
+    style="font-family: 'Space Mono', monospace; letter-spacing: -0.02em; opacity:0; transform: translateY(16px);"
+  >
+    Sábado 21 de Marzo
+  </h2>
+  <div
+    class="sabh-line mx-auto mt-5 h-[2px] bg-gradient-to-r from-transparent via-[#f59e0b] to-transparent"
+    style="width: 0px;"
+  >
+  </div>
+</div>
+
+<!-- ════════════ SCROLL SECTION ════════════ -->
+<div
+  id="sab-outer"
+  class="relative bg-[#050810]"
+  style={`height: calc(${N} * 160vh);`}
+>
+  <div
+    id="sab-sticky"
+    class="sticky bg-[#050810] overflow-hidden"
+    style="top: 90px; height: calc(100vh - 90px);"
+  >
+    <!-- Noise sutil -->
+    <div
+      class="absolute inset-0 pointer-events-none z-0"
+      style="opacity:0.12; background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size: 180px;"
+    >
+    </div>
+
+    <!-- Layout principal -->
+    <div
+      class="relative z-10 h-full max-w-6xl mx-auto flex gap-8 md:gap-14 px-4 md:px-12 py-10"
+    >
+      <!-- COLUMNA IZQUIERDA — línea temporal -->
+      <div id="sab-tl-column" class="relative flex-shrink-0" style="width: 110px;">
+        <div
+          id="sab-tl-track"
+          class="absolute w-[2px] rounded-full bg-white/10"
+          style="left: 21px; top: 0; height: 0;"
+        >
+        </div>
+        <div id="sab-tl-segments" class="absolute inset-0 pointer-events-none">
+        </div>
+
+        {
+          schedule.map((item, i) => (
+            <div
+              class="sab-tl-node absolute flex items-center z-10"
+              data-index={i}
+              data-color={item.color}
+              style="left: 0; top: 0;"
+            >
+              <div class="sab-node-ring w-11 h-11 rounded-full border-2 border-white/20 flex items-center justify-center relative flex-shrink-0">
+                <div class="sab-node-dot w-[10px] h-[10px] rounded-full bg-white/30" />
+                <div
+                  class="sab-node-glow absolute inset-[-4px] rounded-full opacity-0"
+                  style={`background: radial-gradient(circle, ${item.color}45, transparent 65%);`}
+                />
+              </div>
+              <span class="sab-node-time text-sm font-mono font-bold text-white/40 ml-3 whitespace-nowrap leading-none">
+                {item.inicio}
+              </span>
+            </div>
+          ))
+        }
+
+        <div
+          id="sab-tl-node-end"
+          class="absolute flex items-center z-10"
+          style="left: 3px; top: 0;"
+        >
+          <div
+            class="w-8 h-8 rounded-full border-2 border-white/20 flex items-center justify-center flex-shrink-0"
+            style="margin-left: 3px;"
+          >
+            <div class="w-[10px] h-[10px] rounded-full bg-white/30"></div>
+          </div>
+          <span class="text-sm font-mono font-bold text-white/40 ml-3 whitespace-nowrap leading-none">
+            {schedule[N - 1].fin}
+          </span>
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA — tarjetas -->
+      <div id="sab-cards-area" class="flex-1 relative overflow-hidden">
+        {
+          schedule.map((item) => (
+            <div
+              class="sab-activity-card absolute inset-0 overflow-y-auto flex flex-col justify-center px-2 md:px-4"
+              data-tipo={item.tipo}
+              style="opacity: 0; transform: translateX(110%);"
+            >
+              <!-- Cabecera de la tarjeta -->
+              <div class="flex items-start gap-4 mb-5">
+                <span
+                  class="text-4xl md:text-5xl leading-none flex-shrink-0 mt-1"
+                  aria-hidden="true"
+                >
+                  {item.icono}
+                </span>
+                <div>
+                  <p
+                    class="text-xs font-mono tracking-[0.3em] uppercase mb-1"
+                    style={`color: ${item.color};`}
+                  >
+                    {item.inicio} — {item.fin}
+                  </p>
+                  <h3
+                    class="text-2xl md:text-4xl font-black uppercase text-white leading-tight"
+                    style="font-family: 'Space Mono', monospace; letter-spacing: -0.02em;"
+                  >
+                    {item.titulo}
+                  </h3>
+                </div>
+              </div>
+
+              <!-- Línea decorativa -->
+              <div
+                class="h-[1px] w-full mb-6 opacity-30"
+                style={`background: linear-gradient(to right, ${item.color}, transparent);`}
+              />
+
+              <!-- Descripción -->
+              <p class="text-white/70 text-base md:text-lg leading-relaxed font-mono max-w-xl mb-6">
+                {item.descripcion}
+              </p>
+
+              <!-- Contenido especial: actividades -->
+              {item.tipo === "actividades" && (
+                <div class="flex flex-col gap-5">
+                  <!-- Imagen apaisada con lightbox -->
+                  <div
+                    class="sab-img-wrapper relative w-full overflow-hidden rounded cursor-zoom-in group"
+                    style={`border: 1px solid ${item.color}30; max-height: 220px;`}
+                    data-lightbox="true"
+                    data-src="/assets/activities/horario.png"
+                  >
+                    <img
+                      src="/assets/activities/horario.png"
+                      alt="Mapa de actividades del evento"
+                      class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      style="display: block; max-height: 220px; pointer-events: none;"
+                    />
+                    <div
+                      class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style="background: rgba(0,0,0,0.45);"
+                    >
+                      <span class="text-white font-mono text-sm tracking-widest uppercase">
+                        🔍 Ver completo
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Botón actividades -->
+                  <div>
+                    <a
+                      href="/actividades"
+                      class="inline-flex items-center gap-3 px-7 py-3 text-sm font-bold uppercase tracking-[0.2em] font-mono transition-colors duration-200"
+                      style={`color: #050810; background: ${item.color};`}
+                      onmouseover={`this.style.background='#fff'; this.style.color='#050810';`}
+                      onmouseout={`this.style.background='${item.color}'; this.style.color='#050810';`}
+                    >
+                      Ver todas las actividades
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M3 8H13M13 8L9 4M13 8L9 12"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              )}
+
+              <!-- Contenido especial: despedida (trofeos decorativos) -->
+              {item.tipo === "despedida" && (
+                <div class="flex gap-3 mt-2">
+                  {["🥇 1er Premio", "🥈 2do Premio", "🥉 3er Premio"].map((label) => (
+                    <div
+                      class="px-3 py-2 rounded text-xs font-mono text-white/60 border"
+                      style={`border-color: ${item.color}40; background: ${item.color}10;`}
+                    >
+                      {label}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ OTROS SERVICIOS ════════════ -->
+<section id="sab-servicios" class="bg-[#050810] px-4 py-20 overflow-hidden">
+  <div class="max-w-4xl mx-auto">
+    <!-- Cabecera sección -->
+    <div class="text-center mb-14 sab-serv-header" style="opacity:0; transform: translateY(20px);">
+      <p class="text-xs tracking-[0.4em] text-[#f59e0b] uppercase font-mono mb-3">
+        Durante toda la jornada
+      </p>
+      <h3
+        class="text-2xl md:text-4xl font-black uppercase text-white"
+        style="font-family: 'Space Mono', monospace; letter-spacing: -0.02em;"
+      >
+        Otros Servicios
+      </h3>
+      <div
+        class="sab-serv-line mx-auto mt-4 h-[2px] bg-gradient-to-r from-transparent via-[#f59e0b] to-transparent"
+        style="width: 0px;"
+      >
+      </div>
+    </div>
+
+    <!-- Grid de servicios -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <!-- Cafetería -->
+      <div
+        class="sab-serv-card p-6 rounded border border-white/8 bg-white/[0.03] flex flex-col gap-3"
+        style="opacity:0; transform: translateY(24px);"
+      >
+        <div class="flex items-center gap-3 mb-1">
+          <span class="text-2xl" aria-hidden="true">☕</span>
+          <span
+            class="text-xs font-mono tracking-[0.25em] uppercase"
+            style="color: #f59e0b;"
+          >
+            Cafetería
+          </span>
+        </div>
+        <p class="text-white/65 text-sm leading-relaxed font-mono">
+          Abierta toda la jornada. Pásate a desayunar, merendar y por supuesto
+          a degustar la deliciosa <span class="text-white/90 font-bold">Paella</span> que nos
+          prepara el bueno de Paco.
+        </p>
+      </div>
+
+      <!-- Baños -->
+      <div
+        class="sab-serv-card p-6 rounded border border-white/8 bg-white/[0.03] flex flex-col gap-3"
+        style="opacity:0; transform: translateY(24px);"
+      >
+        <div class="flex items-center gap-3 mb-1">
+          <span class="text-2xl" aria-hidden="true">🚻</span>
+          <span
+            class="text-xs font-mono tracking-[0.25em] uppercase"
+            style="color: #10b981;"
+          >
+            Baños
+          </span>
+        </div>
+        <p class="text-white/65 text-sm leading-relaxed font-mono">
+          Disponibles en los pasillos de las
+          <span class="text-white/90 font-bold">aulas prefabricadas</span> durante
+          todo el evento y los de la 
+          <span class="text-white/90 font-bold">entrada principal</span> hasta media tarde.
+        </p>
+      </div>
+
+      <!-- Actividades libres -->
+      <div
+        class="sab-serv-card p-6 rounded border border-white/8 bg-white/[0.03] flex flex-col gap-3"
+        style="opacity:0; transform: translateY(24px);"
+      >
+        <div class="flex items-center gap-3 mb-1">
+          <span class="text-2xl" aria-hidden="true">🎯</span>
+          <span
+            class="text-xs font-mono tracking-[0.25em] uppercase"
+            style="color: #a855f7;"
+          >
+            Actividades
+          </span>
+        </div>
+        <p class="text-white/65 text-sm leading-relaxed font-mono">
+          Juego libre, retos, charlas y showcase de nuestros
+          <span class="text-white/90 font-bold">patrocinadores</span>. Consulta
+          todas en la sección de actividades.
+        </p>
+        <a
+          href="/actividades"
+          class="mt-auto inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase transition-colors duration-200"
+          style="color: #a855f7;"
+          onmouseover="this.style.color='#fff';"
+          onmouseout="this.style.color='#a855f7';"
+        >
+          Ver actividades
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M3 8H13M13 8L9 4M13 8L9 12"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Nota de organización -->
+    <div
+      class="sab-serv-footer text-center"
+      style="opacity:0; transform: translateY(16px);"
+    >
+      <p class="text-white/40 text-sm font-mono">
+        Para cualquier duda, puedes preguntar a cualquier
+        <span class="text-white/70">miembro de la organización</span>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script
+  is:inline
+  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<script>
+  declare const gsap: any;
+  declare const ScrollTrigger: any;
+
+  const ENTER_END = 0.22;
+  const EXIT_START = 0.78;
+
+  function remap(
+    inA: number,
+    inB: number,
+    outA: number,
+    outB: number,
+    v: number,
+  ): number {
+    const t = Math.max(0, Math.min(1, (v - inA) / (inB - inA)));
+    return outA + (outB - outA) * t;
+  }
+
+  function initSabadoTimeline() {
+    if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+      setTimeout(initSabadoTimeline, 80);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+
+    const outer = document.getElementById("sab-outer");
+    const tlColumn = document.getElementById("sab-tl-column");
+    const trackEl = document.getElementById("sab-tl-track");
+    const segmentsContainer = document.getElementById("sab-tl-segments")!;
+    const nodeEndEl = document.getElementById("sab-tl-node-end");
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>(".sab-activity-card"),
+    );
+    const nodes = Array.from(
+      document.querySelectorAll<HTMLElement>(".sab-tl-node"),
+    );
+    const header = document.getElementById("sab-header");
+
+    if (!outer || !tlColumn || !cards.length) return;
+
+    const N = cards.length;
+    const COLORS = nodes.map((n) => n.dataset.color ?? "#f59e0b");
+
+    // ── Header animation ──────────────────────────────────────────
+    gsap
+      .timeline({
+        scrollTrigger: { trigger: header, start: "top 88%", once: true },
+      })
+      .to(".sabh-sub", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0)
+      .to(".sabh-title", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.15)
+      .to(".sabh-line", { width: 180, duration: 1.0, ease: "power3.out" }, 0.35);
+
+    // ── Servicios animation ──────────────────────────────────────
+    const servTrigger = document.getElementById("sab-servicios");
+    if (servTrigger) {
+      gsap
+        .timeline({
+          scrollTrigger: { trigger: servTrigger, start: "top 80%", once: true },
+        })
+        .to(".sab-serv-header", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0)
+        .to(".sab-serv-line", { width: 160, duration: 0.9, ease: "power3.out" }, 0.3)
+        .to(".sab-serv-card", {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.12,
+        }, 0.4)
+        .to(".sab-serv-footer", { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.85);
+    }
+
+    // ── Nodes + segments positioning ─────────────────────────────
+    const NODE_PAD = 28;
+    const segments: HTMLElement[] = [];
+
+    function positionNodes() {
+      const colH = tlColumn!.clientHeight;
+      const usable = colH - NODE_PAD * 2;
+      const step = usable / N;
+
+      if (trackEl) {
+        trackEl.style.top = `${NODE_PAD}px`;
+        trackEl.style.height = `${usable}px`;
+        trackEl.style.bottom = "auto";
+      }
+
+      nodes.forEach((node, i) => {
+        node.style.top = `${NODE_PAD + i * step - 22}px`;
+      });
+      if (nodeEndEl) {
+        nodeEndEl.style.top = `${NODE_PAD + N * step - 22}px`;
+      }
+
+      segmentsContainer.innerHTML = "";
+      segments.length = 0;
+
+      for (let i = 0; i < N; i++) {
+        const colorFrom = COLORS[i % COLORS.length];
+        const colorTo = COLORS[(i + 1) % COLORS.length];
+        const segTop = NODE_PAD + i * step;
+        const maxHeight = step;
+
+        const seg = document.createElement("div");
+        seg.style.cssText = `
+          position: absolute;
+          left: 21px;
+          top: ${segTop}px;
+          width: 3px;
+          height: 0px;
+          max-height: ${maxHeight}px;
+          border-radius: 9999px;
+          background: linear-gradient(180deg, ${colorFrom} 0%, ${colorTo} 100%);
+          box-shadow: none;
+          transform-origin: top;
+          will-change: height;
+        `;
+        segmentsContainer.appendChild(seg);
+        segments.push(seg);
+      }
+    }
+
+    positionNodes();
+
+    // ── Main ScrollTrigger ────────────────────────────────────────
+    ScrollTrigger.create({
+      trigger: outer,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.8,
+      onUpdate(self: any) {
+        const P = self.progress;
+        const slotSize = 1 / N;
+        const maxH = (tlColumn!.clientHeight - NODE_PAD * 2) / N;
+
+        // Segments
+        segments.forEach((seg, i) => {
+          const localP = (P - i * slotSize) / slotSize;
+          const filledH = Math.max(0, Math.min(1, localP)) * maxH;
+          seg.style.height = `${filledH}px`;
+          if (localP > 0 && localP <= 1) {
+            const c = localP < 0.5 ? COLORS[i % COLORS.length] : COLORS[(i + 1) % COLORS.length];
+            seg.style.boxShadow = `0 0 10px ${c}90`;
+          } else {
+            seg.style.boxShadow = "none";
+          }
+        });
+
+        // Cards
+        cards.forEach((card, i) => {
+          const localP = (P - i * slotSize) / slotSize;
+          let tx: number, op: number;
+          if (localP <= 0) {
+            tx = 110; op = 0;
+          } else if (localP < ENTER_END) {
+            tx = remap(0, ENTER_END, 110, 0, localP);
+            op = remap(0, ENTER_END, 0, 1, localP);
+          } else if (localP < EXIT_START) {
+            tx = 0; op = 1;
+          } else if (localP < 1) {
+            tx = remap(EXIT_START, 1, 0, 110, localP);
+            op = remap(EXIT_START, 1, 1, 0, localP);
+          } else {
+            tx = 110; op = 0;
+          }
+          card.style.transform = `translateX(${tx}%)`;
+          card.style.opacity = `${Math.max(0, Math.min(1, op))}`;
+        });
+
+        // Nodes
+        nodes.forEach((node, i) => {
+          const activated = P >= i * slotSize;
+          const c = COLORS[i % COLORS.length];
+          const ring = node.querySelector<HTMLElement>(".sab-node-ring");
+          const dot = node.querySelector<HTMLElement>(".sab-node-dot");
+          const glow = node.querySelector<HTMLElement>(".sab-node-glow");
+          const time = node.querySelector<HTMLElement>(".sab-node-time");
+
+          if (activated) {
+            if (ring) { ring.style.borderColor = c; ring.style.boxShadow = `0 0 16px ${c}65, 0 0 32px ${c}25`; ring.style.transform = "scale(1.12)"; }
+            if (dot) { dot.style.backgroundColor = c; dot.style.transform = "scale(1.4)"; }
+            if (glow) glow.style.opacity = "1";
+            if (time) { time.style.color = c; time.style.opacity = "1"; }
+          } else {
+            if (ring) { ring.style.borderColor = "rgba(255,255,255,0.18)"; ring.style.boxShadow = "none"; ring.style.transform = "scale(1)"; }
+            if (dot) { dot.style.backgroundColor = "rgba(255,255,255,0.28)"; dot.style.transform = "scale(1)"; }
+            if (glow) glow.style.opacity = "0";
+            if (time) { time.style.color = "rgba(255,255,255,0.28)"; time.style.opacity = "0.6"; }
+          }
+        });
+
+        // End node
+        if (nodeEndEl) {
+          const done = P >= 1 - slotSize * 0.1;
+          const lastColor = COLORS[(N - 1) % COLORS.length];
+          const er = nodeEndEl.querySelector<HTMLElement>(":scope > div");
+          if (er) {
+            er.style.borderColor = done ? lastColor : "rgba(255,255,255,0.18)";
+            er.style.boxShadow = done ? `0 0 14px ${lastColor}60` : "none";
+          }
+        }
+      },
+    });
+
+    // ── Resize ────────────────────────────────────────────────────
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        positionNodes();
+        ScrollTrigger.refresh();
+      }, 150);
+    });
+
+    // ── Lightbox ──────────────────────────────────────────────────
+    const lightbox = document.getElementById("sab-lightbox")!;
+    const lightboxImg = document.getElementById("sab-lightbox-img") as HTMLImageElement;
+    const closeBtn = document.getElementById("sab-lightbox-close")!;
+
+    document.querySelectorAll<HTMLElement>("[data-lightbox='true']").forEach((el) => {
+      el.addEventListener("click", () => {
+        const src = el.dataset.src ?? (el.querySelector("img") as HTMLImageElement | null)?.src ?? "";
+        lightboxImg.src = src;
+        lightbox.style.opacity = "1";
+        lightbox.style.pointerEvents = "all";
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.opacity = "0";
+      lightbox.style.pointerEvents = "none";
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+  }
+
+  document.addEventListener("DOMContentLoaded", initSabadoTimeline);
+  document.addEventListener("astro:page-load", initSabadoTimeline);
+</script>
+
+<style>
+  #sab-header,
+  #sab-sticky {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .sabh-sub,
+  .sabh-title {
+    will-change: transform, opacity;
+  }
+  .sab-tl-node,
+  #sab-tl-node-end {
+    will-change: top;
+  }
+  .sab-node-ring,
+  .sab-node-dot,
+  .sab-node-glow,
+  .sab-node-time {
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease,
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      color 0.3s ease,
+      opacity 0.3s ease;
+  }
+  .sab-activity-card {
+    will-change: transform, opacity;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  }
+  .sab-activity-card::-webkit-scrollbar { width: 3px; }
+  .sab-activity-card::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+  }
+  .sab-serv-card {
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .sab-serv-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .sab-img-wrapper img {
+    image-rendering: auto;
+  }
+  #sab-lightbox {
+    backdrop-filter: blur(4px);
+  }
+</style>
