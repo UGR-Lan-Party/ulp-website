@@ -138,6 +138,7 @@ export const Competitions: CompetitionData[] = [
         'x5 Badges Gen.G Esports',
       ],
       third: ['Trofeo y Medalla ULP'],
+      mvp: ['x1 Jersey Gen.G Esports'],
     },
   },
   /* {
@@ -473,7 +474,6 @@ export const Competitions: CompetitionData[] = [
       first: ['Trofeo ULP', 'x1 Flipper Zero Starter Full Set'],
       second: ['x1 Raspberry Pi 5 4GB Starter Kit'],
       third: ['x1 Proxmark3 512M', 'x1 Kit de Soldadura'],
-      mvp: ['x1 Jersey Gen.G Esports'],
     },
   },
   {
