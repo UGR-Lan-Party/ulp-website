@@ -42,10 +42,14 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/ajedrez.webp',
     trophy: '/assets/models/ajedrez.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
-      mvp: ['Top Kills', 'x1 Tarjeta Amazon 25€'],
+      first: [
+        'Trofeo ULP',
+        'x2 Bonos Karting - Formula Karting Granada',
+        'x2 Viajes organizados Emycet',
+        'x1 Tarjeta Amazon 25€',
+      ],
+      second: ['Trofeo ULP', 'x1 Mando MGPXPRO Mars Gaming'],
+      third: ['Trofeo ULP'],
     },
   },
   {
@@ -62,10 +66,17 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/minecraft.webp',
     trophy: '/assets/models/mc.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
-      mvp: ['Top Kills', 'x1 Tarjeta Amazon 25€'],
+      first: [
+        'Trofeo ULP',
+        'x1 Jersey Gen.G eSports',
+        'x1 Keycap Gen.G Esports',
+      ],
+      second: [
+        'Trofeo ULP',
+        'x1 Mando MGPXPRO Mars Gaming',
+        'x1 Keycap Gen.G Esports',
+      ],
+      third: ['Trofeo ULP', 'x1 Keycap Gen.G Esports'],
     },
   },
   {
@@ -86,12 +97,13 @@ export const Competitions: CompetitionData[] = [
     trophy: '/assets/models/mario-kart.obj',
     awards: {
       first: [
-        'Trofeo y Medalla ULP',
-        'x1 Tarjeta Amazon 50€ ',
-        'x3 Bonos Fórmula Karting',
+        'Trofeo ULP',
+        'x1 Juego Gear Club 3 Unlimited (Nintendo Switch 2)',
+        'x1 Mando MGPXPRO Mars Gaming',
+        'x2 Bonos Fórmula Karting',
       ],
-      second: ['Trofeo y Medalla ULP', 'x3 Bonos Fórmula Karting'],
-      third: ['Trofeo y Medalla ULP'],
+      second: ['Trofeo ULP', 'x2 Bonos Fórmula Karting'],
+      third: ['Trofeo ULP'],
     },
   },
   {
@@ -113,10 +125,19 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/lol.webp',
     trophy: '/assets/models/lol.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x10 Tarjetas Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x5 Tarjetas Amazon 25€'],
+      first: [
+        'Trofeo y Medalla ULP',
+        'x5 Tarjetas Amazon 25€',
+        'x5 Keycaps Gen.G Esports',
+        'x5 Badges Gen.G Esports',
+        'x5 Suscripciones Your.GG',
+      ],
+      second: [
+        'Trofeo y Medalla ULP',
+        'x5 Tarjetas Amazon 25€',
+        'x5 Badges Gen.G Esports',
+      ],
       third: ['Trofeo y Medalla ULP'],
-      mvp: ['x1 Tarjeta Amazon 25€'],
     },
   },
   /* {
@@ -165,10 +186,13 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/rocket-league.webp',
     trophy: '/assets/models/rocket.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x4 Tarjetas Amazon 25€'],
+      first: [
+        'Trofeo y Medalla ULP',
+        'x2 Juegos STYX: Blades of Greed (PlayStation 5)',
+        'x2 Keycaps Gen.G Esports',
+      ],
       second: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
       third: ['Trofeo y Medalla ULP'],
-      mvp: ['x1 Tarjeta Amazon 25€'],
     },
   },
   {
@@ -188,13 +212,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/wii-tenis.webp',
     trophy: '/assets/models/wii.obj',
     awards: {
-      first: [
-        'Trofeo y Medalla ULP',
-        'x1 Tarjeta Amazon 50€',
-        'x2 Viajes de un día',
-      ],
-      second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
+      first: ['Trofeo ULP', 'x1 Mando Revolution X Unlimited (PC) ~ 200€'],
+      second: ['Trofeo ULP', 'x1 Mando MGPXPRO Mars Gaming'],
+      third: ['Trofeo ULP'],
     },
   },
   {
@@ -215,12 +235,16 @@ export const Competitions: CompetitionData[] = [
     trophy: '/assets/models/wii.obj',
     awards: {
       first: [
-        'Trofeo y Medalla ULP',
-        'x2 Tarjetas Amazon 25€',
-        'x2 Viajes de un día',
+        'Trofeo ULP',
+        'x1 Microfono M100 HS Nacon ~100€',
+        'x1 Mando MGPXPRO Mars Gaming',
       ],
-      second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
+      second: [
+        'Trofeo ULP',
+        'x1 Mando MM-XT Mars Gaming',
+        'x1 Tarjeta Amazon 25€',
+      ],
+      third: ['Trofeo ULP'],
     },
   },
   {
@@ -240,9 +264,14 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/smash.webp',
     trophy: '/assets/models/smash.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
+      first: [
+        'Trofeo ULP',
+        'x1 Juego Gear Club 3 Unlimited (Nintendo Switch 2)',
+        'x1 Mando MM-XT Mars Gaming',
+        'x1 Bonos Fórmula Karting',
+      ],
+      second: ['Trofeo ULP', 'x1 Mando MGPXPRO Mars Gaming'],
+      third: ['Trofeo ULP'],
     },
   },
   {
@@ -262,7 +291,7 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/brawl-stars.webp',
     trophy: '/assets/models/brawl-stars.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x6 Tarjetas Amazon 25€'],
+      first: ['Copa ULP', 'x6 Tarjetas Amazon 25€'],
       second: ['Trofeo y Medalla ULP', 'x3 Tarjetas Amazon 25€'],
       third: ['Trofeo y Medalla ULP'],
     },
@@ -284,9 +313,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/clash-royale.webp',
     trophy: '/assets/models/clash-royale.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x6 Tarjetas Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x3 Tarjetas Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
+      first: ['Trofeo', 'x1 Microfono M100 HS Nacon'],
+      second: ['Trofeo', 'x1 Tarjeta Amazon 25€'],
+      third: ['Trofeo'],
     },
   },
   {
@@ -303,9 +332,13 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/2xko.webp',
     trophy: '/assets/models/2XKO.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
+      first: [
+        'Trofeo ULP',
+        'x1 Jersey Gen.G eSports',
+        'x1 Suscripción Your.GG',
+      ],
+      second: ['x1 Suscripción Your.GG'],
+      third: [],
     },
   },
   {
@@ -321,9 +354,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/f1.webp',
     trophy: '/assets/models/f1.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x4 Bonos Fórmula Karting'],
-      second: ['Trofeo y Medalla ULP'],
-      third: ['Trofeo y Medalla ULP'],
+      first: ['Trofeo ULP', 'Juego Gear Club 3 Unlimited (Nintendo Switch 2)'],
+      second: ['x2 Bonos Fórmula Karting'],
+      third: [],
     },
   },
   {
@@ -344,9 +377,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/futbolin.webp',
     trophy: '/assets/models/futbolin.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x4 Tarjetas Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
+      first: ['Trofeo ULP', 'x2 Auriculares RIG 600 ACID HS Nacon'],
+      second: ['Trofeo ULP', 'x2 Mandos MM-XT Mars Gaming'],
+      third: ['Trofeo ULP'],
     },
   },
   {
@@ -363,9 +396,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/ping-pong.webp',
     trophy: '/assets/models/ping-pong.obj',
     awards: {
-      first: ['Trofeo y Medalla ULP', 'x4 Tarjetas Amazon 25€'],
-      second: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
-      third: ['Trofeo y Medalla ULP'],
+      first: ['Trofeo ULP', 'x1 Mando Revolution X Unlimited (PC) ~ 200€'],
+      second: ['Trofeo ULP', 'x1 Mando MGPXPRO Mars Gaming'],
+      third: ['Trofeo ULP', 'x1 Mando MM-XT Mars Gaming'],
     },
   },
   {
@@ -381,9 +414,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/retro.webp',
     trophy: '/assets/models/SONIC.obj',
     awards: {
-      first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      second: ['Llaveros e imanes frikis', 'x2 Bonos Fórmula Karting'],
-      third: ['Llaveros e imanes frikis'],
+      first: ['Trofeo ULP', 'x1 Tarjeta Amazon 25€'],
+      second: [],
+      third: [],
     },
   },
   {
@@ -399,9 +432,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/street-fighter.webp',
     trophy: '/assets/models/street-fighter.obj',
     awards: {
-      first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      second: ['Llaveros e imanes frikis', 'x2 Bonos Fórmula Karting'],
-      third: ['Llaveros e imanes frikis'],
+      first: ['Trofeo ULP', 'x1 Juego: John Mambo Ed. Coleccionista'],
+      second: [],
+      third: [],
     },
   },
   {
@@ -418,9 +451,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/beat-saber.webp',
     trophy: '/assets/models/beat-saber.obj',
     awards: {
-      first: ['Llaveros e imanes frikis', 'x2 Bonos Fórmula Karting'],
-      second: ['Llaveros e imanes frikis'],
-      third: ['Llaveros e imanes frikis'],
+      first: ['Trofeo ULP', 'x1 Viaje Organizado Emycet'],
+      second: ['x1 Bono Karting - Formula Karting Granada'],
+      third: [],
     },
   },
   {
@@ -437,9 +470,10 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/hacking.webp',
     trophy: '/assets/models/ctf.obj',
     awards: {
-      first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      third: ['Llaveros e imanes frikis'],
+      first: ['Trofeo ULP', 'x1 Flipper Zero Starter Full Set'],
+      second: ['x1 Raspberry Pi 5 4GB Starter Kit'],
+      third: ['x1 Proxmark3 512M', 'x1 Kit de Soldadura'],
+      mvp: ['x1 Jersey Gen.G Esports'],
     },
   },
   {
@@ -455,9 +489,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/tetris.webp',
     trophy: '/assets/models/tetris.obj',
     awards: {
-      first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      third: ['Llaveros e imanes frikis'],
+      first: ['Trofeo ULP', 'x1 Clave Juego The Game Kitchen'],
+      second: [],
+      third: [],
     },
   },
   {
@@ -474,9 +508,9 @@ export const Competitions: CompetitionData[] = [
     backgroundImage: '/assets/competitions/backgrounds/cars.webp',
     trophy: '/assets/models/cars.obj',
     awards: {
-      first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
-      third: ['Llaveros e imanes frikis'],
+      first: ['Copa Pistón ULP', 'x1 Clave Juego The Game Kitchen'],
+      second: [],
+      third: [],
     },
   },
 ];
