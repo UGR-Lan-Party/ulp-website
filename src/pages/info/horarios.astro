@@ -1,10 +1,8 @@
 ---
-import Team from '../../components/Team.astro';
-import Localizacionsection from '../../components/Localizacionsection.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Layout from '../../layouts/Layout.astro';
-import ActividadesSection from '../../components/ActividadesSection.astro';
 import HorarioViernes from '../../components/HorarioViernes.astro';
+import HorarioSabado from '../../components/HorarioSabado.astro';
 ---
 
 <Layout
@@ -12,8 +10,8 @@ import HorarioViernes from '../../components/HorarioViernes.astro';
   title="Localizacion y Horarios"
 >
   <Breadcrumb>
-    <Fragment slot="title">Actividades</Fragment>
+    <Fragment slot="title">Horarios</Fragment>
   </Breadcrumb>
-  <!-- <ActividadesSection /> -->
   <HorarioViernes />
+  <HorarioSabado />
 </Layout>
