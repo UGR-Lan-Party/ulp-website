@@ -72,10 +72,10 @@ const { trophy } = Astro.props;
     //scene.add(ground);
 
     // Agregar luces
-    const ambientLight = new THREE.AmbientLight(0xffffff, 3);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 5);
     scene.add(ambientLight);
 
-    let directionalLight = new THREE.DirectionalLight(0xffffff, 15);
+    let directionalLight = new THREE.DirectionalLight(0xffffff, 10);
     directionalLight.castShadow = true;
     directionalLight.position.set(20, 20, 20);
     directionalLight.target = new THREE.Object3D();
@@ -100,7 +100,7 @@ const { trophy } = Astro.props;
     scene.add(directionalLightHelper); */
     scene.add(directionalLight);
 
-    let directionalLight2 = new THREE.DirectionalLight(0xffffff, 15);
+    let directionalLight2 = new THREE.DirectionalLight(0xffffff, 10);
     directionalLight2.castShadow = true;
     directionalLight2.position.set(5, 8, -15);
     directionalLight2.target = new THREE.Object3D();

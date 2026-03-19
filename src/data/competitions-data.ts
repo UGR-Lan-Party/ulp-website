@@ -34,13 +34,13 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/17o4kUmzgLb0nZHfv500aAdQbF3zxf2kh/view?usp=drive_link',
     registration: 'https://forms.gle/hRk68DAWJcEAStmf7',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: '10:00 - 14:00', round: 'Torneo Ajedrez' }],
     place: 'Sala de Juntas.',
     tags: ['Competición'],
     backgroundImage: '/assets/competitions/backgrounds/ajedrez.webp',
-    trophy: '/assets/models/minecraft.obj',
+    trophy: '/assets/models/ajedrez.obj',
     awards: {
       first: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
       second: ['Trofeo y Medalla ULP', 'x1 Tarjeta Amazon 25€'],
@@ -54,7 +54,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1kwPUjbZoteRiS6tscZkMRUrFqA_N3nfu/view?usp=sharing',
     registration: 'https://forms.gle/X8fPY1enBJoHs7xD9',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: '14:30 - 16:30', round: 'Torneo Minecraft' }],
     place: 'Prefabricada B1.',
@@ -74,7 +74,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1_7tfC7cQTy7xc0yLtPpA56DRQd2cPMnM/view?usp=drive_link',
     registration: 'https://forms.gle/v1iYnEvuJYjfChjC7',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '16:30 - 20:00', round: 'Eliminatoria' },
@@ -100,7 +100,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/16KEdp-ZYeGH3zD9nXfaQkkTGFz6GZVVn/view?usp=drive_link',
     registration: 'https://forms.gle/irjKuCsbp1pRMDh69',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '10:00 - 14:00', round: 'Fase de Grupos' },
@@ -108,10 +108,10 @@ export const Competitions: CompetitionData[] = [
       { time: '18:30 - 19:30', round: 'Semifinal II' },
       { time: '20:00 - 21:00', round: 'Final' },
     ],
-    place: 'Prefabricada B1.',
+    place: 'Prefabricadas A2 y B1.',
     tags: ['PC', 'Competición'],
     backgroundImage: '/assets/competitions/backgrounds/lol.webp',
-    trophy: '/assets/models/league-of-legends.obj',
+    trophy: '/assets/models/lol.obj',
     awards: {
       first: ['Trofeo y Medalla ULP', 'x10 Tarjetas Amazon 25€'],
       second: ['Trofeo y Medalla ULP', 'x5 Tarjetas Amazon 25€'],
@@ -119,13 +119,13 @@ export const Competitions: CompetitionData[] = [
       mvp: ['x1 Tarjeta Amazon 25€'],
     },
   },
-  {
+  /* {
     id: 'valorant',
     name: 'Valorant',
     rules:
       'https://drive.google.com/file/d/1kbVNC0yWN-2Awg0QtkNnTuvaW_gWQv_w/view?usp=drive_link',
     registration: 'https://forms.gle/LD8GxbuYMgMUxuxj8',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '10:00 - 15:30', round: 'Fase de Grupos' },
@@ -147,14 +147,14 @@ export const Competitions: CompetitionData[] = [
       third: ['Trofeo y Medalla ULP'],
       mvp: ['x1 Tarjeta Amazon 25€ y x1 Bono Scape Room'],
     },
-  },
+  }, */
   {
     id: 'rocket-league',
     name: 'Rocket League',
     rules:
       'https://drive.google.com/file/d/1rOl9qPPdKn_TkVImEuAYJtxU1hMTq8yx/view?usp=drive_link',
     registration: 'https://forms.gle/wEgWNqQRuq1ocoPp9',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '15:30 - 18:00', round: 'Fase de Grupos' },
@@ -163,7 +163,7 @@ export const Competitions: CompetitionData[] = [
     place: 'Prefabricada A2.',
     tags: ['Competición', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/rocket-league.webp',
-    trophy: '/assets/models/rocket-league.obj',
+    trophy: '/assets/models/rocket.obj',
     awards: {
       first: ['Trofeo y Medalla ULP', 'x4 Tarjetas Amazon 25€'],
       second: ['Trofeo y Medalla ULP', 'x2 Tarjetas Amazon 25€'],
@@ -177,7 +177,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/19lw2h7hCXiEpLwFO-bEwGF41YIl-IF1V/view?usp=drive_link',
     registration: 'https://forms.gle/HsQDEKmqzy92Ges47',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '16:00 - 19:00', round: 'Fase de Grupos' },
@@ -186,7 +186,7 @@ export const Competitions: CompetitionData[] = [
     place: 'Aulas -1.1 y -1.2.',
     tags: ['Wii', 'Competición'],
     backgroundImage: '/assets/competitions/backgrounds/wii-tenis.webp',
-    trophy: '/assets/models/wii-sports.obj',
+    trophy: '/assets/models/wii.obj',
     awards: {
       first: [
         'Trofeo y Medalla ULP',
@@ -203,7 +203,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1emhSanMB98aI7M_aDgYjxzFL5x-ibYX4/view?usp=drive_link',
     registration: 'https://forms.gle/LmPpLQZMJSqLuzbw8',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '10:00 - 13:00', round: 'Fase de Grupos' },
@@ -212,7 +212,7 @@ export const Competitions: CompetitionData[] = [
     place: 'Aulas -1.1 y -1.2.',
     tags: ['Wii', 'Competición'],
     backgroundImage: '/assets/competitions/backgrounds/wii-bolos.webp',
-    trophy: '/assets/models/wii-sports.obj',
+    trophy: '/assets/models/wii.obj',
     awards: {
       first: [
         'Trofeo y Medalla ULP',
@@ -229,7 +229,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1XCmukFJFxexuuAR9G0zOYl319Eg6nnAI/view?usp=drive_link',
     registration: 'https://forms.gle/psgLvwYrHsULbfDC7',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '10:00 - 19:00', round: 'Fase de Grupos' },
@@ -251,7 +251,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1Ea65hDtIyDuSvI1cyqJu1zMD5QSuLUNg/view?usp=drive_link',
     registration: 'https://forms.gle/TguVfCWCfjrMi92g6',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '10:00 - 14:00', round: 'Fase de Grupos' },
@@ -273,13 +273,13 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1fghtfNXF_PYzgNTnu8RmQOZdJKI_oIvZ/view?usp=drive_link',
     registration: 'https://forms.gle/J2o7v6bkZj51pXiBA',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '10:00 - 14:00', round: 'Fase de Grupos' },
       { time: '15:30 - 16:30', round: 'Final' },
     ],
-    place: 'Prefabricada A1.',
+    place: 'Prefabricadas A1 y A2.',
     tags: ['Competición', 'Móvil'],
     backgroundImage: '/assets/competitions/backgrounds/clash-royale.webp',
     trophy: '/assets/models/clash-royale.obj',
@@ -295,10 +295,10 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1BMqIb4iaA_J6lE0TXf_cLCXfJpnlTxdT/view?usp=sharing',
     registration: '',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
-    place: 'Aula -1.1.',
+    place: 'Hall Edificio Principal.',
     tags: ['Reto', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/2xko.webp',
     trophy: '/assets/models/2XKO.obj',
@@ -313,10 +313,10 @@ export const Competitions: CompetitionData[] = [
     name: 'F1',
     rules: '',
     registration: '',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
-    place: 'Aula -1.1.',
+    place: 'Hall Edificio Principal.',
     tags: ['Reto', 'PC'],
     backgroundImage: '/assets/competitions/backgrounds/f1.webp',
     trophy: '/assets/models/f1.obj',
@@ -332,7 +332,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1EDfhmMzzISQqQrboPw2ijqSF3tsrNVQt/view?usp=drive_link',
     registration: 'https://forms.gle/rWzswNKrAYvpgLRW6',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [
       { time: '10:00 - 14:00', round: 'Fase de Grupos' },
@@ -355,7 +355,7 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1pgBs7yoMWEMQJNA4kMdEsWyWf1KNwxOP/view?usp=drive_link',
     registration: 'https://forms.gle/hxri8zkoXdnoogD69',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: '10:00 - 14:00', round: 'Eliminatoria.' }],
     place: 'Bajo de cafetería.',
@@ -373,13 +373,13 @@ export const Competitions: CompetitionData[] = [
     name: 'Juego Retro',
     rules: '',
     registration: '',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
     tags: ['Reto', 'Retro'],
     backgroundImage: '/assets/competitions/backgrounds/retro.webp',
-    trophy: '',
+    trophy: '/assets/models/SONIC.obj',
     awards: {
       first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
       second: ['Llaveros e imanes frikis', 'x2 Bonos Fórmula Karting'],
@@ -391,13 +391,13 @@ export const Competitions: CompetitionData[] = [
     name: 'Street Fighter II',
     rules: '',
     registration: '',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
     tags: ['Reto', 'Retro'],
     backgroundImage: '/assets/competitions/backgrounds/street-fighter.webp',
-    trophy: '',
+    trophy: '/assets/models/street-fighter.obj',
     awards: {
       first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
       second: ['Llaveros e imanes frikis', 'x2 Bonos Fórmula Karting'],
@@ -410,13 +410,13 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1tbSdcSUhcJfHx5CHd2GCIMpFoV8RnaqU/view?usp=sharing',
     registration: '',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Hall Edificio Principal.',
     tags: ['Reto', 'VR'],
     backgroundImage: '/assets/competitions/backgrounds/beat-saber.webp',
-    trophy: '',
+    trophy: '/assets/models/beat-saber.obj',
     awards: {
       first: ['Llaveros e imanes frikis', 'x2 Bonos Fórmula Karting'],
       second: ['Llaveros e imanes frikis'],
@@ -429,13 +429,13 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/15_tPVyadkHryQsnfRhB-EPS4vA9KYybO/view?usp=drive_link',
     registration: 'https://forms.gle/PsfNEL5DswXSp4dH8',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
-    place: 'Prefabricada A2.',
+    place: 'Antigua Copistería.',
     tags: ['Competición'],
     backgroundImage: '/assets/competitions/backgrounds/hacking.webp',
-    trophy: '',
+    trophy: '/assets/models/ctf.obj',
     awards: {
       first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
       second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
@@ -447,13 +447,13 @@ export const Competitions: CompetitionData[] = [
     name: 'Tetris',
     rules: '',
     registration: '',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
     tags: ['Reto'],
     backgroundImage: '/assets/competitions/backgrounds/tetris.webp',
-    trophy: '',
+    trophy: '/assets/models/tetris.obj',
     awards: {
       first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
       second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
@@ -466,13 +466,13 @@ export const Competitions: CompetitionData[] = [
     rules:
       'https://drive.google.com/file/d/1IfoHrrR0FGOcC39AEaV_NWQU4qxXRhm3/view?usp=sharing',
     registration: '',
-    registrationPeriodOpen: true,
+    registrationPeriodOpen: false,
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
-    place: 'Aula -1.1.',
+    place: 'Hall Edificio Principal.',
     tags: ['Reto'],
     backgroundImage: '/assets/competitions/backgrounds/cars.webp',
-    trophy: '',
+    trophy: '/assets/models/cars.obj',
     awards: {
       first: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
       second: ['Llaveros e imanes frikis', 'x1 Tarjeta Amazon 25€'],
@@ -500,12 +500,12 @@ export const CompetitionsCards: CompetitionCardData[] = [
     logo: '/assets/competitions/logos/mario-kart.webp',
     character: '/assets/competitions/characters/character-mario.webp',
   },
-  {
+  /* {
     id: 'valorant',
     card: '/assets/competitions/cards/valorant.webp',
     logo: '/assets/competitions/logos/valorant.webp',
     character: '/assets/competitions/characters/valorant.webp',
-  },
+  }, */
   {
     id: 'league-of-legends',
     card: '/assets/competitions/cards/lol.webp',

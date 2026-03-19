@@ -247,7 +247,7 @@ const Sponsors: SponsorData[] = [
       },
     ],
   },
-  {
+  /* {
     name: 'Wiber',
     tier: 'gold',
     description:
@@ -274,7 +274,7 @@ const Sponsors: SponsorData[] = [
         link: 'https://www.facebook.com/wiberfibraoptica/',
       },
     ],
-  },
+  }, */
   {
     name: 'AESIT',
     tier: 'silver',
@@ -775,6 +775,22 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://defc.ugr.es/',
+      },
+    ],
+  },
+  {
+    name: 'AMAT',
+    tier: 'regular',
+    description:
+      'Órgano de representación estudiantil de la Facultad de Matemáticas de la UGR. Se encarga de canalizar las necesidades de los alumnos, dinamizar la vida universitaria mediante eventos y asegurar el cumplimiento de sus derechos académicos.',
+    logo: '/assets/participan/Logos/amat.webp',
+    cardBg: '/assets/participan/BG-Sponsors/amat.webp',
+    isSecret: false,
+    bussiness: 'Representación Estudiantil',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://amatugr.es/',
       },
     ],
   },
