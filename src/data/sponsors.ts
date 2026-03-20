@@ -782,7 +782,7 @@ const Sponsors: SponsorData[] = [
     name: 'AMAT',
     tier: 'regular',
     description:
-      'Órgano de representación estudiantil de la Facultad de Matemáticas de la UGR. Se encarga de canalizar las necesidades de los alumnos, dinamizar la vida universitaria mediante eventos y asegurar el cumplimiento de sus derechos académicos.',
+      'AMAT (Asociación de Estudiantes de Matemáticas y Estadística de la Universidad de Granada) es una asociación universitaria formada por y para estudiantes, cuyo objetivo principal es servir divulgar sobre estas disciplinas; así como punto de encuentro, apoyo y enriquecimiento académico y social para el estudiantado.',
     logo: '/assets/participan/Logos/amat.webp',
     cardBg: '/assets/participan/BG-Sponsors/amat.webp',
     isSecret: false,
@@ -791,6 +791,22 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://amatugr.es/',
+      },
+    ],
+  },
+  {
+    name: 'OSL',
+    tier: 'regular',
+    description:
+      'Entidad dentro del ámbito del Vicerrectorado de Transformación Digital de la UGR. Operativa desde el año 2008, la Oficina de Software Libre ha dedicado su actividad a la promoción y el fomento del software libre dentro y fuera de la UGR, centrando sus recursos y personal en la divulgación así como en promulgar sus numerosos beneficios.',
+    logo: '/assets/participan/Logos/osl.webp',
+    cardBg: '/assets/participan/BG-Sponsors/aesit.webp',
+    isSecret: false,
+    bussiness: 'Oficina de Software Libre',
+    links: [
+      {
+        rrss: 'Web',
+        link: 'https://osl.ugr.es/',
       },
     ],
   },

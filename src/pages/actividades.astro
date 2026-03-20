@@ -4,6 +4,33 @@ import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../components/CompetitionCard.astro';
 import { CompetitionsCards } from '../data/competitions-data.ts';
 import { darkStyles } from '../utils/all';
+
+const competiciones = CompetitionsCards.filter((c) => c.type === 'competicion');
+const retos = CompetitionsCards.filter((c) => c.type === 'reto');
+const actividades = CompetitionsCards.filter((c) => c.type === 'actividad');
+
+const sections = [
+  {
+    key: 'competiciones',
+    title: 'Competiciones',
+    description: 'Enfréntate a otros jugadores y demuestra quién es el mejor.',
+    items: competiciones,
+  },
+  {
+    key: 'retos',
+    title: 'Retos',
+    description:
+      'Compite contra la máquina y obtén la mejor puntuación para proclamarte campeón.',
+    items: retos,
+  },
+  {
+    key: 'actividades',
+    title: 'Actividades',
+    description:
+      'Da una vuelta por las distintas zonas probando actividades y juegos interesantes.',
+    items: actividades,
+  },
+];
 ---
 
 <Layout description="UGR LAN Party" title="Competiciones">
@@ -17,12 +44,17 @@ import { darkStyles } from '../utils/all';
       <h3 class="text-xl font-semibold text-center dark:text-white">
         ¿Buscas equipo o te faltan integrantes?
       </h3>
+
       <a
         href="https://docs.google.com/spreadsheets/d/1oL8jkQn1oGXnT-qkjcIapFpGi3SI0G0JrvIFm6hghkk/edit?usp=sharing"
-        class="group relative inline-flex h-[calc(48px+8px)] items-center justify-center rounded-full bg-neutral-200 py-1 pl-6 pr-14 font-medium text-neutral-950 dark:bg-[#ADB0C1] dark:text-[#284B63]"
-        ><span class="z-10 text-lg font-semibold pr-2"
+        class="group relative inline-flex h-[calc(48px+8px)] items-center
+      justify-center rounded-full bg-neutral-200 py-1 pl-6 pr-14 font-medium
+      text-neutral-950 dark:bg-[#ADB0C1] dark:text-[#284B63]"
+      >
+        <span class="z-10 text-lg font-semibold pr-2"
           >¡Consulta nuestro listado!</span
-        ><div
+        >
+        <div
           class="absolute right-1 inline-flex h-12 w-12 items-center justify-end rounded-full bg-neutral-300 dark:bg-[#F4F4F5] transition-[width] group-hover:w-[calc(100%-8px)]"
         >
           <div class="mr-3.5 flex items-center justify-center">
@@ -33,27 +65,40 @@ import { darkStyles } from '../utils/all';
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5 dark:text-neutral-50"
-              ><path
+            >
+              <path
                 d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
                 fill="#284B63"
                 fill-rule="evenodd"
-                clip-rule="evenodd"></path></svg
-            >
+                clip-rule="evenodd"></path>
+            </svg>
           </div>
-        </div></a
-      >
+        </div>
+      </a>
     </section>
-    <div
-      class="w-[80%] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center justify-items-center m-16 gap-32"
-    >
-      {
-        CompetitionsCards.map((competition) => (
-          <a href={'/actividades/' + competition.id}>
-            <CompetitionCard competition={competition} />
-          </a>
-        ))
-      }
-    </div>
+
+    {
+      sections.map(
+        ({ key, title, description, items }) =>
+          items.length > 0 && (
+            <section class="w-[80%] flex flex-col items-center mt-16 mb-4">
+              <h2 class="text-3xl md:text-5xl font-bold dark:text-white mb-2">
+                {title}
+              </h2>
+              <p class="text-base md:text-lg text-gray-500 dark:text-gray-400 text-center mb-10 max-w-xl">
+                {description}
+              </p>
+              <div class="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center justify-items-center gap-16 mb-8">
+                {items.map((competition) => (
+                  <a href={'/actividades/' + competition.id}>
+                    <CompetitionCard competition={competition} />
+                  </a>
+                ))}
+              </div>
+            </section>
+          ),
+      )
+    }
   </div>
 
   <script src="../scripts/cardsMobile.js"></script>

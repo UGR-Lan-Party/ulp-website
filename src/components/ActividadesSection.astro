@@ -1,7 +1,7 @@
 ---
 import { darkStyles } from '../utils/all';
 import { Competitions } from '../data/competitions-data.ts';
-const allTags = [...new Set(Competitions.flatMap((game) => game.tags))];
+const allTags = [...new Set(Competitions.flatMap((game) => game.tag))];
 ---
 
 <head>
@@ -402,7 +402,7 @@ const allTags = [...new Set(Competitions.flatMap((game) => game.tags))];
         Competitions.map((game) => (
           <button
             class="game"
-            data-tags={game.tags}
+            data-tags={game.tag}
             data-name={game.name}
             data-place={game.place}
           >
