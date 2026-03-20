@@ -7,10 +7,11 @@ export interface CompetitionData {
   participants: string;
   schedule: { time: string; round: string }[];
   place: string;
-  tags: string[];
+  tag: string;
   backgroundImage: string;
   trophy: string;
   awards?: Awards;
+  description?: string;
 }
 
 export interface CompetitionCardData {
@@ -18,6 +19,7 @@ export interface CompetitionCardData {
   card: string;
   logo: string;
   character: string;
+  type: string;
 }
 
 export interface Awards {
@@ -38,7 +40,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: '10:00 - 14:00', round: 'Torneo Ajedrez' }],
     place: 'Sala de Estudiantes.',
-    tags: ['Competición'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/ajedrez.webp',
     trophy: '/assets/models/ajedrez.obj',
     awards: {
@@ -62,7 +64,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: '14:30 - 16:30', round: 'Torneo Minecraft' }],
     place: 'Prefabricada B1.',
-    tags: ['Competición', 'PC'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/minecraft.webp',
     trophy: '/assets/models/mc.obj',
     awards: {
@@ -92,7 +94,7 @@ export const Competitions: CompetitionData[] = [
       { time: '20:00 - 21:00', round: 'Fase Final' },
     ],
     place: 'Prefabricada A1.',
-    tags: ['Competición', 'Switch 2'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/mario-kart.webp',
     trophy: '/assets/models/mario-kart.obj',
     awards: {
@@ -121,7 +123,7 @@ export const Competitions: CompetitionData[] = [
       { time: '20:00 - 21:00', round: 'Final' },
     ],
     place: 'Prefabricadas A2 y B1.',
-    tags: ['PC', 'Competición'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/lol.webp',
     trophy: '/assets/models/lol.obj',
     awards: {
@@ -183,7 +185,7 @@ export const Competitions: CompetitionData[] = [
       { time: '18:00 - 19:00', round: 'Final' },
     ],
     place: 'Prefabricada A2.',
-    tags: ['Competición', 'PC'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/rocket-league.webp',
     trophy: '/assets/models/rocket.obj',
     awards: {
@@ -209,7 +211,7 @@ export const Competitions: CompetitionData[] = [
       { time: '19:00 - 20:00', round: 'Final' },
     ],
     place: 'Aulas -1.1 y -1.2.',
-    tags: ['Wii', 'Competición'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/wii-tenis.webp',
     trophy: '/assets/models/wii.obj',
     awards: {
@@ -231,7 +233,7 @@ export const Competitions: CompetitionData[] = [
       { time: '13:00 - 14:00', round: 'Final' },
     ],
     place: 'Aulas -1.1 y -1.2.',
-    tags: ['Wii', 'Competición'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/wii-bolos.webp',
     trophy: '/assets/models/wii.obj',
     awards: {
@@ -261,7 +263,7 @@ export const Competitions: CompetitionData[] = [
       { time: '19:00 - 20:00', round: 'Final' },
     ],
     place: 'Aula -1.2.',
-    tags: ['Competición', 'Switch'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/smash.webp',
     trophy: '/assets/models/smash.obj',
     awards: {
@@ -288,7 +290,7 @@ export const Competitions: CompetitionData[] = [
       { time: '15:30 - 16:30', round: 'Final' },
     ],
     place: 'Prefabricada A1.',
-    tags: ['Competición', 'Móvil'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/brawl-stars.webp',
     trophy: '/assets/models/brawl-stars.obj',
     awards: {
@@ -310,7 +312,7 @@ export const Competitions: CompetitionData[] = [
       { time: '15:30 - 16:30', round: 'Final' },
     ],
     place: 'Prefabricadas A1 y A2.',
-    tags: ['Competición', 'Móvil'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/clash-royale.webp',
     trophy: '/assets/models/clash-royale.obj',
     awards: {
@@ -329,7 +331,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Hall Edificio Principal.',
-    tags: ['Reto', 'PC'],
+    tag: 'reto',
     backgroundImage: '/assets/competitions/backgrounds/2xko.webp',
     trophy: '/assets/models/2XKO.obj',
     awards: {
@@ -351,7 +353,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Hall Edificio Principal.',
-    tags: ['Reto', 'PC'],
+    tag: 'reto',
     backgroundImage: '/assets/competitions/backgrounds/f1.webp',
     trophy: '/assets/models/f1.obj',
     awards: {
@@ -374,7 +376,7 @@ export const Competitions: CompetitionData[] = [
       { time: '16:30 - 18:00', round: 'Final' },
     ],
     place: 'Entrada patio.',
-    tags: ['Competición', 'Móvil'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/futbolin.webp',
     trophy: '/assets/models/futbolin.obj',
     awards: {
@@ -393,7 +395,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: '10:00 - 14:00', round: 'Eliminatoria.' }],
     place: 'Bajo de cafetería.',
-    tags: ['Competición', 'Aire Libre'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/ping-pong.webp',
     trophy: '/assets/models/ping-pong.obj',
     awards: {
@@ -411,7 +413,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
-    tags: ['Reto', 'Retro'],
+    tag: 'reto',
     backgroundImage: '/assets/competitions/backgrounds/retro.webp',
     trophy: '/assets/models/SONIC.obj',
     awards: {
@@ -429,7 +431,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
-    tags: ['Reto', 'Retro'],
+    tag: 'reto',
     backgroundImage: '/assets/competitions/backgrounds/street-fighter.webp',
     trophy: '/assets/models/street-fighter.obj',
     awards: {
@@ -448,7 +450,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Hall Edificio Principal.',
-    tags: ['Reto', 'VR'],
+    tag: 'reto',
     backgroundImage: '/assets/competitions/backgrounds/beat-saber.webp',
     trophy: '/assets/models/beat-saber.obj',
     awards: {
@@ -467,7 +469,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Sala de Profesores Externos.',
-    tags: ['Competición'],
+    tag: 'competicion',
     backgroundImage: '/assets/competitions/backgrounds/hacking.webp',
     trophy: '/assets/models/ctf.obj',
     awards: {
@@ -485,7 +487,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Aula -1.1.',
-    tags: ['Reto'],
+    tag: 'reto',
     backgroundImage: '/assets/competitions/backgrounds/tetris.webp',
     trophy: '/assets/models/tetris.obj',
     awards: {
@@ -504,7 +506,7 @@ export const Competitions: CompetitionData[] = [
     participants: '',
     schedule: [{ time: 'Todo el día', round: 'Mejor puntuación' }],
     place: 'Hall Edificio Principal.',
-    tags: ['Reto'],
+    tag: 'reto',
     backgroundImage: '/assets/competitions/backgrounds/cars.webp',
     trophy: '/assets/models/cars.obj',
     awards: {
@@ -512,6 +514,99 @@ export const Competitions: CompetitionData[] = [
       second: [],
       third: [],
     },
+  },
+  {
+    id: 'street-pass',
+    name: 'Street Pass',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: false,
+    participants: '',
+    schedule: [{ time: 'Todo el día', round: '' }],
+    place: 'Cafetería ETSIIT.',
+    tag: 'actividad',
+    backgroundImage: '',
+    trophy: '',
+    description:
+      'Pasa por el stand de StreetPass Málaga y comparte tu Mii con otros asistentes para ganar premios y sorpresas. Habrá torneos con juegos de la 3DS. Consulta el cartel en las redes sociales para más información.',
+  },
+  {
+    id: 'watch-party',
+    name: 'Watch Party',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: false,
+    participants: '',
+    schedule: [{ time: 'Todo el día', round: '' }],
+    place: 'Salón de Grados.',
+    tag: 'actividad',
+    backgroundImage: '',
+    trophy: '',
+    description:
+      'Visualiza en directo las competiciones más emocionantes del evento en nuestras pantallas gigantes. No te pierdas ni un solo momento de la acción y anima a tus competidores favoritos.',
+  },
+  {
+    id: 'tcg',
+    name: 'Pokemon TCG',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: false,
+    participants: '',
+    schedule: [{ time: 'Todo el día', round: '' }],
+    place: 'Hall Edificio Principal.',
+    tag: 'actividad',
+    backgroundImage: '',
+    trophy: '',
+    description:
+      'Stand con cartas de Pokemon TCG. Explora las colecciones y obten tu carta favorita.',
+  },
+  {
+    id: 'indie-fest',
+    name: 'Indie Fest',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: false,
+    participants: '',
+    schedule: [{ time: 'Todo el día', round: '' }],
+    place: 'Hall Edificio Principal.',
+    tag: 'actividad',
+    backgroundImage: '',
+    trophy: '',
+    description:
+      'Festival de juegos independientes. Descubre nuevos títulos y comparte tu opinión con los desarrolladores.',
+  },
+  {
+    id: 'juego-libre',
+    name: 'Juego Libre',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: false,
+    participants: '',
+    schedule: [{ time: 'Todo el día', round: '' }],
+    place: 'Entrada Edificio Principal.',
+    tag: 'actividad',
+    backgroundImage: '',
+    trophy: '',
+    description:
+      'Explora las diferentes consolas y juegos disponibles en el área de juego libre. Desde consolas clásicas hasta las últimas novedades, hay algo para todos los gustos. ¡Ven a jugar y descubrir nuevos títulos!',
+  },
+  {
+    id: 'paella',
+    name: 'Paella',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: false,
+    participants: '',
+    schedule: [
+      { time: '13:30', round: '1º Tanda' },
+      { time: '14:15', round: '2º Tanda' },
+    ],
+    place: 'Cafetería ETSIIT.',
+    tag: 'actividad',
+    backgroundImage: '',
+    trophy: '',
+    description:
+      'No te pierdas la tradicional paella del evento, preparada por el equipo de cocina de la cafetería. Disfruta de un delicioso plato mientras compartes momentos con otros asistentes.',
   },
 ];
 
@@ -521,18 +616,21 @@ export const CompetitionsCards: CompetitionCardData[] = [
     card: '/assets/competitions/cards/wii-tenis.webp',
     logo: '/assets/competitions/logos/wii.webp',
     character: '/assets/competitions/characters/wii-tenis.webp',
+    type: 'competicion',
   },
   {
     id: 'wii-sports-bolos',
     card: '/assets/competitions/cards/wii-bolos.webp',
     logo: '/assets/competitions/logos/wii.webp',
     character: '/assets/competitions/characters/wii-bolos.webp',
+    type: 'competicion',
   },
   {
     id: 'mario-kart',
     card: '/assets/competitions/cards/mario-kart.webp',
     logo: '/assets/competitions/logos/mario-kart.webp',
     character: '/assets/competitions/characters/character-mario.webp',
+    type: 'competicion',
   },
   /* {
     id: 'valorant',
@@ -545,6 +643,7 @@ export const CompetitionsCards: CompetitionCardData[] = [
     card: '/assets/competitions/cards/lol.webp',
     logo: '/assets/competitions/logos/lol.webp',
     character: '/assets/competitions/characters/character-lol.webp',
+    type: 'competicion',
   },
 
   {
@@ -552,95 +651,153 @@ export const CompetitionsCards: CompetitionCardData[] = [
     card: '/assets/competitions/cards/rocket.webp',
     logo: '/assets/competitions/logos/rocket.webp',
     character: '/assets/competitions/characters/character-rocket.webp',
+    type: 'competicion',
   },
   {
     id: 'brawl-stars',
     card: '/assets/competitions/cards/brawls-stars.webp',
     logo: '/assets/competitions/logos/brawl-stars.webp',
     character: '/assets/competitions/characters/character-brawl-stars.webp',
+    type: 'competicion',
   },
   {
     id: 'clash-royale',
     card: '/assets/competitions/cards/clash-royale.webp',
     logo: '/assets/competitions/logos/clash-royale.webp',
     character: '/assets/competitions/characters/character-clash-royale.webp',
+    type: 'competicion',
   },
   {
     id: 'smash',
     card: '/assets/competitions/cards/smash.webp',
     logo: '/assets/competitions/logos/smash.webp',
     character: '/assets/competitions/characters/character-smash.webp',
+    type: 'competicion',
   },
   {
     id: 'minecraft',
     card: '/assets/competitions/cards/minecraft.webp',
     logo: '/assets/competitions/logos/minecraft.webp',
     character: '/assets/competitions/characters/character-minecraft.webp',
+    type: 'competicion',
   },
   {
     id: '2XKO',
     card: '/assets/competitions/cards/2xko.webp',
     logo: '/assets/competitions/logos/2xko.webp',
     character: '/assets/competitions/characters/character-2xko.webp',
+    type: 'reto',
   },
   {
     id: 'street-fighter',
     card: '/assets/competitions/cards/street-fighter.webp',
     logo: '/assets/competitions/logos/street-fighter.webp',
     character: '/assets/competitions/characters/character-street-fighter.webp',
+    type: 'reto',
   },
   {
     id: 'f1',
     card: '/assets/competitions/cards/f1.webp',
     logo: '/assets/competitions/logos/f1.webp',
     character: '/assets/competitions/characters/character-f1.webp',
+    type: 'reto',
   },
   {
     id: 'futbolin',
     card: '/assets/competitions/cards/futbolin.webp',
     logo: '/assets/competitions/logos/futbolin.webp',
     character: '/assets/competitions/characters/character-futbolin.webp',
+    type: 'reto',
   },
   {
     id: 'retro',
     card: '/assets/competitions/cards/retro.webp',
     logo: '/assets/competitions/logos/retro.webp',
     character: '/assets/competitions/characters/character-retro.webp',
+    type: 'reto',
   },
   {
     id: 'beat-saber',
     card: '/assets/competitions/cards/beat-saber.webp',
     logo: '/assets/competitions/logos/beat-saber.webp',
     character: '/assets/competitions/characters/character-beat-saber.webp',
+    type: 'reto',
   },
   {
     id: 'hacking',
     card: '/assets/competitions/cards/hacking.webp',
     logo: '/assets/competitions/logos/hacking.webp',
     character: '/assets/competitions/characters/character-hacking.webp',
+    type: 'reto',
   },
   {
     id: 'ajedrez',
     card: '/assets/competitions/cards/ajedrez.webp',
     logo: '/assets/competitions/logos/ajedrez.webp',
     character: '/assets/competitions/characters/character-ajedrez.webp',
+    type: 'reto',
   },
   {
     id: 'ping-pong',
     card: '/assets/competitions/cards/ping-pong.webp',
     logo: '/assets/competitions/logos/ping-pong.webp',
     character: '/assets/competitions/characters/character-ping-pong.webp',
+    type: 'reto',
   },
   {
     id: 'tetris',
     card: '/assets/competitions/cards/tetris.webp',
     logo: '/assets/competitions/logos/tetris.webp',
     character: '/assets/competitions/characters/character-tetris.webp',
+    type: 'reto',
   },
   {
     id: 'cars',
     card: '/assets/competitions/cards/cars.webp',
     logo: '/assets/competitions/logos/cars.webp',
     character: '/assets/competitions/characters/character-cars.webp',
+    type: 'reto',
+  },
+  {
+    id: 'street-pass',
+    card: '/assets/competitions/cards/street-pass.webp',
+    logo: '/assets/competitions/logos/street-pass.webp',
+    character: '/assets/competitions/characters/character-street-pass.webp',
+    type: 'actividad',
+  },
+  {
+    id: 'watch-party',
+    card: '/assets/competitions/cards/watch-party.webp',
+    logo: '/assets/competitions/logos/watch-party.webp',
+    character: '/assets/competitions/characters/character-watch-party.webp',
+    type: 'actividad',
+  },
+  {
+    id: 'tcg',
+    card: '/assets/competitions/cards/tcg.webp',
+    logo: '/assets/competitions/logos/tcg.webp',
+    character: '/assets/competitions/characters/character-tcg.webp',
+    type: 'actividad',
+  },
+  {
+    id: 'indie-fest',
+    card: '/assets/competitions/cards/indie-fest.webp',
+    logo: '/assets/competitions/logos/indie-fest.webp',
+    character: '/assets/competitions/characters/character-indie-fest.webp',
+    type: 'actividad',
+  },
+  {
+    id: 'juego-libre',
+    card: '/assets/competitions/cards/juego-libre.webp',
+    logo: '/assets/competitions/logos/juego-libre.webp',
+    character: '/assets/competitions/characters/character-juego-libre.webp',
+    type: 'actividad',
+  },
+  {
+    id: 'paella',
+    card: '/assets/competitions/cards/paella.webp',
+    logo: '/assets/competitions/logos/paella.webp',
+    character: '/assets/competitions/characters/character-paella.webp',
+    type: 'actividad',
   },
 ];
