@@ -1,5 +1,6 @@
 ---
 import '../styles/reduced-motion.css';
+import PartnerStrip from '../components/PartnerStrip.astro';
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
@@ -48,6 +49,7 @@ const { description, title, image } = Astro.props;
     >
       <slot />
     </main>
+    {Astro.url.pathname !== '/' && <PartnerStrip />}
     <Footer />
     <BackToTop />
     <style is:global>
@@ -67,7 +69,6 @@ const { description, title, image } = Astro.props;
         transform: translateY(0);
         outline: 3px solid #f59e0b;
       }
-
 
       body {
         font-family: 'Inter', sans-serif;
