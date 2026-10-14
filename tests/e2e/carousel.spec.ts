@@ -122,6 +122,19 @@ for (const width of [1440, 360]) {
         .getByRole('button', { name: 'Foto siguiente', exact: true })
         .click();
     }
+    const stageBox = (await first
+      .locator('[data-carousel-stage]')
+      .boundingBox())!;
+    const albumBox = (await first
+      .getByRole('link', { name: 'Ver álbum completo' })
+      .boundingBox())!;
+    expect(
+      Math.abs(
+        stageBox.x + stageBox.width / 2 - albumBox.x - albumBox.width / 2,
+      ),
+    ).toBeLessThan(1);
+    expect(albumBox.y).toBeGreaterThan(stageBox.y + stageBox.height);
+    expect(albumBox.height).toBeLessThan(40);
     await expect(first.locator('.zoom-hint')).toHaveText('');
     await expect(first.locator('.zoom-hint svg')).toBeVisible();
   });
