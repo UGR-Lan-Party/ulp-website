@@ -1,38 +1,19 @@
+import { mountTrophy } from './ThreeJs/trophy-scene';
+
 document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
-  const open = viewer.querySelector<HTMLButtonElement>('[data-trophy-open]')!;
-  const close = viewer.querySelector<HTMLButtonElement>('[data-trophy-close]')!;
-  const preview = viewer.querySelector<HTMLImageElement>(
-    '[data-trophy-preview]',
-  )!;
   const canvas = viewer.querySelector<HTMLElement>('[data-trophy-canvas]')!;
   const status = viewer.querySelector<HTMLElement>('[data-trophy-status]')!;
+  const retry = viewer.querySelector<HTMLButtonElement>('[data-trophy-retry]')!;
   let controller: AbortController | null = null;
   let dispose: (() => void) | undefined;
 
-  function stop() {
-    controller?.abort();
-    controller = null;
-    dispose?.();
-    dispose = undefined;
-    canvas.hidden = true;
-    preview.hidden = false;
-    close.hidden = true;
-    open.hidden = false;
-    open.disabled = false;
-    open.setAttribute('aria-expanded', 'false');
-  }
-
-  open.addEventListener('click', async () => {
+  async function start() {
+    if (controller) return;
     const request = new AbortController();
     controller = request;
-    open.disabled = true;
-    close.hidden = false;
-    open.setAttribute('aria-expanded', 'true');
-    status.textContent = 'Cargando visor y modelo 3D…';
+    retry.hidden = true;
+    status.textContent = 'Cargando trofeo 3D…';
     try {
-      const { mountTrophy } = await import('./ThreeJs/trophy-scene');
-      if (request.signal.aborted) return;
-      canvas.hidden = false;
       const cleanup = await mountTrophy(
         canvas,
         viewer.dataset.trophy!,
@@ -43,28 +24,35 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
         return;
       }
       dispose = cleanup;
-      preview.hidden = true;
-      open.hidden = true;
       status.textContent =
         'Arrastra para girar el trofeo y usa la rueda o dos dedos para acercarlo.';
-      close.focus();
     } catch {
       if (request.signal.aborted) return;
-      stop();
+      controller = null;
       status.textContent =
-        'No se ha podido abrir el visor 3D. Puedes seguir consultando la imagen y los premios.';
-      open.focus();
+        'No se ha podido cargar el trofeo. Inténtalo de nuevo.';
+      retry.hidden = false;
     }
-  });
+  }
 
-  close.addEventListener('click', () => {
-    stop();
-    status.textContent =
-      'Visor cerrado. Puedes volver a abrirlo cuando quieras.';
-    open.focus();
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      void start();
+    },
+    { rootMargin: '200px' },
+  );
+  observer.observe(viewer);
+  retry.addEventListener('click', start);
+  window.addEventListener('pagehide', () => {
+    observer.disconnect();
+    controller?.abort();
+    controller = null;
+    dispose?.();
+    dispose = undefined;
   });
-  viewer.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && controller) close.click();
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) observer.observe(viewer);
   });
-  window.addEventListener('pagehide', stop);
 });

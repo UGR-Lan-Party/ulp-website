@@ -3,52 +3,34 @@ interface Props {
   trophy: string;
 }
 const { trophy } = Astro.props;
-const preview = trophy
-  .replace('/assets/models/', '/assets/trophies/')
-  .replace(/\.obj$/, '.webp');
 ---
 
 <div
   class="trophy-viewer mx-auto mt-4 w-full max-w-[600px] px-4"
   data-trophy={trophy}
 >
-  <img
-    data-trophy-preview
-    src={preview}
-    alt="Vista del trofeo de esta actividad"
-    width="480"
-    height="480"
-    loading="lazy"
-    class="mx-auto aspect-square w-full max-w-[480px] rounded object-contain"
-  />
-  <button
-    type="button"
-    data-trophy-open
-    aria-expanded="false"
-    aria-controls="trophy-canvas"
-    class="mx-auto block rounded bg-primary px-5 py-3 text-white focus-visible:outline focus-visible:outline-primary"
-    >Ver en 3D</button
-  >
   <div
-    id="trophy-canvas"
     data-trophy-canvas
-    hidden
-    class="h-[400px] w-full max-w-full overflow-hidden"
+    class="h-[400px] w-full overflow-hidden sm:h-[600px]"
     aria-label="Visor del trofeo"
     role="region"
   >
   </div>
+  <p data-trophy-status role="status" class="mt-3 text-center dark:text-white">
+    Cargando trofeo 3D…
+  </p>
   <button
     type="button"
-    data-trophy-close
+    data-trophy-retry
     hidden
-    class="mx-auto mt-3 block rounded bg-primary px-5 py-3 text-white"
-    >Cerrar visor 3D</button
+    class="mx-auto mt-3 block rounded bg-primary px-5 py-3 text-white focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
+    >Reintentar carga del trofeo</button
   >
-  <p data-trophy-status role="status" class="mt-3 text-center dark:text-white">
-    El visor se descarga al abrirlo. Puedes explorar el trofeo con el ratón o
-    con gestos táctiles.
-  </p>
+  <noscript
+    ><p class="mt-3 text-center dark:text-white">
+      Activa JavaScript para explorar el trofeo en 3D.
+    </p></noscript
+  >
 </div>
 <style>
   [hidden] {

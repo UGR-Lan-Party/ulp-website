@@ -51,21 +51,6 @@ test('Información se recorre y se cierra con teclado', async ({ page }) => {
   await expect(information).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('El visor no descarga Three.js ni modelos antes de abrirlo', async ({
-  page,
-}) => {
-  const requests: string[] = [];
-  page.on('request', (request) => requests.push(request.url()));
-  await page.goto('/actividades/ajedrez/');
-  await expect(page.locator('[data-trophy-preview]')).toBeVisible();
-  expect(
-    requests.filter(
-      (url) =>
-        url.includes('/assets/models/') || url.includes('/trophy-scene.'),
-    ),
-  ).toEqual([]);
-});
-
 test('El menú móvil anuncia su estado y devuelve el foco', async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto('/actividades/ajedrez/');
