@@ -3,6 +3,7 @@ import { edition } from '../data/edition';
 
 const {
   registrationLink,
+  activityId,
   participantsLink,
   background_img,
   registrationPeriodOpen,
@@ -55,6 +56,9 @@ const title = isFinished
       isOpen && (
         <a
           href={registrationLink}
+          data-analytics-event="registration-click"
+          data-analytics-edition={edition.year}
+          data-analytics-activity={activityId}
           class="mt-6 inline-block rounded-md bg-white px-7 py-3 text-dark"
         >
           Inscribirme
