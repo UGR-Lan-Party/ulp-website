@@ -9,13 +9,16 @@ Página web oficial de la UGR LAN Party.
 
 ## Instalación para desarrollo
 
-La página web usa la herramienta [Astro](https://astro.build/). Para poder usarla en el entorno de desarollo, sigue los siguientes pasos:
+La web usa Astro, Node **24.21.0 LTS** (`.nvmrc`) y **pnpm 10.34.7** (`packageManager`). CI y Docker usan esas mismas versiones. El único lockfile es `pnpm-lock.yaml`.
 
-1. Descarga [NodeJS](https://nodejs.org/en) >= 19, recomendamos usar un gestor de versiones como [Volta](https://volta.sh/) o [NVM](https://github.com/nvm-sh/nvm).
+1. Instala la versión de Node indicada en `.nvmrc` con tu gestor de versiones.
+2. Ejecuta `npm install --global pnpm@10.34.7`.
+3. Instala con `pnpm install --frozen-lockfile`.
+4. Ejecuta `pnpm dev` y abre la dirección que muestra Astro.
 
-1. Instala las dependencias con `npm install`, `pnpm install` o equivalente.
+Antes de enviar cambios: `pnpm test` y `pnpm build`. Para regenerar imágenes: `pnpm images`; confirma sus variantes y el manifiesto. Consulta [imágenes](docs/imagenes.md) y [dependencias](docs/dependencias.md).
 
-1. Ejecuta el scipt de servidor de desarrollo `dev`, via `npm run dev`, `pnpm dev` o equivalente.
+Los parches del entorno se actualizan juntos en `.nvmrc`, `package.json` y `Dockerfile`, tras repetir instalación, pruebas y compilación. No generes un segundo lockfile con npm.
 
 ## Producción con Docker
 
