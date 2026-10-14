@@ -1,0 +1,35 @@
+---
+import ActivityTile from './ActivityTile.astro';
+---
+
+<section id="experiencias" class="design-section design-container">
+  <div class="design-section-header" data-reveal>
+    <div>
+      <span class="design-eyebrow">01 / Encuentra tu partida</span><h2
+        class="design-heading"
+      >
+        Aquí hay sitio<br />para tu forma de jugar.
+      </h2>
+    </div>
+    <a class="design-link" href="/actividades"
+      >Explorar actividades <span aria-hidden="true">↗</span></a
+    >
+  </div>
+  <div class="design-grid">
+    <ActivityTile id="mario-kart" /><ActivityTile id="hacking" /><ActivityTile
+      id="league-of-legends"
+    />
+  </div>
+  <p class="experience-note">
+    Un vistazo a las actividades de 2026. Estamos preparando la próxima edición.
+  </p>
+</section>
+<style>
+  .experience-note {
+    font:
+      10px ui-monospace,
+      monospace;
+    color: var(--muted);
+    margin-top: 22px;
+  }
+</style>

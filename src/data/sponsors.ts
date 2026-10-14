@@ -2,6 +2,7 @@ export interface SponsorData {
   name: string;
   tier: string;
   logo: string;
+  logoIsLight?: boolean;
   cardBg: string | null;
   isSecret: boolean;
   bussiness: string;
@@ -133,6 +134,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Empresa líder en el sector del gaming, especializada en el diseño y distribución de accesorios premium para consolas y PC, así como en la edición de videojuegos. Nacon ofrece una amplia gama de productos enfocados en mejorar la experiencia y el rendimiento de los jugadores.',
     logo: '/assets/participan/Logos/nacon.webp',
+    logoIsLight: true,
     cardBg: '/assets/participan/BG-Sponsors/nacon.webp',
     isSecret: false,
     bussiness: 'Videojuegos y Accesorios Gaming',
@@ -341,6 +343,7 @@ const Sponsors: SponsorData[] = [
     description:
       'La Delegación de Estudiantes de Ingeniería Informática y Telecomunicaciones. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.',
     logo: '/assets/participan/Logos/deiit.webp',
+    logoIsLight: true,
     cardBg: '/assets/participan/BG-Sponsors/deiit.webp',
     isSecret: false,
     bussiness: 'Delegación de Estudiantes',
@@ -433,6 +436,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Estudio de desarrollo de videojuegos independiente de Sevilla. Especializados en títulos de aventura y acción con estética retro y temáticas inspiradas en el folclore andaluz. Son conocidos por juegos como “The Last Door” y “Blasphemous”.',
     logo: '/assets/participan/Logos/game-kitchen.webp',
+    logoIsLight: true,
     cardBg: '/assets/participan/BG-Sponsors/theGameKitchen.webp',
     isSecret: false,
     bussiness: 'Desarrolladora de videojuegos',
@@ -878,3 +882,5 @@ export const sponsorsRegular: SponsorData[] = Sponsors.filter(
 export const secretSponsor: SponsorData[] = Sponsors.filter(
   (sponsor) => sponsor.name === 'Patrocinador Secreto',
 );
+
+export const partners = Sponsors.filter((sponsor) => Boolean(sponsor.tier));

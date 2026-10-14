@@ -1,4 +1,6 @@
 ---
+import PartnerStrip from '../components/PartnerStrip.astro';
+import ExperienceGrid from '../components/ExperienceGrid.astro';
 import About from '../components/Aboutsection.astro';
 import Hero from '../components/Hero.astro';
 import Layout from '../layouts/Layout.astro';
@@ -13,9 +15,26 @@ import TrailerSection from '../components/TrailerSection.astro';
   title="Inicio"
 >
   <Hero />
-  <TrailerSection />
+  <PartnerStrip />
+  <ExperienceGrid />
   <About />
-  <CTAsection />
+  <TrailerSection />
+  <div class="design-container gallery-heading" data-reveal>
+    <span class="design-eyebrow">04 / Nuestra memoria compartida</span><h2
+      class="design-heading"
+    >
+      Esto también es ULP.
+    </h2>
+  </div>
   <Carousel albumId="72177720328590176" userId="195749897@N03" />
   <Faq />
+  <CTAsection />
 </Layout>
+<style>
+  .gallery-heading {
+    padding-top: 40px;
+  }
+  .gallery-heading .design-eyebrow {
+    margin-bottom: 20px;
+  }
+</style>

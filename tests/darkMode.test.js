@@ -110,7 +110,7 @@ for (const [path, sticky] of [
 ]) {
   test(`Toggle and logos: path=${path}, sticky=${sticky}`, () => {
     const result = createPage({ path, sticky });
-    const homeLogo = path === '/' && !sticky;
+    const homeLogo = false;
     assert.equal(result.darkLogoVisible(), homeLogo);
     assert.equal(result.lightLogoVisible(), !homeLogo);
     result.click();

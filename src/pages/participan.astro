@@ -1,11 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
-import ContactButton from '../components/contactButton.astro';
-import SponsorCard from '../components/SponsorCard.astro';
-import LightningSponsorCard from '../components/LightningSponsorCard.astro';
-import { darkStyles } from '../utils/all';
-
+import PartnerCard from '../components/PartnerCard.astro';
 import {
   sponsorsDiamond,
   sponsorsPlatinum,
@@ -13,93 +9,109 @@ import {
   sponsorsSilver,
   sponsorsBronze,
   sponsorsRegular,
-} from '../data/sponsors.ts';
+} from '../data/sponsors';
+const groups = [
+  { name: 'Diamante', items: sponsorsDiamond },
+  { name: 'Platino', items: sponsorsPlatinum },
+  { name: 'Oro', items: sponsorsGold },
+  { name: 'Plata', items: sponsorsSilver },
+  { name: 'Bronce', items: sponsorsBronze },
+  { name: 'Colaboradores', items: sponsorsRegular },
+];
 ---
 
-<Layout title="Participan">
-  <Breadcrumb>
-    <Fragment slot="title">Participan</Fragment>
-    <Fragment slot="texto">
-      Conoce a las entidades que hacen posible este evento.
+<Layout
+  title="Participan"
+  description="Las entidades que forman parte de la comunidad de UGR LAN Party"
+>
+  <Breadcrumb current="Participan">
+    <Fragment slot="title">
+      El equipo detrás<br />de la partida.
+    </Fragment><Fragment slot="texto">
+      Tecnología, talento y comunidad. Conoce a las entidades que hicieron
+      posible ULP 2026.
     </Fragment>
   </Breadcrumb>
-  <div class={`w-full flex flex-col items-center justify-center ${darkStyles}`}>
-    <section class="h-[200px] flex flex-col items-center justify-center gap-4">
-      <h3 class="text-2xl font-semibold text-center dark:text-white">
-        ¿Quieres ser parte del proyecto?
-      </h3>
-      <ContactButton />
-    </section>
-
-    <div class="flex flex-col items-center justify-center mx-4 mb-16 gap-8">
-      <div>
-        <h3 class="text-4xl font-extrabold text-[#1771E6] text-center">
-          Patrocinadores Diamante
-        </h3>
-        <div
-          class="w-full flex flex-col mt-8 gap-5 items-center justify-center md:flex-row md:flex-wrap"
-        >
-          {
-            sponsorsDiamond.map((sponsor) => (
-              <LightningSponsorCard sponsor={sponsor} />
-            ))
-          }
-        </div>
-      </div>
-      <div>
-        <h3 class="text-4xl mt-10 font-extrabold text-[#c9dbf1] text-center">
-          Patrocinadores Platino
-        </h3>
-        <div
-          class="w-full flex flex-col mt-8 gap-5 items-center justify-center md:flex-row md:flex-wrap"
-        >
-          {sponsorsPlatinum.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
-        </div>
-      </div>
-      <div>
-        <h3 class="text-4xl mt-10 font-extrabold text-[#FFC002] text-center">
-          Patrocinadores Oro
-        </h3>
-        <div
-          class="w-full flex flex-col mt-8 gap-5 items-center justify-center md:flex-row md:flex-wrap"
-        >
-          {sponsorsGold.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
-        </div>
-      </div>
-      <div>
-        <h3 class="text-4xl mt-10 font-extrabold text-[#9a9ba0] text-center">
-          Patrocinadores Plata
-        </h3>
-        <div
-          class="w-full flex flex-col mt-8 gap-5 items-center justify-center md:flex-row md:flex-wrap"
-        >
-          {sponsorsSilver.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
-        </div>
-      </div>
-      <div>
-        <h3 class="text-4xl mt-10 font-extrabold text-[#BB5522] text-center">
-          Patrocinadores Bronce
-        </h3>
-        <div
-          class="w-full flex flex-col mt-8 gap-5 items-center justify-center md:flex-row md:flex-wrap"
-        >
-          {sponsorsBronze.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
-        </div>
-      </div>
-      <div>
-        <h3
-          class="text-4xl mt-10 font-extrabold text-[#414247] dark:text-[#CACACA] text-center"
-        >
-          Patrocinadores y Colaboradores
-        </h3>
-        <div
-          class="w-full flex flex-col mt-8 gap-5 items-center justify-center md:flex-row md:flex-wrap"
-        >
-          {sponsorsRegular.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
-        </div>
-      </div>
-    </div>
+  <div class="design-container partner-invitation">
+    <span class="design-eyebrow">Tu entidad también puede formar parte</span><a
+      class="design-link"
+      href="/contacto"
+      >Hablemos de la próxima edición <span aria-hidden="true">↗</span></a
+    >
+  </div>
+  <div class="design-container partner-directory">
+    {
+      groups
+        .filter((group) => group.items.length)
+        .map((group, index) => (
+          <section class="partner-group">
+            <>
+              <header data-reveal>
+                <>
+                  <span class="design-eyebrow">
+                    {String(index + 1).padStart(2, '0')} / Partners ULP
+                  </span>
+                  <h2>
+                    {group.name}
+                    <span>{String(group.items.length).padStart(2, '0')}</span>
+                  </h2>
+                </>
+              </header>
+              <div class="design-grid">
+                {group.items.map((partner, partnerIndex) => (
+                  <PartnerCard partner={partner} index={partnerIndex} />
+                ))}
+              </div>
+            </>
+          </section>
+        ))
+    }
   </div>
 </Layout>
-
-<style></style>
+<style>
+  .partner-invitation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .partner-invitation .design-eyebrow {
+    font-size: 9px;
+  }
+  .partner-directory {
+    padding-bottom: 80px;
+  }
+  .partner-group {
+    padding-top: 70px;
+  }
+  .partner-group header {
+    margin-bottom: 28px;
+  }
+  .partner-group h2 {
+    display: flex;
+    align-items: start;
+    gap: 18px;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.2;
+    font-weight: 750;
+    margin-top: 14px;
+  }
+  .partner-group h2 span {
+    font:
+      11px ui-monospace,
+      monospace;
+    opacity: 0.6;
+    padding-top: 5px;
+  }
+  @media (max-width: 700px) {
+    .partner-invitation {
+      flex-direction: column;
+      align-items: start;
+    }
+    .partner-group {
+      padding-top: 45px;
+    }
+  }
+</style>

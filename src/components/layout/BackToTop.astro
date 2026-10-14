@@ -1,11 +1,30 @@
-<!-- ====== Back To Top Start -->
-<a
-  href="javascript:void(0)"
-  class="back-to-top fixed bottom-8 right-8 left-auto z-[999] hidden h-10 w-10 items-center justify-center rounded-md bg-primary
-    dark:bg-white  shadow-md transition duration-300 ease-in-out hover:bg-dark dark:hover:bg-dark"
+<button class="back-to-top" type="button" aria-label="Volver al principio"
+  ><svg
+    viewBox="0 0 24 24"
+    width="18"
+    height="18"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    aria-hidden="true"><path d="m6 14 6-6 6 6"></path></svg
+  ></button
 >
-  <span
-    class="mt-[6px] h-3 w-3 rotate-45 border-t border-l border-white dark:border-primary"
-  ></span>
-</a>
-<!-- ====== Back To Top End -->
+<style>
+  .back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 50;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 8px 24px rgb(0 68 101 / 0.12);
+    cursor: pointer;
+  }
+</style>
