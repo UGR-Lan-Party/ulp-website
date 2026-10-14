@@ -1,4 +1,5 @@
 ---
+import { edition } from '../data/edition';
 import { activities } from '../data/activities.ts';
 import ActivityCard from './ActivityCard.astro';
 
@@ -31,6 +32,7 @@ const N = activities.length;
   <!-- Confirm attendance -->
   <div
     class="tlh-cta mt-10 mb-4"
+    hidden={edition.phase !== 'registration-open'}
     style="opacity:0; transform: translateY(16px);"
   >
     <p class="text-sm text-white/60 font-mono mb-4">
