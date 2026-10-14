@@ -99,3 +99,19 @@ test('La agenda distingue inscripciones cerradas de actividades sin inscripción
     await program.getByLabel('No requiere inscripción').count(),
   ).toBeGreaterThan(0);
 });
+
+test('El acceso de una actividad de 2026 lleva al programa completo', async ({
+  page,
+}) => {
+  await page.goto('/actividades/hacking/');
+  const link = page.getByRole('link', {
+    name: 'Consultar horarios',
+    exact: true,
+  });
+  await expect(link).toHaveAttribute('href', '/horarios');
+  await link.click();
+  await expect(page).toHaveURL(/\/info\/horarios\/?$/);
+  await expect(
+    page.getByRole('heading', { name: 'Programa de ULP 2026' }),
+  ).toBeVisible();
+});

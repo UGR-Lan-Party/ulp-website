@@ -11,8 +11,13 @@ import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
 interface Props {
   sponsorLink: RRSSLink;
   monochrome?: boolean;
+  compact?: boolean;
 }
-const { sponsorLink, monochrome = false } = Astro.props as Props;
+const {
+  sponsorLink,
+  monochrome = false,
+  compact = false,
+} = Astro.props as Props;
 
 const hoverColors: Record<string, string> = {
   X: 'hover:text-black dark:hover:text-white',
@@ -53,7 +58,7 @@ const hoverClass = hoverColors[sponsorLink.rrss] ?? 'hover:text-primary';
       }
       target="_blank"
       rel="noopener noreferrer"
-      class={`inline-flex h-10 w-10 shrink-0 items-center justify-center ${monochrome ? 'text-white' : `text-gray-300 dark:text-gray-600 ${hoverClass}`}
+      class={`inline-flex h-10 w-10 shrink-0 items-center justify-center ${compact ? 'social-compact' : ''} ${monochrome ? 'text-white' : `text-gray-300 dark:text-gray-600 ${hoverClass}`}
           transition-transform duration-300 ease-in-out
           hover:scale-110`}
     >
@@ -94,3 +99,10 @@ const hoverClass = hoverColors[sponsorLink.rrss] ?? 'hover:text-primary';
     </a>
   )
 }
+
+<style>
+  .social-compact :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+</style>

@@ -2,7 +2,8 @@ export interface SponsorData {
   name: string;
   tier: string;
   logo: string;
-  logoIsLight?: boolean;
+  logoNeedsContrast?: boolean;
+  logoHasBackground?: boolean;
   cardBg: string | null;
   isSecret: boolean;
   bussiness: string;
@@ -134,7 +135,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Empresa líder en el sector del gaming, especializada en el diseño y distribución de accesorios premium para consolas y PC, así como en la edición de videojuegos. Nacon ofrece una amplia gama de productos enfocados en mejorar la experiencia y el rendimiento de los jugadores.',
     logo: '/assets/participan/Logos/nacon.webp',
-    logoIsLight: true,
+    logoNeedsContrast: true,
     cardBg: '/assets/participan/BG-Sponsors/nacon.webp',
     isSecret: false,
     bussiness: 'Videojuegos y Accesorios Gaming',
@@ -343,7 +344,7 @@ const Sponsors: SponsorData[] = [
     description:
       'La Delegación de Estudiantes de Ingeniería Informática y Telecomunicaciones. Su función principal es la de representar a los estudiantes en los diferentes órganos de gobierno de la Universidad, así como en los diferentes foros y comisiones en los que se traten temas de interés para los estudiantes.',
     logo: '/assets/participan/Logos/deiit.webp',
-    logoIsLight: true,
+    logoNeedsContrast: true,
     cardBg: '/assets/participan/BG-Sponsors/deiit.webp',
     isSecret: false,
     bussiness: 'Delegación de Estudiantes',
@@ -360,6 +361,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Marca española referente en periféricos y componentes de hardware para videojuegos. Se especializa en productos con una relación calidad-precio competitiva, abarcando desde componentes y periféricos hasta mobiliario.',
     logo: '/assets/participan/Logos/marsGaming.webp',
+    logoNeedsContrast: true,
     cardBg: '/assets/participan/BG-Sponsors/marsgaming.webp',
     isSecret: false,
     bussiness: 'Periféricos y Componentes Gaming',
@@ -436,7 +438,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Estudio de desarrollo de videojuegos independiente de Sevilla. Especializados en títulos de aventura y acción con estética retro y temáticas inspiradas en el folclore andaluz. Son conocidos por juegos como “The Last Door” y “Blasphemous”.',
     logo: '/assets/participan/Logos/game-kitchen.webp',
-    logoIsLight: true,
+    logoNeedsContrast: true,
     cardBg: '/assets/participan/BG-Sponsors/theGameKitchen.webp',
     isSecret: false,
     bussiness: 'Desarrolladora de videojuegos',
@@ -485,6 +487,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Estudio independiente de desarrollo de videojuegos con sede en Granada. Se dedican a la creación de experiencias interactivas de calidad, con un enfoque en títulos arcade y retro como "John Mambo", "Virtus" o "Viking Kingdoms", destacando por su compromiso con la comunidad de jugadores y la producción de ediciones coleccionista.',
     logo: '/assets/participan/Logos/ictionGames.webp',
+    logoNeedsContrast: true,
     cardBg: '/assets/participan/BG-Sponsors/ictionGames.webp',
     isSecret: false,
     bussiness: 'Desarrollo de Videojuegos',
@@ -565,6 +568,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Grupo de entusiastas del white hacking surgido en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de la Universidad de Granada. Promueven la ciberseguridad desde un enfoque ético y práctico, fomentando el aprendizaje continuo y el intercambio de conocimiento en seguridad informática.',
     logo: '/assets/participan/Logos/hackiit.webp',
+    logoNeedsContrast: true,
     cardBg: '/assets/participan/BG-Sponsors/hackiit.webp',
     isSecret: false,
     bussiness: 'Sala de creación y fabricación',
@@ -720,6 +724,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Federación nacional que representa y defiende los intereses de los jugadores de videojuegos y esports en España. Su objetivo es profesionalizar el sector, promover el juego responsable y fomentar la competición saludable a través de eventos y formación.',
     logo: '/assets/participan/Logos/fejuves.webp',
+    logoHasBackground: true,
     cardBg: '/assets/participan/BG-Sponsors/fejuves.webp',
     isSecret: false,
     bussiness: 'Federación de Esports y Videojuegos',

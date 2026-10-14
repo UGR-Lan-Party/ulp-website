@@ -112,13 +112,15 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
       No se han podido cargar las fotos. Puedes consultarlas en el álbum de
       Flickr.
     </p>
-    <a
-      href={albumUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="mt-6 inline-flex items-center rounded-xl bg-primary px-5 py-3 font-medium text-white hover:bg-tertiary focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
-      >Ver álbum completo</a
-    >
+    <div class="album-action">
+      <a
+        href={albumUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="album-link bg-primary text-white hover:bg-tertiary focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
+        >Ver álbum completo</a
+      >
+    </div>
   </div>
   <dialog data-carousel-dialog aria-label="Foto ampliada de UGR LAN Party">
     <img
@@ -187,6 +189,27 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
 <style>
   [hidden] {
     display: none !important;
+  }
+  .album-action {
+    display: flex;
+    justify-content: center;
+    padding-top: 18px;
+  }
+  .album-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .album-link::before {
+    content: '';
+    position: absolute;
+    inset: -5px 0;
   }
   .carousel-stage {
     position: relative;

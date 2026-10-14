@@ -14,8 +14,9 @@ export function getEditionPresentation(edition) {
     },
     live: { label: 'Consultar el programa', href: '/info/horarios' },
     finished: {
-      label: `Ver edición ${edition.year}`,
-      href: edition.archiveUrl,
+      label:
+        edition.year === 2026 ? 'Ver horarios' : `Ver edición ${edition.year}`,
+      href: edition.year === 2026 ? '/horarios' : edition.archiveUrl,
     },
   };
   return { dates, action: actions[edition.phase] };

@@ -1,5 +1,6 @@
 ---
 import type { SponsorData } from '../data/sponsors';
+import PartnerLogo from './PartnerLogo.astro';
 import SocialButton from './SocialButton.astro';
 interface Props {
   partner: SponsorData;
@@ -20,14 +21,7 @@ const { partner, index } = Astro.props;
     >
   </div>
   <div class="partner-card-logo">
-    <img
-      src={partner.logo}
-      class:list={{ 'logo-contrast': partner.logoIsLight }}
-      alt={`Logotipo de ${partner.name.trim()}`}
-      width="230"
-      height="100"
-      loading="lazy"
-    />
+    <PartnerLogo partner={partner} surface="light" width={230} height={100} />
   </div>
   <h3 data-name={partner.name.trim()}>{partner.name.trim()}</h3><p
     class="partner-card-type"
@@ -37,16 +31,12 @@ const { partner, index } = Astro.props;
   <div class="partner-card-links">
     {
       partner.links.map((link) => (
-        <SocialButton sponsorLink={link} monochrome />
+        <SocialButton sponsorLink={link} monochrome compact />
       ))
     }
   </div>
 </section>
 <style>
-  .logo-contrast {
-    filter: brightness(0);
-    opacity: 0.8;
-  }
   .design-partner-card {
     position: relative;
     display: flex;
@@ -90,7 +80,7 @@ const { partner, index } = Astro.props;
     margin-bottom: 24px;
     padding: 20px;
   }
-  .partner-card-logo img {
+  .partner-card-logo :global(.partner-logo) {
     width: 100%;
     height: 70px;
     object-fit: contain;
@@ -122,9 +112,5 @@ const { partner, index } = Astro.props;
     padding-top: 18px;
     border-top: 1px solid rgb(245 240 230 / 0.2);
     margin-top: auto;
-  }
-  .partner-card-links :global(svg) {
-    width: 23px;
-    height: 23px;
   }
 </style>

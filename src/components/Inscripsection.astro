@@ -10,9 +10,12 @@ const {
   registrationPeriodOpen,
 } = Astro.props;
 const isCurrentEdition = activityYear === edition.year;
-const archiveUrl = isCurrentEdition
-  ? edition.archiveUrl
-  : `/ediciones/${activityYear}`;
+const archiveUrl =
+  activityYear === 2026
+    ? '/horarios'
+    : isCurrentEdition
+      ? edition.archiveUrl
+      : `/ediciones/${activityYear}`;
 const isOpen =
   isCurrentEdition &&
   edition.phase === 'registration-open' &&
@@ -79,7 +82,9 @@ const title = isFinished
           href={archiveUrl}
           class="mt-6 inline-block rounded-md bg-white px-7 py-3 text-dark"
         >
-          Consultar edición {activityYear}
+          {activityYear === 2026
+            ? 'Consultar horarios'
+            : `Consultar edición ${activityYear}`}
         </a>
       )
     }
