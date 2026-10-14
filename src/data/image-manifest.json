@@ -1988,5 +1988,45 @@
         "width": 1280
       }
     ]
+  },
+  "/assets/competitions/characters/character-paella-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/43137ce0682f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/43137ce0682f-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/43137ce0682f-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/about/ulp-2025-retro.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-2048.webp",
+        "width": 2048
+      }
+    ]
   }
 }

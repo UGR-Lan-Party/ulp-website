@@ -112,7 +112,7 @@ test('El acceso de una actividad de 2026 lleva al programa completo', async ({
   await link.click();
   await expect(page).toHaveURL(/\/info\/horarios\/?$/);
   await expect(
-    page.getByRole('heading', { name: 'Programa de ULP 2026' }),
+    page.getByRole('heading', { name: 'Programa ULP 2026' }),
   ).toBeVisible();
 });
 

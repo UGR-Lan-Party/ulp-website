@@ -1,158 +1,189 @@
 ---
-import { darkStyles } from "../utils/all";
+import PersonCard from './PersonCard.astro';
 
 const contributors = [
-  { git: "https://github.com/mario-ca" },
-  { git: "https://github.com/chelunike" },
-  { git: "https://github.com/puchy22" },
-  { git: "https://github.com/HipyCas" },
-  { git: "https://github.com/VictorPB" },
-  { git: "https://github.com/Juanjomrtz19" },
-  { git: "https://github.com/danilo-ck" },
-  { git: "https://github.com/roberto3554" },
-  { git: "https://github.com/FernanDezlo92"},
-  { git: "https://github.com/carmenxufdz" },
+  { git: 'https://github.com/mario-ca' },
+  { git: 'https://github.com/chelunike' },
+  { git: 'https://github.com/puchy22' },
+  { git: 'https://github.com/HipyCas' },
+  { git: 'https://github.com/VictorPB' },
+  { git: 'https://github.com/Juanjomrtz19' },
+  { git: 'https://github.com/danilo-ck' },
+  { git: 'https://github.com/roberto3554' },
+  { git: 'https://github.com/FernanDezlo92' },
+  { git: 'https://github.com/carmenxufdz' },
 ];
 
-// Datos alternativos en caso de fallo
 const fallbackContributors = [
   {
-    name: "Mario Castro",
-    description: "Computer Engineer & Junior Cybersecurity Evaluator at jtsec",
-    image: "/assets/contributors/contributor01.jpg",
-    git: "https://github.com/mario-ca",
+    name: 'Mario Castro',
+    description: 'Computer Engineer & Junior Cybersecurity Evaluator at jtsec',
+    image: '/assets/contributors/contributor01.jpg',
+    git: 'https://github.com/mario-ca',
   },
   {
-    name: "chelunike",
-    description: "Fucm Logic | Team Potato | CTF everywhere :) if(you.needHelp()) me.help();",
-    image: "/assets/contributors/contributor02.jpg",
-    git: "https://github.com/chelunike",
+    name: 'chelunike',
+    description:
+      'Fucm Logic | Team Potato | CTF everywhere :) if(you.needHelp()) me.help();',
+    image: '/assets/contributors/contributor02.jpg',
+    git: 'https://github.com/chelunike',
   },
   {
-    name: "Rubén De la Torre Vico",
-    description: "Average hacking and linux enjoyer. // I use Arch btw. // Jr. Software & Security Engineer at @prowler-cloud",
-    image: "/assets/contributors/contributor03.jpg",
-    git: "https://github.com/puchy22",
+    name: 'Rubén De la Torre Vico',
+    description:
+      'Average hacking and linux enjoyer. // I use Arch btw. // Jr. Software & Security Engineer at @prowler-cloud',
+    image: '/assets/contributors/contributor03.jpg',
+    git: 'https://github.com/puchy22',
   },
   {
-    name: "Hipy Cas",
-    description: "🇪🇸🇪🇺🇨🇦 Galician/Spanish/European and half-Canadian developer • 🆓 Open-source and free software advocate • 🦀🐍🌐 Crustacean, pythonist and web developer",
-    image: "/assets/contributors/contributor04.jpg",
-    git: "https://github.com/HipyCas",
+    name: 'Hipy Cas',
+    description:
+      '🇪🇸🇪🇺🇨🇦 Galician/Spanish/European and half-Canadian developer • 🆓 Open-source and free software advocate • 🦀🐍🌐 Crustacean, pythonist and web developer',
+    image: '/assets/contributors/contributor04.jpg',
+    git: 'https://github.com/HipyCas',
   },
   {
-    name: "Victor Perez Barranco",
-    description: "Computer Engineering Student Mention in Software Engineering.",
-    image: "/assets/contributors/contributor05.jpg",
-    git: "https://github.com/VictorPB",
+    name: 'Victor Perez Barranco',
+    description:
+      'Computer Engineering Student Mention in Software Engineering.',
+    image: '/assets/contributors/contributor05.jpg',
+    git: 'https://github.com/VictorPB',
   },
   {
-    name: "Juan Jose Martinez Aguila",
-    description: "",
-    image: "/assets/contributors/contributor06.jpg",
-    git: "https://github.com/Juanjomrtz19",
+    name: 'Juan Jose Martinez Aguila',
+    description: '',
+    image: '/assets/contributors/contributor06.jpg',
+    git: 'https://github.com/Juanjomrtz19',
   },
   {
-    name: "Daniel Farré",
-    description: "University student pursuing a Dual Degree in Computer Science and Business Management. Web developer on my free time.",
-    image: "/assets/contributors/contributor07.jpg",
-    git: "https://github.com/danilo-ck",
+    name: 'Daniel Farré',
+    description:
+      'University student pursuing a Dual Degree in Computer Science and Business Management. Web developer on my free time.',
+    image: '/assets/contributors/contributor07.jpg',
+    git: 'https://github.com/danilo-ck',
   },
   {
-    name: "Roberto Retamero",
-    description: "UGR student and creative programmer with experience in p5.js.",
-    image: "/assets/contributors/contributor08.jpg",
-    git: "https://github.com/roberto3554",
+    name: 'Roberto Retamero',
+    description:
+      'UGR student and creative programmer with experience in p5.js.',
+    image: '/assets/contributors/contributor08.jpg',
+    git: 'https://github.com/roberto3554',
   },
   {
-    name: " Fernando Fernández Aguiló",
-    description: "💻 Full Stack Developer | 🔐 Cybersecurity Enthusiast | Always learning & breaking things (ethically) 😆",
-    image: "/assets/contributors/contributor09.jpg",
-    git: "https://github.com/FernanDezlo92",
+    name: ' Fernando Fernández Aguiló',
+    description:
+      '💻 Full Stack Developer | 🔐 Cybersecurity Enthusiast | Always learning & breaking things (ethically) 😆',
+    image: '/assets/contributors/contributor09.jpg',
+    git: 'https://github.com/FernanDezlo92',
   },
   {
-    name: "Carmen Fernández",
-    description: "Computer Engineer specialized in Software Engineering",
-    image: "/assets/contributors/contributor10.jpg",
-    git: "https://github.com/carmenxufdz",
+    name: 'Carmen Fernández',
+    description: 'Computer Engineer specialized in Software Engineering',
+    image: '/assets/contributors/contributor10.jpg',
+    git: 'https://github.com/carmenxufdz',
   },
 ];
 
-const usernames = contributors.map(c => c.git?.split("/").pop());
+const usernames = contributors.map((c) => c.git?.split('/').pop());
 
 let contributorsData;
 
 try {
   const responses = await Promise.all(
     usernames.map(async (username) => {
-      const res = await fetch(`https://api.github.com/users/${username}`);
+      const res = await fetch(`https://api.github.com/users/${username}`, {
+        signal: AbortSignal.timeout(3500),
+      });
 
-      if (!res.ok) throw new Error("GitHub API Limit Exceeded");
+      if (!res.ok) throw new Error('GitHub API Limit Exceeded');
 
       const data = await res.json();
       return {
         name: data.name || data.login,
-        description: data.bio || "",
+        description: data.bio || '',
         image: data.avatar_url,
         git: data.html_url,
       };
-    })
+    }),
   );
 
   contributorsData = responses.filter(Boolean);
 } catch (error) {
-  console.warn("Usando datos locales por error en la API de GitHub");
+  console.warn('Usando datos locales por error en la API de GitHub');
   contributorsData = fallbackContributors;
 }
 ---
 
-<!-- ====== Contributors Section Start -->
-<section id="contributors" class={`bg-gray-1 ${darkStyles} overflow-hidden pt-10 pb-12 lg:pt-[120px] lg:pb-[90px]`}>
-  <div class="container">
-    <div class="-mx-4 flex flex-wrap">
-      <div class="w-full px-4">
-        <div class="mx-auto mb-[60px] max-w-[485px] text-center">
-          <h2 class="mb-3 text-3xl leading-[1.2] font-bold text-dark dark:text-white sm:text-4xl md:text-[40px]">
-            Desarrolladores
-          </h2>
-          <p class="text-body-color dark:text-dark-6 text-base">
-            <slot name="texto"></slot>
-            Estudiantes que han colaborado en el diseño de la página web.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="-mx-4 flex flex-wrap justify-center">
-      {
-        contributorsData.map(contributor => (
-          <div class="w-full px-4 sm:w-1/2 lg:w-1/4 xl:w-1/4">
-            <div class="wow fadeInUp group shadow-md mb-8 rounded-xl bg-white dark:bg-gray-200 px-5 pt-12 pb-10 hover:shadow-2xl dark:hover:shadow-[0px_10px_30px_rgba(255,255,255,0.4)] transition-shadow duration-300" data-wow-delay=".1s">
-              <div class="relative z-10 mx-auto mb-5 w-[120px]">
-                <img src={contributor.image} alt="contributors image" class=" w-[120px] rounded" />
-                <span
-                  class="bg-secondary absolute bottom-0 left-0 -z-10 h-10 w-10 rounded opacity-0 transition-all group-hover:opacity-100"></span>
-              </div>
-              <div class="text-center">
-                <h4 class="mb-1 text-lg font-semibold text-dark dark:text-primary">
-                  {contributor.name}
-                </h4>
-                <p class="text-body-color dark:text-tertiary mb-5 text-sm min-h-[100px]">
-                  {contributor.description}
-                </p>
-                <div class="flex items-center gap-5 justify-center">
-                  <a href={contributor.git} class="hover:text-primary text-dark-6">
-                    <svg width="40px" height="40px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2  .37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.86 2.33.66.07-.52.28-.86.5-1.06-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.58 7.58 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+<section
+  id="contributors"
+  class="design-section design-container people-section"
+>
+  <header data-reveal>
+    <div>
+      <span class="design-eyebrow">Código hecho en comunidad</span><h2
+        class="design-heading"
+      >
+        La web también<br />se juega en equipo.
+      </h2>
+    </div><p>
+      Estudiantes que han colaborado en el diseño y desarrollo de la web de ULP.
+    </p>
+  </header>
+  <div class="people-grid">
+    {
+      contributorsData.map((person) => (
+        <PersonCard
+          name={person.name}
+          description={person.description}
+          image={person.image}
+          href={person.git}
+          network="GitHub"
+        />
+      ))
+    }
   </div>
 </section>
-<!-- ====== Contributors Section End -->
+<style>
+  header {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: end;
+    gap: 40px;
+    margin-bottom: 38px;
+  }
+  .design-eyebrow {
+    margin-bottom: 22px;
+  }
+  h2 {
+    font-size: clamp(34px, 4.5vw, 60px);
+  }
+  header > p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.85;
+    max-width: 320px;
+    justify-self: end;
+  }
+  .people-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+  }
+  @media (max-width: 1050px) {
+    .people-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 700px) {
+    header {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    header > p {
+      justify-self: start;
+    }
+    .people-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

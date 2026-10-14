@@ -1,0 +1,42 @@
+---
+interface Props {
+  variant?: 'hueso' | 'escama';
+}
+const { variant = 'hueso' } = Astro.props;
+const cells = Array.from({ length: 16 }, (_, index) => ({
+  x: (index % 4) * 80,
+  y: Math.floor(index / 4) * 80,
+}));
+---
+
+<svg
+  class="granada-accent"
+  viewBox="0 0 320 320"
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    cells.map(({ x, y }) => (
+      <g transform={`translate(${x} ${y})`}>
+        {variant === 'hueso' ? (
+          <path d="M6 6h68L56 24v32l18 18H6l18-18V24Z" />
+        ) : (
+          <path d="M4 68C4 28 40 4 40 4s36 24 36 64L40 52Z" />
+        )}
+      </g>
+    ))
+  }
+</svg>
+<style>
+  .granada-accent {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    right: -100px;
+    bottom: -130px;
+    transform: rotate(-12deg);
+    opacity: 0.04;
+    pointer-events: none;
+  }
+</style>

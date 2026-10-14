@@ -36,7 +36,7 @@ Se mantienen los datos históricos de 2026 y sus inscripciones cerradas. Las act
 
 La propuesta se puede revisar en [Inicio](http://127.0.0.1:4321/), [Actividades](http://127.0.0.1:4321/actividades/), [Participan](http://127.0.0.1:4321/participan/) y [Contacto](http://127.0.0.1:4321/contacto/), [Noticias](http://127.0.0.1:4321/blog/) y [Horarios](http://127.0.0.1:4321/info/horarios/).
 
-Validación: build, recursos y rutas locales, 37 pruebas unitarias y 43 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
+Validación: build, recursos y rutas locales, 37 pruebas unitarias y 50 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
 
 ## Segunda revisión
 
@@ -54,7 +54,7 @@ Fuente de la fotografía de portada: [álbum ULP 2025 en Flickr](https://www.fli
 
 La barra de navegación oscurece ligeramente su superficie al desplazar la página. La barra de herramientas de Astro pertenece exclusivamente al servidor de desarrollo y no se incluye en la compilación de producción. El pie usa el formato «2016 — año actual @ UGR LAN Party | Universidad de Granada».
 
-El texto de presentación se justifica y el título pasa a «Lo que nos une no está solo en el temario». Discord sustituye al asterisco del bloque de comunidad, conservando su opacidad baja. Linktree dispone de un componente compacto, accesible desde todas las páginas antes del pie.
+El texto de presentación se justifica y el título pasa a «Lo que nos une no está solo en el temario». Discord sustituye al asterisco del bloque de comunidad, conservando su opacidad baja. Linktree dispone de un componente compacto, visible únicamente en portada antes del pie, con el emblema de la marca.
 
 La galería de portada se presenta dentro de MemoryGallery y comienza con la antigua foto 424: `54744102704`. Se identifica por su ID de Flickr para mantener la selección si cambia el orden del álbum; el resto de fotografías conserva su orden y no se altera el carrusel del archivo de ediciones.
 
@@ -63,3 +63,19 @@ El catálogo ofrece el acceso para buscar equipo tanto al principio como al fina
 Las entradas de noticias incorporan portada con imagen lateral sin recortar, autor, tiempo de lectura, enlaces internos y superficie de lectura. La agenda alterna dos azules, recalculando el contraste entre las filas visibles al filtrar.
 
 Los archivos y prompts de las ilustraciones están documentados en `docs/recursos-visuales-2027.md`.
+
+## Cuarta revisión
+
+Participan reduce el espacio inicial entre la invitación y las entidades e incorpora navegación por rangos, contadores y cabeceras más claras. Las tarjetas mantienen el contraste de logos y las diferencias entre categorías.
+
+La paella dispone de una ilustración transparente nueva y los cuatro iconos de actividades usan emblemas sólidos con la paleta corporativa. La presentación utiliza otra foto real de ULP 2025 a 2048 píxeles, guardada en `public/assets/about/ulp-2025-retro.jpg`; el sello pasa a «Hecho en la ETSIIT».
+
+Discord conserva el estilo del titular y se presenta en un panel azul con una tarjeta de comunidad. Sobre nosotros incorpora contexto para su álbum de 2024, Twitch con un morado algo más oscuro y tarjetas reutilizables para las tres personas del equipo técnico y los diez perfiles de desarrollo.
+
+Localización presenta dirección, enlace para llegar y mapa en un marco común. El aviso legal incorpora índice y bloques de lectura, conservando íntegros los textos existentes y pendiente del contenido aprobado para 2027. El footer mantiene sus siete iconos sociales y suma accesos de navegación.
+
+Las preguntas se reparten en tres páginas estáticas de 6, 6 y 4 elementos. La portada conserva sus cinco preguntas resumidas. Los enlaces numerados funcionan sin JavaScript y mantienen la página al recargar.
+
+Dos zonas, presentación y footer, incorporan motivos geométricos vectoriales simplificados inspirados en los alicatados granadinos, al 4 % de opacidad. Referencia cultural: [Educación Artística y comunicación del Patrimonio de Al-Ándalus, disponible en la Cátedra de Artesanía de la UGR](https://catedras.ugr.es/artesania/sites/webugr/artesania/public/ficheros/CUADERNO%20141%20PALERMO%20ARG_libro.pdf#page=150).
+
+Emblema de Linktree: [Simple Icons](https://github.com/simple-icons/simple-icons/blob/develop/icons/linktree.svg), integrado localmente como `public/assets/icons/LinktreeIcon.astro`.

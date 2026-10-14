@@ -54,3 +54,17 @@ Two premium modern game controllers as a playful floating diagonal pair. First c
 - `public/assets/competitions/logos/paella-2027.svg`
 
 Los recursos se asignan desde `src/data/program-2026.json`; las variantes adaptables se registran en `src/data/image-manifest.json`.
+
+## paella
+
+Generada con la herramienta integrada `image_gen`, con fondo transparente.
+
+Archivo final: `public/assets/competitions/characters/character-paella-2027.png`.
+
+Prompt usado:
+
+```text
+Single isolated premium 3D game collectible cutout for a university gaming festival website. Transparent background with real alpha, no floor or background rectangle, no words or letters, no watermark. Navy blue #004465, light cream #F5F0E6 and teal #006471. Soft studio lighting, elegant tactile rounded materials, crisp details, three-quarter view, object centered filling 80% of square canvas with safe margins. Subject: a beautiful shallow Spanish paella pan with two small navy-blue handles, cream enamel rim, appetizing golden saffron rice with peas, red pepper strips, lemon wedges, and a few vegetables, a small teal-handled wooden serving spoon resting diagonally across the rim. A couple of very subtle sculpted steam curls, convivial university community meal. Premium playful product render matching cream and navy gaming controllers and arcade collectibles. No people, no lettering, no background.
+```
+
+Los cuatro emblemas SVG de actividades se han refinado con formas sólidas y un fondo azul en dos tonos.

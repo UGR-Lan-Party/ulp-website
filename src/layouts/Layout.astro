@@ -57,7 +57,7 @@ const { description, title, image } = Astro.props;
     <Header />
     <main id="contenido-principal" tabindex="-1"><slot /></main>
     {Astro.url.pathname !== '/' && <PartnerStrip />}
-    <LinktreeCard />
+    {Astro.url.pathname === '/' && <LinktreeCard />}
     <Footer />
     <BackToTop />
     <script>

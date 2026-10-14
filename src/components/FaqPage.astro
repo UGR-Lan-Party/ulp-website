@@ -1,0 +1,26 @@
+---
+import Faq from './Faq.astro';
+import Breadcrumb from './layout/Breadcrumb.astro';
+import Layout from '../layouts/Layout.astro';
+interface Props {
+  page?: number;
+}
+const { page = 1 } = Astro.props;
+---
+
+<Layout
+  title={page === 1
+    ? 'Preguntas frecuentes'
+    : `Preguntas frecuentes · Página ${page}`}
+  description="Respuestas a las preguntas habituales sobre participación, actividades y organización de UGR LAN Party."
+>
+  <Breadcrumb current="Preguntas frecuentes">
+    <Fragment slot="title">Antes de<br />la próxima partida.</Fragment><Fragment
+      slot="texto"
+    >
+      Participación, actividades y todo lo que conviene saber antes de venir a
+      la ULP.
+    </Fragment>
+  </Breadcrumb>
+  <Faq page={page} />
+</Layout>

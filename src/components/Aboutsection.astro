@@ -1,17 +1,19 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
+import GranadaAccent from './GranadaAccent.astro';
 ---
 
 <section id="about" class="design-section about-section">
+  <GranadaAccent variant="hueso" />
   <div class="design-container about-grid">
     <div class="about-visual" data-reveal>
       <ResponsiveImage
-        src="/assets/about/sobre-nosotros.png"
-        alt="Participantes de ULP jugando juntos"
+        src="/assets/about/ulp-2025-retro.jpg"
+        alt="Participantes de ULP compartiendo partidas en la zona de juegos retro"
         sizes="(max-width: 700px) 100vw, 45vw"
       /><span class="about-caption">GRANADA / UNIVERSIDAD / COMUNIDAD</span
       ><span class="about-stamp" aria-hidden="true"
-        >PLAYER<br />CONNECTED <i>↗</i></span
+        >HECHO EN<br />LA ETSIIT <i>↗</i></span
       >
     </div>
     <div class="about-copy" data-reveal>
@@ -34,10 +36,13 @@ import ResponsiveImage from './ResponsiveImage.astro';
 </section>
 <style>
   .about-section {
+    position: relative;
+    overflow: hidden;
     border-block: 1px solid var(--line);
     background: var(--surface);
   }
   .about-grid {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(40px, 8vw, 110px);
@@ -107,6 +112,7 @@ import ResponsiveImage from './ResponsiveImage.astro';
   }
   @media (max-width: 700px) {
     .about-grid {
+      position: relative;
       grid-template-columns: 1fr;
     }
     .about-visual :global(img) {

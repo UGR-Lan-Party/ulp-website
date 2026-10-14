@@ -1,16 +1,19 @@
 ---
-import Team from '../../components/Team.astro';
 import Localizacionsection from '../../components/Localizacionsection.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout
-  description="Play Astro is a free and open-source Astro template, built for SaaS, startup, business and software website. Play crafted in a way that you can use with almost all sort of web project."
-  title="Localizacion y Horarios"
+  description="Encuentra la ETSIIT, el punto de encuentro de UGR LAN Party en el Campus Aynadamar de Granada."
+  title="Localización"
 >
-  <Breadcrumb>
-    <Fragment slot="title">Localización</Fragment>
+  <Breadcrumb current="Localización">
+    <Fragment slot="title">La partida<br />tiene dirección.</Fragment><Fragment
+      slot="texto"
+    >
+      ETSIIT, Campus Aynadamar. Aquí nos encontramos para compartir la ULP.
+    </Fragment>
   </Breadcrumb>
   <Localizacionsection />
 </Layout>

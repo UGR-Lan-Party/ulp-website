@@ -2,57 +2,152 @@
 import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
 ---
 
-<section class="community-cta">
-  <div class="design-container community-inner" data-reveal>
-    <span class="design-eyebrow">Entre edición y edición</span><h2>
-      Nos seguimos viendo<br /><em>en el servidor.</em>
-    </h2><a href="https://discord.gg/FWW9wKZjav" class="design-button"
-      >Entra al Discord de la ULP <span aria-hidden="true">↗</span></a
-    ><span class="community-discord" aria-hidden="true"><DiscordIcon /></span>
+<section class="community-cta design-container">
+  <div class="community-panel">
+    <div class="community-copy" data-reveal>
+      <span class="design-eyebrow">Entre edición y edición</span>
+      <h2>Nos seguimos viendo<br /><em>en el servidor.</em></h2>
+      <p>
+        Para buscar equipo, compartir lo que juegas y no perderte la próxima
+        quedada.
+      </p>
+      <a href="https://discord.gg/FWW9wKZjav" class="design-button"
+        >Entra al Discord de la ULP <span aria-hidden="true">↗</span></a
+      >
+    </div>
+    <div class="community-server" data-reveal>
+      <div class="server-icon" aria-hidden="true"><DiscordIcon /></div>
+      <span class="server-label">COMUNIDAD ULP</span>
+      <strong>La partida continúa.</strong>
+      <div class="server-topics">
+        <span>Encuentra equipo</span><span>Comparte partidas</span><span
+          >Sigue las novedades</span>
+      </div>
+      <span class="server-corner" aria-hidden="true">↗</span>
+    </div>
   </div>
 </section>
 <style>
   .community-cta {
-    background: #006471;
+    padding-block: 55px;
+  }
+  .community-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr;
+    align-items: center;
+    gap: 55px;
+    padding: clamp(30px, 5vw, 65px);
+    border-radius: 28px;
+    background:
+      radial-gradient(ellipse at top right, #176574, transparent 70%), #004465;
     color: #f5f0e6;
     overflow: hidden;
   }
-  .community-inner {
-    position: relative;
-    padding-block: clamp(60px, 8vw, 110px);
-  }
-  .design-eyebrow {
-    opacity: 0.75;
-    margin-bottom: 26px;
+  .community-copy .design-eyebrow {
+    opacity: 0.65;
+    margin-bottom: 28px;
   }
   h2 {
-    font-size: clamp(35px, 6.5vw, 88px);
+    font-size: clamp(35px, 5.3vw, 72px);
     font-weight: 750;
     line-height: 1.04;
-    position: relative;
-    z-index: 1;
+    letter-spacing: -0.045em;
   }
   em {
     font-family: Georgia, serif;
     font-weight: 400;
   }
+  .community-copy > p {
+    max-width: 390px;
+    font-size: 13px;
+    line-height: 1.85;
+    opacity: 0.75;
+    margin-top: 25px;
+  }
   .design-button {
-    margin-top: 36px;
+    margin-top: 28px;
     background: #f5f0e6;
     color: #004465;
     border-color: #f5f0e6;
   }
-  .community-discord {
-    position: absolute;
-    right: 60px;
-    top: 30px;
-    width: clamp(170px, 25vw, 340px);
-    line-height: 1;
-    opacity: 0.09;
-    pointer-events: none;
+  .community-server {
+    position: relative;
+    padding: 30px;
+    border: 1px solid rgb(245 240 230 / 0.2);
+    border-radius: 22px;
+    background: rgb(245 240 230 / 0.045);
+    transform: rotate(3deg);
   }
-  .community-discord :global(svg) {
-    width: 100%;
-    height: auto;
+  .server-icon {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 30px;
+    border-radius: 22px;
+    background: #f5f0e6;
+    color: #004465;
+  }
+  .server-icon :global(svg) {
+    width: 45px;
+    height: 45px;
+  }
+  .server-label {
+    display: block;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.14em;
+    opacity: 0.6;
+  }
+  .community-server > strong {
+    display: block;
+    font-size: 23px;
+    font-weight: 650;
+    margin-block: 14px 24px;
+    letter-spacing: -0.04em;
+  }
+  .server-topics {
+    display: grid;
+    gap: 9px;
+  }
+  .server-topics span {
+    border: 1px solid rgb(245 240 230 / 0.12);
+    border-radius: 8px;
+    font-size: 10px;
+    padding: 10px 12px;
+  }
+  .server-corner {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 30px;
+    opacity: 0.3;
+  }
+  @media (max-width: 950px) {
+    .community-panel {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .community-server {
+      max-width: 400px;
+      width: 100%;
+    }
+  }
+  @media (max-width: 700px) {
+    .community-cta {
+      padding-block: 35px;
+    }
+    .community-panel {
+      gap: 30px;
+    }
+    .community-server {
+      transform: none;
+      padding: 24px;
+    }
+    .server-icon {
+      margin-bottom: 22px;
+    }
   }
 </style>

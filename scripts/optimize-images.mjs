@@ -23,12 +23,18 @@ for (const directory of directories) {
     const image = sharp(source, { animated: false });
     const metadata = await image.metadata();
     if (!metadata.width || !metadata.height) continue;
-    const isHero = directory === 'about' && file === 'ulp-2025-comunidad.jpg';
-    const limit = isHero ? 2048 : directory.includes('medals') ? 640 : 1280;
+    const isFeaturePhoto =
+      directory === 'about' &&
+      ['ulp-2025-comunidad.jpg', 'ulp-2025-retro.jpg'].includes(file);
+    const limit = isFeaturePhoto
+      ? 2048
+      : directory.includes('medals')
+        ? 640
+        : 1280;
     const widths = [
       ...new Set(
-        (isHero ? [360, 720, 1280, limit] : [360, 720, limit]).map((width) =>
-          Math.min(width, limit, metadata.width),
+        (isFeaturePhoto ? [360, 720, 1280, limit] : [360, 720, limit]).map(
+          (width) => Math.min(width, limit, metadata.width),
         ),
       ),
     ].sort((a, b) => a - b);
@@ -42,7 +48,7 @@ for (const directory of directories) {
       await image
         .clone()
         .resize({ width, withoutEnlargement: true })
-        .webp({ quality: isHero ? 86 : 80 })
+        .webp({ quality: isFeaturePhoto ? 86 : 80 })
         .toFile(`public${target}`);
       sources.push({ src: target, width });
     }

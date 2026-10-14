@@ -1,4 +1,5 @@
 ---
+import GranadaAccent from '../GranadaAccent.astro';
 import XIcon from '../../../public/assets/icons/XIcon.astro';
 import FacebookIcon from '../../../public/assets/icons/FacebookIcon.astro';
 import InstagramIcon from '../../../public/assets/icons/InstagramIcon.astro';
@@ -34,7 +35,15 @@ const networks = [
 ---
 
 <footer class="ulp-footer">
-  <div class="design-container">
+  <GranadaAccent variant="escama" />
+  <div class="design-container footer-inner">
+    <div class="footer-topline">
+      <span>UGR LAN PARTY / GRANADA</span><nav aria-label="Más sobre ULP">
+        <a href="/info/about">La comunidad</a><a href="/info/horarios"
+          >La agenda</a
+        ><a href="/contacto">Contacto</a>
+      </nav>
+    </div>
     <div class="footer-original-grid">
       <div class="footer-brand">
         <a href="/" aria-label="ULP, inicio"
@@ -83,14 +92,16 @@ const networks = [
   .ulp-footer {
     background: #004465;
     color: #f5f0e6;
-    padding: 35px 0 22px;
+    padding: 30px 0 24px;
+    position: relative;
+    overflow: hidden;
   }
   .footer-original-grid {
     display: grid;
     grid-template-columns: 0.8fr 1.2fr 1fr;
     align-items: center;
     gap: 36px;
-    padding-bottom: 35px;
+    padding-block: 30px 38px;
     text-align: center;
   }
   .footer-brand {
@@ -128,12 +139,15 @@ const networks = [
   .footer-social-links a {
     display: grid;
     place-items: center;
-    width: 34px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgb(245 240 230 / 0.18);
+    border-radius: 12px;
     transition: transform 200ms ease;
   }
   .footer-social-links a:hover {
-    transform: scale(1.12);
+    transform: translateY(-3px);
+    background: rgb(245 240 230 / 0.08);
   }
   .footer-social-links :global(svg) {
     width: 21px;
@@ -163,7 +177,39 @@ const networks = [
     font-size: 10px;
     opacity: 0.65;
   }
+  .footer-inner {
+    position: relative;
+  }
+  .footer-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid rgb(245 240 230 / 0.15);
+    padding-bottom: 24px;
+  }
+  .footer-topline > span {
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    opacity: 0.5;
+  }
+  .footer-topline nav {
+    display: flex;
+    gap: 22px;
+    font-size: 10px;
+  }
+  .footer-topline a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
   @media (max-width: 700px) {
+    .footer-topline {
+      flex-direction: column;
+      gap: 16px;
+    }
+
     .footer-original-grid {
       grid-template-columns: 1fr;
       gap: 28px;

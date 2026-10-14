@@ -1,20 +1,14 @@
+---
+import LinktreeIcon from '../../public/assets/icons/LinktreeIcon.astro';
+---
+
 <a
   class="linktree-card design-container"
   href="https://linktr.ee/ulpugr"
   target="_blank"
   rel="noopener noreferrer"
 >
-  <span class="linktree-symbol" aria-hidden="true"
-    ><svg
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2.5"
-      ><path
-        d="M24 38V12m0 13L12 16m12 9 12-9M24 12l-6 6m6-6 6 6M12 16v7m0-7h7m17 0v7m0-7h-7"
-      ></path><circle cx="24" cy="39" r="3"></circle></svg
-    ></span
-  >
+  <span class="linktree-symbol" aria-hidden="true"><LinktreeIcon /></span>
   <span class="linktree-copy"
     ><strong>Un enlace. Toda la ULP.</strong><span
       >Redes, comunidad y novedades en nuestro Linktree.</span
@@ -44,7 +38,7 @@
       background 200ms ease,
       transform 200ms ease;
   }
-  svg {
+  .linktree-symbol :global(svg) {
     width: 34px;
     height: 34px;
   }

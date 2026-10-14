@@ -1,32 +1,161 @@
-<!-- ====== Localizacion Section Start -->
-<section
-  id="about"
-  class=" pt-20 pb-8 lg:pt-[120px] lg:pb-[70px]"
->
-  <div class="container">
-    <div class="wow fadeInUp" data-wow-delay=".2s">
-      <div class="-mx-4 flex flex-wrap items-center">
-        <div class="w-full px-4 lg:w-1/2">
-          <div class="mb-12 max-w-[540px] lg:mb-0">
-            <h2
-              class="mb-5 text-3xl font-bold leading-tight text-dark dark:text-white sm:text-[40px] sm:leading-[1.2]">
-              ¿Dónde nos encontramos?
-            </h2>
-            <p class="mb-10 text-base leading-relaxed text-body-color dark:text-dark-6">
-              Todas las actividades se realizan en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de la Universidad de Granada (UGR).
-              <br> <br>
-              Esta se encuentra en la zona de La Chana (18014), en la calle Periodista Daniel Saucedo Aranda s/n.
-            </p>
-          </div>
-        </div>
-
-        <div class="w-full px-4 lg:w-1/2">
-            <div class="mb-4 sm:mb-8 sm:h-[400px] md:h-[540px] lg:h-[400px] xl:h-[500px]">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3178.141314840517!2d-3.6249474!3d37.1968728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd71fc54f0f7fea1%3A0x5463cb956f4f4595!2sC.%20Periodista%20Daniel%20Saucedo%20Aranda%2C%20Chana%2C%2018014%20Granada!5e0!3m2!1sen!2ses!4v1707846866013!5m2!1sen!2ses" width="100%" height="100%" style="border-radius: 5%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-      </div>
+<section class="design-section design-container location-section">
+  <div class="location-copy" data-reveal>
+    <span class="design-eyebrow">El punto de encuentro</span>
+    <h2>Nos vemos<br /><em>en la ETSIIT.</em></h2>
+    <p>
+      Las actividades de la ULP se celebran en la Escuela Técnica Superior de
+      Ingenierías Informática y de Telecomunicación de la Universidad de
+      Granada.
+    </p>
+    <div class="location-address">
+      <span>01 / DESTINO</span><strong>Campus Aynadamar</strong><p>
+        Calle Periodista Daniel Saucedo Aranda, s/n<br />La Chana · 18014
+        Granada
+      </p>
+    </div>
+    <div class="location-actions">
+      <a
+        class="design-button"
+        href="https://maps.app.goo.gl/8c9WLkYAiw6cJRgu7"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Cómo llegar <span aria-hidden="true">↗</span></a
+      ><a class="design-link" href="/info/horarios"
+        >Consulta el programa <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div class="location-map" data-reveal>
+    <div class="map-heading">
+      <span>ETSIIT / UNIVERSIDAD DE GRANADA</span><span aria-hidden="true"
+        >↗</span>
+    </div><iframe
+      title="Ubicación de la ETSIIT en Google Maps"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3178.141314840517!2d-3.6249474!3d37.1968728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd71fc54f0f7fea1%3A0x5463cb956f4f4595!2sC.%20Periodista%20Daniel%20Saucedo%20Aranda%2C%20Chana%2C%2018014%20Granada!5e0!3m2!1sen!2ses!4v1707846866013!5m2!1sen!2ses"
+      width="800"
+      height="500"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe><div
+      class="map-caption"
+    >
+      <span>Tu próxima partida empieza aquí.</span><a
+        href="https://maps.app.goo.gl/8c9WLkYAiw6cJRgu7"
+        target="_blank"
+        rel="noopener noreferrer">Abrir mapa ↗</a>
     </div>
   </div>
 </section>
-<!-- ====== Localizacion Section End -->
+<style>
+  .location-section {
+    display: grid;
+    grid-template-columns: 0.9fr 1.2fr;
+    gap: clamp(35px, 5vw, 75px);
+    align-items: center;
+  }
+  .design-eyebrow {
+    margin-bottom: 25px;
+  }
+  h2 {
+    font-size: clamp(38px, 5.5vw, 74px);
+    font-weight: 750;
+    line-height: 1.02;
+    letter-spacing: -0.05em;
+    margin-bottom: 25px;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .location-copy > p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 430px;
+  }
+  .location-address {
+    border-left: 2px solid var(--accent);
+    padding: 4px 0 4px 20px;
+    margin-block: 28px;
+  }
+  .location-address > span {
+    display: block;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .location-address strong {
+    font-size: 19px;
+    font-weight: 650;
+  }
+  .location-address p {
+    font-size: 12px;
+    line-height: 1.9;
+    margin-top: 9px;
+    color: var(--muted);
+  }
+  .location-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 22px;
+  }
+  .location-actions .design-link {
+    font-size: 11px;
+  }
+  .location-map {
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: 0 18px 50px rgb(0 68 101 / 0.07);
+  }
+  .map-heading,
+  .map-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    font:
+      8px/1.7 ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .map-heading {
+    border-bottom: 1px solid var(--line);
+    letter-spacing: 0.08em;
+  }
+  .map-heading > span:last-child {
+    font-size: 22px;
+  }
+  iframe {
+    display: block;
+    width: 100%;
+    height: 450px;
+    border: 0;
+  }
+  .map-caption a {
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  @media (max-width: 900px) {
+    .location-section {
+      grid-template-columns: 1fr;
+    }
+    iframe {
+      height: 380px;
+    }
+  }
+  @media (max-width: 700px) {
+    .map-caption,
+    .map-heading {
+      padding-inline: 18px;
+    }
+    iframe {
+      height: 320px;
+    }
+  }
+</style>

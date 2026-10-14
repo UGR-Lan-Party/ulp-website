@@ -14,6 +14,12 @@ for (const route of [
   '/blog/',
   '/blog/havefungamers/',
   '/info/ediciones_anteriores/',
+  '/info/about/',
+  '/info/localizacion/',
+  '/info/preguntas_frecuentes/',
+  '/info/preguntas_frecuentes/2/',
+  '/info/preguntas_frecuentes/3/',
+  '/info/aviso_legal/',
 ]) {
   test(`La propuesta conserva el contenido accesible y cabe en 390 px: ${route}`, async ({
     page,
@@ -24,6 +30,9 @@ for (const route of [
     page.on('pageerror', (error) => errors.push(error.message));
     await page.goto(route);
     await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.locator('.linktree-card')).toHaveCount(
+      route === '/' ? 1 : 0,
+    );
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -111,6 +120,45 @@ test('El archivo permite saltar de edición y leer su historia sin JavaScript', 
     await expect(
       page.getByRole('link', { name: 'Ver programa de 2026' }),
     ).toHaveAttribute('href', '/horarios');
+  } finally {
+    await context.close();
+  }
+});
+
+test('Las preguntas se recorren de seis en seis sin JavaScript ni duplicados', async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  await context.route('https://**', (route) =>
+    route.fulfill({ status: 200, body: '' }),
+  );
+  const page = await context.newPage();
+  try {
+    await page.goto('/info/preguntas_frecuentes/');
+    const titles: string[] = [];
+    for (const [index, count] of [6, 6, 4].entries()) {
+      const questions = page.locator('.faq-list > details');
+      await expect(questions).toHaveCount(count);
+      const pagination = page.getByRole('navigation', {
+        name: 'Páginas de preguntas frecuentes',
+      });
+      await expect(
+        pagination.getByRole('link', {
+          name: `Página ${index + 1}`,
+          exact: true,
+        }),
+      ).toHaveAttribute('aria-current', 'page');
+      titles.push(...(await questions.locator('summary').allTextContents()));
+      await questions.first().locator('summary').click();
+      await expect(questions.first().locator('p')).toBeVisible();
+      if (index < 2)
+        await pagination
+          .getByRole('link', { name: `Página ${index + 2}`, exact: true })
+          .click();
+    }
+    expect(new Set(titles).size).toBe(16);
+    await page.reload();
+    await expect(page.locator('.faq-list > details')).toHaveCount(4);
   } finally {
     await context.close();
   }

@@ -1,7 +1,16 @@
 ---
 import { faqs } from '../data/faqs';
+interface Props {
+  page?: number;
+}
+const { page = 1 } = Astro.props;
 const isHome = Astro.url.pathname === '/';
-const questions = isHome ? faqs.slice(0, 5) : faqs;
+const pageSize = 6;
+const pageCount = Math.ceil(faqs.length / pageSize);
+const offset = isHome ? 0 : (page - 1) * pageSize;
+const questions = isHome
+  ? faqs.slice(0, 5)
+  : faqs.slice(offset, offset + pageSize);
 ---
 
 <section class="design-section design-container faq-section">
@@ -14,28 +23,54 @@ const questions = isHome ? faqs.slice(0, 5) : faqs;
       class="design-link"
       href={isHome ? '/info/preguntas_frecuentes' : '/contacto'}
       >{isHome ? 'Todas las preguntas' : 'Escríbenos'}
-      <span aria-hidden="true">↗</span></a>
+      <span aria-hidden="true">↗</span></a
+    >
   </div>
-  <div class="faq-list">
+  <div id="preguntas" class="faq-list">
     {
       questions.map((faq, index) => (
         <details data-reveal>
-          <>
-            <summary>
-              <>
-                <span class="faq-index">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span>{faq.title}</span>
-                <span class="faq-plus" aria-hidden="true">
-                  +
-                </span>
-              </>
-            </summary>
-            <p>{faq.description}</p>
-          </>
+          <summary>
+            <span class="faq-index">
+              {String(offset + index + 1).padStart(2, '0')}
+            </span>
+            <span>{faq.title}</span>
+            <span class="faq-plus" aria-hidden="true">
+              +
+            </span>
+          </summary>
+          <p>{faq.description}</p>
         </details>
       ))
+    }
+    {
+      !isHome && (
+        <nav
+          class="faq-pagination"
+          aria-label="Páginas de preguntas frecuentes"
+        >
+          <>
+            <span>
+              Página {page} de {pageCount}
+            </span>
+            <div>
+              {Array.from({ length: pageCount }, (_, index) => (
+                <a
+                  href={
+                    index === 0
+                      ? '/info/preguntas_frecuentes#preguntas'
+                      : `/info/preguntas_frecuentes/${index + 1}#preguntas`
+                  }
+                  aria-label={`Página ${index + 1}`}
+                  aria-current={page === index + 1 ? 'page' : undefined}
+                >
+                  {index + 1}
+                </a>
+              ))}
+            </div>
+          </>
+        </nav>
+      )
     }
   </div>
 </section>
@@ -107,6 +142,45 @@ const questions = isHome ? faqs.slice(0, 5) : faqs;
     color: var(--muted);
     font-size: 13px;
     line-height: 1.85;
+  }
+  .faq-list {
+    scroll-margin-top: 110px;
+  }
+  .faq-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+  }
+  .faq-pagination > span {
+    font:
+      10px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .faq-pagination > div {
+    display: flex;
+    gap: 8px;
+  }
+  .faq-pagination a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 12px;
+    transition:
+      background 200ms ease,
+      color 200ms ease;
+  }
+  .faq-pagination a[aria-current='page'],
+  .faq-pagination a:hover {
+    background: var(--ink);
+    color: var(--paper);
   }
   @media (max-width: 700px) {
     .faq-section {
