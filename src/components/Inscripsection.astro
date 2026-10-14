@@ -28,11 +28,15 @@ const title = isFinished
 <section
   class="relative w-full overflow-hidden bg-gradient-to-bl from-primary/80 via-secondary/85 to-tertiary/95 py-20 text-center text-white lg:py-28"
 >
-  <img
-    src={background_img}
-    alt=""
-    class="absolute inset-0 -z-10 h-full w-full object-cover"
-  />
+  {
+    background_img && (
+      <img
+        src={background_img}
+        alt=""
+        class="absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+    )
+  }
   <div class="container relative z-10 mx-auto px-6">
     <h2 class="mb-6 text-3xl font-bold">{title}</h2>
     {

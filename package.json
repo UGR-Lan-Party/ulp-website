@@ -10,7 +10,9 @@
     "astro": "astro",
     "test": "node --test tests/*.test.js",
     "images": "node scripts/optimize-images.mjs",
-    "audit": "pnpm audit"
+    "audit": "pnpm audit",
+    "check:site": "node scripts/check-built-site.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -28,6 +30,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "parse5": "8.0.1",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^0.12.3",
     "prettier-plugin-tailwindcss": "^0.5.14"

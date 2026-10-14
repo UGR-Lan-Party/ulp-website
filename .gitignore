@@ -141,3 +141,6 @@ package-lock.yaml
 package.json
 pnpm-lock.yaml
 
+
+playwright-report/
+test-results/
