@@ -8,6 +8,7 @@ export async function mountTrophy(
   signal: AbortSignal,
 ) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
@@ -21,6 +22,9 @@ export async function mountTrophy(
   const light = new THREE.DirectionalLight(0xffffff, 10);
   light.position.set(20, 20, 20);
   scene.add(light);
+  const backLight = new THREE.DirectionalLight(0xffffff, 10);
+  backLight.position.set(5, 8, -15);
+  scene.add(backLight);
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let frame = 0;
   let visible = true;
@@ -58,6 +62,8 @@ export async function mountTrophy(
   container.appendChild(renderer.domElement);
   renderer.domElement.setAttribute('aria-label', 'Trofeo 3D interactivo');
   renderer.domElement.style.touchAction = 'pan-y';
+  renderer.domElement.tabIndex = 0;
+  controls.listenToKeyEvents(renderer.domElement);
 
   function render() {
     frame = 0;
@@ -83,13 +89,17 @@ export async function mountTrophy(
   });
   visibility.observe(container);
   document.addEventListener('visibilitychange', updateVisibility);
-  const resize = new ResizeObserver(() => {
-    camera.aspect = container.clientWidth / container.clientHeight;
+  function resizeCanvas() {
+    const { clientWidth: width, clientHeight: height } = container;
+    if (!width || !height) return;
+    camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
-  });
+    renderer.setSize(width, height);
+    updateVisibility();
+  }
+  const resize = new ResizeObserver(resizeCanvas);
   resize.observe(container);
-  render();
+  resizeCanvas();
 
   return () => {
     disposed = true;
