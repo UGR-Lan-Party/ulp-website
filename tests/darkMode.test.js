@@ -38,6 +38,7 @@ function createPage({
   const elements = {
     themeSwitcher: {
       addEventListener: (event, callback) => {
+        assert.equal(event, 'click');
         onClick = callback;
       },
     },
@@ -50,6 +51,7 @@ function createPage({
       body: { classList: createClassList(sticky ? ['sticky-active'] : []) },
       getElementById: (id) => (missing.includes(id) ? null : elements[id]),
       addEventListener: (event, callback) => {
+        assert.equal(event, 'DOMContentLoaded');
         onReady = callback;
       },
     },
@@ -83,15 +85,21 @@ function createPage({
   };
 }
 
-for (const theme of [null, 'invalid', 'dark', 'light']) {
-  for (const systemDark of [false, true]) {
-    test(`Preference: stored=${theme}, systemDark=${systemDark}`, () => {
-      const result = createPage({ theme, systemDark });
-      const expected = theme === 'dark' || (theme !== 'light' && systemDark);
-      assert.equal(result.isDark(), expected);
-      assert.equal(result.storedTheme(), theme);
-    });
-  }
+for (const [theme, systemDark, expectedDark] of [
+  [null, false, false],
+  [null, true, true],
+  ['invalid', false, false],
+  ['invalid', true, true],
+  ['dark', false, true],
+  ['dark', true, true],
+  ['light', false, false],
+  ['light', true, false],
+]) {
+  test(`Preference: stored=${theme}, systemDark=${systemDark}`, () => {
+    const result = createPage({ theme, systemDark });
+    assert.equal(result.isDark(), expectedDark);
+    assert.equal(result.storedTheme(), theme);
+  });
 }
 
 for (const [path, sticky] of [
