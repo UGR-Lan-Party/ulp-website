@@ -153,12 +153,7 @@ export const activities: Activity[] = [
       {
         nombre: 'Alberto Portero',
         role: 'Diseñador de niveles 2D y metroidvania.',
-        links: [
-          {
-            rrss: 'LinkedIn',
-            link: 'https://www.linkedin.com/in/johndoe',
-          },
-        ],
+        links: [],
         image: '/assets/activities/alberto-portero.webp',
       },
     ],
