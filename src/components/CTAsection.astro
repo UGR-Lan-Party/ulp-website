@@ -8,146 +8,151 @@ import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
       <span class="design-eyebrow">Entre edición y edición</span>
       <h2>Nos seguimos viendo<br /><em>en el servidor.</em></h2>
       <p>
-        Para buscar equipo, compartir lo que juegas y no perderte la próxima
-        quedada.
+        Busca equipo, comparte lo que juegas y sigue cerca de la comunidad hasta
+        la próxima ULP.
       </p>
-      <a href="https://discord.gg/FWW9wKZjav" class="design-button"
-        >Entra al Discord de la ULP <span aria-hidden="true">↗</span></a
-      >
     </div>
-    <div class="community-server" data-reveal>
-      <div class="server-icon" aria-hidden="true"><DiscordIcon /></div>
-      <span class="server-label">COMUNIDAD ULP</span>
-      <strong>La partida continúa.</strong>
-      <div class="server-topics">
-        <span>Encuentra equipo</span><span>Comparte partidas</span><span
-          >Sigue las novedades</span>
-      </div>
-      <span class="server-corner" aria-hidden="true">↗</span>
+    <div class="community-action">
+      <span class="discord-orbit" aria-hidden="true"><DiscordIcon /></span>
+      <a href="https://discord.gg/FWW9wKZjav" class="discord-link"
+        ><span>Entra al Discord de la ULP</span><span aria-hidden="true">↗</span
+        ></a
+      >
+      <span class="community-note">Tu comunidad, también entre partidas.</span>
     </div>
   </div>
 </section>
 <style>
   .community-cta {
-    padding-block: 55px;
+    padding-block: 45px;
   }
   .community-panel {
-    position: relative;
     display: grid;
-    grid-template-columns: 1.5fr 0.7fr;
-    align-items: center;
-    gap: 55px;
-    padding: clamp(30px, 5vw, 65px);
-    border-radius: 28px;
-    background:
-      radial-gradient(ellipse at top right, #176574, transparent 70%), #004465;
-    color: #f5f0e6;
+    grid-template-columns: 1.5fr 0.8fr;
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    background: var(--surface);
+    color: var(--ink);
     overflow: hidden;
   }
+  .community-copy {
+    padding: clamp(30px, 4.5vw, 60px);
+  }
   .community-copy .design-eyebrow {
-    opacity: 0.65;
+    color: var(--muted);
     margin-bottom: 28px;
   }
   h2 {
     font-size: clamp(35px, 5.3vw, 72px);
     font-weight: 750;
     line-height: 1.04;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.04em;
   }
   em {
     font-family: Georgia, serif;
     font-weight: 400;
   }
   .community-copy > p {
-    max-width: 390px;
+    max-width: 420px;
     font-size: 13px;
     line-height: 1.85;
-    opacity: 0.75;
+    color: var(--muted);
     margin-top: 25px;
   }
-  .design-button {
-    margin-top: 28px;
-    background: #f5f0e6;
-    color: #004465;
-    border-color: #f5f0e6;
+  .community-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 40px 28px;
+    background: #062d43;
+    color: #f5f0e6;
   }
-  .community-server {
-    position: relative;
-    padding: 30px;
-    border: 1px solid rgb(245 240 230 / 0.2);
-    border-radius: 22px;
-    background: rgb(245 240 230 / 0.045);
-    transform: rotate(3deg);
-  }
-  .server-icon {
+  .discord-orbit {
     display: grid;
     place-items: center;
-    width: 72px;
-    height: 72px;
-    margin-bottom: 30px;
-    border-radius: 22px;
+    width: 130px;
+    height: 130px;
+    border: 1px solid rgb(245 240 230 / 0.2);
+    border-radius: 50%;
+    box-shadow: 0 0 0 12px rgb(245 240 230 / 0.025);
+  }
+  .discord-orbit :global(svg) {
+    width: 76px;
+    height: 76px;
+    transition: transform 250ms ease;
+  }
+  .community-action:hover .discord-orbit :global(svg) {
+    transform: rotate(-7deg) scale(1.04);
+  }
+  .discord-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 48px;
+    padding: 13px 18px;
+    border-radius: 12px;
     background: #f5f0e6;
     color: #004465;
-  }
-  .server-icon :global(svg) {
-    width: 45px;
-    height: 45px;
-  }
-  .server-label {
-    display: block;
-    font:
-      8px ui-monospace,
-      monospace;
-    letter-spacing: 0.14em;
-    opacity: 0.6;
-  }
-  .community-server > strong {
-    display: block;
-    font-size: 23px;
+    font-size: 11px;
     font-weight: 650;
-    margin-block: 14px 24px;
-    letter-spacing: -0.04em;
   }
-  .server-topics {
-    display: grid;
-    gap: 9px;
+  .discord-link:hover {
+    background: #e8e1d5;
   }
-  .server-topics span {
-    border: 1px solid rgb(245 240 230 / 0.12);
-    border-radius: 8px;
-    font-size: 10px;
-    padding: 10px 12px;
+  .community-note {
+    font:
+      8px/1.7 ui-monospace,
+      monospace;
+    opacity: 0.55;
+    text-align: center;
   }
-  .server-corner {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    font-size: 30px;
-    opacity: 0.3;
-  }
-  @media (max-width: 950px) {
+  @media (max-width: 1000px) {
     .community-panel {
       grid-template-columns: 1fr;
-      gap: 40px;
     }
-    .community-server {
-      max-width: 400px;
-      width: 100%;
+    .community-action {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 25px;
+      padding: 28px;
+    }
+    .discord-orbit {
+      width: 66px;
+      height: 66px;
+      box-shadow: none;
+    }
+    .discord-orbit :global(svg) {
+      width: 40px;
+      height: 40px;
+    }
+    .community-note {
+      display: none;
     }
   }
   @media (max-width: 700px) {
     .community-cta {
-      padding-block: 35px;
+      padding-block: 30px;
     }
-    .community-panel {
-      gap: 30px;
-    }
-    .community-server {
-      transform: none;
+    .community-action {
       padding: 24px;
+      gap: 18px;
     }
-    .server-icon {
-      margin-bottom: 22px;
+    .discord-orbit {
+      width: 48px;
+      height: 48px;
+      border: 0;
+    }
+    .discord-orbit :global(svg) {
+      width: 38px;
+      height: 38px;
+    }
+    .discord-link {
+      font-size: 10px;
+      gap: 14px;
+      padding-inline: 12px;
     }
   }
 </style>

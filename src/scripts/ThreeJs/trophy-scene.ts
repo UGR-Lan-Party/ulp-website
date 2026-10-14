@@ -8,6 +8,8 @@ export async function mountTrophy(
   signal: AbortSignal,
 ) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.8;
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   const scene = new THREE.Scene();
@@ -18,11 +20,11 @@ export async function mountTrophy(
   controls.minDistance = 10;
   controls.maxDistance = 30;
   controls.maxPolarAngle = Math.PI / 2;
-  scene.add(new THREE.AmbientLight(0xffffff, 5));
-  const light = new THREE.DirectionalLight(0xffffff, 10);
+  scene.add(new THREE.AmbientLight(0xffffff, 1));
+  const light = new THREE.DirectionalLight(0xffffff, 2);
   light.position.set(20, 20, 20);
   scene.add(light);
-  const backLight = new THREE.DirectionalLight(0xffffff, 10);
+  const backLight = new THREE.DirectionalLight(0xffffff, 1);
   backLight.position.set(5, 8, -15);
   scene.add(backLight);
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

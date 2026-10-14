@@ -2028,5 +2028,185 @@
         "width": 2048
       }
     ]
+  },
+  "/assets/competitions/characters/character-ping-pong-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/51d927c3494a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/51d927c3494a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/51d927c3494a-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-smash-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/7b19d59ab22a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7b19d59ab22a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7b19d59ab22a-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-wii-sports-bolos-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/2edab8c52b45-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/2edab8c52b45-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/2edab8c52b45-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-rocket-league-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/bdc69b50bb24-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bdc69b50bb24-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/bdc69b50bb24-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-ajedrez-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/7ca69f54e086-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7ca69f54e086-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7ca69f54e086-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-retro-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/82b53f45380d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/82b53f45380d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/82b53f45380d-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-street-fighter-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/01683dff650a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/01683dff650a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/01683dff650a-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-beat-saber-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/a9dfcc05ee38-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a9dfcc05ee38-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/a9dfcc05ee38-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-tetris-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/1cea3a918a08-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/1cea3a918a08-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/1cea3a918a08-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-futbolin-2027.png": {
+    "width": 1183,
+    "height": 1329,
+    "sources": [
+      {
+        "src": "/assets/optimized/7ea886587c65-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7ea886587c65-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7ea886587c65-1183.webp",
+        "width": 1183
+      }
+    ]
   }
 }

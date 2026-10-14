@@ -68,3 +68,115 @@ Single isolated premium 3D game collectible cutout for a university gaming festi
 ```
 
 Los cuatro emblemas SVG de actividades se han refinado con formas sólidas y un fondo azul en dos tonos.
+
+## Quinta revisión: ilustraciones y recorte
+
+Generadas con la herramienta integrada `image_gen`. Futbolín parte del recorte fotográfico anterior; las otras nueve ilustraciones son nuevas. Las variantes WebP conservan la transparencia.
+
+### ping-pong
+
+Archivo final: `public/assets/competitions/characters/character-ping-pong-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: Two beautiful table tennis paddles, one navy and one cream with teal handle, crossed at a dynamic angle, one ivory ping pong ball floating between them, subtle teal motion arc, small clean details.
+```
+
+### smash
+
+Archivo final: `public/assets/competitions/characters/character-smash-2027.png`.
+
+Prompt usado:
+
+```text
+Create one polished 3D collectible illustration for the foreground of a university platform-fighting videogame activity card. A compact round navy-blue arcade arena platform with a tall sculptural cream star emblem at center and two playful cream boxing gloves at the sides, small teal motion arcs, friendly cheerful toy-like design. No characters or people. Materials and palette match premium navy #004465, cream #F5F0E6, teal #006471 gaming controller renders. Three-quarter perspective, soft studio lighting, centered object fully visible with safe margins on a square transparent background with true alpha. No words, no numbers, no logos, no opaque background, no floor.
+```
+
+### wii-sports-bolos
+
+Archivo final: `public/assets/competitions/characters/character-wii-sports-bolos-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: A glossy navy blue bowling ball with teal finger holes, three stylized cream bowling pins with teal stripes arranged behind, one pin tilting playfully as though just struck, balanced compact composition.
+```
+
+### rocket-league
+
+Archivo final: `public/assets/competitions/characters/character-rocket-league-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: A premium small rocket-powered sports car reminiscent of Rocket League, navy body, cream aerodynamic panels and teal rims, flying diagonally beside a large ivory soccer ball with navy panels, short stylized teal boost trail. Clear car silhouette and visible wheels.
+```
+
+### ajedrez
+
+Archivo final: `public/assets/competitions/characters/character-ajedrez-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: A premium ivory chess king and navy chess knight side by side on two small cream and teal chessboard squares, sculptural elegant realistic shapes, tiny refined metallic details, lively diagonal composition.
+```
+
+### retro
+
+Archivo final: `public/assets/competitions/characters/character-retro-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: A charming cream handheld retro gaming console with navy buttons and teal pixel display, a small navy classic joystick with cream ball and teal arcade buttons beside it. Nostalgic authentic physical proportions, tiny floating pixel squares.
+```
+
+### street-fighter
+
+Archivo final: `public/assets/competitions/characters/character-street-fighter-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: Ryu from Street Fighter as a premium polished 3D collectible, cream karate gi, red headband and red gloves, confident classic martial arts fighting stance with one fist forward, expressive friendly determined face, compact full-body composition, one subtle teal energy ribbon, no violence or injuries.
+```
+
+### beat-saber
+
+Archivo final: `public/assets/competitions/characters/character-beat-saber-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: Two beautifully modeled futuristic rhythm-game energy sabers crossing, one teal blue and one warm coral red, navy and cream detailed handles, two small illuminated translucent rhythm blocks floating beside them, dynamic compact clean composition, sci-fi videogame prop render.
+```
+
+### tetris
+
+Archivo final: `public/assets/competitions/characters/character-tetris-2027.png`.
+
+Prompt usado:
+
+```text
+One premium 3D foreground illustration for a university gaming event website. Isolated cutout on genuinely transparent background, no floor or opaque backdrop, no text, no watermark, no border. Cohesive collectible toy/product-render style, rounded refined details, soft studio lighting. Core palette navy #004465, cream #F5F0E6, teal #006471, small appropriate subject color accents. Three-quarter view, compact centered composition occupying 80 percent of a square image, keep all visible silhouette inside safe margins. The image must read clearly when shown at 200 pixels.
+Subject: A playful sculptural arrangement of clearly recognizable Tetris tetromino blocks, interlocking L, T, I, square and zigzag pieces in navy, cream, teal and muted gold, polished rounded toy-plastic edges with tiny highlights, compact diagonal floating composition, no grid background.
+```
+
+### futbolin
+
+Archivo final: `public/assets/competitions/characters/character-futbolin-2027.png`.
+
+Prompt usado:
+
+```text
+Edit this exact photograph cutout for a website. Preserve the identity, facial features, hair, clothing, poses and relative positions of every existing person and the foosball table. Clean the transparent cutout precisely: remove jagged white halos and stray background fragments around hair, shoulders, clothing and in the gaps between people and the table. Use naturally antialiased alpha edges. Remove excessive unused transparent margin at the top by fitting the same photograph more neatly within the canvas, while retaining the whole visible group and table. Do not add or remove people, do not invent missing body parts, do not change the faces, do not stylize the photograph. Transparent background must remain real alpha, with no solid white or black background.
+```

@@ -79,3 +79,15 @@ Las preguntas se reparten en tres páginas estáticas de 6, 6 y 4 elementos. La 
 Dos zonas, presentación y footer, incorporan motivos geométricos vectoriales simplificados inspirados en los alicatados granadinos, al 4 % de opacidad. Referencia cultural: [Educación Artística y comunicación del Patrimonio de Al-Ándalus, disponible en la Cátedra de Artesanía de la UGR](https://catedras.ugr.es/artesania/sites/webugr/artesania/public/ficheros/CUADERNO%20141%20PALERMO%20ARG_libro.pdf#page=150).
 
 Emblema de Linktree: [Simple Icons](https://github.com/simple-icons/simple-icons/blob/develop/icons/linktree.svg), integrado localmente como `public/assets/icons/LinktreeIcon.astro`.
+
+## Quinta revisión
+
+La portada amplía el espacio entre letras y entre UGR y LAN, y utiliza el texto «El mayor evento universitario de eSports y videojuegos». Discord conserva el titular y simplifica la composición en dos zonas, con un acceso destacado al servidor.
+
+Las galerías de portada y Sobre nosotros limitan la imagen a 380 px y eliminan el espacio vertical redundante dentro del marco. El footer pierde su fila superior de marca y navegación, manteniendo los siete iconos sociales, el correo, la ubicación y el aviso legal. El sello «Hecho en la ETSIIT» adopta un formato horizontal compacto.
+
+Se renuevan las ilustraciones transparentes de Ping Pong, Super Smash Bros Ultimate, Wii Sports Bolos, Rocket League, Ajedrez, Juego Retro, Street Fighter II, Beat Saber y Tetris. Futbolín utiliza una nueva versión del recorte del grupo y la mesa. Los originales anteriores se conservan; los archivos y prompts nuevos figuran en `docs/recursos-visuales-2027.md`.
+
+Las 26 tarjetas ajustan el tamaño al contenido visible de cada ilustración, ignorando sus márgenes transparentes. El ajuste comparte límites de anchura y altura y mantiene el efecto de profundidad. Tras sustituir una ilustración, `pnpm images:measure` actualiza las medidas de presentación en `src/data/activity-art-layout.json`; no modifica las imágenes.
+
+El visor de premios reduce la intensidad de las luces y aplica un mapeado tonal con menor exposición para mostrar un dorado más oscuro. Conserva el fondo transparente y la carga automática en ambos temas.

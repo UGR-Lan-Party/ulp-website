@@ -13,7 +13,9 @@ import GranadaAccent from './GranadaAccent.astro';
         sizes="(max-width: 700px) 100vw, 45vw"
       /><span class="about-caption">GRANADA / UNIVERSIDAD / COMUNIDAD</span
       ><span class="about-stamp" aria-hidden="true"
-        >HECHO EN<br />LA ETSIIT <i>↗</i></span
+        ><span class="stamp-mark">✦</span><span
+          >HECHO EN<strong>LA ETSIIT</strong></span
+        ></span
       >
     </div>
     <div class="about-copy" data-reveal>
@@ -70,22 +72,30 @@ import GranadaAccent from './GranadaAccent.astro';
     position: absolute;
     bottom: 100px;
     right: 0;
-    padding: 22px;
-    border: 1px solid rgb(245 240 230 / 0.25);
-    border-radius: 10px;
-    background: #006471;
-    color: #f5f0e6;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 15px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper);
+    color: var(--ink);
     font:
-      11px/1.6 ui-monospace,
+      7px/1.4 ui-monospace,
       monospace;
-    transform: rotate(5deg);
-    box-shadow: 0 10px 20px rgb(0 68 101 / 0.2);
+    letter-spacing: 0.12em;
+    transform: rotate(-3deg);
+    box-shadow: 0 6px 18px rgb(0 68 101 / 0.12);
   }
-  .about-stamp i {
-    display: inline-block;
-    margin-left: 20px;
+  .stamp-mark {
     font-size: 24px;
-    font-style: normal;
+    color: var(--accent);
+  }
+  .about-stamp strong {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    margin-top: 3px;
   }
   .about-copy .design-eyebrow {
     margin-bottom: 25px;

@@ -39,7 +39,7 @@
       "card": {
         "card": "/assets/competitions/cards/ajedrez.webp",
         "logo": "/assets/competitions/logos/ajedrez.webp",
-        "character": "/assets/competitions/characters/character-ajedrez.webp"
+        "character": "/assets/competitions/characters/character-ajedrez-2027.png"
       }
     },
     {
@@ -234,7 +234,7 @@
       "card": {
         "card": "/assets/competitions/cards/rocket.webp",
         "logo": "/assets/competitions/logos/rocket.webp",
-        "character": "/assets/competitions/characters/character-rocket.webp"
+        "character": "/assets/competitions/characters/character-rocket-league-2027.png"
       }
     },
     {
@@ -324,7 +324,7 @@
       "card": {
         "card": "/assets/competitions/cards/wii-bolos.webp",
         "logo": "/assets/competitions/logos/wii.webp",
-        "character": "/assets/competitions/characters/wii-bolos.webp"
+        "character": "/assets/competitions/characters/character-wii-sports-bolos-2027.png"
       }
     },
     {
@@ -370,7 +370,7 @@
       "card": {
         "card": "/assets/competitions/cards/smash.webp",
         "logo": "/assets/competitions/logos/smash.webp",
-        "character": "/assets/competitions/characters/character-smash.webp"
+        "character": "/assets/competitions/characters/character-smash-2027.png"
       }
     },
     {
@@ -579,7 +579,7 @@
       "card": {
         "card": "/assets/competitions/cards/futbolin.webp",
         "logo": "/assets/competitions/logos/futbolin.webp",
-        "character": "/assets/competitions/characters/character-futbolin.webp"
+        "character": "/assets/competitions/characters/character-futbolin-2027.png"
       }
     },
     {
@@ -618,7 +618,7 @@
       "card": {
         "card": "/assets/competitions/cards/ping-pong.webp",
         "logo": "/assets/competitions/logos/ping-pong.webp",
-        "character": "/assets/competitions/characters/character-ping-pong.webp"
+        "character": "/assets/competitions/characters/character-ping-pong-2027.png"
       }
     },
     {
@@ -651,7 +651,7 @@
       "card": {
         "card": "/assets/competitions/cards/retro.webp",
         "logo": "/assets/competitions/logos/retro.webp",
-        "character": "/assets/competitions/characters/character-retro.webp"
+        "character": "/assets/competitions/characters/character-retro-2027.png"
       }
     },
     {
@@ -684,7 +684,7 @@
       "card": {
         "card": "/assets/competitions/cards/street-fighter.webp",
         "logo": "/assets/competitions/logos/street-fighter.webp",
-        "character": "/assets/competitions/characters/character-street-fighter.webp"
+        "character": "/assets/competitions/characters/character-street-fighter-2027.png"
       }
     },
     {
@@ -719,7 +719,7 @@
       "card": {
         "card": "/assets/competitions/cards/beat-saber.webp",
         "logo": "/assets/competitions/logos/beat-saber.webp",
-        "character": "/assets/competitions/characters/character-beat-saber.webp"
+        "character": "/assets/competitions/characters/character-beat-saber-2027.png"
       }
     },
     {
@@ -790,7 +790,7 @@
       "card": {
         "card": "/assets/competitions/cards/tetris.webp",
         "logo": "/assets/competitions/logos/tetris.webp",
-        "character": "/assets/competitions/characters/character-tetris.webp"
+        "character": "/assets/competitions/characters/character-tetris-2027.png"
       }
     },
     {

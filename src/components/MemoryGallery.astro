@@ -18,30 +18,34 @@ import CarouselSection from './CarouselSection.astro';
           Las finales, los reencuentros y ese «una más». Hay cosas que se
           entienden mejor en fotos.
         </p><a href="/info/ediciones_anteriores" class="design-link"
-          >Recorre nuestras ediciones <span aria-hidden="true">↗</span></a>
+          >Recorre nuestras ediciones <span aria-hidden="true">↗</span></a
+        >
       </div>
     </div>
     <div class="memory-frame">
       <div class="memory-caption">
         <span><i aria-hidden="true"></i> RECUERDOS DE 2025</span><span
-          >ETSIIT / GRANADA</span>
+          >ETSIIT / GRANADA</span
+        >
       </div>
       <CarouselSection
         albumId="72177720328590176"
         userId="195749897@N03"
         featuredPhotoId="54744102704"
         withBackground={false}
-        height="580px"
+        height="380px"
       />
       <div class="memory-bottom">
         <span>Hecho de partidas. Y de personas.</span><span aria-hidden="true"
-          >ULP / ARCHIVO ABIERTO ↗</span>
+          >ULP / ARCHIVO ABIERTO ↗</span
+        >
       </div>
     </div>
   </div>
 </section>
 <style>
   .memory-section {
+    padding-block: clamp(45px, 5vw, 70px);
     border-block: 1px solid var(--line);
     background: var(--surface);
   }
@@ -53,7 +57,7 @@ import CarouselSection from './CarouselSection.astro';
     margin-bottom: 42px;
   }
   .memory-header .design-eyebrow {
-    margin-bottom: 25px;
+    margin-bottom: 18px;
   }
   .memory-header h2 {
     max-width: 760px;
@@ -75,7 +79,7 @@ import CarouselSection from './CarouselSection.astro';
     font-size: 11px;
   }
   .memory-frame {
-    padding: 25px;
+    padding: 18px;
     border: 1px solid var(--line);
     border-radius: 24px;
     background: var(--paper);
@@ -93,7 +97,7 @@ import CarouselSection from './CarouselSection.astro';
     color: var(--muted);
   }
   .memory-caption {
-    padding: 0 8px 24px;
+    padding: 0 4px 16px;
     letter-spacing: 0.12em;
   }
   .memory-caption > span:first-child {
@@ -107,11 +111,14 @@ import CarouselSection from './CarouselSection.astro';
     border-radius: 50%;
     background: var(--ink);
   }
+  .memory-frame :global([data-photo-carousel]) {
+    padding-block: 0;
+  }
   .memory-frame :global(.container) {
     padding-inline: 0;
   }
   .memory-bottom {
-    padding: 24px 8px 0;
+    padding: 16px 4px 0;
     font-size: 8px;
   }
   @media (max-width: 700px) {

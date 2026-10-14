@@ -15,7 +15,8 @@ import CarouselSection from './CarouselSection.astro';
         Entre aulas, mandos y conversaciones nacen los mejores recuerdos de la
         ULP. Estas fotos nos devuelven a la edición de 2024.
       </p><a href="/info/ediciones_anteriores" class="design-link"
-        >Todas nuestras ediciones <span aria-hidden="true">↗</span></a>
+        >Todas nuestras ediciones <span aria-hidden="true">↗</span></a
+      >
     </div>
   </header>
   <div class="album-frame">
@@ -25,11 +26,14 @@ import CarouselSection from './CarouselSection.astro';
       albumId="72177720316026867"
       userId="195749897@N03"
       withBackground={false}
-      height="540px"
+      height="380px"
     />
   </div>
 </section>
 <style>
+  .community-album {
+    padding-block: clamp(45px, 5vw, 70px);
+  }
   header {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -38,7 +42,7 @@ import CarouselSection from './CarouselSection.astro';
     margin-bottom: 38px;
   }
   .design-eyebrow {
-    margin-bottom: 25px;
+    margin-bottom: 18px;
   }
   h2 {
     font-size: clamp(35px, 5vw, 65px);
@@ -63,7 +67,7 @@ import CarouselSection from './CarouselSection.astro';
   .album-frame {
     border: 1px solid var(--line);
     border-radius: 24px;
-    padding: 24px;
+    padding: 18px;
     background: var(--surface);
   }
   .album-meta {
@@ -75,7 +79,10 @@ import CarouselSection from './CarouselSection.astro';
       monospace;
     letter-spacing: 0.1em;
     color: var(--muted);
-    margin-bottom: 25px;
+    margin-bottom: 18px;
+  }
+  .album-frame :global([data-photo-carousel]) {
+    padding-block: 0;
   }
   .album-frame :global(.container) {
     padding-inline: 0;

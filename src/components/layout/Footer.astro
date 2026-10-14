@@ -37,13 +37,6 @@ const networks = [
 <footer class="ulp-footer">
   <GranadaAccent variant="escama" />
   <div class="design-container footer-inner">
-    <div class="footer-topline">
-      <span>UGR LAN PARTY / GRANADA</span><nav aria-label="Más sobre ULP">
-        <a href="/info/about">La comunidad</a><a href="/info/horarios"
-          >La agenda</a
-        ><a href="/contacto">Contacto</a>
-      </nav>
-    </div>
     <div class="footer-original-grid">
       <div class="footer-brand">
         <a href="/" aria-label="ULP, inicio"
@@ -92,7 +85,7 @@ const networks = [
   .ulp-footer {
     background: #004465;
     color: #f5f0e6;
-    padding: 30px 0 24px;
+    padding: 24px 0 20px;
     position: relative;
     overflow: hidden;
   }
@@ -101,7 +94,7 @@ const networks = [
     grid-template-columns: 0.8fr 1.2fr 1fr;
     align-items: center;
     gap: 36px;
-    padding-block: 30px 38px;
+    padding-block: 8px 24px;
     text-align: center;
   }
   .footer-brand {
@@ -180,36 +173,7 @@ const networks = [
   .footer-inner {
     position: relative;
   }
-  .footer-topline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    border-bottom: 1px solid rgb(245 240 230 / 0.15);
-    padding-bottom: 24px;
-  }
-  .footer-topline > span {
-    font:
-      8px ui-monospace,
-      monospace;
-    letter-spacing: 0.12em;
-    opacity: 0.5;
-  }
-  .footer-topline nav {
-    display: flex;
-    gap: 22px;
-    font-size: 10px;
-  }
-  .footer-topline a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
   @media (max-width: 700px) {
-    .footer-topline {
-      flex-direction: column;
-      gap: 16px;
-    }
-
     .footer-original-grid {
       grid-template-columns: 1fr;
       gap: 28px;
