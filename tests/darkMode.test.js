@@ -8,7 +8,7 @@ const source = readFileSync(
   'utf8',
 );
 
-function classList(initial = []) {
+function createClassList(initial = []) {
   const classes = new Set(initial);
   return {
     contains: (name) => classes.has(name),
@@ -21,7 +21,7 @@ function classList(initial = []) {
   };
 }
 
-function page({
+function createPage({
   theme = null,
   systemDark = false,
   path = '/',
@@ -29,9 +29,9 @@ function page({
   missing = [],
   storageBlocked = false,
 } = {}) {
-  const root = classList();
-  const darkLogo = { classList: classList() };
-  const lightLogo = { classList: classList(['hidden']) };
+  const root = createClassList();
+  const darkLogo = { classList: createClassList() };
+  const lightLogo = { classList: createClassList(['hidden']) };
   let stored = theme;
   let onReady;
   let onClick;
@@ -47,7 +47,7 @@ function page({
   runInNewContext(source, {
     document: {
       documentElement: { classList: root },
-      body: { classList: classList(sticky ? ['sticky-active'] : []) },
+      body: { classList: createClassList(sticky ? ['sticky-active'] : []) },
       getElementById: (id) => (missing.includes(id) ? null : elements[id]),
       addEventListener: (event, callback) => {
         onReady = callback;
@@ -86,10 +86,9 @@ function page({
 for (const theme of [null, 'invalid', 'dark', 'light']) {
   for (const systemDark of [false, true]) {
     test(`Preference: stored=${theme}, systemDark=${systemDark}`, () => {
-      const result = page({ theme, systemDark });
+      const result = createPage({ theme, systemDark });
       const expected = theme === 'dark' || (theme !== 'light' && systemDark);
       assert.equal(result.isDark(), expected);
-      // Leer la preferencia del sistema no guarda una eleccion manual.
       assert.equal(result.storedTheme(), theme);
     });
   }
@@ -101,7 +100,7 @@ for (const [path, sticky] of [
   ['/actividades/ajedrez', false],
 ]) {
   test(`Toggle and logos: path=${path}, sticky=${sticky}`, () => {
-    const result = page({ path, sticky });
+    const result = createPage({ path, sticky });
     const homeLogo = path === '/' && !sticky;
     assert.equal(result.darkLogoVisible(), homeLogo);
     assert.equal(result.lightLogoVisible(), !homeLogo);
@@ -110,7 +109,7 @@ for (const [path, sticky] of [
     assert.equal(result.storedTheme(), 'dark');
     assert.equal(result.darkLogoVisible(), true);
     assert.equal(result.lightLogoVisible(), false);
-    const reloaded = page({ theme: result.storedTheme(), path, sticky });
+    const reloaded = createPage({ theme: result.storedTheme(), path, sticky });
     assert.equal(reloaded.isDark(), true);
     result.click();
     assert.equal(result.isDark(), false);
@@ -118,7 +117,7 @@ for (const [path, sticky] of [
     assert.equal(result.darkLogoVisible(), homeLogo);
     assert.equal(result.lightLogoVisible(), !homeLogo);
     assert.equal(
-      page({ theme: result.storedTheme(), systemDark: true }).isDark(),
+      createPage({ theme: result.storedTheme(), systemDark: true }).isDark(),
       false,
     );
   });
@@ -126,16 +125,19 @@ for (const [path, sticky] of [
 
 test('Missing switch or logos do not prevent initialization', () => {
   for (const id of ['themeSwitcher', 'img-modo-oscuro', 'img-modo-claro']) {
-    assert.equal(page({ missing: [id], systemDark: true }).isDark(), true);
+    assert.equal(
+      createPage({ missing: [id], systemDark: true }).isDark(),
+      true,
+    );
   }
   assert.equal(
-    page({ missing: ['img-modo-oscuro', 'img-modo-claro'] }).isDark(),
+    createPage({ missing: ['img-modo-oscuro', 'img-modo-claro'] }).isDark(),
     false,
   );
 });
 
 test('Blocked storage falls back to system and still allows switching', () => {
-  const result = page({ systemDark: true, storageBlocked: true });
+  const result = createPage({ systemDark: true, storageBlocked: true });
   assert.equal(result.isDark(), true);
   result.click();
   assert.equal(result.isDark(), false);

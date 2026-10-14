@@ -1,49 +1,45 @@
-/* ======== themeSwitcher ======== */
 document.addEventListener('DOMContentLoaded', () => {
   const themeSwitcher = document.getElementById('themeSwitcher');
   const darkLogo = document.getElementById('img-modo-oscuro');
   const lightLogo = document.getElementById('img-modo-claro');
   const isHomePage = window.location.pathname === '/';
-  let userTheme;
+  let storedTheme;
 
-  // El navegador puede impedir el acceso al almacenamiento local.
   try {
-    userTheme = localStorage.getItem('theme');
+    storedTheme = localStorage.getItem('theme');
   } catch {
-    userTheme = null;
+    storedTheme = null;
   }
 
-  const aplicarTema = () => {
+  const updateLogo = () => {
     const isDarkMode = document.documentElement.classList.contains('dark');
     const isSticky = document.body.classList.contains('sticky-active');
-    const showDarkLogo = (isHomePage && !isSticky) || isDarkMode;
+    const shouldShowDarkLogo = (isHomePage && !isSticky) || isDarkMode;
 
-    darkLogo?.classList.toggle('hidden', !showDarkLogo);
-    lightLogo?.classList.toggle('hidden', showDarkLogo);
+    darkLogo?.classList.toggle('hidden', !shouldShowDarkLogo);
+    lightLogo?.classList.toggle('hidden', shouldShowDarkLogo);
   };
 
-  const themeCheck = () => {
-    const systemTheme = window.matchMedia(
+  const initializeTheme = () => {
+    const systemPrefersDark = window.matchMedia(
       '(prefers-color-scheme: dark)',
     ).matches;
     const isDarkMode =
-      userTheme === 'dark' || (userTheme !== 'light' && systemTheme);
+      storedTheme === 'dark' || (storedTheme !== 'light' && systemPrefersDark);
 
     document.documentElement.classList.toggle('dark', isDarkMode);
-    aplicarTema();
+    updateLogo();
   };
 
-  const themeSwitch = () => {
+  const toggleTheme = () => {
     const isDarkMode = document.documentElement.classList.toggle('dark');
 
     try {
       localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    } catch {
-      // El cambio visual sigue funcionando aunque no pueda guardarse.
-    }
-    aplicarTema();
+    } catch {}
+    updateLogo();
   };
 
-  themeSwitcher?.addEventListener('click', themeSwitch);
-  themeCheck();
+  themeSwitcher?.addEventListener('click', toggleTheme);
+  initializeTheme();
 });
