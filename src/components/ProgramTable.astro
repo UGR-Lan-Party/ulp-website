@@ -1,5 +1,5 @@
 ---
-import { program } from '../data/program';
+import { program, programEdition } from '../data/program';
 import { edition } from '../data/edition';
 ---
 
@@ -8,8 +8,16 @@ import { edition } from '../data/edition';
   aria-labelledby="program-title"
 >
   <h2 id="program-title" class="mb-6 text-3xl font-bold">
-    Programa de ULP {edition.year}
+    Programa de ULP {programEdition.year}
   </h2>
+  {
+    edition.year !== programEdition.year && (
+      <p class="mb-6">
+        El programa de ULP {edition.year} todavía no está publicado. Se muestra
+        el programa de {programEdition.year} como referencia histórica.
+      </p>
+    )
+  }
   <div class="overflow-x-auto">
     <table class="w-full border-collapse text-left">
       <caption class="mb-4 text-left"
@@ -35,7 +43,7 @@ import { edition } from '../data/edition';
                     {new Intl.DateTimeFormat('es-ES', {
                       day: 'numeric',
                       month: 'long',
-                      timeZone: edition.timezone,
+                      timeZone: programEdition.timezone,
                     }).format(new Date(entry.startsAt))}
                   </time>
                 </td>

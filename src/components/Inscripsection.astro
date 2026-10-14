@@ -4,19 +4,27 @@ import { edition } from '../data/edition';
 const {
   registrationLink,
   activityId,
+  activityYear = edition.year,
   participantsLink,
   background_img,
   registrationPeriodOpen,
 } = Astro.props;
+const isCurrentEdition = activityYear === edition.year;
+const archiveUrl = isCurrentEdition
+  ? edition.archiveUrl
+  : `/ediciones/${activityYear}`;
 const isOpen =
+  isCurrentEdition &&
   edition.phase === 'registration-open' &&
   registrationPeriodOpen &&
   registrationLink;
-const isFinished = edition.phase === 'finished';
+const isFinished = !isCurrentEdition || edition.phase === 'finished';
 const canJoinOnSite =
-  !registrationLink && ['registration-open', 'live'].includes(edition.phase);
+  isCurrentEdition &&
+  !registrationLink &&
+  ['registration-open', 'live'].includes(edition.phase);
 const title = isFinished
-  ? `Actividad de ULP ${edition.year}`
+  ? `Actividad de ULP ${activityYear}`
   : isOpen
     ? 'Inscripciones abiertas'
     : canJoinOnSite
@@ -57,7 +65,7 @@ const title = isFinished
         <a
           href={registrationLink}
           data-analytics-event="registration-click"
-          data-analytics-edition={edition.year}
+          data-analytics-edition={activityYear}
           data-analytics-activity={activityId}
           class="mt-6 inline-block rounded-md bg-white px-7 py-3 text-dark"
         >
@@ -68,10 +76,10 @@ const title = isFinished
     {
       isFinished && (
         <a
-          href={edition.archiveUrl}
+          href={archiveUrl}
           class="mt-6 inline-block rounded-md bg-white px-7 py-3 text-dark"
         >
-          Consultar edición {edition.year}
+          Consultar edición {activityYear}
         </a>
       )
     }

@@ -9,3 +9,5 @@ El evento usa un contexto permitido de sitio, pantalla e idioma y la ruta sin pa
 En el panel de Wupp/Umami, seleccionar el sitio de ULP y un intervalo que incluya la prueba, abrir Eventos y filtrar por el nombre; contrastar las propiedades `edition` y `activity`. Un clic mide interés y salida al formulario, **no** inscripción completada ni asistencia. En 2026 cerrada no se muestra un enlace de inscripción y no debe generarse ese evento.
 
 Las pruebas locales usan un tracker simulado, comprueban un único evento y mantienen los enlaces si Umami falta, lanza un error o rechaza su promesa. No se inyectan visitas o inscripciones de prueba en el panel de producción. Queda pendiente una comprobación real en el panel tras integrar y desplegar, usando una actividad y un período de inscripción confirmados.
+
+El año del evento procede del catálogo de la actividad. Anunciar una edición nueva no atribuye los clics de las fichas antiguas a ese año ni abre sus inscripciones. El horario identifica explícitamente el año de sus datos.

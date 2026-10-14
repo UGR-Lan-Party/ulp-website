@@ -1,5 +1,5 @@
 ---
-import { edition } from '../../data/edition';
+import { programEdition } from '../../data/program';
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
@@ -49,7 +49,7 @@ const competitionsWithoutTrophy = [
     <Fragment slot="title">{competition?.name}</Fragment>
   </Breadcrumb>
   <div class="w-full flex flex-col items-center">
-    <Inscripsection activityId={competition?.id}
+    <Inscripsection activityId={competition?.id} activityYear={programEdition.year}
       registrationPeriodOpen={competition?.registrationPeriodOpen}
       registrationLink={competition?.registration}
       participantsLink={competition?.participants}
@@ -85,7 +85,7 @@ const competitionsWithoutTrophy = [
             <a
               href={competition?.rules}
               data-analytics-event="rules-click"
-              data-analytics-edition={edition.year}
+              data-analytics-edition={programEdition.year}
               data-analytics-activity={competition?.id}
               class="inline-flex items-center justify-center py-3 z-10 text-base
         font-medium text-center text-white border border-primary
