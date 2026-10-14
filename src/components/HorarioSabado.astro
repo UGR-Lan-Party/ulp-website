@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 // HorarioSabado.astro
 // Horario del Sábado 21 de Marzo — misma estética que el Viernes
 
@@ -20,9 +21,9 @@ const N = schedule.length;
   <div
     class="relative w-full h-full flex items-center justify-center p-4 md:p-10"
   >
-    <img
+    <ResponsiveImage
       id="sab-lightbox-img"
-      src=""
+      src="/assets/activities/horario.png"
       alt="Mapa de actividades ampliado"
       class="max-w-full max-h-full object-contain rounded"
       style="cursor: zoom-out;"
@@ -175,7 +176,7 @@ const N = schedule.length;
                     data-lightbox="true"
                     data-src="/assets/activities/horario.png"
                   >
-                    <img
+                    <ResponsiveImage
                       src="/assets/activities/horario.png"
                       alt="Mapa de actividades del evento"
                       class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"

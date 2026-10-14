@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 interface Props {
   position: string;
   awards: string[];
@@ -97,9 +98,9 @@ const cssGlow = tier?.glowRgb ?? '255,255,255';
         </>
       )
     }
-    <img
+    <ResponsiveImage
       class="badge-img"
-      src={tier?.badge}
+      src={tier?.badge ?? ''}
       alt={`Medalla ${tier?.label}`}
       loading="lazy"
     />
@@ -112,15 +113,7 @@ const cssGlow = tier?.glowRgb ?? '255,255,255';
   <div class="pixel-divider" aria-hidden="true"></div>
 
   <!-- Loot box / prize -->
-  <!-- <div class="prize-wrap">
-    <img
-      class="loot-gif"
-      src="/assets/competitions/medals/lucky-box-ulp.gif"
-      alt="Premio sorpresa"
-      loading="lazy"
-    />
-    <p class="prize-hint">¡Premio por desvelar!</p>
-  </div> -->
+
 
   <!-- Awards list (uncomment when ready) -->
   {
