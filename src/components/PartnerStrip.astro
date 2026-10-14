@@ -1,0 +1,249 @@
+---
+import { partners } from '../data/sponsors';
+---
+
+<section
+  class="partner-strip"
+  data-partner-strip
+  aria-label="Entidades colaboradoras de ULP 2026"
+>
+  <div class="container partner-strip-inner">
+    <a class="partner-strip-label" href="/participan"
+      ><span class="design-eyebrow">Lo hacemos juntos</span><strong
+        >PARTNERS <span>↗</span></strong
+      ><small>COMUNIDAD ULP · 2026</small></a
+    >
+    <div
+      class="partner-viewport"
+      data-partner-viewport
+      tabindex="0"
+      role="region"
+      aria-label="Entidades: usa la rueda, las flechas del teclado o arrastra en una pantalla táctil"
+    >
+      <div class="partner-track" data-partner-track>
+        {
+          [0, 1].map((copy) => (
+            <ul
+              class="partner-list"
+              data-partner-list
+              aria-hidden={copy === 1 ? 'true' : undefined}
+            >
+              {partners.map((partner) => (
+                <li>
+                  <a
+                    class="partner-item"
+                    href={
+                      partner.links.find((link) => link.rrss === 'Web')?.link ??
+                      '/participan'
+                    }
+                    tabindex={copy === 1 ? -1 : undefined}
+                    aria-label={partner.name.trim()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={partner.logo}
+                      alt=""
+                      width="130"
+                      height="32"
+                      loading="lazy"
+                    />
+                    <span>{partner.name.trim()}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
+    <div class="partner-controls" data-partner-controls hidden>
+      <button
+        type="button"
+        data-partner-step="-1"
+        aria-label="Entidades anteriores">←</button
+      >
+      <button
+        type="button"
+        data-partner-step="1"
+        aria-label="Entidades siguientes">→</button
+      >
+    </div>
+  </div>
+</section>
+<script>
+  import '../scripts/partner-strip';
+</script>
+<style>
+  .partner-strip {
+    background: #f9fafb;
+    color: #004465;
+    border-block: 1px solid rgb(0 68 101 / 0.17);
+  }
+  .partner-strip-label .design-eyebrow {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
+  }
+  .partner-strip-label .design-eyebrow::before {
+    content: '';
+    background: currentColor;
+  }
+  .partner-strip-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    min-height: 108px;
+  }
+  .partner-strip-label {
+    width: 175px;
+    flex-shrink: 0;
+  }
+  .partner-strip-label .design-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.09em;
+    gap: 5px;
+  }
+  .partner-strip-label .design-eyebrow::before {
+    width: 4px;
+    height: 4px;
+  }
+  .partner-strip-label strong {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.4;
+  }
+  .partner-strip-label strong span {
+    font-size: 16px;
+  }
+  .partner-strip-label small {
+    display: block;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+  .partner-viewport {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 24px,
+      black calc(100% - 24px),
+      transparent
+    );
+  }
+  .partner-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .partner-track {
+    display: flex;
+    width: max-content;
+  }
+  .partner-list {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 16px 32px 16px 0;
+    flex-shrink: 0;
+  }
+  .partner-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 120px;
+    height: 64px;
+    transition: opacity 200ms ease;
+  }
+  .partner-item:hover {
+    opacity: 0.65;
+  }
+  .partner-item img {
+    width: 120px;
+    height: 32px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  .partner-item span {
+    max-width: 150px;
+    font-size: 9px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .partner-controls {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .partner-controls[hidden] {
+    display: none;
+  }
+  .partner-controls button {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgb(0 68 101 / 0.25);
+    border-radius: 50%;
+    font-size: 15px;
+    transition:
+      background 180ms ease,
+      color 180ms ease;
+  }
+  .partner-controls button:hover {
+    background: #004465;
+    color: #f5f0e6;
+  }
+  @media (max-width: 700px) {
+    .partner-strip-label .design-eyebrow {
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      font-family: ui-monospace, monospace;
+      font-weight: 600;
+    }
+    .partner-strip-label .design-eyebrow::before {
+      content: '';
+      background: currentColor;
+    }
+    .partner-strip-inner {
+      gap: 12px;
+      min-height: 94px;
+    }
+    .partner-strip-label {
+      width: 95px;
+    }
+    .partner-strip-label .design-eyebrow {
+      display: none;
+    }
+    .partner-strip-label strong {
+      font-size: 14px;
+      gap: 8px;
+    }
+    .partner-strip-label small {
+      font-size: 6px;
+      line-height: 1.7;
+      max-width: 80px;
+    }
+    .partner-controls {
+      display: none;
+    }
+    .partner-item {
+      min-width: 110px;
+      height: 58px;
+    }
+  }
+</style>

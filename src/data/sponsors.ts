@@ -878,3 +878,5 @@ export const sponsorsRegular: SponsorData[] = Sponsors.filter(
 export const secretSponsor: SponsorData[] = Sponsors.filter(
   (sponsor) => sponsor.name === 'Patrocinador Secreto',
 );
+
+export const partners = Sponsors.filter((sponsor) => Boolean(sponsor.tier));
