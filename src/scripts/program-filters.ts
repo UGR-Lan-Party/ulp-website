@@ -34,7 +34,7 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
       entry.row.hidden = !visible;
       if (visible) count++;
     });
-    status.textContent = `${count} de ${rows.length} franjas`;
+    status.textContent = `${count} de ${rows.length} actividades`;
     empty.hidden = count > 0;
     table.hidden = count === 0;
   }

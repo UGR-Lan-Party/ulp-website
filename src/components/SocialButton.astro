@@ -10,8 +10,9 @@ import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
 
 interface Props {
   sponsorLink: RRSSLink;
+  monochrome?: boolean;
 }
-const { sponsorLink } = Astro.props as Props;
+const { sponsorLink, monochrome = false } = Astro.props as Props;
 
 const hoverColors: Record<string, string> = {
   X: 'hover:text-black dark:hover:text-white',
@@ -52,8 +53,8 @@ const hoverClass = hoverColors[sponsorLink.rrss] ?? 'hover:text-primary';
       }
       target="_blank"
       rel="noopener noreferrer"
-      class={`inline-flex h-10 w-10 shrink-0 items-center justify-center text-gray-300 dark:text-gray-600 ${hoverClass}
-          transition-all duration-300 ease-in-out
+      class={`inline-flex h-10 w-10 shrink-0 items-center justify-center ${monochrome ? 'text-white' : `text-gray-300 dark:text-gray-600 ${hoverClass}`}
+          transition-transform duration-300 ease-in-out
           hover:scale-110`}
     >
       {sponsorLink.rrss === 'X' && <XIcon />}

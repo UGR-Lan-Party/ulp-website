@@ -76,3 +76,26 @@ test('El programa se adapta a 360 px y sigue disponible sin JavaScript', async (
   await expect(staticPage.locator('[data-program-filters]')).not.toBeVisible();
   await staticContext.close();
 });
+
+test('La agenda distingue inscripciones cerradas de actividades sin inscripción', async ({
+  page,
+}) => {
+  await page.goto('/info/horarios/');
+  const program = page.locator('[data-program]');
+  await expect(program.locator('.program-kicker')).toHaveText('Agenda');
+  const total = await program.locator('[data-program-row]').count();
+  await expect(program.locator('[data-program-count]')).toHaveText(
+    `${total} de ${total} actividades`,
+  );
+  await expect(
+    program.getByRole('columnheader', { name: 'Inscripción', exact: true }),
+  ).toBeVisible();
+  const chess = program.locator('[data-program-row][data-name="Ajedrez"]');
+  await expect(
+    chess.getByRole('button', { name: 'Inscripción cerrada para Ajedrez' }),
+  ).toBeDisabled();
+  await expect(program.locator('.program-registration a')).toHaveCount(0);
+  expect(
+    await program.getByLabel('No requiere inscripción').count(),
+  ).toBeGreaterThan(0);
+});
