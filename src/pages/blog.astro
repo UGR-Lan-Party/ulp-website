@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from '../components/ResponsiveImage.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from "astro:content";
@@ -38,7 +39,7 @@ publishedBlogEntries.sort((a, b) => {
                 hover:-translate-y-1 hover:shadow-2xl
               "
             >
-              <img
+              <ResponsiveImage
                 src={blogPostEntry.data.image.src}
                 alt={blogPostEntry.data.image.alt}
                 class="w-full h-56 object-cover"

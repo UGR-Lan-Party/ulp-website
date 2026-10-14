@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 import { edition } from '../data/edition';
 import { getEditionPresentation } from '../utils/edition.js';
 
@@ -55,8 +56,8 @@ const images = remoteImages.length
       class="absolute inset-0 min-h-full min-w-full -z-10"
       id="heroContainer"
     >
-      <img
-        id="heroImage"
+      <ResponsiveImage
+        id="heroImage" loading="eager" fetchpriority="high" sizes="100vw"
         src={images[0]}
         alt=""
         class="w-full h-full object-cover hero-bg"
@@ -143,8 +144,8 @@ const images = remoteImages.length
       </a>
 
       <div class="mt-0 flex justify-center items-center">
-        <img
-          src="/assets/participan/organizan.png"
+        <ResponsiveImage
+          src="/assets/participan/organizan.png" loading="eager"
           alt="Organizaciones participantes"
           class="max-w-[100%] max-h-[200px] h-auto"
         />

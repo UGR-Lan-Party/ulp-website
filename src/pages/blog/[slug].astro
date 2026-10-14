@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import SocialButton from '../../components/SocialButton.astro';
@@ -41,8 +42,8 @@ const mappedLinks = socialLinks
             class="wow fadeInUp relative z-20 mb-[50px] overflow-hidden rounded-[5px] w-full h-auto block"
             data-wow-delay=".1s"
           >
-            <img
-              src={entry.data.bigImg.src}
+            <ResponsiveImage
+              src={entry.data.bigImg.src} loading="eager" fetchpriority="high"
               alt={entry.data.bigImg.alt}
               class="h-full w-full object-contain object-center"
             />
@@ -78,6 +79,7 @@ const mappedLinks = socialLinks
           <div class="flex justify-center">
             <div class="w-full px-4 lg:w-8/12">
               <div>
+                <a href={entry.data.bigImg.src} download class="mb-6 inline-block underline dark:text-white">Descargar imagen original</a>
                 <h1
                   class="wow fadeInUp mb-8 text-2xl font-bold text-dark dark:text-white sm:text-3xl md:text-[35px] md:leading-[1.28]"
                   data-wow-delay=".1s"
