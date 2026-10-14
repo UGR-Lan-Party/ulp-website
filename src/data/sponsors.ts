@@ -838,6 +838,21 @@ const Sponsors: SponsorData[] = [
       },
     ],
   },
+  {
+    name: 'CSIRC',
+    tier: 'regular',
+    logo: '/assets/participan/Logos/csirc.webp',
+    cardBg: null,
+    isSecret: false,
+    bussiness: 'Servicio de la Universidad de Granada',
+    description:
+      'El Centro de Servicios de Informática y Redes de Comunicaciones de la Universidad de Granada colabora con el soporte de red para las competiciones en línea.',
+    links: [
+      { rrss: 'Web', link: 'https://csirc.ugr.es/' },
+      { rrss: 'Correo', link: 'mailto:csirc@ugr.es' },
+      { rrss: 'Teléfono', link: 'tel:+34958241010' },
+    ],
+  },
 ];
 
 export const sponsorsDiamond: SponsorData[] = Sponsors.filter(
