@@ -1,4 +1,5 @@
 ---
+import ProgramTable from '../../components/ProgramTable.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Layout from '../../layouts/Layout.astro';
 import HorarioViernes from '../../components/HorarioViernes.astro';
@@ -12,6 +13,7 @@ import HorarioSabado from '../../components/HorarioSabado.astro';
   <Breadcrumb>
     <Fragment slot="title">Horarios</Fragment>
   </Breadcrumb>
+  <ProgramTable />
   <HorarioViernes />
   <HorarioSabado />
 </Layout>

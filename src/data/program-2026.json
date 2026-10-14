@@ -1,0 +1,1263 @@
+{
+  "year": 2026,
+  "timezone": "Europe/Madrid",
+  "games": [
+    {
+      "id": "ajedrez",
+      "name": "Ajedrez",
+      "rules": "https://drive.google.com/file/d/17o4kUmzgLb0nZHfv500aAdQbF3zxf2kh/view?usp=drive_link",
+      "registration": "https://forms.gle/hRk68DAWJcEAStmf7",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Sala de Estudiantes.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/ajedrez.webp",
+      "trophy": "/assets/models/ajedrez.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x2 Bonos Karting - Formula Karting Granada",
+          "x2 Viajes organizados Emycet",
+          "x1 Tarjeta Amazon 25€"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x1 Mando MGPXPRO Mars Gaming"
+        ],
+        "third": [
+          "Trofeo ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T14:00:00+01:00",
+          "label": "Torneo Ajedrez",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/ajedrez.webp",
+        "logo": "/assets/competitions/logos/ajedrez.webp",
+        "character": "/assets/competitions/characters/character-ajedrez.webp"
+      }
+    },
+    {
+      "id": "minecraft",
+      "name": "Minecraft",
+      "rules": "https://drive.google.com/file/d/1kwPUjbZoteRiS6tscZkMRUrFqA_N3nfu/view?usp=sharing",
+      "registration": "https://forms.gle/X8fPY1enBJoHs7xD9",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Prefabricada B1.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/minecraft.webp",
+      "trophy": "/assets/models/mc.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Jersey Gen.G eSports",
+          "x1 Keycap Gen.G Esports"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x1 Mando MGPXPRO Mars Gaming",
+          "x1 Keycap Gen.G Esports"
+        ],
+        "third": [
+          "Trofeo ULP",
+          "x1 Keycap Gen.G Esports"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T14:30:00+01:00",
+          "endsAt": "2026-03-21T16:30:00+01:00",
+          "label": "Torneo Minecraft",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/minecraft.webp",
+        "logo": "/assets/competitions/logos/minecraft.webp",
+        "character": "/assets/competitions/characters/character-minecraft.webp"
+      }
+    },
+    {
+      "id": "mario-kart",
+      "name": "Mario Kart World",
+      "rules": "https://drive.google.com/file/d/1_7tfC7cQTy7xc0yLtPpA56DRQd2cPMnM/view?usp=drive_link",
+      "registration": "https://forms.gle/v1iYnEvuJYjfChjC7",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Prefabricada A1.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/mario-kart.webp",
+      "trophy": "/assets/models/mario-kart.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Juego Gear Club 3 Unlimited (Nintendo Switch 2)",
+          "x1 Mando MGPXPRO Mars Gaming",
+          "x2 Bonos Fórmula Karting"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x2 Bonos Fórmula Karting"
+        ],
+        "third": [
+          "Trofeo ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T16:30:00+01:00",
+          "endsAt": "2026-03-21T20:00:00+01:00",
+          "label": "Eliminatoria",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T20:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Fase Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/mario-kart.webp",
+        "logo": "/assets/competitions/logos/mario-kart.webp",
+        "character": "/assets/competitions/characters/character-mario.webp"
+      }
+    },
+    {
+      "id": "league-of-legends",
+      "name": "League of Legends",
+      "rules": "https://drive.google.com/file/d/16KEdp-ZYeGH3zD9nXfaQkkTGFz6GZVVn/view?usp=drive_link",
+      "registration": "https://forms.gle/irjKuCsbp1pRMDh69",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Prefabricadas A2 y B1.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/lol.webp",
+      "trophy": "/assets/models/lol.obj",
+      "awards": {
+        "first": [
+          "Trofeo y Medalla ULP",
+          "x5 Tarjetas Amazon 25€",
+          "x5 Keycaps Gen.G Esports",
+          "x5 Badges Gen.G Esports",
+          "x5 Suscripciones Your.GG"
+        ],
+        "second": [
+          "Trofeo y Medalla ULP",
+          "x5 Tarjetas Amazon 25€",
+          "x5 Badges Gen.G Esports"
+        ],
+        "third": [
+          "Trofeo y Medalla ULP"
+        ],
+        "mvp": [
+          "x1 Jersey Gen.G Esports"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T14:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T17:30:00+01:00",
+          "endsAt": "2026-03-21T18:30:00+01:00",
+          "label": "Semifinal I",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T18:30:00+01:00",
+          "endsAt": "2026-03-21T19:30:00+01:00",
+          "label": "Semifinal II",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T20:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/lol.webp",
+        "logo": "/assets/competitions/logos/lol.webp",
+        "character": "/assets/competitions/characters/character-lol.webp"
+      }
+    },
+    {
+      "id": "rocket-league",
+      "name": "Rocket League",
+      "rules": "https://drive.google.com/file/d/1rOl9qPPdKn_TkVImEuAYJtxU1hMTq8yx/view?usp=drive_link",
+      "registration": "https://forms.gle/wEgWNqQRuq1ocoPp9",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Prefabricada A2.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/rocket-league.webp",
+      "trophy": "/assets/models/rocket.obj",
+      "awards": {
+        "first": [
+          "Trofeo y Medalla ULP",
+          "x2 Juegos STYX: Blades of Greed (PlayStation 5)",
+          "x2 Keycaps Gen.G Esports"
+        ],
+        "second": [
+          "Trofeo y Medalla ULP",
+          "x2 Tarjetas Amazon 25€"
+        ],
+        "third": [
+          "Trofeo y Medalla ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T15:30:00+01:00",
+          "endsAt": "2026-03-21T18:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T18:00:00+01:00",
+          "endsAt": "2026-03-21T19:00:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/rocket.webp",
+        "logo": "/assets/competitions/logos/rocket.webp",
+        "character": "/assets/competitions/characters/character-rocket.webp"
+      }
+    },
+    {
+      "id": "wii-sports-tenis",
+      "name": "Wii Sports Tenis",
+      "rules": "https://drive.google.com/file/d/19lw2h7hCXiEpLwFO-bEwGF41YIl-IF1V/view?usp=drive_link",
+      "registration": "https://forms.gle/HsQDEKmqzy92Ges47",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Aulas -1.1 y -1.2.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/wii-tenis.webp",
+      "trophy": "/assets/models/wii.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Mando Revolution X Unlimited (PC) ~ 200€"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x1 Mando MGPXPRO Mars Gaming"
+        ],
+        "third": [
+          "Trofeo ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T16:00:00+01:00",
+          "endsAt": "2026-03-21T19:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T19:00:00+01:00",
+          "endsAt": "2026-03-21T20:00:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/wii-tenis.webp",
+        "logo": "/assets/competitions/logos/wii.webp",
+        "character": "/assets/competitions/characters/wii-tenis.webp"
+      }
+    },
+    {
+      "id": "wii-sports-bolos",
+      "name": "Wii Sports Bolos",
+      "rules": "https://drive.google.com/file/d/1emhSanMB98aI7M_aDgYjxzFL5x-ibYX4/view?usp=drive_link",
+      "registration": "https://forms.gle/LmPpLQZMJSqLuzbw8",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Aulas -1.1 y -1.2.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/wii-bolos.webp",
+      "trophy": "/assets/models/wii.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Microfono M100 HS Nacon ~100€",
+          "x1 Mando MGPXPRO Mars Gaming"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x1 Mando MM-XT Mars Gaming",
+          "x1 Tarjeta Amazon 25€"
+        ],
+        "third": [
+          "Trofeo ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T13:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T13:00:00+01:00",
+          "endsAt": "2026-03-21T14:00:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/wii-bolos.webp",
+        "logo": "/assets/competitions/logos/wii.webp",
+        "character": "/assets/competitions/characters/wii-bolos.webp"
+      }
+    },
+    {
+      "id": "smash",
+      "name": "Super Smash Bros Ultimate",
+      "rules": "https://drive.google.com/file/d/1XCmukFJFxexuuAR9G0zOYl319Eg6nnAI/view?usp=drive_link",
+      "registration": "https://forms.gle/psgLvwYrHsULbfDC7",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Aula -1.2.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/smash.webp",
+      "trophy": "/assets/models/smash.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Juego Gear Club 3 Unlimited (Nintendo Switch 2)",
+          "x1 Mando MM-XT Mars Gaming",
+          "x1 Bonos Fórmula Karting"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x1 Mando MGPXPRO Mars Gaming"
+        ],
+        "third": [
+          "Trofeo ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T19:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T19:00:00+01:00",
+          "endsAt": "2026-03-21T20:00:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/smash.webp",
+        "logo": "/assets/competitions/logos/smash.webp",
+        "character": "/assets/competitions/characters/character-smash.webp"
+      }
+    },
+    {
+      "id": "brawl-stars",
+      "name": "Brawl Stars",
+      "rules": "https://drive.google.com/file/d/1Ea65hDtIyDuSvI1cyqJu1zMD5QSuLUNg/view?usp=drive_link",
+      "registration": "https://forms.gle/TguVfCWCfjrMi92g6",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Prefabricada A1.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/brawl-stars.webp",
+      "trophy": "/assets/models/brawl-stars.obj",
+      "awards": {
+        "first": [
+          "Copa ULP",
+          "x6 Tarjetas Amazon 25€"
+        ],
+        "second": [
+          "Trofeo y Medalla ULP",
+          "x3 Tarjetas Amazon 25€"
+        ],
+        "third": [
+          "Trofeo y Medalla ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T14:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T15:30:00+01:00",
+          "endsAt": "2026-03-21T16:30:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/brawls-stars.webp",
+        "logo": "/assets/competitions/logos/brawl-stars.webp",
+        "character": "/assets/competitions/characters/character-brawl-stars.webp"
+      }
+    },
+    {
+      "id": "clash-royale",
+      "name": "Clash Royale",
+      "rules": "https://drive.google.com/file/d/1fghtfNXF_PYzgNTnu8RmQOZdJKI_oIvZ/view?usp=drive_link",
+      "registration": "https://forms.gle/J2o7v6bkZj51pXiBA",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Prefabricadas A1 y A2.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/clash-royale.webp",
+      "trophy": "/assets/models/clash-royale.obj",
+      "awards": {
+        "first": [
+          "Trofeo",
+          "x1 Microfono M100 HS Nacon"
+        ],
+        "second": [
+          "Trofeo",
+          "x1 Tarjeta Amazon 25€"
+        ],
+        "third": [
+          "Trofeo"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T14:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T15:30:00+01:00",
+          "endsAt": "2026-03-21T16:30:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/clash-royale.webp",
+        "logo": "/assets/competitions/logos/clash-royale.webp",
+        "character": "/assets/competitions/characters/character-clash-royale.webp"
+      }
+    },
+    {
+      "id": "2XKO",
+      "name": "2XKO",
+      "rules": "https://drive.google.com/file/d/1BMqIb4iaA_J6lE0TXf_cLCXfJpnlTxdT/view?usp=sharing",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Hall Edificio Principal.",
+      "tag": "reto",
+      "backgroundImage": "/assets/competitions/backgrounds/2xko.webp",
+      "trophy": "/assets/models/2XKO.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Jersey Gen.G eSports",
+          "x1 Suscripción Your.GG"
+        ],
+        "second": [
+          "x1 Suscripción Your.GG"
+        ],
+        "third": []
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/2xko.webp",
+        "logo": "/assets/competitions/logos/2xko.webp",
+        "character": "/assets/competitions/characters/character-2xko.webp"
+      }
+    },
+    {
+      "id": "f1",
+      "name": "F1",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Hall Edificio Principal.",
+      "tag": "reto",
+      "backgroundImage": "/assets/competitions/backgrounds/f1.webp",
+      "trophy": "/assets/models/f1.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "Juego Gear Club 3 Unlimited (Nintendo Switch 2)"
+        ],
+        "second": [
+          "x2 Bonos Fórmula Karting"
+        ],
+        "third": []
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/f1.webp",
+        "logo": "/assets/competitions/logos/f1.webp",
+        "character": "/assets/competitions/characters/character-f1.webp"
+      }
+    },
+    {
+      "id": "futbolin",
+      "name": "Futbolín",
+      "rules": "https://drive.google.com/file/d/1EDfhmMzzISQqQrboPw2ijqSF3tsrNVQt/view?usp=drive_link",
+      "registration": "https://forms.gle/rWzswNKrAYvpgLRW6",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Entrada patio.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/futbolin.webp",
+      "trophy": "/assets/models/futbolin.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x2 Auriculares RIG 600 ACID HS Nacon"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x2 Mandos MM-XT Mars Gaming"
+        ],
+        "third": [
+          "Trofeo ULP"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T14:00:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T15:00:00+01:00",
+          "endsAt": "2026-03-21T16:30:00+01:00",
+          "label": "Fase de Grupos",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T16:30:00+01:00",
+          "endsAt": "2026-03-21T18:00:00+01:00",
+          "label": "Final",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/futbolin.webp",
+        "logo": "/assets/competitions/logos/futbolin.webp",
+        "character": "/assets/competitions/characters/character-futbolin.webp"
+      }
+    },
+    {
+      "id": "ping-pong",
+      "name": "Ping Pong",
+      "rules": "https://drive.google.com/file/d/1pgBs7yoMWEMQJNA4kMdEsWyWf1KNwxOP/view?usp=drive_link",
+      "registration": "https://forms.gle/hxri8zkoXdnoogD69",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Bajo de cafetería.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/ping-pong.webp",
+      "trophy": "/assets/models/ping-pong.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Mando Revolution X Unlimited (PC) ~ 200€"
+        ],
+        "second": [
+          "Trofeo ULP",
+          "x1 Mando MGPXPRO Mars Gaming"
+        ],
+        "third": [
+          "Trofeo ULP",
+          "x1 Mando MM-XT Mars Gaming"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T14:00:00+01:00",
+          "label": "Eliminatoria.",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/ping-pong.webp",
+        "logo": "/assets/competitions/logos/ping-pong.webp",
+        "character": "/assets/competitions/characters/character-ping-pong.webp"
+      }
+    },
+    {
+      "id": "retro",
+      "name": "Juego Retro",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Aula -1.1.",
+      "tag": "reto",
+      "backgroundImage": "/assets/competitions/backgrounds/retro.webp",
+      "trophy": "/assets/models/SONIC.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Tarjeta Amazon 25€"
+        ],
+        "second": [],
+        "third": []
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/retro.webp",
+        "logo": "/assets/competitions/logos/retro.webp",
+        "character": "/assets/competitions/characters/character-retro.webp"
+      }
+    },
+    {
+      "id": "street-fighter",
+      "name": "Street Fighter II",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Aula -1.1.",
+      "tag": "reto",
+      "backgroundImage": "/assets/competitions/backgrounds/street-fighter.webp",
+      "trophy": "/assets/models/street-fighter.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Juego: John Mambo Ed. Coleccionista"
+        ],
+        "second": [],
+        "third": []
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/street-fighter.webp",
+        "logo": "/assets/competitions/logos/street-fighter.webp",
+        "character": "/assets/competitions/characters/character-street-fighter.webp"
+      }
+    },
+    {
+      "id": "beat-saber",
+      "name": "Beat Saber",
+      "rules": "https://drive.google.com/file/d/1tbSdcSUhcJfHx5CHd2GCIMpFoV8RnaqU/view?usp=sharing",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Hall Edificio Principal.",
+      "tag": "reto",
+      "backgroundImage": "/assets/competitions/backgrounds/beat-saber.webp",
+      "trophy": "/assets/models/beat-saber.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Viaje Organizado Emycet"
+        ],
+        "second": [
+          "x1 Bono Karting - Formula Karting Granada"
+        ],
+        "third": []
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/beat-saber.webp",
+        "logo": "/assets/competitions/logos/beat-saber.webp",
+        "character": "/assets/competitions/characters/character-beat-saber.webp"
+      }
+    },
+    {
+      "id": "hacking",
+      "name": "Hacking Ético",
+      "rules": "https://drive.google.com/file/d/15_tPVyadkHryQsnfRhB-EPS4vA9KYybO/view?usp=drive_link",
+      "registration": "https://forms.gle/PsfNEL5DswXSp4dH8",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Sala de Profesores Externos.",
+      "tag": "competicion",
+      "backgroundImage": "/assets/competitions/backgrounds/hacking.webp",
+      "trophy": "/assets/models/ctf.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Flipper Zero Starter Full Set"
+        ],
+        "second": [
+          "x1 Raspberry Pi 5 4GB Starter Kit"
+        ],
+        "third": [
+          "x1 Proxmark3 512M",
+          "x1 Kit de Soldadura"
+        ]
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/hacking.webp",
+        "logo": "/assets/competitions/logos/hacking.webp",
+        "character": "/assets/competitions/characters/character-hacking.webp"
+      }
+    },
+    {
+      "id": "tetris",
+      "name": "Tetris",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Aula -1.1.",
+      "tag": "reto",
+      "backgroundImage": "/assets/competitions/backgrounds/tetris.webp",
+      "trophy": "/assets/models/tetris.obj",
+      "awards": {
+        "first": [
+          "Trofeo ULP",
+          "x1 Clave Juego The Game Kitchen"
+        ],
+        "second": [],
+        "third": []
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/tetris.webp",
+        "logo": "/assets/competitions/logos/tetris.webp",
+        "character": "/assets/competitions/characters/character-tetris.webp"
+      }
+    },
+    {
+      "id": "cars",
+      "name": "CARS",
+      "rules": "https://drive.google.com/file/d/1IfoHrrR0FGOcC39AEaV_NWQU4qxXRhm3/view?usp=sharing",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Hall Edificio Principal.",
+      "tag": "reto",
+      "backgroundImage": "/assets/competitions/backgrounds/cars.webp",
+      "trophy": "/assets/models/cars.obj",
+      "awards": {
+        "first": [
+          "Copa Pistón ULP",
+          "x1 Clave Juego The Game Kitchen"
+        ],
+        "second": [],
+        "third": []
+      },
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "Mejor puntuación",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/cars.webp",
+        "logo": "/assets/competitions/logos/cars.webp",
+        "character": "/assets/competitions/characters/character-cars.webp"
+      }
+    },
+    {
+      "id": "street-pass",
+      "name": "Street Pass",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Cafetería ETSIIT.",
+      "tag": "actividad",
+      "backgroundImage": "",
+      "trophy": "",
+      "description": "Pasa por el stand de StreetPass Málaga y comparte tu Mii con otros asistentes para ganar premios y sorpresas. Habrá torneos con juegos de la 3DS. Consulta el cartel en las redes sociales para más información.",
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/street-pass.webp",
+        "logo": "/assets/competitions/logos/street-pass.webp",
+        "character": "/assets/competitions/characters/character-street-pass.webp"
+      }
+    },
+    {
+      "id": "watch-party",
+      "name": "Watch Party",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Salón de Grados.",
+      "tag": "actividad",
+      "backgroundImage": "",
+      "trophy": "",
+      "description": "Visualiza en directo las competiciones más emocionantes del evento en nuestras pantallas gigantes. No te pierdas ni un solo momento de la acción y anima a tus competidores favoritos.",
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/watch-party.webp",
+        "logo": "/assets/competitions/logos/watch-party.webp",
+        "character": "/assets/competitions/characters/character-watch-party.webp"
+      }
+    },
+    {
+      "id": "tcg",
+      "name": "Pokemon TCG",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Hall Edificio Principal.",
+      "tag": "actividad",
+      "backgroundImage": "",
+      "trophy": "",
+      "description": "Stand con cartas de Pokemon TCG. Explora las colecciones y obten tu carta favorita.",
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/tcg.webp",
+        "logo": "/assets/competitions/logos/tcg.webp",
+        "character": "/assets/competitions/characters/character-tcg.webp"
+      }
+    },
+    {
+      "id": "indie-fest",
+      "name": "Indie Fest",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Hall Edificio Principal.",
+      "tag": "actividad",
+      "backgroundImage": "",
+      "trophy": "",
+      "description": "Festival de juegos independientes. Descubre nuevos títulos y comparte tu opinión con los desarrolladores.",
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/indie-fest.webp",
+        "logo": "/assets/competitions/logos/indie-fest.webp",
+        "character": "/assets/competitions/characters/character-indie-fest.webp"
+      }
+    },
+    {
+      "id": "juego-libre",
+      "name": "Juego Libre",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Entrada Edificio Principal.",
+      "tag": "actividad",
+      "backgroundImage": "",
+      "trophy": "",
+      "description": "Explora las diferentes consolas y juegos disponibles en el área de juego libre. Desde consolas clásicas hasta las últimas novedades, hay algo para todos los gustos. ¡Ven a jugar y descubrir nuevos títulos!",
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T10:00:00+01:00",
+          "endsAt": "2026-03-21T21:00:00+01:00",
+          "label": "",
+          "allDay": true
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/juego-libre.webp",
+        "logo": "/assets/competitions/logos/juego-libre.webp",
+        "character": "/assets/competitions/characters/character-juego-libre.webp"
+      }
+    },
+    {
+      "id": "paella",
+      "name": "Paella",
+      "rules": "",
+      "registration": "",
+      "registrationPeriodOpen": false,
+      "participants": "",
+      "place": "Cafetería ETSIIT.",
+      "tag": "actividad",
+      "backgroundImage": "",
+      "trophy": "",
+      "description": "No te pierdas la tradicional paella del evento, preparada por el equipo de cocina de la cafetería. Disfruta de un delicioso plato mientras compartes momentos con otros asistentes.",
+      "schedule": [
+        {
+          "startsAt": "2026-03-21T13:30:00+01:00",
+          "endsAt": null,
+          "label": "1º Tanda",
+          "allDay": false
+        },
+        {
+          "startsAt": "2026-03-21T14:15:00+01:00",
+          "endsAt": null,
+          "label": "2º Tanda",
+          "allDay": false
+        }
+      ],
+      "card": {
+        "card": "/assets/competitions/cards/paella.webp",
+        "logo": "/assets/competitions/logos/paella.webp",
+        "character": "/assets/competitions/characters/character-paella.webp"
+      }
+    }
+  ],
+  "talks": [
+    {
+      "id": "charla-1",
+      "nombre": "Esports Masterclass - GenG Global Academy",
+      "ubicacion": "Salón de Grados",
+      "descripcion": "¿Alguna vez te has planteado trabajar dentro del mundo de los eSports? Asiste a esta masterclass y consigue merchandising exclusivo del legendario equipo GenG Esports!  \n                  <br />\n                  Plazas limitadas — Regístrate en <a href=\"https://forms.gle/NNWwe8QFkVwG6NNn8\" style=\"color: #AA8A00; text-decoration: underline;\">este formulario</a>.",
+      "logo": "/assets/participan/Logos/geng.webp",
+      "ponentes": [
+        {
+          "nombre": "Patrick Daley",
+          "role": "Esports People/Projects Guy. Esports Management MBA.",
+          "links": [
+            {
+              "rrss": "LinkedIn",
+              "link": "https://www.linkedin.com/in/pat-daley2020/"
+            }
+          ],
+          "image": "/assets/activities/patrick-daley.webp"
+        }
+      ],
+      "aforo": "60",
+      "imagenes": [
+        "/assets/activities/geng.jpg"
+      ],
+      "color": "#AA8A00",
+      "slot": {
+        "startsAt": "2026-03-20T15:45:00+01:00",
+        "endsAt": "2026-03-20T16:30:00+01:00",
+        "label": "Esports Masterclass - GenG Global Academy",
+        "allDay": false
+      }
+    },
+    {
+      "id": "charla-2",
+      "nombre": "Bienvenida del subdirector de la ETSIIT",
+      "ubicacion": "Salón de Actos de la ETSIIT",
+      "descripcion": "Palabras de bienvenida a cargo del subdirector de la ETSIIT, Juan José Ramos, quien nos dará la bienvenida oficial al evento y compartirá unas palabras sobre la importancia de la tecnología, los videojuegos y la cultura gamer en el ámbito académico y profesional.",
+      "logo": "/assets/participan/Logos/etsiit.webp",
+      "ponentes": [
+        {
+          "nombre": "Juan José Ramos",
+          "role": "Subdirector de la ETSIIT",
+          "links": [
+            {
+              "rrss": "LinkedIn",
+              "link": "https://www.linkedin.com/in/juan-jos%C3%A9-ramos-mu%C3%B1oz-782391367/"
+            }
+          ],
+          "image": "/assets/activities/juan-jose-ramos-munoz.webp"
+        }
+      ],
+      "aforo": "196",
+      "imagenes": [
+        "/assets/activities/etsiit.webp"
+      ],
+      "color": "#D06113",
+      "slot": {
+        "startsAt": "2026-03-20T17:00:00+01:00",
+        "endsAt": "2026-03-20T17:15:00+01:00",
+        "label": "Bienvenida del subdirector de la ETSIIT",
+        "allDay": false
+      }
+    },
+    {
+      "id": "charla-3",
+      "nombre": "Presentación de la UGR LAN Party 8ª Ed.",
+      "ubicacion": "Salón de Actos de la ETSIIT",
+      "descripcion": "Inauguración oficial del evento ULP con palabras de los organizadores, presentación del programa del día y sorteo de merchandising exclusivo entre los asistentes.",
+      "logo": "/assets/logo/logo-black.png",
+      "ponentes": [
+        {
+          "nombre": "Mario Castro",
+          "role": "Organizador Principal de UGR LAN Party",
+          "links": [
+            {
+              "rrss": "LinkedIn",
+              "link": "https://www.linkedin.com/in/mario-castro-almenzar/"
+            }
+          ],
+          "image": "/assets/activities/mario-castro.webp"
+        },
+        {
+          "nombre": "Marcelino Cabrera",
+          "role": "Organizador Principal de UGR LAN Party",
+          "links": [
+            {
+              "rrss": "LinkedIn",
+              "link": "https://www.linkedin.com/in/marcelinocabrera/"
+            }
+          ],
+          "image": "/assets/team/team03.jpeg"
+        },
+        {
+          "nombre": "Antonio Mora",
+          "role": "Organizador Principal de UGR LAN Party",
+          "links": [
+            {
+              "rrss": "LinkedIn",
+              "link": "https://www.linkedin.com/in/antoniomora/"
+            }
+          ],
+          "image": "/assets/team/team01.jpeg"
+        }
+      ],
+      "aforo": "196",
+      "imagenes": [
+        "/assets/activities/Cartel-ULP-2026.png"
+      ],
+      "color": "#00f5ff",
+      "slot": {
+        "startsAt": "2026-03-20T17:15:00+01:00",
+        "endsAt": "2026-03-20T17:30:00+01:00",
+        "label": "Presentación de la UGR LAN Party 8ª Ed.",
+        "allDay": false
+      }
+    },
+    {
+      "id": "charla-4",
+      "nombre": "Del gamer al cliente: cómo la IA está cambiando las reglas del marketing",
+      "ubicacion": "Salón de Actos de la ETSIIT",
+      "descripcion": "En esta sesión exploraremos cómo las mismas lógicas que hacen tan adictivos a los videojuegos, personalización, progresión, recompensas y eventos en vivo, se están trasladando al marketing gracias a la inteligencia artificial, convirtiendo al \"gamer\" en \"cliente\" sin que casi lo note. Veremos cómo la IA analiza el comportamiento de jugadores y usuarios para tomar decisiones en tiempo real (qué mostrar, cuándo, a quién y con qué incentivo), cómo las marcas están implementando las técnicas del gaming para diseñar campañas que se \"juegan\" y no solo se ven, y qué oportunidades se abren para las compañías que integran IA, marketing y cultura gamer en una misma estrategia.",
+      "logo": "/assets/participan/Logos/sidn.webp",
+      "ponentes": [
+        {
+          "nombre": "Isabel Vázquez",
+          "role": "AI Solutions Manager en SIDN",
+          "links": [
+            {
+              "rrss": "LinkedIn",
+              "link": "https://www.linkedin.com/in/isabelvazquezsalmeron/"
+            }
+          ],
+          "image": "/assets/activities/isabel-vazquez.webp"
+        }
+      ],
+      "aforo": "196",
+      "imagenes": [
+        "/assets/activities/isabel-1.jpeg",
+        "/assets/activities/isabel-2.jpeg"
+      ],
+      "color": "#ED602D",
+      "slot": {
+        "startsAt": "2026-03-20T17:30:00+01:00",
+        "endsAt": "2026-03-20T18:15:00+01:00",
+        "label": "Del gamer al cliente: cómo la IA está cambiando las reglas del marketing",
+        "allDay": false
+      }
+    },
+    {
+      "id": "charla-5",
+      "nombre": "Llaves, candados y \"ya volveré luego\"",
+      "ubicacion": "Salón de Actos de la ETSIIT",
+      "descripcion": "¿Cómo se diseña un mundo lleno de puertas cerradas, atajos y lugares a los que volver más tarde? En esta charla recorreremos el diseño de mundos metroidvania desde su estructura más amplia hasta los pequeños momentos que definen la experiencia del jugador.",
+      "logo": "/assets/participan/Logos/game-kitchen.webp",
+      "ponentes": [
+        {
+          "nombre": "Alberto Portero",
+          "role": "Diseñador de niveles 2D y metroidvania.",
+          "links": [],
+          "image": "/assets/activities/alberto-portero.webp"
+        }
+      ],
+      "aforo": "196",
+      "imagenes": [
+        "/assets/activities/game-kitchen-1.jpeg",
+        "/assets/activities/game-kitchen-2.jpg"
+      ],
+      "color": "#8b5cf6",
+      "slot": {
+        "startsAt": "2026-03-20T18:15:00+01:00",
+        "endsAt": "2026-03-20T19:00:00+01:00",
+        "label": "Llaves, candados y \"ya volveré luego\"",
+        "allDay": false
+      }
+    },
+    {
+      "id": "charla-6",
+      "nombre": "Concierto de Música de Videojuegos con Orquesta Virtual Sound",
+      "ubicacion": "Salón de Actos de la ETSIIT",
+      "descripcion": "Orquesta Virtual Sound es una orquesta sinfónica virtual especializada en la interpretación de música de videojuegos. En este concierto, nos deleitarán con una selección de piezas icónicas de la historia de los videojuegos. Desde las melodías épicas de los RPG hasta los temas más dinámicos de los juegos de acción, esta experiencia musical promete transportar a los asistentes a través de un viaje sonoro lleno de nostalgia y pasión por el mundo gamer.",
+      "logo": "/assets/activities/orquesta-virtual-sound.webp",
+      "ponentes": [
+        {
+          "nombre": "Orquesta Virtual Sound",
+          "role": "Orquesta de Música de Videojuegos",
+          "links": [
+            {
+              "rrss": "TikTok",
+              "link": "https://www.tiktok.com/@orquestavs"
+            }
+          ],
+          "image": "/assets/activities/orquesta-virtual-sound.webp"
+        }
+      ],
+      "aforo": "196",
+      "imagenes": [
+        "/assets/activities/orquesta-1.jpeg",
+        "/assets/activities/concierto-cartel.jpg"
+      ],
+      "color": "#10b981",
+      "slot": {
+        "startsAt": "2026-03-20T19:00:00+01:00",
+        "endsAt": "2026-03-20T20:00:00+01:00",
+        "label": "Concierto de Música de Videojuegos con Orquesta Virtual Sound",
+        "allDay": false
+      }
+    },
+    {
+      "id": "charla-7",
+      "nombre": "Despedida & Sorteos",
+      "ubicacion": "Salón de Actos de la ETSIIT",
+      "descripcion": "Agradecimiento a los asistentes, ponentes y colaboradores por su participación en la ULP 2026. Sorteo de merchandising exclusivo entre los asistentes. Con sorpresas y pistas para el día siguiente...",
+      "logo": "/assets/logo/logo-black.png",
+      "ponentes": [],
+      "aforo": "196",
+      "imagenes": [
+        "/assets/activities/sorteos-1.jpg"
+      ],
+      "color": "#f59e0b",
+      "slot": {
+        "startsAt": "2026-03-20T20:00:00+01:00",
+        "endsAt": "2026-03-20T20:30:00+01:00",
+        "label": "Despedida & Sorteos",
+        "allDay": false
+      }
+    }
+  ],
+  "saturday": [
+    {
+      "id": "bienvenida",
+      "titulo": "Acto de Bienvenida",
+      "descripcion": "Bienvenida, itinerario y normas de convivencia.",
+      "icono": "🎙️",
+      "color": "#f59e0b",
+      "tipo": "bienvenida",
+      "slot": {
+        "startsAt": "2026-03-21T09:30:00+01:00",
+        "endsAt": "2026-03-21T10:00:00+01:00",
+        "label": "Bienvenida",
+        "allDay": false
+      }
+    },
+    {
+      "id": "jornada",
+      "titulo": "Actividades del Evento",
+      "descripcion": "Competiciones, retos y actividades en las distintas zonas.",
+      "icono": "🎮",
+      "color": "#10b981",
+      "tipo": "actividades",
+      "slot": {
+        "startsAt": "2026-03-21T10:00:00+01:00",
+        "endsAt": "2026-03-21T21:00:00+01:00",
+        "label": "Actividades",
+        "allDay": false
+      }
+    },
+    {
+      "id": "despedida",
+      "titulo": "Despedida y Entrega de Premios",
+      "descripcion": "Cierre del evento y entrega de premios.",
+      "icono": "🏆",
+      "color": "#a855f7",
+      "tipo": "despedida",
+      "slot": {
+        "startsAt": "2026-03-21T21:00:00+01:00",
+        "endsAt": "2026-03-21T22:00:00+01:00",
+        "label": "Despedida",
+        "allDay": false
+      }
+    }
+  ]
+}
