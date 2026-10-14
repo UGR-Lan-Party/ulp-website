@@ -1,0 +1,44 @@
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  #timeline-outer,
+  #sab-outer {
+    height: auto !important;
+  }
+  #timeline-sticky,
+  #sab-sticky {
+    position: static !important;
+    height: auto !important;
+    display: block !important;
+  }
+  #tl-column,
+  #sab-tl-column {
+    display: none !important;
+  }
+  #tl-cards-area,
+  #sab-cards-area {
+    overflow: visible !important;
+  }
+  .activity-card,
+  .sab-activity-card {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    margin-bottom: 3rem;
+    padding: 1rem;
+  }
+  #timeline-header [style],
+  #sab-header [style],
+  .sab-serv-header,
+  .sab-serv-card,
+  .sab-serv-footer [style] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

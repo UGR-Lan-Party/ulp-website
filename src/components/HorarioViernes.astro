@@ -171,6 +171,7 @@ const N = activities.length;
   }
 
   function initTimeline() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
       setTimeout(initTimeline, 80);
       return;
