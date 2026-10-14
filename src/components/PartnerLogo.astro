@@ -1,0 +1,51 @@
+---
+import type { SponsorData } from '../data/sponsors';
+interface Props {
+  partner: SponsorData;
+  surface?: 'theme' | 'light' | 'dark';
+  width?: number;
+  height?: number;
+  decorative?: boolean;
+}
+const {
+  partner,
+  surface = 'theme',
+  width = 130,
+  height = 32,
+  decorative = false,
+} = Astro.props;
+---
+
+<img
+  src={partner.logo}
+  alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
+  width={width}
+  height={height}
+  loading="lazy"
+  data-partner-logo={partner.name.trim()}
+  data-surface={surface}
+  class:list={[
+    'partner-logo',
+    {
+      'needs-contrast': partner.logoNeedsContrast,
+      'has-background': partner.logoHasBackground,
+    },
+  ]}
+/>
+<style>
+  .partner-logo {
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  .needs-contrast[data-surface='light'],
+  .needs-contrast[data-surface='theme'] {
+    filter: brightness(0);
+  }
+  .partner-logo[data-surface='dark']:not(.has-background) {
+    filter: brightness(0) invert(1);
+  }
+  :global(.dark) .partner-logo[data-surface='theme']:not(.has-background) {
+    filter: brightness(0) invert(1);
+  }
+</style>
