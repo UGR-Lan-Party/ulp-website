@@ -6,7 +6,6 @@ const menuitems = [
   },
   {
     title: 'Información',
-    path: 'javascript:void(0)',
     children: [
       { title: 'Sobre nosotros', path: '/info/about' },
       { title: 'Horarios', path: '/info/horarios' },
@@ -43,17 +42,18 @@ const menuitems = [
       <div class="w-60 max-w-full px-4">
         <a
           href="/"
+          aria-label="ULP, inicio"
           class="navbar-logo block w-full py-5 transition-all duration-500 ease-in-out"
         >
           <img
             src="/assets/logo/logo-black.png"
-            alt="logo"
+            alt=""
             id="img-modo-oscuro"
             class="shrink-0 h-[clamp(40px,7vw,64px)] w-auto"
           />
           <img
             src="/assets/logo/logo-white.png"
-            alt="logo"
+            alt=""
             id="img-modo-claro"
             class="shrink-0 h-[clamp(40px,7vw,64px)] w-auto hidden"
           />
@@ -63,6 +63,10 @@ const menuitems = [
         <div>
           <button
             id="navbarToggler"
+            type="button"
+            aria-label="Menú principal"
+            aria-expanded="false"
+            aria-controls="navbarCollapse"
             class="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
           >
             <span class="relative my-[6px] block h-[2px] w-[40px] bg-white"
@@ -74,91 +78,62 @@ const menuitems = [
           </button>
           <nav
             id="navbarCollapse"
+            aria-label="Principal"
             class="absolute right-4 top-full hidden w-full max-w-[250px] rounded-lg dark:bg-dark bg-white py-5 shadow-lg lg:static lg:block lg:w-full lg:max-w-full lg:bg-transparent dark:lg:bg-transparent lg:py-0 xl:px-4 lg:shadow-none 2xl:px-6"
           >
             <ul class="block lg:flex 2xl:ml-0">
               {
-                menuitems.map((item, index) => {
-                  return (
-                    <li
-                      class={`group relative ${item.children ? 'submenu-item' : ''}`}
-                    >
-                      {item.children ? (
-                        <>
-                          <input
-                            type="checkbox"
-                            id={`submenu-toggler-${index}`}
-                            class="hidden peer lg:hidden"
-                          />
-                          <a
-                            href={item.path}
-                            class={`mx-8 flex items-center justify-between py-2 font-medium text-base text-dark dark:text-white group-hover:text-tertiary lg:mr-0 ${
-                              item.children
-                                ? 'lg:ml-8 lg:pl-0 lg:pr-4'
-                                : 'lg:ml-7 lg:px-0'
-                            } lg:inline-flex lg:py-6 ${
-                              Astro.url.pathname === '/'
-                                ? 'lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10'
-                                : 'lg:text-body-color dark:lg:text-dark-6 xl:ml-10'
-                            }`}
-                          >
-                            {item.title}
-                            <label
-                              for={`submenu-toggler-${index}`}
-                              class="cursor-pointer lg:hidden"
-                            >
-                              <svg
-                                class="fill-current ml-2"
-                                width="16"
-                                height="20"
-                                viewBox="0 0 16 20"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path d="M7.99999 14.9C7.84999 14.9 7.72499 14.85 7.59999 14.75L1.84999 9.10005C1.62499 8.87505 1.62499 8.52505 1.84999 8.30005C2.07499 8.07505 2.42499 8.07505 2.64999 8.30005L7.99999 13.525L13.35 8.25005C13.575 8.02505 13.925 8.02505 14.15 8.25005C14.375 8.47505 14.375 8.82505 14.15 9.05005L8.39999 14.7C8.27499 14.825 8.14999 14.9 7.99999 14.9Z" />
-                              </svg>
-                            </label>
-                            {item.children && (
-                              <svg
-                                class="fill-current ml-2 hidden lg:block"
-                                width="16"
-                                height="20"
-                                viewBox="0 0 16 20"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path d="M7.99999 14.9C7.84999 14.9 7.72499 14.85 7.59999 14.75L1.84999 9.10005C1.62499 8.87505 1.62499 8.52505 1.84999 8.30005C2.07499 8.07505 2.42499 8.07505 2.64999 8.30005L7.99999 13.525L13.35 8.25005C13.575 8.02505 13.925 8.02505 14.15 8.25005C14.375 8.47505 14.375 8.82505 14.15 9.05005L8.39999 14.7C8.27499 14.825 8.14999 14.9 7.99999 14.9Z" />
-                              </svg>
-                            )}
-                          </a>
-                          <div class="submenu hidden peer-checked:block lg:absolute lg:top-full lg:left-0 lg:w-[250px] lg:bg-white lg:dark:bg-dark-2 lg:shadow-lg lg:rounded-sm lg:p-4 lg:transition-transform lg:duration-300 lg:group-hover:opacity-100 lg:invisible lg:translate-y-2 lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:translate-y-0 ml-8 lg:ml-0">
-                            {item.children.map((child) => (
+                menuitems.map((item, index) => (
+                  <li class="relative">
+                    {item.children ? (
+                      <>
+                        <button
+                          type="button"
+                          id={`navigation-toggle-${index}`}
+                          aria-expanded="false"
+                          aria-controls={`navigation-submenu-${index}`}
+                          data-submenu-toggle
+                          class:list={[
+                            'navigation-link mx-8 flex items-center gap-2 py-2 text-base font-medium lg:mx-4 lg:py-6',
+                            { 'home-link': Astro.url.pathname === '/' },
+                          ]}
+                        >
+                          {item.title}
+                          <span aria-hidden="true">⌄</span>
+                        </button>
+                        <ul
+                          id={`navigation-submenu-${index}`}
+                          hidden
+                          class="submenu mx-8 rounded-lg bg-white p-4 shadow-lg dark:bg-dark-2 lg:absolute lg:left-0 lg:top-full lg:m-0 lg:w-[250px]"
+                        >
+                          {item.children.map((child) => (
+                            <li>
                               <a
                                 href={child.path}
-                                class="block py-2 px-4 text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+                                class="block rounded px-4 py-2 text-sm text-dark hover:text-primary dark:text-white"
                               >
                                 {child.title}
                               </a>
-                            ))}
-                          </div>
-                        </>
-                      ) : (
-                        <a
-                          href={item.path}
-                          class={`mx-8 flex py-2 font-medium text-base text-dark dark:text-white group-hover:text-tertiary lg:mr-0 ${
-                            item.children ? 'items-center justify-between' : ''
-                          } ${item.children ? 'lg:ml-8 lg:pl-0 lg:pr-4' : 'lg:ml-7 lg:px-0'} lg:inline-flex lg:py-6 ${
-                            Astro.url.pathname === '/'
-                              ? 'lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-10'
-                              : 'lg:text-body-color dark:lg:text-dark-6 xl:ml-10'
-                          }`}
-                        >
-                          {item.title}
-                        </a>
-                      )}
-                    </li>
-                  );
-                })
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <a
+                        href={item.path}
+                        aria-current={
+                          Astro.url.pathname === item.path ? 'page' : undefined
+                        }
+                        class:list={[
+                          'navigation-link mx-8 block py-2 text-base font-medium lg:mx-4 lg:py-6',
+                          { 'home-link': Astro.url.pathname === '/' },
+                        ]}
+                      >
+                        {item.title}
+                      </a>
+                    )}
+                  </li>
+                ))
               }
             </ul>
           </nav>
@@ -167,6 +142,9 @@ const menuitems = [
           <button
             class="inline-flex cursor-pointer items-center"
             id="themeSwitcher"
+            type="button"
+            aria-label="Modo oscuro"
+            aria-pressed="false"
           >
             <span
               class={`hidden dark:block ${Astro.url.pathname === '/' ? 'text-white' : 'text-dark dark:text-white'}`}
@@ -239,7 +217,32 @@ const menuitems = [
 </header>
 
 <style>
-  /* Aplica el tamaño de fuente solo en pantallas grandes (mínimo 1024px) */
+  [hidden] {
+    display: none !important;
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid #f59e0b;
+    outline-offset: 4px;
+  }
+  :global(.sticky-header) .navigation-link {
+    color: #111827;
+  }
+  :global(.dark .sticky-header) .navigation-link {
+    color: white;
+  }
+  .navigation-link {
+    color: #111827;
+  }
+  :global(.dark) .navigation-link {
+    color: white;
+  }
+  @media (min-width: 1024px) {
+    .home-link {
+      color: white;
+    }
+  }
+
   @media (min-width: 1024px) {
     .text-base {
       font-size: 1.2rem;

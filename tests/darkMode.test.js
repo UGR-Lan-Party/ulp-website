@@ -37,6 +37,7 @@ function createPage({
   let onClick;
   const elements = {
     themeSwitcher: {
+      setAttribute: () => {},
       addEventListener: (event, callback) => {
         assert.equal(event, 'click');
         onClick = callback;
