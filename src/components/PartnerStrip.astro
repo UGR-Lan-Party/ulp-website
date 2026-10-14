@@ -173,12 +173,18 @@ const groups = partnerTiers
   .partner-item:hover {
     opacity: 0.65;
   }
-  .partner-item :global(.partner-logo) {
+  .partner-item :global(.partner-logo-frame) {
     width: 120px;
-    height: 32px;
-    object-fit: contain;
+    --partner-logo-height: 32px;
   }
-  .partner-item span {
+  .partner-item:has(.roomy-logo) {
+    min-width: 144px;
+  }
+  .partner-item :global(.roomy-logo) {
+    width: 144px;
+    --partner-logo-height: 40px;
+  }
+  .partner-item > span {
     max-width: 150px;
     font-size: 9px;
     font-weight: 600;

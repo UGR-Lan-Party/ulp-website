@@ -117,3 +117,9 @@ Los motivos geométricos pasan de 16 a 48 piezas más próximas y ocupan una zon
 La Universidad de Granada utiliza la marca institucional horizontal a color, descargada de Secretaría General. Se ajusta únicamente el lienzo vacío del SVG para que el símbolo y el texto se lean al tamaño de las tarjetas y de la franja de entidades.
 
 Los dos fondos decorativos usan estrellas de ocho puntas en una trama SVG que repite piezas de 64 px. El patrón cubre toda la altura de cada componente, también al crecer el contenido en móvil, sin estirar las estrellas. La opacidad permanece en el 4,5 % y el desvanecimiento se aplica solo de izquierda a derecha.
+
+## Décima revisión
+
+LSI, UGR, DEIIT y GDG Granada ajustan su presentación a los límites visibles del logotipo en lugar de sus márgenes transparentes. Las medidas se guardan en `src/data/partner-logo-layout.json` y el componente compartido conserva las proporciones, los colores y los archivos originales.
+
+Las tarjetas y la franja utilizan el mismo ajuste, con alturas adaptadas a cada rango. La marca horizontal de UGR dispone de más anchura en ambos contextos para mejorar la lectura del texto. Se mantiene la alternancia de variantes según el tema.

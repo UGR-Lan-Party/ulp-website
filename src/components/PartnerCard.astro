@@ -85,11 +85,14 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
     margin-bottom: 24px;
     padding: 20px;
   }
-  .partner-card-logo :global(.partner-logo) {
+  .partner-card-logo :global(.partner-logo-frame) {
     width: 100%;
-    height: 70px;
+    --partner-logo-height: 70px;
     object-fit: contain;
     mix-blend-mode: multiply;
+  }
+  .partner-card-logo:has(.roomy-logo) {
+    padding-inline: 8px;
   }
   h3 {
     font-size: 24px;
@@ -139,8 +142,8 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
   [data-tier='diamond'] .partner-card-logo {
     height: 145px;
   }
-  [data-tier='diamond'] .partner-card-logo :global(.partner-logo) {
-    height: 100px;
+  [data-tier='diamond'] .partner-card-logo :global(.partner-logo-frame) {
+    --partner-logo-height: 100px;
   }
   [data-tier='diamond'] h3 {
     font-size: 29px;
@@ -170,8 +173,8 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
     height: 95px;
     margin-bottom: 20px;
   }
-  [data-tier='regular'] .partner-card-logo :global(.partner-logo) {
-    height: 60px;
+  [data-tier='regular'] .partner-card-logo :global(.partner-logo-frame) {
+    --partner-logo-height: 60px;
   }
   @media (max-width: 700px) {
     [data-tier='diamond'] {
