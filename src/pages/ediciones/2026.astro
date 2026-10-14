@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import archive from '../../data/ediciones/2026.json';
+---
+
+<Layout
+  title="ULP 2026 · Octava edición"
+  description="Archivo del programa de ULP 2026, celebrado el 20 y 21 de marzo en la ETSIIT de Granada."
+>
+  <article class="container mx-auto max-w-4xl px-6 py-20 dark:text-white">
+    <h1 class="mb-4 text-4xl font-bold">ULP 2026 · Octava edición</h1>
+    <p class="mb-8">
+      20 y 21 de marzo de 2026 · ETSIIT, Granada. Esta edición ha finalizado. El
+      programa se conserva como referencia histórica; las inscripciones están
+      cerradas.
+    </p>
+    <h2 class="mb-4 text-2xl font-bold">Viernes 20 · Charlas y concierto</h2>
+    <ul class="mb-12 space-y-5">
+      {
+        archive.activities.map((activity) => (
+          <li>
+            <>
+              <h3 class="font-bold">{activity.nombre}</h3>
+              <p>
+                {activity.horario.inicio}–{activity.horario.fin} ·{' '}
+                {activity.ubicacion}
+              </p>
+            </>
+          </li>
+        ))
+      }
+    </ul>
+    <h2 class="mb-4 text-2xl font-bold">
+      Sábado 21 · Competiciones, retos y actividades
+    </h2>
+    <ul class="space-y-5">
+      {
+        archive.competitions.map((activity) => (
+          <li>
+            <ul>
+              {activity.schedule.map((slot) => (
+                <li>
+                  {slot.time} · {slot.round}
+                </li>
+              ))}
+            </ul>
+            {activity.rules && (
+              <a href={activity.rules} class="underline">
+                Reglamento de 2026
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/info/ediciones_anteriores" class="mt-12 inline-block underline"
+      >Ver todas las ediciones</a
+    >
+  </article>
+</Layout>
