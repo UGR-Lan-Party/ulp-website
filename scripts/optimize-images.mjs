@@ -23,10 +23,11 @@ for (const directory of directories) {
     const image = sharp(source, { animated: false });
     const metadata = await image.metadata();
     if (!metadata.width || !metadata.height) continue;
-    const limit = directory.includes('medals') ? 640 : 1280;
+    const isHero = directory === 'about' && file === 'ulp-2025-comunidad.jpg';
+    const limit = isHero ? 2048 : directory.includes('medals') ? 640 : 1280;
     const widths = [
       ...new Set(
-        [360, 720, limit].map((width) =>
+        (isHero ? [360, 720, 1280, limit] : [360, 720, limit]).map((width) =>
           Math.min(width, limit, metadata.width),
         ),
       ),
@@ -41,7 +42,7 @@ for (const directory of directories) {
       await image
         .clone()
         .resize({ width, withoutEnlargement: true })
-        .webp({ quality: 80 })
+        .webp({ quality: isHero ? 86 : 80 })
         .toFile(`public${target}`);
       sources.push({ src: target, width });
     }

@@ -3,6 +3,7 @@ export interface SponsorData {
   tier: string;
   logo: string;
   logoNeedsContrast?: boolean;
+  logoWhiteDetails?: boolean;
   logoHasBackground?: boolean;
   cardBg: string | null;
   isSecret: boolean;
@@ -226,6 +227,7 @@ const Sponsors: SponsorData[] = [
     name: 'GRANAJOVEN ',
     tier: 'gold',
     logo: '/assets/participan/Logos/concejalia-juventud.webp',
+    logoWhiteDetails: true,
     cardBg: '/assets/participan/BG-Sponsors/granaJoven.webp',
     isSecret: false,
     bussiness: 'Concejalía de Juventud Ayto. de Granada',

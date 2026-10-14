@@ -2,22 +2,25 @@
 import type { SponsorData } from '../data/sponsors';
 import PartnerLogo from './PartnerLogo.astro';
 import SocialButton from './SocialButton.astro';
+import { partnerTiers } from '../data/partner-tiers';
 interface Props {
   partner: SponsorData;
   index: number;
 }
 const { partner, index } = Astro.props;
+const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
 ---
 
 <section
   class="design-partner-card"
   data-partner-card
+  data-tier={partner.tier}
   data-reveal
   data-spotlight
 >
   <div class="partner-card-top">
-    <span>{String(index + 1).padStart(2, '0')}</span><span aria-hidden="true"
-      >↗</span
+    <span class="partner-tier-label">{tier.name}</span><span
+      >{String(index + 1).padStart(2, '0')}</span
     >
   </div>
   <div class="partner-card-logo">
@@ -45,6 +48,7 @@ const { partner, index } = Astro.props;
     padding: 25px;
     border: 1px solid rgb(245 240 230 / 0.16);
     border-radius: 16px;
+    border-top: 3px solid var(--tier-accent);
     background:
       radial-gradient(
         220px circle at var(--pointer-x, 50%) var(--pointer-y, 0%),
@@ -68,7 +72,7 @@ const { partner, index } = Astro.props;
     font:
       10px ui-monospace,
       monospace;
-    opacity: 0.55;
+    color: var(--tier-accent);
     margin-bottom: 20px;
   }
   .partner-card-logo {
@@ -112,5 +116,66 @@ const { partner, index } = Astro.props;
     padding-top: 18px;
     border-top: 1px solid rgb(245 240 230 / 0.2);
     margin-top: auto;
+  }
+  .partner-tier-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  [data-tier='diamond'] {
+    min-height: 510px;
+    padding: 30px;
+    border: 1px solid var(--tier-accent);
+    border-top-width: 4px;
+    background:
+      radial-gradient(
+        ellipse at top right,
+        rgb(184 228 236 / 0.24),
+        transparent 65%
+      ),
+      #004465;
+    box-shadow: 0 12px 36px rgb(0 68 101 / 0.12);
+  }
+  [data-tier='diamond'] .partner-card-logo {
+    height: 145px;
+  }
+  [data-tier='diamond'] .partner-card-logo :global(.partner-logo) {
+    height: 100px;
+  }
+  [data-tier='diamond'] h3 {
+    font-size: 29px;
+  }
+  [data-tier='platinum'] {
+    min-height: 465px;
+    border-top-width: 4px;
+    background:
+      linear-gradient(140deg, rgb(215 225 231 / 0.12), transparent), #004465;
+  }
+  [data-tier='platinum'] .partner-card-logo {
+    height: 125px;
+  }
+  [data-tier='silver'],
+  [data-tier='bronze'] {
+    min-height: 420px;
+  }
+  [data-tier='regular'] {
+    min-height: 380px;
+    padding: 20px;
+    border-top-width: 1px;
+  }
+  [data-tier='regular'] h3 {
+    font-size: 20px;
+  }
+  [data-tier='regular'] .partner-card-logo {
+    height: 95px;
+    margin-bottom: 20px;
+  }
+  [data-tier='regular'] .partner-card-logo :global(.partner-logo) {
+    height: 60px;
+  }
+  @media (max-width: 700px) {
+    [data-tier='diamond'] {
+      min-height: 460px;
+      padding: 25px;
+    }
   }
 </style>

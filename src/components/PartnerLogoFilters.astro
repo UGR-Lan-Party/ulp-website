@@ -1,0 +1,31 @@
+<svg class="partner-logo-filters" aria-hidden="true" width="0" height="0">
+  <defs>
+    <filter id="partner-white-details" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 5 5 0 -14"
+        result="whitePixels"></feColorMatrix>
+      <feComposite
+        in="whitePixels"
+        in2="SourceAlpha"
+        operator="in"
+        result="darkDetails"></feComposite>
+      <feComposite
+        in="SourceGraphic"
+        in2="darkDetails"
+        operator="out"
+        result="colors"></feComposite>
+      <feMerge
+        ><feMergeNode in="darkDetails"></feMergeNode><feMergeNode in="colors"
+        ></feMergeNode></feMerge
+      >
+    </filter>
+  </defs>
+</svg>
+<style>
+  .partner-logo-filters {
+    position: absolute;
+    pointer-events: none;
+  }
+</style>

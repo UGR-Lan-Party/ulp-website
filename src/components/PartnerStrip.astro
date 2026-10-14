@@ -1,6 +1,13 @@
 ---
 import PartnerLogo from './PartnerLogo.astro';
 import { partners } from '../data/sponsors';
+import { partnerTiers } from '../data/partner-tiers';
+const groups = partnerTiers
+  .map((tier) => ({
+    ...tier,
+    items: partners.filter((partner) => partner.tier === tier.id),
+  }))
+  .filter((group) => group.items.length);
 ---
 
 <section
@@ -29,40 +36,35 @@ import { partners } from '../data/sponsors';
               data-partner-list
               aria-hidden={copy === 1 ? 'true' : undefined}
             >
-              {partners.map((partner) => (
-                <li>
-                  <a
-                    class="partner-item"
-                    href={
-                      partner.links.find((link) => link.rrss === 'Web')?.link ??
-                      '/participan'
-                    }
-                    tabindex={copy === 1 ? -1 : undefined}
-                    aria-label={partner.name.trim()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <PartnerLogo partner={partner} decorative />
-                    <span>{partner.name.trim()}</span>
-                  </a>
-                </li>
+              {groups.map((group) => (
+                <>
+                  <li class="partner-separator" data-partner-tier={group.id}>
+                    <span>{group.name}</span>
+                  </li>
+                  {group.items.map((partner) => (
+                    <li>
+                      <a
+                        class="partner-item"
+                        href={
+                          partner.links.find((link) => link.rrss === 'Web')
+                            ?.link ?? '/participan'
+                        }
+                        tabindex={copy === 1 ? -1 : undefined}
+                        aria-label={partner.name.trim()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <PartnerLogo partner={partner} decorative />
+                        <span>{partner.name.trim()}</span>
+                      </a>
+                    </li>
+                  ))}
+                </>
               ))}
             </ul>
           ))
         }
       </div>
-    </div>
-    <div class="partner-controls" data-partner-controls hidden>
-      <button
-        type="button"
-        data-partner-step="-1"
-        aria-label="Entidades anteriores">←</button
-      >
-      <button
-        type="button"
-        data-partner-step="1"
-        aria-label="Entidades siguientes">→</button
-      >
     </div>
   </div>
 </section>
@@ -90,9 +92,6 @@ import { partners } from '../data/sponsors';
     background: var(--paper, #004465);
     color: var(--ink, #fff);
     border-color: rgb(255 255 255 / 0.2);
-  }
-  :global(.dark) .partner-controls button {
-    border-color: rgb(255 255 255 / 0.3);
   }
   .partner-strip-inner {
     display: flex;
@@ -185,50 +184,30 @@ import { partners } from '../data/sponsors';
     font-weight: 600;
     white-space: nowrap;
   }
-  .partner-controls {
+  .partner-separator {
     display: flex;
-    gap: 6px;
+    align-items: center;
+    gap: 16px;
+    height: 54px;
     flex-shrink: 0;
+    padding-left: 8px;
   }
-  .partner-controls[hidden] {
-    display: none;
+  .partner-separator::before {
+    content: '';
+    width: 1px;
+    height: 42px;
+    background: currentColor;
+    opacity: 0.25;
   }
-  .partner-controls button {
-    display: grid;
-    place-items: center;
-    width: 32px;
-    height: 32px;
-    border: 1px solid rgb(0 68 101 / 0.25);
-    border-radius: 50%;
-    font-size: 15px;
-    transition:
-      background 180ms ease,
-      color 180ms ease;
-  }
-  .partner-controls button:hover {
-    background: #004465;
-    color: #f5f0e6;
+  .partner-separator span {
+    font:
+      9px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.65;
   }
   @media (max-width: 700px) {
-    .partner-strip-label .design-eyebrow {
-      display: flex;
-      align-items: center;
-      text-transform: uppercase;
-      font-family: ui-monospace, monospace;
-      font-weight: 600;
-    }
-    .partner-strip-label .design-eyebrow::before {
-      content: '';
-      background: currentColor;
-    }
-    :global(.dark) .partner-strip {
-      background: var(--paper, #004465);
-      color: var(--ink, #fff);
-      border-color: rgb(255 255 255 / 0.2);
-    }
-    :global(.dark) .partner-controls button {
-      border-color: rgb(255 255 255 / 0.3);
-    }
     .partner-strip-inner {
       gap: 12px;
       min-height: 94px;
@@ -248,12 +227,15 @@ import { partners } from '../data/sponsors';
       line-height: 1.7;
       max-width: 80px;
     }
-    .partner-controls {
-      display: none;
-    }
     .partner-item {
       min-width: 110px;
       height: 58px;
+    }
+    .partner-separator {
+      gap: 12px;
+    }
+    .partner-separator span {
+      font-size: 8px;
     }
   }
 </style>

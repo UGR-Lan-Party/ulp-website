@@ -2,22 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import PartnerCard from '../components/PartnerCard.astro';
-import {
-  sponsorsDiamond,
-  sponsorsPlatinum,
-  sponsorsGold,
-  sponsorsSilver,
-  sponsorsBronze,
-  sponsorsRegular,
-} from '../data/sponsors';
-const groups = [
-  { name: 'Diamante', items: sponsorsDiamond },
-  { name: 'Platino', items: sponsorsPlatinum },
-  { name: 'Oro', items: sponsorsGold },
-  { name: 'Plata', items: sponsorsSilver },
-  { name: 'Bronce', items: sponsorsBronze },
-  { name: 'Colaboradores', items: sponsorsRegular },
-];
+import { partners } from '../data/sponsors';
+import { partnerTiers } from '../data/partner-tiers';
+const groups = partnerTiers
+  .map((tier) => ({
+    ...tier,
+    items: partners.filter((partner) => partner.tier === tier.id),
+  }))
+  .filter((group) => group.items.length);
 ---
 
 <Layout
@@ -44,25 +36,25 @@ const groups = [
       groups
         .filter((group) => group.items.length)
         .map((group, index) => (
-          <section class="partner-group">
-            <>
-              <header data-reveal>
-                <>
-                  <span class="design-eyebrow">
-                    {String(index + 1).padStart(2, '0')} / Partners ULP
-                  </span>
-                  <h2>
-                    {group.name}
-                    <span>{String(group.items.length).padStart(2, '0')}</span>
-                  </h2>
-                </>
-              </header>
-              <div class="design-grid">
-                {group.items.map((partner, partnerIndex) => (
-                  <PartnerCard partner={partner} index={partnerIndex} />
-                ))}
-              </div>
-            </>
+          <section
+            class="partner-group"
+            data-tier={group.id}
+            style={`--tier-accent: ${group.accent}`}
+          >
+            <header data-reveal>
+              <span class="design-eyebrow">
+                {String(index + 1).padStart(2, '0')} / Partners ULP
+              </span>
+              <h2>
+                {group.name}
+                <span>{String(group.items.length).padStart(2, '0')}</span>
+              </h2>
+            </header>
+            <div class="partner-tier-grid">
+              {group.items.map((partner, partnerIndex) => (
+                <PartnerCard partner={partner} index={partnerIndex} />
+              ))}
+            </div>
           </section>
         ))
     }
@@ -88,6 +80,8 @@ const groups = [
   }
   .partner-group header {
     margin-bottom: 28px;
+    border-top: 1px solid var(--line);
+    padding-top: 30px;
   }
   .partner-group h2 {
     display: flex;
@@ -105,7 +99,49 @@ const groups = [
     opacity: 0.6;
     padding-top: 5px;
   }
+  .partner-group h2::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin-top: 0.2em;
+    flex-shrink: 0;
+    clip-path: polygon(25% 0, 75% 0, 100% 35%, 50% 100%, 0 35%);
+    background: var(--tier-accent);
+  }
+  .partner-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  [data-tier='diamond'] h2 {
+    font-size: clamp(42px, 5vw, 68px);
+  }
+  [data-tier='platinum'] h2 {
+    font-size: clamp(38px, 4.5vw, 58px);
+  }
+  [data-tier='diamond'] .partner-tier-grid {
+    gap: 30px;
+  }
+  [data-tier='platinum'] .partner-tier-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  [data-tier='regular'] .partner-tier-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+  @media (max-width: 1100px) {
+    .partner-tier-grid,
+    [data-tier='regular'] .partner-tier-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
   @media (max-width: 700px) {
+    .partner-tier-grid,
+    [data-tier='platinum'] .partner-tier-grid,
+    [data-tier='regular'] .partner-tier-grid {
+      grid-template-columns: 1fr;
+    }
+
     .partner-invitation {
       flex-direction: column;
       align-items: start;

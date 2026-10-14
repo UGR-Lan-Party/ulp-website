@@ -5,6 +5,7 @@ import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
 import PartnerStrip from '../components/PartnerStrip.astro';
+import PartnerLogoFilters from '../components/PartnerLogoFilters.astro';
 interface Props {
   description?: string;
   title?: string;
@@ -50,6 +51,7 @@ const { description, title, image } = Astro.props;
     <title>{title ? title + ' | ULP' : 'UGR LAN Party'}</title>
   </head>
   <body>
+    <PartnerLogoFilters />
     <a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
     <Header />
     <main id="contenido-principal" tabindex="-1"><slot /></main>

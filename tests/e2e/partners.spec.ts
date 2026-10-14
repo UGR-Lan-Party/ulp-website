@@ -13,6 +13,17 @@ test('La franja incluye las entidades y admite rueda, clic central y teclado sin
   await page.goto('/');
   const strip = page.locator('[data-partner-strip]');
   const viewport = strip.locator('[data-partner-viewport]');
+  await expect(strip.getByRole('button')).toHaveCount(0);
+  await expect(
+    strip.locator('[data-partner-list]').first().locator('[data-partner-tier]'),
+  ).toHaveText([
+    'Diamante',
+    'Platino',
+    'Oro',
+    'Plata',
+    'Bronce',
+    'Colaboradores',
+  ]);
   const links = strip.locator('[data-partner-list]').first().getByRole('link');
   expect(await links.count()).toBeGreaterThan(30);
   await expect(

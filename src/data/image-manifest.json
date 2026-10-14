@@ -1894,5 +1894,27 @@
         "width": 1280
       }
     ]
+  },
+  "/assets/about/ulp-2025-comunidad.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/235466671c50-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/235466671c50-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/235466671c50-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/assets/optimized/235466671c50-2048.webp",
+        "width": 2048
+      }
+    ]
   }
 }

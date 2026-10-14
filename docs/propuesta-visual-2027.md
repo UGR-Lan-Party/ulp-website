@@ -17,7 +17,7 @@ Las animaciones incluyen entradas al hacer scroll, brillo al pasar por las tarje
 - Avance automático suave, pausado al pasar el cursor o enfocar un enlace.
 - La rueda vertical o lateral desplaza las entidades horizontalmente.
 - Un clic central permite avanzar un tramo.
-- Controles anterior/siguiente, flechas de teclado y desplazamiento táctil.
+- Flechas de teclado y desplazamiento táctil, sin botones de anterior/siguiente. Los rangos se distinguen con separadores y sus nombres.
 - Las copias visuales del bucle no se anuncian ni se incluyen en la navegación de teclado.
 - La preferencia de movimiento reducido detiene el avance automático; los controles siguen disponibles.
 - La animación se pausa fuera de pantalla y cuando la pestaña no está visible.
@@ -36,4 +36,16 @@ Se mantienen los datos históricos de 2026 y sus inscripciones cerradas. Las act
 
 La propuesta se puede revisar en [Inicio](http://127.0.0.1:4321/), [Actividades](http://127.0.0.1:4321/actividades/), [Participan](http://127.0.0.1:4321/participan/) y [Contacto](http://127.0.0.1:4321/contacto/), [Noticias](http://127.0.0.1:4321/blog/) y [Horarios](http://127.0.0.1:4321/info/horarios/).
 
-Validación: build, recursos y rutas locales, 37 pruebas unitarias y 40 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
+Validación: build, recursos y rutas locales, 37 pruebas unitarias y 42 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
+
+## Segunda revisión
+
+La cabecera mantiene UGR LAN PARTY en una sola línea. La portada usa una foto de 2048 × 1365 píxeles del álbum de ULP 2025, con variantes WebP hasta 2048 y carga adaptada a cada pantalla. El original está en `public/assets/about/ulp-2025-comunidad.jpg`; el generador de imágenes conserva esta resolución para la portada.
+
+Participan comparte el orden de rangos con la franja. Los rangos se distinguen mediante títulos, tamaño de logotipo y tarjeta, borde y acabado, manteniendo el azul corporativo. Granajoven conserva sus colores y presenta las letras blancas en negro sobre superficies claras mediante un filtro de presentación; el archivo original se conserva.
+
+Las actividades recuperan profundidad: el fondo se inclina y el personaje avanza hacia el primer plano al pasar el cursor o enfocar con teclado. Con movimiento reducido o entrada táctil las ilustraciones permanecen estables.
+
+El archivo incorpora navegación por año, el cartel y programa de 2026, y galerías alternadas para 2016–2025. Los textos históricos y enlaces se conservan, y los detalles de cada edición se abren sin JavaScript. No se añade una edición en los años sin evento registrado.
+
+Fuente de la fotografía de portada: [álbum ULP 2025 en Flickr](https://www.flickr.com/photos/195749897@N03/54744130134/in/album-72177720328590176/).

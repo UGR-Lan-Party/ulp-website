@@ -28,6 +28,7 @@ const {
     'partner-logo',
     {
       'needs-contrast': partner.logoNeedsContrast,
+      'white-details': partner.logoWhiteDetails,
       'has-background': partner.logoHasBackground,
     },
   ]}
@@ -41,6 +42,10 @@ const {
   .needs-contrast[data-surface='light'],
   .needs-contrast[data-surface='theme'] {
     filter: brightness(0);
+  }
+  .white-details[data-surface='light'],
+  .white-details[data-surface='theme'] {
+    filter: url(#partner-white-details);
   }
   .partner-logo[data-surface='dark']:not(.has-background) {
     filter: brightness(0) invert(1);

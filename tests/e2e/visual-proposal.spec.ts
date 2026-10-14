@@ -13,6 +13,7 @@ for (const route of [
   '/contacto/',
   '/blog/',
   '/blog/havefungamers/',
+  '/info/ediciones_anteriores/',
 ]) {
   test(`La propuesta conserva el contenido accesible y cabe en 390 px: ${route}`, async ({
     page,
@@ -78,5 +79,39 @@ test('Los logos de Participan conservan contraste sobre su superficie clara en a
       ).toHaveCSS('filter', 'brightness(0)');
     }
     await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  }
+});
+
+test('El archivo permite saltar de edición y leer su historia sin JavaScript', async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 390, height: 900 },
+  });
+  const page = await context.newPage();
+  try {
+    await page.goto('/info/ediciones_anteriores/');
+    const years = page.getByRole('navigation', { name: 'Ir a una edición' });
+    await expect(years.getByRole('link')).toHaveCount(8);
+    await years.getByRole('link', { name: '2016', exact: true }).click();
+    await expect(page).toHaveURL(/#edicion-2016$/);
+    const firstEdition = page.locator('#edicion-2016');
+    await expect(
+      firstEdition.getByRole('heading', { name: 'Primera Edición' }),
+    ).toBeVisible();
+    await firstEdition.locator('summary').click();
+    await expect(firstEdition.locator('details p')).toBeVisible();
+    await expect(
+      firstEdition.getByRole('link', { name: 'Ver web original' }),
+    ).toHaveAttribute('href', 'https://lanpartypiloto.wixsite.com/lpp-etsiit');
+    await expect(
+      page.getByRole('link', { name: 'Ver álbum completo', exact: true }),
+    ).toHaveCount(7);
+    await expect(
+      page.getByRole('link', { name: 'Ver programa de 2026' }),
+    ).toHaveAttribute('href', '/horarios');
+  } finally {
+    await context.close();
   }
 });

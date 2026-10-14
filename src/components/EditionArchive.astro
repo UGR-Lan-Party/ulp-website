@@ -1,0 +1,183 @@
+---
+import CarouselSection from './CarouselSection.astro';
+import type { PastEdition } from '../data/past-editions';
+interface Props {
+  edition: PastEdition;
+  reversed?: boolean;
+}
+const { edition, reversed = false } = Astro.props;
+const split = edition.description.indexOf('. ') + 1;
+const introduction =
+  split > 0 ? edition.description.slice(0, split) : edition.description;
+const rest = split > 0 ? edition.description.slice(split).trim() : '';
+---
+
+<section
+  id={`edicion-${edition.year}`}
+  class:list={['archive-edition', { reversed }]}
+  aria-labelledby={`edition-title-${edition.year}`}
+>
+  <header data-reveal>
+    <span class="archive-year">{edition.year}</span>
+    <div>
+      <span class="design-eyebrow"
+        >{String(edition.edition).padStart(2, '0')} / El archivo ULP</span
+      >
+      <h2 id={`edition-title-${edition.year}`}>{edition.title}</h2>
+      <p>{edition.date} · ETSIIT</p>
+    </div>
+  </header>
+  <div class="archive-edition-grid">
+    <div class="archive-gallery">
+      <CarouselSection
+        albumId={edition.albumId}
+        userId={edition.userId}
+        withBackground={false}
+        height="430px"
+      />
+    </div>
+    <div class="archive-story" data-reveal>
+      <p>{introduction}</p>
+      {
+        rest && (
+          <details>
+            <>
+              <summary>
+                La historia de esta edición <span aria-hidden="true">+</span>
+              </summary>
+              <p>{rest}</p>
+            </>
+          </details>
+        )
+      }
+      {
+        edition.externalLink && (
+          <a
+            class="design-link"
+            href={edition.externalLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {edition.buttonText} <span aria-hidden="true">↗</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>
+<style>
+  .archive-edition {
+    padding-block: 65px;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 100px;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    margin-bottom: 30px;
+  }
+  .archive-year {
+    font-size: clamp(58px, 8vw, 110px);
+    font-weight: 850;
+    letter-spacing: -0.07em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--muted);
+  }
+  h2 {
+    font-size: clamp(25px, 3vw, 38px);
+    font-weight: 750;
+    line-height: 1.1;
+    margin-block: 12px;
+  }
+  header p {
+    color: var(--muted);
+    font:
+      10px ui-monospace,
+      monospace;
+  }
+  .archive-edition-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    align-items: center;
+    gap: clamp(25px, 5vw, 65px);
+  }
+  .archive-gallery {
+    min-width: 0;
+    padding: 18px;
+    border-radius: 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .archive-gallery :global(.container) {
+    padding: 0;
+  }
+  .reversed .archive-gallery {
+    order: 2;
+  }
+  .reversed .archive-edition-grid {
+    grid-template-columns: 1fr 1.6fr;
+  }
+  .archive-story > p {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  details {
+    border-top: 1px solid var(--line);
+    margin-top: 24px;
+    padding-block: 18px;
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary span {
+    font-size: 20px;
+    transition: transform 200ms ease;
+  }
+  details[open] summary span {
+    transform: rotate(45deg);
+  }
+  details p {
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-top: 20px;
+  }
+  .archive-story .design-link {
+    margin-top: 20px;
+    font-size: 11px;
+  }
+  @media (max-width: 700px) {
+    header {
+      gap: 20px;
+      align-items: start;
+    }
+    header .design-eyebrow {
+      font-size: 7px;
+    }
+    .archive-edition-grid,
+    .reversed .archive-edition-grid {
+      grid-template-columns: 1fr;
+    }
+    .reversed .archive-gallery {
+      order: 0;
+    }
+    .archive-gallery {
+      padding: 12px;
+    }
+    .archive-story > p {
+      font-size: 16px;
+    }
+  }
+</style>
