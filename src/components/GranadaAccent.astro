@@ -1,42 +1,44 @@
 ---
 interface Props {
-  variant?: 'hueso' | 'escama';
+  variant?: 'hueso' | 'escama' | 'estrella';
 }
 const { variant = 'hueso' } = Astro.props;
-const cells = Array.from({ length: 16 }, (_, index) => ({
-  x: (index % 4) * 80,
-  y: Math.floor(index / 4) * 80,
+const cells = Array.from({ length: 48 }, (_, index) => ({
+  x: (index % 8) * 64,
+  y: Math.floor(index / 8) * 64,
 }));
+const shapes = {
+  hueso: 'M0 0h64L48 16v32l16 16H0l16-16V16Z',
+  escama: 'M0 64C0 26 32 0 32 0s32 26 32 64L32 48Z',
+  estrella:
+    'M32 0 41.4 9.4H54.6V22.6L64 32 54.6 41.4V54.6H41.4L32 64 22.6 54.6H9.4V41.4L0 32 9.4 22.6V9.4H22.6Z',
+};
 ---
 
 <svg
   class="granada-accent"
-  viewBox="0 0 320 320"
+  viewBox="0 0 512 384"
   fill="currentColor"
   aria-hidden="true"
   focusable="false"
 >
   {
     cells.map(({ x, y }) => (
-      <g transform={`translate(${x} ${y})`}>
-        {variant === 'hueso' ? (
-          <path d="M6 6h68L56 24v32l18 18H6l18-18V24Z" />
-        ) : (
-          <path d="M4 68C4 28 40 4 40 4s36 24 36 64L40 52Z" />
-        )}
-      </g>
+      <path d={shapes[variant]} transform={`translate(${x} ${y})`} />
     ))
   }
 </svg>
 <style>
   .granada-accent {
     position: absolute;
-    width: 360px;
-    height: 360px;
-    right: -100px;
-    bottom: -130px;
-    transform: rotate(-12deg);
-    opacity: 0.04;
+    width: clamp(320px, 42vw, 560px);
+    height: auto;
+    aspect-ratio: 4 / 3;
+    right: -40px;
+    bottom: -60px;
+    transform: rotate(-8deg);
+    opacity: 0.045;
+    mask-image: linear-gradient(135deg, transparent 5%, black 55%);
     pointer-events: none;
   }
 </style>

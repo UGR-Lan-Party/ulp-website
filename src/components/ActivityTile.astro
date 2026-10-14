@@ -10,6 +10,12 @@ const game = Competitions.find((game) => game.id === id)!;
 const art = CompetitionsCards.find((game) => game.id === id)!;
 const layout = artLayouts[id as keyof typeof artLayouts];
 const artStyle = `--art-aspect:${layout.aspect};--art-frame-width:${layout.frameWidth}%;--art-image-width:${layout.imageWidth}%;--art-image-height:${layout.imageHeight}%;--art-left:${layout.left}%;--art-top:${layout.top}%`;
+const softenBottom = [
+  'hacking',
+  'league-of-legends',
+  'futbolin',
+  'f1',
+].includes(id);
 const labels: Record<string, string> = {
   competicion: 'Competición',
   reto: 'Reto',
@@ -20,7 +26,14 @@ const labels: Record<string, string> = {
 <a class="activity-tile" href={`/actividades/${id}`} data-reveal>
   <div class="activity-tile-media">
     <ResponsiveImage src={art.card} alt="" class="activity-tile-background" />
-    <div class="activity-tile-character" style={artStyle} aria-hidden="true">
+    <div
+      class:list={[
+        'activity-tile-character',
+        { 'soft-bottom': softenBottom, 'compact-art': id === 'cars' },
+      ]}
+      style={artStyle}
+      aria-hidden="true"
+    >
       <ResponsiveImage src={art.character} alt="" />
     </div>
     <ResponsiveImage
@@ -119,6 +132,17 @@ const labels: Record<string, string> = {
     pointer-events: none;
     transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
     filter: drop-shadow(0 12px 16px rgb(0 0 0 / 0.25));
+  }
+  .activity-tile-character.soft-bottom {
+    mask-image: linear-gradient(
+      to top,
+      transparent,
+      rgb(0 0 0 / 0.35) 8%,
+      black 28%
+    );
+  }
+  .activity-tile-character.compact-art {
+    width: calc(var(--art-frame-width) * 0.8);
   }
   .activity-tile-character :global(img) {
     position: absolute;

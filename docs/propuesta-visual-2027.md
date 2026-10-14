@@ -105,3 +105,9 @@ El texto de portada se actualiza a «El mayor evento universitario de eSports y 
 AEVI utiliza una versión original de mayor resolución con letras oscuras, conservando el rojo y amarillo del símbolo. Hackiit utiliza el SVG aportado, con sus letras negras y detalles rojos. Nacon utiliza el SVG azul oscuro de su web corporativa. Las tarjetas mantienen estas variantes sobre superficie clara en ambos temas y la franja conserva su versión blanca en modo oscuro.
 
 Los textos de localización se refieren a la ETSIIT, la Universidad de Granada y la dirección postal.
+
+## Octava revisión
+
+Las imágenes frontales de Hacking Ético, League of Legends, Futbolín y F1 se desvanecen progresivamente en su parte inferior mediante una máscara CSS, conservando los archivos y la animación de profundidad. Cars reduce su tamaño al 80 % del ajuste anterior.
+
+Los motivos geométricos pasan de 16 a 48 piezas más próximas y ocupan una zona algo más amplia, con una transición suave hacia el contenido. La presentación mantiene el hueso y el footer incorpora estrellas de ocho puntas. Ambas zonas conservan una opacidad discreta del 4,5 % y los motivos son decorativos para lectores de pantalla.
