@@ -1,0 +1,15 @@
+export const legacyRedirects = {
+  '/201617': '/',
+  '/201718': '/',
+  '/201819': '/',
+  '/inscribete': '/actividades',
+  '/competiciones': '/actividades',
+  '/competiciones/league-of-legends': '/actividades/league-of-legends',
+  '/competiciones/rocket-league': '/actividades/rocket-league',
+  '/competiciones/minecraft': '/actividades/minecraft',
+  '/competiciones/mario-kart': '/actividades/mario-kart',
+  '/competiciones/smash': '/actividades/smash',
+  '/competiciones/futbolin': '/actividades/futbolin',
+  '/competiciones/wii-sports-tenis': '/actividades/wii-sports-tenis',
+  '/competiciones/wii-sports-bolos': '/actividades/wii-sports-bolos',
+};

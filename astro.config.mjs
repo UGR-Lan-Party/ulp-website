@@ -1,18 +1,13 @@
 import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
-import compress from "astro-compress";
+import tailwind from '@astrojs/tailwind';
+import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
+import { legacyRedirects } from './src/data/legacy-redirects.js';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://ulp.ugr.es',
   integrations: [tailwind(), compress(), sitemap()],
-  redirects: {
-    "/201617" : "/",
-    "/201718" : "/",
-    "/201819" : "/",
-  },
-  // Not optimize images, to improve build time
+  redirects: legacyRedirects,
   image: {
     service: {
       entrypoint: 'astro/assets/services/noop',
