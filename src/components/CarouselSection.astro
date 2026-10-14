@@ -17,59 +17,261 @@ const {
   withBackground = true,
   height = '600px',
   instanceId = `carousel-${albumId}`,
-  unlimitedHeight = false,
 } = Astro.props;
 const images: string[] = await getFlickrPhotos(albumId, userId);
 const albumUrl = `https://www.flickr.com/photos/${encodeURIComponent(userId)}/albums/${encodeURIComponent(albumId)}`;
+const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
 ---
 
 <section
   class={withBackground ? `bg-gray-1 ${darkStyles} py-10` : 'bg-transparent'}
   id={instanceId}
+  data-photo-carousel
+  data-photos={JSON.stringify(images)}
+  aria-label="Fotos de UGR LAN Party"
+  aria-roledescription="carrusel"
 >
   <div class="container px-4">
-    {
-      images.length ? (
-        <ul
-          class="grid grid-cols-1 gap-4 overflow-y-auto sm:grid-cols-2 lg:grid-cols-3"
-          style={unlimitedHeight ? undefined : `max-height: ${height}`}
-          aria-label="Fotos de la edición"
-        >
-          {images.slice(0, 12).map((source, index) => (
-            <li>
-              <a
-                href={source}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Ampliar foto ${index + 1}`}
-                class="block rounded focus-visible:outline focus-visible:outline-primary"
-              >
-                <img
-                  src={source}
-                  alt={`Foto ${index + 1} de UGR LAN Party`}
-                  width="1024"
-                  height="683"
-                  loading="lazy"
-                  decoding="async"
-                  class="aspect-video w-full rounded object-cover"
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p role="status" class="py-8 text-center dark:text-white">
-          No se han podido cargar las fotos. Puedes consultarlas en el álbum de
-          Flickr.
-        </p>
-      )
-    }
+    <div
+      data-carousel-stage
+      class="carousel-stage"
+      hidden={!images.length}
+      style={`--carousel-height: ${height}`}
+    >
+      <a
+        data-carousel-zoom
+        href={images[0] ?? albumUrl}
+        aria-label="Ampliar foto 1"
+        class="carousel-photo"
+      >
+        <img
+          data-carousel-image
+          src={firstImage}
+          alt="Foto 1 de UGR LAN Party"
+          width="1600"
+          height="1067"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="zoom-hint" aria-hidden="true">Ampliar ↗</span>
+      </a>
+      <button
+        type="button"
+        data-carousel-previous
+        class="photo-control previous"
+        aria-label="Foto anterior"
+        hidden
+        ><svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg
+        ></button
+      >
+      <button
+        type="button"
+        data-carousel-next
+        class="photo-control next"
+        aria-label="Foto siguiente"
+        hidden
+        ><svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg
+        ></button
+      >
+      <p data-carousel-counter class="photo-counter" aria-live="polite">
+        Foto 1 de {images.length}
+      </p>
+    </div>
+    <p
+      data-carousel-empty
+      role="status"
+      hidden={Boolean(images.length)}
+      class="py-8 text-center dark:text-white"
+    >
+      No se han podido cargar las fotos. Puedes consultarlas en el álbum de
+      Flickr.
+    </p>
     <a
       href={albumUrl}
       target="_blank"
       rel="noopener noreferrer"
-      class="mt-6 inline-block rounded bg-primary px-5 py-3 text-white"
+      class="mt-6 inline-flex items-center rounded-xl bg-primary px-5 py-3 font-medium text-white hover:bg-tertiary focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
       >Ver el álbum completo en Flickr</a
     >
   </div>
+  <dialog data-carousel-dialog aria-label="Foto ampliada de UGR LAN Party">
+    <img
+      data-carousel-expanded
+      src={firstImage}
+      alt="Foto ampliada de UGR LAN Party"
+      width="1600"
+      height="1067"
+      loading="lazy"
+    />
+    <button
+      type="button"
+      data-carousel-close
+      class="photo-control close"
+      aria-label="Cerrar foto ampliada"
+      autofocus
+      ><svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg
+      ></button
+    >
+    <button
+      type="button"
+      data-expanded-previous
+      class="photo-control previous"
+      aria-label="Foto anterior ampliada"
+      hidden
+      ><svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg
+      ></button
+    >
+    <button
+      type="button"
+      data-expanded-next
+      class="photo-control next"
+      aria-label="Foto siguiente ampliada"
+      hidden
+      ><svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg
+      ></button
+    >
+  </dialog>
 </section>
+
+<script>
+  import '../scripts/photo-carousel';
+</script>
+
+<style>
+  [hidden] {
+    display: none !important;
+  }
+  .carousel-stage {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    height: min(var(--carousel-height), 65vw);
+    min-height: 210px;
+    border: 1px solid #96c1d633;
+    border-radius: 1.5rem;
+    background: #0d2438;
+    box-shadow: 0 16px 40px #0044651a;
+  }
+  .carousel-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: zoom-in;
+  }
+  .carousel-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .photo-control {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ffffff44;
+    border-radius: 50%;
+    background: #071b2dde;
+    color: white;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+  }
+  .photo-control:hover {
+    background: #006471;
+    transform: scale(1.05);
+  }
+  .photo-control:focus-visible,
+  .carousel-photo:focus-visible {
+    outline: 3px solid #96c1d6;
+    outline-offset: -5px;
+  }
+  .previous {
+    left: 0.75rem;
+    top: calc(50% - 24px);
+  }
+  .next {
+    right: 0.75rem;
+    top: calc(50% - 24px);
+  }
+  .close {
+    top: 1rem;
+    right: 1rem;
+  }
+  .photo-counter,
+  .zoom-hint {
+    position: absolute;
+    bottom: 0.8rem;
+    border-radius: 999px;
+    background: #071b2dde;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    pointer-events: none;
+  }
+  .photo-counter {
+    left: 0.8rem;
+  }
+  .zoom-hint {
+    right: 0.8rem;
+  }
+  dialog {
+    width: calc(100vw - 2rem);
+    max-width: 1440px;
+    height: calc(100svh - 2rem);
+    max-height: 1000px;
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #96c1d655;
+    border-radius: 1.5rem;
+    background: #061526;
+  }
+  dialog::backdrop {
+    background: #020b16e8;
+    backdrop-filter: blur(8px);
+  }
+  dialog img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+</style>
