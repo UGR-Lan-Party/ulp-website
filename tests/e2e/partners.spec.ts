@@ -103,3 +103,43 @@ test('La franja avanza automáticamente y se pausa al pasar el cursor', async ({
   );
   expect(await viewport.evaluate((element) => element.scrollLeft)).toBe(paused);
 });
+
+test('Los seis logos claros cambian de contraste al cambiar el tema', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const list = page.locator('[data-partner-list]').first();
+  const names = [
+    'Nacon España',
+    'DEIIT',
+    'Mars Gaming',
+    'The Game Kitchen',
+    'Iction Games',
+    'Hackiit',
+  ];
+  for (const name of names) {
+    const image = list.locator(`[data-partner-logo="${name}"]`);
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toHaveCSS('filter', 'brightness(0)');
+    await expect
+      .poll(() =>
+        image.evaluate((element: HTMLImageElement) => element.naturalWidth),
+      )
+      .toBeGreaterThan(0);
+  }
+  await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  for (const name of names) {
+    await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
+      'filter',
+      'brightness(0) invert(1)',
+    );
+  }
+  await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  for (const name of names) {
+    await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
+      'filter',
+      'brightness(0)',
+    );
+  }
+});

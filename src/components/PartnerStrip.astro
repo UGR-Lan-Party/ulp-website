@@ -1,4 +1,5 @@
 ---
+import PartnerLogo from './PartnerLogo.astro';
 import { partners } from '../data/sponsors';
 ---
 
@@ -41,13 +42,7 @@ import { partners } from '../data/sponsors';
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img
-                      src={partner.logo}
-                      alt=""
-                      width="130"
-                      height="32"
-                      loading="lazy"
-                    />
+                    <PartnerLogo partner={partner} decorative />
                     <span>{partner.name.trim()}</span>
                   </a>
                 </li>
@@ -76,8 +71,8 @@ import { partners } from '../data/sponsors';
 </script>
 <style>
   .partner-strip {
-    background: #f9fafb;
-    color: #004465;
+    background: var(--paper, #f9fafb);
+    color: var(--ink, #004465);
     border-block: 1px solid rgb(0 68 101 / 0.17);
   }
   .partner-strip-label .design-eyebrow {
@@ -90,6 +85,14 @@ import { partners } from '../data/sponsors';
   .partner-strip-label .design-eyebrow::before {
     content: '';
     background: currentColor;
+  }
+  :global(.dark) .partner-strip {
+    background: var(--paper, #004465);
+    color: var(--ink, #fff);
+    border-color: rgb(255 255 255 / 0.2);
+  }
+  :global(.dark) .partner-controls button {
+    border-color: rgb(255 255 255 / 0.3);
   }
   .partner-strip-inner {
     display: flex;
@@ -171,11 +174,10 @@ import { partners } from '../data/sponsors';
   .partner-item:hover {
     opacity: 0.65;
   }
-  .partner-item img {
+  .partner-item :global(.partner-logo) {
     width: 120px;
     height: 32px;
     object-fit: contain;
-    mix-blend-mode: multiply;
   }
   .partner-item span {
     max-width: 150px;
@@ -218,6 +220,14 @@ import { partners } from '../data/sponsors';
     .partner-strip-label .design-eyebrow::before {
       content: '';
       background: currentColor;
+    }
+    :global(.dark) .partner-strip {
+      background: var(--paper, #004465);
+      color: var(--ink, #fff);
+      border-color: rgb(255 255 255 / 0.2);
+    }
+    :global(.dark) .partner-controls button {
+      border-color: rgb(255 255 255 / 0.3);
     }
     .partner-strip-inner {
       gap: 12px;
