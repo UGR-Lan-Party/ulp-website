@@ -91,3 +91,11 @@ Se renuevan las ilustraciones transparentes de Ping Pong, Super Smash Bros Ultim
 Las 26 tarjetas ajustan el tamaño al contenido visible de cada ilustración, ignorando sus márgenes transparentes. El ajuste comparte límites de anchura y altura y mantiene el efecto de profundidad. Tras sustituir una ilustración, `pnpm images:measure` actualiza las medidas de presentación en `src/data/activity-art-layout.json`; no modifica las imágenes.
 
 El visor de premios reduce la intensidad de las luces y aplica un mapeado tonal con menor exposición para mostrar un dorado más oscuro. Conserva el fondo transparente y la carga automática en ambos temas.
+
+## Sexta revisión
+
+Ediciones anteriores muestra la historia completa sin desplegables. Cada edición sitúa su cabecera y sus textos junto al carrusel, alternando el lado de la galería; en móvil el texto precede a las fotos. Se elimina el marco exterior, se reduce el espacio vertical y las imágenes mantienen su proporción con una altura máxima de 340 px. La edición de 2026 también reduce su altura y pierde el borde exterior.
+
+Smash utiliza el PNG transparente de Mario de la [web oficial de Super Smash Bros. Ultimate](https://www.smashbros.com/en_US/fighter/01.html), servido con variantes WebP locales y el mismo ajuste de tamaño que el resto de ilustraciones. Ajedrez, Futbolín y Ping Pong incorporan emblemas vectoriales de la misma familia que Indie Fest y Watch Party; los siete emblemas comparten un tamaño compacto de 36 px.
+
+El texto de portada se actualiza a «El mayor evento universitario de eSports y videojuegos de toda Andalucía!» según lo solicitado.

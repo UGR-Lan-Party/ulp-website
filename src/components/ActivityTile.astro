@@ -23,7 +23,14 @@ const labels: Record<string, string> = {
     <div class="activity-tile-character" style={artStyle} aria-hidden="true">
       <ResponsiveImage src={art.character} alt="" />
     </div>
-    <ResponsiveImage src={art.logo} alt="" class="activity-tile-logo" />
+    <ResponsiveImage
+      src={art.logo}
+      alt=""
+      class:list={[
+        'activity-tile-logo',
+        { 'activity-tile-emblem': art.logo.endsWith('.svg') },
+      ]}
+    />
     <span class="activity-tile-tag">{labels[game.tag] ?? game.tag}</span>
     <span class="activity-tile-arrow" aria-hidden="true">↗</span>
   </div>
@@ -141,6 +148,10 @@ const labels: Record<string, string> = {
     object-position: left top;
     z-index: 2;
     transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .activity-tile-emblem {
+    width: 36px;
+    height: 36px;
   }
   .activity-tile-tag {
     position: absolute;

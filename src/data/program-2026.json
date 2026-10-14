@@ -38,7 +38,7 @@
       ],
       "card": {
         "card": "/assets/competitions/cards/ajedrez.webp",
-        "logo": "/assets/competitions/logos/ajedrez.webp",
+        "logo": "/assets/competitions/logos/ajedrez-2027.svg",
         "character": "/assets/competitions/characters/character-ajedrez-2027.png"
       }
     },
@@ -370,7 +370,7 @@
       "card": {
         "card": "/assets/competitions/cards/smash.webp",
         "logo": "/assets/competitions/logos/smash.webp",
-        "character": "/assets/competitions/characters/character-smash-2027.png"
+        "character": "/assets/competitions/characters/character-smash-mario.png"
       }
     },
     {
@@ -578,7 +578,7 @@
       ],
       "card": {
         "card": "/assets/competitions/cards/futbolin.webp",
-        "logo": "/assets/competitions/logos/futbolin.webp",
+        "logo": "/assets/competitions/logos/futbolin-2027.svg",
         "character": "/assets/competitions/characters/character-futbolin-2027.png"
       }
     },
@@ -617,7 +617,7 @@
       ],
       "card": {
         "card": "/assets/competitions/cards/ping-pong.webp",
-        "logo": "/assets/competitions/logos/ping-pong.webp",
+        "logo": "/assets/competitions/logos/ping-pong-2027.svg",
         "character": "/assets/competitions/characters/character-ping-pong-2027.png"
       }
     },

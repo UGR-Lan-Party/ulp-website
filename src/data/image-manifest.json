@@ -2208,5 +2208,23 @@
         "width": 1183
       }
     ]
+  },
+  "/assets/competitions/characters/character-smash-mario.png": {
+    "width": 1058,
+    "height": 1194,
+    "sources": [
+      {
+        "src": "/assets/optimized/c1c5956adacc-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/c1c5956adacc-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/c1c5956adacc-1058.webp",
+        "width": 1058
+      }
+    ]
   }
 }

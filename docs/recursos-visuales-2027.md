@@ -180,3 +180,12 @@ Prompt usado:
 ```text
 Edit this exact photograph cutout for a website. Preserve the identity, facial features, hair, clothing, poses and relative positions of every existing person and the foosball table. Clean the transparent cutout precisely: remove jagged white halos and stray background fragments around hair, shoulders, clothing and in the gaps between people and the table. Use naturally antialiased alpha edges. Remove excessive unused transparent margin at the top by fitting the same photograph more neatly within the canvas, while retaining the whole visible group and table. Do not add or remove people, do not invent missing body parts, do not change the faces, do not stylize the photograph. Transparent background must remain real alpha, with no solid white or black background.
 ```
+
+## Mario para Super Smash Bros. Ultimate
+
+- Archivo: `public/assets/competitions/characters/character-smash-mario.png`.
+- Procedencia: [web oficial de Super Smash Bros. Ultimate, Mario](https://www.smashbros.com/en_US/fighter/01.html).
+- PNG original: https://www.smashbros.com/assets_v2/img/fighter/mario/main.png
+- Autoría: Nintendo. Recurso descargado el 15 de octubre de 2026, 1058 × 1194 px con canal alfa.
+- El PNG se conserva y las tarjetas sirven variantes WebP locales de 360, 720 y 1058 px. El ajuste de márgenes transparentes se calcula con `pnpm images:measure`.
+- Los emblemas nuevos de Ajedrez, Futbolín y Ping Pong son SVG elaborados para esta propuesta, en `public/assets/competitions/logos/*-2027.svg`.

@@ -109,8 +109,8 @@ test('El archivo permite saltar de edición y leer su historia sin JavaScript', 
     await expect(
       firstEdition.getByRole('heading', { name: 'Primera Edición' }),
     ).toBeVisible();
-    await firstEdition.locator('summary').click();
-    await expect(firstEdition.locator('details p')).toBeVisible();
+    await expect(page.locator('.archive-edition details')).toHaveCount(0);
+    await expect(firstEdition.locator('.archive-history')).toBeVisible();
     await expect(
       firstEdition.getByRole('link', { name: 'Ver web original' }),
     ).toHaveAttribute('href', 'https://lanpartypiloto.wixsite.com/lpp-etsiit');
