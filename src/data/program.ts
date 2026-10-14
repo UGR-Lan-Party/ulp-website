@@ -3,6 +3,8 @@ import { formatSlot, formatTime, validateProgram } from '../utils/program.js';
 
 validateProgram(data);
 
+export const programEdition = { year: data.year, timezone: data.timezone };
+
 export const program = [
   ...data.games.map((game) => ({
     id: game.id,
