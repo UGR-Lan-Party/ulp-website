@@ -99,7 +99,20 @@ const menuitems = [
                           ]}
                         >
                           {item.title}
-                          <span aria-hidden="true">⌄</span>
+                          <svg
+                            class="navigation-chevron"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="m6 9 6 6 6-6" />
+                          </svg>
                         </button>
                         <ul
                           id={`navigation-submenu-${index}`}
@@ -217,6 +230,14 @@ const menuitems = [
 </header>
 
 <style>
+  .navigation-chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  [aria-expanded='true'] .navigation-chevron {
+    transform: rotate(180deg);
+  }
+
   [hidden] {
     display: none !important;
   }
