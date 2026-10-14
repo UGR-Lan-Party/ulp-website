@@ -1,5 +1,8 @@
-.DS_Store
+.git
+.astro
 node_modules
 dist
-README:md
-LICENSE
+test-results
+playwright-report
+.env*
+.DS_Store

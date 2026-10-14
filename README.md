@@ -40,3 +40,5 @@ Los parches del entorno se actualizan juntos en `.nvmrc`, `package.json` y `Dock
 Las equivalencias se mantienen en `src/data/legacy-redirects.js`. `/inscribete` y `/competiciones` llevan al catálogo de actividades. Las fichas antiguas solo redirigen cuando existe una equivalencia directa. Los juegos retirados, como VALORANT, FC 24 o Pokémon Showdown, muestran la página 404 con acceso al programa; no se redirigen a otro juego.
 
 Astro genera páginas de redirección HTML para el sitio estático. El servidor debe servir `404.html` con estado 404 cuando una ruta no exista.
+
+La identificación de versiones, las comprobaciones y la vuelta atrás se describen en [despliegue](docs/despliegue.md).
