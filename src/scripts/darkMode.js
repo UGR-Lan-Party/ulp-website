@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateLogo = () => {
     const isDarkMode = document.documentElement.classList.contains('dark');
     const isSticky = document.body.classList.contains('sticky-active');
+    themeSwitcher?.setAttribute('aria-pressed', String(isDarkMode));
     const shouldShowDarkLogo = (isHomePage && !isSticky) || isDarkMode;
 
     darkLogo?.classList.toggle('hidden', !shouldShowDarkLogo);
