@@ -2,6 +2,7 @@
 import '../styles/proposal.css';
 import '../styles/reduced-motion.css';
 import Footer from '../components/layout/Footer.astro';
+import LinktreeCard from '../components/LinktreeCard.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
 import PartnerStrip from '../components/PartnerStrip.astro';
@@ -56,6 +57,7 @@ const { description, title, image } = Astro.props;
     <Header />
     <main id="contenido-principal" tabindex="-1"><slot /></main>
     {Astro.url.pathname !== '/' && <PartnerStrip />}
+    <LinktreeCard />
     <Footer />
     <BackToTop />
     <script>

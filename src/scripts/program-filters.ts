@@ -32,7 +32,10 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
     entries.forEach((entry) => {
       const visible = matchesProgramFilters(entry, filters);
       entry.row.hidden = !visible;
-      if (visible) count++;
+      if (visible) {
+        entry.row.dataset.stripe = String(count % 2);
+        count++;
+      }
     });
     status.textContent = `${count} de ${rows.length} actividades`;
     empty.hidden = count > 0;

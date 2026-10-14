@@ -31,18 +31,16 @@ document
       element.style.setProperty('--pointer-y', `${event.clientY - box.top}px`);
     });
   });
+const header = document.querySelector<HTMLElement>('.ud-header');
 const backToTop = document.querySelector<HTMLElement>('.back-to-top');
-if (backToTop) {
-  const update = () => {
-    backToTop.style.display = scrollY > 600 ? 'flex' : 'none';
-  };
-  addEventListener('scroll', update, { passive: true });
-  backToTop.addEventListener('click', () =>
-    scrollTo({
-      top: 0,
-      behavior: reducedMotion.matches ? 'instant' : 'smooth',
-    }),
-  );
-  update();
+function updateScrollState() {
+  header?.classList.toggle('is-scrolled', scrollY > 32);
+  if (backToTop) backToTop.style.display = scrollY > 600 ? 'flex' : 'none';
 }
+addEventListener('scroll', updateScrollState, { passive: true });
+addEventListener('pageshow', updateScrollState);
+backToTop?.addEventListener('click', () =>
+  scrollTo({ top: 0, behavior: reducedMotion.matches ? 'instant' : 'smooth' }),
+);
+updateScrollState();
 export {};

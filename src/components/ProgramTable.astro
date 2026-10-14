@@ -137,7 +137,7 @@ const categoryLabels: Record<string, string> = {
         >
         <tbody
           >{
-            program.map((entry) => {
+            program.map((entry, index) => {
               const registration = getRegistrationState(
                 entry,
                 programEdition.year,
@@ -146,6 +146,7 @@ const categoryLabels: Record<string, string> = {
               return (
                 <tr
                   data-program-row
+                  data-stripe={index % 2}
                   data-name={entry.name}
                   data-location={entry.location}
                   data-day={dayKey(entry.startsAt)}
@@ -399,8 +400,14 @@ const categoryLabels: Record<string, string> = {
     border-bottom: 1px solid rgb(255 255 255 / 0.12);
     vertical-align: middle;
   }
+  tbody tr[data-stripe='0'] {
+    background: #004465;
+  }
+  tbody tr[data-stripe='1'] {
+    background: #0b5273;
+  }
   tbody tr:hover {
-    background: rgb(255 255 255 / 0.05);
+    background: #16617e;
   }
   .program-day {
     color: rgb(255 255 255 / 0.9);
@@ -530,7 +537,7 @@ const categoryLabels: Record<string, string> = {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 1rem;
-      padding: 1.25rem 0;
+      padding: 1.25rem 1rem;
       border-bottom: 1px solid rgb(255 255 255 / 0.2);
     }
     tbody td,

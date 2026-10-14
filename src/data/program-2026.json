@@ -874,8 +874,8 @@
       ],
       "card": {
         "card": "/assets/competitions/cards/watch-party.webp",
-        "logo": "/assets/competitions/logos/watch-party.webp",
-        "character": "/assets/competitions/characters/character-watch-party.webp"
+        "logo": "/assets/competitions/logos/watch-party-2027.svg",
+        "character": "/assets/competitions/characters/character-watch-party-2027.png"
       }
     },
     {
@@ -901,7 +901,7 @@
       "card": {
         "card": "/assets/competitions/cards/tcg.webp",
         "logo": "/assets/competitions/logos/tcg.webp",
-        "character": "/assets/competitions/characters/character-tcg.webp"
+        "character": "/assets/competitions/characters/character-tcg-2027.png"
       }
     },
     {
@@ -926,8 +926,8 @@
       ],
       "card": {
         "card": "/assets/competitions/cards/indie-fest.webp",
-        "logo": "/assets/competitions/logos/indie-fest.webp",
-        "character": "/assets/competitions/characters/character-indie-fest.webp"
+        "logo": "/assets/competitions/logos/indie-fest-2027.svg",
+        "character": "/assets/competitions/characters/character-indie-fest-2027.png"
       }
     },
     {
@@ -952,8 +952,8 @@
       ],
       "card": {
         "card": "/assets/competitions/cards/juego-libre.webp",
-        "logo": "/assets/competitions/logos/juego-libre.webp",
-        "character": "/assets/competitions/characters/character-juego-libre.webp"
+        "logo": "/assets/competitions/logos/juego-libre-2027.svg",
+        "character": "/assets/competitions/characters/character-juego-libre-2027.png"
       }
     },
     {
@@ -984,7 +984,7 @@
       ],
       "card": {
         "card": "/assets/competitions/cards/paella.webp",
-        "logo": "/assets/competitions/logos/paella.webp",
+        "logo": "/assets/competitions/logos/paella-2027.svg",
         "character": "/assets/competitions/characters/character-paella.webp"
       }
     }

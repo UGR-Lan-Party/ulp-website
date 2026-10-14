@@ -36,7 +36,7 @@ Se mantienen los datos históricos de 2026 y sus inscripciones cerradas. Las act
 
 La propuesta se puede revisar en [Inicio](http://127.0.0.1:4321/), [Actividades](http://127.0.0.1:4321/actividades/), [Participan](http://127.0.0.1:4321/participan/) y [Contacto](http://127.0.0.1:4321/contacto/), [Noticias](http://127.0.0.1:4321/blog/) y [Horarios](http://127.0.0.1:4321/info/horarios/).
 
-Validación: build, recursos y rutas locales, 37 pruebas unitarias y 42 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
+Validación: build, recursos y rutas locales, 37 pruebas unitarias y 43 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
 
 ## Segunda revisión
 
@@ -49,3 +49,17 @@ Las actividades recuperan profundidad: el fondo se inclina y el personaje avanza
 El archivo incorpora navegación por año, el cartel y programa de 2026, y galerías alternadas para 2016–2025. Los textos históricos y enlaces se conservan, y los detalles de cada edición se abren sin JavaScript. No se añade una edición en los años sin evento registrado.
 
 Fuente de la fotografía de portada: [álbum ULP 2025 en Flickr](https://www.flickr.com/photos/195749897@N03/54744130134/in/album-72177720328590176/).
+
+## Tercera revisión
+
+La barra de navegación oscurece ligeramente su superficie al desplazar la página. La barra de herramientas de Astro pertenece exclusivamente al servidor de desarrollo y no se incluye en la compilación de producción. El pie usa el formato «2016 — año actual @ UGR LAN Party | Universidad de Granada».
+
+El texto de presentación se justifica y el título pasa a «Lo que nos une no está solo en el temario». Discord sustituye al asterisco del bloque de comunidad, conservando su opacidad baja. Linktree dispone de un componente compacto, accesible desde todas las páginas antes del pie.
+
+La galería de portada se presenta dentro de MemoryGallery y comienza con la antigua foto 424: `54744102704`. Se identifica por su ID de Flickr para mantener la selección si cambia el orden del álbum; el resto de fotografías conserva su orden y no se altera el carrusel del archivo de ediciones.
+
+El catálogo ofrece el acceso para buscar equipo tanto al principio como al final. Cuatro iconos SVG nuevos y cuatro ilustraciones transparentes renuevan Watch Party, Indie Fest, Juego Libre, Paella y Pokémon TCG según lo solicitado. Los fondos de las tarjetas se amplían y difuminan en el borde inferior para mantener la inclinación sin dejar bordes a la vista.
+
+Las entradas de noticias incorporan portada con imagen lateral sin recortar, autor, tiempo de lectura, enlaces internos y superficie de lectura. La agenda alterna dos azules, recalculando el contraste entre las filas visibles al filtrar.
+
+Los archivos y prompts de las ilustraciones están documentados en `docs/recursos-visuales-2027.md`.

@@ -6,7 +6,7 @@ import Hero from '../components/Hero.astro';
 import Layout from '../layouts/Layout.astro';
 import Faq from '../components/Faq.astro';
 import CTAsection from '../components/CTAsection.astro';
-import Carousel from '../components/CarouselSection.astro';
+import MemoryGallery from '../components/MemoryGallery.astro';
 import TrailerSection from '../components/TrailerSection.astro';
 ---
 
@@ -19,22 +19,7 @@ import TrailerSection from '../components/TrailerSection.astro';
   <ExperienceGrid />
   <About />
   <TrailerSection />
-  <div class="design-container gallery-heading" data-reveal>
-    <span class="design-eyebrow">04 / Nuestra memoria compartida</span><h2
-      class="design-heading"
-    >
-      Granada, vista desde la ULP.
-    </h2>
-  </div>
-  <Carousel albumId="72177720328590176" userId="195749897@N03" />
+  <MemoryGallery />
   <Faq />
   <CTAsection />
 </Layout>
-<style>
-  .gallery-heading {
-    padding-top: 40px;
-  }
-  .gallery-heading .design-eyebrow {
-    margin-bottom: 20px;
-  }
-</style>

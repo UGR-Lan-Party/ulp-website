@@ -1916,5 +1916,77 @@
         "width": 2048
       }
     ]
+  },
+  "/assets/competitions/characters/character-watch-party-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/bf85fd468f83-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bf85fd468f83-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/bf85fd468f83-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-tcg-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/6207097c5862-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6207097c5862-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6207097c5862-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-indie-fest-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/62e0dc1cc2d9-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/62e0dc1cc2d9-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/62e0dc1cc2d9-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-juego-libre-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/6441ae9f2f51-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6441ae9f2f51-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6441ae9f2f51-1280.webp",
+        "width": 1280
+      }
+    ]
   }
 }

@@ -115,3 +115,25 @@ test('El acceso de una actividad de 2026 lleva al programa completo', async ({
     page.getByRole('heading', { name: 'Programa de ULP 2026' }),
   ).toBeVisible();
 });
+
+test('La agenda alterna el fondo entre actividades visibles al filtrar', async ({
+  page,
+}) => {
+  await page.goto('/info/horarios/');
+  const program = page.locator('[data-program]');
+  for (const search of ['', 'a']) {
+    await program
+      .getByRole('search')
+      .getByLabel('Actividad', { exact: true })
+      .fill(search);
+    await page.mouse.move(0, 0);
+    const colors = await program
+      .locator('[data-program-row]:visible')
+      .evaluateAll((rows) =>
+        rows.slice(0, 6).map((row) => getComputedStyle(row).backgroundColor),
+      );
+    expect(colors.length).toBeGreaterThan(2);
+    for (let index = 1; index < colors.length; index++)
+      expect(colors[index]).not.toBe(colors[index - 1]);
+  }
+});

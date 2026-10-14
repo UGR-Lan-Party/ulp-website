@@ -173,6 +173,9 @@ summary:focus-visible,
   border-bottom: 1px solid var(--line);
   background: color-mix(in srgb, var(--paper) 92%, transparent);
   backdrop-filter: blur(18px);
+  transition:
+    background 250ms ease,
+    box-shadow 250ms ease;
 }
 .header-inner {
   display: flex;
@@ -405,4 +408,12 @@ summary:focus-visible,
     align-items: start;
     flex-direction: column;
   }
+}
+
+.ud-header.is-scrolled {
+  background: color-mix(in srgb, var(--paper) 94%, #004465 6%);
+  box-shadow: 0 5px 22px rgb(0 68 101 / 0.07);
+}
+.dark .ud-header.is-scrolled {
+  background: color-mix(in srgb, var(--paper) 88%, #00141f 12%);
 }

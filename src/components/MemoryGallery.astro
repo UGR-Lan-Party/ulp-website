@@ -1,0 +1,143 @@
+---
+import CarouselSection from './CarouselSection.astro';
+---
+
+<section class="memory-section design-section" aria-labelledby="memory-title">
+  <div class="design-container">
+    <div class="memory-header" data-reveal>
+      <div>
+        <span class="design-eyebrow">04 / Nuestra memoria compartida</span><h2
+          id="memory-title"
+          class="design-heading"
+        >
+          Granada, vista<br /><em>desde la ULP.</em>
+        </h2>
+      </div>
+      <div class="memory-intro">
+        <p>
+          Las finales, los reencuentros y ese «una más». Hay cosas que se
+          entienden mejor en fotos.
+        </p><a href="/info/ediciones_anteriores" class="design-link"
+          >Recorre nuestras ediciones <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="memory-frame">
+      <div class="memory-caption">
+        <span><i aria-hidden="true"></i> RECUERDOS DE 2025</span><span
+          >ETSIIT / GRANADA</span>
+      </div>
+      <CarouselSection
+        albumId="72177720328590176"
+        userId="195749897@N03"
+        featuredPhotoId="54744102704"
+        withBackground={false}
+        height="580px"
+      />
+      <div class="memory-bottom">
+        <span>Hecho de partidas. Y de personas.</span><span aria-hidden="true"
+          >ULP / ARCHIVO ABIERTO ↗</span>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .memory-section {
+    border-block: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .memory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 40px;
+    margin-bottom: 42px;
+  }
+  .memory-header .design-eyebrow {
+    margin-bottom: 25px;
+  }
+  .memory-header h2 {
+    max-width: 760px;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .memory-intro {
+    max-width: 290px;
+  }
+  .memory-intro p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .memory-intro .design-link {
+    font-size: 11px;
+  }
+  .memory-frame {
+    padding: 25px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--paper);
+    box-shadow: 0 24px 60px rgb(0 68 101 / 0.06);
+  }
+  .memory-caption,
+  .memory-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .memory-caption {
+    padding: 0 8px 24px;
+    letter-spacing: 0.12em;
+  }
+  .memory-caption > span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .memory-caption i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+  .memory-frame :global(.container) {
+    padding-inline: 0;
+  }
+  .memory-bottom {
+    padding: 24px 8px 0;
+    font-size: 8px;
+  }
+  @media (max-width: 700px) {
+    .memory-header {
+      flex-direction: column;
+      align-items: start;
+      gap: 25px;
+    }
+    .memory-intro {
+      max-width: 100%;
+    }
+    .memory-frame {
+      padding: 14px;
+      border-radius: 18px;
+    }
+    .memory-caption {
+      font-size: 7px;
+      padding: 5px 0 18px;
+      gap: 8px;
+    }
+    .memory-bottom {
+      padding-inline: 0;
+      line-height: 1.7;
+    }
+    .memory-bottom > span:last-child {
+      display: none;
+    }
+  }
+</style>

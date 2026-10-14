@@ -9,6 +9,7 @@ interface Props {
   height?: string;
   instanceId?: string;
   unlimitedHeight?: boolean;
+  featuredPhotoId?: string;
 }
 
 const {
@@ -16,9 +17,25 @@ const {
   userId,
   withBackground = true,
   height = '600px',
+  featuredPhotoId,
   instanceId = `carousel-${albumId}`,
 } = Astro.props;
-const images: string[] = await getFlickrPhotos(albumId, userId);
+const photos: string[] = await getFlickrPhotos(albumId, userId);
+const featuredIndex = featuredPhotoId
+  ? photos.findIndex((source) =>
+      new URL(source).pathname
+        .split('/')
+        .at(-1)
+        ?.startsWith(`${featuredPhotoId}_`),
+    )
+  : -1;
+const images =
+  featuredIndex > 0
+    ? [
+        photos[featuredIndex],
+        ...photos.filter((_, index) => index !== featuredIndex),
+      ]
+    : photos;
 const albumUrl = `https://www.flickr.com/photos/${encodeURIComponent(userId)}/albums/${encodeURIComponent(albumId)}`;
 const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
 ---

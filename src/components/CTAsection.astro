@@ -1,10 +1,14 @@
+---
+import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
+---
+
 <section class="community-cta">
   <div class="design-container community-inner" data-reveal>
     <span class="design-eyebrow">Entre edición y edición</span><h2>
       Nos seguimos viendo<br /><em>en el servidor.</em>
     </h2><a href="https://discord.gg/FWW9wKZjav" class="design-button"
       >Entra al Discord de la ULP <span aria-hidden="true">↗</span></a
-    ><span class="community-cross" aria-hidden="true">✳</span>
+    ><span class="community-discord" aria-hidden="true"><DiscordIcon /></span>
   </div>
 </section>
 <style>
@@ -38,13 +42,17 @@
     color: #004465;
     border-color: #f5f0e6;
   }
-  .community-cross {
+  .community-discord {
     position: absolute;
     right: 60px;
     top: 30px;
-    font-size: clamp(170px, 25vw, 340px);
+    width: clamp(170px, 25vw, 340px);
     line-height: 1;
     opacity: 0.09;
     pointer-events: none;
+  }
+  .community-discord :global(svg) {
+    width: 100%;
+    height: auto;
   }
 </style>

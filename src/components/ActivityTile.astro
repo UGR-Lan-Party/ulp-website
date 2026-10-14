@@ -63,7 +63,9 @@ const labels: Record<string, string> = {
     object-position: center 40%;
     opacity: 0.55;
     filter: saturate(0.55);
-    transform-origin: center bottom;
+    transform-origin: center;
+    transform: scale(1.2);
+    mask-image: linear-gradient(black 80%, transparent);
     transition:
       transform 600ms cubic-bezier(0.16, 1, 0.3, 1),
       opacity 600ms ease;
@@ -120,7 +122,7 @@ const labels: Record<string, string> = {
   }
   .activity-tile:hover .activity-tile-background,
   .activity-tile:focus-visible .activity-tile-background {
-    transform: translateY(-5%) rotateX(22deg) scale(0.98);
+    transform: translateY(-2%) rotateX(18deg) scale(1.32);
     opacity: 0.4;
   }
   .activity-tile-logo {
@@ -178,14 +180,17 @@ const labels: Record<string, string> = {
     transform: translate3d(0, -5px, 35px);
   }
   @media (prefers-reduced-motion: reduce), (hover: none) {
+    .activity-tile:hover .activity-tile-background,
+    .activity-tile:focus-visible .activity-tile-background {
+      transform: scale(1.2);
+    }
     .activity-tile-character,
     .activity-tile:hover .activity-tile-character,
     .activity-tile:focus-visible .activity-tile-character {
       transform: none;
       opacity: 1;
     }
-    .activity-tile:hover .activity-tile-background,
-    .activity-tile:focus-visible .activity-tile-background,
+
     .activity-tile:hover .activity-tile-logo,
     .activity-tile:focus-visible .activity-tile-logo {
       transform: none;

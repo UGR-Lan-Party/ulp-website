@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import ActivityTile from '../components/ActivityTile.astro';
 import { Competitions } from '../data/competitions-data';
+const teamFinderUrl =
+  'https://docs.google.com/spreadsheets/d/1oL8jkQn1oGXnT-qkjcIapFpGi3SI0G0JrvIFm6hghkk/edit?usp=sharing';
 const sections = [
   {
     key: 'competiciones',
@@ -55,34 +57,32 @@ const sections = [
       >Ver agenda <span aria-hidden="true">↗</span></a
     >
   </div>
+  <div class="design-container team-intro">
+    <span>¿Te falta equipo?</span><a href={teamFinderUrl}
+      >Encuentra compañeros de partida <span aria-hidden="true">↗</span></a>
+  </div>
   {
     sections.map((section, index) => (
       <section
         id={section.key}
         class="design-section design-container catalog-section"
       >
-        <>
-          <div class="design-section-header" data-reveal>
-            <>
-              <div>
-                <>
-                  <span class="design-eyebrow">
-                    {String(index + 1).padStart(2, '0')} / Elige cómo jugar
-                  </span>
-                  <h2 class="design-heading">{section.title}</h2>
-                </>
-              </div>
-              <p>{section.description}</p>
-            </>
+        <div class="design-section-header" data-reveal>
+          <div>
+            <span class="design-eyebrow">
+              {String(index + 1).padStart(2, '0')} / Elige cómo jugar
+            </span>
+            <h2 class="design-heading">{section.title}</h2>
           </div>
-          <div class="design-grid">
-            {Competitions.filter((game) => game.tag === section.tag).map(
-              (game) => (
-                <ActivityTile id={game.id} />
-              ),
-            )}
-          </div>
-        </>
+          <p>{section.description}</p>
+        </div>
+        <div class="design-grid">
+          {Competitions.filter((game) => game.tag === section.tag).map(
+            (game) => (
+              <ActivityTile id={game.id} />
+            ),
+          )}
+        </div>
       </section>
     ))
   }
@@ -91,9 +91,7 @@ const sections = [
       <span class="design-eyebrow">El siguiente compañero está aquí</span><h2>
         ¿Te falta equipo?
       </h2><p>Encuentra gente con la que compartir la partida.</p>
-    </div><a
-      class="design-button"
-      href="https://docs.google.com/spreadsheets/d/1oL8jkQn1oGXnT-qkjcIapFpGi3SI0G0JrvIFm6hghkk/edit?usp=sharing"
+    </div><a class="design-button" href={teamFinderUrl}
       >Buscar equipo <span aria-hidden="true">↗</span></a
     >
   </div>
@@ -177,5 +175,20 @@ const sections = [
       align-items: start;
       flex-direction: column;
     }
+  }
+  .team-intro {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding-top: 18px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .team-intro a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    padding-block: 10px;
   }
 </style>
