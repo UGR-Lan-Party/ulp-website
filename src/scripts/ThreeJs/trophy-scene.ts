@@ -21,6 +21,7 @@ export async function mountTrophy(
   const light = new THREE.DirectionalLight(0xffffff, 10);
   light.position.set(20, 20, 20);
   scene.add(light);
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let frame = 0;
   let visible = true;
   let disposed = false;
@@ -61,16 +62,21 @@ export async function mountTrophy(
   function render() {
     frame = 0;
     if (disposed || !visible || document.hidden) return;
-    trophy.rotation.y += 0.005;
+    if (!reducedMotion.matches) trophy.rotation.y += 0.005;
     controls.update();
     renderer.render(scene, camera);
-    frame = requestAnimationFrame(render);
+    if (!reducedMotion.matches) frame = requestAnimationFrame(render);
   }
   function updateVisibility() {
     cancelAnimationFrame(frame);
     frame = 0;
     if (!disposed && visible && !document.hidden) render();
   }
+  function renderInteraction() {
+    if (reducedMotion.matches && !frame) frame = requestAnimationFrame(render);
+  }
+  controls.addEventListener('change', renderInteraction);
+  reducedMotion.addEventListener('change', updateVisibility);
   const visibility = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
     updateVisibility();
@@ -90,6 +96,8 @@ export async function mountTrophy(
     cancelAnimationFrame(frame);
     visibility.disconnect();
     resize.disconnect();
+    controls.removeEventListener('change', renderInteraction);
+    reducedMotion.removeEventListener('change', updateVisibility);
     document.removeEventListener('visibilitychange', updateVisibility);
     disposeScene();
   };

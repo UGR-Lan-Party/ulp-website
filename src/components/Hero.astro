@@ -57,7 +57,10 @@ const images = remoteImages.length
       id="heroContainer"
     >
       <ResponsiveImage
-        id="heroImage" loading="eager" fetchpriority="high" sizes="100vw"
+        id="heroImage"
+        loading="eager"
+        fetchpriority="high"
+        sizes="100vw"
         src={images[0]}
         alt=""
         class="w-full h-full object-cover hero-bg"
@@ -145,7 +148,8 @@ const images = remoteImages.length
 
       <div class="mt-0 flex justify-center items-center">
         <ResponsiveImage
-          src="/assets/participan/organizan.png" loading="eager"
+          src="/assets/participan/organizan.png"
+          loading="eager"
           alt="Organizaciones participantes"
           class="max-w-[100%] max-h-[200px] h-auto"
         />
@@ -156,54 +160,25 @@ const images = remoteImages.length
 
 <script src="../scripts/countdown.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const section = document.getElementById('home');
-    if (!section) return console.log("No se encontró la sección 'home'");
+  const section = document.getElementById('home');
+  const image = document.getElementById('heroImage') as HTMLImageElement | null;
+  const images: string[] = JSON.parse(section?.dataset.images ?? '[]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let index = 0;
+  let rotationTimer: number | undefined;
 
-    const imagesData = section.getAttribute('data-images');
-    if (!imagesData) return console.log('No se encontraron datos de imágenes');
-
-    const images = JSON.parse(imagesData);
-    if (!Array.isArray(images) || images.length === 0)
-      return console.log('El array de imágenes está vacío');
-
-    let index = 0;
-    let heroContainer = document.getElementById('heroContainer');
-
-    if (!heroContainer)
-      return console.log("No se encontró la sección 'heroContainer'");
-
-    const img1 = document.createElement('img');
-    const img2 = document.createElement('img');
-
-    [img1, img2].forEach((img) => {
-      img.style.position = 'absolute';
-      img.style.top = '0';
-      img.style.left = '0';
-      img.style.width = '100%';
-      img.style.height = '100%';
-      img.style.objectFit = 'cover';
-      img.style.transition = 'opacity 1s ease-in-out';
-      img.style.opacity = '0';
-      heroContainer.appendChild(img);
-    });
-
-    img1.src = images[index];
-    img1.style.opacity = '1';
-    let currentImg = img1;
-    let nextImg = img2;
-
-    setInterval(() => {
+  function updateRotation() {
+    window.clearInterval(rotationTimer);
+    if (reducedMotion.matches || images.length < 2 || !image) return;
+    rotationTimer = window.setInterval(() => {
+      if (document.hidden) return;
       index = (index + 1) % images.length;
-      nextImg.src = images[index];
-      nextImg.style.zIndex = '1';
-      currentImg.style.zIndex = '0';
-      nextImg.style.opacity = '1';
-
-      setTimeout(() => {
-        currentImg.style.opacity = '0';
-        [currentImg, nextImg] = [nextImg, currentImg];
-      }, 1000);
+      image.src = images[index];
     }, 5000);
-  });
+  }
+  reducedMotion.addEventListener('change', updateRotation);
+  window.addEventListener('pagehide', () =>
+    window.clearInterval(rotationTimer),
+  );
+  updateRotation();
 </script>
