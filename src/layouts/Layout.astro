@@ -14,7 +14,7 @@ const { description, title, image } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -38,15 +38,36 @@ const { description, title, image } = Astro.props;
     <title>{title ? title + ' | ULP' : 'UGR Lan Party'}</title>
   </head>
   <body class={`h-screen ${darkStyles}`}>
+    <a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
     <Header />
-    <!-- <Header client:load /> -->
-    <main class="min-h-screen mt-12 sm:mt-12 lg:mt-6">
+    <main
+      id="contenido-principal"
+      tabindex="-1"
+      class="min-h-screen mt-12 sm:mt-12 lg:mt-6"
+    >
       <slot />
     </main>
     <Footer />
     <BackToTop />
     <style is:global>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      .skip-link {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 10000;
+        transform: translateY(-200%);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background: white;
+        color: #111827;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+        outline: 3px solid #f59e0b;
+      }
+
+
       body {
         font-family: 'Inter', sans-serif;
       }
