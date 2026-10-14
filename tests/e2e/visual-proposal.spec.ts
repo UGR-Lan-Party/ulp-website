@@ -166,3 +166,28 @@ test('Las preguntas se recorren de seis en seis sin JavaScript ni duplicados', a
     await context.close();
   }
 });
+
+test('Inscripciones lleva a las competiciones ordenadas por la encuesta inicial de 2026', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Inscripciones', exact: false }).click();
+  await expect(page).toHaveURL(/\/actividades\/?#competiciones$/);
+  await expect(page.locator('#competiciones h2')).toBeInViewport();
+  await expect(page.locator('#competiciones .activity-tile h3')).toHaveText([
+    'Mario Kart World',
+    'Clash Royale',
+    'Super Smash Bros Ultimate',
+    'Wii Sports Tenis',
+    'Futbolín',
+    'Minecraft',
+    'Wii Sports Bolos',
+    'Ajedrez',
+    'Brawl Stars',
+    'Rocket League',
+    'League of Legends',
+    'Ping Pong',
+    'Hacking Ético',
+  ]);
+});

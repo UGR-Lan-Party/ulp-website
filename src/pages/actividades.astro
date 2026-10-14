@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import ActivityTile from '../components/ActivityTile.astro';
 import { Competitions } from '../data/competitions-data';
+import survey from '../data/competition-survey-2026.json';
+const votes: Record<string, number> = survey.votes;
 const teamFinderUrl =
   'https://docs.google.com/spreadsheets/d/1oL8jkQn1oGXnT-qkjcIapFpGi3SI0G0JrvIFm6hghkk/edit?usp=sharing';
 const sections = [
@@ -24,7 +26,19 @@ const sections = [
     title: 'Actividades',
     description: 'Descubre, comparte y juega a tu ritmo.',
   },
-];
+].map((section) => {
+  const games = Competitions.filter((game) => game.tag === section.tag);
+  return {
+    ...section,
+    games:
+      section.tag === 'competicion'
+        ? games.toSorted(
+            (first, second) =>
+              (votes[second.id] ?? -1) - (votes[first.id] ?? -1),
+          )
+        : games,
+  };
+});
 ---
 
 <Layout
@@ -45,11 +59,7 @@ const sections = [
         sections.map((section) => (
           <a href={`#${section.key}`}>
             {section.title}
-            <span>
-              {String(
-                Competitions.filter((game) => game.tag === section.tag).length,
-              ).padStart(2, '0')}
-            </span>
+            <span>{String(section.games.length).padStart(2, '0')}</span>
           </a>
         ))
       }
@@ -59,7 +69,8 @@ const sections = [
   </div>
   <div class="design-container team-intro">
     <span>¿Te falta equipo?</span><a href={teamFinderUrl}
-      >Encuentra compañeros de partida <span aria-hidden="true">↗</span></a>
+      >Encuentra compañeros de partida <span aria-hidden="true">↗</span></a
+    >
   </div>
   {
     sections.map((section, index) => (
@@ -77,11 +88,9 @@ const sections = [
           <p>{section.description}</p>
         </div>
         <div class="design-grid">
-          {Competitions.filter((game) => game.tag === section.tag).map(
-            (game) => (
-              <ActivityTile id={game.id} />
-            ),
-          )}
+          {section.games.map((game) => (
+            <ActivityTile id={game.id} />
+          ))}
         </div>
       </section>
     ))
@@ -133,6 +142,7 @@ const sections = [
     opacity: 0.6;
   }
   .catalog-section {
+    scroll-margin-top: 90px;
     padding-block: 65px;
   }
   .catalog-section .design-section-header > p {

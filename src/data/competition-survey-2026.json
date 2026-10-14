@@ -1,0 +1,18 @@
+{
+  "sourceFile": "ULP 2026 - Encuesta Inicial.xlsx",
+  "question": "¿De qué juegos te gustaría que se realizaran torneos?",
+  "responses": 342,
+  "votes": {
+    "mario-kart": 130,
+    "clash-royale": 117,
+    "smash": 101,
+    "wii-sports-tenis": 94,
+    "futbolin": 91,
+    "minecraft": 81,
+    "wii-sports-bolos": 81,
+    "ajedrez": 80,
+    "brawl-stars": 80,
+    "rocket-league": 72,
+    "league-of-legends": 71
+  }
+}

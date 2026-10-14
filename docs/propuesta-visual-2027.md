@@ -123,3 +123,13 @@ Los dos fondos decorativos usan estrellas de ocho puntas en una trama SVG que re
 LSI, UGR, DEIIT y GDG Granada ajustan su presentación a los límites visibles del logotipo en lugar de sus márgenes transparentes. Las medidas se guardan en `src/data/partner-logo-layout.json` y el componente compartido conserva las proporciones, los colores y los archivos originales.
 
 Las tarjetas y la franja utilizan el mismo ajuste, con alturas adaptadas a cada rango. La marca horizontal de UGR dispone de más anchura en ambos contextos para mejorar la lectura del texto. Se mantiene la alternancia de variantes según el tema.
+
+## Undécima revisión
+
+El botón de Inscripciones de la portada lleva a `/actividades#competiciones`. La sección incorpora un margen de desplazamiento para que la barra de navegación no oculte su inicio.
+
+Las competiciones del catálogo se ordenan por los votos de la columna «¿De qué juegos te gustaría que se realizaran torneos?» del archivo `ULP 2026 - Encuesta Inicial.xlsx`, con 342 respuestas con selección. Los datos agregados se guardan en `src/data/competition-survey-2026.json`, sin respuestas individuales ni información personal.
+
+El orden es Mario Kart (130), Clash Royale (117), Smash (101), Wii Sports Tenis (94), Futbolín (91), Minecraft (81), Wii Sports Bolos (81), Ajedrez (80), Brawl Stars (80), Rocket League (72) y League of Legends (71). En los empates se conserva el orden previo. Ping Pong y Hacking Ético no aparecen entre las opciones de esa columna y se muestran al final sin asignarles votos. Retos y actividades conservan su orden.
+
+Fuente local: `G:\Mi unidad\ULP\03 Organización\Encuestas\ULP 2026 - Encuesta Inicial.xlsx`. Se usa el recuento del archivo original consultado; el acta de reunión contiene un resumen con cifras diferentes. Una prueba de navegador recorre el enlace y comprueba el orden completo del catálogo.
