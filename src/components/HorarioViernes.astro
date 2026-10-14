@@ -9,10 +9,10 @@ const N = activities.length;
 <!-- ════════════════ HEADER (solo título + CTA) ════════════════ -->
 <div
   id="timeline-header"
-  class="bg-[#050810] pt-12 pb-12 px-4 text-center overflow-hidden"
+  class="bg-primary pt-12 pb-12 px-4 text-center overflow-hidden"
 >
   <p
-    class="tlh-sub text-xs tracking-[0.4em] text-[#0facfa] uppercase font-mono mb-3"
+    class="tlh-sub text-xs tracking-[0.4em] text-white uppercase font-mono mb-3"
     style="opacity:0; transform: translateY(16px);"
   >
     Programa Oficial
@@ -24,7 +24,7 @@ const N = activities.length;
     Viernes 20 de Marzo
   </h2>
   <div
-    class="tlh-line mx-auto mt-5 h-[2px] bg-gradient-to-r from-transparent via-[#0facfa] to-transparent"
+    class="tlh-line mx-auto mt-5 h-[2px] bg-gradient-to-r from-transparent via-white/40 to-transparent"
     style="width: 0px;"
   >
   </div>
@@ -52,12 +52,12 @@ const N = activities.length;
 <!-- ════════════════ SCROLL SECTION (hermano del header) ════════════════ -->
 <div
   id="timeline-outer"
-  class="relative bg-[#050810]"
+  class="relative bg-primary"
   style={`height: calc(${N} * 160vh);`}
 >
   <div
     id="timeline-sticky"
-    class="sticky bg-[#050810] overflow-hidden"
+    class="sticky bg-primary overflow-hidden"
     style="top: 90px; height: calc(100vh - 90px);"
   >
     <!-- Fondo noise sutil -->
@@ -439,7 +439,7 @@ const N = activities.length;
     width: 4px;
   }
   ::-webkit-scrollbar-track {
-    background: #050810;
+    background: #004465;
   }
   ::-webkit-scrollbar-thumb {
     background: rgba(0, 245, 255, 0.2);

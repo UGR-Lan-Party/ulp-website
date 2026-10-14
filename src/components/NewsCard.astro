@@ -1,0 +1,158 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ResponsiveImage from './ResponsiveImage.astro';
+import { formatNewsDate } from '../utils/news';
+interface Props {
+  entry: CollectionEntry<'blog'>;
+  featured?: boolean;
+}
+const { entry, featured = false } = Astro.props;
+const Heading = featured ? 'h2' : 'h3';
+---
+
+<article class:list={['news-card', { 'news-featured': featured }]} data-reveal>
+  <a href={`/blog/${entry.slug}`} aria-label={`Leer: ${entry.data.title}`}>
+    <div class="news-media">
+      <ResponsiveImage
+        src={entry.data.image.src}
+        alt={entry.data.image.alt}
+        loading={featured ? 'eager' : 'lazy'}
+        sizes={featured
+          ? '(max-width: 700px) 100vw, 55vw'
+          : '(max-width: 700px) 100vw, 33vw'}
+      /><span class="news-image-label"
+        >{featured ? 'En portada' : (entry.data.tags[0] ?? 'ULP')}</span>
+    </div>
+    <div class="news-card-copy">
+      <div class="news-meta">
+        <time datetime={entry.data.publishDate.toISOString()}
+          >{formatNewsDate(entry.data.publishDate)}</time
+        ><span>↗</span>
+      </div><Heading class="news-card-title">{entry.data.title}</Heading><p>
+        {entry.data.snippet}
+      </p><span class="news-read"
+        >Leer historia <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+</article>
+<style>
+  .news-card {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .news-card > a {
+    display: block;
+    height: 100%;
+  }
+  .news-media {
+    position: relative;
+    aspect-ratio: 1.5;
+    overflow: hidden;
+    background: #004465;
+  }
+  .news-media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .news-card:hover .news-media :global(img) {
+    transform: scale(1.045);
+  }
+  .news-image-label {
+    position: absolute;
+    bottom: 16px;
+    left: 18px;
+    padding: 7px 10px;
+    background: #f5f0e6;
+    color: #004465;
+    border-radius: 5px;
+    font:
+      9px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .news-card-copy {
+    padding: 25px;
+  }
+  .news-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    color: var(--muted);
+    font:
+      9px ui-monospace,
+      monospace;
+    margin-bottom: 16px;
+  }
+  .news-meta > span {
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .news-card-title {
+    font-size: 24px;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 1.18;
+    margin-bottom: 15px;
+  }
+  .news-card-copy > p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .news-read {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    padding-top: 24px;
+  }
+  .news-read > span {
+    transition: transform 200ms ease;
+  }
+  .news-card:hover .news-read > span {
+    transform: translateX(5px);
+  }
+  .news-featured > a {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: stretch;
+  }
+  .news-featured .news-media {
+    aspect-ratio: auto;
+    min-height: 440px;
+  }
+  .news-featured .news-card-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(25px, 4vw, 60px);
+  }
+  .news-featured .news-card-title {
+    font-size: clamp(30px, 3.6vw, 49px);
+    line-height: 1.06;
+    margin-bottom: 24px;
+  }
+  .news-featured .news-card-copy > p {
+    max-width: 400px;
+    font-size: 14px;
+  }
+  @media (max-width: 700px) {
+    .news-featured > a {
+      grid-template-columns: 1fr;
+    }
+    .news-featured .news-media {
+      aspect-ratio: 1.5;
+      min-height: 0;
+    }
+    .news-featured .news-card-title {
+      font-size: 32px;
+    }
+  }
+</style>

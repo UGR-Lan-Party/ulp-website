@@ -1,6 +1,6 @@
 # Propuesta visual ULP 2027
 
-Rama local: `design/propuesta-visual-2027`, creada desde `fix/agenda-galerias-identidad`. La propuesta se conserva sin crear issue ni PR.
+Rama local: `design/propuesta-visual-2027`, creada desde `fix/agenda-galerias-identidad`. El rediseño completo se conserva localmente, pendiente de revisión y sin PR. Se han integrado las mejoras independientes de las PR #353–#357, publicadas por petición expresa: franja de entidades, contraste de logos, tamaño de iconos, accesos al horario y botón de álbum.
 
 ## Dirección visual
 
@@ -22,12 +22,18 @@ Las animaciones incluyen entradas al hacer scroll, brillo al pasar por las tarje
 - La preferencia de movimiento reducido detiene el avance automático; los controles siguen disponibles.
 - La animación se pausa fuera de pantalla y cuando la pestaña no está visible.
 
-La franja aparece bajo la portada y antes del pie en las páginas interiores. Los logotipos claros reciben un ajuste de contraste para poder verlos sobre beige.
+La franja aparece bajo la portada y antes del pie en las páginas interiores. Los logotipos adaptan su contraste al tema. Las tarjetas de Participan fijan la variante oscura sobre su superficie beige, también en modo oscuro.
+
+## Revisión del diseño
+
+La portada conserva las fuentes, amplía la separación entre UGR y LAN y usa relleno sólido para PARTY. Los textos se centran en la ETSIIT, Granada y la comunidad ULP. El footer recupera una estructura compacta próxima al original, con siete redes representadas por iconos, correo y ubicación. El programa oficial usa el azul corporativo `#004465`.
+
+Noticias comparte una tarjeta reutilizable, destaca la última publicación y ofrece artículos con fecha en español, tiempo de lectura, imagen completa descargable, contenido y noticias relacionadas. Se omiten borradores y publicaciones futuras.
 
 ## Contenido y comprobación
 
 Se mantienen los datos históricos de 2026 y sus inscripciones cerradas. Las actividades y entidades de esa edición no se presentan como confirmadas para 2027.
 
-La propuesta se puede revisar en [Inicio](http://127.0.0.1:4321/), [Actividades](http://127.0.0.1:4321/actividades/), [Participan](http://127.0.0.1:4321/participan/) y [Contacto](http://127.0.0.1:4321/contacto/).
+La propuesta se puede revisar en [Inicio](http://127.0.0.1:4321/), [Actividades](http://127.0.0.1:4321/actividades/), [Participan](http://127.0.0.1:4321/participan/) y [Contacto](http://127.0.0.1:4321/contacto/), [Noticias](http://127.0.0.1:4321/blog/) y [Horarios](http://127.0.0.1:4321/info/horarios/).
 
-Validación: build, recursos y rutas locales, 36 pruebas unitarias y 34 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
+Validación: build, recursos y rutas locales, 37 pruebas unitarias y 40 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.

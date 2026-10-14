@@ -6,7 +6,14 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-for (const route of ['/', '/actividades/', '/participan/', '/contacto/']) {
+for (const route of [
+  '/',
+  '/actividades/',
+  '/participan/',
+  '/contacto/',
+  '/blog/',
+  '/blog/havefungamers/',
+]) {
   test(`La propuesta conserva el contenido accesible y cabe en 390 px: ${route}`, async ({
     page,
   }) => {
@@ -26,3 +33,50 @@ for (const route of ['/', '/actividades/', '/participan/', '/contacto/']) {
     expect(errors).toEqual([]);
   });
 }
+
+test('El footer conserva las siete redes con iconos y las noticias no anidan controles interactivos', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/blog/');
+  const footer = page.locator('footer');
+  const links = footer
+    .getByRole('navigation', { name: 'Redes sociales de ULP' })
+    .getByRole('link');
+  await expect(links).toHaveCount(7);
+  for (const link of await links.all())
+    await expect(link.locator('svg')).toHaveCount(1);
+  await expect(page.locator('.news-card').first()).toBeVisible();
+  await expect(page.locator('.news-card a button, .news-card a a')).toHaveCount(
+    0,
+  );
+  const articleLink = page.locator('.news-card a').first();
+  await articleLink.click();
+  await expect(page.locator('article h1')).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Descargar imagen original' }),
+  ).toHaveAttribute('download', '');
+  await expect(page.locator('.article-body')).not.toBeEmpty();
+});
+
+test('Los logos de Participan conservan contraste sobre su superficie clara en ambos temas', async ({
+  page,
+}) => {
+  await page.goto('/participan/');
+  const names = [
+    'Nacon España',
+    'DEIIT',
+    'Mars Gaming',
+    'The Game Kitchen',
+    'Iction Games',
+    'Hackiit',
+  ];
+  for (let theme = 0; theme < 2; theme++) {
+    for (const name of names) {
+      await expect(
+        page.locator(`[data-partner-card] [data-partner-logo="${name}"]`),
+      ).toHaveCSS('filter', 'brightness(0)');
+    }
+    await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  }
+});

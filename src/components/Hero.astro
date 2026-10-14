@@ -10,8 +10,9 @@ import ResponsiveImage from './ResponsiveImage.astro';
           class="hero-status"><i></i> Próximamente ...</span
         >
       </div>
-      <h1>
-        UGR LAN<br /><span>PARTY.</span><svg
+      <h1 aria-label="UGR LAN Party">
+        <span class="hero-title-line"><span>UGR</span><span>LAN</span></span
+        ><span class="hero-title-party">PARTY.</span><svg
           viewBox="0 0 64 64"
           fill="none"
           aria-hidden="true"
@@ -23,8 +24,8 @@ import ResponsiveImage from './ResponsiveImage.astro';
       </h1>
       <div class="hero-description">
         <span class="hero-year">ULP 2027</span><p>
-          Tu gente. Tu partida.<br />El punto de encuentro del gaming
-          universitario en Granada.
+          De la ETSIIT al resto de Granada.<br />Cambiamos apuntes por mandos,
+          retos y gente con quien compartirlos.
         </p>
       </div>
       <div class="hero-actions">
@@ -59,8 +60,8 @@ import ResponsiveImage from './ResponsiveImage.astro';
           sizes="(max-width: 700px) 100vw, 45vw"
         />
         <div class="hero-photo-overlay">
-          <span class="design-eyebrow">Se juega mejor juntos</span><strong
-            >Una comunidad.<br />Todas las partidas.</strong
+          <span class="design-eyebrow">Hecha en la ETSIIT</span><strong
+            >Granada también<br />juega en equipo.</strong
           >
         </div>
       </div>
@@ -135,9 +136,14 @@ import ResponsiveImage from './ResponsiveImage.astro';
     line-height: 0.88;
     margin-bottom: 32px;
   }
-  h1 > span {
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--ink);
+  .hero-title-line {
+    display: flex;
+    gap: 0.18em;
+  }
+  .hero-title-party {
+    display: inline-block;
+    color: var(--ink);
+    letter-spacing: -0.035em;
   }
   h1 svg {
     display: inline-block;

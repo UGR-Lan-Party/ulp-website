@@ -1,56 +1,176 @@
 ---
+import XIcon from '../../../public/assets/icons/XIcon.astro';
+import FacebookIcon from '../../../public/assets/icons/FacebookIcon.astro';
+import InstagramIcon from '../../../public/assets/icons/InstagramIcon.astro';
+import TikTokIcon from '../../../public/assets/icons/TikTokIcon.astro';
+import YouTubeIcon from '../../../public/assets/icons/YouTubeIcon.astro';
+import TwitchIcon from '../../../public/assets/icons/TwitchIcon.astro';
+import DiscordIcon from '../../../public/assets/icons/DiscordIcon.astro';
 const networks = [
-  ['Instagram', 'https://www.instagram.com/ulpugr'],
-  ['TikTok', 'https://tiktok.com/@ugrlanparty'],
-  ['YouTube', 'https://www.youtube.com/@ugrlanparty'],
-  ['Twitch', 'https://www.twitch.tv/ugr_lan_party'],
-  ['X', 'https://twitter.com/ulpugr'],
-  ['Facebook', 'https://www.facebook.com/UGRLanParty/'],
-  ['Discord', 'https://discord.gg/FWW9wKZjav'],
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/UGRLanParty/',
+    icon: FacebookIcon,
+  },
+  { name: 'X', href: 'https://twitter.com/ulpugr', icon: XIcon },
+  {
+    name: 'YouTube',
+    href: 'https://www.youtube.com/@ugrlanparty',
+    icon: YouTubeIcon,
+  },
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/ulpugr',
+    icon: InstagramIcon,
+  },
+  { name: 'TikTok', href: 'https://tiktok.com/@ugrlanparty', icon: TikTokIcon },
+  {
+    name: 'Twitch',
+    href: 'https://www.twitch.tv/ugr_lan_party',
+    icon: TwitchIcon,
+  },
+  { name: 'Discord', href: 'https://discord.gg/FWW9wKZjav', icon: DiscordIcon },
 ];
 ---
 
-<footer class="design-footer">
+<footer class="ulp-footer">
   <div class="design-container">
-    <div class="footer-top">
-      <div>
-        <span class="design-eyebrow">UGR LAN PARTY</span><h2>
-          La siguiente partida<br />la hacemos juntos.
-        </h2>
-      </div><div class="footer-contact">
-        <a href="mailto:ulp@ugr.es" class="design-link"
-          >ulp@ugr.es <span aria-hidden="true">↗</span></a>
+    <div class="footer-original-grid">
+      <div class="footer-brand">
+        <a href="/" aria-label="ULP, inicio"
+          ><img
+            src="/assets/logo/logo-black.png"
+            width="100"
+            height="100"
+            alt="UGR LAN Party"
+          /></a
+        ><a href="mailto:ulp@ugr.es">ulp@ugr.es</a>
       </div>
-    </div>
-    <div class="footer-grid">
       <div>
-        <h3>Explora</h3><nav>
-          <a href="/actividades">Actividades</a><a href="/info/horarios"
-            >Agenda</a
-          ><a href="/participan">Participan</a><a
-            href="/info/ediciones_anteriores">Ediciones anteriores</a>
-        </nav>
-      </div><div>
-        <h3>Sigue conectado</h3><nav>
+        <span class="footer-label">Sigue a la ULP</span><nav
+          aria-label="Redes sociales de ULP"
+          class="footer-social-links"
+        >
           {
-            networks.map(([name, url]) => (
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                {name} ↗
+            networks.map(({ name, href, icon: Icon }) => (
+              <a
+                href={href}
+                aria-label={name}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon width="22" height="22" aria-hidden="true" />
               </a>
             ))
           }
         </nav>
-      </div><div>
-        <h3>Nos vemos en Granada</h3><a
-          href="https://maps.app.goo.gl/8c9WLkYAiw6cJRgu7"
+      </div>
+      <div class="footer-location">
+        <h2>Ubicación</h2><a href="https://maps.app.goo.gl/8c9WLkYAiw6cJRgu7"
           >ETSIIT · Universidad de Granada<br />Calle Periodista Daniel Saucedo
           Aranda, s/n<br />18014 Granada</a>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-copyright">
       <span
         >2016 — {new Date().getFullYear()} · UGR LAN Party · Universidad de Granada</span
-      ><a href="/info/aviso_legal">Aviso legal ↗</a>
+      ><a href="/info/aviso_legal">Aviso legal</a>
     </div>
   </div>
 </footer>
+<style>
+  .ulp-footer {
+    background: #004465;
+    color: #f5f0e6;
+    padding: 35px 0 22px;
+  }
+  .footer-original-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr 1fr;
+    align-items: center;
+    gap: 36px;
+    padding-bottom: 35px;
+    text-align: center;
+  }
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-brand img {
+    display: block;
+    width: 100px;
+    height: 82px;
+    object-fit: contain;
+  }
+  .footer-brand > a:last-child {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .footer-label {
+    display: block;
+    font:
+      9px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.65;
+    margin-bottom: 18px;
+  }
+  .footer-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .footer-social-links a {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 36px;
+    transition: transform 200ms ease;
+  }
+  .footer-social-links a:hover {
+    transform: scale(1.12);
+  }
+  .footer-social-links :global(svg) {
+    width: 21px;
+    height: 21px;
+  }
+  .footer-location h2 {
+    font-size: 18px;
+    font-weight: 650;
+    margin-bottom: 14px;
+  }
+  .footer-location a {
+    font-size: 11px;
+    line-height: 1.9;
+    opacity: 0.8;
+  }
+  .footer-brand > a:last-child:hover,
+  .footer-location a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .footer-copyright {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid rgb(245 240 230 / 0.2);
+    padding-top: 20px;
+    font-size: 10px;
+    opacity: 0.65;
+  }
+  @media (max-width: 700px) {
+    .footer-original-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .footer-copyright {
+      flex-direction: column;
+      align-items: center;
+      font-size: 9px;
+    }
+  }
+</style>
