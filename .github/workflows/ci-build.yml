@@ -4,33 +4,19 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   main:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          version: 10
-
-      - name: Restore cached npm dependencies
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            node_modules
-            ~/.cache/Cypress # needed for the Cypress binary
-          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
-
+          node-version-file: .nvmrc
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
-
-      - name: Cache npm dependencies
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            node_modules
-            ~/.cache/Cypress # needed for the Cypress binary
-          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
-
+      - run: pnpm test
       - run: pnpm build
