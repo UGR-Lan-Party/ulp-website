@@ -115,7 +115,7 @@ test('La franja avanza automáticamente y se pausa al pasar el cursor', async ({
   expect(await viewport.evaluate((element) => element.scrollLeft)).toBe(paused);
 });
 
-test('Los seis logos claros cambian de contraste al cambiar el tema', async ({
+test('Los logos de las entidades conservan su color en claro y contrastan en oscuro', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -132,7 +132,10 @@ test('Los seis logos claros cambian de contraste al cambiar el tema', async ({
   for (const name of names) {
     const image = list.locator(`[data-partner-logo="${name}"]`);
     await image.scrollIntoViewIfNeeded();
-    await expect(image).toHaveCSS('filter', 'brightness(0)');
+    await expect(image).toHaveCSS(
+      'filter',
+      ['Nacon España', 'Hackiit'].includes(name) ? 'none' : 'brightness(0)',
+    );
     await expect
       .poll(() =>
         image.evaluate((element: HTMLImageElement) => element.naturalWidth),
@@ -150,7 +153,7 @@ test('Los seis logos claros cambian de contraste al cambiar el tema', async ({
   for (const name of names) {
     await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
       'filter',
-      'brightness(0)',
+      ['Nacon España', 'Hackiit'].includes(name) ? 'none' : 'brightness(0)',
     );
   }
 });

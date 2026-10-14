@@ -135,8 +135,7 @@ const Sponsors: SponsorData[] = [
     tier: 'platinum',
     description:
       'Empresa líder en el sector del gaming, especializada en el diseño y distribución de accesorios premium para consolas y PC, así como en la edición de videojuegos. Nacon ofrece una amplia gama de productos enfocados en mejorar la experiencia y el rendimiento de los jugadores.',
-    logo: '/assets/participan/Logos/nacon.webp',
-    logoNeedsContrast: true,
+    logo: '/assets/participan/Logos/nacon-color.svg',
     cardBg: '/assets/participan/BG-Sponsors/nacon.webp',
     isSecret: false,
     bussiness: 'Videojuegos y Accesorios Gaming',
@@ -569,8 +568,7 @@ const Sponsors: SponsorData[] = [
     tier: 'bronze',
     description:
       'Grupo de entusiastas del white hacking surgido en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de la Universidad de Granada. Promueven la ciberseguridad desde un enfoque ético y práctico, fomentando el aprendizaje continuo y el intercambio de conocimiento en seguridad informática.',
-    logo: '/assets/participan/Logos/hackiit.webp',
-    logoNeedsContrast: true,
+    logo: '/assets/participan/Logos/hackiit-color.svg',
     cardBg: '/assets/participan/BG-Sponsors/hackiit.webp',
     isSecret: false,
     bussiness: 'Sala de creación y fabricación',
@@ -661,7 +659,7 @@ const Sponsors: SponsorData[] = [
     tier: 'regular',
     description:
       'La principal organización del sector del videojuego en España. Representa a toda la cadena de valor, desde desarrolladores y distribuidores hasta ligas de esports, defendiendo los intereses de la industria y promoviendo su desarrollo tecnológico y cultural.',
-    logo: '/assets/participan/Logos/aevi.webp',
+    logo: '/assets/participan/Logos/aevi-color.webp',
     cardBg: '/assets/participan/BG-Sponsors/aevi.webp',
     isSecret: false,
     bussiness: 'Asociación Sectorial',

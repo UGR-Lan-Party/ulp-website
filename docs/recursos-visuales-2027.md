@@ -189,3 +189,9 @@ Edit this exact photograph cutout for a website. Preserve the identity, facial f
 - Autoría: Nintendo. Recurso descargado el 15 de octubre de 2026, 1058 × 1194 px con canal alfa.
 - El PNG se conserva y las tarjetas sirven variantes WebP locales de 360, 720 y 1058 px. El ajuste de márgenes transparentes se calcula con `pnpm images:measure`.
 - Los emblemas nuevos de Ajedrez, Futbolín y Ping Pong son SVG elaborados para esta propuesta, en `public/assets/competitions/logos/*-2027.svg`.
+
+## Variantes a color de entidades
+
+- Hackiit: SVG aportado por la organización, guardado como `public/assets/participan/Logos/hackiit-color.svg`. Se conserva el diseño original y se omiten los comentarios de exportación.
+- Nacon: [web corporativa oficial](https://corporate.nacongaming.com/en/), SVG original en https://corporate.nacongaming.com/wp-content/uploads/2024/01/logo-nacon-bleu.svg. Guardado como `public/assets/participan/Logos/nacon-color.svg`, con su azul oscuro original y sin comentarios de exportación.
+- AEVI: [web oficial](https://aevi.org.es/), original en https://aevi.org.es/wp-content/uploads/2025/04/AEVI-logo-1-scaled.png. Guardado como `public/assets/participan/Logos/aevi-color.png`, con una variante WebP de 720 px para servirla en las tarjetas y la franja.

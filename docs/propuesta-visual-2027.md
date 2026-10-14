@@ -99,3 +99,9 @@ Ediciones anteriores muestra la historia completa sin desplegables. Cada edició
 Smash utiliza el PNG transparente de Mario de la [web oficial de Super Smash Bros. Ultimate](https://www.smashbros.com/en_US/fighter/01.html), servido con variantes WebP locales y el mismo ajuste de tamaño que el resto de ilustraciones. Ajedrez, Futbolín y Ping Pong incorporan emblemas vectoriales de la misma familia que Indie Fest y Watch Party; los siete emblemas comparten un tamaño compacto de 36 px.
 
 El texto de portada se actualiza a «El mayor evento universitario de eSports y videojuegos de toda Andalucía!» según lo solicitado.
+
+## Séptima revisión
+
+AEVI utiliza una versión original de mayor resolución con letras oscuras, conservando el rojo y amarillo del símbolo. Hackiit utiliza el SVG aportado, con sus letras negras y detalles rojos. Nacon utiliza el SVG azul oscuro de su web corporativa. Las tarjetas mantienen estas variantes sobre superficie clara en ambos temas y la franja conserva su versión blanca en modo oscuro.
+
+Los textos de localización se refieren a la ETSIIT, la Universidad de Granada y la dirección postal.
