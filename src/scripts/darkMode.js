@@ -1,57 +1,49 @@
-/* ========  themeSwitcher Mejorado ========= */
+/* ======== themeSwitcher ======== */
 document.addEventListener('DOMContentLoaded', () => {
   const themeSwitcher = document.getElementById('themeSwitcher');
   const darkLogo = document.getElementById('img-modo-oscuro');
   const lightLogo = document.getElementById('img-modo-claro');
-  const userTheme = localStorage.getItem('theme');
   const isHomePage = window.location.pathname === '/';
+  let userTheme;
+
+  // El navegador puede impedir el acceso al almacenamiento local.
+  try {
+    userTheme = localStorage.getItem('theme');
+  } catch {
+    userTheme = null;
+  }
 
   const aplicarTema = () => {
     const isDarkMode = document.documentElement.classList.contains('dark');
     const isSticky = document.body.classList.contains('sticky-active');
+    const showDarkLogo = (isHomePage && !isSticky) || isDarkMode;
 
-    if (isHomePage && !isSticky) {
-      darkLogo.classList.remove('hidden');
-      lightLogo.classList.add('hidden');
-
-    } else {
-      if (isDarkMode) {
-        darkLogo.classList.remove('hidden');
-        lightLogo.classList.add('hidden');
-      } else {
-        darkLogo.classList.add('hidden');
-        lightLogo.classList.remove('hidden');
-      }
-    }
+    darkLogo?.classList.toggle('hidden', !showDarkLogo);
+    lightLogo?.classList.toggle('hidden', showDarkLogo);
   };
 
   const themeCheck = () => {
-    if (userTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (userTheme === 'light') {
-      document.documentElement.classList.remove('dark');
-    } else {
-      if (systemTheme) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    }
-    aplicarTema(); 
-  };
+    const systemTheme = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches;
+    const isDarkMode =
+      userTheme === 'dark' || (userTheme !== 'light' && systemTheme);
 
-  const themeSwitch = () => {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem(
-      'theme',
-      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-    );
+    document.documentElement.classList.toggle('dark', isDarkMode);
     aplicarTema();
   };
 
-  if (themeSwitcher) {
-    themeSwitcher.addEventListener('click', themeSwitch);
-  }
+  const themeSwitch = () => {
+    const isDarkMode = document.documentElement.classList.toggle('dark');
 
+    try {
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    } catch {
+      // El cambio visual sigue funcionando aunque no pueda guardarse.
+    }
+    aplicarTema();
+  };
+
+  themeSwitcher?.addEventListener('click', themeSwitch);
   themeCheck();
 });
