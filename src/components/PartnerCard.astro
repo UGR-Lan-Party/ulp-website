@@ -33,9 +33,9 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
   </p><p class="partner-card-description">{partner.description}</p>
   <div class="partner-card-links">
     {
-      partner.links.map((link) => (
-        <SocialButton sponsorLink={link} monochrome compact />
-      ))
+      partner.links
+        .slice(0, 4)
+        .map((link) => <SocialButton sponsorLink={link} monochrome compact />)
     }
   </div>
 </section>

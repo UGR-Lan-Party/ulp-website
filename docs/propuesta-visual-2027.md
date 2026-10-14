@@ -36,7 +36,7 @@ Se mantienen los datos históricos de 2026 y sus inscripciones cerradas. Las act
 
 La propuesta se puede revisar en [Inicio](http://127.0.0.1:4321/), [Actividades](http://127.0.0.1:4321/actividades/), [Participan](http://127.0.0.1:4321/participan/) y [Contacto](http://127.0.0.1:4321/contacto/), [Noticias](http://127.0.0.1:4321/blog/) y [Horarios](http://127.0.0.1:4321/info/horarios/).
 
-Validación: build, recursos y rutas locales, 37 pruebas unitarias y 50 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
+Validación: build, recursos y rutas locales, 37 pruebas unitarias y 52 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
 
 ## Segunda revisión
 
@@ -133,3 +133,11 @@ Las competiciones del catálogo se ordenan por los votos de la columna «¿De qu
 El orden es Mario Kart (130), Clash Royale (117), Smash (101), Wii Sports Tenis (94), Futbolín (91), Minecraft (81), Wii Sports Bolos (81), Ajedrez (80), Brawl Stars (80), Rocket League (72) y League of Legends (71). En los empates se conserva el orden previo. Ping Pong y Hacking Ético no aparecen entre las opciones de esa columna y se muestran al final sin asignarles votos. Retos y actividades conservan su orden.
 
 Fuente local: `G:\Mi unidad\ULP\03 Organización\Encuestas\ULP 2026 - Encuesta Inicial.xlsx`. Se usa el recuento del archivo original consultado; el acta de reunión contiene un resumen con cifras diferentes. Una prueba de navegador recorre el enlace y comprueba el orden completo del catálogo.
+
+## Duodécima revisión
+
+Se revisan las redes de las 36 entidades y se añaden 34 enlaces en 18 de ellas, con un máximo de cuatro accesos por tarjeta incluyendo la web. La cafetería incorpora el Instagram confirmado por la organización. DEFC, DGE, ETSIIT, DEIIT, Hackiit, AMAT y OSL completan sus canales, entre otras entidades. Telegram y GitHub disponen de iconos blancos compactos.
+
+Las fuentes y la selección de cada entidad se recogen en `docs/redes-entidades-2027.md`. No se atribuyen cuentas generales de la Universidad o la Biblioteca a departamentos sin perfiles propios confirmados.
+
+Los titulares solicitados pasan a «Compite en tus juegos favoritos» y «Seguimos jugando en el servidor de Discord».

@@ -354,6 +354,18 @@ const Sponsors: SponsorData[] = [
         rrss: 'Web',
         link: 'https://deiit.ugr.es/',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/deiitugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/DEIITUGR',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/DEIITinforma',
+      },
     ],
   },
   {
@@ -403,6 +415,14 @@ const Sponsors: SponsorData[] = [
         rrss: 'Instagram',
         link: 'https://www.instagram.com/llaverosfrikis_/',
       },
+      {
+        rrss: 'TikTok',
+        link: 'https://www.tiktok.com/@llaverosfrikis_',
+      },
+      {
+        rrss: 'YouTube',
+        link: 'https://www.youtube.com/@LlaverosFrikis',
+      },
     ],
   },
   {
@@ -425,11 +445,11 @@ const Sponsors: SponsorData[] = [
       },
       {
         rrss: 'Instagram',
-        link: 'https://www.instagram.com/nazaries_intelligenia/',
+        link: 'https://www.instagram.com/nazaries.engineering/',
       },
       {
         rrss: 'LinkedIn',
-        link: 'https://www.linkedin.com/company/nazaries-intelligenia/',
+        link: 'https://www.linkedin.com/company/nazaries-engineering/',
       },
     ],
   },
@@ -455,6 +475,10 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'X',
         link: 'https://x.com/TheGameKitchen',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/thegamekitchen.studio/',
       },
     ],
   },
@@ -505,6 +529,10 @@ const Sponsors: SponsorData[] = [
         rrss: 'X',
         link: 'https://x.com/IctionGames',
       },
+      {
+        rrss: 'Facebook',
+        link: 'https://www.facebook.com/Iction-Games-688369954592476',
+      },
     ],
   },
   {
@@ -519,7 +547,19 @@ const Sponsors: SponsorData[] = [
     links: [
       {
         rrss: 'Web',
-        link: 'https://www.emycet.com/',
+        link: 'https://emycetviajes.com/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/emycetviajes/',
+      },
+      {
+        rrss: 'TikTok',
+        link: 'https://www.tiktok.com/@emycet.viajes',
+      },
+      {
+        rrss: 'Facebook',
+        link: 'https://www.facebook.com/Emycet',
       },
     ],
   },
@@ -544,6 +584,10 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'YouTube',
         link: 'https://www.youtube.com/@ggtechentertainment',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/ggtech_gg/',
       },
     ],
   },
@@ -576,6 +620,18 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://www.hackiit.org/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/hackiit_ugr',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/hackiit/',
+      },
+      {
+        rrss: 'GitHub',
+        link: 'https://github.com/HackiitUGR',
       },
     ],
   },
@@ -622,8 +678,16 @@ const Sponsors: SponsorData[] = [
         link: 'https://etsiit.ugr.es/',
       },
       {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/etsiitugr/',
+      },
+      {
         rrss: 'X',
-        link: 'https://x.com/etsiit_ugr',
+        link: 'https://x.com/ETSIIT_UGR',
+      },
+      {
+        rrss: 'YouTube',
+        link: 'https://www.youtube.com/@ETSIIT-youtube',
       },
     ],
   },
@@ -641,6 +705,18 @@ const Sponsors: SponsorData[] = [
         rrss: 'Web',
         link: 'https://dge.ugr.es/',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/dgeugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/dgeugr',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/dge_UGR',
+      },
     ],
   },
   {
@@ -652,7 +728,12 @@ const Sponsors: SponsorData[] = [
     cardBg: '/assets/participan/BG-Sponsors/cafeteria.webp',
     isSecret: false,
     bussiness: 'Cafetería de la ETSIIT',
-    links: [],
+    links: [
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/cafeteriaetsiit/',
+      },
+    ],
   },
   {
     name: 'AEVI',
@@ -667,6 +748,14 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://aevi.org.es/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/videojuegosAEVI',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/asociacion-espa%C3%B1ola-de-videojuegos/',
       },
     ],
   },
@@ -687,6 +776,10 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'LinkedIn',
         link: 'https://www.linkedin.com/company/granadatech',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/granadatech',
       },
     ],
   },
@@ -769,6 +862,10 @@ const Sponsors: SponsorData[] = [
         rrss: 'X',
         link: 'https://x.com/GDGGranada',
       },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/gdggranada',
+      },
     ],
   },
   {
@@ -784,6 +881,18 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://defc.ugr.es/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/defcugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/defcUGR',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/defcUGR',
       },
     ],
   },
@@ -801,6 +910,18 @@ const Sponsors: SponsorData[] = [
         rrss: 'Web',
         link: 'https://amatugr.es/',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/amat.ugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/AMATugr',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/AMATugr',
+      },
     ],
   },
   {
@@ -816,6 +937,18 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://osl.ugr.es/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/oslugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/OSLUGR',
+      },
+      {
+        rrss: 'GitHub',
+        link: 'https://github.com/oslugr',
       },
     ],
   },
@@ -857,9 +990,22 @@ const Sponsors: SponsorData[] = [
     description:
       'El Centro de Servicios de Informática y Redes de Comunicaciones de la Universidad de Granada colabora con el soporte de red para las competiciones en línea.',
     links: [
-      { rrss: 'Web', link: 'https://csirc.ugr.es/' },
-      { rrss: 'Correo', link: 'mailto:csirc@ugr.es' },
-      { rrss: 'Teléfono', link: 'tel:+34958241010' },
+      {
+        rrss: 'Web',
+        link: 'https://csirc.ugr.es/',
+      },
+      {
+        rrss: 'Correo',
+        link: 'mailto:csirc@ugr.es',
+      },
+      {
+        rrss: 'Teléfono',
+        link: 'tel:+34958241010',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/csircugr/',
+      },
     ],
   },
 ];
