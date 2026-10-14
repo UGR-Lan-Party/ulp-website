@@ -47,7 +47,7 @@ const competitionsWithoutTrophy = [
   <Breadcrumb>
     <Fragment slot="title">{competition?.name}</Fragment>
   </Breadcrumb>
-  <main class="w-full flex flex-col items-center">
+  <div class="w-full flex flex-col items-center">
     <Inscripsection
       registrationPeriodOpen={competition?.registrationPeriodOpen}
       registrationLink={competition?.registration}
@@ -132,7 +132,7 @@ const competitionsWithoutTrophy = [
           )
       }
     </section>
-  </main>
+  </div>
 </Layout>
 
 <script src="../../scripts/holoCardsInteraction.js"></script>
