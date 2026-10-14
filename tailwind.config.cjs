@@ -42,6 +42,8 @@ module.exports = {
           8: "#E5E7EB",
         },
         primary: "rgb(0, 68, 101)",
+        "brand-panel": "#0D2438",
+        "brand-panel-soft": "#1B4158",
         "blue-dark": "rgb(14, 40, 89)",
         secondary: "rgb(0, 87, 108)",
         tertiary: "rgb(0, 100, 113)",

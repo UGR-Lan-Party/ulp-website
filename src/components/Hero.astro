@@ -1,9 +1,7 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
 import { edition } from '../data/edition';
-import { getEditionPresentation } from '../utils/edition.js';
 
-const presentation = getEditionPresentation(edition);
 const showCountdown =
   edition.startsAt &&
   ['announced', 'registration-open'].includes(edition.phase);
@@ -83,13 +81,9 @@ const images = remoteImages.length
       </p>
 
       <div class="flex flex-col items-center gap-2">
-        <p class="font-bold text-center text-white text-4xl">
-          {presentation.dates}
-        </p>
+        <p class="font-bold text-center text-white text-4xl">ULP 2027</p>
 
-        <p class="mt-3 text-white/90">
-          ULP {edition.year} · {edition.number}.ª edición
-        </p>
+        <p class="mt-3 text-white/90">Próximamente ...</p>
       </div>
 
       {
@@ -140,10 +134,10 @@ const images = remoteImages.length
       }
 
       <a
-        href={presentation.action.href}
-        class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-0"
+        href="/actividades"
+        class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-8"
       >
-        {presentation.action.label}
+        Inscripciones
       </a>
 
       <div class="mt-0 flex justify-center items-center">
