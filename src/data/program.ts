@@ -13,6 +13,8 @@ export const program = [
     category: game.tag,
     href: `/actividades/${game.id}`,
     slots: game.schedule,
+    registration: game.registration,
+    registrationPeriodOpen: game.registrationPeriodOpen,
   })),
   ...data.talks.map((talk) => ({
     id: talk.id,
@@ -21,6 +23,8 @@ export const program = [
     category: 'charla',
     href: null,
     slots: [talk.slot],
+    registration: '',
+    registrationPeriodOpen: false,
   })),
 ]
   .flatMap((entry) =>

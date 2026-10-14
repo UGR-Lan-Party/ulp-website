@@ -45,6 +45,17 @@ document
     )!;
     let current = 0;
 
+    function updateRatio() {
+      if (image.naturalWidth && image.naturalHeight) {
+        root.style.setProperty(
+          '--photo-ratio',
+          String(image.naturalWidth / image.naturalHeight),
+        );
+      }
+    }
+    image.addEventListener('load', updateRatio);
+    if (image.complete) updateRatio();
+
     function show(index: number) {
       current = (index + photos.length) % photos.length;
       image.src = photos[current];

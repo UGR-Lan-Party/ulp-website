@@ -53,7 +53,19 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
           loading="lazy"
           decoding="async"
         />
-        <span class="zoom-hint" aria-hidden="true">Ampliar ↗</span>
+        <span class="zoom-hint" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M9 3H3v6m12-6h6v6m0 6v6h-6m-6 0H3v-6"></path></svg
+          >
+        </span>
       </a>
       <button
         type="button"
@@ -105,7 +117,7 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
       target="_blank"
       rel="noopener noreferrer"
       class="mt-6 inline-flex items-center rounded-xl bg-primary px-5 py-3 font-medium text-white hover:bg-tertiary focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
-      >Ver el álbum completo en Flickr</a
+      >Ver álbum completo</a
     >
   </div>
   <dialog data-carousel-dialog aria-label="Foto ampliada de UGR LAN Party">
@@ -180,9 +192,13 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    height: min(var(--carousel-height), 65vw);
-    min-height: 210px;
-    border: 1px solid #96c1d633;
+    width: min(
+      100%,
+      calc(min(var(--carousel-height), 75svh) * var(--photo-ratio, 1.5))
+    );
+    aspect-ratio: var(--photo-ratio, 1.5);
+    margin-inline: auto;
+    border: 0;
     border-radius: 1.5rem;
     background: #0d2438;
     box-shadow: 0 16px 40px #0044651a;
@@ -252,24 +268,35 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
   }
   .zoom-hint {
     right: 0.8rem;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 0.65rem;
   }
   dialog {
-    width: calc(100vw - 2rem);
+    width: min(
+      calc(100vw - 2rem),
+      calc((100svh - 2rem) * var(--photo-ratio, 1.5))
+    );
     max-width: 1440px;
-    height: calc(100svh - 2rem);
-    max-height: 1000px;
+    height: auto;
+    aspect-ratio: var(--photo-ratio, 1.5);
+    max-height: calc(100svh - 2rem);
     margin: auto;
     padding: 0;
     overflow: hidden;
-    border: 1px solid #96c1d655;
+    border: 0;
     border-radius: 1.5rem;
-    background: #061526;
+    background: transparent;
   }
   dialog::backdrop {
     background: #020b16e8;
     backdrop-filter: blur(8px);
   }
   dialog img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;

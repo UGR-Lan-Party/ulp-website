@@ -74,3 +74,28 @@ test('Los enlaces visibles del CSIRC están centrados y tienen icono', async ({
     ),
   ).toBeLessThan(2);
 });
+
+test('Los iconos de las entidades permanecen blancos al ampliar en hover y en ambos temas', async ({
+  page,
+}) => {
+  await page.goto('/participan/');
+  const links = page.locator('section[id="sponsor-card"] a');
+  for (let index = 0; index < 2; index++) {
+    expect(await links.count()).toBeGreaterThan(10);
+    const colors = await links.evaluateAll((elements) =>
+      elements.map((element) => getComputedStyle(element).color),
+    );
+    expect(colors.every((color) => color === 'rgb(255, 255, 255)')).toBe(true);
+    const instagram = links.filter({ has: page.locator('svg') }).first();
+    await instagram.hover();
+    await expect(instagram).toHaveCSS('color', 'rgb(255, 255, 255)');
+    await expect
+      .poll(() =>
+        instagram.evaluate(
+          (element) => new DOMMatrix(getComputedStyle(element).transform).a,
+        ),
+      )
+      .toBeGreaterThan(1);
+    await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  }
+});
