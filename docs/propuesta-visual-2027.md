@@ -111,3 +111,9 @@ Los textos de localización se refieren a la ETSIIT, la Universidad de Granada y
 Las imágenes frontales de Hacking Ético, League of Legends, Futbolín y F1 se desvanecen progresivamente en su parte inferior mediante una máscara CSS, conservando los archivos y la animación de profundidad. Cars reduce su tamaño al 80 % del ajuste anterior.
 
 Los motivos geométricos pasan de 16 a 48 piezas más próximas y ocupan una zona algo más amplia, con una transición suave hacia el contenido. La presentación mantiene el hueso y el footer incorpora estrellas de ocho puntas. Ambas zonas conservan una opacidad discreta del 4,5 % y los motivos son decorativos para lectores de pantalla.
+
+## Novena revisión
+
+La Universidad de Granada utiliza la marca institucional horizontal a color, descargada de Secretaría General. Se ajusta únicamente el lienzo vacío del SVG para que el símbolo y el texto se lean al tamaño de las tarjetas y de la franja de entidades.
+
+Los dos fondos decorativos usan estrellas de ocho puntas en una trama SVG que repite piezas de 64 px. El patrón cubre toda la altura de cada componente, también al crecer el contenido en móvil, sin estirar las estrellas. La opacidad permanece en el 4,5 % y el desvanecimiento se aplica solo de izquierda a derecha.

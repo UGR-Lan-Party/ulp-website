@@ -195,3 +195,10 @@ Edit this exact photograph cutout for a website. Preserve the identity, facial f
 - Hackiit: SVG aportado por la organización, guardado como `public/assets/participan/Logos/hackiit-color.svg`. Se conserva el diseño original y se omiten los comentarios de exportación.
 - Nacon: [web corporativa oficial](https://corporate.nacongaming.com/en/), SVG original en https://corporate.nacongaming.com/wp-content/uploads/2024/01/logo-nacon-bleu.svg. Guardado como `public/assets/participan/Logos/nacon-color.svg`, con su azul oscuro original y sin comentarios de exportación.
 - AEVI: [web oficial](https://aevi.org.es/), original en https://aevi.org.es/wp-content/uploads/2025/04/AEVI-logo-1-scaled.png. Guardado como `public/assets/participan/Logos/aevi-color.png`, con una variante WebP de 720 px para servirla en las tarjetas y la franja.
+
+## Universidad de Granada: marca horizontal
+
+- Fuente: [descarga oficial de identidad visual de Secretaría General](https://secretariageneral.ugr.es/informacion/servicios/identidad-visual/descarga), versión horizontal a color.
+- SVG original: https://secretariageneral.ugr.es/sites/webugr/secretariageneral/public/inline-files/UGR-MARCA-02-color.svg
+- Archivo integrado: `public/assets/participan/Logos/ugr-horizontal.svg`.
+- Se omiten comentarios del exportador y se ajusta el lienzo al contenido con margen, conservando intactos los trazados, colores y proporciones de la marca.

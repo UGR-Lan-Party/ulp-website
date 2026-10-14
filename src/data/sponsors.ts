@@ -584,7 +584,7 @@ const Sponsors: SponsorData[] = [
     tier: 'regular',
     description:
       'Universidad pública española con sede en Granada y con campus en las ciudades de Granada, Ceuta y Melilla. Reconocida como una de las 10 mejores universidades de España y entre las 500 mejores del mundo. Recibe cada año más de 2000 alumnos del programa Erasmus, siendo el destino europeo favorito.​',
-    logo: '/assets/participan/Logos/ugr.webp',
+    logo: '/assets/participan/Logos/ugr-horizontal.svg',
     cardBg: '/assets/participan/BG-Sponsors/ugr.webp',
     isSecret: false,
     bussiness: 'Universidad de Granada',
