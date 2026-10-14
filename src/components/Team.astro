@@ -4,23 +4,26 @@ import PersonCard from './PersonCard.astro';
 const teams = [
   {
     name: 'Antonio Miguel Mora',
+    editions: 8,
     description:
-      'Departamento de Teoría de la Señal, Telemática y Comunicaciones ',
+      'Departamento de Teoría de la Señal, Telemática y Comunicaciones',
     image: '/assets/team/team01.jpeg',
     linkedinLink: 'https://www.linkedin.com/in/antoniomora',
   },
   {
-    name: 'Rafael Alejandro Rodríguez',
-    description:
-      'Departamento de Teoría de la Señal, Telemática y Comunicaciones ',
-    image: '/assets/team/team02.jpeg',
-    linkedinLink: 'https://www.linkedin.com/in/rodgom',
-  },
-  {
     name: 'Marcelino José Cabrera',
+    editions: 3,
     description: 'Departamento de Lenguajes y Sistemas Informáticos',
     image: '/assets/team/team03.jpeg',
     linkedinLink: 'https://www.linkedin.com/in/marcelinocabrera',
+  },
+  {
+    name: 'Rafael Alejandro Rodríguez',
+    editions: 2,
+    description:
+      'Departamento de Teoría de la Señal, Telemática y Comunicaciones',
+    image: '/assets/team/team02.jpeg',
+    linkedinLink: 'https://www.linkedin.com/in/rodgom',
   },
 ];
 ---
@@ -47,6 +50,7 @@ const teams = [
           image={person.image}
           href={person.linkedinLink}
           network="LinkedIn"
+          badge={`${person.editions} ediciones`}
         />
       ))
     }

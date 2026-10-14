@@ -1,12 +1,12 @@
-# Propuesta visual ULP 2027
+# Web ULP 2.0
 
-Rama local: `design/propuesta-visual-2027`, creada desde `fix/agenda-galerias-identidad`. El rediseño completo se conserva localmente, pendiente de revisión y sin PR. Se han integrado las mejoras independientes de las PR #353–#357, publicadas por petición expresa: franja de entidades, contraste de logos, tamaño de iconos, accesos al horario y botón de álbum.
+Web ULP 2.0 reúne el rediseño de la web y los ajustes revisados para preparar la edición de 2027. La rama `design/propuesta-visual-2027` se apoya en `fix/boton-album-centrado` (PR #357), última rama de la pila de mejoras previas. La franja de entidades, el contraste de logos, los iconos compactos, los accesos al horario y el botón de álbum forman parte de esa base.
 
 ## Dirección visual
 
 Azules corporativos y beige claro `#F5F0E6` como superficie principal, con `#FCF8EF` para tarjetas. Se combina tipografía grande con etiquetas pequeñas, fotografía del evento, bordes finos y una jerarquía común de botones, tarjetas y secciones. El modo oscuro mantiene los mismos componentes y usa superficies azules.
 
-La portada adopta una composición editorial con fotografía, una tarjeta de 2027 y un fondo que responde suavemente al cursor. Las actividades comparten tarjetas con las ilustraciones existentes. Participan conserva las entidades y sus categorías con un diseño común; contacto, preguntas, cabeceras y pie siguen el mismo sistema.
+La portada adopta una composición editorial con fotografía, una tarjeta de 2027 y un fondo que responde suavemente al cursor. Las actividades comparten tarjetas con ilustraciones renovadas y un tamaño visual equilibrado. Participan conserva las entidades y sus categorías con un diseño común; contacto, preguntas, cabeceras y pie siguen el mismo sistema.
 
 Las animaciones incluyen entradas al hacer scroll, brillo al pasar por las tarjetas, pequeños elementos flotantes y un carrusel continuo de marcas. Son implementaciones en Astro, CSS y JavaScript inspiradas en [DreamHack](https://dreamhack.com/) y [React Bits](https://reactbits.dev/c/animations). No se añaden dependencias.
 
@@ -141,3 +141,7 @@ Se revisan las redes de las 36 entidades y se añaden 34 enlaces en 18 de ellas,
 Las fuentes y la selección de cada entidad se recogen en `docs/redes-entidades-2027.md`. No se atribuyen cuentas generales de la Universidad o la Biblioteca a departamentos sin perfiles propios confirmados.
 
 Los titulares solicitados pasan a «Compite en tus juegos favoritos» y «Seguimos jugando en el servidor de Discord».
+
+## Ajustes finales de titulares y equipo
+
+«En el servidor de Discord» conserva una sola línea y adapta el tamaño a la anchura de su columna, comprobado entre 320 y 1440 px. El equipo técnico se muestra en el orden Antonio Miguel Mora (8 ediciones), Marcelino José Cabrera (3 ediciones) y Rafael Alejandro Rodríguez (2 ediciones).

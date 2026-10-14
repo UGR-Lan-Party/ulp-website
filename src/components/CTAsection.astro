@@ -36,6 +36,8 @@ import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
     overflow: hidden;
   }
   .community-copy {
+    min-width: 0;
+    container-type: inline-size;
     padding: clamp(30px, 4.5vw, 60px);
   }
   .community-copy .design-eyebrow {
@@ -49,6 +51,9 @@ import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
     letter-spacing: -0.04em;
   }
   em {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: min(1em, 9cqi);
     font-family: Georgia, serif;
     font-weight: 400;
   }

@@ -6,8 +6,16 @@ interface Props {
   image: string;
   href: string;
   network: 'LinkedIn' | 'GitHub';
+  badge?: string;
 }
-const { name, description, image, href, network } = Astro.props;
+const {
+  name,
+  description,
+  image,
+  href,
+  network,
+  badge = network === 'LinkedIn' ? 'EQUIPO TÉCNICO' : 'DESARROLLO WEB',
+} = Astro.props;
 ---
 
 <article class="person-card" data-reveal>
@@ -19,8 +27,7 @@ const { name, description, image, href, network } = Astro.props;
       height="280"
       loading="lazy"
       decoding="async"
-    /><span>{network === 'LinkedIn' ? 'EQUIPO TÉCNICO' : 'DESARROLLO WEB'}</span
-    >
+    /><span>{badge}</span>
   </div>
   <div class="person-copy">
     <h3>{name.trim()}</h3><p>
