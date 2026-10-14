@@ -1,0 +1,96 @@
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { loadTrophy } from './ULPTrophy';
+
+export async function mountTrophy(
+  container: HTMLElement,
+  path: string,
+  signal: AbortSignal,
+) {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+  camera.position.set(15, 15, 15);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.set(0, 5, 0);
+  controls.minDistance = 10;
+  controls.maxDistance = 30;
+  controls.maxPolarAngle = Math.PI / 2;
+  scene.add(new THREE.AmbientLight(0xffffff, 5));
+  const light = new THREE.DirectionalLight(0xffffff, 10);
+  light.position.set(20, 20, 20);
+  scene.add(light);
+  let frame = 0;
+  let visible = true;
+  let disposed = false;
+  let trophy: THREE.Group;
+
+  function disposeScene() {
+    scene.traverse((child) => {
+      if (!(child instanceof THREE.Mesh)) return;
+      child.geometry.dispose();
+      const materials = Array.isArray(child.material)
+        ? child.material
+        : [child.material];
+      materials.forEach((material) => {
+        Object.values(material).forEach((value) => {
+          if (value instanceof THREE.Texture) value.dispose();
+        });
+        material.dispose();
+      });
+    });
+    controls.dispose();
+    renderer.dispose();
+    renderer.domElement.remove();
+  }
+
+  try {
+    trophy = await loadTrophy(path, signal);
+    scene.add(trophy);
+    signal.throwIfAborted();
+  } catch (error) {
+    disposeScene();
+    throw error;
+  }
+
+  container.appendChild(renderer.domElement);
+  renderer.domElement.setAttribute('aria-label', 'Trofeo 3D interactivo');
+  renderer.domElement.style.touchAction = 'pan-y';
+
+  function render() {
+    frame = 0;
+    if (disposed || !visible || document.hidden) return;
+    trophy.rotation.y += 0.005;
+    controls.update();
+    renderer.render(scene, camera);
+    frame = requestAnimationFrame(render);
+  }
+  function updateVisibility() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    if (!disposed && visible && !document.hidden) render();
+  }
+  const visibility = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    updateVisibility();
+  });
+  visibility.observe(container);
+  document.addEventListener('visibilitychange', updateVisibility);
+  const resize = new ResizeObserver(() => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+  resize.observe(container);
+  render();
+
+  return () => {
+    disposed = true;
+    cancelAnimationFrame(frame);
+    visibility.disconnect();
+    resize.disconnect();
+    document.removeEventListener('visibilitychange', updateVisibility);
+    disposeScene();
+  };
+}
