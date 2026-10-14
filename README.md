@@ -31,3 +31,9 @@ La página web usa la herramienta [Astro](https://astro.build/). Para poder usar
 ```bash
    docker run -d -p 8080:80 ulp-website:latest
 ```
+
+## Rutas de ediciones anteriores
+
+Las equivalencias se mantienen en `src/data/legacy-redirects.js`. `/inscribete` y `/competiciones` llevan al catálogo de actividades. Las fichas antiguas solo redirigen cuando existe una equivalencia directa. Los juegos retirados, como VALORANT, FC 24 o Pokémon Showdown, muestran la página 404 con acceso al programa; no se redirigen a otro juego.
+
+Astro genera páginas de redirección HTML para el sitio estático. El servidor debe servir `404.html` con estado 404 cuando una ruta no exista.
