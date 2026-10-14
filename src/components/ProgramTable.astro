@@ -1,0 +1,63 @@
+---
+import { program } from '../data/program';
+import { edition } from '../data/edition';
+---
+
+<section
+  class="container mx-auto px-4 py-12 dark:text-white"
+  aria-labelledby="program-title"
+>
+  <h2 id="program-title" class="mb-6 text-3xl font-bold">
+    Programa de ULP {edition.year}
+  </h2>
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse text-left">
+      <caption class="mb-4 text-left"
+        >Horario en Europe/Madrid. Las horas de comienzo sin fin confirmado se
+        muestran como tales.</caption
+      >
+      <thead
+        ><tr
+          ><th scope="col" class="p-3">Día</th><th scope="col" class="p-3"
+            >Horario</th
+          ><th scope="col" class="p-3">Actividad</th><th scope="col" class="p-3"
+            >Zona</th
+          ></tr
+        ></thead
+      >
+      <tbody
+        >{
+          program.map((entry) => (
+            <tr class="border-t border-gray-300">
+              <>
+                <td class="p-3">
+                  <time datetime={entry.startsAt}>
+                    {new Intl.DateTimeFormat('es-ES', {
+                      day: 'numeric',
+                      month: 'long',
+                      timeZone: edition.timezone,
+                    }).format(new Date(entry.startsAt))}
+                  </time>
+                </td>
+                <td class="p-3">{entry.time}</td>
+                <th scope="row" class="p-3 font-medium">
+                  {entry.href ? (
+                    <a href={entry.href} class="underline">
+                      {entry.name}
+                    </a>
+                  ) : (
+                    entry.name
+                  )}
+                  {entry.label && entry.label !== entry.name && (
+                    <span class="block text-sm font-normal">{entry.label}</span>
+                  )}
+                </th>
+                <td class="p-3">{entry.location}</td>
+              </>
+            </tr>
+          ))
+        }</tbody
+      >
+    </table>
+  </div>
+</section>
