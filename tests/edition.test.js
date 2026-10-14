@@ -15,7 +15,7 @@ test('Una edición sin fechas confirmadas no muestra una fecha inventada', () =>
   assert.equal(result.action.href, '/info/about');
 });
 
-test('Una edición terminada dirige al archivo', () => {
+test('La edición de 2026 dirige a los horarios', () => {
   const result = getEditionPresentation({
     year: 2026,
     phase: 'finished',
@@ -25,8 +25,8 @@ test('Una edición terminada dirige al archivo', () => {
     archiveUrl: '/ediciones/2026',
   });
   assert.deepEqual(result.action, {
-    label: 'Ver edición 2026',
-    href: '/ediciones/2026',
+    label: 'Ver horarios',
+    href: '/horarios',
   });
 });
 
@@ -48,3 +48,15 @@ for (const startsAt of ['2026-03-20T15:45:00+01:00', 'invalid']) {
     );
   });
 }
+
+test('Las demás ediciones conservan el destino de su archivo', () => {
+  const result = getEditionPresentation({
+    year: 2027,
+    phase: 'finished',
+    timezone: 'Europe/Madrid',
+    startsAt: null,
+    endsAt: null,
+    archiveUrl: '/ediciones/2027',
+  });
+  assert.equal(result.action.href, '/ediciones/2027');
+});

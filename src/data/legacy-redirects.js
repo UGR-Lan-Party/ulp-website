@@ -1,4 +1,5 @@
 export const legacyRedirects = {
+  '/horarios': '/info/horarios',
   '/201617': '/',
   '/201718': '/',
   '/201819': '/',
