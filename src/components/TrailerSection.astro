@@ -1,26 +1,42 @@
----
-import { darkStyles } from '../utils/all';
----
-
-<section
-  id="about"
-  class={`bg-gray-1 ${darkStyles} pt-10 pb-2 lg:pt-[120px] lg:pb-[70px]`}
->
-  <div class="container mx-auto px-4">
-    <div class="wow fadeInUp" data-wow-delay=".2s">
-      <div class="flex justify-center items-center">
-        <div
-          class="relative w-full max-w-[1200px] aspect-video dark:bg-white bg-[#01576C] rounded-xl p-2 shadow-2xl"
-        >
-          <iframe
-            class="w-full h-full rounded-lg"
-            src="https://www.youtube-nocookie.com/embed/WnjzXopHa_0?controls=1&rel=0&modestbranding=1"
-            title="Evento Trailer"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
+<section class="design-section design-container trailer-section">
+  <div class="design-section-header" data-reveal>
+    <div>
+      <span class="design-eyebrow">03 / Dale al play</span><h2
+        class="design-heading"
+      >
+        Un vistazo<br />desde dentro.
+      </h2>
+    </div><p>
+      Torneos, encuentros y caras conocidas.<br />Así suena un día en la ULP.
+    </p>
+  </div>
+  <div class="trailer-frame" data-reveal>
+    <iframe
+      loading="lazy"
+      src="https://www.youtube-nocookie.com/embed/WnjzXopHa_0?controls=1&rel=0"
+      title="Evento Trailer"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
   </div>
 </section>
+<style>
+  .trailer-section .design-section-header > p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .trailer-frame {
+    overflow: hidden;
+    border-radius: 22px;
+    aspect-ratio: 16/9;
+    padding: 8px;
+    border: 1px solid var(--line);
+    background: #004465;
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 14px;
+  }
+</style>

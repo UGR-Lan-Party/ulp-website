@@ -13,6 +13,17 @@ test('La franja incluye las entidades y admite rueda, clic central y teclado sin
   await page.goto('/');
   const strip = page.locator('[data-partner-strip]');
   const viewport = strip.locator('[data-partner-viewport]');
+  await expect(strip.getByRole('button')).toHaveCount(0);
+  await expect(
+    strip.locator('[data-partner-list]').first().locator('[data-partner-tier]'),
+  ).toHaveText([
+    'Diamante',
+    'Platino',
+    'Oro',
+    'Plata',
+    'Bronce',
+    'Colaboradores',
+  ]);
   const links = strip.locator('[data-partner-list]').first().getByRole('link');
   expect(await links.count()).toBeGreaterThan(30);
   await expect(
@@ -104,12 +115,14 @@ test('La franja avanza automáticamente y se pausa al pasar el cursor', async ({
   expect(await viewport.evaluate((element) => element.scrollLeft)).toBe(paused);
 });
 
-test('Los seis logos claros cambian de contraste al cambiar el tema', async ({
+test('Los logos de las entidades conservan su color en claro y contrastan en oscuro', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   const list = page.locator('[data-partner-list]').first();
+  await expect(list.locator('.mars-logo')).toHaveCSS('width', '138px');
+  await expect(list.locator('.mars-logo')).toHaveCSS('height', '38px');
   const names = [
     'Nacon España',
     'DEIIT',
@@ -121,7 +134,10 @@ test('Los seis logos claros cambian de contraste al cambiar el tema', async ({
   for (const name of names) {
     const image = list.locator(`[data-partner-logo="${name}"]`);
     await image.scrollIntoViewIfNeeded();
-    await expect(image).toHaveCSS('filter', 'brightness(0)');
+    await expect(image).toHaveCSS(
+      'filter',
+      ['Nacon España', 'Hackiit'].includes(name) ? 'none' : 'brightness(0)',
+    );
     await expect
       .poll(() =>
         image.evaluate((element: HTMLImageElement) => element.naturalWidth),
@@ -139,7 +155,7 @@ test('Los seis logos claros cambian de contraste al cambiar el tema', async ({
   for (const name of names) {
     await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
       'filter',
-      'brightness(0)',
+      ['Nacon España', 'Hackiit'].includes(name) ? 'none' : 'brightness(0)',
     );
   }
 });

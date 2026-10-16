@@ -1,0 +1,229 @@
+---
+import type { SponsorData } from '../data/sponsors';
+import PartnerLogo from './PartnerLogo.astro';
+import SocialButton from './SocialButton.astro';
+import { partnerTiers } from '../data/partner-tiers';
+interface Props {
+  partner: SponsorData;
+  index: number;
+}
+const { partner, index } = Astro.props;
+const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
+---
+
+<section
+  class="design-partner-card"
+  data-partner-card
+  data-tier={partner.tier}
+  data-reveal
+  data-spotlight
+>
+  <div class="partner-card-top">
+    <span class="partner-tier-label">{tier.name}</span><span
+      >{String(index + 1).padStart(2, '0')}</span
+    >
+  </div>
+  <div class="partner-card-logo">
+    <PartnerLogo partner={partner} surface="light" width={230} height={100} />
+  </div>
+  <h3 data-name={partner.name.trim()}>{partner.name.trim()}</h3><p
+    class="partner-card-type"
+  >
+    {partner.bussiness}
+  </p><p class="partner-card-description">{partner.description}</p>
+  <div class="partner-card-links">
+    {
+      partner.links
+        .slice(0, 4)
+        .map((link) => <SocialButton sponsorLink={link} monochrome compact />)
+    }
+  </div>
+</section>
+<style>
+  .design-partner-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    min-height: 440px;
+    padding: 25px;
+    border: 1px solid rgb(245 240 230 / 0.16);
+    border-radius: 20px;
+    border-top: 3px solid var(--tier-accent);
+    background:
+      radial-gradient(
+        220px circle at var(--pointer-x, 50%) var(--pointer-y, 0%),
+        rgb(245 240 230 / 0.1),
+        transparent
+      ),
+      #004465;
+    color: #f5f0e6;
+    overflow: hidden;
+    transition:
+      transform 300ms ease,
+      box-shadow 300ms ease;
+  }
+  .design-partner-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      420px circle at var(--pointer-x, 0%) var(--pointer-y, 50%),
+      rgb(0 100 113 / 0.7),
+      transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  .design-partner-card:hover::before,
+  .design-partner-card:focus-within::before {
+    opacity: 1;
+  }
+  .design-partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 36px rgb(0 68 101 / 0.15);
+  }
+  .partner-card-top {
+    display: flex;
+    justify-content: space-between;
+    font:
+      10px ui-monospace,
+      monospace;
+    color: var(--tier-accent);
+    margin-bottom: 20px;
+  }
+  .partner-card-logo {
+    perspective: 650px;
+    display: grid;
+    place-items: center;
+    height: 110px;
+    background: #f5f0e6;
+    box-shadow: inset 0 0 0 1px rgb(0 68 101 / 0.08);
+    border-radius: 10px;
+    margin-bottom: 24px;
+    padding: 20px;
+  }
+  .partner-card-logo :global(.partner-logo-frame) {
+    width: 100%;
+    --partner-logo-height: 70px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transform: rotateX(var(--logo-tilt-x, 0deg))
+      rotateY(var(--logo-tilt-y, 0deg)) translateZ(var(--logo-depth, 0px));
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .partner-card-logo:has(.roomy-logo) {
+    padding-inline: 8px;
+  }
+  h3 {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 750;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+    margin-bottom: 9px;
+  }
+  .partner-card-type {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: rgb(245 240 230 / 0.78);
+    text-wrap: pretty;
+    margin-bottom: 17px;
+  }
+  .partner-card-description {
+    font-size: 13px;
+    line-height: 1.75;
+    color: rgb(245 240 230 / 0.88);
+    text-wrap: pretty;
+    hyphens: auto;
+    overflow-wrap: anywhere;
+    margin-bottom: 24px;
+  }
+  .partner-card-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 18px;
+    border-top: 1px solid rgb(245 240 230 / 0.2);
+    margin-top: auto;
+  }
+  .partner-tier-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  [data-tier='diamond'] {
+    min-height: 510px;
+    padding: 30px;
+    border: 1px solid var(--tier-accent);
+    border-top-width: 4px;
+    background:
+      radial-gradient(
+        ellipse at top right,
+        rgb(184 228 236 / 0.24),
+        transparent 65%
+      ),
+      #004465;
+    box-shadow: 0 12px 36px rgb(0 68 101 / 0.12);
+  }
+  [data-tier='diamond'] .partner-card-logo {
+    height: 145px;
+  }
+  [data-tier='diamond'] .partner-card-logo :global(.partner-logo-frame) {
+    --partner-logo-height: 100px;
+  }
+  [data-tier='diamond'] h3 {
+    font-size: 29px;
+  }
+  [data-tier='platinum'] {
+    min-height: 465px;
+    border-top-width: 4px;
+    background:
+      linear-gradient(140deg, rgb(215 225 231 / 0.12), transparent), #004465;
+  }
+  [data-tier='platinum'] .partner-card-logo {
+    height: 125px;
+  }
+  [data-tier='silver'],
+  [data-tier='bronze'] {
+    min-height: 420px;
+  }
+  [data-tier='regular'] {
+    min-height: 380px;
+    padding: 20px;
+    border-top-width: 1px;
+  }
+  [data-tier='regular'] h3 {
+    font-size: 20px;
+  }
+  [data-tier='regular'] .partner-card-logo {
+    height: 95px;
+    margin-bottom: 20px;
+  }
+  [data-tier='regular'] .partner-card-logo :global(.partner-logo-frame) {
+    --partner-logo-height: 60px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .design-partner-card,
+    .design-partner-card::before {
+      transition: none;
+    }
+    .design-partner-card:hover {
+      transform: none;
+    }
+    .partner-card-logo :global(.partner-logo-frame) {
+      transform: none;
+      transition: none;
+    }
+  }
+  @media (max-width: 700px) {
+    [data-tier='diamond'] {
+      min-height: 460px;
+      padding: 25px;
+    }
+  }
+</style>

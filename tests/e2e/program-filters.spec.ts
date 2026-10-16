@@ -33,7 +33,7 @@ test('Los filtros del programa se combinan y se pueden restablecer', async ({
     await expect(row).toHaveAttribute('data-location', location!);
     await expect(row).toHaveAttribute('data-day', day!);
   }
-  await form.getByRole('button', { name: 'Restablecer' }).click();
+  await form.getByRole('button', { name: 'Restablecer', exact: true }).click();
   await expect(rows).toHaveCount(total);
 });
 
@@ -50,7 +50,9 @@ test('Una búsqueda con HTML se trata como texto y ofrece recuperación', async 
     await page.evaluate(() => (window as any).ulpInjected),
   ).toBeUndefined();
   await expect(program.locator('img')).toHaveCount(0);
-  await program.getByRole('button', { name: 'Restablecer' }).click();
+  await program
+    .getByRole('button', { name: 'Restablecer', exact: true })
+    .click();
   await expect(program.locator('[data-program-empty]')).not.toBeVisible();
 });
 
@@ -112,6 +114,28 @@ test('El acceso de una actividad de 2026 lleva al programa completo', async ({
   await link.click();
   await expect(page).toHaveURL(/\/info\/horarios\/?$/);
   await expect(
-    page.getByRole('heading', { name: 'Programa de ULP 2026' }),
+    page.getByRole('heading', { name: 'Programa ULP 2026' }),
   ).toBeVisible();
+});
+
+test('La agenda alterna el fondo entre actividades visibles al filtrar', async ({
+  page,
+}) => {
+  await page.goto('/info/horarios/');
+  const program = page.locator('[data-program]');
+  for (const search of ['', 'a']) {
+    await program
+      .getByRole('search')
+      .getByLabel('Actividad', { exact: true })
+      .fill(search);
+    await page.mouse.move(0, 0);
+    const colors = await program
+      .locator('[data-program-row]:visible')
+      .evaluateAll((rows) =>
+        rows.slice(0, 6).map((row) => getComputedStyle(row).backgroundColor),
+      );
+    expect(colors.length).toBeGreaterThan(2);
+    for (let index = 1; index < colors.length; index++)
+      expect(colors[index]).not.toBe(colors[index - 1]);
+  }
 });

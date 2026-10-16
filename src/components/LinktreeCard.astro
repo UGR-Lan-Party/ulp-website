@@ -1,0 +1,173 @@
+---
+import LinktreeIcon from '../../public/assets/icons/LinktreeIcon.astro';
+import GranadaAccent from './GranadaAccent.astro';
+---
+
+<section
+  class="linktree-section design-container"
+  aria-label="La comunidad ULP en Linktree"
+>
+  <a
+    class="linktree-card"
+    href="https://linktr.ee/ulpugr"
+    target="_blank"
+    rel="noopener noreferrer"
+    data-spotlight
+  >
+    <GranadaAccent id="linktree-stars" />
+    <span class="linktree-symbol" aria-hidden="true"><LinktreeIcon /></span>
+    <span class="linktree-copy">
+      <span class="linktree-eyebrow">La próxima partida empieza aquí</span>
+      <strong>Un enlace.<br />Toda la ULP.</strong>
+      <span class="linktree-description"
+        >Encuentra nuestras redes y no te pierdas lo que viene.</span
+      >
+    </span>
+    <span class="linktree-action">
+      Abre Linktree <span aria-hidden="true">↗</span>
+    </span>
+  </a>
+</section>
+<style>
+  .linktree-section {
+    padding-block: 8px 32px;
+  }
+  .linktree-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(24px, 4vw, 48px);
+    min-height: 230px;
+    padding: clamp(28px, 4vw, 44px);
+    border: 1px solid rgb(245 240 230 / 0.18);
+    border-radius: 24px;
+    background:
+      radial-gradient(
+        420px circle at var(--pointer-x, 0%) var(--pointer-y, 50%),
+        rgb(0 100 113 / 0.7),
+        transparent 80%
+      ),
+      linear-gradient(115deg, #004465, #063349);
+    box-shadow: 0 16px 36px rgb(0 68 101 / 0.1);
+    color: #f5f0e6;
+  }
+  .linktree-card :global(.granada-accent) {
+    opacity: 0.075;
+    z-index: -1;
+  }
+  .linktree-symbol {
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border: 1px solid rgb(245 240 230 / 0.35);
+    border-radius: 24px;
+    background: rgb(245 240 230 / 0.08);
+    box-shadow: 0 8px 0 rgb(0 26 43 / 0.22);
+    transform: rotate(-6deg);
+    transition:
+      background 250ms ease,
+      transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .linktree-symbol :global(svg) {
+    width: 52px;
+    height: 52px;
+  }
+  .linktree-copy {
+    display: grid;
+    justify-items: start;
+    gap: 12px;
+  }
+  .linktree-eyebrow {
+    font:
+      9px/1.5 ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(245 240 230 / 0.72);
+  }
+  .linktree-copy strong {
+    font-size: clamp(30px, 3.1vw, 42px);
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+  .linktree-description {
+    max-width: 40ch;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgb(245 240 230 / 0.8);
+  }
+  .linktree-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 48px;
+    padding: 13px 18px;
+    border-radius: 10px;
+    background: #f5f0e6;
+    color: #004465;
+    font-size: 12px;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+  .linktree-action > span {
+    transition: transform 250ms ease;
+  }
+  .linktree-card:hover .linktree-symbol,
+  .linktree-card:focus-visible .linktree-symbol {
+    background: rgb(245 240 230 / 0.14);
+    transform: rotate(3deg) translateY(-4px);
+  }
+  .linktree-card:hover .linktree-action > span,
+  .linktree-card:focus-visible .linktree-action > span {
+    transform: translate(2px, -2px);
+  }
+  @media (max-width: 700px) {
+    .linktree-card {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 24px 20px;
+      padding: 28px 24px;
+    }
+    .linktree-symbol {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      align-self: start;
+      margin-top: 5px;
+    }
+    .linktree-symbol :global(svg) {
+      width: 36px;
+      height: 36px;
+    }
+    .linktree-action {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 380px) {
+    .linktree-card {
+      grid-template-columns: 1fr;
+    }
+    .linktree-copy strong {
+      font-size: 32px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .linktree-symbol,
+    .linktree-action > span {
+      transition: none;
+    }
+    .linktree-card:hover .linktree-symbol,
+    .linktree-card:focus-visible .linktree-symbol {
+      transform: rotate(-6deg);
+    }
+    .linktree-card:hover .linktree-action > span,
+    .linktree-card:focus-visible .linktree-action > span {
+      transform: none;
+    }
+  }
+</style>

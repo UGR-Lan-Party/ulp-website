@@ -1,209 +1,457 @@
 ---
+import { getActivityNeighbors } from '../../utils/activity-navigation';
 import { programEdition } from '../../data/program';
 import Layout from '../../layouts/Layout.astro';
-import Breadcrumb from '../../components/layout/Breadcrumb.astro';
-import CompetitionCard from '../../components/CompetitionCardHolographic.astro';
+import ActivitySummary from '../../components/ActivitySummary.astro';
+import HolographicCard from '../../components/CompetitionCardHolographic.astro';
 import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
-import { darkStyles } from '../../utils/all';
 import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
-
-import type {
-  CompetitionData,
-  CompetitionCardData,
-} from '../../data/competitions-data.ts';
-import {
-  Competitions,
-  CompetitionsCards,
-} from '../../data/competitions-data.ts';
+import { Competitions, CompetitionsCards } from '../../data/competitions-data';
+import type { CompetitionData } from '../../data/competitions-data';
 import CompetitionTimePlace from '../../components/CompetitionTimePlace.astro';
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import Inscripsection from '../../components/Inscripsection.astro';
+import TournamentMatchups from '../../components/TournamentMatchups.astro';
+import { getTournament } from '../../data/tournaments';
 
-// Generate a new path for every collection entry
-export async function getStaticPaths() {
-  return Competitions.map((compe) => ({
-    params: { id: compe.id },
-    props: { compe },
+export function getStaticPaths() {
+  return Competitions.map((competition) => ({
+    params: { id: competition.id },
+    props: { competition },
   }));
 }
-
-const { id } = Astro.params;
-
-const competition: CompetitionData | undefined = Competitions.find(
-  (competition) => competition.id === id,
+interface Props {
+  competition: CompetitionData;
+}
+const { competition } = Astro.props;
+const tournament = getTournament(competition.id);
+const neighbors = getActivityNeighbors(competition.id, competition.tag);
+const artwork = CompetitionsCards.find((card) => card.id === competition.id);
+const categories: Record<string, string> = {
+  competicion: 'Competición',
+  reto: 'Reto',
+  actividad: 'Actividad',
+};
+const category = categories[competition.tag] ?? 'Actividad';
+const catalogSections: Record<string, string> = {
+  competicion: 'competiciones',
+  reto: 'retos',
+  actividad: 'actividades',
+};
+const catalogSection = catalogSections[competition.tag] ?? 'actividades';
+const hasAwards = Object.values(competition.awards ?? {}).some(
+  (awards) => awards.length > 0,
 );
-
-const competitionCard: CompetitionCardData | undefined = CompetitionsCards.find(
-  (competition) => competition.id === id,
-);
-
-const competitionsWithoutTrophy = [
-  'retro',
-  'street-fighter',
-  'beat-saber',
-  'hacking',
-];
+const hasRewards = Boolean(competition.trophy || hasAwards);
 ---
 
-<Layout description="UGR LAN Party" title={competition?.name}>
-  <Breadcrumb>
-    <Fragment slot="title">{competition?.name}</Fragment>
-  </Breadcrumb>
-  <div class="w-full flex flex-col items-center">
-    <Inscripsection activityId={competition?.id} activityYear={programEdition.year}
-      registrationPeriodOpen={competition?.registrationPeriodOpen}
-      registrationLink={competition?.registration}
-      participantsLink={competition?.participants}
-      background_img={competition?.backgroundImage}
-    />
-    <section
-      class="flex flex-col my-10 mx-10 xl:flex-row justify-center w-full gap-20 items-center"
-    >
-      {
-        competitionCard && (
-          <div class="flex flex-col gap-6">
-            <CompetitionCard competition={competitionCard} holographic={true} />
-            <h4 class="full-effect-text">Carta holográfica interactiva</h4>
-          </div>
-        )
-      }
-      <div class="flex flex-col gap-6">
-        <h3
-          class="text-center text-3xl font-bold md:leading-[1.44] text-dark dark:text-white md:text-[38px]"
-        >
-          {competition?.tag === 'actividad' ? 'Descripción' : 'Normas'}
-        </h3>
-        {
-          competition?.tag === 'actividad' ? (
-            competition?.description ? (
-              <p class="text-center w-full px-8 md:px-4 md:text-lg md:max-w-[600px] text-gray-600 dark:text-gray-300">
-                {competition.description}
-              </p>
-            ) : (
-              <p class="text-center text-gray-400 italic">Próximamente...</p>
+<Layout
+  title={competition.name}
+  description={competition.description ||
+    `Horarios, ubicación, normas y premios de ${competition.name} en ULP ${programEdition.year}.`}
+>
+  <article class="activity-page">
+    <header class="activity-header design-container">
+      <nav class="activity-breadcrumb" aria-label="Ruta de navegación">
+        <a href="/">Inicio</a><span aria-hidden="true">/</span>
+        <a href="/actividades">Actividades</a><span aria-hidden="true">/</span>
+        <span aria-current="page">{competition.name}</span>
+      </nav>
+      <div class="activity-hero">
+        <div class="activity-introduction">
+          <span class="design-eyebrow"
+            >{category} · ULP {programEdition.year}</span
+          >
+          <h1>{competition.name}</h1>
+          {
+            competition.description && (
+              <p class="activity-description">{competition.description}</p>
             )
-          ) : competition?.rules && competition.rules !== '' ? (
-            <a
-              href={competition?.rules}
-              data-analytics-event="rules-click"
-              data-analytics-edition={programEdition.year}
-              data-analytics-activity={competition?.id}
-              class="inline-flex items-center justify-center py-3 z-10 text-base
-        font-medium text-center text-white border border-primary
-        rounded-md px-7 bg-primary shadow-lg hover:bg-blue-dark
-        hover:border-blue-dark"
-            >
-              {' '}
-              Consultar Reglas y Formato
-            </a>
-          ) : (
-            <p class="text-center text-gray-400 italic">Próximamente...</p>
+          }
+          <div class="activity-actions">
+            {
+              competition.rules && (
+                <a
+                  class="design-button"
+                  href={competition.rules}
+                  data-analytics-event="rules-click"
+                  data-analytics-edition={programEdition.year}
+                  data-analytics-activity={competition.id}
+                >
+                  Consultar Reglas y Formato <span aria-hidden="true">↗</span>
+                </a>
+              )
+            }
+            {
+              hasRewards && (
+                <a class="design-link" href="#premios">
+                  Trofeo y premios <span aria-hidden="true">↓</span>
+                </a>
+              )
+            }
+            {
+              tournament && (
+                <a class="design-link" href="#emparejamientos">
+                  {tournament.brackets.length ||
+                  tournament.groups.some((group) => group.matches.length)
+                    ? 'Ver emparejamientos'
+                    : tournament.tables.length
+                      ? 'Ver resultados'
+                      : 'Consultar torneo'}{' '}
+                  <span aria-hidden="true">↓</span>
+                </a>
+              )
+            }
+            {
+              !competition.rules && !hasRewards && (
+                <a class="design-link" href="#informacion">
+                  Dónde y cuándo <span aria-hidden="true">↓</span>
+                </a>
+              )
+            }
+          </div>
+        </div>
+        {
+          artwork && (
+            <div class="activity-art">
+              {neighbors && (
+                <a
+                  class="activity-previous activity-step"
+                  href={`/actividades/${neighbors.previous.id}`}
+                  aria-label={`Anterior: ${neighbors.previous.name}`}
+                  title={neighbors.previous.name}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    aria-hidden="true"
+                  >
+                    <path d="m14 6-6 6 6 6" />
+                  </svg>
+                </a>
+              )}
+              <HolographicCard competition={artwork} />
+              {neighbors && (
+                <a
+                  class="activity-next activity-step"
+                  href={`/actividades/${neighbors.next.id}`}
+                  aria-label={`Siguiente: ${neighbors.next.name}`}
+                  title={neighbors.next.name}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    aria-hidden="true"
+                  >
+                    <path d="m10 6 6 6-6 6" />
+                  </svg>
+                </a>
+              )}
+            </div>
           )
         }
       </div>
-      <CompetitionTimePlace
-        place={competition?.place ?? ''}
-        time={competition?.schedule ?? []}
+      <ActivitySummary competition={competition} />
+    </header>
+    <div class="design-container">
+      <Inscripsection
+        activityId={competition.id}
+        activityYear={programEdition.year}
+        registrationPeriodOpen={competition.registrationPeriodOpen}
+        registrationLink={competition.registration}
+        participantsLink={competition.participants}
       />
-    </section>
-    <section
-      class={`w-full flex flex-col gap-6 items-center bg-gray-1 ${darkStyles}`}
-    >
+      <section
+        id="informacion"
+        class="activity-information"
+        aria-labelledby="activity-information-title"
+      >
+        <div class="activity-section-copy">
+          <span class="design-eyebrow">01 / Prepara tu visita</span>
+          <h2 id="activity-information-title">Dónde y cuándo.</h2>
+          <a class="design-link" href="/info/localizacion"
+            >Cómo llegar a la ETSIIT <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <CompetitionTimePlace
+          place={competition.place}
+          time={competition.schedule}
+        />
+      </section>
       {
-        competition?.trophy &&
-          typeof competition?.awards === 'object' &&
-          Object.keys(competition.awards).length > 0 && (
-            <div class="w-full">
-              <h2 class="text-4xl text-center font-bold text-dark dark:text-white mt-16">
-                Premios
-              </h2>
-              {competition?.trophy && (
-                <div class="relative flex flex-col gap-2 w-full items-center">
-                  <ULPTrophyCanvas trophy={competition?.trophy ?? ''} />
-                  <h4 class="full-effect-text m-0">
-                    Vista del trofeo
-                  </h4>
-                </div>
-              )}
-
-              {typeof competition?.awards === 'object' &&
-                Object.keys(competition.awards).length > 0 && (
-                  <CompetitionAwardsSection
-                    competitionAwards={competition.awards}
+        hasRewards && (
+          <section
+            id="premios"
+            class="activity-rewards"
+            aria-labelledby="activity-rewards-title"
+          >
+            <header class="activity-rewards-heading">
+              <div>
+                <span class="design-eyebrow">02 / El podio ULP</span>
+                <h2 id="activity-rewards-title">Trofeo y premios.</h2>
+              </div>
+              <span class="activity-edition">
+                Edición {programEdition.year}
+              </span>
+            </header>
+            {competition.trophy && (
+              <div class="trophy-showcase">
+                {artwork && (
+                  <ResponsiveImage
+                    src={artwork.card}
+                    alt=""
+                    class="trophy-backdrop"
+                    sizes="(max-width: 760px) 100vw, 1240px"
                   />
                 )}
-            </div>
-          )
+                <div class="trophy-heading">
+                  <h3>Trofeo {competition.name}</h3>
+                  <span>El recuerdo de la partida</span>
+                </div>
+                <ULPTrophyCanvas
+                  trophy={competition.trophy}
+                  label={`Trofeo ${competition.name}`}
+                  background={artwork?.card}
+                />
+              </div>
+            )}
+            {hasAwards && competition.awards && (
+              <CompetitionAwardsSection
+                competitionAwards={competition.awards}
+              />
+            )}
+          </section>
+        )
       }
-    </section>
-  </div>
+      <TournamentMatchups activityId={competition.id} />
+      <div class="activity-ending">
+        <span class="design-eyebrow">Siempre hay otra partida</span>
+        <a class="design-link" href={`/actividades#${catalogSection}`}
+          >Volver al catálogo <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </div>
+  </article>
 </Layout>
-
-<script src="../../scripts/holoCardsInteraction.js"></script>
-
 <style>
-  .full-effect-text {
-    font-size: 1.25rem;
-    font-weight: bold;
-    text-align: center;
-    color: rgb(77, 181, 202);
-    animation: opacity-pulse 3s ease-in-out infinite;
+  .activity-header {
+    padding-top: 122px;
+    padding-bottom: 42px;
   }
-
-  @keyframes blue-theme-animation {
-    0% {
-      background-position: 0% center;
-    }
-    100% {
-      background-position: 200% center;
-    }
+  .activity-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font:
+      10px/1.6 ui-monospace,
+      monospace;
+    color: var(--muted);
+    margin-bottom: 34px;
   }
-
-  @keyframes opacity-pulse {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  .activity-breadcrumb a:hover {
+    color: var(--ink);
   }
-
-  @keyframes blue-shadow-pulse {
-    0% {
-      text-shadow: 0 0 4px rgba(0, 68, 101, 0.8);
-    }
-    50% {
-      text-shadow: 0 0 18px rgba(38, 158, 188, 1);
-    }
-    100% {
-      text-shadow: 0 0 4px rgba(0, 68, 101, 0.8);
-    }
+  .activity-breadcrumb [aria-current] {
+    color: var(--ink);
   }
-
-  .pulse-effect {
-    width: 0rem;
-    height: 0rem;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: interaction-pulse 4s linear infinite;
+  .activity-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(32px, 6vw, 90px);
+    align-items: center;
   }
-
-  @keyframes interaction-pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+  .activity-introduction {
+    min-width: 0;
+  }
+  .activity-introduction .design-eyebrow {
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-size: clamp(42px, 5.8vw, 78px);
+    font-weight: 800;
+    line-height: 1.03;
+    letter-spacing: -0.05em;
+    overflow-wrap: anywhere;
+  }
+  .activity-description {
+    max-width: 48ch;
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .activity-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 30px;
+  }
+  .activity-actions .design-button {
+    min-height: 48px;
+    padding: 13px 18px;
+    gap: 16px;
+  }
+  .activity-art {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    padding: 12px 44px;
+  }
+  .activity-step {
+    position: absolute;
+    z-index: 3;
+    top: calc(50% - 22px);
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--paper) 85%, transparent);
+    opacity: 0.6;
+    transition:
+      opacity 180ms ease,
+      background 180ms ease;
+  }
+  .activity-step:hover,
+  .activity-step:focus-visible {
+    opacity: 1;
+    background: var(--surface);
+  }
+  .activity-step:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .activity-previous {
+    left: 0;
+  }
+  .activity-next {
+    right: 0;
+  }
+  .activity-information {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr);
+    gap: clamp(28px, 4vw, 60px);
+    align-items: center;
+    padding-block: 56px;
+    scroll-margin-top: 110px;
+  }
+  h2 {
+    font-size: clamp(30px, 3.2vw, 42px);
+    font-weight: 750;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+  .activity-section-copy h2 {
+    margin-top: 15px;
+    margin-bottom: 24px;
+  }
+  .activity-rewards {
+    padding-block: 36px 52px;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 110px;
+  }
+  .activity-rewards-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .activity-rewards-heading h2 {
+    margin-top: 15px;
+  }
+  .activity-edition {
+    font:
+      10px/1.5 ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .trophy-showcase {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 24px;
+    border: 1px solid rgb(245 240 230 / 0.16);
+    border-radius: 24px;
+    background: #062d43;
+    color: #f5f0e6;
+    margin-bottom: 38px;
+  }
+  .trophy-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.09;
+    filter: saturate(0.15);
+    pointer-events: none;
+  }
+  .trophy-showcase :global([data-trophy-status]),
+  .trophy-showcase :global(noscript p) {
+    color: rgb(245 240 230 / 0.65);
+  }
+  .trophy-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .trophy-heading h3 {
+    font-size: 16px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+  .trophy-heading > span {
+    color: rgb(245 240 230 / 0.65);
+    font:
+      9px/1.6 ui-monospace,
+      monospace;
+  }
+  .activity-ending {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-block: 28px 44px;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 760px) {
+    .activity-header {
+      padding-top: 104px;
+      padding-bottom: 28px;
     }
-    20% {
-      box-shadow: 0 0 0 350px rgba(0, 0, 0, 0);
+    .activity-hero,
+    .activity-information {
+      grid-template-columns: minmax(0, 1fr);
     }
-    80% {
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    .activity-hero {
+      gap: 28px;
     }
-    100% {
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    .activity-art {
+      padding-inline: 42px;
+    }
+    .activity-information {
+      padding-block: 36px;
+    }
+    .trophy-showcase {
+      padding: 18px;
     }
   }
 </style>

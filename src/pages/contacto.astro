@@ -2,14 +2,13 @@
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Layout from '../layouts/Layout.astro';
 import Contactsection from '../components/Contactsection.astro';
+import PressSection from '../components/PressSection.astro';
 ---
 
-<Layout
-  description="UGR LAN Party"
-  title="Contacto"
->
+<Layout description="UGR LAN Party" title="Contacto">
   <Breadcrumb>
     <Fragment slot="title">Contacto</Fragment>
   </Breadcrumb>
   <Contactsection />
+  <PressSection />
 </Layout>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  id: string;
+  side?: 'left' | 'right';
+}
+const { id, side = 'right' } = Astro.props;
+---
+
+<svg
+  class:list={['granada-accent', { mirrored: side === 'left' }]}
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <pattern id={id} width="64" height="64" patternUnits="userSpaceOnUse">
+      <path
+        fill="currentColor"
+        d="M32 0 41.4 9.4H54.6V22.6L64 32 54.6 41.4V54.6H41.4L32 64 22.6 54.6H9.4V41.4L0 32 9.4 22.6V9.4H22.6Z"
+      ></path>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill={`url(#${id})`}></rect>
+</svg>
+<style>
+  .granada-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: clamp(320px, 45vw, 640px);
+    height: 100%;
+    opacity: 0.045;
+    mask-image: linear-gradient(to right, transparent, black 75%);
+    pointer-events: none;
+  }
+  .mirrored {
+    right: auto;
+    left: 0;
+    transform: scaleX(-1);
+  }
+</style>

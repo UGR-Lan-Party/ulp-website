@@ -1,5 +1,7 @@
 ---
 import type { RRSSLink } from '../data/sponsors.ts';
+import TelegramIcon from '../../public/assets/icons/TelegramIcon.astro';
+import GitHubIcon from '../../public/assets/icons/GitHubIcon.astro';
 import XIcon from '../../public/assets/icons/XIcon.astro';
 import FacebookIcon from '../../public/assets/icons/FacebookIcon.astro';
 import InstagramIcon from '../../public/assets/icons/InstagramIcon.astro';
@@ -37,6 +39,8 @@ const supported = [
   'TikTok',
   'YouTube',
   'Web',
+  'Telegram',
+  'GitHub',
   'Correo',
   'Teléfono',
 ].includes(sponsorLink.rrss);
@@ -63,6 +67,8 @@ const hoverClass = hoverColors[sponsorLink.rrss] ?? 'hover:text-primary';
           hover:scale-110`}
     >
       {sponsorLink.rrss === 'X' && <XIcon />}
+      {sponsorLink.rrss === 'Telegram' && <TelegramIcon />}
+      {sponsorLink.rrss === 'GitHub' && <GitHubIcon />}
       {sponsorLink.rrss === 'Facebook' && <FacebookIcon />}
       {sponsorLink.rrss === 'Web' && <WebIcon />}
       {sponsorLink.rrss === 'Instagram' && <InstagramIcon />}

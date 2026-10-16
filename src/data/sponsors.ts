@@ -3,7 +3,9 @@ export interface SponsorData {
   tier: string;
   logo: string;
   logoNeedsContrast?: boolean;
-  logoHasBackground?: boolean;
+  logoWhiteDetails?: boolean;
+  logoWhite?: string;
+  logoWhiteFilter?: string;
   cardBg: string | null;
   isSecret: boolean;
   bussiness: string;
@@ -134,8 +136,7 @@ const Sponsors: SponsorData[] = [
     tier: 'platinum',
     description:
       'Empresa líder en el sector del gaming, especializada en el diseño y distribución de accesorios premium para consolas y PC, así como en la edición de videojuegos. Nacon ofrece una amplia gama de productos enfocados en mejorar la experiencia y el rendimiento de los jugadores.',
-    logo: '/assets/participan/Logos/nacon.webp',
-    logoNeedsContrast: true,
+    logo: '/assets/participan/Logos/nacon-color.svg',
     cardBg: '/assets/participan/BG-Sponsors/nacon.webp',
     isSecret: false,
     bussiness: 'Videojuegos y Accesorios Gaming',
@@ -164,6 +165,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Departamento de Lenguajes y Sistemas Informáticos de la Universidad. Fundado en 1989, imparte docencia en 20 grados y 15 másteres, en materias relacionadas con la ingeniería del software, sistemas operativos, metodologías de desarrollo, ingeniería web, sistemas gráficos, concurrentes, distribuidos, bases de datos...',
     logo: '/assets/participan/Logos/lsi.webp',
+    logoWhiteFilter: 'partner-white-outline',
     cardBg: '/assets/participan/BG-Sponsors/lsi.webp',
     isSecret: false,
     bussiness: 'Departamento de la UGR',
@@ -226,6 +228,7 @@ const Sponsors: SponsorData[] = [
     name: 'GRANAJOVEN ',
     tier: 'gold',
     logo: '/assets/participan/Logos/concejalia-juventud.webp',
+    logoWhiteDetails: true,
     cardBg: '/assets/participan/BG-Sponsors/granaJoven.webp',
     isSecret: false,
     bussiness: 'Concejalía de Juventud Ayto. de Granada',
@@ -328,6 +331,7 @@ const Sponsors: SponsorData[] = [
     description:
       'El Departamento de Teoría de la Señal, Telemática y Comunicaciones (TSTC) de la Universidad de Granada fue creado en el curso 2004/2005, estando adscritas al mismo las áreas de conocimiento de Ingeniería Telemática (IT) y de Teoría de la Señal y Comunicaciones (TSC).',
     logo: '/assets/participan/Logos/logo-tstc.webp',
+    logoWhite: '/img/patrons/orgs/tstc-white.png',
     cardBg: '/assets/participan/BG-Sponsors/tstc.webp',
     isSecret: false,
     bussiness: 'Departamento de la UGR',
@@ -352,6 +356,18 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://deiit.ugr.es/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/deiitugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/DEIITUGR',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/DEIITinforma',
       },
     ],
   },
@@ -390,6 +406,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Tienda online especializada en productos frikis impresos en 3D y encargos personalizados. Diseñamos y fabricamos llaveros y artículos únicos, combinando creatividad, calidad y producción propia para ofrecer regalos originales y totalmente personalizados.',
     logo: '/assets/participan/Logos/llaverosfrikis.webp',
+    logoWhiteFilter: 'partner-white-lettering',
     cardBg: '/assets/participan/BG-Sponsors/llaverosFrikis.webp',
     isSecret: false,
     bussiness: 'Tienda objetos 3D personalizados',
@@ -401,6 +418,14 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Instagram',
         link: 'https://www.instagram.com/llaverosfrikis_/',
+      },
+      {
+        rrss: 'TikTok',
+        link: 'https://www.tiktok.com/@llaverosfrikis_',
+      },
+      {
+        rrss: 'YouTube',
+        link: 'https://www.youtube.com/@LlaverosFrikis',
       },
     ],
   },
@@ -424,11 +449,11 @@ const Sponsors: SponsorData[] = [
       },
       {
         rrss: 'Instagram',
-        link: 'https://www.instagram.com/nazaries_intelligenia/',
+        link: 'https://www.instagram.com/nazaries.engineering/',
       },
       {
         rrss: 'LinkedIn',
-        link: 'https://www.linkedin.com/company/nazaries-intelligenia/',
+        link: 'https://www.linkedin.com/company/nazaries-engineering/',
       },
     ],
   },
@@ -455,6 +480,10 @@ const Sponsors: SponsorData[] = [
         rrss: 'X',
         link: 'https://x.com/TheGameKitchen',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/thegamekitchen.studio/',
+      },
     ],
   },
   {
@@ -463,6 +492,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Destino predilecto para los aficionados al karting y la velocidad en Granada. Con instalaciones de primera línea diseñadas para ofrecer la máxima emoción y seguridad, este circuito para poner a prueba tanto a principiantes como a pilotos experimentados.',
     logo: '/assets/participan/Logos/formula-karting.webp',
+    logoWhiteFilter: 'partner-white-cutout',
     cardBg: '/assets/participan/BG-Sponsors/formulaKarting.webp',
     isSecret: false,
     bussiness: 'Circuito indoor de karts en Granada',
@@ -504,6 +534,10 @@ const Sponsors: SponsorData[] = [
         rrss: 'X',
         link: 'https://x.com/IctionGames',
       },
+      {
+        rrss: 'Facebook',
+        link: 'https://www.facebook.com/Iction-Games-688369954592476',
+      },
     ],
   },
   {
@@ -518,7 +552,19 @@ const Sponsors: SponsorData[] = [
     links: [
       {
         rrss: 'Web',
-        link: 'https://www.emycet.com/',
+        link: 'https://emycetviajes.com/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/emycetviajes/',
+      },
+      {
+        rrss: 'TikTok',
+        link: 'https://www.tiktok.com/@emycet.viajes',
+      },
+      {
+        rrss: 'Facebook',
+        link: 'https://www.facebook.com/Emycet',
       },
     ],
   },
@@ -544,6 +590,10 @@ const Sponsors: SponsorData[] = [
         rrss: 'YouTube',
         link: 'https://www.youtube.com/@ggtechentertainment',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/ggtech_gg/',
+      },
     ],
   },
   {
@@ -567,8 +617,7 @@ const Sponsors: SponsorData[] = [
     tier: 'bronze',
     description:
       'Grupo de entusiastas del white hacking surgido en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de la Universidad de Granada. Promueven la ciberseguridad desde un enfoque ético y práctico, fomentando el aprendizaje continuo y el intercambio de conocimiento en seguridad informática.',
-    logo: '/assets/participan/Logos/hackiit.webp',
-    logoNeedsContrast: true,
+    logo: '/assets/participan/Logos/hackiit-color.svg',
     cardBg: '/assets/participan/BG-Sponsors/hackiit.webp',
     isSecret: false,
     bussiness: 'Sala de creación y fabricación',
@@ -577,6 +626,18 @@ const Sponsors: SponsorData[] = [
         rrss: 'Web',
         link: 'https://www.hackiit.org/',
       },
+      {
+        rrss: 'X',
+        link: 'https://x.com/hackiit_ugr',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/hackiit/',
+      },
+      {
+        rrss: 'GitHub',
+        link: 'https://github.com/HackiitUGR',
+      },
     ],
   },
   {
@@ -584,7 +645,7 @@ const Sponsors: SponsorData[] = [
     tier: 'regular',
     description:
       'Universidad pública española con sede en Granada y con campus en las ciudades de Granada, Ceuta y Melilla. Reconocida como una de las 10 mejores universidades de España y entre las 500 mejores del mundo. Recibe cada año más de 2000 alumnos del programa Erasmus, siendo el destino europeo favorito.​',
-    logo: '/assets/participan/Logos/ugr.webp',
+    logo: '/assets/participan/Logos/ugr-horizontal.svg',
     cardBg: '/assets/participan/BG-Sponsors/ugr.webp',
     isSecret: false,
     bussiness: 'Universidad de Granada',
@@ -622,8 +683,16 @@ const Sponsors: SponsorData[] = [
         link: 'https://etsiit.ugr.es/',
       },
       {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/etsiitugr/',
+      },
+      {
         rrss: 'X',
-        link: 'https://x.com/etsiit_ugr',
+        link: 'https://x.com/ETSIIT_UGR',
+      },
+      {
+        rrss: 'YouTube',
+        link: 'https://www.youtube.com/@ETSIIT-youtube',
       },
     ],
   },
@@ -641,6 +710,18 @@ const Sponsors: SponsorData[] = [
         rrss: 'Web',
         link: 'https://dge.ugr.es/',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/dgeugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/dgeugr',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/dge_UGR',
+      },
     ],
   },
   {
@@ -652,14 +733,19 @@ const Sponsors: SponsorData[] = [
     cardBg: '/assets/participan/BG-Sponsors/cafeteria.webp',
     isSecret: false,
     bussiness: 'Cafetería de la ETSIIT',
-    links: [],
+    links: [
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/cafeteriaetsiit/',
+      },
+    ],
   },
   {
     name: 'AEVI',
     tier: 'regular',
     description:
       'La principal organización del sector del videojuego en España. Representa a toda la cadena de valor, desde desarrolladores y distribuidores hasta ligas de esports, defendiendo los intereses de la industria y promoviendo su desarrollo tecnológico y cultural.',
-    logo: '/assets/participan/Logos/aevi.webp',
+    logo: '/assets/participan/Logos/aevi-color.webp',
     cardBg: '/assets/participan/BG-Sponsors/aevi.webp',
     isSecret: false,
     bussiness: 'Asociación Sectorial',
@@ -667,6 +753,14 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://aevi.org.es/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/videojuegosAEVI',
+      },
+      {
+        rrss: 'LinkedIn',
+        link: 'https://www.linkedin.com/company/asociacion-espa%C3%B1ola-de-videojuegos/',
       },
     ],
   },
@@ -687,6 +781,10 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'LinkedIn',
         link: 'https://www.linkedin.com/company/granadatech',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/granadatech',
       },
     ],
   },
@@ -724,7 +822,6 @@ const Sponsors: SponsorData[] = [
     description:
       'Federación nacional que representa y defiende los intereses de los jugadores de videojuegos y esports en España. Su objetivo es profesionalizar el sector, promover el juego responsable y fomentar la competición saludable a través de eventos y formación.',
     logo: '/assets/participan/Logos/fejuves.webp',
-    logoHasBackground: true,
     cardBg: '/assets/participan/BG-Sponsors/fejuves.webp',
     isSecret: false,
     bussiness: 'Federación de Esports y Videojuegos',
@@ -769,6 +866,10 @@ const Sponsors: SponsorData[] = [
         rrss: 'X',
         link: 'https://x.com/GDGGranada',
       },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/gdggranada',
+      },
     ],
   },
   {
@@ -784,6 +885,18 @@ const Sponsors: SponsorData[] = [
       {
         rrss: 'Web',
         link: 'https://defc.ugr.es/',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/defcugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/defcUGR',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/defcUGR',
       },
     ],
   },
@@ -801,6 +914,18 @@ const Sponsors: SponsorData[] = [
         rrss: 'Web',
         link: 'https://amatugr.es/',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/amat.ugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/AMATugr',
+      },
+      {
+        rrss: 'Telegram',
+        link: 'https://t.me/AMATugr',
+      },
     ],
   },
   {
@@ -817,6 +942,18 @@ const Sponsors: SponsorData[] = [
         rrss: 'Web',
         link: 'https://osl.ugr.es/',
       },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/oslugr/',
+      },
+      {
+        rrss: 'X',
+        link: 'https://x.com/OSLUGR',
+      },
+      {
+        rrss: 'GitHub',
+        link: 'https://github.com/oslugr',
+      },
     ],
   },
   {
@@ -825,6 +962,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Laboratorio de radio digital universitaria de la Universidad de Granada. Un espacio experimental y abierto que sirve como plataforma de comunicación para la comunidad académica y la ciudadanía, fomentando la divulgación científica y cultural.',
     logo: '/assets/participan/Logos/radioLab.webp',
+    logoWhiteFilter: 'partner-white-radio',
     cardBg: '/assets/participan/BG-Sponsors/radiolab.webp',
     isSecret: false,
     bussiness: 'Radio y Medio de Comunicación UGR',
@@ -851,15 +989,29 @@ const Sponsors: SponsorData[] = [
     name: 'CSIRC',
     tier: 'regular',
     logo: '/assets/participan/Logos/csirc.webp',
+    logoWhite: '/img/patrons/orgs/csirc-white.png',
     cardBg: null,
     isSecret: false,
     bussiness: 'Servicio de la Universidad de Granada',
     description:
       'El Centro de Servicios de Informática y Redes de Comunicaciones de la Universidad de Granada colabora con el soporte de red para las competiciones en línea.',
     links: [
-      { rrss: 'Web', link: 'https://csirc.ugr.es/' },
-      { rrss: 'Correo', link: 'mailto:csirc@ugr.es' },
-      { rrss: 'Teléfono', link: 'tel:+34958241010' },
+      {
+        rrss: 'Web',
+        link: 'https://csirc.ugr.es/',
+      },
+      {
+        rrss: 'Correo',
+        link: 'mailto:csirc@ugr.es',
+      },
+      {
+        rrss: 'Teléfono',
+        link: 'tel:+34958241010',
+      },
+      {
+        rrss: 'Instagram',
+        link: 'https://www.instagram.com/csircugr/',
+      },
     ],
   },
 ];

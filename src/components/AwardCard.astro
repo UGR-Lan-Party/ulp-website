@@ -1,399 +1,271 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
+type AwardPosition = 'first' | 'second' | 'third' | 'mvp';
 interface Props {
-  position: string;
+  position: AwardPosition;
   awards: string[];
 }
-const { position, awards } = Astro.props as Props;
-
-type TierKey = 'first' | 'second' | 'third' | 'mvp';
-
-const tierConfig: Record<
-  TierKey,
-  {
-    label: string;
-    color: string;
-    glowRgb: string;
-    badge: string;
-    rank: string;
-    xlClass: string;
-    stars: boolean;
-  }
-> = {
+const { position, awards } = Astro.props;
+const tiers = {
   first: {
     label: 'Campeón',
-    color: '#FFD700',
-    glowRgb: '255,215,0',
-    badge: '/assets/competitions/medals/ulp-gold-badge.png',
     rank: '1ST',
-    xlClass: '',
-    stars: true,
+    accent: '#ebc96b',
+    badge: '/assets/competitions/medals/ulp-gold-badge.png',
   },
   second: {
     label: '2º Puesto',
-    color: '#C0C0C0',
-    glowRgb: '192,192,192',
-    badge: '/assets/competitions/medals/ulp-silver-badge.png',
     rank: '2ND',
-    xlClass: 'xl:top-28 xl:translate-x-[-370px]',
-    stars: false,
+    accent: '#c2d7e0',
+    badge: '/assets/competitions/medals/ulp-silver-badge.png',
   },
   third: {
     label: '3º Puesto',
-    color: '#CD7F32',
-    glowRgb: '205,127,50',
-    badge: '/assets/competitions/medals/ulp-bronze-badge.png',
     rank: '3RD',
-    xlClass: 'xl:top-48 xl:translate-x-[370px]',
-    stars: false,
+    accent: '#dfa276',
+    badge: '/assets/competitions/medals/ulp-bronze-badge.png',
   },
   mvp: {
     label: 'MVP',
-    color: '#A78BFA',
-    glowRgb: '167,139,250',
-    badge: '/assets/competitions/medals/ulp-mvp-badge.png',
     rank: 'MVP',
-    xlClass: '',
-    stars: true,
+    accent: '#c2a6f3',
+    badge: '/assets/competitions/medals/ulp-mvp-badge.png',
   },
 };
-
-const tier = tierConfig[position as TierKey];
-const cssColor = tier?.color ?? '#ffffff';
-const cssGlow = tier?.glowRgb ?? '255,255,255';
+const tier = tiers[position];
 ---
 
-<div
-  class:list={['award-card', `award-card--${position}`, tier?.xlClass ?? '']}
-  style={`--tier-color: ${cssColor}; --tier-glow: ${cssGlow};`}
+<section
+  class:list={['award-card', `award-card--${position}`]}
+  style={`--award-accent:${tier.accent}`}
+  aria-label={tier.label}
 >
-  <!-- Scanlines overlay -->
-  <div class="scanlines" aria-hidden="true"></div>
-
-  <!-- Corner decorations -->
-  <span class="corner corner--tl" aria-hidden="true"></span>
-  <span class="corner corner--tr" aria-hidden="true"></span>
-  <span class="corner corner--bl" aria-hidden="true"></span>
-  <span class="corner corner--br" aria-hidden="true"></span>
-
-  <!-- Rank badge top -->
-  <div class="rank-tag">
-    <span class="rank-tag__label">{tier?.rank}</span>
-  </div>
-
-  <!-- Medal image -->
-  <div class="badge-wrap">
-    {
-      tier?.stars && (
-        <>
-          <span class="star star--1" aria-hidden="true">
-            ✦
-          </span>
-          <span class="star star--2" aria-hidden="true">
-            ✦
-          </span>
-          <span class="star star--3" aria-hidden="true">
-            ✦
-          </span>
-        </>
-      )
-    }
+  <span class="award-corner top-left" aria-hidden="true"></span>
+  <span class="award-corner top-right" aria-hidden="true"></span>
+  <span class="award-corner bottom-left" aria-hidden="true"></span>
+  <span class="award-corner bottom-right" aria-hidden="true"></span>
+  <span class="award-rank" aria-hidden="true">{tier.rank}</span>
+  <div class="award-emblem">
+    <span class="award-spark spark-one" aria-hidden="true">✦</span>
+    <span class="award-spark spark-two" aria-hidden="true">✦</span>
+    <span class="award-spark spark-three" aria-hidden="true">✦</span>
     <ResponsiveImage
-      class="badge-img"
-      src={tier?.badge ?? ''}
-      alt={`Medalla ${tier?.label}`}
-      loading="lazy"
+      class="award-medal"
+      src={tier.badge}
+      alt=""
+      sizes="160px"
     />
   </div>
-
-  <!-- Position title -->
-  <p class="position-title">{tier?.label}</p>
-
-  <!-- Divider -->
-  <div class="pixel-divider" aria-hidden="true"></div>
-
-  <!-- Loot box / prize -->
-
-
-  <!-- Awards list (uncomment when ready) -->
-  {
-    awards.length > 0 && (
-      <ul class="awards-list">
-        {awards.map((award) => (
-          <li class="awards-list__item">
-            <span class="awards-list__bullet" aria-hidden="true">
-              ▸
-            </span>
-            {award}
-          </li>
-        ))}
-      </ul>
-    )
-  }
-</div>
-
+  <h3>{tier.label}</h3>
+  <div class="award-divider" aria-hidden="true"></div>
+  <ul class="awards-list">
+    {awards.map((award) => <li>{award}</li>)}
+  </ul>
+</section>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap');
-
+  @font-face {
+    font-family: 'ULP Arcade';
+    src: url('/assets/fonts/press-start-2p/PressStart2P-Regular.ttf')
+      format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
   .award-card {
     position: relative;
-    width: 320px;
-    min-height: 420px;
-    margin: 2rem 1rem;
-    padding: 1rem 1.25rem 1.5rem;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    /* Pixel-art style border via box-shadow stacking */
-    background-color: #0a0a12;
-    border: 2px solid var(--tier-color);
-    border-radius: 4px;
-    box-shadow:
-      0 0 0 2px #0a0a12,
-      0 0 0 4px var(--tier-color),
-      0 0 0 6px #0a0a12,
-      0 0 32px rgba(var(--tier-glow), 0.35),
-      0 0 64px rgba(var(--tier-glow), 0.15),
-      inset 0 0 40px rgba(var(--tier-glow), 0.06);
-
-    overflow: hidden;
     isolation: isolate;
-    color: #fff;
-    font-family: 'Orbitron', monospace;
+    min-width: 0;
+    padding: 26px 28px 32px;
+    border: 1px solid color-mix(in srgb, var(--award-accent) 65%, transparent);
+    border-radius: 6px;
+    background:
+      radial-gradient(
+        ellipse at 50% 25%,
+        color-mix(in srgb, var(--award-accent) 12%, transparent),
+        transparent 65%
+      ),
+      #062d43;
+    color: #f5f0e6;
+    box-shadow:
+      0 0 0 3px #062d43,
+      0 0 0 4px color-mix(in srgb, var(--award-accent) 22%, transparent),
+      0 16px 38px rgb(0 30 48 / 0.15);
+    text-align: center;
+    transition: box-shadow 250ms ease;
   }
-
-  /* XL absolute positioning (preserving original layout) */
-  @media (min-width: 1280px) {
-    .award-card {
-      position: absolute;
-    }
-  }
-
-  /* ─── Scanlines ─── */
-  .scanlines {
+  .award-card::before {
+    content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent 3px,
-      rgba(0, 0, 0, 0.18) 3px,
-      rgba(0, 0, 0, 0.18) 4px
-    );
-    pointer-events: none;
-    z-index: 1;
     border-radius: inherit;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      transparent 0 3px,
+      rgb(0 8 20 / 0.12) 3px 4px
+    );
+    z-index: -1;
   }
-
-  /* ─── Pixel corners ─── */
-  .corner {
+  .award-card:hover {
+    box-shadow:
+      0 0 0 3px #062d43,
+      0 0 0 4px var(--award-accent),
+      0 12px 40px color-mix(in srgb, var(--award-accent) 18%, transparent);
+  }
+  .award-corner {
     position: absolute;
-    width: 12px;
-    height: 12px;
-    border-color: var(--tier-color);
-    border-style: solid;
-    z-index: 2;
+    width: 14px;
+    height: 14px;
+    border: solid var(--award-accent);
+    pointer-events: none;
   }
-  .corner--tl {
-    top: 6px;
-    left: 6px;
+  .top-left {
+    top: 7px;
+    left: 7px;
     border-width: 2px 0 0 2px;
   }
-  .corner--tr {
-    top: 6px;
-    right: 6px;
+  .top-right {
+    top: 7px;
+    right: 7px;
     border-width: 2px 2px 0 0;
   }
-  .corner--bl {
-    bottom: 6px;
-    left: 6px;
+  .bottom-left {
+    bottom: 7px;
+    left: 7px;
     border-width: 0 0 2px 2px;
   }
-  .corner--br {
-    bottom: 6px;
-    right: 6px;
+  .bottom-right {
+    bottom: 7px;
+    right: 7px;
     border-width: 0 2px 2px 0;
   }
-
-  /* ─── Rank tag ─── */
-  .rank-tag {
+  .award-rank {
+    display: inline-block;
+    padding: 8px 12px;
+    background: var(--award-accent);
+    color: #062d43;
+    font:
+      10px/1.5 'ULP Arcade',
+      monospace;
+    clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  }
+  .award-emblem {
     position: relative;
-    z-index: 3;
-    margin-top: 0.5rem;
-    padding: 3px 10px;
-    background: var(--tier-color);
-    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    width: 190px;
+    max-width: 100%;
+    margin: 12px auto 2px;
   }
-  .rank-tag__label {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
-    color: #0a0a12;
-    letter-spacing: 0.05em;
-  }
-
-  /* ─── Badge ─── */
-  .badge-wrap {
-    position: relative;
-    z-index: 3;
-    margin-top: -2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .badge-img {
-    width: 170px;
+  .award-medal {
+    width: 160px;
+    height: 160px;
+    margin-inline: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 14px rgba(var(--tier-glow), 0.7));
-    animation: badge-float 3s ease-in-out infinite;
+    filter: drop-shadow(
+      0 0 16px color-mix(in srgb, var(--award-accent) 35%, transparent)
+    );
+    animation: medal-float 3.5s ease-in-out infinite;
   }
-  @keyframes badge-float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-8px);
-    }
+  .award-card--second .award-medal {
+    animation-delay: -1s;
   }
-
-  /* ─── Sparkle stars (first / mvp only) ─── */
-  .star {
-    position: absolute;
-    color: var(--tier-color);
-    font-size: 12px;
-    opacity: 0;
-    animation: star-blink 2s ease-in-out infinite;
+  .award-card--third .award-medal {
+    animation-delay: -2s;
   }
-  .star--1 {
-    top: 10px;
-    left: 20px;
-    animation-delay: 0s;
+  h3 {
+    font:
+      12px/1.9 'ULP Arcade',
+      monospace;
+    color: var(--award-accent);
+    overflow-wrap: anywhere;
+    animation: title-glow 3s ease-in-out infinite;
   }
-  .star--2 {
-    top: 4px;
-    right: 24px;
-    animation-delay: 0.7s;
-  }
-  .star--3 {
-    top: 30px;
-    right: 10px;
-    animation-delay: 1.4s;
-  }
-  @keyframes star-blink {
-    0%,
-    100% {
-      opacity: 0;
-      transform: scale(0.6) rotate(0deg);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.2) rotate(20deg);
-    }
-  }
-
-  /* ─── Position title ─── */
-  .position-title {
-    position: relative;
-    z-index: 3;
-    margin-top: 0.5rem;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    color: var(--tier-color);
-    text-shadow:
-      0 0 8px rgba(var(--tier-glow), 0.8),
-      0 0 20px rgba(var(--tier-glow), 0.4);
-    animation: title-pulse 2.5s ease-in-out infinite;
-  }
-  @keyframes title-pulse {
-    0%,
-    100% {
-      text-shadow:
-        0 0 8px rgba(var(--tier-glow), 0.8),
-        0 0 20px rgba(var(--tier-glow), 0.4);
-    }
-    50% {
-      text-shadow:
-        0 0 14px rgba(var(--tier-glow), 1),
-        0 0 36px rgba(var(--tier-glow), 0.6);
-    }
-  }
-
-  /* ─── Pixel divider ─── */
-  .pixel-divider {
-    position: relative;
-    z-index: 3;
-    width: 80%;
+  .award-divider {
     height: 2px;
-    margin: 0.75rem 0;
+    margin: 22px 0;
     background: repeating-linear-gradient(
       to right,
-      var(--tier-color) 0px,
-      var(--tier-color) 6px,
-      transparent 6px,
-      transparent 10px
+      var(--award-accent) 0 5px,
+      transparent 5px 10px
     );
-    opacity: 0.6;
+    opacity: 0.45;
   }
-
-  /* ─── Prize section ─── */
-  .prize-wrap {
-    position: relative;
-    z-index: 3;
+  .awards-list {
+    display: grid;
+    gap: 12px;
+    text-align: left;
+  }
+  .awards-list li {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgb(245 240 230 / 0.9);
+    overflow-wrap: anywhere;
   }
-  .loot-gif {
-    width: 130px;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(var(--tier-glow), 0.5));
+  .awards-list li::before {
+    content: '▸';
+    color: var(--award-accent);
+    flex-shrink: 0;
   }
-  .prize-hint {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.06em;
-    text-align: center;
-    animation: blink-hint 1.4s step-end infinite;
+  .award-spark {
+    position: absolute;
+    color: var(--award-accent);
+    font-size: 17px;
+    animation: sparkle 3.2s ease-in-out infinite;
   }
-  @keyframes blink-hint {
+  .spark-one {
+    left: 6px;
+    top: 24px;
+  }
+  .spark-two {
+    right: 10px;
+    top: 8px;
+    animation-delay: -1.2s;
+  }
+  .spark-three {
+    right: 0;
+    bottom: 28px;
+    animation-delay: -2.2s;
+    font-size: 11px;
+  }
+  @keyframes medal-float {
     0%,
     100% {
-      opacity: 0.4;
+      transform: translateY(0) rotate(-2deg);
     }
     50% {
-      opacity: 0;
+      transform: translateY(-8px) rotate(2deg);
     }
   }
-
-  /* ─── Awards list (future use) ─── */
-  .awards-list {
-    position: relative;
-    z-index: 3;
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0 0;
-    width: 85%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  @keyframes sparkle {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(0.7);
+    }
+    50% {
+      opacity: 0.95;
+      transform: scale(1.15) rotate(15deg);
+    }
   }
-  .awards-list__item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-family: 'Orbitron', monospace;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.5;
+  @keyframes title-glow {
+    0%,
+    100% {
+      text-shadow: 0 0 5px
+        color-mix(in srgb, var(--award-accent) 15%, transparent);
+    }
+    50% {
+      text-shadow: 0 0 16px
+        color-mix(in srgb, var(--award-accent) 55%, transparent);
+    }
   }
-  .awards-list__bullet {
-    color: var(--tier-color);
-    flex-shrink: 0;
-    margin-top: 1px;
+  @media (prefers-reduced-motion: reduce) {
+    .award-medal,
+    .award-spark,
+    h3 {
+      animation: none;
+    }
+    .award-card {
+      transition: none;
+    }
   }
 </style>

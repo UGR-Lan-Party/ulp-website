@@ -1,5 +1,6 @@
 ---
 import type { SponsorData } from '../data/sponsors';
+import logoLayouts from '../data/partner-logo-layout.json';
 interface Props {
   partner: SponsorData;
   surface?: 'theme' | 'light' | 'dark';
@@ -14,38 +15,122 @@ const {
   height = 32,
   decorative = false,
 } = Astro.props;
+const layout = logoLayouts[partner.name.trim() as keyof typeof logoLayouts];
+const layoutStyle = layout
+  ? `--logo-aspect:${layout.aspect};--logo-image-width:${layout.imageWidth}%;--logo-image-height:${layout.imageHeight}%;--logo-left:${layout.left}%;--logo-top:${layout.top}%`
+  : undefined;
 ---
 
-<img
-  src={partner.logo}
-  alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
-  width={width}
-  height={height}
-  loading="lazy"
-  data-partner-logo={partner.name.trim()}
-  data-surface={surface}
+<span
   class:list={[
-    'partner-logo',
+    'partner-logo-frame',
     {
-      'needs-contrast': partner.logoNeedsContrast,
-      'has-background': partner.logoHasBackground,
+      'roomy-logo': partner.name.trim() === 'UGR',
+      'mars-logo': partner.name.trim() === 'Mars Gaming',
     },
   ]}
-/>
+  style={`--default-logo-width:${width}px;--default-logo-height:${height}px`}
+>
+  <span
+    class:list={['partner-logo-content', { normalized: Boolean(layout) }]}
+    style={layoutStyle}
+  >
+    <img
+      src={partner.logo}
+      alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
+      width={width}
+      height={height}
+      loading="lazy"
+      data-partner-logo={partner.name.trim()}
+      data-surface={surface}
+      style={partner.logoWhiteFilter
+        ? `--logo-dark-filter:url(#${partner.logoWhiteFilter})`
+        : undefined}
+      class:list={[
+        'partner-logo',
+        {
+          'needs-contrast': partner.logoNeedsContrast,
+          'white-details': partner.logoWhiteDetails,
+          'has-white-variant': Boolean(partner.logoWhite),
+        },
+      ]}
+    />
+    {
+      partner.logoWhite && (
+        <img
+          src={partner.logoWhite}
+          alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
+          width={width}
+          height={height}
+          loading="lazy"
+          data-partner-white-logo={partner.name.trim()}
+          data-surface={surface}
+          class="partner-logo white-variant"
+        />
+      )
+    }
+  </span>
+</span>
 <style>
+  .partner-logo-frame {
+    display: grid;
+    place-items: center;
+    width: var(--default-logo-width);
+    height: var(--partner-logo-height, var(--default-logo-height));
+    max-width: 100%;
+  }
+  .partner-logo-content {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .partner-logo-content.normalized {
+    width: min(
+      100%,
+      calc(
+        var(--partner-logo-height, var(--default-logo-height)) *
+          var(--logo-aspect)
+      )
+    );
+    height: auto;
+    aspect-ratio: var(--logo-aspect);
+  }
+  .normalized .partner-logo {
+    position: absolute;
+    left: var(--logo-left);
+    top: var(--logo-top);
+    width: var(--logo-image-width);
+    height: var(--logo-image-height);
+    max-width: none;
+  }
   .partner-logo {
     display: block;
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
   }
   .needs-contrast[data-surface='light'],
   .needs-contrast[data-surface='theme'] {
     filter: brightness(0);
   }
-  .partner-logo[data-surface='dark']:not(.has-background) {
-    filter: brightness(0) invert(1);
+  .white-details[data-surface='light'],
+  .white-details[data-surface='theme'] {
+    filter: url(#partner-white-details);
   }
-  :global(.dark) .partner-logo[data-surface='theme']:not(.has-background) {
-    filter: brightness(0) invert(1);
+  .partner-logo[data-surface='dark'],
+  :global(.dark) .partner-logo[data-surface='theme'] {
+    filter: var(--logo-dark-filter, brightness(0) invert(1));
+  }
+  .white-variant,
+  .has-white-variant[data-surface='dark'],
+  :global(.dark) .has-white-variant[data-surface='theme'] {
+    display: none;
+  }
+  .white-variant[data-surface='dark'],
+  :global(.dark) .white-variant[data-surface='theme'] {
+    display: block;
+    filter: none;
   }
 </style>

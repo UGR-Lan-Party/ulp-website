@@ -1,0 +1,153 @@
+---
+import program from '../data/program-2026.json';
+import metrics from '../data/home-metrics.json';
+import { partners } from '../data/sponsors';
+import PeopleIcon from './icons/bootstrap/PeopleIcon.astro';
+import ControllerIcon from './icons/bootstrap/ControllerIcon.astro';
+import BuildingsIcon from './icons/bootstrap/BuildingsIcon.astro';
+import EyeIcon from './icons/bootstrap/EyeIcon.astro';
+
+const format = new Intl.NumberFormat('es-ES');
+const views = metrics.sources.reduce(
+  (total, source) => total + source.views,
+  0,
+);
+const statistics = [
+  {
+    value: `+${metrics.attendeesMinimum}`,
+    label: 'asistentes',
+    Icon: PeopleIcon,
+  },
+  {
+    value: format.format(program.games.length),
+    label: 'actividades',
+    Icon: ControllerIcon,
+  },
+  {
+    value: format.format(new Set(partners.map((partner) => partner.name)).size),
+    label: 'entidades',
+    Icon: BuildingsIcon,
+  },
+  { value: format.format(views), label: 'visualizaciones', Icon: EyeIcon },
+];
+---
+
+<section class="event-stats design-container" aria-labelledby="stats-title">
+  <div class="stats-heading">
+    <h2 id="stats-title">La ULP, <em>en cifras.</em></h2>
+    <span>Lo que pasa cuando jugamos juntos.</span>
+  </div>
+  <dl class="stats-grid">
+    {
+      statistics.map(({ value, label, Icon }) => (
+        <div class="stat" data-reveal>
+          <dt>
+            <>
+              <Icon />
+              <span>{label}</span>
+            </>
+          </dt>
+          <dd>{value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+<style>
+  .event-stats {
+    padding-block: 28px 58px;
+  }
+  .stats-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-size: clamp(27px, 3vw, 40px);
+    font-weight: 750;
+    line-height: 1.15;
+  }
+  h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .stats-heading > span {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0;
+    border-block: 1px solid var(--line);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 30px 25px;
+    border-left: 1px solid var(--line);
+  }
+  .stat:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .stat:last-child {
+    padding-right: 0;
+  }
+  dt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+  dt :global(svg) {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    opacity: 0.75;
+  }
+  dd {
+    order: -1;
+    font-size: clamp(30px, 3.6vw, 52px);
+    font-weight: 750;
+    letter-spacing: -0.055em;
+    line-height: 1.2;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 800px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .stat:nth-child(3) {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .stat:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+    .stat:nth-child(2) {
+      padding-right: 0;
+    }
+    dd {
+      font-size: clamp(29px, 6vw, 48px);
+    }
+  }
+  @media (max-width: 420px) {
+    .stat {
+      padding: 25px 16px;
+    }
+    dt {
+      font-size: 11px;
+      gap: 8px;
+    }
+    dt :global(svg) {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>

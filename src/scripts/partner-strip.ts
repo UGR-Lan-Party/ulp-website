@@ -5,9 +5,6 @@ document
       '[data-partner-viewport]',
     )!;
     const list = root.querySelector<HTMLElement>('[data-partner-list]')!;
-    const controls = root.querySelector<HTMLElement>(
-      '[data-partner-controls]',
-    )!;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     let hovered = false;
     let focused = false;
@@ -16,7 +13,6 @@ document
     let lastTime = 0;
     let fractionalDistance = 0;
     let stopped = false;
-    controls.hidden = false;
 
     function move(distance: number) {
       const width = list.offsetWidth;
@@ -105,15 +101,6 @@ document
       event.preventDefault();
       move((event.key === 'ArrowLeft' ? -1 : 1) * 180);
     });
-    root
-      .querySelectorAll<HTMLButtonElement>('[data-partner-step]')
-      .forEach((button) => {
-        button.addEventListener('click', () =>
-          move(
-            Number(button.dataset.partnerStep) * viewport.clientWidth * 0.65,
-          ),
-        );
-      });
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       update();

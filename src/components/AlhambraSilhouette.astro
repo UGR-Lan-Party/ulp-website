@@ -1,0 +1,56 @@
+<svg
+  class="alhambra-silhouette"
+  viewBox="0 45 600 270"
+  preserveAspectRatio="xMidYMid meet"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <filter
+      id="alhambra-linework"
+      x="0"
+      y="0"
+      width="100%"
+      height="100%"
+      color-interpolation-filters="sRGB"
+    >
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -.2126 -.7152 -.0722 0 1"
+        result="linework"></feColorMatrix>
+      <feComponentTransfer in="linework" result="ink">
+        <feFuncA type="linear" slope="3"></feFuncA>
+      </feComponentTransfer>
+      <feFlood flood-color="currentColor"></feFlood>
+      <feComposite in2="ink" operator="in"></feComposite>
+    </filter>
+  </defs>
+  <image
+    href="/assets/about/alhambra-sketch.jpg"
+    width="600"
+    height="400"
+    filter="url(#alhambra-linework)"
+    transform="translate(-60 -36) scale(1.2)"
+  />
+</svg>
+<style>
+  .alhambra-silhouette {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: #004465;
+    opacity: 0.14;
+    mask-image: linear-gradient(
+      black 10%,
+      rgb(0 0 0 / 0.7) 48%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+  :global(.dark) .alhambra-silhouette {
+    color: #008b99;
+    opacity: 0.22;
+  }
+</style>

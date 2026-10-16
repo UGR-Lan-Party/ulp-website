@@ -1,0 +1,128 @@
+---
+import HorarioViernes from './HorarioViernes.astro';
+import HorarioSabado from './HorarioSabado.astro';
+---
+
+<section class="official-program-section design-container">
+  <details class="official-program" data-official-program>
+    <summary>
+      <span
+        ><span class="official-eyebrow">EL PROGRAMA, AL DETALLE</span><strong
+          >Programa oficial ULP 2026</strong
+        ><span class="official-description"
+          >Charlas, encuentros y momentos de cada jornada.</span
+        ></span
+      >
+      <span class="official-toggle"
+        ><span class="official-open-label">Desplegar programa</span><span
+          class="official-close-label">Ocultar programa</span
+        ><svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg
+        ></span
+      >
+    </summary>
+    <div class="official-program-content">
+      <HorarioViernes /><HorarioSabado />
+    </div>
+  </details>
+</section>
+<script>
+  document
+    .querySelectorAll<HTMLDetailsElement>('[data-official-program]')
+    .forEach((details) => {
+      details.addEventListener('toggle', () =>
+        document.dispatchEvent(new Event('ulp:official-program-toggle')),
+      );
+    });
+</script>
+<style>
+  .official-program-section {
+    padding-block: 0 48px;
+  }
+  .official-program {
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: clip;
+    background: var(--surface);
+    color: var(--ink);
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 30px;
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: -6px;
+  }
+  summary > span:first-child {
+    display: grid;
+    gap: 10px;
+  }
+  .official-eyebrow {
+    font:
+      9px/1.5 ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  strong {
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+  .official-description {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .official-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #004465;
+    color: #f5f0e6;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .official-close-label {
+    display: none;
+  }
+  details[open] .official-open-label {
+    display: none;
+  }
+  details[open] .official-close-label {
+    display: inline;
+  }
+  details[open] .official-toggle svg {
+    transform: rotate(180deg);
+  }
+  .official-program-content {
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 600px) {
+    summary {
+      flex-direction: column;
+      align-items: start;
+      padding: 24px;
+      gap: 20px;
+    }
+  }
+</style>

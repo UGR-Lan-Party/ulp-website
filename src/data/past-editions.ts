@@ -1,0 +1,93 @@
+export interface PastEdition {
+  title: string;
+  date: string;
+  albumId: string;
+  featuredPhotoId?: string;
+  userId: string;
+  description: string;
+  year: number;
+  edition: number;
+  externalLink?: string;
+  buttonText?: string;
+}
+
+export const pastEditions: PastEdition[] = [
+  {
+    title: 'Séptima Edición',
+    date: 'Marzo 2025',
+    albumId: '72177720328590176',
+    userId: '195749897@N03',
+    description:
+      'En marzo de 2025 tuvo lugar la séptima edición de la ULP, superando ampliamente la participación del año anterior. Más de 400 personas se congregaron en la ETSIIT para luchar por el título en alguna de las doce competiciones organizadas. También hubo retos y actividades con videojuegos de última generación y consolas retro, realidad virtual, un simulador de F1 y un Capture The Flag para amantes de la ciberseguridad. La jornada volvió a estar acompañada de una gran paella para todos los asistentes. Esta edición contó además con una velada el día previo al evento, en la que se presentaron diversas charlas impartidas por algunas de las entidades patrocinadoras, combinando el mundo de los videojuegos con los últimos avances en tecnología e inteligencia artificial. Gracias al gran apoyo de dichas entidades, se repartieron más de 3.000 euros en premios.',
+    featuredPhotoId: '54744242270',
+    year: 2025,
+    edition: 7,
+  },
+  {
+    title: 'Sexta Edición',
+    date: 'Marzo 2024',
+    albumId: '72177720316026867',
+    userId: '195749897@N03',
+    description:
+      'En esta edición se inscribieron más de 300 personas, volviendo a igualar las cifras de participación de la última edición celebrada antes de la crisis del Covid-19. Se llevaron a cabo 10 competiciones además de numerosos retos y actividades incluyendo fórmula 1, juegos retro, fighting games, hacking ético y realidad virtual. Además, por primera vez gracias a la cafetería de la escuela, estudiantes y profesores pudieron disfrutar de una gran paella. La noticia de esta edición captó la atención de periódicos y canales de televisión locales y regionales como Canal Sur y Granada Digital. Se repartieron más de 3000€ en premios entre los ganadores de los diferentes torneos.',
+    featuredPhotoId: '53635584524',
+    year: 2024,
+    edition: 6,
+  },
+  {
+    title: 'Quinta Edición',
+    date: 'Mayo 2023',
+    albumId: '72177720308548822',
+    userId: '195749897@N03',
+    description:
+      'La UGR LAN Party, el mayor evento de eSports de la Universidad de Granada, volvió con su quinta edición, que se celebró este sábado en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT). Los participantes optaron a premios superiores a 1000 €, repartidos entre torneos de League of Legends, Valorant, FIFA, Rocket League, Clash Royale y Pokémon Showdown. Además de las competiciones, el evento contó con una sala de Juegos Libre, donde los asistentes disfrutaron de una variada selección de juegos y se enfrentaron en partidas informales. Participaron todos los miembros de la comunidad universitaria y, en determinados casos, también personas ajenas a la universidad; para quienes no pudieron asistir, se siguió la jornada en vivo a través de Twitch.',
+    featuredPhotoId: '52924759040',
+    year: 2023,
+    edition: 5,
+  },
+  {
+    title: 'Cuarta Edición',
+    date: 'Enero 2019',
+    albumId: '72177720323947130',
+    userId: '202188893@N05',
+    description:
+      'La ULP celebró su cuarta edición el 29 de enero de 2019, reuniendo a estudiantes de informática, telecomunicaciones y miembros de la comunidad universitaria en general. El evento contó con intensos torneos de FIFA 19, League of Legends, Clash Royale, CS:GO y Pokémon Showdown, donde los participantes compitieron por premios como tarjetas gráficas, teclados gaming, PCs y otros componentes. Durante la jornada, se ofreció una charla destacada de María Moral Muñoz de Webdoc, y también se presentó una ponencia sobre la tecnología aplicada a recursos humanos, a cargo de patrocinadores como NGA. Neptuno Gaming, otro patrocinador del evento, estuvo presente, ofreciendo apoyo a la competición. Además de las competiciones, se habilitó una zona de juegos libres y se celebraron encuentros y actividades que consolidaron a la UGR LAN Party como uno de los eventos más importantes de tecnología y eSports dentro de la comunidad universitaria.',
+    featuredPhotoId: '54338208092',
+    year: 2019,
+    edition: 4,
+  },
+  {
+    title: 'Tercera Edición',
+    date: 'Enero 2018',
+    albumId: '72177720323948562',
+    userId: '202188893@N05',
+    description:
+      "Esta edición se celebró el 29 de enero de 2018 y reunió a cientos de asistentes. Se organizaron torneos de Call of Duty 4, CS:GO, League of Legends, Fortnite, Clash Royale, FIFA, Hearthstone y Pokémon. El evento contó con el patrocinio de Arena Gaming y Domino's Pizza. Además de las competiciones, se ofrecieron charlas en la sala de eventos digitales, destacando ponencias de XpoBit! y de desarrolladores de juegos indie, y se habilitó una zona de free gaming para disfrutar de partidas informales.",
+    featuredPhotoId: '54339325019',
+    year: 2018,
+    edition: 3,
+  },
+  {
+    title: 'Segunda Edición',
+    date: 'Febrero 2017',
+    albumId: '72177720323950976',
+    userId: '202188893@N05',
+    description:
+      'En esta edición, celebrada el 9 y 10 de febrero de 2017, se reunió a decenas de estudiantes de informática y telecomunicaciones de la Universidad de Granada en su segunda edición. El evento, organizado como proyecto docente por el departamento de TSTC, combinó torneos de videojuegos como Hearthstone, FIFA, Overwatch, CS:GO, Call of Duty, League of Legends y Counter Strike: Global Offensive, con una amplia variedad de conferencias y encuentros. Durante el evento se expuso una muestra de juegos de los ochenta y se ofrecieron charlas sobre el desarrollo de videojuegos, interfaces cerebro-ordenador y la integración de la tecnología en los eSports. Además, se presentaron ponencias de expertos como Luis García de Arctic Gaming y Francisco Javier Camacho (Pelucathompson), así como de la asociación juvenil Alpargate, BCILAB, Artic Gaming y Arena Gaming. La jornada, con entrada libre a las conferencias, consolidó la UGR Lan Party como un punto de encuentro para los apasionados de la tecnología y los eSports.',
+    featuredPhotoId: '54339329148',
+    year: 2017,
+    edition: 2,
+  },
+  {
+    title: 'Primera Edición',
+    date: 'Febrero 2016',
+    albumId: '72177720323948512',
+    userId: '202188893@N05',
+    externalLink: 'https://lanpartypiloto.wixsite.com/lpp-etsiit',
+    buttonText: 'Ver web original',
+    description:
+      'Aquí empezó todo. Los estudiantes de la rama de telemática del grado en Telecomunicaciones comenzaron un proyecto de una asignatura sin saber que iba a sentar las bases de algo mucho mayor. Los orígenes de este evento pueden aún observarse en la primera web que se creó para ello, reflejando la evolución y el crecimiento de esta iniciativa a lo largo de los años.',
+    year: 2016,
+    edition: 1,
+  },
+];

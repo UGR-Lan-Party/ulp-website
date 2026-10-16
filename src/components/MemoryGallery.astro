@@ -1,0 +1,167 @@
+---
+import CarouselSection from './CarouselSection.astro';
+import AlhambraSilhouette from './AlhambraSilhouette.astro';
+---
+
+<section class="memory-section design-section" aria-labelledby="memory-title">
+  <div class="memory-heading-band">
+    <AlhambraSilhouette />
+    <div class="design-container">
+      <div class="memory-header" data-reveal>
+        <div>
+          <span class="design-eyebrow">04 / Nuestra memoria compartida</span><h2
+            id="memory-title"
+            class="design-heading"
+          >
+            Granada, vista<br /><em>desde la ULP.</em>
+          </h2>
+        </div>
+        <div class="memory-intro">
+          <p>
+            Las finales, los reencuentros y ese «una más». Hay cosas que se
+            entienden mejor en fotos.
+          </p><a href="/info/ediciones_anteriores" class="design-link"
+            >Recorre nuestras ediciones <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="design-container">
+    <div class="memory-gallery">
+      <div class="memory-caption">
+        <span><i aria-hidden="true"></i> RECUERDOS DE 2025</span><span
+          >ETSIIT / GRANADA</span
+        >
+      </div>
+      <CarouselSection
+        albumId="72177720328590176"
+        userId="195749897@N03"
+        featuredPhotoId="54744102704"
+        shufflePhotos
+        withBackground={false}
+        height="380px"
+        centeredSlides
+      />
+      <div class="memory-bottom">
+        <span>Hecho de partidas. Y de personas.</span><span aria-hidden="true"
+          >ULP / ARCHIVO ABIERTO ↗</span
+        >
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .memory-section {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding-block: clamp(45px, 5vw, 70px);
+    border-block: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .memory-heading-band {
+    position: relative;
+    overflow: hidden;
+  }
+  .memory-heading-band > .design-container,
+  .memory-section > .design-container {
+    position: relative;
+    z-index: 1;
+  }
+  .memory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 40px;
+    padding-bottom: 42px;
+  }
+  .memory-header .design-eyebrow {
+    margin-bottom: 18px;
+  }
+  .memory-header h2 {
+    max-width: 760px;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .memory-intro {
+    max-width: 290px;
+  }
+  .memory-intro p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .memory-intro .design-link {
+    font-size: 11px;
+  }
+  .memory-gallery {
+    max-width: 1240px;
+    margin-inline: auto;
+  }
+  .memory-caption,
+  .memory-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .memory-caption {
+    padding: 0 0 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+    letter-spacing: 0.12em;
+  }
+  .memory-caption > span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .memory-caption i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+  .memory-gallery :global([data-photo-carousel]) {
+    padding-block: 0;
+  }
+  .memory-gallery :global(.container) {
+    padding-inline: 0;
+  }
+  .memory-bottom {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 8px;
+  }
+  @media (max-width: 700px) {
+    .memory-header {
+      flex-direction: column;
+      align-items: start;
+      gap: 25px;
+    }
+    .memory-intro {
+      max-width: 100%;
+    }
+    .memory-caption {
+      font-size: 7px;
+      padding: 5px 0 18px;
+      gap: 8px;
+    }
+    .memory-bottom {
+      padding-inline: 0;
+      line-height: 1.7;
+    }
+    .memory-bottom > span:last-child {
+      display: none;
+    }
+  }
+</style>

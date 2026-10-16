@@ -10,10 +10,12 @@ test.beforeEach(async ({ page }) => {
       '/assets/about/sobre-nosotros.png',
       '/assets/about/sobre-nosotros-2.png',
     ]).replaceAll('"', '&quot;');
-    const html = (await response.text()).replace(
-      /data-photos="[^"]*"/g,
-      `data-photos="${sources}"`,
-    );
+    const html = (await response.text())
+      .replace(/data-shuffle-photos(?:="[^"]*")?/g, '')
+      .replace(
+        /data-(photos|previews)="[^"]*"/g,
+        (_, attribute) => `data-${attribute}="${sources}"`,
+      );
     await route.fulfill({ response, body: html });
   });
 });
@@ -121,6 +123,9 @@ for (const width of [1440, 360]) {
       await first
         .getByRole('button', { name: 'Foto siguiente', exact: true })
         .click();
+      await expect(first.locator('[data-carousel-counter]')).toHaveText(
+        `Foto ${((index + 1) % 2) + 1} de 2`,
+      );
     }
     const stageBox = (await first
       .locator('[data-carousel-stage]')
@@ -137,5 +142,218 @@ for (const width of [1440, 360]) {
     expect(albumBox.height).toBeLessThan(40);
     await expect(first.locator('.zoom-hint')).toHaveText('');
     await expect(first.locator('.zoom-hint svg')).toBeVisible();
+  });
+}
+
+for (const width of [1440, 390]) {
+  test(`La galería del home muestra tres fotos y sincroniza laterales, flechas y zoom a ${width} px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.route('http://127.0.0.1:4323/', async (route) => {
+      const response = await route.fetch();
+      const photos = [
+        '/assets/about/sobre-nosotros.png',
+        '/assets/about/sobre-nosotros-2.png',
+        '/assets/about/ulp-2025-retro.jpg',
+      ];
+      const sources = JSON.stringify(photos).replaceAll('"', '&quot;');
+      const html = (await response.text())
+        .replace(/data-shuffle-photos(?:="[^"]*")?/g, '')
+        .replace(
+          /data-(photos|previews)="[^"]*"/g,
+          (_, attribute) => `data-${attribute}="${sources}"`,
+        );
+      await route.fulfill({ response, body: html });
+    });
+    await page.goto('/');
+    const album = page.locator('.memory-gallery [data-photo-carousel]');
+    await album.scrollIntoViewIfNeeded();
+    const previous = album.locator('.neighbor-previous');
+    const next = album.locator('.neighbor-next');
+    await expect(album.locator('[data-carousel-neighbor]')).toHaveCount(2);
+    await expect(next.locator('img')).toHaveAttribute(
+      'src',
+      /sobre-nosotros-2/,
+    );
+    await expect(previous.locator('img')).toHaveAttribute(
+      'src',
+      /ulp-2025-retro/,
+    );
+    const center = (await album.locator('[data-carousel-zoom]').boundingBox())!;
+    const side = (await next.boundingBox())!;
+    expect(Math.abs(center.width / center.height - 16 / 9)).toBeLessThan(0.01);
+    expect(Math.abs(side.width / side.height - 16 / 9)).toBeLessThan(0.01);
+    await expect(album.locator('[data-carousel-image]')).toHaveCSS(
+      'object-fit',
+      'cover',
+    );
+    expect(side.width / center.width).toBeGreaterThan(0.92);
+    expect(side.width / center.width).toBeLessThan(0.96);
+    await expect(next).toHaveCSS('opacity', '0.42');
+    await next.click();
+    await expect(album.locator('[data-carousel-counter]')).toHaveText(
+      'Foto 2 de 3',
+    );
+    await expect(previous.locator('img')).toHaveAttribute(
+      'src',
+      /sobre-nosotros.png$/,
+    );
+    await album
+      .getByRole('button', { name: 'Foto siguiente', exact: true })
+      .click();
+    await expect(album.locator('[data-carousel-counter]')).toHaveText(
+      'Foto 3 de 3',
+    );
+    await album
+      .getByRole('link', { name: 'Ampliar foto 3', exact: true })
+      .click();
+    const dialog = album.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    await dialog
+      .getByRole('button', { name: 'Foto siguiente ampliada' })
+      .click();
+    await expect(album.locator('[data-carousel-counter]')).toHaveText(
+      'Foto 1 de 3',
+    );
+    await expect(next.locator('img')).toHaveAttribute(
+      'src',
+      /sobre-nosotros-2/,
+    );
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+    await expect(album.locator('[data-carousel-zoom]')).toBeFocused();
+    await page.keyboard.press('ArrowLeft');
+    await expect(album.locator('[data-carousel-counter]')).toHaveText(
+      'Foto 3 de 3',
+    );
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  });
+}
+
+test('Una carga lenta conserva la foto actual y varios clics rápidos muestran solo la última solicitada', async ({
+  page,
+}) => {
+  let release: () => void;
+  const delayed = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route('**/sobre-nosotros-2.png', async (route) => {
+    await delayed;
+    await route.continue();
+  });
+  await page.route('http://127.0.0.1:4323/', async (route) => {
+    const response = await route.fetch();
+    const sources = JSON.stringify([
+      '/assets/about/sobre-nosotros.png',
+      '/assets/about/sobre-nosotros-2.png',
+      '/assets/about/ulp-2025-retro.jpg',
+    ]).replaceAll('"', '&quot;');
+    const html = (await response.text())
+      .replace(/data-shuffle-photos(?:="[^"]*")?/g, '')
+      .replace(
+        /data-(photos|previews)="[^"]*"/g,
+        (_, attribute) => `data-${attribute}="${sources}"`,
+      );
+    await route.fulfill({ response, body: html });
+  });
+  await page.goto('/');
+  const album = page.locator('.memory-gallery [data-photo-carousel]');
+  const image = album.locator('[data-carousel-image]');
+  await expect(album.locator('[data-carousel-counter]')).toHaveText(
+    'Foto 1 de 3',
+  );
+  await album
+    .getByRole('button', { name: 'Foto siguiente', exact: true })
+    .click();
+  await expect(album).toHaveAttribute('aria-busy', 'true');
+  await expect(image).toHaveAttribute('src', /sobre-nosotros.png$/);
+  await expect(album.locator('[data-carousel-counter]')).toHaveText(
+    'Foto 1 de 3',
+  );
+  await album
+    .getByRole('button', { name: 'Foto siguiente', exact: true })
+    .click();
+  release!();
+  await expect(album.locator('[data-carousel-counter]')).toHaveText(
+    'Foto 3 de 3',
+  );
+  await expect(image).toHaveAttribute('src', /ulp-2025-retro.jpg$/);
+  await expect(album).toHaveAttribute('aria-busy', 'false');
+  expect(
+    await image.evaluate(
+      (element: HTMLImageElement) =>
+        element.complete && element.naturalWidth > 0,
+    ),
+  ).toBe(true);
+});
+
+for (const width of [1440, 390]) {
+  test(`Las fotos verticales se recortan a 16:9 y se amplían completas a ${width} px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.route('**/portrait-fixture.svg', (route) =>
+      route.fulfill({
+        contentType: 'image/svg+xml',
+        body: '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1000"><rect width="600" height="1000" fill="#004465"/></svg>',
+      }),
+    );
+    await page.route('http://127.0.0.1:4323/', async (route) => {
+      const response = await route.fetch();
+      const sources = JSON.stringify([
+        '/portrait-fixture.svg',
+        '/assets/about/sobre-nosotros.png',
+      ]).replaceAll('"', '&quot;');
+      const html = (await response.text())
+        .replace(/data-shuffle-photos(?:="[^"]*")?/g, '')
+        .replace(
+          /data-(photos|previews)="[^"]*"/g,
+          (_, attribute) => `data-${attribute}="${sources}"`,
+        );
+      await route.fulfill({ response, body: html });
+    });
+    await page.goto('/');
+    const album = page.locator('.memory-gallery [data-photo-carousel]');
+    const image = album.locator('[data-carousel-image]');
+    await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() =>
+        image.evaluate((element: HTMLImageElement) => element.naturalHeight),
+      )
+      .toBe(1000);
+    await expect(image).toHaveCSS('object-fit', 'cover');
+    await expect(image).toHaveCSS('object-position', '50% 50%');
+    const preview = (await album
+      .locator('[data-carousel-zoom]')
+      .boundingBox())!;
+    expect(Math.abs(preview.width / preview.height - 16 / 9)).toBeLessThan(
+      0.01,
+    );
+    await album.locator('[data-carousel-zoom]').click();
+    const dialog = album.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    const expanded = album.locator('[data-carousel-expanded]');
+    await expect(expanded).toHaveAttribute('src', '/portrait-fixture.svg');
+    await expect(expanded).toHaveCSS('object-fit', 'contain');
+    const full = (await dialog.boundingBox())!;
+    expect(Math.abs(full.width / full.height - 0.6)).toBeLessThan(0.01);
+    await page.keyboard.press('Escape');
+    await album
+      .getByRole('button', { name: 'Foto siguiente', exact: true })
+      .click();
+    await expect(album.locator('[data-carousel-counter]')).toHaveText(
+      'Foto 2 de 2',
+    );
+    const nextPreview = (await album
+      .locator('[data-carousel-zoom]')
+      .boundingBox())!;
+    expect(Math.abs(nextPreview.height - preview.height)).toBeLessThan(1);
   });
 }

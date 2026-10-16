@@ -1,105 +1,191 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
-import CompetitionCard from '../components/CompetitionCard.astro';
-import { CompetitionsCards } from '../data/competitions-data.ts';
-import { darkStyles } from '../utils/all';
-
-const competiciones = CompetitionsCards.filter((c) => c.type === 'competicion');
-const retos = CompetitionsCards.filter((c) => c.type === 'reto');
-const actividades = CompetitionsCards.filter((c) => c.type === 'actividad');
-
+import ActivityTile from '../components/ActivityTile.astro';
+import { getActivitiesByTag } from '../utils/activity-navigation';
+const teamFinderUrl =
+  'https://docs.google.com/spreadsheets/d/1oL8jkQn1oGXnT-qkjcIapFpGi3SI0G0JrvIFm6hghkk/edit?usp=sharing';
 const sections = [
   {
     key: 'competiciones',
+    tag: 'competicion',
     title: 'Competiciones',
-    description: 'Enfréntate a otros jugadores y demuestra quién es el mejor.',
-    items: competiciones,
+    description: 'Tu equipo, tu estrategia y una partida que recordar.',
   },
   {
     key: 'retos',
+    tag: 'reto',
     title: 'Retos',
-    description:
-      'Compite contra la máquina y obtén la mejor puntuación para proclamarte campeón.',
-    items: retos,
+    description: 'Supera tu marca. Prueba algo nuevo. Vuelve a intentarlo.',
   },
   {
     key: 'actividades',
+    tag: 'actividad',
     title: 'Actividades',
-    description:
-      'Da una vuelta por las distintas zonas probando actividades y juegos interesantes.',
-    items: actividades,
+    description: 'Descubre, comparte y juega a tu ritmo.',
   },
-];
+].map((section) => ({ ...section, games: getActivitiesByTag(section.tag) }));
 ---
 
-<Layout description="UGR LAN Party" title="Competiciones">
-  <Breadcrumb>
-    <Fragment slot="title">Actividades</Fragment>
+<Layout
+  description="Competiciones, retos y actividades de UGR LAN Party"
+  title="Actividades"
+>
+  <Breadcrumb current="Actividades">
+    <Fragment slot="title">Encuentra<br />tu partida.</Fragment><Fragment
+      slot="texto"
+    >
+      Competiciones, retos y actividades para todas las formas de jugar. Explora
+      el catálogo de 2026 mientras preparamos la próxima edición.
+    </Fragment>
   </Breadcrumb>
-  <div
-    class={`w-full items-center bg-gray-1 ${darkStyles} justify-center flex flex-col`}
-  >
-    <section class="flex flex-col items-center justify-center m-8 gap-4">
-      <h3 class="text-xl font-semibold text-center dark:text-white">
-        ¿Buscas equipo o te faltan integrantes?
-      </h3>
-
-      <a
-        href="https://docs.google.com/spreadsheets/d/1oL8jkQn1oGXnT-qkjcIapFpGi3SI0G0JrvIFm6hghkk/edit?usp=sharing"
-        class="group relative inline-flex h-[calc(48px+8px)] items-center
-      justify-center rounded-full bg-neutral-200 py-1 pl-6 pr-14 font-medium
-      text-neutral-950 dark:bg-[#ADB0C1] dark:text-[#284B63]"
-      >
-        <span class="z-10 text-lg font-semibold pr-2"
-          >¡Consulta nuestro listado!</span
-        >
-        <div
-          class="absolute right-1 inline-flex h-12 w-12 items-center justify-end rounded-full bg-neutral-300 dark:bg-[#F4F4F5] transition-[width] group-hover:w-[calc(100%-8px)]"
-        >
-          <div class="mr-3.5 flex items-center justify-center">
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 dark:text-neutral-50"
-            >
-              <path
-                d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
-                fill="#284B63"
-                fill-rule="evenodd"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-    </section>
-
-    {
-      sections.map(
-        ({ key, title, description, items }) =>
-          items.length > 0 && (
-            <section class="w-[80%] flex flex-col items-center mt-16 mb-4">
-              <h2 class="text-3xl md:text-5xl font-bold dark:text-white mb-2">
-                {title}
-              </h2>
-              <p class="text-base md:text-lg text-gray-500 dark:text-gray-400 text-center mb-10 max-w-xl">
-                {description}
-              </p>
-              <div class="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center justify-items-center gap-16 mb-8">
-                {items.map((competition) => (
-                  <a href={'/actividades/' + competition.id}>
-                    <CompetitionCard competition={competition} />
-                  </a>
-                ))}
-              </div>
-            </section>
-          ),
-      )
-    }
+  <div class="design-container catalog-navigation">
+    <nav aria-label="Tipos de actividad">
+      {
+        sections.map((section) => (
+          <a href={`#${section.key}`}>
+            {section.title}
+            <span>{String(section.games.length).padStart(2, '0')}</span>
+          </a>
+        ))
+      }
+    </nav><a class="design-link" href="/info/horarios"
+      >Ver agenda <span aria-hidden="true">↗</span></a
+    >
   </div>
-
-  <script src="../scripts/cardsMobile.js"></script>
+  <div class="design-container team-callout" data-reveal>
+    <div>
+      <span class="design-eyebrow">El siguiente compañero está aquí</span><h2>
+        ¿Te falta equipo?
+      </h2><p>Encuentra gente con la que compartir la partida.</p>
+    </div><a class="design-button" href={teamFinderUrl}
+      >Buscar equipo <span aria-hidden="true">↗</span></a
+    >
+  </div>
+  {
+    sections.map((section, index) => (
+      <section
+        id={section.key}
+        class="design-section design-container catalog-section"
+      >
+        <div class="design-section-header" data-reveal>
+          <div>
+            <span class="design-eyebrow">
+              {String(index + 1).padStart(2, '0')} / Elige cómo jugar
+            </span>
+            <h2 class="design-heading">{section.title}</h2>
+          </div>
+          <p>{section.description}</p>
+        </div>
+        <div class="design-grid">
+          {section.games.map((game) => (
+            <ActivityTile id={game.id} />
+          ))}
+        </div>
+      </section>
+    ))
+  }
+  <div class="design-container team-intro">
+    <span>¿Te falta equipo?</span><a href={teamFinderUrl}
+      >Encuentra compañeros de partida <span aria-hidden="true">↗</span></a
+    >
+  </div>
 </Layout>
+<style>
+  .catalog-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-block: 25px;
+    border-bottom: 1px solid var(--line);
+  }
+  .catalog-navigation nav {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .catalog-navigation nav a {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 15px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    font-size: 12px;
+    transition:
+      background 200ms ease,
+      color 200ms ease;
+  }
+  .catalog-navigation nav a:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .catalog-navigation nav span {
+    font:
+      9px ui-monospace,
+      monospace;
+    opacity: 0.6;
+  }
+  .catalog-section {
+    scroll-margin-top: 90px;
+    padding-block: 65px;
+  }
+  .catalog-section .design-section-header > p {
+    max-width: 280px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .team-callout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 32px;
+    margin-block: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .team-callout h2 {
+    font-size: 38px;
+    font-weight: 750;
+    margin: 14px 0 10px;
+  }
+  .team-callout p {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  @media (max-width: 700px) {
+    .catalog-navigation {
+      align-items: start;
+      flex-direction: column;
+    }
+    .catalog-navigation nav {
+      gap: 6px;
+    }
+    .catalog-navigation nav a {
+      padding: 9px 11px;
+      font-size: 10px;
+    }
+    .team-callout {
+      align-items: start;
+      flex-direction: column;
+    }
+  }
+  .team-intro {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding-top: 18px;
+    margin-bottom: 48px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .team-intro a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    padding-block: 10px;
+  }
+</style>

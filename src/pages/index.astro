@@ -1,23 +1,34 @@
 ---
 import PartnerStrip from '../components/PartnerStrip.astro';
+import ExperienceGrid from '../components/ExperienceGrid.astro';
+import LinktreeCard from '../components/LinktreeCard.astro';
 import About from '../components/Aboutsection.astro';
+import EventStats from '../components/EventStats.astro';
 import Hero from '../components/Hero.astro';
 import Layout from '../layouts/Layout.astro';
 import Faq from '../components/Faq.astro';
 import CTAsection from '../components/CTAsection.astro';
-import Carousel from '../components/CarouselSection.astro';
+import MemoryGallery from '../components/MemoryGallery.astro';
+import HomeNewsPreview from '../components/HomeNewsPreview.astro';
 import TrailerSection from '../components/TrailerSection.astro';
 ---
 
 <Layout
   description="La UGR LAN Party es un evento de eSports organizado por profesores y estudiantes de la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación de la Universidad de Granada."
-  title="Inicio"
 >
   <Hero />
   <PartnerStrip />
-  <TrailerSection />
+  <ExperienceGrid />
+  <EventStats />
+  <LinktreeCard />
   <About />
-  <CTAsection />
-  <Carousel albumId="72177720328590176" userId="195749897@N03" />
+  <TrailerSection />
+  <MemoryGallery />
+  <HomeNewsPreview />
   <Faq />
+  <CTAsection />
 </Layout>
+
+<script>
+  import '../scripts/home-text-motion';
+</script>

@@ -1,0 +1,2642 @@
+{
+  "inferiores": [
+    {
+      "x": 457,
+      "y": 0,
+      "width": 43,
+      "height": 195,
+      "kind": "desk"
+    },
+    {
+      "x": 536,
+      "y": 2,
+      "width": 156,
+      "height": 51,
+      "kind": "desk"
+    },
+    {
+      "x": 509,
+      "y": 3,
+      "width": 15,
+      "height": 212,
+      "kind": "screen"
+    },
+    {
+      "x": 721,
+      "y": 8,
+      "width": 212,
+      "height": 16,
+      "kind": "screen"
+    },
+    {
+      "x": 174,
+      "y": 10,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 210,
+      "y": 10,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 247,
+      "y": 10,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 283,
+      "y": 10,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 427,
+      "y": 12,
+      "width": 13,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 168,
+      "y": 27,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 427,
+      "y": 59,
+      "width": 13,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 20,
+      "y": 73,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 57,
+      "y": 73,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 94,
+      "y": 73,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 130,
+      "y": 73,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 174,
+      "y": 73,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 210,
+      "y": 73,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 247,
+      "y": 73,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 283,
+      "y": 73,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 15,
+      "y": 90,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 168,
+      "y": 90,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 427,
+      "y": 106,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 20,
+      "y": 139,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 57,
+      "y": 139,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 94,
+      "y": 139,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 130,
+      "y": 139,
+      "width": 27,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 174,
+      "y": 139,
+      "width": 27,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 210,
+      "y": 139,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 247,
+      "y": 139,
+      "width": 27,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 283,
+      "y": 139,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 427,
+      "y": 153,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 15,
+      "y": 156,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 168,
+      "y": 156,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 536,
+      "y": 164,
+      "width": 156,
+      "height": 50,
+      "kind": "desk"
+    },
+    {
+      "x": 820,
+      "y": 164,
+      "width": 157,
+      "height": 51,
+      "kind": "desk"
+    },
+    {
+      "x": 475,
+      "y": 201,
+      "width": 25,
+      "height": 56,
+      "kind": "column"
+    },
+    {
+      "x": 20,
+      "y": 205,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 57,
+      "y": 205,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 94,
+      "y": 205,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 130,
+      "y": 205,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 174,
+      "y": 205,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 210,
+      "y": 205,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 247,
+      "y": 205,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 283,
+      "y": 205,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 965,
+      "y": 207,
+      "width": 26,
+      "height": 56,
+      "kind": "column"
+    },
+    {
+      "x": 510,
+      "y": 218,
+      "width": 59,
+      "height": 163,
+      "kind": "desk"
+    },
+    {
+      "x": 586,
+      "y": 219,
+      "width": 14,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 15,
+      "y": 222,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 168,
+      "y": 222,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 586,
+      "y": 262,
+      "width": 14,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 457,
+      "y": 264,
+      "width": 43,
+      "height": 195,
+      "kind": "desk"
+    },
+    {
+      "x": 20,
+      "y": 270,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 57,
+      "y": 270,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 94,
+      "y": 270,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 130,
+      "y": 270,
+      "width": 27,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 174,
+      "y": 270,
+      "width": 27,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 210,
+      "y": 270,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 247,
+      "y": 270,
+      "width": 27,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 283,
+      "y": 270,
+      "width": 28,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 933,
+      "y": 270,
+      "width": 58,
+      "height": 163,
+      "kind": "desk"
+    },
+    {
+      "x": 427,
+      "y": 278,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 15,
+      "y": 289,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 168,
+      "y": 289,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 900,
+      "y": 297,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 586,
+      "y": 305,
+      "width": 14,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 427,
+      "y": 324,
+      "width": 13,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 20,
+      "y": 336,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 57,
+      "y": 336,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 94,
+      "y": 336,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 130,
+      "y": 336,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 174,
+      "y": 336,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 210,
+      "y": 336,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 247,
+      "y": 336,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 283,
+      "y": 336,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 586,
+      "y": 349,
+      "width": 14,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 15,
+      "y": 355,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 168,
+      "y": 355,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 427,
+      "y": 371,
+      "width": 13,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 900,
+      "y": 378,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 510,
+      "y": 385,
+      "width": 59,
+      "height": 163,
+      "kind": "desk"
+    },
+    {
+      "x": 586,
+      "y": 385,
+      "width": 14,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 20,
+      "y": 402,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 57,
+      "y": 402,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 94,
+      "y": 402,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 130,
+      "y": 402,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 174,
+      "y": 402,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 210,
+      "y": 402,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 247,
+      "y": 402,
+      "width": 27,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 283,
+      "y": 402,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 427,
+      "y": 418,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 15,
+      "y": 421,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 168,
+      "y": 421,
+      "width": 152,
+      "height": 41,
+      "kind": "desk"
+    },
+    {
+      "x": 586,
+      "y": 429,
+      "width": 14,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 901,
+      "y": 437,
+      "width": 13,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 933,
+      "y": 437,
+      "width": 58,
+      "height": 163,
+      "kind": "desk"
+    },
+    {
+      "x": 475,
+      "y": 464,
+      "width": 25,
+      "height": 56,
+      "kind": "column"
+    },
+    {
+      "x": 586,
+      "y": 472,
+      "width": 14,
+      "height": 30,
+      "kind": "seat"
+    },
+    {
+      "x": 901,
+      "y": 481,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 586,
+      "y": 516,
+      "width": 14,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 901,
+      "y": 524,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 487,
+      "y": 527,
+      "width": 14,
+      "height": 95,
+      "kind": "door"
+    },
+    {
+      "x": 511,
+      "y": 558,
+      "width": 104,
+      "height": 62,
+      "kind": "desk"
+    },
+    {
+      "x": 901,
+      "y": 568,
+      "width": 13,
+      "height": 29,
+      "kind": "seat"
+    },
+    {
+      "x": 223,
+      "y": 582,
+      "width": 163,
+      "height": 43,
+      "kind": "desk"
+    },
+    {
+      "x": 8,
+      "y": 606,
+      "width": 212,
+      "height": 16,
+      "kind": "screen"
+    },
+    {
+      "x": 645,
+      "y": 610,
+      "width": 212,
+      "height": 15,
+      "kind": "door"
+    },
+    {
+      "x": 22,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 56,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 90,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 124,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 174.5,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 208.5,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 242.5,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    },
+    {
+      "x": 276.5,
+      "y": 472,
+      "width": 26,
+      "height": 12,
+      "kind": "seat"
+    }
+  ],
+  "a1": [
+    {
+      "x": 104,
+      "y": 0,
+      "width": 291,
+      "height": 71,
+      "kind": "desk"
+    },
+    {
+      "x": 6,
+      "y": 108,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 177,
+      "y": 108,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 347,
+      "y": 108,
+      "width": 146,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 12,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 47,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 119,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 183,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 217,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 253,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 289,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 353,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 388,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 460,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 6,
+      "y": 177,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 177,
+      "y": 177,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 347,
+      "y": 177,
+      "width": 146,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 12,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 47,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 82,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 119,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 183,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 217,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 253,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 289,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 353,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 388,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 424,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 460,
+      "y": 210,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 6,
+      "y": 246,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 177,
+      "y": 246,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 347,
+      "y": 246,
+      "width": 146,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 12,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 47,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 82,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 119,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 183,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 217,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 253,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 289,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 353,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 388,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 424,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 460,
+      "y": 279,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 6,
+      "y": 330,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 177,
+      "y": 330,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 347,
+      "y": 330,
+      "width": 146,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 12,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 47,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 82,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 119,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 183,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 217,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 253,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 289,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 353,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 388,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 424,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 460,
+      "y": 364,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 6,
+      "y": 399,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 177,
+      "y": 399,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 347,
+      "y": 399,
+      "width": 146,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 12,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 47,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 82,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 119,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 183,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 217,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 253,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 289,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 353,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 388,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 424,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 460,
+      "y": 433,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 6,
+      "y": 468,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 177,
+      "y": 468,
+      "width": 145,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 347,
+      "y": 468,
+      "width": 146,
+      "height": 26,
+      "kind": "desk"
+    },
+    {
+      "x": 12,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 47,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 82,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 119,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 183,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 217,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 253,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 289,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 353,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 388,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 424,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 460,
+      "y": 502,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 95,
+      "y": 614,
+      "width": 152,
+      "height": 11,
+      "kind": "door"
+    }
+  ],
+  "a2": [
+    {
+      "x": 105,
+      "y": 0,
+      "width": 291,
+      "height": 71,
+      "kind": "desk"
+    },
+    {
+      "x": 18,
+      "y": 107,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 284,
+      "y": 107,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 29,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 64,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 136,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 295,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 365,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 437,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 18,
+      "y": 169,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 284,
+      "y": 169,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 29,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 64,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 136,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 295,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 365,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 437,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 18,
+      "y": 230,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 284,
+      "y": 230,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 29,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 64,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 136,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 295,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 365,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 437,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 18,
+      "y": 292,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 284,
+      "y": 292,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 29,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 64,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 136,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 295,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 365,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 437,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 18,
+      "y": 354,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 284,
+      "y": 354,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 29,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 64,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 136,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 295,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 365,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 437,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 18,
+      "y": 416,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 284,
+      "y": 416,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 29,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 64,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 136,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 295,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 365,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 437,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 18,
+      "y": 477,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 284,
+      "y": 477,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 29,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 64,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 136,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 295,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 365,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 437,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 96,
+      "y": 614,
+      "width": 152,
+      "height": 11,
+      "kind": "door"
+    }
+  ],
+  "b1": [
+    {
+      "x": 105,
+      "y": 0,
+      "width": 291,
+      "height": 71,
+      "kind": "desk"
+    },
+    {
+      "x": 19,
+      "y": 107,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 285,
+      "y": 107,
+      "width": 193,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 30,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 65,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 137,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 296,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 366,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 438,
+      "y": 147,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 19,
+      "y": 169,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 285,
+      "y": 169,
+      "width": 193,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 30,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 65,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 137,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 296,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 366,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 438,
+      "y": 209,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 19,
+      "y": 230,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 285,
+      "y": 230,
+      "width": 193,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 30,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 65,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 137,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 296,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 366,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 438,
+      "y": 271,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 19,
+      "y": 292,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 285,
+      "y": 292,
+      "width": 193,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 30,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 65,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 137,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 296,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 366,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 438,
+      "y": 332,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 19,
+      "y": 354,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 285,
+      "y": 354,
+      "width": 193,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 30,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 65,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 137,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 296,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 366,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 438,
+      "y": 394,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
+    },
+    {
+      "x": 19,
+      "y": 416,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 285,
+      "y": 416,
+      "width": 193,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 30,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 65,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 137,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 296,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 366,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 438,
+      "y": 456,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 19,
+      "y": 477,
+      "width": 194,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 285,
+      "y": 477,
+      "width": 193,
+      "height": 32,
+      "kind": "desk"
+    },
+    {
+      "x": 30,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 65,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 100,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 137,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 172,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 296,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 330,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 366,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 402,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 438,
+      "y": 518,
+      "width": 28,
+      "height": 13,
+      "kind": "seat"
+    },
+    {
+      "x": 300,
+      "y": 614,
+      "width": 151,
+      "height": 11,
+      "kind": "door"
+    }
+  ]
+}

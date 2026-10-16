@@ -1,81 +1,90 @@
 ---
-import ResponsiveImage from '../components/ResponsiveImage.astro';
-import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from "astro:content";
-
-
-const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
-});
-
-publishedBlogEntries.sort((a, b) => {
-  return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
-});
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import NewsCard from '../components/NewsCard.astro';
+import { getPublishedNews } from '../utils/news';
+const [featured, ...stories] = await getPublishedNews();
 ---
 
 <Layout
-  description="Blog de la UGR LAN Party"
-  title="Blog - UGR LAN Party"
+  title="Noticias"
+  description="Noticias, colaboraciones e historias de la comunidad UGR LAN Party"
 >
-  <Breadcrumb>
-    <Fragment slot="title">Blog</Fragment>
+  <Breadcrumb current="Noticias">
+    <Fragment slot="title">El tablón<br />de la ULP.</Fragment><Fragment
+      slot="texto"
+    >
+      Lo que pasa antes, durante y después de encender las pantallas. Noticias y
+      recuerdos de nuestra comunidad.
+    </Fragment>
   </Breadcrumb>
-
-  <section class="py-10 sm:py-16">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">
-        Últimas Entradas
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {
-          publishedBlogEntries.map((blogPostEntry) => (
-            <article 
-              class="
-                bg-white dark:bg-brand-panel 
-                rounded-lg shadow-lg 
-                overflow-hidden 
-                transform transition-all duration-300 
-                hover:-translate-y-1 hover:shadow-2xl
-              "
-            >
-              <ResponsiveImage
-                src={blogPostEntry.data.image.src}
-                alt={blogPostEntry.data.image.alt}
-                class="w-full h-56 object-cover"
-              />
-              <div class="p-5">
-                <h3 class="text-xl font-semibold text-gray-800 min-h-14 dark:text-gray-100 mb-2">
-                  {blogPostEntry.data.title}
-                </h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  {blogPostEntry.data.publishDate.toDateString()}
-                </p>
-                <p class="text-base text-gray-600 dark:text-gray-200 min-h-28">
-                  {`${blogPostEntry.data.postDetails.paraOne.slice(0, 150)}...`}
-                </p>
-
-                <a  href={`/blog/${blogPostEntry.slug}`}>
-                  <button class="bg-primary rounded-md mt-3 px-4 py-2 text-white font-semibold transition-all ease-in-out duration-300">
-                    Ver más <span class="animation_button opacity-0 inline-block transition-all ease-in-out duration-300"> > </span>
-                  </button>
-                </a>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
+  <section class="design-container news-index">
+    {
+      featured ? (
+        <>
+          <div class="news-section-label">
+            <span class="design-eyebrow">La última historia</span>
+            <span>UGR LAN PARTY / NOTICIAS</span>
+          </div>
+          <NewsCard entry={featured} featured />
+        </>
+      ) : (
+        <p>Todavía no hay noticias publicadas.</p>
+      )
+    }
+    {
+      stories.length > 0 && (
+        <div class="news-more">
+          <div class="design-section-header">
+            <div>
+              <span class="design-eyebrow">Del archivo al campus</span>
+              <h2 class="design-heading">Más historias.</h2>
+            </div>
+            <p>Cada edición deja algo que contar.</p>
+          </div>
+          <div class="design-grid">
+            {stories.map((entry) => (
+              <NewsCard entry={entry} />
+            ))}
+          </div>
+        </div>
+      )
+    }
   </section>
 </Layout>
-
-<style type="text/css">
-  button:hover .animation_button{
-    opacity: 1;
-    transform: translateX(24px);
+<style>
+  .news-index {
+    padding-block: 45px 90px;
   }
-
-button:hover {
-    padding-right: 32px;
-}
+  .news-section-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+  .news-section-label > span:last-child {
+    font:
+      8px ui-monospace,
+      monospace;
+    opacity: 0.5;
+  }
+  .news-more {
+    padding-top: 85px;
+  }
+  .news-more .design-heading {
+    font-size: clamp(32px, 4.5vw, 58px);
+    margin-top: 18px;
+  }
+  .news-more .design-section-header > p {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  @media (max-width: 700px) {
+    .news-section-label > span:last-child {
+      display: none;
+    }
+    .news-more {
+      padding-top: 55px;
+    }
+  }
 </style>

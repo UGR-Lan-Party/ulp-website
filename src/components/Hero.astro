@@ -1,178 +1,451 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
-import { edition } from '../data/edition';
-
-const showCountdown =
-  edition.startsAt &&
-  ['announced', 'registration-open'].includes(edition.phase);
-import { getFlickrPhotos } from '../utils/flickr.js';
-
-const remoteImages = await getFlickrPhotos(
-  '72177720316026867',
-  '195749897@N03',
-  {
-    allowedIds: [
-      '53635695855',
-      '53635584524',
-      '53635576249',
-      '53635686025',
-      '53635573539',
-      '53635570934',
-    ],
-    landscape: true,
-  },
-);
-const images = remoteImages.length
-  ? remoteImages
-  : ['/assets/about/sobre-nosotros.png'];
 ---
 
-<style>
-  .texto-centrado {
-    text-align: center;
-    padding: 0 20px;
-  }
-
-  .hero-bg {
-    transition: opacity 1s ease-in-out;
-  }
-</style>
-
-<section
-  id="home"
-  class="relative flex flex-col lg:flex-row items-center justify-center
-         bg-gradient-to-bl from-[#01576C]/80 from-30% via-[#012C5F]/85 via-70% to-[#012C5F]/95
-         min-h-[100svh]
-         pt-28 md:pt-32 lg:pt-0
-         pb-16 lg:pb-0
-         -mt-12 lg:-mt-6
-         overflow-hidden"
-  data-images={JSON.stringify(images)}
->
-  <div class="lg:w-1/2 flex flex-col items-center h-full max-w-[1000px]">
-    <div
-      class="absolute inset-0 min-h-full min-w-full -z-10"
-      id="heroContainer"
-    >
-      <ResponsiveImage
-        id="heroImage"
-        loading="eager"
-        fetchpriority="high"
-        sizes="100vw"
-        src={images[0]}
-        alt=""
-        class="w-full h-full object-cover hero-bg"
-      />
-    </div>
-    <div
-      class="relative z-10 w-full flex flex-col items-center justify-center text-center
-            lg:min-h-[100svh] px-4 lg:mt-12"
-    >
-      <h1
-        class="pt-3 mb-5 lg:mb-16 mt-8 text-3xl font-bold text-white sm:text-4xl lg:text-[3.5rem]"
-      >
-        UGR LAN PARTY
+<section id="home" class="design-hero" data-spotlight>
+  <div class="design-container hero-grid">
+    <div class="hero-copy" data-reveal>
+      <div class="hero-topline">
+        <span class="design-eyebrow">Universidad de Granada</span><span
+          class="hero-status"><i></i> Próximamente ...</span
+        >
+      </div>
+      <h1 aria-label="UGR LAN Party">
+        <span class="hero-title-line" data-home-drift="-48"
+          ><span>UGR</span><span>LAN</span></span
+        ><span class="hero-title-party" data-home-drift="48">PARTY.</span><svg
+          viewBox="0 0 64 64"
+          fill="none"
+          aria-hidden="true"
+          ><path
+            d="M8 32h48M32 8v48M15 15l34 34M15 49l34-34"
+            stroke="currentColor"
+            stroke-width="8"></path></svg
+        >
       </h1>
-
-      <p
-        class="texto-centrado mx-auto mb-6 max-w-[800px] font-medium text-white lg:text-2xl"
-      >
-        ¡El mayor evento universitario de eSports de Andalucía!
-      </p>
-
-      <div class="flex flex-col items-center gap-2">
-        <p class="font-bold text-center text-white text-4xl">ULP 2027</p>
-
-        <p class="mt-3 text-white/90">Próximamente ...</p>
+      <div class="hero-description">
+        <span class="hero-year">ULP 2027</span><p>
+          El mayor evento universitario de eSports y videojuegos de toda
+          Andalucía!
+        </p>
       </div>
-
-      {
-        showCountdown && (
-          <div
-            id="countdown"
-            data-starts-at={edition.startsAt}
-            class="flex items-center justify-center px-5 py-5 my-6"
-          >
-            <div class="text-primary">
-              <div class="text-5xl text-center flex w-full items-center justify-center gap-2">
-                <div class="w-24 p-2 bg-white rounded-lg">
-                  <div class="font-mono leading-none" id="days">
-                    00
-                  </div>
-                  <div class="font-mono uppercase text-sm leading-none">
-                    Días
-                  </div>
-                </div>
-                <div class="w-20 p-2 bg-white rounded-lg">
-                  <div class="font-mono leading-none" id="hours">
-                    00
-                  </div>
-                  <div class="font-mono uppercase text-sm leading-none">
-                    Horas
-                  </div>
-                </div>
-                <div class="w-20 p-2 bg-white rounded-lg">
-                  <div class="font-mono leading-none" id="minutes">
-                    00
-                  </div>
-                  <div class="font-mono uppercase text-sm leading-none">
-                    Minutos
-                  </div>
-                </div>
-                <div class="w-20 p-2 bg-white rounded-lg">
-                  <div class="font-mono leading-none" id="seconds">
-                    00
-                  </div>
-                  <div class="font-mono uppercase text-sm leading-none">
-                    Segundos
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      }
-
-      <a
-        href="/actividades"
-        class="inline-flex w-40 items-center justify-center rounded-md bg-white py-[14px] px-7 text-dark shadow-md hover:bg-gray-2 mt-8"
+      <div class="hero-actions">
+        <a class="design-button" href="/actividades#competiciones"
+          >Inscripciones <span aria-hidden="true">↗</span></a
+        ><a class="design-button secondary" href="/info/about"
+          >Conoce la ULP <span aria-hidden="true">→</span></a
+        >
+      </div>
+      <a class="hero-location" href="/info/localizacion"
+        ><svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+          ><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"
+          ></path><circle cx="12" cy="10" r="2.5"></circle></svg
+        > ETSIIT · GRANADA <span>37°11′ N · 3°37′ O</span></a
       >
-        Inscripciones
-      </a>
-
-      <div class="mt-0 flex justify-center items-center">
+    </div>
+    <div class="hero-art" data-reveal>
+      <div class="hero-orbit" aria-hidden="true"></div>
+      <div class="hero-photo">
         <ResponsiveImage
-          src="/assets/participan/organizan.png"
+          src="/assets/about/ulp-2025-comunidad.jpg"
+          alt="Participantes compitiendo en una de las aulas de ULP 2025"
           loading="eager"
-          alt="Organizaciones participantes"
-          class="max-w-[100%] max-h-[200px] h-auto"
+          fetchpriority="high"
+          sizes="(max-width: 700px) 100vw, 45vw"
         />
+        <div class="hero-photo-overlay">
+          <span class="design-eyebrow">Hecha en la ETSIIT</span><strong
+            >Granada también<br />juega en equipo.</strong
+          >
+        </div>
       </div>
+      <div class="hero-ticket">
+        <span>PRÓXIMA PARTIDA</span><strong>20<span>27</span></strong><small
+          >UGR LAN PARTY / GRANADA</small
+        ><div class="ticket-code" aria-hidden="true"></div>
+      </div>
+      <span class="hero-float" aria-hidden="true">+ PLAY<br />+ CONNECT</span>
+      <span class="hero-art-index" aria-hidden="true">ULP / NEXT ROUND</span>
     </div>
   </div>
+  <div class="design-container hero-bottom">
+    <span>COMPETICIONES / CHARLAS / JUEGO LIBRE</span><a href="#experiencias"
+      >DESCUBRE LA EXPERIENCIA <span aria-hidden="true">↓</span></a
+    >
+  </div>
 </section>
-
-<script src="../scripts/countdown.js"></script>
-<script>
-  const section = document.getElementById('home');
-  const image = document.getElementById('heroImage') as HTMLImageElement | null;
-  const images: string[] = JSON.parse(section?.dataset.images ?? '[]');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let index = 0;
-  let rotationTimer: number | undefined;
-
-  function updateRotation() {
-    window.clearInterval(rotationTimer);
-    if (reducedMotion.matches || images.length < 2 || !image) return;
-    rotationTimer = window.setInterval(() => {
-      if (document.hidden) return;
-      index = (index + 1) % images.length;
-      image.src = images[index];
-    }, 5000);
+<style>
+  .design-hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: 158px;
+    padding-bottom: 28px;
+    background: radial-gradient(
+      ellipse 550px 400px at var(--pointer-x, 65%) var(--pointer-y, 40%),
+      rgb(0 100 113 / 0.1),
+      transparent
+    );
   }
-  reducedMotion.addEventListener('change', updateRotation);
-  window.addEventListener('pagehide', () =>
-    window.clearInterval(rotationTimer),
-  );
-  updateRotation();
-</script>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: center;
+    min-height: 570px;
+  }
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+  }
+  .hero-topline {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font:
+      10px ui-monospace,
+      monospace;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+  }
+  .hero-status i {
+    width: 5px;
+    height: 5px;
+    background: #006471;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgb(0 100 113 / 0.1);
+  }
+  h1 {
+    position: relative;
+    font-size: clamp(64px, 8.8vw, 130px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 0.94;
+    margin-bottom: 32px;
+  }
+  .hero-title-line {
+    display: flex;
+    gap: 0.32em;
+  }
+  .hero-title-party {
+    display: inline-block;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  [data-home-drift] {
+    transform: translate3d(var(--home-text-x, 0px), 0, 0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-home-drift] {
+      transform: none;
+    }
+  }
+  h1 svg {
+    display: inline-block;
+    width: 0.42em;
+    height: 0.42em;
+    margin-left: 20px;
+    vertical-align: 0.15em;
+    color: var(--accent);
+    animation: hero-asterisk 18s linear infinite;
+  }
+  .hero-description {
+    display: flex;
+    gap: 22px;
+    align-items: start;
+    margin-bottom: 30px;
+  }
+  .hero-year {
+    padding-top: 4px;
+    font:
+      11px ui-monospace,
+      monospace;
+    white-space: nowrap;
+  }
+  .hero-description p {
+    border-left: 1px solid var(--line);
+    padding-left: 22px;
+    max-width: 325px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .hero-location {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 30px;
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+  }
+  .hero-location > span {
+    opacity: 0.5;
+    margin-left: 12px;
+  }
+  .hero-art {
+    position: relative;
+    height: 520px;
+    padding: 20px 24px 30px 0;
+  }
+  .hero-photo {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 22px 90px 22px 22px;
+    transform: rotate(-3deg);
+    background: #004465;
+    box-shadow: 20px 24px 0 rgb(0 68 101 / 0.07);
+  }
+  .hero-photo > :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 53% center;
+    opacity: 0.87;
+    transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-art:hover .hero-photo > :global(img) {
+    transform: scale(1.04);
+  }
+  .hero-photo-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 16px;
+    padding: 32px;
+    background: linear-gradient(transparent 25%, rgb(0 68 101 / 0.9));
+    color: #f5f0e6;
+  }
+  .hero-photo-overlay strong {
+    font-size: clamp(25px, 3vw, 40px);
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+  .hero-photo-overlay .design-eyebrow {
+    font-size: 9px;
+  }
+  .hero-orbit {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    max-width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    top: -14px;
+    right: -20px;
+  }
+  .hero-orbit::after {
+    content: '';
+    position: absolute;
+    inset: -24px;
+    border: 1px dashed var(--line);
+    border-radius: inherit;
+  }
+  .hero-ticket {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    width: 150px;
+    padding: 20px 18px 14px;
+    background: #f5f0e6;
+    color: #004465;
+    border: 1px solid rgb(0 68 101 / 0.2);
+    transform: rotate(8deg);
+    border-radius: 5px;
+    box-shadow: 0 12px 30px rgb(0 68 101 / 0.16);
+    animation: hero-float 7s ease-in-out infinite;
+  }
+  .hero-ticket > span {
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+  }
+  .hero-ticket strong {
+    display: block;
+    margin: 8px 0 12px;
+    font-size: 50px;
+    font-weight: 850;
+    letter-spacing: -0.08em;
+    line-height: 0.95;
+  }
+  .hero-ticket strong span {
+    color: #006471;
+  }
+  .hero-ticket small {
+    display: block;
+    font:
+      7px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+  }
+  .ticket-code {
+    margin-top: 10px;
+    height: 16px;
+    background: repeating-linear-gradient(
+      90deg,
+      #004465 0 2px,
+      transparent 2px 4px,
+      #004465 4px 5px,
+      transparent 5px 9px
+    );
+  }
+  .hero-float {
+    position: absolute;
+    left: -28px;
+    top: 90px;
+    font:
+      9px/1.8 ui-monospace,
+      monospace;
+    padding: 14px;
+    border: 1px solid rgb(245 240 230 / 0.3);
+    color: #f5f0e6;
+    background: #006471;
+    border-radius: 10px;
+    transform: rotate(-6deg);
+  }
+  .hero-art-index {
+    position: absolute;
+    bottom: 4px;
+    right: 36px;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.18em;
+  }
+  .hero-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 40px;
+    margin-top: 30px;
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+  }
+  .hero-bottom a {
+    display: flex;
+    gap: 18px;
+  }
+  @keyframes hero-asterisk {
+    to {
+      transform: rotate(180deg);
+    }
+  }
+  @keyframes hero-float {
+    50% {
+      transform: translateY(-8px) rotate(6deg);
+    }
+  }
+  @media (min-width: 1500px) {
+    .design-hero {
+      padding-top: 180px;
+      padding-bottom: 40px;
+    }
+  }
+  @media (max-width: 1000px) {
+    .hero-grid {
+      gap: 30px;
+    }
+    .hero-topline {
+      gap: 12px;
+    }
+    .hero-art {
+      height: 460px;
+    }
+    .hero-description {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hero-description p {
+      padding-left: 0;
+      border: 0;
+    }
+  }
+  @media (max-width: 700px) {
+    .design-hero {
+      padding-top: 110px;
+    }
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      min-height: 0;
+    }
+    h1 {
+      font-size: clamp(64px, 16vw, 112px);
+      margin-bottom: 24px;
+    }
+    .hero-description {
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .hero-description p {
+      max-width: 330px;
+    }
+    .hero-art {
+      height: 390px;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+    .hero-photo {
+      border-top-right-radius: 64px;
+    }
+    .hero-float {
+      left: 0;
+      top: 80px;
+    }
+    .hero-ticket {
+      right: 4px;
+      width: 125px;
+    }
+    .hero-ticket strong {
+      font-size: 44px;
+    }
+    .hero-bottom {
+      margin-top: 14px;
+      padding-top: 20px;
+      font-size: 7px;
+    }
+    .hero-bottom > span {
+      max-width: 140px;
+      line-height: 1.7;
+    }
+    .hero-bottom a {
+      max-width: 125px;
+      line-height: 1.7;
+    }
+    .hero-location > span {
+      display: none;
+    }
+    .hero-actions .design-button {
+      padding: 14px 16px;
+      gap: 18px;
+    }
+  }
+</style>

@@ -3,14 +3,16 @@ const requests = new Map();
 
 export function selectFlickrPhotos(
   data,
-  { allowedIds, landscape = false } = {},
+  { allowedIds, landscape = false, preview = false } = {},
 ) {
   if (data?.stat !== 'ok' || !Array.isArray(data?.photoset?.photo)) return [];
   return data.photoset.photo.flatMap((photo) => {
     if (!photo || (allowedIds && !allowedIds.includes(photo.id))) return [];
     if (landscape && !(Number(photo.width_k) > Number(photo.height_k)))
       return [];
-    const source = photo.url_k || photo.url_h || photo.url_b || photo.url_c;
+    const source = preview
+      ? photo.url_c || photo.url_q || photo.url_b || photo.url_h || photo.url_k
+      : photo.url_k || photo.url_h || photo.url_b || photo.url_c;
     try {
       const url = new URL(source);
       return url.protocol === 'https:' &&
@@ -23,12 +25,7 @@ export function selectFlickrPhotos(
   });
 }
 
-export async function fetchFlickrPhotos(
-  albumId,
-  userId,
-  options = {},
-  fetcher = fetch,
-) {
+async function fetchFlickrAlbum(albumId, userId, fetcher = fetch) {
   if (process.env.ULP_FLICKR_OFFLINE === '1') return [];
   const parameters = new URLSearchParams({
     method: 'flickr.photosets.getPhotos',
@@ -37,7 +34,7 @@ export async function fetchFlickrPhotos(
     user_id: userId,
     format: 'json',
     nojsoncallback: '1',
-    extras: 'url_k,url_h,url_b,url_c,o_dims',
+    extras: 'url_k,url_h,url_b,url_c,url_q,o_dims',
   });
   try {
     const response = await fetcher(
@@ -45,15 +42,26 @@ export async function fetchFlickrPhotos(
       { signal: AbortSignal.timeout(5000) },
     );
     if (!response.ok) return [];
-    return selectFlickrPhotos(await response.json(), options);
+    return await response.json();
   } catch {
     return [];
   }
 }
 
-export function getFlickrPhotos(albumId, userId, options = {}) {
-  const key = JSON.stringify([albumId, userId, options]);
-  if (!requests.has(key))
-    requests.set(key, fetchFlickrPhotos(albumId, userId, options));
-  return requests.get(key);
+export async function fetchFlickrPhotos(
+  albumId,
+  userId,
+  options = {},
+  fetcher = fetch,
+) {
+  return selectFlickrPhotos(
+    await fetchFlickrAlbum(albumId, userId, fetcher),
+    options,
+  );
+}
+
+export async function getFlickrPhotos(albumId, userId, options = {}) {
+  const key = JSON.stringify([albumId, userId]);
+  if (!requests.has(key)) requests.set(key, fetchFlickrAlbum(albumId, userId));
+  return selectFlickrPhotos(await requests.get(key), options);
 }

@@ -1,0 +1,38 @@
+---
+import type { VenueAmenityKind } from '../data/venue-amenities';
+import VenueAmenityIcon from './VenueAmenityIcon.astro';
+interface Props {
+  x: number;
+  y: number;
+  kind: VenueAmenityKind;
+  label: string;
+  size?: number;
+}
+const { x, y, kind, label, size = 30 } = Astro.props;
+---
+
+<g transform={`translate(${x} ${y})`} data-venue-amenity={kind}>
+  <title>{label}</title>
+  <g class="venue-amenity-marker">
+    <circle r={size * 0.68}></circle>
+    <g transform={`translate(${-size / 2} ${-size / 2})`}
+      ><VenueAmenityIcon kind={kind} size={size} /></g
+    >
+  </g>
+</g>
+<style>
+  .venue-amenity-marker {
+    transform: rotate(
+      calc(var(--venue-label-turn, 0deg) + var(--venue-label-offset, 0deg))
+    );
+  }
+  circle {
+    fill: var(--paper);
+    stroke: currentColor;
+    stroke-width: 0.8;
+    vector-effect: non-scaling-stroke;
+  }
+  .venue-amenity-marker {
+    color: var(--ink);
+  }
+</style>

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeSwitcher = document.getElementById('themeSwitcher');
   const darkLogo = document.getElementById('img-modo-oscuro');
   const lightLogo = document.getElementById('img-modo-claro');
-  const isHomePage = window.location.pathname === '/';
   let storedTheme;
 
   try {
@@ -13,9 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const updateLogo = () => {
     const isDarkMode = document.documentElement.classList.contains('dark');
-    const isSticky = document.body.classList.contains('sticky-active');
     themeSwitcher?.setAttribute('aria-pressed', String(isDarkMode));
-    const shouldShowDarkLogo = (isHomePage && !isSticky) || isDarkMode;
+    const shouldShowDarkLogo = isDarkMode;
 
     darkLogo?.classList.toggle('hidden', !shouldShowDarkLogo);
     lightLogo?.classList.toggle('hidden', shouldShowDarkLogo);
