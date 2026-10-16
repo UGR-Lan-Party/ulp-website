@@ -186,3 +186,98 @@ test('El programa oficial está plegado y recupera sus animaciones al abrirlo y 
     '1',
   );
 });
+
+test('El Aulario mantiene las dos plantas sin asociar actividades ni inventar servicios pendientes', async ({
+  page,
+}) => {
+  const map = page.locator('[data-venue-map]');
+  const select = page.locator('[data-venue-floor-select]');
+  await page.locator('[data-venue-building-select]').selectOption('aulario');
+  await expect(select.locator('option')).toHaveText(['Planta 0', 'Planta 1']);
+  await expect(page.locator('[data-aulario-room]')).toHaveCount(16);
+  await expect(
+    page.locator('[data-venue-floor-note="aulario-0"]'),
+  ).toContainText('Aseo de mujeres');
+  for (const level of [0, 1]) {
+    await select.selectOption(`aulario-${level}`);
+    await expect(map).toHaveAttribute('data-venue-plan', `aulario-${level}`);
+    await expect(page.locator('[data-venue-floor-plan]:visible')).toHaveCount(
+      1,
+    );
+    await expect(page.locator('[data-venue-zone]:visible')).toHaveCount(0);
+    await page
+      .getByLabel('Actividad', { exact: true })
+      .fill(level % 2 ? 'LEAGUE' : '');
+    await expect(map).toHaveAttribute('data-venue-plan', `aulario-${level}`);
+    await expect(
+      page.locator(`[data-venue-floor-note="aulario-${level}"]`),
+    ).toContainText('Sin actividades asignadas');
+  }
+  await expect(
+    page.locator(
+      '[data-venue-floor-plan="aulario-2"], [data-venue-floor-plan="aulario-3"]',
+    ),
+  ).toHaveCount(0);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.getByRole('button', { name: 'Girar plano a la derecha' }).click();
+  await expect(map).toHaveAttribute('data-orientation', '1');
+  await expect(map).toHaveCSS('--venue-label-turn', '-90deg');
+  await page.setViewportSize({ width: 320, height: 844 });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  await expect(
+    page.locator('[data-venue-floor-note="aulario-1"]'),
+  ).toBeVisible();
+});
+
+test('Los siete planos mantienen servicios y rótulos legibles al girar en ambos temas', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const plans = [
+    ['principal', 'principal-0'],
+    ['principal', 'principal-baja'],
+    ['aulario', 'aulario-0'],
+    ['aulario', 'aulario-1'],
+    ['inferiores', 'aulas-inferiores'],
+    ['prefabricadas-a', 'prefabricadas-a'],
+    ['prefabricadas-b', 'prefabricadas-b'],
+  ];
+  for (const dark of [false, true]) {
+    await page.evaluate(
+      (enabled) => document.documentElement.classList.toggle('dark', enabled),
+      dark,
+    );
+    for (const [building, floor] of plans) {
+      await page.locator('[data-venue-building-select]').selectOption(building);
+      const select = page.locator('[data-venue-floor-select]');
+      if (!(await select.isDisabled())) await select.selectOption(floor);
+      for (const orientation of [0, 1, 2, 3]) {
+        await page.locator(`[data-venue-orientation="${orientation}"]`).click();
+        const upright = await page
+          .locator(
+            '[data-venue-floor-plan]:visible .aulario-label, [data-venue-floor-plan]:visible .floor-upright, [data-venue-floor-plan]:visible .venue-amenity-marker',
+          )
+          .evaluateAll((labels) =>
+            labels.every((label) => {
+              const matrix = (label as SVGGraphicsElement).getCTM()!;
+              return (
+                matrix.a > 0 &&
+                matrix.d > 0 &&
+                Math.abs(matrix.b) < 0.0001 &&
+                Math.abs(matrix.c) < 0.0001
+              );
+            }),
+          );
+        expect(
+          upright,
+          `${floor}, giro ${orientation}, modo oscuro ${dark}`,
+        ).toBe(true);
+      }
+    }
+  }
+});

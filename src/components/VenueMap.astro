@@ -1,6 +1,10 @@
 ---
 import { venueZones, venuePlans, getVenueLayout } from '../data/venue-map';
 import VenueFloorPlans from './VenueFloorPlans.astro';
+import VenueAmenityIcon from './VenueAmenityIcon.astro';
+import { venueAmenities } from '../data/venue-amenities';
+import AularioFloorPlans from './AularioFloorPlans.astro';
+import { aularioFloors } from '../data/aulario';
 const buildings = [
   ...new Map(
     venuePlans.map((plan) => [plan.building, plan.buildingLabel]),
@@ -59,12 +63,14 @@ const layout = getVenueLayout('principal-0', 0);
             width="24"
             height="24"
             patternUnits="userSpaceOnUse"
-            ><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".1"
+            ><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".055"
             ></circle></pattern
           ></defs
         >
         <rect width="920" height="700" fill="url(#venue-grid)"></rect>
-        <g data-venue-building class="venue-building"><VenueFloorPlans /></g>
+        <g data-venue-building class="venue-building"
+          ><VenueFloorPlans /><AularioFloorPlans /></g
+        >
         <g data-venue-indicators>
           {
             venueZones.map((zone) => {
@@ -171,6 +177,55 @@ const layout = getVenueLayout('principal-0', 0);
       >
     </div>
   </div>
+  {
+    aularioFloors.map((floor) => (
+      <section
+        class="aulario-note"
+        data-venue-floor-note={`aulario-${floor.level}`}
+        hidden
+        aria-label={`Información de la planta ${floor.level} del Aulario`}
+      >
+        <div class="aulario-note-heading">
+          <>
+            <span>ULP 2027</span>
+            <strong>Sin actividades asignadas</strong>
+          </>
+        </div>
+        <p>{floor.description}</p>
+        <ul class="aulario-service-legend" aria-label="Servicios del plano">
+          {floor.services.map((service) => (
+            <li>
+              <VenueAmenityIcon kind={service.kind} />
+              {service.label}
+            </li>
+          ))}
+        </ul>
+        <a href={floor.source} target="_blank" rel="noopener noreferrer">
+          Consultar referencia de la ETSIIT <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+    ))
+  }
+  {
+    venuePlans
+      .filter((plan) => venueAmenities[plan.id]?.length)
+      .map((plan) => (
+        <div
+          class="aulario-note"
+          data-venue-floor-note={plan.id}
+          hidden={plan.id !== 'principal-0'}
+        >
+          <ul class="aulario-service-legend" aria-label="Servicios del plano">
+            {venueAmenities[plan.id]!.map((service) => (
+              <li>
+                <VenueAmenityIcon kind={service.kind} />
+                {service.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+  }
   <slot name="empty" />
   <p class="venue-selection" data-venue-selection role="status" hidden></p>
 </div>
@@ -187,6 +242,55 @@ const layout = getVenueLayout('principal-0', 0);
   .venue-map-column {
     min-width: 0;
     background: transparent;
+  }
+  .aulario-note {
+    padding: 20px 0 12px;
+    border-top: 1px solid var(--line);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  .aulario-note-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+  }
+  .aulario-note-heading span {
+    padding: 5px 9px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font:
+      10px ui-monospace,
+      monospace;
+  }
+  .aulario-note-heading strong {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .aulario-note p {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-block: 12px;
+  }
+  .aulario-note a {
+    font-size: 11px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .aulario-service-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    list-style: none;
+    padding: 0;
+    margin-block: 15px;
+  }
+  .aulario-service-legend li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
   }
   .venue-map-heading {
     display: flex;

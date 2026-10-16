@@ -12,6 +12,18 @@ export const venuePlans = [
     floor: 'Planta baja',
   },
   {
+    id: 'aulario-0',
+    building: 'aulario',
+    buildingLabel: 'Edificio Aulario',
+    floor: 'Planta 0',
+  },
+  {
+    id: 'aulario-1',
+    building: 'aulario',
+    buildingLabel: 'Edificio Aulario',
+    floor: 'Planta 1',
+  },
+  {
     id: 'aulas-inferiores',
     building: 'inferiores',
     buildingLabel: 'Aulas −1',

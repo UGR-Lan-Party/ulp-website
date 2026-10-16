@@ -1,0 +1,167 @@
+---
+import VenueAmenityMarker from './VenueAmenityMarker.astro';
+import { aularioFloors } from '../data/aulario';
+const rooms = [
+  { number: '0.1', outline: 'M0 0L180 104V180H0Z', x: 90, y: 120 },
+  { number: '0.2', outline: 'M0 180H180V310H0Z', x: 90, y: 245 },
+  { number: '0.3', outline: 'M0 310H180V440H0Z', x: 90, y: 375 },
+  { number: '0.4', outline: 'M0 440H180V570H0Z', x: 90, y: 505 },
+  { number: '0.5', outline: 'M0 570H180V700H0Z', x: 90, y: 635 },
+  { number: '0.6', outline: 'M0 700H180V830H0Z', x: 90, y: 765 },
+  { number: '0.7', outline: 'M0 830H180V960H0Z', x: 90, y: 895 },
+  { number: '0.8', outline: 'M0 960H180V1018L60 1080H0Z', x: 90, y: 1015 },
+];
+const firstFloorRooms = [
+  { number: '1.8', x: 63, width: 45 },
+  { number: '1.7', x: 108, width: 49 },
+  { number: '1.6', x: 157, width: 86 },
+  { number: '1.5', x: 243, width: 76 },
+  { number: '1.4', x: 319, width: 70 },
+  { number: '1.3', x: 389, width: 74 },
+  { number: '1.2', x: 463, width: 64 },
+  { number: '1.1', x: 527, width: 53 },
+];
+---
+
+{
+  aularioFloors.map((floor) => (
+    <g
+      data-venue-floor-plan={`aulario-${floor.level}`}
+      data-hidden
+      class="aulario-floor"
+    >
+      <title>Edificio Aulario, planta {floor.level}</title>
+      {floor.level === 0 ? (
+        <g transform="translate(392 103) scale(.45)">
+          <path
+            class="aulario-perimeter"
+            d="M0 0L238 137V240A65 65 0 0 1 238 370V1020L0 1150Z"
+          />
+          {rooms.map((room) => (
+            <g data-aulario-room={room.number}>
+              <path class="aulario-room" d={room.outline} />
+              <g transform={`translate(${room.x} ${room.y})`}>
+                <g class="aulario-label">
+                  <text text-anchor="middle" dominant-baseline="middle">
+                    {room.number}
+                  </text>
+                </g>
+              </g>
+            </g>
+          ))}
+          <path
+            class="aulario-wall"
+            d="M0 180H180M0 310H180M0 440H180M0 570H180M0 700H180M0 830H180M0 960H180M180 84V180M180 200V310M180 330V440M180 460V570M180 590V700M180 720V830M180 850V960M180 980V1018M238 137V240M238 370V760M238 825V910M238 960V1020M238 305H300M238 240V285M238 325V370"
+          />
+          <path
+            class="aulario-stair"
+            d="M200 267L218 274M192 283L212 286M187 299H210M187 315H210M192 331L212 328M200 347L218 340M238 780H302M238 790H302M238 800H302M238 810H302M238 920H302M238 930H302M238 940H302M238 950H302"
+          />
+          <rect
+            class="aulario-lift"
+            x="237"
+            y="345"
+            width="30"
+            height="36"
+            rx="3"
+          />
+          {floor.services.map((service) => (
+            <VenueAmenityMarker {...service} size={26} />
+          ))}
+        </g>
+      ) : (
+        <g transform="translate(188 -120) scale(.85)">
+          <path
+            class="aulario-perimeter"
+            d="M64 499H145A34 34 0 0 1 213 499H575L616 588H23Z"
+          />
+          <path
+            class="aulario-wall"
+            d="M64 521H145M157 521H243M254 521H319M330 521H389M400 521H463M474 521H527M538 521H580M108 521V588M157 521V588M243 521V588M319 521V588M389 521V588M463 521V588M527 521V588M63 521V588M580 521V588M440 499V458H458M505 458H536V499"
+          />
+          {firstFloorRooms.map((room) => (
+            <g data-aulario-room={room.number}>
+              <rect
+                class="aulario-room"
+                x={room.x + 3}
+                y="526"
+                width={room.width - 6}
+                height="58"
+                rx="3"
+              />
+              <g transform={`translate(${room.x + room.width / 2} 553)`}>
+                <g class="aulario-label">
+                  <text
+                    class="aulario-first-label"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                  >
+                    {room.number}
+                  </text>
+                </g>
+              </g>
+            </g>
+          ))}
+          <path
+            class="aulario-stair"
+            d="M154 503L161 509M162 506L166 512M172 508V515M183 508V515M194 506L190 512M202 503L195 509M440 465H458M440 471H458M440 477H458M440 483H458M440 489H458M505 465H536M505 471H536M505 477H536M505 483H536M505 489H536"
+          />
+          {floor.services.map((service) => (
+            <VenueAmenityMarker {...service} size={18} />
+          ))}
+        </g>
+      )}
+    </g>
+  ))
+}
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+  .aulario-floor {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .aulario-perimeter {
+    stroke-width: 1.8;
+    vector-effect: non-scaling-stroke;
+  }
+  .aulario-room {
+    stroke: currentColor;
+    stroke-opacity: 0.18;
+    stroke-width: 1;
+    fill: currentColor;
+    fill-opacity: 0.045;
+  }
+  .aulario-wall {
+    stroke-width: 1.05;
+    vector-effect: non-scaling-stroke;
+  }
+  .aulario-stair {
+    stroke-width: 0.8;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.45;
+  }
+  .aulario-lift {
+    stroke-width: 1.5;
+    fill: currentColor;
+    fill-opacity: 0.06;
+  }
+
+  .aulario-label {
+    transform: rotate(var(--venue-label-turn, 0deg));
+  }
+  .aulario-label text {
+    font:
+      23px 'Inter Variable',
+      sans-serif;
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .aulario-label .aulario-first-label {
+    font-size: 13px;
+  }
+</style>

@@ -26,7 +26,7 @@ test('Una sala no confirmada no recibe una posición inventada', () => {
 });
 
 test('Cada zona pertenece a una planta existente y cada plano tiene geometría independiente', () => {
-  assert.equal(new Set(venuePlans.map((plan) => plan.id)).size, 5);
+  assert.equal(new Set(venuePlans.map((plan) => plan.id)).size, 7);
   for (const zone of venueZones)
     assert.ok(
       venuePlans.some((plan) => plan.id === zone.plan),
@@ -63,4 +63,15 @@ test('Las cuatro orientaciones mantienen los puntos dentro del plano y las líne
       }
     }
   }
+});
+
+test('Las dos plantas del Aulario no están vinculadas a actividades históricas', () => {
+  const floors = venuePlans.filter((plan) => plan.building === 'aulario');
+  assert.deepEqual(
+    floors.map((plan) => plan.floor),
+    ['Planta 0', 'Planta 1'],
+  );
+  for (const floor of floors) assert.deepEqual(getVenueLayout(floor.id, 0), []);
+  for (const location of ['Aula 0.1', 'Aula 1.1', 'Aula 2.1', 'Aula 3.1'])
+    assert.deepEqual(getVenueZones(location), []);
 });

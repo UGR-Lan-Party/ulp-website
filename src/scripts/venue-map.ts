@@ -45,6 +45,9 @@ export function createVenueMap(
     ),
   );
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const floorNotes = Array.from(
+    map.querySelectorAll<HTMLElement>('[data-venue-floor-note]'),
+  );
   let planId: VenuePlanId = 'principal-0';
   let orientation: VenueOrientation = 0;
   let activeZone: string | null = null;
@@ -75,6 +78,10 @@ export function createVenueMap(
   }
 
   function draw() {
+    floorNotes.forEach(
+      (note) => (note.hidden = note.dataset.venueFloorNote !== planId),
+    );
+    map!.style.setProperty('--venue-label-turn', `${-orientation * 90}deg`);
     plans.forEach((plan) =>
       plan.toggleAttribute(
         'data-hidden',
@@ -125,6 +132,11 @@ export function createVenueMap(
   function setPlan(id: VenuePlanId) {
     stopTurn();
     planId = id;
+    if (activeZone) {
+      clear();
+      onZoneChange(null);
+      planId = id;
+    }
     draw();
   }
 
@@ -290,6 +302,7 @@ export function createVenueMap(
         for (const id of ids) counts.set(id, (counts.get(id) ?? 0) + 1);
       });
       if (
+        !planId.startsWith('aulario-') &&
         !venueZones.some((zone) => zone.plan === planId && counts.has(zone.id))
       ) {
         const plan = venuePlans.find((plan) =>
