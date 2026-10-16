@@ -4,7 +4,7 @@
   --paper: #f5f0e6;
   --surface: #fcf8ef;
   --ink: #004465;
-  --muted: #506973;
+  --muted: #46616b;
   --accent: #006471;
   --line: rgb(0 68 101 / 0.17);
   --panel: #004465;
@@ -207,7 +207,7 @@ summary:focus-visible,
   font-size: 9px;
   font-family: ui-monospace, monospace;
   margin-top: 5px;
-  opacity: 0.65;
+  color: var(--muted);
   letter-spacing: 0.11em;
 }
 .navigation-list {

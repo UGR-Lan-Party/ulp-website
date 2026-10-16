@@ -1,0 +1,186 @@
+---
+import { program, programEdition } from '../data/program';
+import { edition } from '../data/edition';
+import { getTournament } from '../data/tournaments';
+import { getRegistrationState } from '../utils/registration.js';
+import { agendaEntryId } from '../utils/personal-agenda.js';
+import type { CompetitionData } from '../data/competitions-data';
+import AgendaToggle from './AgendaToggle.astro';
+import AgendaData from './AgendaData.astro';
+interface Props {
+  competition: CompetitionData;
+}
+const { competition } = Astro.props;
+const slots = program.filter((entry) => entry.id === competition.id);
+const format = getTournament(competition.id)?.format;
+const registration = getRegistrationState(
+  competition,
+  programEdition.year,
+  edition,
+);
+const day = new Intl.DateTimeFormat('es-ES', {
+  timeZone: programEdition.timezone,
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+});
+const facts = [
+  {
+    label: 'Cuándo',
+    value: slots[0]
+      ? `${day.format(new Date(slots[0].startsAt))} · ${slots[0].time}`
+      : 'Horario por confirmar',
+    note:
+      slots.length > 1
+        ? `${slots.length} franjas · consulta el horario completo`
+        : '',
+  },
+  {
+    label: 'Dónde',
+    value: competition.place || 'Zona por confirmar',
+    note: '',
+  },
+  {
+    label: 'Formato',
+    value:
+      format ||
+      (competition.rules ? 'Consultar las reglas' : 'No especificado'),
+    note: '',
+  },
+  {
+    label: 'Inscripción',
+    value:
+      registration.label === 'N/A'
+        ? 'Sin inscripción previa'
+        : registration.label === 'Cerrada'
+          ? `Cerrada · archivo ${programEdition.year}`
+          : 'Abierta',
+    note: '',
+  },
+];
+---
+
+<section class="activity-summary" aria-label="Resumen de la actividad">
+  <dl>
+    {
+      facts.map((fact) => (
+        <div>
+          <>
+            <dt>{fact.label}</dt>
+            <dd>
+              {fact.value}
+              {fact.note && <small>{fact.note}</small>}
+            </dd>
+          </>
+        </div>
+      ))
+    }
+  </dl>
+  <div class="activity-summary-bottom">
+    <p>
+      Plazas, material y requisitos: {
+        competition.rules ? (
+          <a href={competition.rules}>consulta las reglas</a>
+        ) : (
+          'pendientes de confirmar'
+        )
+      }.
+    </p>
+    <div class="activity-summary-tools">
+      {
+        slots.length > 0 && (
+          <AgendaToggle
+            ids={slots.map((entry) =>
+              agendaEntryId(entry, programEdition.year),
+            )}
+            name={competition.name}
+          />
+        )
+      }
+      <a class="summary-agenda-link" href="/info/horarios#mi-agenda"
+        >Mi agenda <span aria-hidden="true">↗</span></a
+      >
+    </div>
+  </div>
+  <p class="sr-only" data-agenda-status role="status" aria-live="polite"></p>
+</section>
+<AgendaData />
+<style>
+  .activity-summary {
+    margin-top: 32px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    padding: clamp(20px, 2.5vw, 28px);
+  }
+  dl {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+  dt {
+    font:
+      10px/1.6 ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  dd {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .activity-summary-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 18px;
+    margin-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  p a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .activity-summary-tools {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+  }
+  .summary-agenda-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  @media (max-width: 760px) {
+    dl {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px 16px;
+    }
+    .activity-summary-bottom {
+      align-items: start;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+</style>

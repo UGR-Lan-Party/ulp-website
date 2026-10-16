@@ -373,8 +373,6 @@ const N = schedule.length;
 />
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   let initialized = false;
 
   const ENTER_END = 0.22;
@@ -391,11 +389,18 @@ const N = schedule.length;
     return outA + (outB - outA) * t;
   }
 
-  function initSabadoTimeline() {
+  async function initSabadoTimeline() {
     const disclosure = document.querySelector<HTMLDetailsElement>(
       '[data-official-program]',
     );
     if (disclosure && !disclosure.open) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const motion = await Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger'),
+    ]).catch(() => null);
+    if (!motion || (disclosure && !disclosure.open)) return;
+    const [{ gsap }, { ScrollTrigger }] = motion;
     if (initialized) {
       requestAnimationFrame(() => ScrollTrigger.refresh());
       return;
@@ -684,6 +689,10 @@ const N = schedule.length;
     });
   }
 
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener(
+    'change',
+    initSabadoTimeline,
+  );
   document.addEventListener('DOMContentLoaded', initSabadoTimeline);
   document.addEventListener('astro:page-load', initSabadoTimeline);
   document.addEventListener('ulp:official-program-toggle', initSabadoTimeline);

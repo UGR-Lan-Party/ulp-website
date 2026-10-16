@@ -141,8 +141,6 @@ const N = activities.length;
 />
 
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   let initialized = false;
 
   const ENTER_END = 0.22;
@@ -165,11 +163,18 @@ const N = activities.length;
     return outA + (outB - outA) * t;
   }
 
-  function initTimeline() {
+  async function initTimeline() {
     const disclosure = document.querySelector<HTMLDetailsElement>(
       '[data-official-program]',
     );
     if (disclosure && !disclosure.open) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const motion = await Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger'),
+    ]).catch(() => null);
+    if (!motion || (disclosure && !disclosure.open)) return;
+    const [{ gsap }, { ScrollTrigger }] = motion;
     if (initialized) {
       requestAnimationFrame(() => ScrollTrigger.refresh());
       return;
@@ -391,6 +396,10 @@ const N = activities.length;
     });
   }
 
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener(
+    'change',
+    initTimeline,
+  );
   document.addEventListener('DOMContentLoaded', initTimeline);
   document.addEventListener('astro:page-load', initTimeline);
   document.addEventListener('ulp:official-program-toggle', initTimeline);

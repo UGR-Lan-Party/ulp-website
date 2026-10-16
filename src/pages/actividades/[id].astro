@@ -2,6 +2,7 @@
 import { getActivityNeighbors } from '../../utils/activity-navigation';
 import { programEdition } from '../../data/program';
 import Layout from '../../layouts/Layout.astro';
+import ActivitySummary from '../../components/ActivitySummary.astro';
 import HolographicCard from '../../components/CompetitionCardHolographic.astro';
 import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
@@ -158,6 +159,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
           )
         }
       </div>
+      <ActivitySummary competition={competition} />
     </header>
     <div class="design-container">
       <Inscripsection

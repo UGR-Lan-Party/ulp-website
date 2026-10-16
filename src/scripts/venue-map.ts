@@ -86,7 +86,10 @@ export function createVenueMap(
     zones.forEach((zone) => {
       const point = layout.find((point) => point.id === zone.dataset.venueZone);
       const count = counts.get(zone.dataset.venueZone!) ?? 0;
-      zone.toggleAttribute('data-hidden', !point || count === 0);
+      const hidden = !point || count === 0;
+      zone.toggleAttribute('data-hidden', hidden);
+      zone.setAttribute('aria-hidden', String(hidden));
+      zone.setAttribute('tabindex', hidden ? '-1' : '0');
       if (!point) return;
       zone
         .querySelector('[data-venue-label]')!
@@ -106,7 +109,6 @@ export function createVenueMap(
       zone
         .querySelector('[data-venue-point]')!
         .setAttribute('cy', String(point.y));
-      zone.querySelector('[data-zone-count]')!.textContent = ` · ${count}`;
     });
     syncControls();
   }
@@ -169,12 +171,11 @@ export function createVenueMap(
   }
 
   function selectZones(ids: string[]) {
-    zones.forEach((zone) =>
-      zone.classList.toggle(
-        'is-selected',
-        ids.includes(zone.dataset.venueZone!),
-      ),
-    );
+    zones.forEach((zone) => {
+      const selected = ids.includes(zone.dataset.venueZone!);
+      zone.classList.toggle('is-selected', selected);
+      zone.setAttribute('aria-pressed', String(selected));
+    });
   }
 
   function clear() {
@@ -273,7 +274,7 @@ export function createVenueMap(
   const resize = () =>
     drawing.setAttribute(
       'viewBox',
-      narrow.matches ? '170 65 580 570' : '0 0 920 700',
+      narrow.matches ? '170 65 580 570' : '0 45 920 625',
     );
   narrow.addEventListener('change', resize);
   resize();

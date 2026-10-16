@@ -1,5 +1,3 @@
-import { mountTrophy } from './ThreeJs/trophy-scene';
-
 document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
   const canvas = viewer.querySelector<HTMLElement>('[data-trophy-canvas]')!;
   const status = viewer.querySelector<HTMLElement>('[data-trophy-status]')!;
@@ -23,6 +21,8 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
     retry.hidden = true;
     status.textContent = 'Cargando trofeo 3D…';
     try {
+      const { mountTrophy } = await import('./ThreeJs/trophy-scene');
+      if (request.signal.aborted) return;
       const cleanup = await mountTrophy(
         canvas,
         viewer.dataset.trophy!,

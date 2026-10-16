@@ -109,7 +109,25 @@ editions.push({
     top: 70px;
     left: 5.55%;
     right: 5.55%;
-    background: linear-gradient(90deg, #527c89, #0094a1);
+    background:
+      linear-gradient(
+        90deg,
+        transparent 40%,
+        #0094a1 46%,
+        #b1d7dd 50%,
+        #0094a1 54%,
+        transparent 60%
+      ),
+      linear-gradient(90deg, #527c89, #0094a1);
+    background-size:
+      250% 100%,
+      100% 100%;
+    background-position:
+      100% 0,
+      0 0;
+    background-repeat: no-repeat;
+    animation: timeline-tone 9s linear infinite;
+    pointer-events: none;
   }
   li {
     position: relative;
@@ -163,6 +181,27 @@ editions.push({
   .timeline-latest i {
     background: #00a7ad;
     box-shadow: 0 0 0 2px #00a7ad;
+  }
+  @keyframes timeline-tone {
+    from {
+      background-position:
+        100% 0,
+        0 0;
+    }
+    to {
+      background-position:
+        0% 0,
+        0 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ol::before {
+      animation: none;
+      background: linear-gradient(90deg, #527c89, #0094a1);
+    }
+    i {
+      transition: none;
+    }
   }
   @media (max-width: 650px) {
     header {

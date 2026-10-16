@@ -27,7 +27,6 @@ const rows = (
 const lowerTables = [
   ...rows(16, 90.5, 2, 6, 151, 152.5, 66.5, 40),
   room(169, 27.5, 151, 40),
-  room(169, 464, 151, 25),
   room(457, 0, 43, 194),
   room(457, 264, 43, 194),
   room(537, 2, 156, 50),
@@ -132,7 +131,7 @@ const prefabA2Seats = rows(28, 147, 5, 7, 27, 35.5, 61.5, 12);
     [
       room(475, 202, 25, 54),
       room(475, 464, 25, 56),
-      room(975, 208, 25, 54),
+      room(967, 208, 25, 54),
     ].map((column) => <rect class="floor-wall" {...column} rx="5" />)
   }
   {lowerTables.map((table) => <rect class="floor-desk" {...table} rx="9" />)}

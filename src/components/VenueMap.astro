@@ -46,7 +46,7 @@ const layout = getVenueLayout('principal-0', 0);
     </div>
     <div class="venue-canvas">
       <svg
-        viewBox="0 0 920 700"
+        viewBox="0 45 920 625"
         class="venue-drawing"
         data-venue-drawing
         role="group"
@@ -107,15 +107,7 @@ const layout = getVenueLayout('principal-0', 0);
                       {zone.label}
                     </text>
                     <text class="venue-label-meta" x="10" y="30">
-                      <>
-                        <tspan>
-                          {
-                            venuePlans.find((plan) => plan.id === zone.plan)
-                              ?.floor
-                          }
-                        </tspan>
-                        <tspan data-zone-count />
-                      </>
+                      {venuePlans.find((plan) => plan.id === zone.plan)?.floor}
                     </text>
                   </g>
                 </g>
@@ -225,7 +217,7 @@ const layout = getVenueLayout('principal-0', 0);
   .venue-selectors {
     display: flex;
     gap: 18px;
-    margin-bottom: 14px;
+    margin-bottom: 6px;
   }
   .venue-selectors label {
     display: grid;

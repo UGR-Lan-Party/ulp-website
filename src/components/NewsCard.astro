@@ -11,7 +11,7 @@ const Heading = featured ? 'h2' : 'h3';
 ---
 
 <article class:list={['news-card', { 'news-featured': featured }]} data-reveal>
-  <a href={`/blog/${entry.slug}`} aria-label={`Leer: ${entry.data.title}`}>
+  <a href={`/blog/${entry.slug}`}>
     <div class="news-media">
       <ResponsiveImage
         src={entry.data.image.src}
@@ -21,7 +21,8 @@ const Heading = featured ? 'h2' : 'h3';
           ? '(max-width: 700px) 100vw, 55vw'
           : '(max-width: 700px) 100vw, 33vw'}
       /><span class="news-image-label"
-        >{featured ? 'En portada' : (entry.data.tags[0] ?? 'ULP')}</span>
+        >{featured ? 'En portada' : (entry.data.tags[0] ?? 'ULP')}</span
+      >
     </div>
     <div class="news-card-copy">
       <div class="news-meta">
@@ -31,7 +32,8 @@ const Heading = featured ? 'h2' : 'h3';
       </div><Heading class="news-card-title">{entry.data.title}</Heading><p>
         {entry.data.snippet}
       </p><span class="news-read"
-        >Leer historia <span aria-hidden="true">→</span></span>
+        >Leer historia <span aria-hidden="true">→</span></span
+      >
     </div>
   </a>
 </article>

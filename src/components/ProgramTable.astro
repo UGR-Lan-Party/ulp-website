@@ -1,5 +1,8 @@
 ---
 import VenueMap from './VenueMap.astro';
+import PersonalAgenda from './PersonalAgenda.astro';
+import AgendaToggle from './AgendaToggle.astro';
+import { agendaEntryId } from '../utils/personal-agenda.js';
 import { program, programEdition } from '../data/program';
 import { edition } from '../data/edition';
 import { getRegistrationState } from '../utils/registration.js';
@@ -74,6 +77,7 @@ const categoryLabels: Record<string, string> = {
       </p>
     )
   }
+  <PersonalAgenda />
   <form
     class="program-filters"
     data-program-filters
@@ -129,7 +133,13 @@ const categoryLabels: Record<string, string> = {
   </VenueMap>
   <details class="program-table-disclosure" data-program-table-disclosure open>
     <summary>Desplegar agenda <span aria-hidden="true">⌄</span></summary>
-    <div class="program-table-wrap" data-program-table>
+    <div
+      class="program-table-wrap"
+      data-program-table
+      role="region"
+      tabindex="0"
+      aria-label="Agenda completa, desplázate para ver todas las actividades"
+    >
       <table class="program-table">
         <caption class="sr-only"
           >Programa ULP {programEdition.year}. Las actividades sin hora de fin
@@ -139,7 +149,8 @@ const categoryLabels: Record<string, string> = {
           ><tr
             ><th scope="col">Día</th><th scope="col">Horario</th><th scope="col"
               >Actividad</th
-            ><th scope="col">Aula o zona</th><th scope="col">Inscripción</th
+            ><th scope="col">Aula o zona</th><th scope="col">Inscripción</th><th
+              scope="col">Mi agenda</th
             ></tr
           ></thead
         >
@@ -219,6 +230,12 @@ const categoryLabels: Record<string, string> = {
                         Cerrada
                       </button>
                     )}
+                  </td>
+                  <td class="program-save" data-label="Mi agenda">
+                    <AgendaToggle
+                      ids={[agendaEntryId(entry, programEdition.year)]}
+                      name={`${entry.name}, ${entry.time}`}
+                    />
                   </td>
                 </tr>
               );

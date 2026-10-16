@@ -30,7 +30,7 @@ const { name, description, image, href, network, badge } = Astro.props;
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`${network} de ${name.trim()}`}
+      aria-label={`Ver ${network} de ${name.trim()}`}
       >{
         network === 'LinkedIn' ? (
           <LinkedInIcon aria-hidden="true" />

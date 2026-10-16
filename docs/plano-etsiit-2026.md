@@ -50,3 +50,6 @@ Las pruebas recorren las cinco plantas y cuatro orientaciones, verifican que los
 ## Ajustes del 16 de octubre
 
 Se retira el indicador de entrada principal de la planta 0; las ubicaciones escritas de la agenda permanecen disponibles en la tabla. Se ensancha la delimitación del Salón de Grados conforme al PNG para contener las sillas de la columna derecha; las sillas laterales conservan su orientación vertical. Mesas y sillas utilizan superficies con degradados suaves y más contraste, manteniendo dimensiones y proporciones. Se elimina el aviso de actividad pendiente de situar y se conserva su ubicación escrita en la tabla. El control de la agenda pasa a «Desplegar agenda» y aumenta su tamaño.
+
+
+Se eliminan del Salón de Actos cuatro formas aisladas procedentes del rótulo extraído del PNG: la situada entre las gradas y el escenario y las tres junto al borde del escenario. Se conservan la mesa y sus cuatro sillas. En el aula −1.1 se retira la mesa inferior que se superponía a cuatro sillas; la columna derecha de −1.2 se alinea con el borde de las mesas. Las etiquetas del plano muestran solo la planta, sin el contador de actividades. El encuadre de escritorio elimina espacio vacío superior y se reduce el margen bajo los selectores; los puntos y las cuatro orientaciones conservan sus coordenadas.
