@@ -1,4 +1,9 @@
+---
+import MapBackdrop from './MapBackdrop.astro';
+---
+
 <section class="design-section design-container location-section">
+  <MapBackdrop />
   <div class="location-copy" data-reveal>
     <span class="design-eyebrow">El punto de encuentro</span>
     <h2>Nos vemos<br /><em>en la ETSIIT.</em></h2>
@@ -51,6 +56,8 @@
 </section>
 <style>
   .location-section {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: 0.9fr 1.2fr;
     gap: clamp(35px, 5vw, 75px);

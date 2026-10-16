@@ -200,11 +200,11 @@
     "top": -6.372
   },
   "paella": {
-    "aspect": 1.414,
-    "frameWidth": 79.616,
-    "imageWidth": 103.465,
-    "imageHeight": 146.324,
-    "left": -2.558,
-    "top": -22.987
+    "aspect": 1.362,
+    "frameWidth": 76.682,
+    "imageWidth": 103.21,
+    "imageHeight": 140.583,
+    "left": -2.305,
+    "top": -19.058
   }
 }

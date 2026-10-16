@@ -33,7 +33,7 @@ test('Los filtros del programa se combinan y se pueden restablecer', async ({
     await expect(row).toHaveAttribute('data-location', location!);
     await expect(row).toHaveAttribute('data-day', day!);
   }
-  await form.getByRole('button', { name: 'Restablecer' }).click();
+  await form.getByRole('button', { name: 'Restablecer', exact: true }).click();
   await expect(rows).toHaveCount(total);
 });
 
@@ -50,7 +50,9 @@ test('Una búsqueda con HTML se trata como texto y ofrece recuperación', async 
     await page.evaluate(() => (window as any).ulpInjected),
   ).toBeUndefined();
   await expect(program.locator('img')).toHaveCount(0);
-  await program.getByRole('button', { name: 'Restablecer' }).click();
+  await program
+    .getByRole('button', { name: 'Restablecer', exact: true })
+    .click();
   await expect(program.locator('[data-program-empty]')).not.toBeVisible();
 });
 

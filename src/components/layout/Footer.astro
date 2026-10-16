@@ -75,7 +75,10 @@ const networks = [
       </div>
     </div>
     <div class="footer-copyright">
-      <span
+      <a class="footer-registration" href="/actividades#competiciones"
+        >Inscripciones <span aria-hidden="true">↗</span></a
+      >
+      <span class="footer-credit"
         >2016 — {new Date().getFullYear()} @ UGR LAN Party | Universidad de Granada</span
       ><a href="/info/aviso_legal">Aviso legal</a>
     </div>
@@ -91,7 +94,7 @@ const networks = [
   }
   .footer-original-grid {
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr 1fr;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: 36px;
     padding-block: 8px 24px;
@@ -162,13 +165,27 @@ const networks = [
     text-underline-offset: 4px;
   }
   .footer-copyright {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
     gap: 20px;
     border-top: 1px solid rgb(245 240 230 / 0.2);
     padding-top: 20px;
     font-size: 10px;
     opacity: 0.65;
+  }
+  .footer-credit {
+    text-align: center;
+  }
+  .footer-registration {
+    justify-self: start;
+  }
+  .footer-copyright > a:last-child {
+    justify-self: end;
+  }
+  .footer-copyright a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
   .footer-inner {
     position: relative;
@@ -179,9 +196,12 @@ const networks = [
       gap: 28px;
     }
     .footer-copyright {
-      flex-direction: column;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
       font-size: 9px;
+    }
+    .footer-credit {
+      grid-column: 1 / -1;
+      grid-row: 1;
     }
   }
 </style>

@@ -2,7 +2,6 @@
 import '../styles/proposal.css';
 import '../styles/reduced-motion.css';
 import Footer from '../components/layout/Footer.astro';
-import LinktreeCard from '../components/LinktreeCard.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
 import PartnerStrip from '../components/PartnerStrip.astro';
@@ -11,8 +10,20 @@ interface Props {
   description?: string;
   title?: string;
   image?: string;
+  noindex?: boolean;
 }
-const { description, title, image } = Astro.props;
+const { description, title, image, noindex = false } = Astro.props;
+const siteName = 'UGR LAN Party';
+const pageTitle =
+  title && title !== 'Inicio' ? `${title} | ${siteName}` : siteName;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  alternateName: 'ULP',
+  url: new URL('/', Astro.site).href,
+};
 ---
 
 <!doctype html>
@@ -27,6 +38,24 @@ const { description, title, image } = Astro.props;
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <link rel="canonical" href={canonicalUrl} />
+      )
+    }
+    <meta name="application-name" content={siteName} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    {!noindex && <meta property="og:url" content={canonicalUrl.href} />}
+    <meta property="og:type" content="website" />
+    <meta name="twitter:title" content={pageTitle} />
+    {
+      Astro.url.pathname === '/' && (
+        <script type="application/ld+json" set:html={JSON.stringify(website)} />
+      )
+    }
     <meta property="og:image" content={image} />
     <meta property="twitter:image" content={image} />
     <script is:inline>
@@ -49,7 +78,7 @@ const { description, title, image } = Astro.props;
       defer
       src="https://analytics.wupp.dev/script.js"
       data-website-id="bf67b9c0-6b15-4d11-af7b-3c56661b8f2e"></script>
-    <title>{title ? title + ' | ULP' : 'UGR LAN Party'}</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
     <PartnerLogoFilters />
@@ -57,7 +86,6 @@ const { description, title, image } = Astro.props;
     <Header />
     <main id="contenido-principal" tabindex="-1"><slot /></main>
     {Astro.url.pathname !== '/' && <PartnerStrip />}
-    {Astro.url.pathname === '/' && <LinktreeCard />}
     <Footer />
     <BackToTop />
     <script>

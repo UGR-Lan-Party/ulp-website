@@ -13,7 +13,12 @@ const questions = isHome
   : faqs.slice(offset, offset + pageSize);
 ---
 
-<section class="design-section design-container faq-section">
+<section
+  class:list={[
+    'design-section design-container faq-section',
+    { 'faq-section--home': isHome },
+  ]}
+>
   <div class="faq-intro" data-reveal>
     <span class="design-eyebrow">Antes de darle a start</span><h2
       class="design-heading"
@@ -79,6 +84,9 @@ const questions = isHome
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;
     gap: 80px;
+  }
+  .faq-section--home {
+    padding-bottom: clamp(32px, 4vw, 56px);
   }
   .faq-intro .design-eyebrow {
     margin-bottom: 24px;

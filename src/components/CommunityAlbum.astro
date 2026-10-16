@@ -25,8 +25,10 @@ import CarouselSection from './CarouselSection.astro';
     </div><CarouselSection
       albumId="72177720316026867"
       userId="195749897@N03"
+      shufflePhotos
       withBackground={false}
       height="380px"
+      centeredSlides
     />
   </div>
 </section>
@@ -42,7 +44,9 @@ import CarouselSection from './CarouselSection.astro';
     margin-bottom: 38px;
   }
   .design-eyebrow {
-    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
   }
   h2 {
     font-size: clamp(35px, 5vw, 65px);
@@ -65,10 +69,8 @@ import CarouselSection from './CarouselSection.astro';
     font-size: 11px;
   }
   .album-frame {
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    padding: 18px;
-    background: var(--surface);
+    max-width: 1240px;
+    margin-inline: auto;
   }
   .album-meta {
     display: flex;
@@ -79,7 +81,9 @@ import CarouselSection from './CarouselSection.astro';
       monospace;
     letter-spacing: 0.1em;
     color: var(--muted);
-    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
   }
   .album-frame :global([data-photo-carousel]) {
     padding-block: 0;
@@ -94,9 +98,6 @@ import CarouselSection from './CarouselSection.astro';
     }
     .album-intro {
       justify-self: start;
-    }
-    .album-frame {
-      padding: 14px;
     }
     .album-meta {
       font-size: 7px;

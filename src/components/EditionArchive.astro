@@ -6,10 +6,9 @@ interface Props {
   reversed?: boolean;
 }
 const { edition, reversed = false } = Astro.props;
-const split = edition.description.indexOf('. ') + 1;
-const introduction =
-  split > 0 ? edition.description.slice(0, split) : edition.description;
-const rest = split > 0 ? edition.description.slice(split).trim() : '';
+const [introduction, ...history] = edition.description.split(
+  /(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÑ])/u,
+);
 ---
 
 <section
@@ -29,7 +28,7 @@ const rest = split > 0 ? edition.description.slice(split).trim() : '';
       </div>
     </header>
     <p class="archive-introduction">{introduction}</p>
-    {rest && <p class="archive-history">{rest}</p>}
+    {history.map((paragraph) => <p class="archive-history">{paragraph}</p>)}
     {
       edition.externalLink && (
         <a
@@ -46,7 +45,9 @@ const rest = split > 0 ? edition.description.slice(split).trim() : '';
   <div class="archive-gallery">
     <CarouselSection
       albumId={edition.albumId}
+      featuredPhotoId={edition.featuredPhotoId}
       userId={edition.userId}
+      shufflePhotos
       withBackground={false}
       height="340px"
     />

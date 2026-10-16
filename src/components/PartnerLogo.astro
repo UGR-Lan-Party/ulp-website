@@ -24,7 +24,10 @@ const layoutStyle = layout
 <span
   class:list={[
     'partner-logo-frame',
-    { 'roomy-logo': partner.name.trim() === 'UGR' },
+    {
+      'roomy-logo': partner.name.trim() === 'UGR',
+      'mars-logo': partner.name.trim() === 'Mars Gaming',
+    },
   ]}
   style={`--default-logo-width:${width}px;--default-logo-height:${height}px`}
 >
@@ -40,15 +43,32 @@ const layoutStyle = layout
       loading="lazy"
       data-partner-logo={partner.name.trim()}
       data-surface={surface}
+      style={partner.logoWhiteFilter
+        ? `--logo-dark-filter:url(#${partner.logoWhiteFilter})`
+        : undefined}
       class:list={[
         'partner-logo',
         {
           'needs-contrast': partner.logoNeedsContrast,
           'white-details': partner.logoWhiteDetails,
-          'has-background': partner.logoHasBackground,
+          'has-white-variant': Boolean(partner.logoWhite),
         },
       ]}
     />
+    {
+      partner.logoWhite && (
+        <img
+          src={partner.logoWhite}
+          alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
+          width={width}
+          height={height}
+          loading="lazy"
+          data-partner-white-logo={partner.name.trim()}
+          data-surface={surface}
+          class="partner-logo white-variant"
+        />
+      )
+    }
   </span>
 </span>
 <style>
@@ -99,10 +119,18 @@ const layoutStyle = layout
   .white-details[data-surface='theme'] {
     filter: url(#partner-white-details);
   }
-  .partner-logo[data-surface='dark']:not(.has-background) {
-    filter: brightness(0) invert(1);
+  .partner-logo[data-surface='dark'],
+  :global(.dark) .partner-logo[data-surface='theme'] {
+    filter: var(--logo-dark-filter, brightness(0) invert(1));
   }
-  :global(.dark) .partner-logo[data-surface='theme']:not(.has-background) {
-    filter: brightness(0) invert(1);
+  .white-variant,
+  .has-white-variant[data-surface='dark'],
+  :global(.dark) .has-white-variant[data-surface='theme'] {
+    display: none;
+  }
+  .white-variant[data-surface='dark'],
+  :global(.dark) .white-variant[data-surface='theme'] {
+    display: block;
+    filter: none;
   }
 </style>

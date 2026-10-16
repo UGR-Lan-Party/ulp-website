@@ -1,0 +1,1293 @@
+{
+  "edition": 2026,
+  "updatedAt": "2026-10-15",
+  "tournaments": [
+    {
+      "id": "ping-pong",
+      "format": "Grupos + eliminatorias",
+      "stages": [
+        "8 grupos de 3",
+        "Cuartos · BO3",
+        "Semifinales · BO3",
+        "Final · BO5"
+      ],
+      "participants": [],
+      "groups": [
+        {
+          "id": "grupo-1",
+          "name": "Grupo 1",
+          "time": "10:00",
+          "participants": ["El_chauchinero", "Carlos/Carri", "Cantemor"],
+          "matches": [
+            {
+              "id": "pp-g1-1",
+              "players": ["Carlos/Carri", "El_chauchinero"]
+            },
+            {
+              "id": "pp-g1-2",
+              "players": ["Cantemor", "El_chauchinero"]
+            },
+            {
+              "id": "pp-g1-3",
+              "players": ["Cantemor", "Carlos/Carri"]
+            }
+          ]
+        },
+        {
+          "id": "grupo-2",
+          "name": "Grupo 2",
+          "time": "10:00",
+          "participants": ["VoidLight", "BOLLITO", "Parpas16"],
+          "matches": [
+            {
+              "id": "pp-g2-1",
+              "players": ["BOLLITO", "VoidLight"]
+            },
+            {
+              "id": "pp-g2-2",
+              "players": ["BOLLITO", "Parpas16"]
+            },
+            {
+              "id": "pp-g2-3",
+              "players": ["Parpas16", "VoidLight"]
+            }
+          ]
+        },
+        {
+          "id": "grupo-3",
+          "name": "Grupo 3",
+          "time": "10:30",
+          "participants": ["Marco", "inferken", "Noni"],
+          "matches": [
+            {
+              "id": "pp-g3-1",
+              "players": ["Marco", "inferken"]
+            },
+            {
+              "id": "pp-g3-2",
+              "players": ["Marco", "Noni"]
+            },
+            {
+              "id": "pp-g3-3",
+              "players": ["Noni", "inferken"]
+            }
+          ]
+        },
+        {
+          "id": "grupo-4",
+          "name": "Grupo 4",
+          "time": "10:30",
+          "participants": ["TonioMora", "Laura", "Panetone"],
+          "matches": [
+            {
+              "id": "pp-g4-1",
+              "players": ["Laura", "TonioMora"]
+            },
+            {
+              "id": "pp-g4-2",
+              "players": ["Laura", "Panetone"]
+            },
+            {
+              "id": "pp-g4-3",
+              "players": ["Panetone", "TonioMora"]
+            }
+          ]
+        },
+        {
+          "id": "grupo-5",
+          "name": "Grupo 5",
+          "time": "11:00",
+          "participants": ["Bizcochito", "Alex", "Juanlu"],
+          "matches": [
+            {
+              "id": "pp-g5-1",
+              "players": ["Bizcochito", "Juanlu"]
+            },
+            {
+              "id": "pp-g5-2",
+              "players": ["Alex", "Bizcochito"]
+            },
+            {
+              "id": "pp-g5-3",
+              "players": ["Alex", "Juanlu"]
+            }
+          ]
+        },
+        {
+          "id": "grupo-6",
+          "name": "Grupo 6",
+          "time": "11:00",
+          "participants": ["rulas", "EL_BOLLO", "ShineYT"],
+          "matches": [
+            {
+              "id": "pp-g6-1",
+              "players": ["EL_BOLLO", "rulas"]
+            },
+            {
+              "id": "pp-g6-2",
+              "players": ["EL_BOLLO", "ShineYT"]
+            },
+            {
+              "id": "pp-g6-3",
+              "players": ["ShineYT", "rulas"]
+            }
+          ]
+        },
+        {
+          "id": "grupo-7",
+          "name": "Grupo 7",
+          "time": "11:30",
+          "participants": ["DUVAL", "Hassan17", "Niche"],
+          "matches": [
+            {
+              "id": "pp-g7-1",
+              "players": ["DUVAL", "Hassan17"]
+            },
+            {
+              "id": "pp-g7-2",
+              "players": ["DUVAL", "Niche"]
+            },
+            {
+              "id": "pp-g7-3",
+              "players": ["Hassan17", "Niche"]
+            }
+          ]
+        },
+        {
+          "id": "grupo-8",
+          "name": "Grupo 8",
+          "time": "11:30",
+          "participants": ["carlosmapego", "Bizcochín", "PabloRivera29"],
+          "matches": [
+            {
+              "id": "pp-g8-1",
+              "players": ["Bizcochín", "carlosmapego"]
+            },
+            {
+              "id": "pp-g8-2",
+              "players": ["Bizcochín", "PabloRivera29"]
+            },
+            {
+              "id": "pp-g8-3",
+              "players": ["PabloRivera29", "carlosmapego"]
+            }
+          ]
+        }
+      ],
+      "tables": [],
+      "notice": "Cruces de la fase de grupos de 2026. No hay marcadores ni emparejamientos de la fase final en el archivo disponible.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "mario-kart",
+      "format": "Carreras de 4 jugadores",
+      "stages": ["Supervivencia · pasan 2", "Gran Prix · 4 carreras"],
+      "participants": [
+        "Reader",
+        "Dr. Plasmadrid",
+        "Adri_HL",
+        "Vic",
+        "Tthom03",
+        "Thunderblight",
+        "Mar1usMagnuM",
+        "fll2016",
+        "Verooo",
+        "iMorrison02",
+        "MCP10",
+        "jtinjacar",
+        "JuanAsh",
+        "Andreu",
+        "Aris",
+        "ManoloCarreras",
+        "Zeroth",
+        "Cantemor",
+        "LMMP",
+        "Mariouwu",
+        "dest033",
+        "josseantonnio",
+        "Chapata",
+        "Alejandro",
+        "LanDskape17",
+        "Duch",
+        "Roo",
+        "Mariaphneutro",
+        "Dinoel_99",
+        "gab0",
+        "Guillex23",
+        "Alo",
+        "Goyim",
+        "ture",
+        "Carmen",
+        "Ender",
+        "rodrigos.ec",
+        "willow",
+        "juanexh2o"
+      ],
+      "groups": [],
+      "tables": [
+        {
+          "id": "rondas",
+          "name": "Puntuaciones registradas",
+          "columns": ["Nickname", "Ronda 1", "Ronda 2"],
+          "rows": [
+            ["Reader", 0, null],
+            ["Dr. Plasmadrid", 1, 0],
+            ["Adri_HL", 2, 3],
+            ["Mar1usMagnuM", 3, 2],
+            ["fll2016", 3, 3],
+            ["Andreu", 3, 1],
+            ["Aris", 3, 3],
+            ["Zeroth", 2, 2],
+            ["Cantemor", 0, null],
+            ["LMMP", 1, 0],
+            ["Mariouwu", 1, 0],
+            ["dest033", 0, null],
+            ["josseantonnio", 0, 1],
+            ["Chapata", 1, null],
+            ["Duch", 1, 1],
+            ["Roo", 2, 2],
+            ["Guillex23", 2, 3],
+            ["Alo", 3, 3],
+            ["willow", 1, 0],
+            ["juanexh2o", 2, 1]
+          ]
+        }
+      ],
+      "notice": "La hoja conserva algunas puntuaciones de las dos primeras rondas, pero no sus grupos de carrera. Un guion indica un resultado sin registrar; no equivale a cero.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "minecraft",
+      "format": "UHC + Juegos del Hambre",
+      "stages": ["UHC · parejas", "HG1", "HG2", "HG3"],
+      "participants": [
+        "Alquitran22",
+        "L_0811",
+        "Aris3121",
+        "iFxlcon",
+        "neonCrosshair",
+        "Pinofavorito",
+        "TT_Coyote245",
+        "Comic_Ivans",
+        "ImFernandez",
+        "Lopenzio",
+        "MegaBee",
+        "TopHacker",
+        "Destroyerman_III",
+        "osopardo890",
+        "chelunike",
+        "Mineluber"
+      ],
+      "groups": [
+        {
+          "id": "uhc-1",
+          "name": "Equipo 6",
+          "participants": ["Aris3121", "iFxlcon"],
+          "matches": []
+        },
+        {
+          "id": "uhc-2",
+          "name": "Equipo 5",
+          "participants": ["Pinofavorito", "TopHacker"],
+          "matches": []
+        },
+        {
+          "id": "uhc-3",
+          "name": "Equipo 1",
+          "participants": ["MegaBee", "Destroyerman_III"],
+          "matches": []
+        },
+        {
+          "id": "uhc-4",
+          "name": "Equipo 4",
+          "participants": ["L_0811", "Lopenzio"],
+          "matches": []
+        },
+        {
+          "id": "uhc-5",
+          "name": "Equipo 2",
+          "participants": ["chelunike", "alquitran22"],
+          "matches": []
+        },
+        {
+          "id": "uhc-6",
+          "name": "Equipo 3",
+          "participants": ["IAmFernandez", "osopardo290"],
+          "matches": []
+        }
+      ],
+      "tables": [
+        {
+          "id": "hg1",
+          "name": "Juegos del Hambre · partida 1",
+          "columns": ["Nickname", "Bajas", "Posición"],
+          "rows": [
+            ["Aris3121", "5", "1"],
+            ["Pinofavorito", "0", "3"],
+            ["MegaBee", "0", "8"],
+            ["L_0811", "0", "9"],
+            ["TopHacker", "0", "5"],
+            ["chelunike", "0", "4"],
+            ["Lopenzio", "0", "7"],
+            ["iFxlcon", "0", "10"],
+            ["alquitran22", "2", "2"],
+            ["Destroyerman_III", "0", "6"],
+            ["osopardo290", "0", "11"],
+            ["IAmFernandez", null, null]
+          ]
+        },
+        {
+          "id": "hg2",
+          "name": "Juegos del Hambre · partida 2",
+          "columns": ["Nickname", "Bajas", "Posición"],
+          "rows": [
+            ["Aris3121", "5", "1"],
+            ["Pinofavorito", "0", "11"],
+            ["MegaBee", "0", "2"],
+            ["L_0811", "0", "5"],
+            ["TopHacker", "2", "6"],
+            ["chelunike", "0", "8"],
+            ["Lopenzio", "1", "4"],
+            ["iFxlcon", "3", "3"],
+            ["alquitran22", "0", "9"],
+            ["Destroyerman_III", "0", "7"],
+            ["IAmFernandez", "0", "10"],
+            ["osopardo290", "0", "12"]
+          ]
+        },
+        {
+          "id": "hg3",
+          "name": "Juegos del Hambre · partida 3",
+          "columns": ["Nickname", "Bajas", "Posición"],
+          "rows": [
+            ["Aris3121", "5", "1"],
+            ["Pinofavorito", "0", "7"],
+            ["MegaBee", "0", "12"],
+            ["L_0811", "0", "2"],
+            ["TopHacker", "0", "9"],
+            ["chelunike", "0", "3"],
+            ["Lopenzio", "0", "6"],
+            ["iFxlcon", "2", "4"],
+            ["alquitran22", "4", "8"],
+            ["Destroyerman_III", "1", "5"],
+            ["IAmFernandez", "0", "11"],
+            ["osopardo290", "0", "10"]
+          ]
+        }
+      ],
+      "notice": "Equipos UHC y resultados por partida de 2026. La hoja no contiene resultados de UHC ni una clasificación general completa.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "smash",
+      "format": "Doble eliminación",
+      "stages": ["Cuadro de ganadores", "Cuadro de repesca", "Final"],
+      "participants": [],
+      "groups": [],
+      "tables": [],
+      "notice": "Partidos de 2026 recuperados de Smash Bros. Spain. Las líneas enlazan al ganador con su siguiente partido dentro de cada fase. Los saltos entre cuadros se consultan en el cuadro oficial.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": [
+        {
+          "id": "top-16-ganadores",
+          "name": "Top 16 · Ganadores",
+          "rounds": [
+            {
+              "name": "Cuartos",
+              "matches": [
+                {
+                  "id": "ssbu-325331",
+                  "players": ["Paquito", "Gamu"],
+                  "scores": [3, 1],
+                  "winner": "Paquito",
+                  "nextId": "ssbu-325317"
+                },
+                {
+                  "id": "ssbu-325332",
+                  "players": ["Masakado", "Joseja"],
+                  "scores": [0, 3],
+                  "winner": "Joseja",
+                  "nextId": "ssbu-325317"
+                },
+                {
+                  "id": "ssbu-325329",
+                  "players": ["bkrai", "Serrperry01"],
+                  "scores": [3, 2],
+                  "winner": "bkrai",
+                  "nextId": "ssbu-325318"
+                },
+                {
+                  "id": "ssbu-325326",
+                  "players": ["Suso", "belcro"],
+                  "scores": [2, 3],
+                  "winner": "belcro",
+                  "nextId": "ssbu-325318"
+                }
+              ]
+            },
+            {
+              "name": "Semifinales",
+              "matches": [
+                {
+                  "id": "ssbu-325317",
+                  "players": ["Paquito", "Joseja"],
+                  "scores": [3, 0],
+                  "winner": "Paquito",
+                  "nextId": "ssbu-325314"
+                },
+                {
+                  "id": "ssbu-325318",
+                  "players": ["bkrai", "belcro"],
+                  "scores": [3, 0],
+                  "winner": "bkrai",
+                  "nextId": "ssbu-325314"
+                }
+              ]
+            },
+            {
+              "name": "Final de ganadores",
+              "matches": [
+                {
+                  "id": "ssbu-325314",
+                  "players": ["Paquito", "bkrai"],
+                  "scores": [3, 0],
+                  "winner": "Paquito",
+                  "nextId": "ssbu-325311"
+                }
+              ]
+            },
+            {
+              "name": "Gran final",
+              "matches": [
+                {
+                  "id": "ssbu-325311",
+                  "players": ["Paquito", "bkrai"],
+                  "scores": [3, 1],
+                  "winner": "Paquito",
+                  "nextId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "top-16-repesca",
+          "name": "Top 16 · Repesca",
+          "rounds": [
+            {
+              "name": "Repesca 1",
+              "matches": [
+                {
+                  "id": "ssbu-325330",
+                  "players": ["Carlos", "truebino"],
+                  "scores": [3, 0],
+                  "winner": "Carlos",
+                  "nextId": "ssbu-325324"
+                },
+                {
+                  "id": "ssbu-325328",
+                  "players": ["Erboxgame", "JM"],
+                  "scores": [3, 0],
+                  "winner": "Erboxgame",
+                  "nextId": "ssbu-325322"
+                },
+                {
+                  "id": "ssbu-325327",
+                  "players": ["Pollito0029", "Grah"],
+                  "scores": [3, 0],
+                  "winner": "Pollito0029",
+                  "nextId": "ssbu-325321"
+                },
+                {
+                  "id": "ssbu-325325",
+                  "players": ["Frun", "Weather"],
+                  "scores": [0, 3],
+                  "winner": "Weather",
+                  "nextId": "ssbu-325323"
+                }
+              ]
+            },
+            {
+              "name": "Repesca 2",
+              "matches": [
+                {
+                  "id": "ssbu-325324",
+                  "players": ["Suso", "Carlos"],
+                  "scores": [3, 0],
+                  "winner": "Suso",
+                  "nextId": "ssbu-325319"
+                },
+                {
+                  "id": "ssbu-325322",
+                  "players": ["Serrperry01", "Erboxgame"],
+                  "scores": [0, 3],
+                  "winner": "Erboxgame",
+                  "nextId": "ssbu-325319"
+                },
+                {
+                  "id": "ssbu-325321",
+                  "players": ["Masakado", "Pollito0029"],
+                  "scores": [3, 0],
+                  "winner": "Masakado",
+                  "nextId": "ssbu-325320"
+                },
+                {
+                  "id": "ssbu-325323",
+                  "players": ["Gamu", "Weather"],
+                  "scores": [3, 0],
+                  "winner": "Gamu",
+                  "nextId": "ssbu-325320"
+                }
+              ]
+            },
+            {
+              "name": "Repesca 3",
+              "matches": [
+                {
+                  "id": "ssbu-325319",
+                  "players": ["Suso", "Erboxgame"],
+                  "scores": [3, 0],
+                  "winner": "Suso",
+                  "nextId": "ssbu-325315"
+                },
+                {
+                  "id": "ssbu-325320",
+                  "players": ["Masakado", "Gamu"],
+                  "scores": [3, 2],
+                  "winner": "Masakado",
+                  "nextId": "ssbu-325316"
+                }
+              ]
+            },
+            {
+              "name": "Cuartos de repesca",
+              "matches": [
+                {
+                  "id": "ssbu-325315",
+                  "players": ["Joseja", "Suso"],
+                  "scores": [1, 3],
+                  "winner": "Suso",
+                  "nextId": "ssbu-325313"
+                },
+                {
+                  "id": "ssbu-325316",
+                  "players": ["belcro", "Masakado"],
+                  "scores": [1, 3],
+                  "winner": "Masakado",
+                  "nextId": "ssbu-325313"
+                }
+              ]
+            },
+            {
+              "name": "Semifinal de repesca",
+              "matches": [
+                {
+                  "id": "ssbu-325313",
+                  "players": ["Suso", "Masakado"],
+                  "scores": [2, 3],
+                  "winner": "Masakado",
+                  "nextId": "ssbu-325312"
+                }
+              ]
+            },
+            {
+              "name": "Final de repesca",
+              "matches": [
+                {
+                  "id": "ssbu-325312",
+                  "players": ["bkrai", "Masakado"],
+                  "scores": [3, 0],
+                  "winner": "bkrai",
+                  "nextId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "top-40-ganadores",
+          "name": "Top 40 · Ganadores",
+          "rounds": [
+            {
+              "name": "Ronda 1",
+              "matches": [
+                {
+                  "id": "ssbu-325365",
+                  "players": ["Titer", "miguellones23"],
+                  "scores": [2, 0],
+                  "winner": "Titer",
+                  "nextId": "ssbu-325356"
+                },
+                {
+                  "id": "ssbu-325363",
+                  "players": ["Lgab00", "PLinux"],
+                  "scores": [1, 2],
+                  "winner": "PLinux",
+                  "nextId": "ssbu-325354"
+                },
+                {
+                  "id": "ssbu-325369",
+                  "players": ["LuisMi", "sansalami"],
+                  "scores": [2, 0],
+                  "winner": "LuisMi",
+                  "nextId": "ssbu-325358"
+                },
+                {
+                  "id": "ssbu-325368",
+                  "players": ["Arbus", "Gatete"],
+                  "scores": [0, 2],
+                  "winner": "Gatete",
+                  "nextId": "ssbu-325359"
+                },
+                {
+                  "id": "ssbu-325372",
+                  "players": ["Haan1432", "Polinomio"],
+                  "scores": [0, 2],
+                  "winner": "Polinomio",
+                  "nextId": "ssbu-325364"
+                }
+              ]
+            },
+            {
+              "name": "Ronda 2",
+              "matches": [
+                {
+                  "id": "ssbu-325356",
+                  "players": ["belcro", "Titer"],
+                  "scores": [2, 0],
+                  "winner": "belcro",
+                  "nextId": "ssbu-325344"
+                },
+                {
+                  "id": "ssbu-325361",
+                  "players": ["Erboxgame", "secsy"],
+                  "scores": [2, 0],
+                  "winner": "Erboxgame",
+                  "nextId": "ssbu-325344"
+                },
+                {
+                  "id": "ssbu-325354",
+                  "players": ["Serrperry01", "PLinux"],
+                  "scores": [2, 0],
+                  "winner": "Serrperry01",
+                  "nextId": "ssbu-325345"
+                },
+                {
+                  "id": "ssbu-325367",
+                  "players": ["Pollito0029", "Juanchu9"],
+                  "scores": [2, 0],
+                  "winner": "Pollito0029",
+                  "nextId": "ssbu-325345"
+                },
+                {
+                  "id": "ssbu-325358",
+                  "players": ["Masakado", "LuisMi"],
+                  "scores": [2, 0],
+                  "winner": "Masakado",
+                  "nextId": "ssbu-325346"
+                },
+                {
+                  "id": "ssbu-325359",
+                  "players": ["Gamu", "Gatete"],
+                  "scores": [2, 0],
+                  "winner": "Gamu",
+                  "nextId": "ssbu-325347"
+                },
+                {
+                  "id": "ssbu-325371",
+                  "players": ["Carlos", "Mauelreyfelino"],
+                  "scores": [2, 1],
+                  "winner": "Carlos",
+                  "nextId": "ssbu-325347"
+                },
+                {
+                  "id": "ssbu-325357",
+                  "players": ["Suso", "Kirito90"],
+                  "scores": [2, 0],
+                  "winner": "Suso",
+                  "nextId": "ssbu-325348"
+                },
+                {
+                  "id": "ssbu-325366",
+                  "players": ["Weather", "truebino"],
+                  "scores": [2, 0],
+                  "winner": "Weather",
+                  "nextId": "ssbu-325348"
+                },
+                {
+                  "id": "ssbu-325370",
+                  "players": ["Paquito", "JM"],
+                  "scores": [2, 0],
+                  "winner": "Paquito",
+                  "nextId": "ssbu-325352"
+                },
+                {
+                  "id": "ssbu-325364",
+                  "players": ["Joseja", "Polinomio"],
+                  "scores": [2, 0],
+                  "winner": "Joseja",
+                  "nextId": "ssbu-325355"
+                },
+                {
+                  "id": "ssbu-325373",
+                  "players": ["Frun", "virus"],
+                  "scores": [2, 0],
+                  "winner": "Frun",
+                  "nextId": "ssbu-325355"
+                },
+                {
+                  "id": "ssbu-325362",
+                  "players": ["bkrai", "Ness_Rafa"],
+                  "scores": [2, 0],
+                  "winner": "bkrai",
+                  "nextId": null
+                }
+              ]
+            },
+            {
+              "name": "Cuartos",
+              "matches": [
+                {
+                  "id": "ssbu-325344",
+                  "players": ["belcro", "Erboxgame"],
+                  "scores": [2, 0],
+                  "winner": "belcro",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325345",
+                  "players": ["Serrperry01", "Pollito0029"],
+                  "scores": [2, 0],
+                  "winner": "Serrperry01",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325346",
+                  "players": ["Masakado", "haitike"],
+                  "scores": [2, 0],
+                  "winner": "Masakado",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325347",
+                  "players": ["Gamu", "Carlos"],
+                  "scores": [2, 1],
+                  "winner": "Gamu",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325348",
+                  "players": ["Suso", "Weather"],
+                  "scores": [2, 0],
+                  "winner": "Suso",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325352",
+                  "players": ["Paquito", "Grah"],
+                  "scores": [2, 0],
+                  "winner": "Paquito",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325355",
+                  "players": ["Joseja", "Frun"],
+                  "scores": [2, 0],
+                  "winner": "Joseja",
+                  "nextId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "top-40-repesca",
+          "name": "Top 40 · Repesca",
+          "rounds": [
+            {
+              "name": "Repesca 1",
+              "matches": [
+                {
+                  "id": "ssbu-325360",
+                  "players": ["Mauelreyfelino", "sansalami"],
+                  "scores": [2, 0],
+                  "winner": "Mauelreyfelino",
+                  "nextId": "ssbu-325339"
+                },
+                {
+                  "id": "ssbu-325353",
+                  "players": ["truebino", "Lgab00"],
+                  "scores": [2, 0],
+                  "winner": "truebino",
+                  "nextId": null
+                }
+              ]
+            },
+            {
+              "name": "Repesca 2",
+              "matches": [
+                {
+                  "id": "ssbu-325339",
+                  "players": ["Mauelreyfelino", "Gatete"],
+                  "scores": [0, 2],
+                  "winner": "Gatete",
+                  "nextId": "ssbu-325333"
+                },
+                {
+                  "id": "ssbu-325349",
+                  "players": ["miguellones23", "Ness_Rafa"],
+                  "scores": [2, 0],
+                  "winner": "miguellones23",
+                  "nextId": "ssbu-325334"
+                },
+                {
+                  "id": "ssbu-325341",
+                  "players": ["secsy", "Titer"],
+                  "scores": [2, 0],
+                  "winner": "secsy",
+                  "nextId": "ssbu-325335"
+                },
+                {
+                  "id": "ssbu-325340",
+                  "players": ["Arbus", "LuisMi"],
+                  "scores": [0, 2],
+                  "winner": "LuisMi",
+                  "nextId": "ssbu-325336"
+                },
+                {
+                  "id": "ssbu-325343",
+                  "players": ["Juanchu9", "PLinux"],
+                  "scores": [0, 2],
+                  "winner": "PLinux",
+                  "nextId": "ssbu-325337"
+                },
+                {
+                  "id": "ssbu-325350",
+                  "players": ["virus", "Polinomio"],
+                  "scores": [1, 2],
+                  "winner": "Polinomio",
+                  "nextId": "ssbu-325338"
+                },
+                {
+                  "id": "ssbu-325351",
+                  "players": ["Haan1432", "JM"],
+                  "scores": [0, 2],
+                  "winner": "JM",
+                  "nextId": "ssbu-325342"
+                }
+              ]
+            },
+            {
+              "name": "Repesca 3",
+              "matches": [
+                {
+                  "id": "ssbu-325333",
+                  "players": ["Frun", "Gatete"],
+                  "scores": [2, 0],
+                  "winner": "Frun",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325334",
+                  "players": ["Weather", "miguellones23"],
+                  "scores": [2, 0],
+                  "winner": "Weather",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325335",
+                  "players": ["Pollito0029", "secsy"],
+                  "scores": [2, 0],
+                  "winner": "Pollito0029",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325336",
+                  "players": ["Grah", "LuisMi"],
+                  "scores": [2, 0],
+                  "winner": "Grah",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325337",
+                  "players": ["Erboxgame", "PLinux"],
+                  "scores": [2, 0],
+                  "winner": "Erboxgame",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325338",
+                  "players": ["Carlos", "Polinomio"],
+                  "scores": [2, 0],
+                  "winner": "Carlos",
+                  "nextId": null
+                },
+                {
+                  "id": "ssbu-325342",
+                  "players": ["haitike", "JM"],
+                  "scores": [0, 2],
+                  "winner": "JM",
+                  "nextId": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "officialUrl": "https://smash.gg/tournament/ugr-lan-party-2026/event/ultimate-singles"
+    },
+    {
+      "id": "league-of-legends",
+      "format": "Grupos + repesca + playoffs",
+      "stages": [
+        "3 grupos de 4 · BO1",
+        "Triangular de segundos",
+        "Semifinales · BO1",
+        "Final · BO1"
+      ],
+      "participants": [
+        "Equipo 1",
+        "Hierros Delta",
+        "Vendo Opel Corsa",
+        "Low cortisol boys",
+        "Acólitos de Jesús",
+        "Falcons UGR",
+        "T2",
+        "High Level Performance",
+        "LF Vivan Las Croquetas",
+        "St4linGanks",
+        "Atrapa La Python",
+        "Los pincha ruedas",
+        "Nardelli Fighters",
+        "NightCity",
+        "Los MANDY botix CEB",
+        "Pintana"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Equipos inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "rocket-league",
+      "format": "Grupos + playoffs",
+      "stages": ["2 grupos de 5 · BO3", "Semifinales · BO5", "Final · BO5"],
+      "participants": [
+        "jajers",
+        "Leones de Montepinar",
+        "Fumadores Pasivos",
+        "Mochaneta FC",
+        "LOS CHICHOS",
+        "Own Goal Club",
+        "Sea and with",
+        "Rocket Tortilla Papas",
+        "PaeAguas FC",
+        "V3RL",
+        "Pitufo Enmascarao",
+        "Pilikers",
+        "MIBOMBO",
+        "Dos patas pa un banco",
+        "Drink team",
+        "MANTECA"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Equipos inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "brawl-stars",
+      "format": "Grupos + eliminatorias",
+      "stages": [
+        "4 grupos · BO3",
+        "Cuartos · BO3",
+        "Semifinales · BO3",
+        "Final · BO5"
+      ],
+      "participants": [
+        ".ydigosimelio",
+        "Los Crows",
+        "NERF BUFFIES",
+        "Somieres Escabechados",
+        "DrinkTeam",
+        "Edgar Mains",
+        "Los Crows🐄",
+        "Laa caretas se caen🎭🎭",
+        "Brawl Kings",
+        "Team Herectos",
+        "Los Tribuneros",
+        "Inafuman y beben",
+        "DobleReturn",
+        "Los wachines",
+        "Jaguares",
+        "POPOTE",
+        "Valhalla Nexus",
+        "The Lovers"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Equipos inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "clash-royale",
+      "format": "Sistema suizo + playoffs",
+      "stages": ["5 rondas · BO1", "Semifinales · BO5", "Final · BO5"],
+      "participants": [
+        "luky777 :)",
+        "JyL",
+        "connde",
+        "Iker_YT",
+        "erick",
+        "ZAO318",
+        "javimaster",
+        "Levi Dooku",
+        "Zapi24",
+        "Matroguas",
+        "Glodzyy",
+        "carlosmapego",
+        "cmsproplayer",
+        "FSN ShineYT",
+        "Lord Cándido",
+        "LordJuanan",
+        "Peperinose",
+        "Otan II",
+        "nakoofn",
+        "Moises TW",
+        "Alejandro717",
+        "RoRey1974",
+        "Adri64",
+        "SilviaDaniela❣️",
+        "by_cR7_xd",
+        "Mr royal",
+        "AccurateHug0O",
+        "nivel 1 XD",
+        "Jmceciliaprieto",
+        "zeta4.0",
+        "juanexh2o",
+        "miniconde"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "El cuadro oficial está en Challonge. Sus cruces aún no se han incorporado a esta página.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "officialUrl": "https://challonge.com/es/azyj6qho",
+      "brackets": []
+    },
+    {
+      "id": "wii-sports-tenis",
+      "format": "Suizo + repesca + eliminatorias",
+      "stages": ["3 rondas en grupos", "Repesca", "Eliminatorias"],
+      "participants": [
+        "Amleth",
+        "Coralmujiii",
+        "julia_gmz",
+        "ElNion",
+        "Ariza",
+        "El Ivi",
+        "Trevorchelo18",
+        "Dohvalex",
+        "Atlas",
+        "Cantemor",
+        "TonioMora",
+        "Davs",
+        "Vic",
+        "ShineYT",
+        "MetalZ",
+        "Nasonic",
+        "ElGoblero",
+        "XXX_Fabigamer777promax_oficial_cf",
+        "Laura",
+        "roro_pocha",
+        "Alejandro",
+        "Mire",
+        "Duch",
+        "Undortik",
+        "Alvarodós",
+        "Miguel",
+        "Mariaphneutro",
+        "Mariakuii",
+        "Adel",
+        "Zappy",
+        "SturmPika",
+        "Blast_storm",
+        "Erreka",
+        "Ender",
+        "Truquero",
+        "juanexh2o"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "wii-sports-bolos",
+      "format": "Clasificación por puntuación",
+      "stages": [
+        "16 mejores · 6 lanzamientos",
+        "8 mejores · 6 lanzamientos",
+        "Final · 10 lanzamientos"
+      ],
+      "participants": [
+        "Amleth",
+        "ElNion",
+        "Ariza",
+        "El Ivi",
+        "Batch",
+        "iMorrison02",
+        "Atlas",
+        "Zeroth",
+        "TonioMora",
+        "LMMP",
+        "Davs",
+        "Aris",
+        "Vic",
+        "albaym",
+        "ShineYT",
+        "MetalZ",
+        "Nasonic",
+        "Elbromas",
+        "MegaBee",
+        "roro_pocha",
+        "Alejandro",
+        "Duch",
+        "Roo",
+        "Undortik",
+        "Mariouwu",
+        "Angeelcortess",
+        "TMorenitoG",
+        "Mariaphneutro",
+        "Mariakuii",
+        "Pinofavorito",
+        "Mujdr",
+        "wiictoria",
+        "Elsa",
+        "Erreka",
+        "Blast",
+        "juanexh2o"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "ajedrez",
+      "format": "Sistema suizo previsto",
+      "stages": ["Rondas según participación"],
+      "participants": [
+        "Hg",
+        "BlunderMonguer",
+        "LYJ051",
+        "BR.LOMÁS",
+        "Ringo",
+        "MCP10",
+        "TheDrinkk",
+        "César",
+        "Osprey",
+        "JEON",
+        "Truquero",
+        "Raul",
+        "RENATO",
+        "MarcoChess",
+        "José33",
+        "w0lf3",
+        "Ibr6himovic",
+        "Alexzuela",
+        "Falisexo",
+        "chesstime",
+        "Noel",
+        "Mr Blunder",
+        "Black&White",
+        "ANGIE",
+        "Che",
+        "DamaNocturne",
+        "JavierVidGar",
+        "Kiwi",
+        "Noelia",
+        "Rafa",
+        "Kai",
+        "Yoliii",
+        "Fll2016",
+        "Alejandro UwU",
+        "Miklos"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "futbolin",
+      "format": "Partidos por equipos",
+      "stages": ["Partidas a 9 bolas"],
+      "participants": [
+        "Los Invencibles",
+        "El Corral",
+        "El Chicle",
+        "Recacha",
+        "Los Super Marios",
+        "Mago y bomba",
+        "Bombita",
+        "The cockest",
+        "Calciaviti",
+        "Mochaneta",
+        "Hombres acero",
+        "E-Lefantes",
+        "Bonnie & Clyde",
+        "Hombres de acero",
+        "civiles",
+        "Semana tansa",
+        "Equipo de lorenzo",
+        "Ric and SUSke",
+        "Rojo"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Equipos inscritos en 2026",
+      "brackets": []
+    },
+    {
+      "id": "hacking",
+      "format": "Clasificación por puntos",
+      "stages": ["Retos CTF", "Puntuación acumulada"],
+      "participants": [
+        "dipzza",
+        "Alogenes",
+        "Jesusete",
+        "alvarojorore",
+        "goodwillhunter",
+        "panetone",
+        "SouhaibEM",
+        "w0lf3",
+        "redflag",
+        "Didac17",
+        "manolito",
+        "evaga",
+        "Alquitran22",
+        "Znati",
+        "Astharot15",
+        "jscoba",
+        "Matte",
+        "PabloRJ",
+        "暗"
+      ],
+      "groups": [],
+      "tables": [],
+      "notice": "Los cruces y resultados de 2026 todavía no están disponibles en esta página.",
+      "participantLabel": "Nicknames inscritos en 2026",
+      "brackets": []
+    }
+  ]
+}

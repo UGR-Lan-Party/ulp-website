@@ -11,6 +11,7 @@ const directories = [
   'competitions/logos',
   'competitions/characters',
   'participan',
+  'participan/gallery',
 ];
 const manifest = {};
 await mkdir('public/assets/optimized', { recursive: true });

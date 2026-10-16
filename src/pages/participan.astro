@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import PartnerMoments from '../components/PartnerMoments.astro';
 import PartnerCard from '../components/PartnerCard.astro';
 import { partners } from '../data/sponsors';
 import { partnerTiers } from '../data/partner-tiers';
@@ -26,9 +27,8 @@ const groups = partnerTiers
   </Breadcrumb>
   <div class="design-container partner-invitation">
     <span class="design-eyebrow">Tu entidad también puede formar parte</span><a
-      class="design-link"
-      href="/contacto"
-      >Hablemos de la próxima edición <span aria-hidden="true">↗</span></a
+      class="design-button"
+      href="mailto:ulp@ugr.es">Contáctanos <span aria-hidden="true">↗</span></a
     >
   </div>
   <nav
@@ -77,6 +77,7 @@ const groups = partnerTiers
       ))
     }
   </div>
+  <PartnerMoments />
 </Layout>
 <style>
   .partner-invitation {

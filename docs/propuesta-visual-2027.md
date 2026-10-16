@@ -36,7 +36,7 @@ Se mantienen los datos históricos de 2026 y sus inscripciones cerradas. Las act
 
 La propuesta se puede revisar en [Inicio](http://127.0.0.1:4321/), [Actividades](http://127.0.0.1:4321/actividades/), [Participan](http://127.0.0.1:4321/participan/) y [Contacto](http://127.0.0.1:4321/contacto/), [Noticias](http://127.0.0.1:4321/blog/) y [Horarios](http://127.0.0.1:4321/info/horarios/).
 
-Validación: build, recursos y rutas locales, 37 pruebas unitarias y 52 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
+Validación: build, recursos y rutas locales, 43 pruebas unitarias y 69 de navegador. Las comprobaciones incluyen el carrusel de entidades, navegación, móvil, ambos temas, galerías, agenda y render real de trofeos.
 
 ## Segunda revisión
 
@@ -145,3 +145,108 @@ Los titulares solicitados pasan a «Compite en tus juegos favoritos» y «Seguim
 ## Ajustes finales de titulares y equipo
 
 «En el servidor de Discord» conserva una sola línea y adapta el tamaño a la anchura de su columna, comprobado entre 320 y 1440 px. El equipo técnico se muestra en el orden Antonio Miguel Mora (8 ediciones), Marcelino José Cabrera (3 ediciones) y Rafael Alejandro Rodríguez (2 ediciones).
+
+## Animaciones de texto del home
+
+El titular «UGR LAN / PARTY» se desplaza lateralmente en sentidos opuestos al hacer scroll. El recorrido se reduce en móvil para conservar la legibilidad. «Compite en tus juegos favoritos» aparece palabra a palabra con un desplazamiento lateral, un giro leve y una transición de desenfoque.
+
+La inspiración visual parte de [Scroll Float](https://reactbits.dev/text-animations/scroll-float) y [Scroll Velocity](https://reactbits.dev/text-animations/scroll-velocity), de React Bits. La implementación utiliza APIs nativas sin añadir dependencias. Los textos permanecen visibles sin JavaScript y ambos efectos respetan la preferencia de movimiento reducido, incluso si cambia durante la visita.
+
+La validación incluye tres pruebas de navegador para el desplazamiento, la legibilidad al terminar el revelado y la vista de 320 px sin JavaScript.
+
+
+## Fichas de actividad
+
+Las 26 fichas comparten una cabecera con tipografía Inter, colores corporativos, carta holográfica y accesos a las reglas y los premios cuando existen. La inscripción se presenta como una franja compacta que mantiene el estado de archivo de 2026. Ubicación y horarios utilizan un único panel adaptable, sin fuentes externas.
+
+Las cartas eliminan el logotipo de la actividad y el rótulo «Carta holográfica interactiva». Las ilustraciones transparentes se ajustan a sus límites visibles y ocupan un espacio menor, conservando los degradados de los recortes. El brillo responde al puntero y el movimiento respeta la preferencia de movimiento reducido.
+
+El trofeo mantiene su carga automática, el fondo transparente, la interacción y el dorado existente. Su panel adopta los bordes y superficies de la nueva UI; debajo aparecen los premios en tarjetas alineadas, con la distinción entre oro, plata, bronce y MVP. Solo se muestran puestos con premios definidos.
+
+La verificación recorre las 26 fichas sin JavaScript en móvil para contrastar nombres, reglas, horarios y premios con los datos originales. También comprueba la interacción holográfica y el cambio de preferencia de movimiento; las pruebas del visor validan el render real y transparente en ambos temas, además del reintento tras un fallo de red.
+
+## Galería, comunidad y footer
+
+«Granada, vista desde la ULP» conserva sus textos y tipografía. La galería elimina el marco exterior y añade cinco miniaturas seleccionables, manteniendo la foto destacada, las proporciones, la navegación, el zoom y el enlace al álbum. Las miniaturas utilizan las URLs pequeñas que devuelve Flickr; comparten la consulta al álbum con las fotos grandes.
+
+El footer incorpora estrellas a ambos lados, centra el copyright y añade Inscripciones a la izquierda con destino a `/actividades#competiciones`. En móvil, los enlaces se sitúan debajo del crédito centrado.
+
+Profesorado sustituye a Equipo técnico y sus insignias de ediciones aumentan de tamaño. Se reduce el espacio con Código hecho en comunidad. Las tarjetas de desarrollo centran las fotos sin la etiqueta de desarrollo web y muestran el icono de GitHub junto al enlace. Los subtítulos de las entidades en Participan utilizan la cursiva serif de la portada.
+
+El titular de competiciones repite la animación cada vez que vuelve a entrar en pantalla desde cualquiera de los dos sentidos. Se mantiene visible sin JavaScript y respeta el movimiento reducido. La validación comprueba la repetición, la selección de miniaturas y las URLs de Flickr, además del centrado del footer entre 320 y 1440 px y la carga real de imágenes en localhost.
+
+## Premios retro y galería de tres fotos
+
+Los premios recuperan el carácter arcade: títulos y posiciones con Press Start 2P, marcos de píxel, líneas de pantalla, medallas flotantes, destellos y brillo suave. El podio sitúa al campeón en el centro en escritorio y mantiene el orden de lectura en móvil. Las animaciones se detienen al activar movimiento reducido; los premios conservan su contenido original.
+
+La tipografía se aloja localmente con su licencia SIL OFL, procedente del [repositorio oficial de Google Fonts](https://github.com/google/fonts/tree/main/ofl/pressstart2p). El cuerpo de los premios conserva Inter para facilitar su lectura.
+
+El trofeo se presenta sobre el azul oscuro de Discord en ambos temas. La imagen de fondo de la tarjeta de cada competición se utiliza al 9 % de opacidad y con saturación reducida al 15 %. El título incorpora el nombre de la competición. El visor conserva su fondo transparente, interacción y carga automática.
+
+La galería de Granada sustituye las miniaturas por tres fotografías grandes: la central nítida y las dos vecinas al 94 % de tamaño, con menor opacidad, saturación y enfoque. Las flechas, los laterales pulsables y el teclado sincronizan las tres imágenes con el zoom. En móvil los laterales asoman a ambos lados sin desbordar la página. Las imágenes laterales utilizan variantes de resolución media de Flickr; la central mantiene su resolución original.
+
+## Ajustes de footer, entidades y contacto
+
+El footer conserva únicamente el mosaico derecho. Los subtítulos de las tarjetas de Participan vuelven a Inter sin cursiva. Contacto sustituye el acceso a Instagram por el enlace al Linktree de ULP, con su icono y el texto «También puedes encontrarnos en RRSS».
+
+## Primer prototipo del plano de la ETSIIT
+
+Horarios incorpora una vista vectorial del edificio triangular y las aulas prefabricadas, con líneas que terminan en círculos sobre las zonas. El dibujo es una interpretación simplificada de los planos de organización de 2026. La búsqueda por actividad, aula, día y hora actualiza a la vez los resultados, el plano y la tabla. Una actividad en varias aulas resalta todas sus zonas; pulsar una zona filtra sus actividades. El giro funciona arrastrando horizontalmente, con botones o con las flechas del teclado; Inicio restablece la orientación. Los rótulos permanecen legibles al girar y los puntos siguen unidos a los contornos. En móvil se prioriza el dibujo y los nombres se consultan en el listado.
+
+La tabla se conserva tras «Ver agenda en tabla», con inscripciones, contraste alterno y funcionamiento sin JavaScript. El programa oficial de viernes y sábado se pliega inicialmente mediante un desplegable nativo. Al abrirlo mantiene su experiencia original de scroll; GSAP se sirve localmente y se inicializa una sola vez al abrir, recalculando las posiciones al reabrir.
+
+Las posiciones son preliminares y reúnen varias plantas; no constituyen todavía un plano de navegación exacto. La Sala de Profesores Externos, ubicación de Hacking Ético en el programa, queda sin marcador hasta confirmar su posición. Se conservan sus actividades y horarios en los resultados.
+
+Fuentes y límites de interpretación: `docs/plano-etsiit-2026.md`. Verificación: correspondencia de varias aulas, búsqueda como texto, filtros combinados, selección de zonas, giro con arrastre y teclado, anchuras de 320 y 390 px, despliegue y reapertura del programa y movimiento reducido.
+
+## Navegación, profundidad y lectura
+
+Las fichas incorporan flechas laterales discretas junto a la carta, con nombres accesibles y enlaces nativos. Recorren su categoría en el mismo orden que el catálogo y enlazan el último elemento con el primero. La ordenación de competiciones por la encuesta se comparte entre ambas vistas.
+
+Los logotipos de Participan responden al puntero con una inclinación máxima de pocos grados y una profundidad leve. El efecto se aplica al logo, se restablece al salir y respeta movimiento reducido y dispositivos táctiles.
+
+Street Fighter II utiliza el fondo de juego aportado; Cars pasa a «Cars: Copa Pistón» en la fuente de datos común. El aviso de equipo grande precede a las competiciones y la invitación compacta se sitúa al final del catálogo.
+
+Contacto y Localización incorporan una captura de satélite de Maps centrada en la ETSIIT al 6 % de opacidad, sin saturación, con desenfoque de 2 px y con un degradado que difumina todos los bordes.
+
+La galería precarga las fotos cercanas y espera su carga y decodificación antes de cambiar las imágenes y el contador e iniciar la transición. La foto actual permanece visible durante la espera; varios clics rápidos solo muestran la última solicitud. La caché de imágenes preparada se limita a doce recursos. Un fallo permite reintentar conservando la foto anterior.
+
+Las noticias unifican su tipografía en Inter, eliminan la capitular y ajustan ancho, tamaños, contraste e interlineado. Los párrafos se justifican con separación silábica automática; las citas conservan alineación al inicio para evitar huecos excesivos.
+
+La validación incluye navegación circular en móvil, orden de los avisos, profundidad y movimiento reducido, tipografía y justificación del blog, y una carga de imagen retenida deliberadamente con solicitudes consecutivas. La galería también se comprueba con fotos reales de Flickr.
+
+## Planos por edificio y planta
+
+Horarios separa el edificio principal en planta 0 y planta baja e incorpora vistas independientes para las aulas −1.1/−1.2 y las prefabricadas A y B. Los contornos y el mobiliario se dibujan en SVG siguiendo los PNG y el PSD de organización. El plano, el listado, la cabecera de agenda y la tabla se sitúan sobre el fondo de la web; únicamente el formulario de filtros conserva el panel azul.
+
+El giro tiene cuatro estados de 90 grados. Cada plano dispone de una configuración de indicadores para cada orientación. Durante la transición se ocultan las líneas, gira el dibujo y aparecen los indicadores en sus nuevas posiciones; el movimiento reducido cambia directamente al estado final. Se puede navegar con los cuatro botones, las flechas laterales, el teclado o un gesto horizontal que avanza un único estado al soltar.
+
+Seleccionar una actividad abre la planta correspondiente. Si ocupa varias ubicaciones, estas siguen marcadas al cambiar de edificio. El título pasa a «Plano interactivo» y se eliminan la insignia preliminar, los avisos de distribución y las instrucciones de giro antiguas. La tabla y los programas desplegables se mantienen.
+
+Las pruebas comprueban las veinte combinaciones de planta y orientación: puntos dentro del área visible y ausencia de intersecciones entre los indicadores. También verifican el cambio de planta, los resultados de varios edificios, el giro, los dos temas, móvil, filtros y movimiento reducido.
+
+
+El título de la competición de motor pasa a «Fórmula1» en el programa y en el archivo de la edición. Las columnas laterales del footer tienen el mismo ancho para alinear el centro de las redes sociales con el copyright.
+
+
+## Cifras, recuerdos y retransmisiones
+
+El home incorpora cifras de asistencia, actividades, entidades y visualizaciones acumuladas, con el número destacado, la etiqueta debajo e iconos oficiales de Bootstrap Icons. Las fuentes y fecha de corte se conservan en la documentación. Participan añade las cuatro fotografías seleccionadas de charlas, stands y encuentros. El cronograma de ediciones sustituye a los botones de años e incorpora enlaces nativos a cada edición y el intervalo 2020–2022 sin edición.
+
+Twitch muestra la última retransmisión disponible, con un fotograma real del evento y reproducción integrada bajo demanda. Los trofeos pueden ampliarse manteniendo la misma escena, con cierre por botón, fondo o Escape y retorno del foco. El nombre del sitio se unifica como «UGR LAN Party» en título, Open Graph, manifiesto y datos estructurados. La página 404 se excluye de indexación y no genera una URL canónica inexistente.
+
+Procedencia, metodología de las cifras y mantenimiento de Twitch: [Cifras y multimedia](cifras-y-multimedia.md).
+
+## Carrusel de competiciones y Alhambra
+
+El home muestra tres competiciones a la vez, también en móvil, y permite recorrer las trece mediante flechas laterales. Conserva Mario Kart, Hacking Ético y League of Legends al inicio. El avance automático desplaza una posición hacia la izquierda cada cinco segundos mientras la sección está visible. Se pausa con el cursor o el foco dentro, y al ocultar la pestaña. No incorpora botón de pausa. Movimiento reducido desactiva el avance automático y las transiciones; las flechas siguen funcionando. Las tarjetas fuera de vista son inertes y se ocultan del árbol accesible. Se precargan las tarjetas adyacentes y se mantiene la profundidad de sus imágenes.
+
+Granada, vista desde la ULP incorpora un dibujo decorativo de la Alhambra elegido por la organización, extendida hasta ambos bordes de la ventana, con azul corporativo y baja opacidad. En tema oscuro usa el acento de la paleta para conservar un contraste tenue. El dibujo queda limitado a la banda del encabezado y se desvanece hacia su borde inferior; no invade la zona de las fotografías. Se acorta moderadamente el espacio entre competiciones y cifras, se corrige «Fórmula 1» y Participan incorpora el botón «Contáctanos» dirigido a ulp@ugr.es.
+
+
+Las galerías triples de Home y Sobre nosotros utilizan previsualizaciones de proporción fija 16:9. Las fotografías se centran y recortan sin deformarse; al ampliarlas se usa la imagen de mayor resolución con su proporción completa. El logo de Mars Gaming aumenta ligeramente en la franja de partners.
+
+
+## Validación conjunta para la PR Web ULP 2.0
+
+Revisión del 16 de octubre de 2026: compilación de 47 páginas con Flickr activo, 50 pruebas unitarias y 81 pruebas de navegador en Edge superadas. Se comprueban las rutas e imágenes locales, ambos temas, navegación móvil, galerías y fotos verticales, agenda y planos, emparejamientos, logos y render WebGL de trofeos. Los datos de torneos y cifras se publican como instantáneas históricas; no se activa ninguna sincronización externa.

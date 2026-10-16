@@ -121,6 +121,8 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   const list = page.locator('[data-partner-list]').first();
+  await expect(list.locator('.mars-logo')).toHaveCSS('width', '138px');
+  await expect(list.locator('.mars-logo')).toHaveCSS('height', '38px');
   const names = [
     'Nacon España',
     'DEIIT',

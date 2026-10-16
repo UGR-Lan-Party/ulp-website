@@ -4,8 +4,10 @@ import ResponsiveImage from './ResponsiveImage.astro';
 import artLayouts from '../data/activity-art-layout.json';
 interface Props {
   id: string;
+  reveal?: boolean;
+  sizes?: string;
 }
-const { id } = Astro.props;
+const { id, reveal = true, sizes } = Astro.props;
 const game = Competitions.find((game) => game.id === id)!;
 const art = CompetitionsCards.find((game) => game.id === id)!;
 const layout = artLayouts[id as keyof typeof artLayouts];
@@ -23,18 +25,33 @@ const labels: Record<string, string> = {
 };
 ---
 
-<a class="activity-tile" href={`/actividades/${id}`} data-reveal>
+<a
+  class="activity-tile"
+  href={`/actividades/${id}`}
+  data-reveal={reveal || undefined}
+>
   <div class="activity-tile-media">
-    <ResponsiveImage src={art.card} alt="" class="activity-tile-background" />
+    <ResponsiveImage
+      src={art.card}
+      alt=""
+      sizes={sizes}
+      class="activity-tile-background"
+    />
     <div
       class:list={[
         'activity-tile-character',
-        { 'soft-bottom': softenBottom, 'compact-art': id === 'cars' },
+        {
+          'soft-bottom': softenBottom,
+          'soft-sides': id === 'futbolin',
+          'compact-art': id === 'cars',
+          'racing-art': id === 'f1',
+          'meal-art': id === 'paella',
+        },
       ]}
       style={artStyle}
       aria-hidden="true"
     >
-      <ResponsiveImage src={art.character} alt="" />
+      <ResponsiveImage src={art.character} alt="" sizes={sizes} />
     </div>
     <ResponsiveImage
       src={art.logo}
@@ -134,15 +151,29 @@ const labels: Record<string, string> = {
     filter: drop-shadow(0 12px 16px rgb(0 0 0 / 0.25));
   }
   .activity-tile-character.soft-bottom {
-    mask-image: linear-gradient(
+    --art-bottom-mask: linear-gradient(
       to top,
       transparent,
       rgb(0 0 0 / 0.35) 8%,
       black 28%
     );
+    mask-image: var(--art-bottom-mask);
+  }
+  .activity-tile-character.soft-sides {
+    mask-image:
+      var(--art-bottom-mask),
+      linear-gradient(to right, transparent, black 9%, black 91%, transparent);
+    mask-composite: intersect;
   }
   .activity-tile-character.compact-art {
     width: calc(var(--art-frame-width) * 0.8);
+  }
+  .activity-tile-character.meal-art {
+    width: calc(var(--art-frame-width) * 0.94);
+  }
+  .activity-tile-character.racing-art {
+    width: calc(var(--art-frame-width) * 1.1);
+    bottom: 4%;
   }
   .activity-tile-character :global(img) {
     position: absolute;

@@ -1,3 +1,4 @@
+const finePointer = matchMedia('(pointer: fine)');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const observer = new IntersectionObserver(
   (entries) => {
@@ -29,7 +30,28 @@ document
       const box = element.getBoundingClientRect();
       element.style.setProperty('--pointer-x', `${event.clientX - box.left}px`);
       element.style.setProperty('--pointer-y', `${event.clientY - box.top}px`);
+      if (element.matches('[data-partner-card]') && finePointer.matches) {
+        const x = Math.max(
+          -0.5,
+          Math.min(0.5, (event.clientX - box.left) / box.width - 0.5),
+        );
+        const y = Math.max(
+          -0.5,
+          Math.min(0.5, (event.clientY - box.top) / box.height - 0.5),
+        );
+        element.style.setProperty('--logo-tilt-x', `${-y * 8}deg`);
+        element.style.setProperty('--logo-tilt-y', `${x * 10}deg`);
+        element.style.setProperty('--logo-depth', '10px');
+      }
     });
+    const resetLogo = () => {
+      ['--logo-tilt-x', '--logo-tilt-y', '--logo-depth'].forEach((property) =>
+        element.style.removeProperty(property),
+      );
+    };
+    element.addEventListener('pointerleave', resetLogo);
+    reducedMotion.addEventListener('change', resetLogo);
+    finePointer.addEventListener('change', resetLogo);
   });
 const header = document.querySelector<HTMLElement>('.ud-header');
 const backToTop = document.querySelector<HTMLElement>('.back-to-top');

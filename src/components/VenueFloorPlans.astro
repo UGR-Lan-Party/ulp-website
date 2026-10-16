@@ -1,0 +1,248 @@
+---
+import furniture from '../data/venue-furniture.json';
+const room = (x: number, y: number, width: number, height: number) => ({
+  x,
+  y,
+  width,
+  height,
+});
+const rows = (
+  x: number,
+  y: number,
+  columns: number,
+  count: number,
+  width = 112,
+  gapX = 125,
+  gapY = 53,
+  height = 19,
+) =>
+  Array.from({ length: columns * count }, (_, index) =>
+    room(
+      x + (index % columns) * gapX,
+      y + Math.floor(index / columns) * gapY,
+      width,
+      height,
+    ),
+  );
+const lowerTables = [
+  ...rows(16, 90.5, 2, 6, 151, 152.5, 66.5, 40),
+  room(169, 27.5, 151, 40),
+  room(169, 464, 151, 25),
+  room(457, 0, 43, 194),
+  room(457, 264, 43, 194),
+  room(537, 2, 156, 50),
+  room(537, 164, 156, 50),
+  room(821, 165, 156, 50),
+  room(511, 219, 57, 162),
+  room(511, 385, 57, 78),
+  room(511, 469, 57, 78),
+  room(511, 558, 104, 63),
+  room(934, 271, 58, 162),
+  room(934, 438, 58, 162),
+];
+const lowerSeats = [
+  ...rows(22, 139, 4, 6, 26, 34, 66.5, 12),
+  ...rows(174.5, 139, 4, 6, 26, 34, 66.5, 12),
+];
+const prefabA1Tables = rows(6, 107, 3, 6, 145, 170, 69, 26);
+const prefabA2Tables = rows(18, 107, 2, 7, 193, 266, 61.5, 31);
+const prefabA1Seats = rows(12, 141, 4, 6, 27, 35.5, 69, 12);
+const prefabA2Seats = rows(28, 147, 5, 7, 27, 35.5, 61.5, 12);
+---
+
+<defs>
+  <linearGradient id="venue-desk-surface" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="var(--paper)"></stop>
+    <stop offset="1" stop-color="var(--ink)" stop-opacity=".16"></stop>
+  </linearGradient>
+  <linearGradient id="venue-seat-surface" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="var(--ink)" stop-opacity=".22"></stop>
+    <stop offset="1" stop-color="var(--ink)" stop-opacity=".06"></stop>
+  </linearGradient>
+</defs>
+
+<g
+  data-venue-floor-plan="principal-0"
+  transform="translate(185 110) scale(.55)"
+>
+  <path
+    class="floor-outline"
+    d="M449 850H124V319H197V208L124 85 247 14 317 132 421 68 884 65V850H473"
+  ></path>
+  <path
+    class="floor-wall"
+    d="M124 85 196 203 280 154M199 40 222 81 268 55M139 108 172 89M149 125 182 106M160 143 236 100M170 161 203 142M179 177 213 160M244 117 280 177M132 435H276V549H132M132 549H276V629H132M132 629H276V850M276 717H350M374 717H481L512 770M449 850V790H473V850M817 65V850M421 68 455 130H559M559 180V306M421 68 492 202H544"
+  ></path>
+  <path class="floor-wall" d="M559 308A186 186 0 1 1 350 416"></path>
+  <path
+    class="floor-wall"
+    d="M274 326 345 285 292 199M237 326V236H197M489 202H542M557 177V309"></path>
+  {
+    furniture['principal-0'].map((piece) => (
+      <rect
+        class={piece.height < 12 ? 'floor-seat' : 'floor-desk'}
+        x={-piece.width / 2}
+        y={-piece.height / 2}
+        width={piece.width}
+        height={piece.height}
+        rx={Math.min(8, piece.height / 2)}
+        transform={`translate(${piece.x} ${piece.y}) rotate(${piece.angle})`}
+      />
+    ))
+  }
+</g>
+<g
+  data-venue-floor-plan="principal-baja"
+  data-hidden
+  transform="translate(185 110) scale(.55)"
+>
+  <path
+    class="floor-outline"
+    d="M124 85 247 14 317 132 421 68H884V850H124V326H197V208Z"></path>
+  <path
+    class="floor-wall"
+    d="M197 208 286 153 345 285 274 327M197 238H237V326H131M237 276V236H274L304 222 345 285M559 68V255M559 202H494L459 135M459 135 441 109M559 255H579Q579 272 559 272Q579 272 579 291H559V309M274 327 336 440M276 770H559V850M613 645 654 723V850M692 546 770 691H884M770 691V850M770 770H884"
+  ></path>
+  <circle class="floor-wall" cx="515" cy="490" r="186"></circle>
+  <path class="floor-wall" d="M457 666 691 545"></path>
+  {
+    furniture['principal-baja'].map((piece) => (
+      <rect
+        class={piece.height < 12 ? 'floor-seat' : 'floor-desk'}
+        x={-piece.width / 2}
+        y={-piece.height / 2}
+        width={piece.width}
+        height={piece.height}
+        rx={Math.min(8, piece.height / 2)}
+        transform={`translate(${piece.x} ${piece.y}) rotate(${piece.angle})`}
+      />
+    ))
+  }
+</g>
+<g
+  data-venue-floor-plan="aulas-inferiores"
+  data-hidden
+  transform="translate(185 178) scale(.55)"
+>
+  <path
+    class="floor-wall"
+    d="M500 0V194M500 264V458M489 527V625M509 3V214M722 9H933M646 618H857"
+  ></path>
+  {
+    [
+      room(475, 202, 25, 54),
+      room(475, 464, 25, 56),
+      room(975, 208, 25, 54),
+    ].map((column) => <rect class="floor-wall" {...column} rx="5" />)
+  }
+  {lowerTables.map((table) => <rect class="floor-desk" {...table} rx="9" />)}
+  {lowerSeats.map((seat) => <rect class="floor-seat" {...seat} rx="5" />)}
+  <rect class="floor-wall" x="10" y="605" width="210" height="10" rx="5"></rect>
+</g>
+{
+  ['prefabricadas-a', 'prefabricadas-b'].map((plan) => (
+    <g
+      data-venue-floor-plan={plan}
+      data-hidden
+      transform="translate(185 178) scale(.55)"
+    >
+      {[0, 1].map((side) => (
+        <g transform={`translate(${side * 510} 0) scale(.98 1)`}>
+          <rect
+            class="floor-room"
+            x="0"
+            y="0"
+            width="500"
+            height="625"
+            rx="14"
+          />
+          {(plan === 'prefabricadas-a' || side === 0) && (
+            <>
+              <rect
+                class="floor-desk"
+                x="104"
+                y="0"
+                width="290"
+                height="70"
+                rx="14"
+              />
+              <path class="floor-wall" d="M5 35 182 12M305 12 488 35" />
+              {(plan === 'prefabricadas-a' && side === 0
+                ? prefabA1Tables
+                : prefabA2Tables
+              ).map((table) => (
+                <rect class="floor-desk" {...table} rx="13" />
+              ))}
+              {[
+                0,
+                1,
+                ...(plan === 'prefabricadas-a' && side === 0 ? [2] : []),
+              ].map((column) => (
+                <g
+                  transform={`translate(${column * (plan === 'prefabricadas-a' && side === 0 ? 170 : 266)} 0)`}
+                >
+                  {(plan === 'prefabricadas-a' && side === 0
+                    ? prefabA1Seats
+                    : prefabA2Seats
+                  ).map((seat) => (
+                    <rect class="floor-seat" {...seat} rx="5" />
+                  ))}
+                </g>
+              ))}
+              <rect
+                class="floor-wall"
+                x="96"
+                y="614"
+                width="151"
+                height="10"
+                rx="5"
+              />
+            </>
+          )}
+        </g>
+      ))}
+    </g>
+  ))
+}
+
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+  path,
+  rect,
+  circle {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .floor-room {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    stroke-dasharray: 4 7;
+    opacity: 0.14;
+  }
+  .floor-outline {
+    fill: color-mix(in srgb, var(--ink) 3%, var(--paper));
+    stroke: currentColor;
+    stroke-width: 3;
+  }
+  .floor-wall {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    opacity: 0.5;
+  }
+  .floor-desk {
+    fill: url(#venue-desk-surface);
+    stroke: currentColor;
+    stroke-width: 1.1;
+    opacity: 0.8;
+  }
+  .floor-seat {
+    fill: url(#venue-seat-surface);
+    stroke: currentColor;
+    stroke-width: 0.8;
+    opacity: 0.58;
+  }
+</style>

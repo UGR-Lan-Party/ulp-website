@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
+import EditionTimeline from '../../components/EditionTimeline.astro';
 import EditionArchive from '../../components/EditionArchive.astro';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import { pastEditions } from '../../data/past-editions';
@@ -20,13 +21,7 @@ import { pastEditions } from '../../data/past-editions';
     </Fragment>
   </Breadcrumb>
   <div class="design-container archive-shell">
-    <nav class="archive-years" aria-label="Ir a una edición">
-      {
-        [2026, ...pastEditions.map((edition) => edition.year)].map((year) => (
-          <a href={`#edicion-${year}`}>{year}</a>
-        ))
-      }
-    </nav>
+    <EditionTimeline />
     <section
       id="edicion-2026"
       class="archive-latest"
@@ -71,27 +66,6 @@ import { pastEditions } from '../../data/past-editions';
 <style>
   .archive-shell {
     padding-block: 32px 70px;
-  }
-  .archive-years {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 40px;
-  }
-  .archive-years a {
-    border: 1px solid var(--line);
-    border-radius: 99px;
-    padding: 10px 18px;
-    font:
-      11px ui-monospace,
-      monospace;
-    transition:
-      background 200ms ease,
-      color 200ms ease;
-  }
-  .archive-years a:hover {
-    background: var(--ink);
-    color: var(--paper);
   }
   .archive-latest {
     display: grid;

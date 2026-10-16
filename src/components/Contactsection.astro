@@ -1,4 +1,10 @@
+---
+import MapBackdrop from './MapBackdrop.astro';
+import LinktreeIcon from '../../public/assets/icons/LinktreeIcon.astro';
+---
+
 <section id="contact" class="design-section design-container contact-design">
+  <MapBackdrop />
   <div class="contact-copy" data-reveal>
     <span class="design-eyebrow">Al otro lado de la pantalla</span><h2>
       ¿Hablamos?
@@ -19,9 +25,11 @@
         ><span aria-hidden="true"> ↗</span></a
       >
     </div>
-    <a class="design-link" href="https://www.instagram.com/ulpugr"
-      >También estamos en Instagram <span aria-hidden="true">↗</span></a
-    >
+    <a class="design-link" href="https://linktr.ee/ulpugr">
+      <LinktreeIcon width="19" height="19" aria-hidden="true" />
+      <span>También puedes encontrarnos en RRSS</span>
+      <span aria-hidden="true">↗</span>
+    </a>
   </div>
   <div class="contact-map" data-reveal>
     <iframe
@@ -40,6 +48,8 @@
 </section>
 <style>
   .contact-design {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: 0.85fr 1.3fr;
     gap: 64px;
@@ -92,6 +102,10 @@
   .contact-copy > .design-link {
     margin-top: 16px;
     font-size: 12px;
+    gap: 10px;
+  }
+  .contact-copy > .design-link :global(svg) {
+    flex-shrink: 0;
   }
   .contact-map {
     overflow: hidden;

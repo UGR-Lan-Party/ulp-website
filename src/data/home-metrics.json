@@ -1,0 +1,26 @@
+{
+  "asOf": "2026-10-08",
+  "attendeesMinimum": 600,
+  "sources": [
+    {
+      "name": "Web ULP",
+      "views": 50175,
+      "period": "Histórico exportado en Wupp / Umami"
+    },
+    {
+      "name": "Linktree",
+      "views": 747,
+      "period": "Resumen de los últimos 365 días"
+    },
+    {
+      "name": "TikTok",
+      "views": 56073,
+      "period": "Contadores de 19 publicaciones exportadas"
+    },
+    {
+      "name": "YouTube",
+      "views": 33427,
+      "period": "Contadores de 19 vídeos exportados"
+    }
+  ]
+}

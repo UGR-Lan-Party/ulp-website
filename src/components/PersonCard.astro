@@ -1,5 +1,6 @@
 ---
 import LinkedInIcon from '../../public/assets/icons/LinkedInIcon.astro';
+import GitHubIcon from '../../public/assets/icons/GitHubIcon.astro';
 interface Props {
   name: string;
   description: string;
@@ -8,18 +9,11 @@ interface Props {
   network: 'LinkedIn' | 'GitHub';
   badge?: string;
 }
-const {
-  name,
-  description,
-  image,
-  href,
-  network,
-  badge = network === 'LinkedIn' ? 'EQUIPO TÉCNICO' : 'DESARROLLO WEB',
-} = Astro.props;
+const { name, description, image, href, network, badge } = Astro.props;
 ---
 
 <article class="person-card" data-reveal>
-  <div class="person-portrait">
+  <div class:list={['person-portrait', { 'has-badge': Boolean(badge) }]}>
     <img
       src={image}
       alt={`Retrato de ${name.trim()}`}
@@ -27,7 +21,7 @@ const {
       height="280"
       loading="lazy"
       decoding="async"
-    /><span>{badge}</span>
+    />{badge && <span>{badge}</span>}
   </div>
   <div class="person-copy">
     <h3>{name.trim()}</h3><p>
@@ -37,9 +31,13 @@ const {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${network} de ${name.trim()}`}
-      >{network === 'LinkedIn' && <LinkedInIcon aria-hidden="true" />}<span
-        >Ver {network}</span
-      ><span aria-hidden="true">↗</span></a
+      >{
+        network === 'LinkedIn' ? (
+          <LinkedInIcon aria-hidden="true" />
+        ) : (
+          <GitHubIcon aria-hidden="true" />
+        )
+      }<span>Ver {network}</span><span aria-hidden="true">↗</span></a
     >
   </div>
 </article>
@@ -62,9 +60,12 @@ const {
   .person-portrait {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 14px;
     padding: 24px 24px 0;
+  }
+  .person-portrait.has-badge {
+    justify-content: space-between;
   }
   img {
     width: 112px;
@@ -82,12 +83,12 @@ const {
   .person-portrait > span {
     align-self: start;
     margin-top: 4px;
-    padding: 6px 8px;
+    padding: 7px 10px;
     background: #004465;
     color: #f5f0e6;
     border-radius: 4px;
     font:
-      7px ui-monospace,
+      10px ui-monospace,
       monospace;
     letter-spacing: 0.06em;
   }

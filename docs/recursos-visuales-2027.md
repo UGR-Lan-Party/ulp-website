@@ -202,3 +202,53 @@ Edit this exact photograph cutout for a website. Preserve the identity, facial f
 - SVG original: https://secretariageneral.ugr.es/sites/webugr/secretariageneral/public/inline-files/UGR-MARCA-02-color.svg
 - Archivo integrado: `public/assets/participan/Logos/ugr-horizontal.svg`.
 - Se omiten comentarios del exportador y se ajusta el lienzo al contenido con margen, conservando intactos los trazados, colores y proporciones de la marca.
+
+## Ajustes de paella, emblema y tarjetas de entidades
+
+La paella utiliza una edición del recurso anterior realizada con la herramienta integrada de generación de imágenes. Se conserva el archivo de proyecto `public/assets/competitions/characters/character-paella-2027.png`, con transparencia real, y se regeneran sus variantes WebP de 360, 720 y 1254 px. Se eliminan los pimientos rojos y los guisantes. La tarjeta reduce su tamaño un 6 % adicional respecto al ajuste automático del contenido visible.
+
+Prompt inicial de edición:
+
+```text
+Use case: precise-object-edit. Asset type: transparent foreground illustration for the UGR LAN Party gaming-event website. Edit target: the supplied exact paella image. Remove ALL red bell-pepper strips/pieces and ALL green peas from the rice. Replace those locations naturally with the same golden saffron rice. Make individual rice grains about 20 percent smaller and more realistically elongated, instead of oversized round grains. Preserve everything else: exactly the same navy blue paella pan, cream inner rim, handles, wooden spoon with teal handle, steam, prawns, artichoke wedges, zucchini, lemon wedges, herbs, camera angle, composition, lighting and polished playful 3D-render style. Keep the whole silhouette inside the canvas, similar framing and resolution. Genuinely transparent alpha background, including around steam. No new ingredients, no red peppers, no peas, no text, no watermark.
+```
+
+Prompt de la segunda edición aplicada al resultado anterior:
+
+```text
+Precise object edit of this exact transparent paella illustration. Remove EVERY scattered small red diced vegetable / tomato / pepper piece from the rice, including tiny red pieces at the back rim, left edge, center, and front. Replace ALL those red cubes and flecks with golden yellow rice. There must be NO red vegetable pieces anywhere and NO green peas. Preserve the natural pink-orange color of the four whole prawns: the prawns are the ONLY reddish food elements allowed. Keep the same golden rice with small elongated grains, lemon, artichokes, zucchini and herbs. Keep the navy pan, spoon, steam, composition, camera, rendering style and real transparent background identical. Do not replace red peppers with red tomatoes or other red garnish. No text.
+```
+
+El emblema SVG de Futbolín representa un campo de fútbol con línea central, áreas, porterías y círculo central, conservando la paleta y el relieve de la familia de iconos. La imagen de Fernando Alonso aumenta un 10 % y baja ligeramente para conservar la cabeza dentro de la tarjeta durante la animación.
+
+Las tarjetas de Participan refuerzan la jerarquía entre título, tipo de entidad y descripción: interlineado más cómodo, texto descriptivo de 13 px, subtítulo de 12 px y saltos de línea equilibrados. Los contenidos y enlaces no cambian.
+
+## Fondos fotográficos de Indie Fest y Juego Libre
+
+Se conservan las fotografías originales de 2048 × 1365 px y se sirven variantes WebP de 360, 720 y 1280 px. La procedencia es el [álbum oficial ULP 2025](https://www.flickr.com/photos/195749897@N03/albums/72177720328590176/).
+
+- Indie Fest: `public/assets/competitions/cards/indie-fest-ulp-2025.jpg`, [foto 54744222218](https://www.flickr.com/photos/rotograber/54744222218/in/album-72177720328590176), título «ULP-2k25(RTG)-242». Fotografía elegida por la organización, con participantes jugando en consolas retro.
+- Juego Libre: `public/assets/competitions/cards/juego-libre-ulp-2025.jpg`, [foto 54744188639](https://www.flickr.com/photos/rotograber/54744188639/in/album-72177720328590176), título «ULP-2k25(RTG)-138». Fotografía elegida por la organización, con participantes ante varios monitores y consolas retro.
+
+Las imágenes conservan sus colores originales; la tarjeta aplica el tratamiento de color corporativo mediante CSS.
+
+Watch Party utiliza la fotografía aportada por la organización en `public/assets/competitions/cards/watch-party-ulp.png` (2554 × 1339 px). Se conserva el archivo original y se sirven variantes WebP de 360, 720 y 1280 px. El fondo muestra una retransmisión proyectada en el salón de actos.
+
+## Fondo de Street Fighter II
+
+Imagen aportada por el usuario: [captura de gameplay en Retro Faith](https://retrofaith.net/wp-content/uploads/2023/11/2547d-scrgameplay.png?w=384). Original guardado en `public/assets/competitions/cards/street-fighter-gameplay.png`, de 384 × 224 px. Se generan variantes WebP de 360 y 384 px sin ampliar la resolución original; el manifiesto las sirve en las tarjetas y en el fondo del trofeo.
+
+
+## Fondo de Contacto y Localización
+
+`public/assets/about/etsiit-map.webp` es una captura de Google Maps de 1600 × 1000 px, tomada el 15 de octubre de 2026 y centrada en la ETSIIT ([vista de origen](https://maps.google.com/maps?q=37.1973,-3.6243&t=k&z=18&output=embed)). Se conserva la captura completa, incluida su atribución, y se sirve en WebP de 1280 × 800 px. El componente compartido `MapBackdrop` aplica por CSS escala de grises, opacidad del 6 %, desenfoque de 2 px y un degradado radial hasta transparente en los cuatro bordes. Los mapas interactivos y los enlaces para llegar se mantienen.
+
+
+## Iconos de cifras
+
+Se utilizan people, controller, buildings y eye de Bootstrap Icons 1.13.1: https://github.com/twbs/icons/tree/v1.13.1/icons. SVG locales en src/components/icons/bootstrap, con color heredado y marcados como decorativos. Licencia MIT conservada en docs/licencias/bootstrap-icons.txt. No requieren recursos externos al mostrar la web.
+
+
+## Dibujo de la Alhambra
+
+Fondo elegido por la organización: [boceto de la Alhambra en Depositphotos](https://st.depositphotos.com/1971443/4568/v/450/depositphotos_45687871-stock-illustration-urban-sketch-of-alhambra-in.jpg). Copia local de 600 × 400 px en `public/assets/about/alhambra-sketch.jpg`. El SVG convierte las líneas a la paleta corporativa, elimina visualmente el fondo blanco y aplica una máscara de opacidad hacia abajo. Se limita al encabezado de Granada, vista desde la ULP para que no se superponga a las galerías.

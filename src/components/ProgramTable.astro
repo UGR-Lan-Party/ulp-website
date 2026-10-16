@@ -1,4 +1,5 @@
 ---
+import VenueMap from './VenueMap.astro';
 import { program, programEdition } from '../data/program';
 import { edition } from '../data/edition';
 import { getRegistrationState } from '../utils/registration.js';
@@ -38,89 +39,96 @@ const categoryLabels: Record<string, string> = {
   aria-labelledby="program-title"
   data-program
 >
-  <div class="program-panel">
-    <header class="program-header">
-      <div class="program-icon" aria-hidden="true">
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.7"
-          ><rect x="3" y="5" width="18" height="16" rx="3"></rect><path
-            d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2"></path></svg
-        >
-      </div>
-      <div>
-        <p class="program-kicker">Agenda</p><h2 id="program-title">
-          Programa ULP {programEdition.year}
-        </h2>
-      </div>
-      <p
-        class="program-count"
-        data-program-count
-        role="status"
-        aria-live="polite"
+  <header class="program-header">
+    <div class="program-icon" aria-hidden="true">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        ><rect x="3" y="5" width="18" height="16" rx="3"></rect><path
+          d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2"></path></svg
       >
-        {program.length} de {program.length} actividades
-      </p>
-    </header>
-    {
-      edition.year !== programEdition.year && (
-        <p class="program-notice">
-          El programa de ULP {edition.year} todavía no está publicado. Se
-          muestra el programa de {programEdition.year} como referencia
-          histórica.
-        </p>
-      )
-    }
-    <form
-      class="program-filters"
-      data-program-filters
-      role="search"
-      aria-label="Filtrar el programa"
-      hidden
+    </div>
+    <div>
+      <p class="program-kicker">Agenda</p><h2 id="program-title">
+        Programa ULP {programEdition.year}
+      </h2>
+    </div>
+    <p
+      class="program-count"
+      data-program-count
+      role="status"
+      aria-live="polite"
     >
-      <label class="activity-filter"
-        >Actividad<input
-          type="search"
-          name="activity"
-          maxlength="120"
-          placeholder="Busca un juego o una charla"
-          autocomplete="off"
-        /></label
-      >
-      <label
-        >Aula o zona<select name="location"
-          ><option value="">Todas las ubicaciones</option>{
-            locations.map((location) => (
-              <option value={location}>{location}</option>
-            ))
-          }</select
-        ></label
-      >
-      <label
-        >Día<select name="day"
-          ><option value="">Todos los días</option>{
-            days.map(([value, label]) => <option value={value}>{label}</option>)
-          }</select
-        ></label
-      >
-      <label
-        >A las<input
-          type="time"
-          name="time"
-          step="60"
-          aria-describedby="program-time-help"
-        /></label
-      >
-      <button type="reset" class="program-reset">Restablecer</button>
-      <p id="program-time-help" class="program-help">
-        La hora muestra actividades en curso. Sin fin confirmado, se filtra por
-        la hora de inicio.
+      {program.length} de {program.length} actividades
+    </p>
+  </header>
+  {
+    edition.year !== programEdition.year && (
+      <p class="program-notice">
+        El programa de ULP {edition.year} todavía no está publicado. Se muestra
+        el programa de {programEdition.year} como referencia histórica.
       </p>
-    </form>
+    )
+  }
+  <form
+    class="program-filters"
+    data-program-filters
+    role="search"
+    aria-label="Filtrar el programa"
+    hidden
+  >
+    <label class="activity-filter"
+      >Actividad<input
+        type="search"
+        name="activity"
+        maxlength="120"
+        placeholder="Busca un juego o una charla"
+        autocomplete="off"
+      /></label
+    >
+    <label
+      >Aula o zona<select name="location"
+        ><option value="">Todas las ubicaciones</option>{
+          locations.map((location) => (
+            <option value={location}>{location}</option>
+          ))
+        }</select
+      ></label
+    >
+    <label
+      >Día<select name="day"
+        ><option value="">Todos los días</option>{
+          days.map(([value, label]) => <option value={value}>{label}</option>)
+        }</select
+      ></label
+    >
+    <label
+      >A las<input
+        type="time"
+        name="time"
+        step="60"
+        aria-describedby="program-time-help"
+      /></label
+    >
+    <button type="reset" class="program-reset">Restablecer</button>
+    <p id="program-time-help" class="program-help">
+      La hora muestra actividades en curso. Sin fin confirmado, se filtra por la
+      hora de inicio.
+    </p>
+  </form>
+  <VenueMap>
+    <div slot="empty" class="program-empty" data-program-empty hidden>
+      <p>No hay actividades con estos filtros.</p><p>
+        Prueba otro nombre, ubicación u hora, o restablece los filtros.
+      </p>
+    </div>
+  </VenueMap>
+  <details class="program-table-disclosure" data-program-table-disclosure open>
+    <summary>Desplegar agenda <span aria-hidden="true">⌄</span></summary>
     <div class="program-table-wrap" data-program-table>
       <table class="program-table">
         <caption class="sr-only"
@@ -219,12 +227,7 @@ const categoryLabels: Record<string, string> = {
         >
       </table>
     </div>
-    <div class="program-empty" data-program-empty hidden>
-      <p>No hay actividades con estos filtros.</p><p>
-        Prueba otro nombre, ubicación u hora, o restablece los filtros.
-      </p>
-    </div>
-  </div>
+  </details>
 </section>
 
 <script>
@@ -236,143 +239,142 @@ const categoryLabels: Record<string, string> = {
     display: none !important;
   }
   .program-section {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-  .program-panel {
-    --program-primary: theme('colors.primary');
-    --program-secondary: theme('colors.secondary');
-    --program-tertiary: theme('colors.tertiary');
-    overflow: hidden;
-    isolation: isolate;
-    border: 1px solid rgb(255 255 255 / 0.2);
-    border-radius: 1.5rem;
-    background: linear-gradient(
-      135deg,
-      var(--program-primary),
-      var(--program-secondary) 60%,
-      var(--program-tertiary)
-    );
-    color: #fff;
-    box-shadow: 0 24px 48px rgb(0 68 101 / 0.14);
+    padding-block: 32px 48px;
+    color: var(--ink);
   }
   .program-header {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 1rem;
-    padding: 2rem;
-    border-bottom: 1px solid rgb(255 255 255 / 0.14);
-    background: radial-gradient(
-      ellipse at top right,
-      rgb(255 255 255 / 0.12),
-      transparent 70%
-    );
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
   }
   .program-icon {
     display: grid;
     place-items: center;
-    width: 52px;
-    height: 52px;
-    border: 1px solid rgb(255 255 255 / 0.2);
-    border-radius: 1rem;
-    color: #fff;
-    background: rgb(255 255 255 / 0.08);
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
     flex-shrink: 0;
   }
   .program-kicker {
-    color: rgb(255 255 255 / 0.85);
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.13em;
-    font-size: 0.7rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
+    color: var(--muted);
+    margin-bottom: 7px;
   }
   h2 {
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.2;
     font-weight: 700;
-    line-height: 1.25;
+    letter-spacing: -0.035em;
   }
   .program-count {
     margin-left: auto;
-    border: 1px solid rgb(255 255 255 / 0.2);
-    border-radius: 999px;
-    padding: 0.5rem 0.85rem;
-    font-size: 0.8rem;
-    color: rgb(255 255 255 / 0.9);
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    font-size: 11px;
+    color: var(--muted);
     white-space: nowrap;
-    font-variant-numeric: tabular-nums;
+  }
+  .program-notice {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+    color: var(--muted);
   }
   .program-filters {
     display: grid;
     grid-template-columns:
-      minmax(180px, 1.5fr) minmax(160px, 1.2fr) minmax(160px, 1fr)
-      minmax(110px, 0.7fr) auto;
-    gap: 1rem;
+      minmax(180px, 1.5fr) minmax(160px, 1.2fr) minmax(150px, 1fr)
+      minmax(105px, 0.7fr) auto;
+    gap: 16px;
     align-items: end;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid rgb(255 255 255 / 0.14);
+    background: #004465;
+    color: #f5f0e6;
+    padding: 26px;
+    border-radius: 20px;
   }
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
+  .program-filters label {
+    display: grid;
+    gap: 8px;
     min-width: 0;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgb(255 255 255 / 0.9);
+    font-size: 11px;
+    font-weight: 500;
   }
-  input,
-  select {
+  .program-filters input,
+  .program-filters select {
     width: 100%;
     min-height: 44px;
-    border: 1px solid rgb(255 255 255 / 0.25);
-    border-radius: 0.8rem;
-    padding: 0.65rem 0.8rem;
-    color: #fff;
-    background: var(--program-primary);
+    border: 1px solid rgb(245 240 230 / 0.3);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #f5f0e6;
+    background: #004465;
     font: inherit;
-    font-size: 0.85rem;
+    font-size: 12px;
     color-scheme: dark;
   }
   input::placeholder {
-    color: rgb(255 255 255 / 0.7);
+    color: rgb(245 240 230 / 0.65);
   }
-  input:focus-visible,
-  select:focus-visible,
-  button:focus-visible,
-  a:focus-visible {
-    outline: 2px solid #fff;
+  .program-filters input:focus-visible,
+  .program-filters select:focus-visible,
+  .program-reset:focus-visible {
+    outline: 2px solid #f5f0e6;
     outline-offset: 3px;
   }
   .program-reset {
     min-height: 44px;
-    border: 1px solid rgb(255 255 255 / 0.33);
-    border-radius: 0.8rem;
-    padding: 0.65rem 1rem;
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 600;
-    background: rgb(255 255 255 / 0.08);
+    padding: 10px 14px;
+    border: 1px solid rgb(245 240 230 / 0.3);
+    border-radius: 10px;
+    font-size: 11px;
   }
   .program-reset:hover {
-    background: rgb(255 255 255 / 0.14);
+    background: rgb(245 240 230 / 0.1);
   }
   .program-help {
     grid-column: 1 / -1;
-    color: rgb(255 255 255 / 0.8);
-    font-size: 0.75rem;
-    line-height: 1.6;
+    font-size: 11px;
+    line-height: 1.7;
+    opacity: 0.75;
   }
-  .program-notice {
-    margin: 1.5rem 2rem 0;
-    color: rgb(255 255 255 / 0.9);
-    font-size: 0.9rem;
+  .program-table-disclosure {
+    border-block: 1px solid var(--line);
+  }
+  .program-table-disclosure > summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    cursor: pointer;
+    font-size: clamp(18px, 2vw, 23px);
+    font-weight: 650;
+    list-style: none;
+  }
+  .program-table-disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+  .program-table-disclosure[open] > summary {
+    border-bottom: 1px solid var(--line);
+  }
+  .program-table-disclosure[open] > summary span {
+    transform: rotate(180deg);
+  }
+  .program-table-disclosure > summary:focus-visible,
+  .program-table a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
   }
   .program-table-wrap {
     overflow: auto;
     max-height: 44rem;
-    scrollbar-color: rgb(255 255 255 / 0.4) var(--program-primary);
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
   }
   .program-table {
     width: 100%;
@@ -383,112 +385,101 @@ const categoryLabels: Record<string, string> = {
     position: sticky;
     top: 0;
     z-index: 1;
-    background: var(--program-primary);
+    background: var(--paper);
   }
   thead th {
-    padding: 1rem 1.5rem;
-    font-size: 0.65rem;
+    padding: 16px 20px;
+    font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #fff;
-    border-bottom: 1px solid rgb(255 255 255 / 0.2);
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--line);
   }
   tbody td,
   tbody th {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid rgb(255 255 255 / 0.12);
+    padding: 20px;
+    border-bottom: 1px solid var(--line);
     vertical-align: middle;
   }
   tbody tr[data-stripe='0'] {
-    background: #004465;
+    background: color-mix(in srgb, var(--ink) 3%, var(--paper));
   }
   tbody tr[data-stripe='1'] {
-    background: #0b5273;
+    background: color-mix(in srgb, var(--ink) 7%, var(--paper));
   }
   tbody tr:hover {
-    background: #16617e;
+    background: color-mix(in srgb, var(--ink) 10%, var(--paper));
   }
-  .program-day {
-    color: rgb(255 255 255 / 0.9);
-    font-size: 0.8rem;
+  .program-day,
+  .program-location,
+  .program-registration {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
   }
   .program-time span {
     display: inline-block;
-    border-radius: 0.6rem;
-    padding: 0.45rem 0.65rem;
-    background: rgb(255 255 255 / 0.07);
-    color: #fff;
-    font-size: 0.8rem;
-    font-variant-numeric: tabular-nums;
+    border-radius: 8px;
+    padding: 6px 8px;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    font-size: 11px;
+    white-space: nowrap;
   }
   .program-activity {
-    min-width: 240px;
+    min-width: 220px;
+    font-size: 14px;
     font-weight: 600;
+    line-height: 1.5;
   }
   .program-category {
     display: block;
-    margin-bottom: 0.4rem;
-    color: #fff;
     text-transform: uppercase;
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-  }
-  .program-activity a,
-  .activity-name {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 5px;
+    font-weight: 400;
   }
   .program-activity a:hover {
-    color: #fff;
     text-decoration: underline;
     text-underline-offset: 4px;
   }
   .program-round {
     display: block;
-    margin-top: 0.35rem;
-    font-size: 0.75rem;
+    margin-top: 6px;
+    font-size: 11px;
     font-weight: 400;
-    color: rgb(255 255 255 / 0.8);
-  }
-  .program-location {
-    font-size: 0.8rem;
-    color: rgb(255 255 255 / 0.9);
+    color: var(--muted);
   }
   .registration-button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-height: 40px;
-    padding: 0.45rem 0.8rem;
-    border-radius: 0.65rem;
-    background: #fff;
-    color: var(--program-primary);
-    font-size: 0.8rem;
-    font-weight: 600;
+    min-height: 38px;
+    padding: 7px 11px;
+    border-radius: 9px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 11px;
+    font-weight: 500;
     white-space: nowrap;
   }
-  .registration-button:hover:not(:disabled) {
-    background: rgb(255 255 255 / 0.85);
-  }
   .registration-button:disabled {
-    border: 1px solid rgb(255 255 255 / 0.25);
-    background: rgb(255 255 255 / 0.08);
-    color: rgb(255 255 255 / 0.8);
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
     cursor: not-allowed;
   }
-  .program-registration {
-    font-size: 0.8rem;
-  }
   .program-empty {
-    padding: 3rem 1.5rem;
-    text-align: center;
+    padding: 26px 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink);
   }
   .program-empty p + p {
-    margin-top: 0.6rem;
-    font-size: 0.85rem;
-    color: rgb(255 255 255 / 0.8);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
   }
   @media (max-width: 1100px) {
     .program-filters {
@@ -502,29 +493,18 @@ const categoryLabels: Record<string, string> = {
     }
   }
   @media (max-width: 800px) {
-    .program-header,
     .program-filters {
-      padding: 1.25rem;
+      padding: 22px;
+    }
+    .program-filters label:nth-child(2),
+    .program-filters label:nth-child(3) {
+      grid-column: 1 / -1;
     }
     .program-icon {
       display: none;
     }
     .program-count {
       margin-left: 0;
-    }
-    .program-filters {
-      gap: 0.85rem;
-    }
-    .program-filters label:nth-child(2),
-    .program-filters label:nth-child(3) {
-      grid-column: 1 / -1;
-    }
-    .program-notice {
-      margin: 1.25rem;
-    }
-    .program-table-wrap {
-      max-height: 44rem;
-      padding: 0 1.25rem;
     }
     thead {
       position: absolute;
@@ -536,13 +516,13 @@ const categoryLabels: Record<string, string> = {
     tbody tr {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 1rem;
-      padding: 1.25rem 1rem;
-      border-bottom: 1px solid rgb(255 255 255 / 0.2);
+      gap: 0 16px;
+      padding: 20px 16px;
+      border-bottom: 1px solid var(--line);
     }
     tbody td,
     tbody th {
-      padding: 0.4rem 0;
+      padding: 6px 0;
       border: 0;
       min-width: 0;
     }
@@ -556,16 +536,16 @@ const categoryLabels: Record<string, string> = {
     [data-label]::before {
       content: attr(data-label);
       display: block;
-      margin-bottom: 0.35rem;
-      font-size: 0.6rem;
+      margin-bottom: 5px;
+      font-size: 8px;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #fff;
+      letter-spacing: 0.08em;
+      color: var(--muted);
     }
     .program-time span {
       padding: 0;
-      background: none;
+      background: transparent;
     }
   }
 </style>

@@ -1,104 +1,265 @@
-<section
-  class="relative z-10 overflow-hidden bg-[#7629c6] dark:bg-[#4c2186] py-20 lg:py-[115px]"
->
-  <div class="container mx-auto">
-    <div class="relative overflow-hidden">
-      <div class="flex flex-wrap items-stretch">
-        <div class="w-full px-4">
-          <div class="mx-auto max-w-[570px] text-center">
-            <h2
-              class="mb-2.5 text-3xl font-bold md:leading-[1.44] text-white md:text-[38px]"
-            >
-              <span>¿Quieres vernos en vivo?</span>
-            </h2>
-            <p
-              class="mb-6 mx-auto max-w-[515px] text-base leading-[1.5] text-white"
-            >
-              Síguenos en Twitch y únete a nuestros streams en directo.
-            </p>
-            <a
-              href="https://www.twitch.tv/ugr_lan_party"
-              target="_blank"
-              class="inline-flex items-center py-3 text-base font-bold text-white transition border border-transparent rounded-md bg-purple-800 dark:bg-purple-600 px-7 dark:hover:bg-[#9146FF] hover:bg-[#9146FF]"
-            >
-              <span class="mr-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 256 256"
-                  fill="none"
-                >
-                  <path
-                    fill="#FFFFFF"
-                    d="M80 32 32 80v128h64v32l32-32h48l72-72V32H80Zm136 96-40 40h-56l-24 24v-24H64V48h152v80Zm-40-56h16v48h-16V72Zm-48 0h16v48h-16V72Z"
-                  ></path>
-                </svg>
-              </span>
-              Ver en Twitch
-            </a>
-          </div>
-        </div>
+---
+import TwitchIcon from '../../public/assets/icons/TwitchIcon.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+import latestStream from '../data/latest-stream.json';
+const videoUrl = `https://www.twitch.tv/videos/${latestStream.videoId}`;
+---
+
+<section class="twitch-section design-section" aria-labelledby="twitch-title">
+  <div class="design-container twitch-grid">
+    <div class="twitch-copy" data-reveal>
+      <span class="twitch-label"
+        ><TwitchIcon width="23" height="23" aria-hidden="true" /> ULP en Twitch</span
+      >
+      <h2 id="twitch-title">Vive el evento<br /><em>en directo</em></h2>
+      <p>
+        Las finales, el ambiente y la entrega de premios. Vuelve al otro lado
+        del directo con la última retransmisión disponible.
+      </p>
+      <a
+        class="twitch-channel"
+        href="https://www.twitch.tv/ugr_lan_party"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Sigue el canal <span aria-hidden="true">↗</span></a
+      >
+    </div>
+    <div
+      class="twitch-recording"
+      data-twitch-recording
+      data-video-id={latestStream.videoId}
+    >
+      <div class="twitch-player" data-twitch-player>
+        <a
+          class="twitch-preview"
+          href={videoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Reproducir ${latestStream.title}`}
+          data-twitch-play
+        >
+          <ResponsiveImage
+            src={latestStream.thumbnail}
+            alt="Vista previa de la retransmisión ULP 2026 en Twitch"
+            sizes="(max-width: 900px) 90vw, 55vw"
+          />
+          <span class="twitch-play"
+            ><svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"><path d="m9 5 11 7-11 7Z"></path></svg
+            ></span
+          >
+          <span class="twitch-watch">Ver retransmisión</span>
+          <span class="twitch-duration">{latestStream.duration}</span>
+        </a>
+      </div>
+      <div class="twitch-caption">
+        <span>Última retransmisión disponible</span><h3>
+          {latestStream.title}
+        </h3><a href={videoUrl} target="_blank" rel="noopener noreferrer"
+          >Abrir en Twitch ↗</a
+        >
       </div>
     </div>
   </div>
-  <div class="pointer-events-none">
-    <span class="absolute top-0 left-0">
-      <svg
-        width="495"
-        height="470"
-        viewBox="0 0 495 470"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="55"
-          cy="442"
-          r="138"
-          stroke="white"
-          stroke-opacity="0.04"
-          stroke-width="50"></circle>
-        <circle
-          cx="446"
-          r="39"
-          stroke="white"
-          stroke-opacity="0.04"
-          stroke-width="20"></circle>
-        <path
-          d="M245.406 137.609L233.985 94.9852L276.609 106.406L245.406 137.609Z"
-          stroke="white"
-          stroke-opacity="0.08"
-          stroke-width="12"></path>
-      </svg>
-    </span>
-    <span class="absolute bottom-0 right-0">
-      <svg
-        width="493"
-        height="470"
-        viewBox="0 0 493 470"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="462"
-          cy="5"
-          r="138"
-          stroke="white"
-          stroke-opacity="0.04"
-          stroke-width="50"></circle>
-        <circle
-          cx="49"
-          cy="470"
-          r="39"
-          stroke="white"
-          stroke-opacity="0.04"
-          stroke-width="20"></circle>
-        <path
-          d="M222.393 226.701L272.808 213.192L259.299 263.607L222.393 226.701Z"
-          stroke="white"
-          stroke-opacity="0.06"
-          stroke-width="13"></path>
-      </svg>
-    </span>
-  </div>
 </section>
+<style>
+  .twitch-section {
+    background:
+      radial-gradient(ellipse at 15% 30%, #4a2575, transparent 65%), #291543;
+    color: #f5f0e6;
+  }
+  .twitch-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.3fr;
+    align-items: center;
+    gap: clamp(35px, 5vw, 75px);
+  }
+  .twitch-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font:
+      10px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  h2 {
+    font-size: clamp(34px, 4.4vw, 60px);
+    line-height: 1.05;
+    font-weight: 750;
+    margin-block: 25px;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .twitch-copy p {
+    font-size: 13px;
+    line-height: 1.85;
+    opacity: 0.75;
+    max-width: 360px;
+  }
+  .twitch-channel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    margin-top: 26px;
+    padding: 13px 18px;
+    border: 1px solid rgb(245 240 230 / 0.35);
+    border-radius: 8px;
+    font-size: 12px;
+    transition: background 200ms ease;
+  }
+  .twitch-channel:hover {
+    background: rgb(245 240 230 / 0.1);
+  }
+  .twitch-recording {
+    overflow: hidden;
+    border: 1px solid rgb(245 240 230 / 0.2);
+    border-radius: 16px;
+    background: rgb(0 0 0 / 0.18);
+    box-shadow: 0 20px 60px rgb(0 0 0 / 0.12);
+  }
+  .twitch-player {
+    position: relative;
+    aspect-ratio: 16 / 9;
+  }
+  .twitch-preview {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    inset: 0;
+  }
+  .twitch-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgb(15 8 28 / 0.7),
+      rgb(15 8 28 / 0.12) 65%
+    );
+  }
+  .twitch-preview :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+  }
+  .twitch-play {
+    position: relative;
+    z-index: 1;
+    width: 65px;
+    height: 65px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #f5f0e6;
+    color: #291543;
+    transition: transform 200ms ease;
+  }
+  .twitch-preview:hover .twitch-play {
+    transform: scale(1.1);
+  }
+  .twitch-watch,
+  .twitch-duration {
+    position: absolute;
+    bottom: 17px;
+    z-index: 1;
+    font-size: 11px;
+  }
+  .twitch-watch {
+    left: 20px;
+    font-weight: 600;
+  }
+  .twitch-duration {
+    right: 20px;
+    padding: 4px 7px;
+    border-radius: 4px;
+    background: rgb(0 0 0 / 0.6);
+    font-variant-numeric: tabular-nums;
+  }
+  .twitch-caption {
+    padding: 20px 24px;
+  }
+  .twitch-caption > span {
+    font:
+      8px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.65;
+  }
+  h3 {
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 650;
+    margin-block: 9px 14px;
+  }
+  .twitch-caption a {
+    font-size: 10px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .twitch-player:has(iframe) {
+    min-height: 300px;
+  }
+  .twitch-player :global(iframe) {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    border: 0;
+  }
+  @media (max-width: 900px) {
+    .twitch-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .twitch-copy p {
+      max-width: 480px;
+    }
+  }
+</style>
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-twitch-recording]')
+    .forEach((recording) => {
+      const link =
+        recording.querySelector<HTMLAnchorElement>('[data-twitch-play]')!;
+      const player = recording.querySelector<HTMLElement>(
+        '[data-twitch-player]',
+      )!;
+      link.addEventListener('click', (event) => {
+        if (
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey ||
+          player.clientWidth < 400
+        )
+          return;
+        const videoId = recording.dataset.videoId;
+        if (!videoId || !/^\d+$/.test(videoId)) return;
+        event.preventDefault();
+        const parameters = new URLSearchParams({
+          video: `v${videoId}`,
+          parent: location.hostname,
+          autoplay: 'true',
+          muted: 'false',
+        });
+        const iframe = document.createElement('iframe');
+        iframe.title = 'Última retransmisión de UGR LAN Party en Twitch';
+        iframe.src = `https://player.twitch.tv/?${parameters}`;
+        iframe.allow = 'autoplay; fullscreen';
+        iframe.allowFullscreen = true;
+        player.replaceChildren(iframe);
+        iframe.focus();
+      });
+    });
+</script>

@@ -20,13 +20,8 @@
           "x2 Viajes organizados Emycet",
           "x1 Tarjeta Amazon 25€"
         ],
-        "second": [
-          "Trofeo ULP",
-          "x1 Mando MGPXPRO Mars Gaming"
-        ],
-        "third": [
-          "Trofeo ULP"
-        ]
+        "second": ["Trofeo ULP", "x1 Mando MGPXPRO Mars Gaming"],
+        "third": ["Trofeo ULP"]
       },
       "schedule": [
         {
@@ -64,10 +59,7 @@
           "x1 Mando MGPXPRO Mars Gaming",
           "x1 Keycap Gen.G Esports"
         ],
-        "third": [
-          "Trofeo ULP",
-          "x1 Keycap Gen.G Esports"
-        ]
+        "third": ["Trofeo ULP", "x1 Keycap Gen.G Esports"]
       },
       "schedule": [
         {
@@ -101,13 +93,8 @@
           "x1 Mando MGPXPRO Mars Gaming",
           "x2 Bonos Fórmula Karting"
         ],
-        "second": [
-          "Trofeo ULP",
-          "x2 Bonos Fórmula Karting"
-        ],
-        "third": [
-          "Trofeo ULP"
-        ]
+        "second": ["Trofeo ULP", "x2 Bonos Fórmula Karting"],
+        "third": ["Trofeo ULP"]
       },
       "schedule": [
         {
@@ -153,12 +140,8 @@
           "x5 Tarjetas Amazon 25€",
           "x5 Badges Gen.G Esports"
         ],
-        "third": [
-          "Trofeo y Medalla ULP"
-        ],
-        "mvp": [
-          "x1 Jersey Gen.G Esports"
-        ]
+        "third": ["Trofeo y Medalla ULP"],
+        "mvp": ["x1 Jersey Gen.G Esports"]
       },
       "schedule": [
         {
@@ -209,13 +192,8 @@
           "x2 Juegos STYX: Blades of Greed (PlayStation 5)",
           "x2 Keycaps Gen.G Esports"
         ],
-        "second": [
-          "Trofeo y Medalla ULP",
-          "x2 Tarjetas Amazon 25€"
-        ],
-        "third": [
-          "Trofeo y Medalla ULP"
-        ]
+        "second": ["Trofeo y Medalla ULP", "x2 Tarjetas Amazon 25€"],
+        "third": ["Trofeo y Medalla ULP"]
       },
       "schedule": [
         {
@@ -249,17 +227,9 @@
       "backgroundImage": "/assets/competitions/backgrounds/wii-tenis.webp",
       "trophy": "/assets/models/wii.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x1 Mando Revolution X Unlimited (PC) ~ 200€"
-        ],
-        "second": [
-          "Trofeo ULP",
-          "x1 Mando MGPXPRO Mars Gaming"
-        ],
-        "third": [
-          "Trofeo ULP"
-        ]
+        "first": ["Trofeo ULP", "x1 Mando Revolution X Unlimited (PC) ~ 200€"],
+        "second": ["Trofeo ULP", "x1 Mando MGPXPRO Mars Gaming"],
+        "third": ["Trofeo ULP"]
       },
       "schedule": [
         {
@@ -303,9 +273,7 @@
           "x1 Mando MM-XT Mars Gaming",
           "x1 Tarjeta Amazon 25€"
         ],
-        "third": [
-          "Trofeo ULP"
-        ]
+        "third": ["Trofeo ULP"]
       },
       "schedule": [
         {
@@ -345,13 +313,8 @@
           "x1 Mando MM-XT Mars Gaming",
           "x1 Bonos Fórmula Karting"
         ],
-        "second": [
-          "Trofeo ULP",
-          "x1 Mando MGPXPRO Mars Gaming"
-        ],
-        "third": [
-          "Trofeo ULP"
-        ]
+        "second": ["Trofeo ULP", "x1 Mando MGPXPRO Mars Gaming"],
+        "third": ["Trofeo ULP"]
       },
       "schedule": [
         {
@@ -385,17 +348,9 @@
       "backgroundImage": "/assets/competitions/backgrounds/brawl-stars.webp",
       "trophy": "/assets/models/brawl-stars.obj",
       "awards": {
-        "first": [
-          "Copa ULP",
-          "x6 Tarjetas Amazon 25€"
-        ],
-        "second": [
-          "Trofeo y Medalla ULP",
-          "x3 Tarjetas Amazon 25€"
-        ],
-        "third": [
-          "Trofeo y Medalla ULP"
-        ]
+        "first": ["Copa ULP", "x6 Tarjetas Amazon 25€"],
+        "second": ["Trofeo y Medalla ULP", "x3 Tarjetas Amazon 25€"],
+        "third": ["Trofeo y Medalla ULP"]
       },
       "schedule": [
         {
@@ -429,17 +384,9 @@
       "backgroundImage": "/assets/competitions/backgrounds/clash-royale.webp",
       "trophy": "/assets/models/clash-royale.obj",
       "awards": {
-        "first": [
-          "Trofeo",
-          "x1 Microfono M100 HS Nacon"
-        ],
-        "second": [
-          "Trofeo",
-          "x1 Tarjeta Amazon 25€"
-        ],
-        "third": [
-          "Trofeo"
-        ]
+        "first": ["Trofeo", "x1 Microfono M100 HS Nacon"],
+        "second": ["Trofeo", "x1 Tarjeta Amazon 25€"],
+        "third": ["Trofeo"]
       },
       "schedule": [
         {
@@ -478,9 +425,7 @@
           "x1 Jersey Gen.G eSports",
           "x1 Suscripción Your.GG"
         ],
-        "second": [
-          "x1 Suscripción Your.GG"
-        ],
+        "second": ["x1 Suscripción Your.GG"],
         "third": []
       },
       "schedule": [
@@ -499,7 +444,7 @@
     },
     {
       "id": "f1",
-      "name": "F1",
+      "name": "Fórmula 1",
       "rules": "",
       "registration": "",
       "registrationPeriodOpen": false,
@@ -513,9 +458,7 @@
           "Trofeo ULP",
           "Juego Gear Club 3 Unlimited (Nintendo Switch 2)"
         ],
-        "second": [
-          "x2 Bonos Fórmula Karting"
-        ],
+        "second": ["x2 Bonos Fórmula Karting"],
         "third": []
       },
       "schedule": [
@@ -544,17 +487,9 @@
       "backgroundImage": "/assets/competitions/backgrounds/futbolin.webp",
       "trophy": "/assets/models/futbolin.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x2 Auriculares RIG 600 ACID HS Nacon"
-        ],
-        "second": [
-          "Trofeo ULP",
-          "x2 Mandos MM-XT Mars Gaming"
-        ],
-        "third": [
-          "Trofeo ULP"
-        ]
+        "first": ["Trofeo ULP", "x2 Auriculares RIG 600 ACID HS Nacon"],
+        "second": ["Trofeo ULP", "x2 Mandos MM-XT Mars Gaming"],
+        "third": ["Trofeo ULP"]
       },
       "schedule": [
         {
@@ -594,18 +529,9 @@
       "backgroundImage": "/assets/competitions/backgrounds/ping-pong.webp",
       "trophy": "/assets/models/ping-pong.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x1 Mando Revolution X Unlimited (PC) ~ 200€"
-        ],
-        "second": [
-          "Trofeo ULP",
-          "x1 Mando MGPXPRO Mars Gaming"
-        ],
-        "third": [
-          "Trofeo ULP",
-          "x1 Mando MM-XT Mars Gaming"
-        ]
+        "first": ["Trofeo ULP", "x1 Mando Revolution X Unlimited (PC) ~ 200€"],
+        "second": ["Trofeo ULP", "x1 Mando MGPXPRO Mars Gaming"],
+        "third": ["Trofeo ULP", "x1 Mando MM-XT Mars Gaming"]
       },
       "schedule": [
         {
@@ -633,10 +559,7 @@
       "backgroundImage": "/assets/competitions/backgrounds/retro.webp",
       "trophy": "/assets/models/SONIC.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x1 Tarjeta Amazon 25€"
-        ],
+        "first": ["Trofeo ULP", "x1 Tarjeta Amazon 25€"],
         "second": [],
         "third": []
       },
@@ -663,13 +586,10 @@
       "participants": "",
       "place": "Aula -1.1.",
       "tag": "reto",
-      "backgroundImage": "/assets/competitions/backgrounds/street-fighter.webp",
+      "backgroundImage": "/assets/competitions/cards/street-fighter-gameplay.png",
       "trophy": "/assets/models/street-fighter.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x1 Juego: John Mambo Ed. Coleccionista"
-        ],
+        "first": ["Trofeo ULP", "x1 Juego: John Mambo Ed. Coleccionista"],
         "second": [],
         "third": []
       },
@@ -682,7 +602,7 @@
         }
       ],
       "card": {
-        "card": "/assets/competitions/cards/street-fighter.webp",
+        "card": "/assets/competitions/cards/street-fighter-gameplay.png",
         "logo": "/assets/competitions/logos/street-fighter.webp",
         "character": "/assets/competitions/characters/character-street-fighter-2027.png"
       }
@@ -699,13 +619,8 @@
       "backgroundImage": "/assets/competitions/backgrounds/beat-saber.webp",
       "trophy": "/assets/models/beat-saber.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x1 Viaje Organizado Emycet"
-        ],
-        "second": [
-          "x1 Bono Karting - Formula Karting Granada"
-        ],
+        "first": ["Trofeo ULP", "x1 Viaje Organizado Emycet"],
+        "second": ["x1 Bono Karting - Formula Karting Granada"],
         "third": []
       },
       "schedule": [
@@ -734,17 +649,9 @@
       "backgroundImage": "/assets/competitions/backgrounds/hacking.webp",
       "trophy": "/assets/models/ctf.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x1 Flipper Zero Starter Full Set"
-        ],
-        "second": [
-          "x1 Raspberry Pi 5 4GB Starter Kit"
-        ],
-        "third": [
-          "x1 Proxmark3 512M",
-          "x1 Kit de Soldadura"
-        ]
+        "first": ["Trofeo ULP", "x1 Flipper Zero Starter Full Set"],
+        "second": ["x1 Raspberry Pi 5 4GB Starter Kit"],
+        "third": ["x1 Proxmark3 512M", "x1 Kit de Soldadura"]
       },
       "schedule": [
         {
@@ -772,10 +679,7 @@
       "backgroundImage": "/assets/competitions/backgrounds/tetris.webp",
       "trophy": "/assets/models/tetris.obj",
       "awards": {
-        "first": [
-          "Trofeo ULP",
-          "x1 Clave Juego The Game Kitchen"
-        ],
+        "first": ["Trofeo ULP", "x1 Clave Juego The Game Kitchen"],
         "second": [],
         "third": []
       },
@@ -795,7 +699,7 @@
     },
     {
       "id": "cars",
-      "name": "CARS",
+      "name": "Cars: Copa Pistón",
       "rules": "https://drive.google.com/file/d/1IfoHrrR0FGOcC39AEaV_NWQU4qxXRhm3/view?usp=sharing",
       "registration": "",
       "registrationPeriodOpen": false,
@@ -805,10 +709,7 @@
       "backgroundImage": "/assets/competitions/backgrounds/cars.webp",
       "trophy": "/assets/models/cars.obj",
       "awards": {
-        "first": [
-          "Copa Pistón ULP",
-          "x1 Clave Juego The Game Kitchen"
-        ],
+        "first": ["Copa Pistón ULP", "x1 Clave Juego The Game Kitchen"],
         "second": [],
         "third": []
       },
@@ -873,7 +774,7 @@
         }
       ],
       "card": {
-        "card": "/assets/competitions/cards/watch-party.webp",
+        "card": "/assets/competitions/cards/watch-party-ulp.png",
         "logo": "/assets/competitions/logos/watch-party-2027.svg",
         "character": "/assets/competitions/characters/character-watch-party-2027.png"
       }
@@ -925,7 +826,7 @@
         }
       ],
       "card": {
-        "card": "/assets/competitions/cards/indie-fest.webp",
+        "card": "/assets/competitions/cards/indie-fest-ulp-2025.jpg",
         "logo": "/assets/competitions/logos/indie-fest-2027.svg",
         "character": "/assets/competitions/characters/character-indie-fest-2027.png"
       }
@@ -951,7 +852,7 @@
         }
       ],
       "card": {
-        "card": "/assets/competitions/cards/juego-libre.webp",
+        "card": "/assets/competitions/cards/juego-libre-ulp-2025.jpg",
         "logo": "/assets/competitions/logos/juego-libre-2027.svg",
         "character": "/assets/competitions/characters/character-juego-libre-2027.png"
       }
@@ -1010,9 +911,7 @@
         }
       ],
       "aforo": "60",
-      "imagenes": [
-        "/assets/activities/geng.jpg"
-      ],
+      "imagenes": ["/assets/activities/geng.jpg"],
       "color": "#AA8A00",
       "slot": {
         "startsAt": "2026-03-20T15:45:00+01:00",
@@ -1041,9 +940,7 @@
         }
       ],
       "aforo": "196",
-      "imagenes": [
-        "/assets/activities/etsiit.webp"
-      ],
+      "imagenes": ["/assets/activities/etsiit.webp"],
       "color": "#D06113",
       "slot": {
         "startsAt": "2026-03-20T17:00:00+01:00",
@@ -1094,9 +991,7 @@
         }
       ],
       "aforo": "196",
-      "imagenes": [
-        "/assets/activities/Cartel-ULP-2026.png"
-      ],
+      "imagenes": ["/assets/activities/Cartel-ULP-2026.png"],
       "color": "#00f5ff",
       "slot": {
         "startsAt": "2026-03-20T17:15:00+01:00",
@@ -1204,9 +1099,7 @@
       "logo": "/assets/logo/logo-black.png",
       "ponentes": [],
       "aforo": "196",
-      "imagenes": [
-        "/assets/activities/sorteos-1.jpg"
-      ],
+      "imagenes": ["/assets/activities/sorteos-1.jpg"],
       "color": "#f59e0b",
       "slot": {
         "startsAt": "2026-03-20T20:00:00+01:00",

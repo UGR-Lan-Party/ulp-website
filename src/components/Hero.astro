@@ -11,8 +11,9 @@ import ResponsiveImage from './ResponsiveImage.astro';
         >
       </div>
       <h1 aria-label="UGR LAN Party">
-        <span class="hero-title-line"><span>UGR</span><span>LAN</span></span
-        ><span class="hero-title-party">PARTY.</span><svg
+        <span class="hero-title-line" data-home-drift="-48"
+          ><span>UGR</span><span>LAN</span></span
+        ><span class="hero-title-party" data-home-drift="48">PARTY.</span><svg
           viewBox="0 0 64 64"
           fill="none"
           aria-hidden="true"
@@ -144,6 +145,14 @@ import ResponsiveImage from './ResponsiveImage.astro';
     display: inline-block;
     color: var(--ink);
     letter-spacing: -0.01em;
+  }
+  [data-home-drift] {
+    transform: translate3d(var(--home-text-x, 0px), 0, 0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-home-drift] {
+      transform: none;
+    }
   }
   h1 svg {
     display: inline-block;

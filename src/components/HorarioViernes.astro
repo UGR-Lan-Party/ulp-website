@@ -133,13 +133,7 @@ const N = activities.length;
 </div>
 
 <!-- ════════════════ SCRIPTS ════════════════ -->
-<script
-  is:inline
-  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script
-  is:inline
-  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link
   href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
@@ -147,8 +141,9 @@ const N = activities.length;
 />
 
 <script>
-  declare const gsap: any;
-  declare const ScrollTrigger: any;
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  let initialized = false;
 
   const ENTER_END = 0.22;
   const EXIT_START = 0.78;
@@ -171,11 +166,16 @@ const N = activities.length;
   }
 
   function initTimeline() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-      setTimeout(initTimeline, 80);
+    const disclosure = document.querySelector<HTMLDetailsElement>(
+      '[data-official-program]',
+    );
+    if (disclosure && !disclosure.open) return;
+    if (initialized) {
+      requestAnimationFrame(() => ScrollTrigger.refresh());
       return;
     }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const outer = document.getElementById('timeline-outer');
@@ -192,6 +192,7 @@ const N = activities.length;
     const header = document.getElementById('timeline-header');
 
     if (!outer || !sticky || !cards.length) return;
+    initialized = true;
 
     const N = cards.length;
     const GAMING_COLORS = getActivityColors();
@@ -392,6 +393,7 @@ const N = activities.length;
 
   document.addEventListener('DOMContentLoaded', initTimeline);
   document.addEventListener('astro:page-load', initTimeline);
+  document.addEventListener('ulp:official-program-toggle', initTimeline);
 </script>
 
 <style>

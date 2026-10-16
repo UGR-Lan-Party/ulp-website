@@ -2002,8 +2002,8 @@
         "width": 720
       },
       {
-        "src": "/assets/optimized/43137ce0682f-1280.webp",
-        "width": 1280
+        "src": "/assets/optimized/43137ce0682f-1254.webp",
+        "width": 1254
       }
     ]
   },
@@ -2224,6 +2224,164 @@
       {
         "src": "/assets/optimized/c1c5956adacc-1058.webp",
         "width": 1058
+      }
+    ]
+  },
+  "/assets/competitions/cards/indie-fest-ulp-2025.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/7dacce4aa921-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7dacce4aa921-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7dacce4aa921-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/juego-libre-ulp-2025.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/a45992a625d3-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a45992a625d3-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/a45992a625d3-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/watch-party-ulp.png": {
+    "width": 2554,
+    "height": 1339,
+    "sources": [
+      {
+        "src": "/assets/optimized/6dbdd3011e91-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6dbdd3011e91-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6dbdd3011e91-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/street-fighter-gameplay.png": {
+    "width": 384,
+    "height": 224,
+    "sources": [
+      {
+        "src": "/assets/optimized/32e99af1d2ff-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/32e99af1d2ff-384.webp",
+        "width": 384
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-stands-2025.webp": {
+    "width": 1280,
+    "height": 853,
+    "sources": [
+      {
+        "src": "/assets/optimized/7d111587e6ff-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7d111587e6ff-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7d111587e6ff-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-charlas-2025.webp": {
+    "width": 1280,
+    "height": 853,
+    "sources": [
+      {
+        "src": "/assets/optimized/691cb5ea8e8c-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/691cb5ea8e8c-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/691cb5ea8e8c-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-2024.webp": {
+    "width": 1280,
+    "height": 853,
+    "sources": [
+      {
+        "src": "/assets/optimized/64fe58ee05f2-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/64fe58ee05f2-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/64fe58ee05f2-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-2026.webp": {
+    "width": 1280,
+    "height": 960,
+    "sources": [
+      {
+        "src": "/assets/optimized/14bee22baf8a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/14bee22baf8a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/14bee22baf8a-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/about/twitch-ultimo-stream.webp": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "src": "/assets/optimized/55c5265a0c0f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/55c5265a0c0f-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/55c5265a0c0f-1280.webp",
+        "width": 1280
       }
     ]
   }

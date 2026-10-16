@@ -3,279 +3,137 @@ interface ScheduleItem {
   time: string;
   round: string;
 }
-
 interface Props {
   place: string;
   time: ScheduleItem[];
 }
-
-const { place, time } = Astro.props as Props;
-
-const hasPlace = place && place.trim() !== '';
-const hasSchedule = time && time.length > 0;
+const { place, time } = Astro.props;
+const hasPlace = Boolean(place.trim());
+const hasSchedule = time.length > 0;
 ---
 
-<div class="location-card">
-  <div class="card-inner">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-
-    <div class="card-content">
-      <!-- Header -->
-      <div class="card-header">
-        <span class="card-label">Evento</span>
-        <div class="divider"></div>
-      </div>
-
-      <!-- Location section -->
-      <div class="section">
-        <div class="section-icon">
-          <svg width="20" height="20" viewBox="0 0 29 35" fill="currentColor">
-            <path
-              d="M14.5 0.710938C6.89844 0.710938 0.664062 6.72656 0.664062 14.0547C0.664062 19.9062 9.03125 29.5859 12.6406 33.5234C13.1328 34.0703 13.7891 34.3437 14.5 34.3437C15.2109 34.3437 15.8672 34.0703 16.3594 33.5234C19.9688 29.6406 28.3359 19.9062 28.3359 14.0547C28.3359 6.67188 22.1016 0.710938 14.5 0.710938ZM14.9375 32.2109C14.6641 32.4844 14.2812 32.4844 14.0625 32.2109C11.3828 29.3125 2.57812 19.3594 2.57812 14.0547C2.57812 7.71094 7.9375 2.625 14.5 2.625C21.0625 2.625 26.4219 7.76562 26.4219 14.0547C26.4219 19.3594 17.6172 29.2578 14.9375 32.2109Z"
-            ></path>
-            <path
-              d="M14.5 8.58594C11.2734 8.58594 8.59375 11.2109 8.59375 14.4922C8.59375 17.7188 11.2187 20.3984 14.5 20.3984C17.7812 20.3984 20.4062 17.7734 20.4062 14.4922C20.4062 11.2109 17.7266 8.58594 14.5 8.58594ZM14.5 18.4297C12.3125 18.4297 10.5078 16.625 10.5078 14.4375C10.5078 12.25 12.3125 10.4453 14.5 10.4453C16.6875 10.4453 18.4922 12.25 18.4922 14.4375C18.4922 16.625 16.6875 18.4297 14.5 18.4297Z"
-            ></path>
-          </svg>
-        </div>
-        <div class="section-body">
-          <p class="section-title">Ubicación</p>
-          {
-            hasPlace ? (
-              <p class="section-value">{place}</p>
-            ) : (
-              <p class="section-value tbd">Zona por determinar</p>
-            )
-          }
-        </div>
-      </div>
-
-      <!-- Separator -->
-      <div class="separator"></div>
-
-      <!-- Time section -->
-      <div class="section">
-        <div class="section-icon">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 1920 1920"
-            fill="currentColor"
-          >
-            <path
-              d="M960 112.941c-467.125 0-847.059 379.934-847.059 847.059 0 467.125 379.934 847.059 847.059 847.059 467.125 0 847.059-379.934 847.059-847.059 0-467.125-379.934-847.059-847.059-847.059M960 1920C430.645 1920 0 1489.355 0 960S430.645 0 960 0s960 430.645 960 960-430.645 960-960 960m417.905-575.955L903.552 988.28V395.34h112.941v536.47l429.177 321.77-67.765 90.465Z"
-              fill-rule="evenodd"></path>
-          </svg>
-        </div>
-        <div class="section-body">
-          <p class="section-title">Horario</p>
-          {
-            hasSchedule ? (
-              <ul class="schedule-list">
-                {time.map((item) => (
-                  <li class="schedule-item">
-                    <span class="schedule-time">{item.time}</span>
-                    <span class="schedule-round">{item.round}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p class="section-value tbd">Por determinar</p>
-            )
-          }
-        </div>
-      </div>
-
-      <!-- Footer note (only shown when data is missing) -->
+<dl class="activity-facts">
+  <div class="activity-fact">
+    <dt>
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        aria-hidden="true"
+        ><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle
+          cx="12"
+          cy="10"
+          r="2.5"></circle></svg
+      >Ubicación
+    </dt>
+    <dd class="activity-place">{hasPlace ? place : 'Zona por determinar'}</dd>
+  </div>
+  <div class="activity-fact">
+    <dt>
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        aria-hidden="true"
+        ><circle cx="12" cy="12" r="9"></circle><path d="M12 6v6l4 2"
+        ></path></svg
+      >Horario
+    </dt>
+    <dd>
       {
-        (!hasPlace || !hasSchedule) && (
-          <p class="footer-note">
-            📣 Toda la información se actualizará próximamente
-          </p>
+        hasSchedule ? (
+          <ul class="schedule-list">
+            {time.map((item) => (
+              <li>
+                <span class="schedule-time">{item.time}</span>
+                {item.round && <span class="schedule-round">{item.round}</span>}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="activity-place">Por determinar</p>
         )
       }
-    </div>
+    </dd>
   </div>
-</div>
-
+</dl>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
-
-  .location-card {
-    font-family: 'DM Sans', sans-serif;
-    width: 350px;
-  }
-
-  .card-inner {
-    position: relative;
-    overflow: hidden;
+  .activity-facts {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 28px;
+    min-width: 0;
+    padding: clamp(24px, 3vw, 34px);
+    border: 1px solid rgb(245 240 230 / 0.18);
     border-radius: 20px;
-    background: linear-gradient(135deg, #0a1628 0%, #0d2438 60%, #0f2e45 100%);
-    border: 1px solid rgba(150, 193, 214, 0.18);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-      0 24px 48px rgba(0, 0, 0, 0.45),
-      0 4px 16px rgba(0, 68, 101, 0.4);
-    padding: 2rem;
+    background: linear-gradient(135deg, #004465, #063349);
+    color: #f5f0e6;
   }
-
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(48px);
-    pointer-events: none;
-    opacity: 0.35;
+  .activity-fact + .activity-fact {
+    border-left: 1px solid rgb(245 240 230 / 0.2);
+    padding-left: 28px;
   }
-
-  .blob-1 {
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, #1a6fa8, transparent);
-    top: -40px;
-    right: -40px;
-  }
-
-  .blob-2 {
-    width: 140px;
-    height: 140px;
-    background: radial-gradient(circle, #004465, transparent);
-    bottom: -30px;
-    left: -20px;
-  }
-
-  .card-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .card-header {
+  dt {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .card-label {
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
+    gap: 10px;
+    margin-bottom: 18px;
+    color: rgb(245 240 230 / 0.72);
+    font:
+      10px/1.5 ui-monospace,
+      monospace;
     text-transform: uppercase;
-    color: #96c1d6;
+    letter-spacing: 0.08em;
   }
-
-  .divider {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      rgba(150, 193, 214, 0.3),
-      transparent
-    );
-  }
-
-  .section {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .section-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: rgba(150, 193, 214, 0.1);
-    border: 1px solid rgba(150, 193, 214, 0.15);
-    color: #96c1d6;
+  dt svg {
     flex-shrink: 0;
-    margin-top: 2px;
   }
-
-  .section-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    flex: 1;
+  .activity-place {
+    font-size: clamp(18px, 1.7vw, 23px);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    overflow-wrap: anywhere;
   }
-
-  .section-title {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #96c1d6;
-    margin: 0;
-  }
-
-  .section-value {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem;
-    color: #ffffff;
-    margin: 0;
-    line-height: 1.2;
-  }
-
-  .section-value.tbd {
-    color: rgba(255, 255, 255, 0.45);
-    font-style: italic;
-  }
-
-  /* Schedule list */
   .schedule-list {
-    list-style: none;
-    margin: 0.2rem 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: grid;
+    gap: 16px;
   }
-
-  .schedule-item {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 20px;
+  .schedule-list li {
+    display: grid;
+    gap: 5px;
   }
-
+  .schedule-list li + li {
+    padding-top: 16px;
+    border-top: 1px solid rgb(245 240 230 / 0.15);
+  }
   .schedule-time {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.15rem;
-    color: #ffffff;
-    line-height: 1.2;
-    text-align: center;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
   }
-
   .schedule-round {
-    font-size: 0.75rem;
-    color: rgba(150, 193, 214, 0.75);
-    letter-spacing: 0.03em;
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgb(245 240 230 / 0.72);
   }
-
-  .separator {
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      rgba(150, 193, 214, 0.2),
-      transparent
-    );
-    margin: 0.25rem 0;
-  }
-
-  .footer-note {
-    font-size: 0.72rem;
-    color: rgba(150, 193, 214, 0.6);
-    text-align: center;
-    margin: 0.5rem 0 0;
-    letter-spacing: 0.01em;
+  @media (max-width: 580px) {
+    .activity-facts {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+    .activity-fact + .activity-fact {
+      border-left: 0;
+      border-top: 1px solid rgb(245 240 230 / 0.2);
+      padding-left: 0;
+      padding-top: 24px;
+    }
   }
 </style>

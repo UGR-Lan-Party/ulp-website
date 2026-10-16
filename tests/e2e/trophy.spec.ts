@@ -66,7 +66,7 @@ for (const theme of ['light', 'dark']) {
     );
     const canvas = viewer.locator('canvas');
     await expect(canvas).toBeVisible();
-    await expect(viewer.locator('img')).toHaveCount(0);
+    await expect(viewer.locator('[data-trophy-inline] img')).toHaveCount(0);
     const context = await canvas.evaluate((element: HTMLCanvasElement) => {
       const gl = element.getContext('webgl2')!;
       return {

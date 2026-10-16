@@ -104,16 +104,22 @@ test('El archivo permite saltar de edición y leer su historia sin JavaScript', 
   const page = await context.newPage();
   try {
     await page.goto('/info/ediciones_anteriores/');
-    const years = page.getByRole('navigation', { name: 'Ir a una edición' });
+    const years = page.getByRole('navigation', {
+      name: 'Cronograma de ediciones ULP',
+    });
     await expect(years.getByRole('link')).toHaveCount(8);
-    await years.getByRole('link', { name: '2016', exact: true }).click();
+    await years.locator('a[href="#edicion-2016"]').click();
     await expect(page).toHaveURL(/#edicion-2016$/);
     const firstEdition = page.locator('#edicion-2016');
     await expect(
       firstEdition.getByRole('heading', { name: 'Primera Edición' }),
     ).toBeVisible();
     await expect(page.locator('.archive-edition details')).toHaveCount(0);
-    await expect(firstEdition.locator('.archive-history')).toBeVisible();
+    await expect(firstEdition.locator('.archive-history')).toHaveCount(2);
+    for (const paragraph of await firstEdition
+      .locator('.archive-history')
+      .all())
+      await expect(paragraph).toBeVisible();
     await expect(
       firstEdition.getByRole('link', { name: 'Ver web original' }),
     ).toHaveAttribute('href', 'https://lanpartypiloto.wixsite.com/lpp-etsiit');
@@ -172,7 +178,15 @@ test('Inscripciones lleva a las competiciones ordenadas por la encuesta inicial 
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  await page.getByRole('link', { name: 'Inscripciones', exact: false }).click();
+  await expect(
+    page
+      .locator('#home')
+      .getByRole('link', { name: 'Inscripciones', exact: true }),
+  ).toHaveAttribute('href', '/actividades#competiciones');
+  await page
+    .getByRole('navigation', { name: 'Principal', exact: true })
+    .getByRole('link', { name: 'Inscripciones', exact: true })
+    .click();
   await expect(page).toHaveURL(/\/actividades\/?#competiciones$/);
   await expect(page.locator('#competiciones h2')).toBeInViewport();
   await expect(page.locator('#competiciones .activity-tile h3')).toHaveText([

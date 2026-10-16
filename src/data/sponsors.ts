@@ -4,7 +4,8 @@ export interface SponsorData {
   logo: string;
   logoNeedsContrast?: boolean;
   logoWhiteDetails?: boolean;
-  logoHasBackground?: boolean;
+  logoWhite?: string;
+  logoWhiteFilter?: string;
   cardBg: string | null;
   isSecret: boolean;
   bussiness: string;
@@ -164,6 +165,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Departamento de Lenguajes y Sistemas Informáticos de la Universidad. Fundado en 1989, imparte docencia en 20 grados y 15 másteres, en materias relacionadas con la ingeniería del software, sistemas operativos, metodologías de desarrollo, ingeniería web, sistemas gráficos, concurrentes, distribuidos, bases de datos...',
     logo: '/assets/participan/Logos/lsi.webp',
+    logoWhiteFilter: 'partner-white-outline',
     cardBg: '/assets/participan/BG-Sponsors/lsi.webp',
     isSecret: false,
     bussiness: 'Departamento de la UGR',
@@ -329,6 +331,7 @@ const Sponsors: SponsorData[] = [
     description:
       'El Departamento de Teoría de la Señal, Telemática y Comunicaciones (TSTC) de la Universidad de Granada fue creado en el curso 2004/2005, estando adscritas al mismo las áreas de conocimiento de Ingeniería Telemática (IT) y de Teoría de la Señal y Comunicaciones (TSC).',
     logo: '/assets/participan/Logos/logo-tstc.webp',
+    logoWhite: '/img/patrons/orgs/tstc-white.png',
     cardBg: '/assets/participan/BG-Sponsors/tstc.webp',
     isSecret: false,
     bussiness: 'Departamento de la UGR',
@@ -403,6 +406,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Tienda online especializada en productos frikis impresos en 3D y encargos personalizados. Diseñamos y fabricamos llaveros y artículos únicos, combinando creatividad, calidad y producción propia para ofrecer regalos originales y totalmente personalizados.',
     logo: '/assets/participan/Logos/llaverosfrikis.webp',
+    logoWhiteFilter: 'partner-white-lettering',
     cardBg: '/assets/participan/BG-Sponsors/llaverosFrikis.webp',
     isSecret: false,
     bussiness: 'Tienda objetos 3D personalizados',
@@ -488,6 +492,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Destino predilecto para los aficionados al karting y la velocidad en Granada. Con instalaciones de primera línea diseñadas para ofrecer la máxima emoción y seguridad, este circuito para poner a prueba tanto a principiantes como a pilotos experimentados.',
     logo: '/assets/participan/Logos/formula-karting.webp',
+    logoWhiteFilter: 'partner-white-cutout',
     cardBg: '/assets/participan/BG-Sponsors/formulaKarting.webp',
     isSecret: false,
     bussiness: 'Circuito indoor de karts en Granada',
@@ -817,7 +822,6 @@ const Sponsors: SponsorData[] = [
     description:
       'Federación nacional que representa y defiende los intereses de los jugadores de videojuegos y esports en España. Su objetivo es profesionalizar el sector, promover el juego responsable y fomentar la competición saludable a través de eventos y formación.',
     logo: '/assets/participan/Logos/fejuves.webp',
-    logoHasBackground: true,
     cardBg: '/assets/participan/BG-Sponsors/fejuves.webp',
     isSecret: false,
     bussiness: 'Federación de Esports y Videojuegos',
@@ -958,6 +962,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Laboratorio de radio digital universitaria de la Universidad de Granada. Un espacio experimental y abierto que sirve como plataforma de comunicación para la comunidad académica y la ciudadanía, fomentando la divulgación científica y cultural.',
     logo: '/assets/participan/Logos/radioLab.webp',
+    logoWhiteFilter: 'partner-white-radio',
     cardBg: '/assets/participan/BG-Sponsors/radiolab.webp',
     isSecret: false,
     bussiness: 'Radio y Medio de Comunicación UGR',
@@ -984,6 +989,7 @@ const Sponsors: SponsorData[] = [
     name: 'CSIRC',
     tier: 'regular',
     logo: '/assets/participan/Logos/csirc.webp',
+    logoWhite: '/img/patrons/orgs/csirc-white.png',
     cardBg: null,
     isSecret: false,
     bussiness: 'Servicio de la Universidad de Granada',

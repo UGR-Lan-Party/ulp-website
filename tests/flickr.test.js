@@ -49,3 +49,21 @@ test('Network, HTTP and JSON failures have the same empty result', async () => {
   ])
     assert.deepEqual(await fetchFlickrPhotos('album', 'user', {}, fetcher), []);
 });
+
+test('Previews use the thumbnail URL returned by Flickr rather than the large image secret', () => {
+  const data = {
+    stat: 'ok',
+    photoset: {
+      photo: [
+        {
+          id: '1',
+          url_k: 'https://live.staticflickr.com/65535/1_large-secret_k.jpg',
+          url_q: 'https://live.staticflickr.com/65535/1_thumbnail-secret_q.jpg',
+        },
+      ],
+    },
+  };
+  assert.deepEqual(selectFlickrPhotos(data, { preview: true }), [
+    'https://live.staticflickr.com/65535/1_thumbnail-secret_q.jpg',
+  ]);
+});

@@ -4,6 +4,15 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
   const canvas = viewer.querySelector<HTMLElement>('[data-trophy-canvas]')!;
   const status = viewer.querySelector<HTMLElement>('[data-trophy-status]')!;
   const retry = viewer.querySelector<HTMLButtonElement>('[data-trophy-retry]')!;
+  const expand = viewer.querySelector<HTMLButtonElement>(
+    '[data-trophy-expand]',
+  )!;
+  const dialog = viewer.querySelector<HTMLDialogElement>(
+    '[data-trophy-dialog]',
+  )!;
+  const inline = viewer.querySelector<HTMLElement>('[data-trophy-inline]')!;
+  const expanded = viewer.querySelector<HTMLElement>('[data-trophy-expanded]')!;
+  let previousOverflow = '';
   let controller: AbortController | null = null;
   let dispose: (() => void) | undefined;
 
@@ -24,6 +33,7 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
         return;
       }
       dispose = cleanup;
+      expand.hidden = false;
       status.textContent =
         'Arrastra para girar el trofeo y usa la rueda o dos dedos para acercarlo.';
     } catch {
@@ -34,6 +44,34 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
       retry.hidden = false;
     }
   }
+
+  expand.addEventListener('click', () => {
+    if (dialog.open) return;
+    previousOverflow = document.documentElement.style.overflow;
+    dialog.showModal();
+    expanded.appendChild(canvas);
+    document.documentElement.style.overflow = 'hidden';
+    dialog.querySelector<HTMLButtonElement>('[data-trophy-close]')!.focus();
+  });
+  dialog
+    .querySelector('[data-trophy-close]')!
+    .addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => {
+    if (event.target !== dialog) return;
+    const bounds = dialog.getBoundingClientRect();
+    if (
+      event.clientX < bounds.left ||
+      event.clientX > bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY > bounds.bottom
+    )
+      dialog.close();
+  });
+  dialog.addEventListener('close', () => {
+    inline.appendChild(canvas);
+    document.documentElement.style.overflow = previousOverflow;
+    expand.focus({ preventScroll: true });
+  });
 
   const observer = new IntersectionObserver(
     ([entry]) => {
@@ -46,6 +84,7 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
   observer.observe(viewer);
   retry.addEventListener('click', start);
   window.addEventListener('pagehide', () => {
+    if (dialog.open) dialog.close();
     observer.disconnect();
     controller?.abort();
     controller = null;

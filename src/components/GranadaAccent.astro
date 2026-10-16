@@ -1,11 +1,16 @@
 ---
 interface Props {
   id: string;
+  side?: 'left' | 'right';
 }
-const { id } = Astro.props;
+const { id, side = 'right' } = Astro.props;
 ---
 
-<svg class="granada-accent" aria-hidden="true" focusable="false">
+<svg
+  class:list={['granada-accent', { mirrored: side === 'left' }]}
+  aria-hidden="true"
+  focusable="false"
+>
   <defs>
     <pattern id={id} width="64" height="64" patternUnits="userSpaceOnUse">
       <path
@@ -26,5 +31,10 @@ const { id } = Astro.props;
     opacity: 0.045;
     mask-image: linear-gradient(to right, transparent, black 75%);
     pointer-events: none;
+  }
+  .mirrored {
+    right: auto;
+    left: 0;
+    transform: scaleX(-1);
   }
 </style>

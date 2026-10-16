@@ -1,3 +1,5 @@
+import { createVenueMap } from './venue-map';
+import { getVenueZones } from '../data/venue-map';
 import { matchesProgramFilters } from '../utils/program-filters.js';
 
 document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
@@ -21,6 +23,12 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
     end: row.dataset.end ?? '',
   }));
 
+  let activeZone: string | null = null;
+  const venueMap = createVenueMap(root, (zone) => {
+    activeZone = zone;
+    update();
+  });
+
   function update() {
     const filters = {
       name: name.value.slice(0, 120),
@@ -29,21 +37,34 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
       time: time.value,
     };
     let count = 0;
-    entries.forEach((entry) => {
-      const visible = matchesProgramFilters(entry, filters);
+    const visibleIndices: number[] = [];
+    entries.forEach((entry, index) => {
+      const visible =
+        matchesProgramFilters(entry, filters) &&
+        (!activeZone || getVenueZones(entry.location).includes(activeZone));
       entry.row.hidden = !visible;
       if (visible) {
         entry.row.dataset.stripe = String(count % 2);
         count++;
+        visibleIndices.push(index);
       }
     });
+    venueMap.update(visibleIndices);
     status.textContent = `${count} de ${rows.length} actividades`;
     empty.hidden = count > 0;
     table.hidden = count === 0;
   }
   form.hidden = false;
   form.addEventListener('submit', (event) => event.preventDefault());
-  form.addEventListener('input', update);
-  form.addEventListener('reset', () => requestAnimationFrame(update));
+  form.addEventListener('input', () => {
+    activeZone = null;
+    venueMap.clear();
+    update();
+  });
+  form.addEventListener('reset', () => {
+    activeZone = null;
+    venueMap.clear();
+    requestAnimationFrame(update);
+  });
   update();
 });
