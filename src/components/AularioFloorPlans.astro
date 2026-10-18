@@ -2,14 +2,14 @@
 import VenueAmenityMarker from './VenueAmenityMarker.astro';
 import { aularioFloors } from '../data/aulario';
 const rooms = [
-  { number: '0.1', outline: 'M0 0L180 104V180H0Z', x: 90, y: 120 },
-  { number: '0.2', outline: 'M0 180H180V310H0Z', x: 90, y: 245 },
-  { number: '0.3', outline: 'M0 310H180V440H0Z', x: 90, y: 375 },
-  { number: '0.4', outline: 'M0 440H180V570H0Z', x: 90, y: 505 },
-  { number: '0.5', outline: 'M0 570H180V700H0Z', x: 90, y: 635 },
-  { number: '0.6', outline: 'M0 700H180V830H0Z', x: 90, y: 765 },
-  { number: '0.7', outline: 'M0 830H180V960H0Z', x: 90, y: 895 },
-  { number: '0.8', outline: 'M0 960H180V1018L60 1080H0Z', x: 90, y: 1015 },
+  { number: '0.8', outline: 'M0 0L180 104V180H0Z', x: 90, y: 120 },
+  { number: '0.7', outline: 'M0 180H180V310H0Z', x: 90, y: 245 },
+  { number: '0.6', outline: 'M0 310H180V440H0Z', x: 90, y: 375 },
+  { number: '0.5', outline: 'M0 440H180V570H0Z', x: 90, y: 505 },
+  { number: '0.4', outline: 'M0 570H180V700H0Z', x: 90, y: 635 },
+  { number: '0.3', outline: 'M0 700H180V830H0Z', x: 90, y: 765 },
+  { number: '0.2', outline: 'M0 830H180V960H0Z', x: 90, y: 895 },
+  { number: '0.1', outline: 'M0 960H180V1018L60 1080H0Z', x: 90, y: 1015 },
 ];
 const firstFloorRooms = [
   { number: '1.8', x: 63, width: 45 },
@@ -53,10 +53,39 @@ const firstFloorRooms = [
             class="aulario-wall"
             d="M0 180H180M0 310H180M0 440H180M0 570H180M0 700H180M0 830H180M0 960H180M180 104V180M180 200V310M180 330V440M180 460V570M180 590V700M180 720V830M180 850V960M180 980V1018L60 1080H0M238 305H300M238 240V285M238 325V370"
           />
-          <path
-            class="aulario-stair"
-            d="M200 267L218 274M192 283L212 286M187 299H210M187 315H210M192 331L212 328M200 347L218 340M238 780H302M238 790H302M238 800H302M238 810H302M238 920H302M238 930H302M238 940H302M238 950H302"
-          />
+          <g class="aulario-stair">
+            <path
+              class="aulario-stair-landing"
+              d="M196 260A55 55 0 0 0 196 350L222 332A24 24 0 0 1 222 278Z"
+            />
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((step) => {
+              const angle = ((125 + step * 16.25) * Math.PI) / 180;
+              return (
+                <path
+                  d={`M${238 + 24 * Math.cos(angle)} ${305 + 24 * Math.sin(angle)}L${238 + 55 * Math.cos(angle)} ${305 + 55 * Math.sin(angle)}`}
+                />
+              );
+            })}
+            {[775, 915].map((top) => (
+              <g>
+                <rect
+                  class="aulario-stair-landing"
+                  x="239"
+                  y={top}
+                  width="63"
+                  height="40"
+                  rx="2"
+                />
+                {[1, 2, 3, 4, 5].map((step) => (
+                  <path d={`M239 ${top + step * 6.66}H302`} />
+                ))}
+                <path
+                  class="aulario-stair-direction"
+                  d={`M270 ${top + 33}V${top + 8}m-5 5 5-5 5 5`}
+                />
+              </g>
+            ))}
+          </g>
           <rect
             class="aulario-lift"
             x="237"
@@ -102,10 +131,40 @@ const firstFloorRooms = [
               </g>
             </g>
           ))}
-          <path
-            class="aulario-stair"
-            d="M154 503L161 509M162 506L166 512M172 508V515M183 508V515M194 506L190 512M202 503L195 509M440 465H458M440 471H458M440 477H458M440 483H458M440 489H458M505 465H536M505 471H536M505 477H536M505 483H536M505 489H536"
-          />
+          <g class="aulario-stair">
+            <path
+              class="aulario-stair-landing"
+              d="M150 501A29 29 0 0 0 206 501L193 501A16 16 0 0 1 163 501Z"
+            />
+            {[1, 2, 3, 4, 5, 6, 7].map((step) => {
+              const angle = (step * Math.PI) / 8;
+              return (
+                <path
+                  d={`M${178 + 16 * Math.cos(angle)} ${499 + 16 * Math.sin(angle)}L${178 + 29 * Math.cos(angle)} ${499 + 29 * Math.sin(angle)}`}
+                />
+              );
+            })}
+            {[
+              { x: 440, width: 18 },
+              { x: 505, width: 31 },
+            ].map((flight) => (
+              <g>
+                <rect
+                  class="aulario-stair-landing"
+                  x={flight.x}
+                  y="460"
+                  width={flight.width}
+                  height="35"
+                  rx="1"
+                />
+                {[1, 2, 3, 4, 5].map((step) => (
+                  <path
+                    d={`M${flight.x} ${460 + step * 5.83}h${flight.width}`}
+                  />
+                ))}
+              </g>
+            ))}
+          </g>
           {floor.services.map((service) => (
             <VenueAmenityMarker {...service} size={18} />
           ))}
@@ -140,7 +199,14 @@ const firstFloorRooms = [
   .aulario-stair {
     stroke-width: 0.8;
     vector-effect: non-scaling-stroke;
-    opacity: 0.45;
+    opacity: 0.65;
+  }
+  .aulario-stair-landing {
+    fill: currentColor;
+    fill-opacity: 0.055;
+  }
+  .aulario-stair-direction {
+    stroke-width: 1.1;
   }
   .aulario-lift {
     stroke-width: 1.5;

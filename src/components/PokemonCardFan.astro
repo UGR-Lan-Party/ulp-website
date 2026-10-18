@@ -5,7 +5,10 @@ interface Props {
 const { loading = 'lazy' } = Astro.props;
 ---
 
-<div class="pokemon-card-fan" style="position:relative;width:100%;height:100%">
+<div
+  class="pokemon-card-fan"
+  style="position:relative;width:100%;height:100%;transform:scale(.84);transform-origin:center"
+>
   {
     [-22, 0, 22].map((angle, index) => (
       <img

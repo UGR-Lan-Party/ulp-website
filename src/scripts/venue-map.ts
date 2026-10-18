@@ -182,26 +182,41 @@ export function createVenueMap(
     let delta = target - previous;
     if (delta > 2) delta -= 4;
     if (delta < -2) delta += 4;
+    const rotation = building.animate(
+      [
+        {
+          transform: `rotate(${previous * 90}deg)`,
+          '--venue-label-turn': `${-previous * 90}deg`,
+        },
+        {
+          transform: `rotate(${(previous + delta) * 90}deg)`,
+          '--venue-label-turn': `${-(previous + delta) * 90}deg`,
+        },
+      ],
+      {
+        duration: 620,
+        easing: 'cubic-bezier(.45, 0, .2, 1)',
+        fill: 'forwards',
+      },
+    );
     try {
       await indicators.animate([{ opacity: 1 }, { opacity: 0 }], {
-        duration: 90,
+        duration: 120,
         fill: 'forwards',
       }).finished;
       if (version !== turnVersion) return;
-      await building.animate(
-        [
-          { transform: `rotate(${previous * 90}deg)` },
-          { transform: `rotate(${(previous + delta) * 90}deg)` },
-        ],
-        { duration: 360, easing: 'cubic-bezier(.22, 1, .36, 1)' },
-      ).finished;
+      await rotation.finished;
       if (version !== turnVersion) return;
       draw();
+      rotation.cancel();
       indicators.getAnimations().forEach((animation) => animation.cancel());
       await indicators.animate([{ opacity: 0 }, { opacity: 1 }], {
-        duration: 150,
+        duration: 180,
       }).finished;
-    } catch {}
+    } catch {
+    } finally {
+      rotation.cancel();
+    }
     if (version !== turnVersion) return;
     turning = false;
     map!.setAttribute('aria-busy', 'false');
@@ -288,8 +303,13 @@ export function createVenueMap(
     dragged = false;
     suppressClickUntil = 0;
     if (!event.isPrimary || event.button !== 0) return;
+    if (event.pointerType === 'mouse' && zoom > 1) event.preventDefault();
     if (zoom === 1 && (event.target as Element).closest('[data-venue-zone]'))
       return;
+    drawing.toggleAttribute(
+      'data-panning',
+      zoom > 1 && !(event.target as Element).closest('[data-venue-zone]'),
+    );
     pointer = {
       id: event.pointerId,
       x: event.clientX,
@@ -303,6 +323,10 @@ export function createVenueMap(
   drawing.addEventListener('pointermove', (event) => {
     if (!pointer || pointer.id !== event.pointerId || zoom === 1 || pinch)
       return;
+    if (Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) <= 4)
+      return;
+    drawing.setAttribute('data-panning', '');
+    drawing.setPointerCapture(event.pointerId);
     const bounds = drawing.getBoundingClientRect();
     const scale = Math.min(
       bounds.width / drawing.viewBox.baseVal.width,
@@ -318,7 +342,8 @@ export function createVenueMap(
     const dx = event.clientX - pointer.x;
     const dy = event.clientY - pointer.y;
     pointer = null;
-    dragged = Math.hypot(dx, dy) > 12;
+    drawing.removeAttribute('data-panning');
+    dragged = Math.hypot(dx, dy) > (zoom > 1 ? 4 : 12);
     if (dragged) suppressClickUntil = performance.now() + 500;
     if (zoom === 1 && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3)
       void turn(orientation + (dx > 0 ? 1 : -1));
@@ -371,9 +396,11 @@ export function createVenueMap(
   );
   drawing.addEventListener('touchcancel', endPinch);
   drawing.addEventListener('pointercancel', () => {
+    drawing.removeAttribute('data-panning');
     pointer = null;
   });
   drawing.addEventListener('lostpointercapture', () => {
+    drawing.removeAttribute('data-panning');
     pointer = null;
   });
   drawing.addEventListener('click', (event) => {

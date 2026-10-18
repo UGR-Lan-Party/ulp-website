@@ -39,7 +39,7 @@ export const venuePlans = [
     id: 'prefabricadas-b',
     building: 'prefabricadas-b',
     buildingLabel: 'Prefabricadas B',
-    floor: 'Aulas B1 y B2',
+    floor: 'Aula B1',
   },
 ] as const;
 
@@ -128,12 +128,6 @@ export const venueZones = [
     plan: 'prefabricadas-b',
     ...roomPoint(245, 300),
   },
-  {
-    id: 'b2',
-    label: 'Prefabricada B2',
-    plan: 'prefabricadas-b',
-    ...roomPoint(755, 300),
-  },
 ] as const;
 
 export function getVenueLayout(
@@ -191,7 +185,7 @@ export const venueLayouts = Object.fromEntries(
 export function getVenueZones(location: string): string[] {
   const value = location.toLocaleLowerCase('es');
   if (value.includes('prefabricad'))
-    return ['a1', 'a2', 'b1', 'b2'].filter((id) => value.includes(id));
+    return ['a1', 'a2', 'b1'].filter((id) => value.includes(id));
   if (value.includes('aula') && value.includes('-1.'))
     return ['aula11', 'aula12'].filter((id) =>
       value.includes(id === 'aula11' ? '-1.1' : '-1.2'),

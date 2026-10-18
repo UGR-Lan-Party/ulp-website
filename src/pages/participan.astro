@@ -49,38 +49,64 @@ const groups = partnerTiers
   </nav>
   <div class="design-container partner-directory">
     {
-      groups.map((group, index) => (
+      groups.map((group) => (
         <section
           id={`partners-${group.id}`}
           class="partner-group"
           data-tier={group.id}
           style={`--tier-accent: ${group.accent}`}
         >
-          <header data-reveal>
-            <span class="design-eyebrow">
-              {String(index + 1).padStart(2, '0')} / Partners ULP
-            </span>
-            <h2>
-              {group.name}
-              <span>{String(group.items.length).padStart(2, '0')}</span>
-            </h2>
-            <p class="tier-summary">
-              {group.id === 'regular'
-                ? 'La comunidad que suma en cada edición.'
-                : `Patrocinio ${group.name.toLocaleLowerCase('es')} · ULP 2026`}
-            </p>
-          </header>
-          <div class="partner-tier-grid">
-            {group.items.map((partner, partnerIndex) => (
-              <PartnerCard partner={partner} index={partnerIndex} />
-            ))}
-          </div>
+          <details class="partner-disclosure" open>
+            <summary>
+              <div class="tier-heading">
+                <span class="design-eyebrow">Partners ULP</span>
+                <h2>{group.name}</h2>
+                <p class="tier-summary">
+                  {group.id === 'regular'
+                    ? 'La comunidad que suma en cada edición.'
+                    : `Patrocinio ${group.name.toLocaleLowerCase('es')} · ULP 2026`}
+                </p>
+              </div>
+              <svg
+                class="tier-toggle"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                aria-hidden="true"
+              >
+                <path
+                  d="m6 9 6 6 6-6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </summary>
+            <div class="partner-tier-grid">
+              {group.items.map((partner, partnerIndex) => (
+                <PartnerCard partner={partner} index={partnerIndex} />
+              ))}
+            </div>
+          </details>
         </section>
       ))
     }
   </div>
   <PartnerMoments />
 </Layout>
+<script>
+  document
+    .querySelectorAll<HTMLAnchorElement>('.tier-navigation a')
+    .forEach((link) => {
+      link.addEventListener('click', () => {
+        const group = document.getElementById(link.hash.slice(1));
+        const disclosure = group?.querySelector('details');
+        if (disclosure) disclosure.open = true;
+      });
+    });
+</script>
 <style>
   .partner-invitation {
     display: flex;
@@ -103,12 +129,18 @@ const groups = partnerTiers
   .partner-group:first-child {
     padding-top: 28px;
   }
-  .partner-group:first-child header {
+  .partner-group:first-child summary {
     border-top: 0;
     padding-top: 0;
   }
-  .partner-group header {
-    margin-bottom: 28px;
+  .partner-group summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
+    list-style: none;
+    padding-bottom: 20px;
     border-top: 1px solid var(--line);
     padding-top: 30px;
   }
@@ -121,12 +153,23 @@ const groups = partnerTiers
     font-weight: 750;
     margin-top: 14px;
   }
-  .partner-group h2 span {
-    font:
-      11px ui-monospace,
-      monospace;
-    color: var(--muted);
-    padding-top: 5px;
+  .partner-group summary::-webkit-details-marker {
+    display: none;
+  }
+  .tier-toggle {
+    flex-shrink: 0;
+    transition: transform 240ms ease;
+  }
+  .partner-disclosure[open] .tier-toggle {
+    transform: rotate(180deg);
+  }
+  .partner-disclosure[open] .partner-tier-grid {
+    margin-top: 8px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tier-toggle {
+      transition: none;
+    }
   }
   .partner-group h2::before {
     content: '';

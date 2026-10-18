@@ -299,37 +299,38 @@ const links = networks.flatMap(([key, rrss]) =>
   }
   .article-reading-grid {
     display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     align-items: start;
-    gap: clamp(35px, 6vw, 90px);
-    padding-block: 60px 85px;
-    max-width: 1150px;
+    gap: 20px;
+    padding-block: 32px 65px;
     margin-inline: auto;
   }
   .article-sidebar {
-    position: sticky;
-    top: 115px;
-    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px 28px;
   }
-  .article-sidebar .design-eyebrow {
-    font-size: 8px;
+  .article-sidebar .design-eyebrow,
+  .article-sidebar > p:last-child {
+    display: none;
   }
   .reading-time {
     color: var(--muted);
     font-size: 10px;
-    margin-block: 20px 25px;
+    margin: 0;
   }
   .reading-time strong {
-    font-size: 46px;
+    font-size: 30px;
     font-weight: 750;
     letter-spacing: -0.06em;
     color: var(--ink);
     margin-right: 8px;
   }
   .article-sidebar nav {
-    border-block: 1px solid var(--line);
-    padding-block: 12px;
-    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
   }
   .article-sidebar nav a {
     display: flex;
@@ -344,19 +345,18 @@ const links = networks.flatMap(([key, rrss]) =>
     color: var(--muted);
   }
   .article-body {
-    padding: clamp(25px, 4vw, 50px);
+    padding: clamp(20px, 2.5vw, 32px);
     border: 1px solid var(--line);
     border-radius: 20px;
     background: var(--surface);
     width: 100%;
-    max-width: 76ch;
     font-size: 16px;
     font-weight: 400;
-    line-height: 1.9;
+    line-height: 1.8;
     scroll-margin-top: 110px;
   }
   .article-body :global(p) {
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     color: color-mix(in srgb, var(--ink) 86%, var(--surface));
     text-align: justify;
     text-align-last: start;
@@ -381,16 +381,16 @@ const links = networks.flatMap(([key, rrss]) =>
     font-weight: 500;
     line-height: 1.85;
     color: var(--ink);
-    padding-bottom: 28px;
+    padding-bottom: 20px;
     border-bottom: 1px solid var(--line);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
   .article-body :global(h2) {
     font-size: clamp(23px, 2.5vw, 29px);
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.035em;
-    margin-block: 36px 22px;
+    margin-block: 28px 18px;
     scroll-margin-top: 110px;
   }
   blockquote {

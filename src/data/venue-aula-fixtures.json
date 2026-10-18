@@ -1429,6 +1429,13 @@
       "width": 152,
       "height": 11,
       "kind": "door"
+    },
+    {
+      "x": 424,
+      "y": 141,
+      "width": 28,
+      "height": 14,
+      "kind": "seat"
     }
   ],
   "a2": [

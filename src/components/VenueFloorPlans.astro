@@ -118,7 +118,7 @@ import furniture from '../data/venue-furniture.json';
       {venueAmenities[plan]?.map((amenity) => (
         <VenueAmenityMarker {...amenity} size={22} />
       ))}
-      {[0, 1].map((side) => (
+      {(plan === 'prefabricadas-a' ? [0, 1] : [0]).map((side) => (
         <g transform={`translate(${side * 510} 0) scale(.98 1)`}>
           <rect
             class="floor-room"
@@ -131,11 +131,6 @@ import furniture from '../data/venue-furniture.json';
           <g class="floor-fixed-label" transform="translate(250 557)">
             <g class="floor-upright">
               <text text-anchor="middle">{`Aula ${plan === 'prefabricadas-a' ? 'A' : 'B'}${side + 1}`}</text>
-              {plan === 'prefabricadas-b' && side === 1 && (
-                <text class="floor-subtitle" text-anchor="middle" y="25">
-                  Interior sin confirmar
-                </text>
-              )}
             </g>
           </g>
           {(plan === 'prefabricadas-a' || side === 0) && (

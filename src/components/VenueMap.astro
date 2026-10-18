@@ -245,6 +245,25 @@ const layout = getVenueLayout('principal-0', 0);
   <p class="venue-selection" data-venue-selection role="status" hidden></p>
 </div>
 <style>
+  @property --venue-label-turn {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
+  .venue-drawing,
+  .venue-drawing :global(*) {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .venue-drawing[data-panning] {
+    outline: none;
+  }
+  .venue-drawing[data-panning] :global(*) {
+    pointer-events: none;
+    outline: none;
+  }
+
   [hidden],
   [data-hidden] {
     display: none !important;
