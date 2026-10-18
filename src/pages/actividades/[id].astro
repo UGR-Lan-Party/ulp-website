@@ -209,7 +209,14 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
               </span>
             </header>
             {competition.trophy && (
-              <div class="trophy-showcase">
+              <div
+                class="trophy-showcase"
+                style={
+                  competition.id === 'league-of-legends'
+                    ? '--trophy-backdrop-saturation: 0; --trophy-background-color: #242424'
+                    : undefined
+                }
+              >
                 {artwork && (
                   <ResponsiveImage
                     src={artwork.card}
@@ -414,7 +421,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     padding: 24px;
     border: 1px solid rgb(245 240 230 / 0.16);
     border-radius: 24px;
-    background: #062d43;
+    background: var(--trophy-background-color, #062d43);
     color: #f5f0e6;
     margin-bottom: 38px;
   }
@@ -426,7 +433,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     height: 100%;
     object-fit: cover;
     opacity: 0.09;
-    filter: saturate(0.15);
+    filter: saturate(var(--trophy-backdrop-saturation, 0.15));
     pointer-events: none;
   }
   .trophy-showcase :global([data-trophy-status]),
