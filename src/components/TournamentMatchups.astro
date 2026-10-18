@@ -24,10 +24,10 @@ const tournament = getTournament(activityId);
           <h2 id="matchups-title">
             {tournament.brackets.length ||
             tournament.groups.some((group) => group.matches.length)
-              ? 'Emparejamientos.'
+              ? 'Emparejamientos'
               : tournament.tables.length
-                ? 'Resultados.'
-                : 'El torneo.'}
+                ? 'Resultados'
+                : 'El torneo'}
           </h2>
         </div>
         <span class="matchups-format">{tournament.format}</span>
