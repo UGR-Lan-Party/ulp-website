@@ -1,0 +1,2388 @@
+{
+  "/assets/about/sobre-nosotros-2.png": {
+    "width": 300,
+    "height": 350,
+    "sources": [
+      {
+        "src": "/assets/optimized/60f78cb68493-300.webp",
+        "width": 300
+      }
+    ]
+  },
+  "/assets/about/sobre-nosotros.png": {
+    "width": 300,
+    "height": 550,
+    "sources": [
+      {
+        "src": "/assets/optimized/5265975acf35-300.webp",
+        "width": 300
+      }
+    ]
+  },
+  "/assets/activities/alberto-portero.webp": {
+    "width": 200,
+    "height": 200,
+    "sources": [
+      {
+        "src": "/assets/optimized/d413663a8047-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/assets/activities/Cartel-ULP-2026.png": {
+    "width": 5400,
+    "height": 7200,
+    "sources": [
+      {
+        "src": "/assets/optimized/f9fc9f8e5d3b-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f9fc9f8e5d3b-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/f9fc9f8e5d3b-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/concierto-cartel.jpg": {
+    "width": 905,
+    "height": 1280,
+    "sources": [
+      {
+        "src": "/assets/optimized/51b7c3d9b1fd-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/51b7c3d9b1fd-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/51b7c3d9b1fd-905.webp",
+        "width": 905
+      }
+    ]
+  },
+  "/assets/activities/etsiit.jpg": {
+    "width": 4160,
+    "height": 3120,
+    "sources": [
+      {
+        "src": "/assets/optimized/a60516fd57df-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a60516fd57df-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/a60516fd57df-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/etsiit.webp": {
+    "width": 3328,
+    "height": 1566,
+    "sources": [
+      {
+        "src": "/assets/optimized/2c490b0acaf6-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/2c490b0acaf6-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/2c490b0acaf6-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/fighting.png": {
+    "width": 1350,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/1e2a9782e275-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/1e2a9782e275-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/1e2a9782e275-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/game-kitchen-1.jpeg": {
+    "width": 1674,
+    "height": 932,
+    "sources": [
+      {
+        "src": "/assets/optimized/2f13d80c09c6-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/2f13d80c09c6-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/2f13d80c09c6-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/game-kitchen-2.jpg": {
+    "width": 400,
+    "height": 400,
+    "sources": [
+      {
+        "src": "/assets/optimized/09cd3f75cc1c-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/09cd3f75cc1c-400.webp",
+        "width": 400
+      }
+    ]
+  },
+  "/assets/activities/geng.jpg": {
+    "width": 2160,
+    "height": 1440,
+    "sources": [
+      {
+        "src": "/assets/optimized/b49e2db2747d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/b49e2db2747d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/b49e2db2747d-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/hackiit.png": {
+    "width": 1350,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/02aa4f99223b-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/02aa4f99223b-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/02aa4f99223b-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/horario.png": {
+    "width": 2500,
+    "height": 716,
+    "sources": [
+      {
+        "src": "/assets/optimized/bd9a6ba9f1ec-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bd9a6ba9f1ec-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/bd9a6ba9f1ec-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/isabel-1.jpeg": {
+    "width": 573,
+    "height": 400,
+    "sources": [
+      {
+        "src": "/assets/optimized/3cc2217f099f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/3cc2217f099f-573.webp",
+        "width": 573
+      }
+    ]
+  },
+  "/assets/activities/isabel-2.jpeg": {
+    "width": 640,
+    "height": 960,
+    "sources": [
+      {
+        "src": "/assets/optimized/65530bc2f7c2-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/65530bc2f7c2-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/activities/isabel-vazquez.webp": {
+    "width": 879,
+    "height": 919,
+    "sources": [
+      {
+        "src": "/assets/optimized/64b6887b004e-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/64b6887b004e-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/64b6887b004e-879.webp",
+        "width": 879
+      }
+    ]
+  },
+  "/assets/activities/juan-jose-ramos-munoz.webp": {
+    "width": 96,
+    "height": 96,
+    "sources": [
+      {
+        "src": "/assets/optimized/59089b4a9af1-96.webp",
+        "width": 96
+      }
+    ]
+  },
+  "/assets/activities/juego-libre.png": {
+    "width": 1350,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/7db43318ccef-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7db43318ccef-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7db43318ccef-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/mario-castro.webp": {
+    "width": 400,
+    "height": 400,
+    "sources": [
+      {
+        "src": "/assets/optimized/077ca4afc611-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/077ca4afc611-400.webp",
+        "width": 400
+      }
+    ]
+  },
+  "/assets/activities/orquesta-1.jpeg": {
+    "width": 2842,
+    "height": 1574,
+    "sources": [
+      {
+        "src": "/assets/optimized/a5bee2f927d2-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a5bee2f927d2-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/a5bee2f927d2-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/orquesta-virtual-sound.webp": {
+    "width": 1024,
+    "height": 1024,
+    "sources": [
+      {
+        "src": "/assets/optimized/43bfdce5acbe-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/43bfdce5acbe-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/43bfdce5acbe-1024.webp",
+        "width": 1024
+      }
+    ]
+  },
+  "/assets/activities/patrick-daley.webp": {
+    "width": 400,
+    "height": 400,
+    "sources": [
+      {
+        "src": "/assets/optimized/5cb98fb9ebab-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/5cb98fb9ebab-400.webp",
+        "width": 400
+      }
+    ]
+  },
+  "/assets/activities/racing.png": {
+    "width": 1350,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/f246ecb4e90b-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f246ecb4e90b-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/f246ecb4e90b-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/retro.png": {
+    "width": 1350,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/90bb1501d417-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/90bb1501d417-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/90bb1501d417-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/sorteos-1.jpg": {
+    "width": 2048,
+    "height": 838,
+    "sources": [
+      {
+        "src": "/assets/optimized/b65447f8c762-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/b65447f8c762-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/b65447f8c762-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/streaming.png": {
+    "width": 1350,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/e2dc66dcb274-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/e2dc66dcb274-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/e2dc66dcb274-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/activities/vr.png": {
+    "width": 1350,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/16d1af218b69-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/16d1af218b69-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/16d1af218b69-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/blog/Cartel ULP 2026.png": {
+    "width": 5400,
+    "height": 7200,
+    "sources": [
+      {
+        "src": "/assets/optimized/4c2b26e9076d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/4c2b26e9076d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/4c2b26e9076d-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/blog/f1.jpeg": {
+    "width": 560,
+    "height": 915,
+    "sources": [
+      {
+        "src": "/assets/optimized/ea834776b16c-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/ea834776b16c-560.webp",
+        "width": 560
+      }
+    ]
+  },
+  "/assets/blog/havefungamers.jpg": {
+    "width": 2048,
+    "height": 1536,
+    "sources": [
+      {
+        "src": "/assets/optimized/462ab1995b74-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/462ab1995b74-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/462ab1995b74-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/blog/paella-gigante.jpg": {
+    "width": 960,
+    "height": 1280,
+    "sources": [
+      {
+        "src": "/assets/optimized/aee79adb154a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/aee79adb154a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/aee79adb154a-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "/assets/blog/paella.jpg": {
+    "width": 960,
+    "height": 1280,
+    "sources": [
+      {
+        "src": "/assets/optimized/4340b7192a46-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/4340b7192a46-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/4340b7192a46-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "/assets/blog/ULP2025.png": {
+    "width": 2000,
+    "height": 2000,
+    "sources": [
+      {
+        "src": "/assets/optimized/b734f7e9a521-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/b734f7e9a521-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/b734f7e9a521-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/medals/lucky-box-ulp.gif": {
+    "width": 1080,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/assets/optimized/606afbd6d2d1-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/606afbd6d2d1-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/competitions/medals/ulp-bronze-badge.png": {
+    "width": 7560,
+    "height": 7560,
+    "sources": [
+      {
+        "src": "/assets/optimized/3c4778a8e86b-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/3c4778a8e86b-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/competitions/medals/ulp-gold-badge.png": {
+    "width": 7560,
+    "height": 7560,
+    "sources": [
+      {
+        "src": "/assets/optimized/3c2c8b97d894-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/3c2c8b97d894-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/competitions/medals/ulp-mvp-badge.png": {
+    "width": 7560,
+    "height": 7560,
+    "sources": [
+      {
+        "src": "/assets/optimized/9a4553650056-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/9a4553650056-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/competitions/medals/ulp-silver-badge.png": {
+    "width": 7560,
+    "height": 7560,
+    "sources": [
+      {
+        "src": "/assets/optimized/7f14368f0f11-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7f14368f0f11-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/competitions/cards/2xko.webp": {
+    "width": 640,
+    "height": 360,
+    "sources": [
+      {
+        "src": "/assets/optimized/cdfdde2ddf62-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/cdfdde2ddf62-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/competitions/cards/ajedrez.webp": {
+    "width": 533,
+    "height": 533,
+    "sources": [
+      {
+        "src": "/assets/optimized/e08286933d57-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/e08286933d57-533.webp",
+        "width": 533
+      }
+    ]
+  },
+  "/assets/competitions/cards/beat-saber.webp": {
+    "width": 953,
+    "height": 1079,
+    "sources": [
+      {
+        "src": "/assets/optimized/6b775c6955f7-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6b775c6955f7-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6b775c6955f7-953.webp",
+        "width": 953
+      }
+    ]
+  },
+  "/assets/competitions/cards/brawls-stars.webp": {
+    "width": 631,
+    "height": 842,
+    "sources": [
+      {
+        "src": "/assets/optimized/f2a30b02d490-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f2a30b02d490-631.webp",
+        "width": 631
+      }
+    ]
+  },
+  "/assets/competitions/cards/cars.webp": {
+    "width": 1132,
+    "height": 1286,
+    "sources": [
+      {
+        "src": "/assets/optimized/84db5b4ff532-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/84db5b4ff532-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/84db5b4ff532-1132.webp",
+        "width": 1132
+      }
+    ]
+  },
+  "/assets/competitions/cards/clash-royale.webp": {
+    "width": 980,
+    "height": 1212,
+    "sources": [
+      {
+        "src": "/assets/optimized/d59126ada09a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/d59126ada09a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/d59126ada09a-980.webp",
+        "width": 980
+      }
+    ]
+  },
+  "/assets/competitions/cards/f1.webp": {
+    "width": 603,
+    "height": 800,
+    "sources": [
+      {
+        "src": "/assets/optimized/f469a20278c8-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f469a20278c8-603.webp",
+        "width": 603
+      }
+    ]
+  },
+  "/assets/competitions/cards/fc25.webp": {
+    "width": 338,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/b43fffdb5c83-338.webp",
+        "width": 338
+      }
+    ]
+  },
+  "/assets/competitions/cards/futbolin.webp": {
+    "width": 3995,
+    "height": 5304,
+    "sources": [
+      {
+        "src": "/assets/optimized/d8f176c7e4ed-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/d8f176c7e4ed-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/d8f176c7e4ed-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/hacking.webp": {
+    "width": 835,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/assets/optimized/ed0f4b2e03d7-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/ed0f4b2e03d7-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/ed0f4b2e03d7-835.webp",
+        "width": 835
+      }
+    ]
+  },
+  "/assets/competitions/cards/indie-fest.webp": {
+    "width": 626,
+    "height": 417,
+    "sources": [
+      {
+        "src": "/assets/optimized/3be8e6b0656d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/3be8e6b0656d-626.webp",
+        "width": 626
+      }
+    ]
+  },
+  "/assets/competitions/cards/juego-libre.webp": {
+    "width": 1000,
+    "height": 647,
+    "sources": [
+      {
+        "src": "/assets/optimized/cb7402cc2220-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/cb7402cc2220-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/cb7402cc2220-1000.webp",
+        "width": 1000
+      }
+    ]
+  },
+  "/assets/competitions/cards/lol.webp": {
+    "width": 810,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/assets/optimized/501f58b25f63-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/501f58b25f63-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/501f58b25f63-810.webp",
+        "width": 810
+      }
+    ]
+  },
+  "/assets/competitions/cards/mario-kart.webp": {
+    "width": 621,
+    "height": 675,
+    "sources": [
+      {
+        "src": "/assets/optimized/ca6d55b36567-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/ca6d55b36567-621.webp",
+        "width": 621
+      }
+    ]
+  },
+  "/assets/competitions/cards/minecraft.webp": {
+    "width": 338,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/2b7e4e0721af-338.webp",
+        "width": 338
+      }
+    ]
+  },
+  "/assets/competitions/cards/paella.webp": {
+    "width": 1440,
+    "height": 1440,
+    "sources": [
+      {
+        "src": "/assets/optimized/c77d027a0537-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/c77d027a0537-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/c77d027a0537-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/ping-pong.webp": {
+    "width": 1200,
+    "height": 1200,
+    "sources": [
+      {
+        "src": "/assets/optimized/d082bec8eb59-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/d082bec8eb59-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/d082bec8eb59-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/assets/competitions/cards/retro.webp": {
+    "width": 3375,
+    "height": 4320,
+    "sources": [
+      {
+        "src": "/assets/optimized/f45f2081ba7e-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f45f2081ba7e-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/f45f2081ba7e-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/rocket.webp": {
+    "width": 810,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/assets/optimized/90851e1bce85-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/90851e1bce85-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/90851e1bce85-810.webp",
+        "width": 810
+      }
+    ]
+  },
+  "/assets/competitions/cards/smash.webp": {
+    "width": 810,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/assets/optimized/0c4a1aba45e8-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/0c4a1aba45e8-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/0c4a1aba45e8-810.webp",
+        "width": 810
+      }
+    ]
+  },
+  "/assets/competitions/cards/street-fighter.webp": {
+    "width": 177,
+    "height": 224,
+    "sources": [
+      {
+        "src": "/assets/optimized/9df5b2a7f9be-177.webp",
+        "width": 177
+      }
+    ]
+  },
+  "/assets/competitions/cards/street-pass.webp": {
+    "width": 194,
+    "height": 259,
+    "sources": [
+      {
+        "src": "/assets/optimized/642719b04daf-194.webp",
+        "width": 194
+      }
+    ]
+  },
+  "/assets/competitions/cards/tcg.webp": {
+    "width": 899,
+    "height": 506,
+    "sources": [
+      {
+        "src": "/assets/optimized/2b811d60f0b7-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/2b811d60f0b7-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/2b811d60f0b7-899.webp",
+        "width": 899
+      }
+    ]
+  },
+  "/assets/competitions/cards/tetris.webp": {
+    "width": 563,
+    "height": 360,
+    "sources": [
+      {
+        "src": "/assets/optimized/bd9bc9828391-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bd9bc9828391-563.webp",
+        "width": 563
+      }
+    ]
+  },
+  "/assets/competitions/cards/valorant.webp": {
+    "width": 757,
+    "height": 1009,
+    "sources": [
+      {
+        "src": "/assets/optimized/2fa510028906-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/2fa510028906-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/2fa510028906-757.webp",
+        "width": 757
+      }
+    ]
+  },
+  "/assets/competitions/cards/watch-party.webp": {
+    "width": 1200,
+    "height": 799,
+    "sources": [
+      {
+        "src": "/assets/optimized/ed856076b048-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/ed856076b048-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/ed856076b048-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/assets/competitions/cards/wii-bolos.webp": {
+    "width": 233,
+    "height": 288,
+    "sources": [
+      {
+        "src": "/assets/optimized/464858b967c5-233.webp",
+        "width": 233
+      }
+    ]
+  },
+  "/assets/competitions/cards/wii-tenis.webp": {
+    "width": 810,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "/assets/optimized/253ffc90c156-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/253ffc90c156-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/253ffc90c156-810.webp",
+        "width": 810
+      }
+    ]
+  },
+  "/assets/competitions/logos/2xko.webp": {
+    "width": 960,
+    "height": 249,
+    "sources": [
+      {
+        "src": "/assets/optimized/449edcda96a6-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/449edcda96a6-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/449edcda96a6-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "/assets/competitions/logos/ajedrez.webp": {
+    "width": 350,
+    "height": 350,
+    "sources": [
+      {
+        "src": "/assets/optimized/13c411c3c0a8-350.webp",
+        "width": 350
+      }
+    ]
+  },
+  "/assets/competitions/logos/beat-saber.webp": {
+    "width": 640,
+    "height": 360,
+    "sources": [
+      {
+        "src": "/assets/optimized/287fa6e4e439-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/287fa6e4e439-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/assets/competitions/logos/brawl-stars.webp": {
+    "width": 1024,
+    "height": 1024,
+    "sources": [
+      {
+        "src": "/assets/optimized/96574e23e538-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/96574e23e538-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/96574e23e538-1024.webp",
+        "width": 1024
+      }
+    ]
+  },
+  "/assets/competitions/logos/cars.webp": {
+    "width": 1200,
+    "height": 675,
+    "sources": [
+      {
+        "src": "/assets/optimized/fee0cc74df78-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/fee0cc74df78-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/fee0cc74df78-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/assets/competitions/logos/clash-royale.webp": {
+    "width": 800,
+    "height": 403,
+    "sources": [
+      {
+        "src": "/assets/optimized/a707937c7ab7-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a707937c7ab7-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/a707937c7ab7-800.webp",
+        "width": 800
+      }
+    ]
+  },
+  "/assets/competitions/logos/f1.webp": {
+    "width": 481,
+    "height": 102,
+    "sources": [
+      {
+        "src": "/assets/optimized/a0b23ea9ad52-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a0b23ea9ad52-481.webp",
+        "width": 481
+      }
+    ]
+  },
+  "/assets/competitions/logos/futbolin.webp": {
+    "width": 378,
+    "height": 378,
+    "sources": [
+      {
+        "src": "/assets/optimized/834e7789d417-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/834e7789d417-378.webp",
+        "width": 378
+      }
+    ]
+  },
+  "/assets/competitions/logos/hacking.webp": {
+    "width": 2083,
+    "height": 833,
+    "sources": [
+      {
+        "src": "/assets/optimized/c987905c9965-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/c987905c9965-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/c987905c9965-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/logos/indie-fest.webp": {
+    "width": 948,
+    "height": 263,
+    "sources": [
+      {
+        "src": "/assets/optimized/5dfecfa5c9ec-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/5dfecfa5c9ec-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/5dfecfa5c9ec-948.webp",
+        "width": 948
+      }
+    ]
+  },
+  "/assets/competitions/logos/juego-libre.webp": {
+    "width": 1057,
+    "height": 236,
+    "sources": [
+      {
+        "src": "/assets/optimized/605ded3b414d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/605ded3b414d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/605ded3b414d-1057.webp",
+        "width": 1057
+      }
+    ]
+  },
+  "/assets/competitions/logos/lol.webp": {
+    "width": 600,
+    "height": 229,
+    "sources": [
+      {
+        "src": "/assets/optimized/39edcd1d3dbb-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/39edcd1d3dbb-600.webp",
+        "width": 600
+      }
+    ]
+  },
+  "/assets/competitions/logos/mario-kart.webp": {
+    "width": 896,
+    "height": 466,
+    "sources": [
+      {
+        "src": "/assets/optimized/f3f6a2032ed5-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f3f6a2032ed5-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/f3f6a2032ed5-896.webp",
+        "width": 896
+      }
+    ]
+  },
+  "/assets/competitions/logos/minecraft.webp": {
+    "width": 3633,
+    "height": 704,
+    "sources": [
+      {
+        "src": "/assets/optimized/10b13e331b58-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/10b13e331b58-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/10b13e331b58-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/logos/paella.webp": {
+    "width": 934,
+    "height": 267,
+    "sources": [
+      {
+        "src": "/assets/optimized/f38af9d657f3-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f38af9d657f3-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/f38af9d657f3-934.webp",
+        "width": 934
+      }
+    ]
+  },
+  "/assets/competitions/logos/ping-pong.webp": {
+    "width": 512,
+    "height": 512,
+    "sources": [
+      {
+        "src": "/assets/optimized/905c029eb212-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/905c029eb212-512.webp",
+        "width": 512
+      }
+    ]
+  },
+  "/assets/competitions/logos/retro.webp": {
+    "width": 596,
+    "height": 541,
+    "sources": [
+      {
+        "src": "/assets/optimized/7e4fbb0aac14-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7e4fbb0aac14-596.webp",
+        "width": 596
+      }
+    ]
+  },
+  "/assets/competitions/logos/rocket.webp": {
+    "width": 800,
+    "height": 300,
+    "sources": [
+      {
+        "src": "/assets/optimized/641565c21c44-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/641565c21c44-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/641565c21c44-800.webp",
+        "width": 800
+      }
+    ]
+  },
+  "/assets/competitions/logos/smash.webp": {
+    "width": 1280,
+    "height": 499,
+    "sources": [
+      {
+        "src": "/assets/optimized/0e6869e61d9f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/0e6869e61d9f-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/0e6869e61d9f-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/logos/street-fighter.webp": {
+    "width": 550,
+    "height": 288,
+    "sources": [
+      {
+        "src": "/assets/optimized/bff5afbeae90-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bff5afbeae90-550.webp",
+        "width": 550
+      }
+    ]
+  },
+  "/assets/competitions/logos/street-pass.webp": {
+    "width": 672,
+    "height": 365,
+    "sources": [
+      {
+        "src": "/assets/optimized/f2c63532c21d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f2c63532c21d-672.webp",
+        "width": 672
+      }
+    ]
+  },
+  "/assets/competitions/logos/tcg.png": {
+    "width": 960,
+    "height": 513,
+    "sources": [
+      {
+        "src": "/assets/optimized/089ce5c9f01b-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/089ce5c9f01b-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/089ce5c9f01b-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "/assets/competitions/logos/tcg.webp": {
+    "width": 960,
+    "height": 513,
+    "sources": [
+      {
+        "src": "/assets/optimized/12120b17c72c-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/12120b17c72c-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/12120b17c72c-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "/assets/competitions/logos/tetris.webp": {
+    "width": 1000,
+    "height": 694,
+    "sources": [
+      {
+        "src": "/assets/optimized/f1e7b5ff62a9-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/f1e7b5ff62a9-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/f1e7b5ff62a9-1000.webp",
+        "width": 1000
+      }
+    ]
+  },
+  "/assets/competitions/logos/valorant.webp": {
+    "width": 1280,
+    "height": 874,
+    "sources": [
+      {
+        "src": "/assets/optimized/9d358251db24-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/9d358251db24-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/9d358251db24-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/logos/watch-party.webp": {
+    "width": 1500,
+    "height": 900,
+    "sources": [
+      {
+        "src": "/assets/optimized/9b5851e6356f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/9b5851e6356f-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/9b5851e6356f-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/logos/wii.webp": {
+    "width": 1280,
+    "height": 249,
+    "sources": [
+      {
+        "src": "/assets/optimized/91586a6aa7bb-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/91586a6aa7bb-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/91586a6aa7bb-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-2xko.webp": {
+    "width": 870,
+    "height": 900,
+    "sources": [
+      {
+        "src": "/assets/optimized/044c3f34b70c-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/044c3f34b70c-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/044c3f34b70c-870.webp",
+        "width": 870
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-ajedrez.webp": {
+    "width": 232,
+    "height": 249,
+    "sources": [
+      {
+        "src": "/assets/optimized/250da526a7b9-232.webp",
+        "width": 232
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-beat-saber.webp": {
+    "width": 275,
+    "height": 220,
+    "sources": [
+      {
+        "src": "/assets/optimized/a61986adea6a-275.webp",
+        "width": 275
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-brawl-stars.webp": {
+    "width": 503,
+    "height": 674,
+    "sources": [
+      {
+        "src": "/assets/optimized/21d8f51b171e-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/21d8f51b171e-503.webp",
+        "width": 503
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-cars.webp": {
+    "width": 1000,
+    "height": 637,
+    "sources": [
+      {
+        "src": "/assets/optimized/6c06a64c2b60-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6c06a64c2b60-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6c06a64c2b60-1000.webp",
+        "width": 1000
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-clash-royale.webp": {
+    "width": 325,
+    "height": 600,
+    "sources": [
+      {
+        "src": "/assets/optimized/2cac3ce0dc3c-325.webp",
+        "width": 325
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-dragon-ball.webp": {
+    "width": 707,
+    "height": 997,
+    "sources": [
+      {
+        "src": "/assets/optimized/fb3a3e1d96e5-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/fb3a3e1d96e5-707.webp",
+        "width": 707
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-f1.webp": {
+    "width": 2221,
+    "height": 3686,
+    "sources": [
+      {
+        "src": "/assets/optimized/7641a85fb636-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7641a85fb636-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7641a85fb636-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-futbolin.webp": {
+    "width": 3354,
+    "height": 3769,
+    "sources": [
+      {
+        "src": "/assets/optimized/1e798113443b-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/1e798113443b-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/1e798113443b-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-hacking.webp": {
+    "width": 679,
+    "height": 607,
+    "sources": [
+      {
+        "src": "/assets/optimized/63d273e5787f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/63d273e5787f-679.webp",
+        "width": 679
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-indie-fest.webp": {
+    "width": 609,
+    "height": 410,
+    "sources": [
+      {
+        "src": "/assets/optimized/826c8475d942-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/826c8475d942-609.webp",
+        "width": 609
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-juego-libre.webp": {
+    "width": 612,
+    "height": 408,
+    "sources": [
+      {
+        "src": "/assets/optimized/d33888976f62-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/d33888976f62-612.webp",
+        "width": 612
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-lol.webp": {
+    "width": 433,
+    "height": 608,
+    "sources": [
+      {
+        "src": "/assets/optimized/bdd3b94a4ee5-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bdd3b94a4ee5-433.webp",
+        "width": 433
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-mario.webp": {
+    "width": 600,
+    "height": 574,
+    "sources": [
+      {
+        "src": "/assets/optimized/e0551ff5cfd5-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/e0551ff5cfd5-600.webp",
+        "width": 600
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-minecraft.webp": {
+    "width": 1000,
+    "height": 876,
+    "sources": [
+      {
+        "src": "/assets/optimized/618fb13c31e8-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/618fb13c31e8-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/618fb13c31e8-1000.webp",
+        "width": 1000
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-paella.webp": {
+    "width": 293,
+    "height": 364,
+    "sources": [
+      {
+        "src": "/assets/optimized/8caf57e2fbcb-293.webp",
+        "width": 293
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-ping-pong.webp": {
+    "width": 1000,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "/assets/optimized/abb27f88503a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/abb27f88503a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/abb27f88503a-1000.webp",
+        "width": 1000
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-retro.webp": {
+    "width": 256,
+    "height": 256,
+    "sources": [
+      {
+        "src": "/assets/optimized/e808dedef429-256.webp",
+        "width": 256
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-rocket.webp": {
+    "width": 2446,
+    "height": 974,
+    "sources": [
+      {
+        "src": "/assets/optimized/11af18ccaa19-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/11af18ccaa19-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/11af18ccaa19-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-smash.webp": {
+    "width": 394,
+    "height": 634,
+    "sources": [
+      {
+        "src": "/assets/optimized/c19afa9248f6-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/c19afa9248f6-394.webp",
+        "width": 394
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-street-fighter.webp": {
+    "width": 236,
+    "height": 360,
+    "sources": [
+      {
+        "src": "/assets/optimized/69063550e463-236.webp",
+        "width": 236
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-street-pass.webp": {
+    "width": 448,
+    "height": 627,
+    "sources": [
+      {
+        "src": "/assets/optimized/5ab3a2dff34b-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/5ab3a2dff34b-448.webp",
+        "width": 448
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-tcg.webp": {
+    "width": 321,
+    "height": 450,
+    "sources": [
+      {
+        "src": "/assets/optimized/e3659fb1e1bd-321.webp",
+        "width": 321
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-tetris.webp": {
+    "width": 360,
+    "height": 490,
+    "sources": [
+      {
+        "src": "/assets/optimized/3247a8e2561e-360.webp",
+        "width": 360
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-watch-party.webp": {
+    "width": 360,
+    "height": 360,
+    "sources": [
+      {
+        "src": "/assets/optimized/f28aa1a18fd3-360.webp",
+        "width": 360
+      }
+    ]
+  },
+  "/assets/competitions/characters/valorant.webp": {
+    "width": 463,
+    "height": 539,
+    "sources": [
+      {
+        "src": "/assets/optimized/ad326b96fd35-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/ad326b96fd35-463.webp",
+        "width": 463
+      }
+    ]
+  },
+  "/assets/competitions/characters/wii-bolos.webp": {
+    "width": 2228,
+    "height": 2511,
+    "sources": [
+      {
+        "src": "/assets/optimized/fc8adfdb105c-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/fc8adfdb105c-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/fc8adfdb105c-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/wii-tenis.webp": {
+    "width": 409,
+    "height": 610,
+    "sources": [
+      {
+        "src": "/assets/optimized/197a0321366d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/197a0321366d-409.webp",
+        "width": 409
+      }
+    ]
+  },
+  "/assets/participan/organizan.png": {
+    "width": 1332,
+    "height": 327,
+    "sources": [
+      {
+        "src": "/assets/optimized/b9f41ae3e59d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/b9f41ae3e59d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/b9f41ae3e59d-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/about/ulp-2025-comunidad.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/235466671c50-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/235466671c50-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/235466671c50-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/assets/optimized/235466671c50-2048.webp",
+        "width": 2048
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-watch-party-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/bf85fd468f83-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bf85fd468f83-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/bf85fd468f83-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-tcg-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/6207097c5862-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6207097c5862-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6207097c5862-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-indie-fest-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/62e0dc1cc2d9-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/62e0dc1cc2d9-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/62e0dc1cc2d9-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-juego-libre-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/6441ae9f2f51-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6441ae9f2f51-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6441ae9f2f51-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-paella-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/43137ce0682f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/43137ce0682f-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/43137ce0682f-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/about/ulp-2025-retro.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/assets/optimized/464bbe0c3b2d-2048.webp",
+        "width": 2048
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-ping-pong-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/51d927c3494a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/51d927c3494a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/51d927c3494a-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-smash-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/7b19d59ab22a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7b19d59ab22a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7b19d59ab22a-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-wii-sports-bolos-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/2edab8c52b45-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/2edab8c52b45-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/2edab8c52b45-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-rocket-league-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/bdc69b50bb24-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/bdc69b50bb24-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/bdc69b50bb24-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-ajedrez-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/7ca69f54e086-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7ca69f54e086-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7ca69f54e086-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-retro-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/82b53f45380d-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/82b53f45380d-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/82b53f45380d-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-street-fighter-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/01683dff650a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/01683dff650a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/01683dff650a-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-beat-saber-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/a9dfcc05ee38-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a9dfcc05ee38-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/a9dfcc05ee38-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-tetris-2027.png": {
+    "width": 1254,
+    "height": 1254,
+    "sources": [
+      {
+        "src": "/assets/optimized/1cea3a918a08-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/1cea3a918a08-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/1cea3a918a08-1254.webp",
+        "width": 1254
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-futbolin-2027.png": {
+    "width": 1183,
+    "height": 1329,
+    "sources": [
+      {
+        "src": "/assets/optimized/7ea886587c65-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7ea886587c65-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7ea886587c65-1183.webp",
+        "width": 1183
+      }
+    ]
+  },
+  "/assets/competitions/characters/character-smash-mario.png": {
+    "width": 1058,
+    "height": 1194,
+    "sources": [
+      {
+        "src": "/assets/optimized/c1c5956adacc-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/c1c5956adacc-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/c1c5956adacc-1058.webp",
+        "width": 1058
+      }
+    ]
+  },
+  "/assets/competitions/cards/indie-fest-ulp-2025.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/7dacce4aa921-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7dacce4aa921-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7dacce4aa921-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/juego-libre-ulp-2025.jpg": {
+    "width": 2048,
+    "height": 1365,
+    "sources": [
+      {
+        "src": "/assets/optimized/a45992a625d3-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/a45992a625d3-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/a45992a625d3-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/watch-party-ulp.png": {
+    "width": 2554,
+    "height": 1339,
+    "sources": [
+      {
+        "src": "/assets/optimized/6dbdd3011e91-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/6dbdd3011e91-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/6dbdd3011e91-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/competitions/cards/street-fighter-gameplay.png": {
+    "width": 384,
+    "height": 224,
+    "sources": [
+      {
+        "src": "/assets/optimized/32e99af1d2ff-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/32e99af1d2ff-384.webp",
+        "width": 384
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-stands-2025.webp": {
+    "width": 1280,
+    "height": 853,
+    "sources": [
+      {
+        "src": "/assets/optimized/7d111587e6ff-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/7d111587e6ff-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/7d111587e6ff-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-charlas-2025.webp": {
+    "width": 1280,
+    "height": 853,
+    "sources": [
+      {
+        "src": "/assets/optimized/691cb5ea8e8c-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/691cb5ea8e8c-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/691cb5ea8e8c-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-2024.webp": {
+    "width": 1280,
+    "height": 853,
+    "sources": [
+      {
+        "src": "/assets/optimized/64fe58ee05f2-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/64fe58ee05f2-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/64fe58ee05f2-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/participan/gallery/colaboradores-2026.webp": {
+    "width": 1280,
+    "height": 960,
+    "sources": [
+      {
+        "src": "/assets/optimized/14bee22baf8a-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/14bee22baf8a-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/14bee22baf8a-1280.webp",
+        "width": 1280
+      }
+    ]
+  },
+  "/assets/about/twitch-ultimo-stream.webp": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "src": "/assets/optimized/55c5265a0c0f-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/55c5265a0c0f-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/55c5265a0c0f-1280.webp",
+        "width": 1280
+      }
+    ]
+  }
+}

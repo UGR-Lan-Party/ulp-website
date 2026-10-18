@@ -1,0 +1,56 @@
+---
+interface Props {
+  ids: string[];
+  name: string;
+}
+const { ids, name } = Astro.props;
+---
+
+<button
+  type="button"
+  class="agenda-toggle"
+  data-agenda-toggle={JSON.stringify(ids)}
+  data-agenda-name={name}
+  aria-pressed="false"
+  aria-label={`Guardar en mi agenda: ${name}`}
+  hidden
+>
+  <svg
+    width="17"
+    height="17"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.7"
+    aria-hidden="true"><path d="M6 4h12v17l-6-4-6 4z"></path></svg
+  >
+  <span data-agenda-label>Guardar</span>
+</button>
+<style>
+  .agenda-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .agenda-toggle[hidden] {
+    display: none;
+  }
+  .agenda-toggle:hover,
+  .agenda-toggle[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .agenda-toggle[aria-pressed='true'] svg {
+    fill: currentColor;
+  }
+</style>

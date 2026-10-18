@@ -1,0 +1,181 @@
+---
+import AgendaData from './AgendaData.astro';
+import { programEdition } from '../data/program';
+---
+
+<section
+  id="mi-agenda"
+  class="personal-agenda"
+  data-personal-agenda
+  aria-labelledby="personal-agenda-title"
+  hidden
+>
+  <header>
+    <div>
+      <span class="design-eyebrow">Tu selección · {programEdition.year}</span
+      ><h3 id="personal-agenda-title" tabindex="-1">Mi <em>agenda.</em></h3>
+    </div>
+    <span class="agenda-total" data-agenda-total>0 guardadas</span>
+  </header>
+  <p class="agenda-explanation">
+    Guarda las franjas que te interesan. Se conservan solo en este dispositivo;
+    no te inscriben en las actividades.
+  </p>
+  <p class="agenda-storage-notice" data-agenda-storage hidden></p>
+  <p class="agenda-empty" data-agenda-empty>
+    Todavía no has guardado ninguna. Usa «Guardar» en la tabla o en la ficha de
+    una actividad.
+  </p>
+  <ol class="agenda-saved-list" data-agenda-list></ol>
+  <div class="agenda-conflicts" data-agenda-conflicts hidden>
+    <h4>Revisa estos solapamientos</h4><ul data-agenda-conflict-list></ul>
+  </div>
+  <div class="agenda-tools">
+    <button type="button" class="design-button" data-agenda-export disabled
+      >Descargar calendario (.ics)</button
+    ><button type="button" class="agenda-clear" data-agenda-clear disabled
+      >Vaciar agenda</button>
+  </div>
+  <p class="agenda-footnote">
+    Se muestra el archivo de {programEdition.year}. Sin hora de fin confirmada
+    no se calcula el solapamiento ni se inventa una duración para el calendario.
+  </p>
+</section>
+<p class="sr-only" data-agenda-status role="status" aria-live="polite"></p>
+<noscript
+  ><p>
+    Activa JavaScript para guardar tu agenda en este dispositivo. El programa
+    completo sigue disponible debajo.
+  </p></noscript
+>
+<AgendaData />
+<style>
+  [hidden] {
+    display: none !important;
+  }
+  .personal-agenda {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: clamp(22px, 3vw, 32px);
+    background: var(--surface);
+    margin-block: 24px 32px;
+    scroll-margin-top: 110px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .design-eyebrow {
+    font-size: 9px;
+    margin-bottom: 12px;
+  }
+  h3 {
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 750;
+    line-height: 1.15;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .agenda-total {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .agenda-explanation,
+  .agenda-empty,
+  .agenda-footnote,
+  .agenda-storage-notice {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+  .agenda-empty {
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .agenda-saved-list {
+    display: grid;
+    margin-top: 20px;
+  }
+  .agenda-saved-list :global(li) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    padding-block: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .agenda-saved-list :global(strong),
+  .agenda-saved-list :global(a) {
+    display: block;
+    font-size: 14px;
+    font-weight: 650;
+  }
+  .agenda-saved-list :global(a:hover) {
+    text-decoration: underline;
+  }
+  .agenda-saved-list :global(p) {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+  .agenda-saved-list :global(button),
+  .agenda-clear {
+    flex-shrink: 0;
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    background: transparent;
+    cursor: pointer;
+  }
+  .agenda-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .agenda-tools .design-button {
+    min-height: 44px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  button:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .agenda-conflicts {
+    border-left: 3px solid var(--ink);
+    padding: 14px 18px;
+    margin-top: 22px;
+    background: var(--paper);
+    border-radius: 0 10px 10px 0;
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 650;
+  }
+  .agenda-conflicts :global(li) {
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 8px;
+  }
+  .agenda-footnote {
+    font-size: 11px;
+  }
+  @media (max-width: 500px) {
+    .agenda-saved-list :global(li) {
+      align-items: start;
+      gap: 10px;
+    }
+  }
+</style>

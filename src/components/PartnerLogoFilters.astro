@@ -1,0 +1,96 @@
+<svg class="partner-logo-filters" aria-hidden="true" width="0" height="0">
+  <defs>
+    <filter id="partner-white-details" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 5 5 0 -14"
+        result="whitePixels"></feColorMatrix>
+      <feComposite
+        in="whitePixels"
+        in2="SourceAlpha"
+        operator="in"
+        result="darkDetails"></feComposite>
+      <feComposite
+        in="SourceGraphic"
+        in2="darkDetails"
+        operator="out"
+        result="colors"></feComposite>
+      <feMerge
+        ><feMergeNode in="darkDetails"></feMergeNode><feMergeNode in="colors"
+        ></feMergeNode></feMerge
+      >
+    </filter>
+    <filter id="partner-white-cutout" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -3 -3 -3 0 8"
+        result="ink"></feColorMatrix>
+      <feComposite in="ink" in2="SourceAlpha" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-outline" color-interpolation-filters="sRGB">
+      <feMorphology
+        in="SourceAlpha"
+        operator="erode"
+        radius="0.8"
+        result="interior"></feMorphology>
+      <feComposite
+        in="SourceAlpha"
+        in2="interior"
+        operator="out"
+        result="outline"></feComposite>
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="outline" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-radio" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 4 -8 0 -0.6"
+        result="warmDetails"></feColorMatrix>
+      <feFlood
+        flood-color="white"
+        x="0%"
+        y="0%"
+        width="40%"
+        height="100%"
+        result="radioArea"></feFlood>
+      <feComposite
+        in="warmDetails"
+        in2="radioArea"
+        operator="in"
+        result="radioDetails"></feComposite>
+      <feComposite
+        in="SourceAlpha"
+        in2="radioDetails"
+        operator="out"
+        result="radio"></feComposite>
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="radio" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-lettering" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  4 4 -8 0 -0.6"
+        result="lettering"></feColorMatrix>
+      <feComposite in="lettering" in2="SourceAlpha" operator="in" result="top"
+      ></feComposite>
+      <feFlood flood-color="white" x="0%" y="55%" width="100%" height="45%"
+      ></feFlood>
+      <feComposite in2="SourceAlpha" operator="in" result="bottom"
+      ></feComposite>
+      <feMerge
+        ><feMergeNode in="top"></feMergeNode><feMergeNode in="bottom"
+        ></feMergeNode></feMerge
+      >
+    </filter>
+  </defs>
+</svg>
+<style>
+  .partner-logo-filters {
+    position: absolute;
+    pointer-events: none;
+  }
+</style>

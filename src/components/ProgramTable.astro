@@ -1,0 +1,616 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import VenueMap from './VenueMap.astro';
+import PersonalAgenda from './PersonalAgenda.astro';
+import AgendaToggle from './AgendaToggle.astro';
+import { agendaEntryId } from '../utils/personal-agenda.js';
+import { program, programEdition } from '../data/program';
+import { edition } from '../data/edition';
+import { getRegistrationState } from '../utils/registration.js';
+import { formatTime } from '../utils/program.js';
+
+const dayKey = (date: string) =>
+  new Intl.DateTimeFormat('en-CA', {
+    timeZone: programEdition.timezone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(date));
+const dayLabel = (date: string) =>
+  new Intl.DateTimeFormat('es-ES', {
+    timeZone: programEdition.timezone,
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  }).format(new Date(date));
+const days = [
+  ...new Map(
+    program.map((entry) => [dayKey(entry.startsAt), dayLabel(entry.startsAt)]),
+  ).entries(),
+];
+const locations = [...new Set(program.map((entry) => entry.location))].sort(
+  (a, b) => a.localeCompare(b, 'es'),
+);
+const categoryLabels: Record<string, string> = {
+  competicion: 'Competición',
+  actividad: 'Actividad',
+  charla: 'Charla',
+};
+---
+
+<section
+  class="program-section container"
+  aria-labelledby="program-title"
+  data-program
+>
+  <header class="program-header">
+    <div class="program-icon" aria-hidden="true">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        ><rect x="3" y="5" width="18" height="16" rx="3"></rect><path
+          d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2"></path></svg
+      >
+    </div>
+    <div>
+      <p class="program-kicker">Agenda</p><h2 id="program-title">
+        Programa ULP {programEdition.year}
+      </h2>
+    </div>
+    <p
+      class="program-count"
+      data-program-count
+      role="status"
+      aria-live="polite"
+    >
+      {program.length} de {program.length} actividades
+    </p>
+  </header>
+  {
+    edition.year !== programEdition.year && (
+      <p class="program-notice">
+        El programa de ULP {edition.year} todavía no está publicado. Se muestra
+        el programa de {programEdition.year} como referencia histórica.
+      </p>
+    )
+  }
+  <PersonalAgenda />
+  <form
+    class="program-filters"
+    data-program-filters
+    role="search"
+    aria-label="Filtrar el programa"
+    hidden
+  >
+    <label class="activity-filter"
+      >Actividad<input
+        type="search"
+        name="activity"
+        maxlength="120"
+        placeholder="Busca un juego o una charla"
+        autocomplete="off"
+      /></label
+    >
+    <label
+      >Aula o zona<select name="location"
+        ><option value="">Todas las ubicaciones</option>{
+          locations.map((location) => (
+            <option value={location}>{location}</option>
+          ))
+        }</select
+      ></label
+    >
+    <label
+      >Día<select name="day"
+        ><option value="">Todos los días</option>{
+          days.map(([value, label]) => <option value={value}>{label}</option>)
+        }</select
+      ></label
+    >
+    <label
+      >A las<input
+        type="time"
+        name="time"
+        step="60"
+        aria-describedby="program-time-help"
+      /></label
+    >
+    <button type="reset" class="program-reset">Restablecer</button>
+    <p id="program-time-help" class="program-help">
+      La hora muestra actividades en curso. Sin fin confirmado, se filtra por la
+      hora de inicio.
+    </p>
+  </form>
+  <VenueMap>
+    <div slot="empty" class="program-empty" data-program-empty hidden>
+      <p>No hay actividades con estos filtros.</p><p>
+        Prueba otro nombre, ubicación u hora, o restablece los filtros.
+      </p>
+    </div>
+  </VenueMap>
+  <details class="program-table-disclosure" data-program-table-disclosure open>
+    <summary>Desplegar agenda <span aria-hidden="true">⌄</span></summary>
+    <div
+      class="program-table-wrap"
+      data-program-table
+      role="region"
+      tabindex="0"
+      aria-label="Agenda completa, desplázate para ver todas las actividades"
+    >
+      <table class="program-table">
+        <caption class="sr-only"
+          >Programa ULP {programEdition.year}. Las actividades sin hora de fin
+          confirmada solo muestran su inicio.</caption
+        >
+        <thead
+          ><tr
+            ><th scope="col">Día</th><th scope="col">Horario</th><th scope="col"
+              >Actividad</th
+            ><th scope="col">Aula o zona</th><th scope="col">Inscripción</th><th
+              scope="col">Mi agenda</th
+            ></tr
+          ></thead
+        >
+        <tbody
+          >{
+            program.map((entry, index) => {
+              const registration = getRegistrationState(
+                entry,
+                programEdition.year,
+                edition,
+              );
+              return (
+                <tr
+                  data-program-row
+                  data-stripe={index % 2}
+                  data-name={entry.name}
+                  data-location={entry.location}
+                  data-day={dayKey(entry.startsAt)}
+                  data-start={formatTime(
+                    entry.startsAt,
+                    programEdition.timezone,
+                  )}
+                  data-end={
+                    entry.endsAt
+                      ? formatTime(entry.endsAt, programEdition.timezone)
+                      : ''
+                  }
+                >
+                  <td class="program-day" data-label="Día">
+                    <time datetime={entry.startsAt}>
+                      {dayLabel(entry.startsAt)}
+                    </time>
+                  </td>
+                  <td class="program-time" data-label="Horario">
+                    <span>{entry.time}</span>
+                  </td>
+                  <th scope="row" class="program-activity">
+                    <span class="program-category">
+                      {categoryLabels[entry.category] ?? entry.category}
+                    </span>
+                    {entry.href ? (
+                      <a href={entry.href}>
+                        {entry.name}
+                        <span aria-hidden="true">
+                          {' '}
+                          <ArrowUpRight />
+                        </span>
+                      </a>
+                    ) : (
+                      <span class="activity-name">{entry.name}</span>
+                    )}
+                    {entry.label && entry.label !== entry.name && (
+                      <span class="program-round">{entry.label}</span>
+                    )}
+                  </th>
+                  <td class="program-location" data-label="Aula o zona">
+                    <span>{entry.location}</span>
+                  </td>
+                  <td class="program-registration" data-label="Inscripción">
+                    {registration.href ? (
+                      <a
+                        class="registration-button"
+                        href={registration.href}
+                        aria-label={`Inscribirme en ${entry.name}`}
+                        data-analytics-event="registration-click"
+                        data-analytics-edition={programEdition.year}
+                        data-analytics-activity={entry.id}
+                      >
+                        Inscribirme
+                      </a>
+                    ) : registration.label === 'N/A' ? (
+                      <span aria-label="No requiere inscripción">N/A</span>
+                    ) : (
+                      <button
+                        class="registration-button"
+                        type="button"
+                        disabled
+                        aria-label={`Inscripción cerrada para ${entry.name}`}
+                      >
+                        Cerrada
+                      </button>
+                    )}
+                  </td>
+                  <td class="program-save" data-label="Mi agenda">
+                    <AgendaToggle
+                      ids={[agendaEntryId(entry, programEdition.year)]}
+                      name={`${entry.name}, ${entry.time}`}
+                    />
+                  </td>
+                </tr>
+              );
+            })
+          }</tbody
+        >
+      </table>
+    </div>
+  </details>
+</section>
+
+<script>
+  import '../scripts/program-filters';
+</script>
+
+<style>
+  [hidden] {
+    display: none !important;
+  }
+  .program-section {
+    padding-block: 32px 48px;
+    color: var(--ink);
+  }
+  .program-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .program-icon {
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    flex-shrink: 0;
+  }
+  .program-kicker {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  h2 {
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .program-count {
+    margin-left: auto;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .program-notice {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+    color: var(--muted);
+  }
+  .program-filters {
+    display: grid;
+    grid-template-columns:
+      minmax(180px, 1.5fr) minmax(160px, 1.2fr) minmax(150px, 1fr)
+      minmax(105px, 0.7fr) auto;
+    gap: 16px;
+    align-items: end;
+    background: #004465;
+    color: #f5f0e6;
+    padding: 26px;
+    border-radius: 20px;
+  }
+  .program-filters label {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    min-width: 0;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .program-filters input,
+  .program-filters select {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid rgb(245 240 230 / 0.3);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #f5f0e6;
+    background: #004465;
+    font: inherit;
+    font-size: 12px;
+    color-scheme: dark;
+  }
+  .program-filters input[type='time'] {
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    inline-size: 100%;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-align: start;
+  }
+  .program-filters input[type='time']::-webkit-date-and-time-value {
+    min-width: 0;
+    min-height: 1.3em;
+    text-align: start;
+  }
+  .program-filters input[type='time']::-webkit-datetime-edit {
+    padding: 0;
+    min-width: 0;
+    max-width: 100%;
+  }
+  input::placeholder {
+    color: rgb(245 240 230 / 0.65);
+  }
+  .program-filters input:focus-visible,
+  .program-filters select:focus-visible,
+  .program-reset:focus-visible {
+    outline: 2px solid #f5f0e6;
+    outline-offset: 3px;
+  }
+  .program-reset {
+    min-height: 44px;
+    padding: 10px 14px;
+    border: 1px solid rgb(245 240 230 / 0.3);
+    border-radius: 10px;
+    font-size: 11px;
+  }
+  .program-reset:hover {
+    background: rgb(245 240 230 / 0.1);
+  }
+  .program-help {
+    grid-column: 1 / -1;
+    font-size: 11px;
+    line-height: 1.7;
+    opacity: 0.75;
+  }
+  .program-table-disclosure {
+    border-block: 1px solid var(--line);
+  }
+  .program-table-disclosure > summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    cursor: pointer;
+    font-size: clamp(18px, 2vw, 23px);
+    font-weight: 650;
+    list-style: none;
+  }
+  .program-table-disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+  .program-table-disclosure[open] > summary {
+    border-bottom: 1px solid var(--line);
+  }
+  .program-table-disclosure[open] > summary span {
+    transform: rotate(180deg);
+  }
+  .program-table-disclosure > summary:focus-visible,
+  .program-table a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .program-table-wrap {
+    overflow: auto;
+    max-height: 44rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+  .program-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--paper);
+  }
+  thead th {
+    padding: 16px 20px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--line);
+  }
+  tbody td,
+  tbody th {
+    padding: 20px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  tbody tr[data-stripe='0'] {
+    background: color-mix(in srgb, var(--ink) 3%, var(--paper));
+  }
+  tbody tr[data-stripe='1'] {
+    background: color-mix(in srgb, var(--ink) 7%, var(--paper));
+  }
+  tbody tr:hover {
+    background: color-mix(in srgb, var(--ink) 10%, var(--paper));
+  }
+  .program-day,
+  .program-location,
+  .program-registration {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .program-time span {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 6px 8px;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .program-activity {
+    min-width: 220px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .program-category {
+    display: block;
+    text-transform: uppercase;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 5px;
+    font-weight: 400;
+  }
+  .program-activity a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .program-round {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .registration-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 38px;
+    padding: 7px 11px;
+    border-radius: 9px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .registration-button:disabled {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: not-allowed;
+  }
+  .program-empty {
+    padding: 26px 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .program-empty p + p {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  @media (max-width: 1100px) {
+    .program-filters {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .activity-filter {
+      grid-column: 1 / -1;
+    }
+    .program-reset {
+      justify-self: start;
+    }
+  }
+  @media (max-width: 800px) {
+    .program-filters {
+      padding: 22px;
+    }
+    .program-filters label:nth-child(2),
+    .program-filters label:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+    .program-icon {
+      display: none;
+    }
+    .program-count {
+      margin-left: 0;
+    }
+    thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    tbody tr {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 16px;
+      padding: 20px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    tbody td,
+    tbody th {
+      padding: 6px 0;
+      border: 0;
+      min-width: 0;
+    }
+    .program-activity {
+      order: -1;
+      grid-column: 1 / -1;
+    }
+    .program-location {
+      grid-column: 1 / -1;
+    }
+    [data-label]::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 5px;
+      font-size: 8px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .program-time span {
+      padding: 0;
+      background: transparent;
+    }
+  }
+  .program-filters input,
+  .program-filters select {
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  @media (max-width: 800px) {
+    .program-filters {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .program-filters > label,
+    .program-reset {
+      grid-column: 1 / -1;
+    }
+    .program-reset {
+      justify-self: stretch;
+    }
+    .program-filters input,
+    .program-filters select {
+      font-size: 16px;
+      min-inline-size: 0;
+      max-inline-size: 100%;
+    }
+  }
+</style>

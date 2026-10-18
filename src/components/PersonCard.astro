@@ -1,0 +1,134 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import LinkedInIcon from '../../public/assets/icons/LinkedInIcon.astro';
+import GitHubIcon from '../../public/assets/icons/GitHubIcon.astro';
+interface Props {
+  name: string;
+  description: string;
+  image: string;
+  href: string;
+  network: 'LinkedIn' | 'GitHub';
+  badge?: string;
+}
+const { name, description, image, href, network, badge } = Astro.props;
+---
+
+<article class="person-card" data-reveal>
+  <div class:list={['person-portrait', { 'has-badge': Boolean(badge) }]}>
+    <img
+      src={image}
+      alt={`Retrato de ${name.trim()}`}
+      width="280"
+      height="280"
+      loading="lazy"
+      decoding="async"
+    />{badge && <span>{badge}</span>}
+  </div>
+  <div class="person-copy">
+    <h3>{name.trim()}</h3><p>
+      {description || 'Parte de la comunidad que construye la web de ULP.'}
+    </p><a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Ver ${network} de ${name.trim()}`}
+      >{
+        network === 'LinkedIn' ? (
+          <LinkedInIcon aria-hidden="true" />
+        ) : (
+          <GitHubIcon aria-hidden="true" />
+        )
+      }<span>Ver {network}</span><span aria-hidden="true"><ArrowUpRight /></span
+      ></a
+    >
+  </div>
+</article>
+<style>
+  .person-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--surface);
+    overflow: hidden;
+    transition:
+      transform 250ms ease,
+      box-shadow 250ms ease;
+  }
+  .person-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 35px rgb(0 68 101 / 0.09);
+  }
+  .person-portrait {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 24px 24px 0;
+  }
+  .person-portrait.has-badge {
+    justify-content: space-between;
+  }
+  img {
+    width: 112px;
+    height: 112px;
+    flex-shrink: 0;
+    object-fit: cover;
+    object-position: center 25%;
+    border-radius: 22px;
+    filter: saturate(0.65);
+    transition: filter 250ms ease;
+  }
+  .person-card:hover img {
+    filter: saturate(1);
+  }
+  .person-portrait > span {
+    align-self: start;
+    margin-top: 4px;
+    padding: 7px 10px;
+    background: #004465;
+    color: #f5f0e6;
+    border-radius: 4px;
+    font:
+      10px ui-monospace,
+      monospace;
+    letter-spacing: 0.06em;
+  }
+  .person-copy {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+  }
+  h3 {
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin-bottom: 12px;
+  }
+  p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    margin-bottom: 24px;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  a > span:last-child {
+    margin-left: auto;
+  }
+  a :global(svg) {
+    width: 17px;
+    height: 17px;
+  }
+</style>

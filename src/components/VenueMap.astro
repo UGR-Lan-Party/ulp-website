@@ -1,0 +1,557 @@
+---
+import { venueZones, venuePlans, getVenueLayout } from '../data/venue-map';
+import VenueFloorPlans from './VenueFloorPlans.astro';
+import VenueAmenityIcon from './VenueAmenityIcon.astro';
+import { venueAmenities } from '../data/venue-amenities';
+import AularioFloorPlans from './AularioFloorPlans.astro';
+import { aularioFloors } from '../data/aulario';
+const buildings = [
+  ...new Map(
+    venuePlans.map((plan) => [plan.building, plan.buildingLabel]),
+  ).entries(),
+];
+const layout = getVenueLayout('principal-0', 0);
+---
+
+<div
+  class="venue-explorer"
+  data-venue-map
+  data-venue-plan="principal-0"
+  data-orientation="0"
+>
+  <div class="venue-map-column">
+    <header class="venue-map-heading">
+      <div>
+        <span class="venue-eyebrow">ETSIIT / GRANADA</span><h3>
+          Plano interactivo
+        </h3>
+      </div>
+      <button type="button" class="venue-clear" data-venue-clear hidden
+        >Ver todas las zonas</button
+      >
+    </header>
+    <div class="venue-selectors">
+      <label
+        >Edificio o zona<select data-venue-building-select
+          >{
+            buildings.map(([id, label]) => <option value={id}>{label}</option>)
+          }</select
+        ></label
+      >
+      <label
+        >Planta<select data-venue-floor-select
+          >{
+            venuePlans
+              .filter((plan) => plan.building === 'principal')
+              .map((plan) => <option value={plan.id}>{plan.floor}</option>)
+          }</select
+        ></label
+      >
+    </div>
+    <div class="venue-canvas">
+      <svg
+        viewBox="0 45 920 625"
+        class="venue-drawing"
+        data-venue-drawing
+        role="group"
+        tabindex="0"
+        aria-label="Plano interactivo de la ETSIIT. Usa las flechas para cambiar entre cuatro orientaciones."
+      >
+        <defs
+          ><pattern
+            id="venue-grid"
+            width="24"
+            height="24"
+            patternUnits="userSpaceOnUse"
+            ><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".055"
+            ></circle></pattern
+          ></defs
+        >
+        <rect width="920" height="700" fill="url(#venue-grid)"></rect>
+        <g data-venue-building class="venue-building"
+          ><VenueFloorPlans /><AularioFloorPlans /></g
+        >
+        <g data-venue-indicators>
+          {
+            venueZones.map((zone) => {
+              const point = layout.find((point) => point.id === zone.id);
+              return (
+                <g
+                  class="venue-callout"
+                  data-venue-zone={zone.id}
+                  data-zone-plan={zone.plan}
+                  role="button"
+                  tabindex="0"
+                  aria-label={`Filtrar por ${zone.label}`}
+                  data-hidden={!point || undefined}
+                >
+                  <path
+                    data-venue-leader
+                    fill="none"
+                    d={
+                      point
+                        ? `M${point.edgeX} ${point.labelY + 20}L${point.x} ${point.y}`
+                        : undefined
+                    }
+                  />
+                  <circle
+                    class="venue-hit"
+                    data-venue-hit
+                    cx={point?.x ?? zone.x}
+                    cy={point?.y ?? zone.y}
+                    r="26"
+                  />
+                  <circle
+                    data-venue-point
+                    cx={point?.x ?? zone.x}
+                    cy={point?.y ?? zone.y}
+                    r="5"
+                  />
+                  <g
+                    data-venue-label
+                    transform={
+                      point
+                        ? `translate(${point.labelX} ${point.labelY})`
+                        : undefined
+                    }
+                  >
+                    <rect width="160" height="40" rx="8" />
+                    <text
+                      class="venue-label-dismiss"
+                      x="146"
+                      y="15"
+                      text-anchor="middle"
+                      aria-hidden="true"
+                    >
+                      ×
+                    </text>
+                    <text x="10" y="16">
+                      {zone.label}
+                    </text>
+                    <text class="venue-label-meta" x="10" y="30">
+                      {venuePlans.find((plan) => plan.id === zone.plan)?.floor}
+                    </text>
+                  </g>
+                </g>
+              );
+            })
+          }
+        </g>
+      </svg>
+      <div
+        class="venue-zoom"
+        data-venue-zoom-controls
+        hidden
+        role="group"
+        aria-label="Ampliar plano"
+      >
+        <button type="button" data-venue-zoom="-1" aria-label="Alejar plano"
+          ><svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            aria-hidden="true"><path d="M5 12h14"></path></svg
+          ></button
+        >
+        <button
+          type="button"
+          data-venue-zoom="0"
+          aria-label="Restablecer zoom del plano"
+          ><span data-venue-zoom-value>100%</span></button
+        >
+        <button type="button" data-venue-zoom="1" aria-label="Acercar plano"
+          ><svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            aria-hidden="true"><path d="M5 12h14m-7-7v14"></path></svg
+          ></button
+        >
+      </div>
+      <div class="venue-controls" hidden data-venue-controls>
+        <button type="button" data-venue-rotate="1" aria-label="Rotar plano">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            ><path d="M21 10h-5m5 0V5m0 5a9 9 0 1 0 0 4"></path></svg
+          >
+          Rotar
+        </button>
+      </div>
+      <span class="sr-only" data-venue-view-status role="status"
+        >Edificio Principal, planta 0, orientación 1</span
+      >
+    </div>
+  </div>
+  {
+    aularioFloors.map((floor) => (
+      <section
+        class="aulario-note"
+        data-venue-floor-note={`aulario-${floor.level}`}
+        hidden
+        aria-label={`Información de la planta ${floor.level} del Aulario`}
+      >
+        <div class="aulario-note-heading">
+          <>
+            <span>ULP 2027</span>
+            <strong>Sin actividades asignadas</strong>
+          </>
+        </div>
+        <ul class="aulario-service-legend" aria-label="Servicios del plano">
+          {floor.services.map((service) => (
+            <li>
+              <VenueAmenityIcon kind={service.kind} />
+              {service.label}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+  {
+    venuePlans
+      .filter((plan) => venueAmenities[plan.id]?.length)
+      .map((plan) => (
+        <div
+          class="aulario-note"
+          data-venue-floor-note={plan.id}
+          hidden={plan.id !== 'principal-0'}
+        >
+          <ul class="aulario-service-legend" aria-label="Servicios del plano">
+            {venueAmenities[plan.id]!.map((service) => (
+              <li>
+                <VenueAmenityIcon kind={service.kind} />
+                {service.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+  }
+  <slot name="empty" />
+  <p class="venue-selection" data-venue-selection role="status" hidden></p>
+</div>
+<style>
+  @property --venue-label-turn {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
+  .venue-drawing,
+  .venue-drawing :global(*) {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .venue-drawing[data-panning] {
+    outline: none;
+  }
+  .venue-drawing[data-panning] :global(*) {
+    pointer-events: none;
+    outline: none;
+  }
+
+  [hidden],
+  [data-hidden] {
+    display: none !important;
+  }
+  .venue-explorer {
+    display: block;
+    padding-block: 40px 26px;
+    color: var(--ink);
+  }
+  .venue-map-column {
+    min-width: 0;
+    background: transparent;
+  }
+  .aulario-note {
+    padding: 20px 0 12px;
+    border-top: 1px solid var(--line);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  .aulario-note-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+  }
+  .aulario-note-heading span {
+    padding: 5px 9px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font:
+      10px ui-monospace,
+      monospace;
+  }
+  .aulario-note-heading strong {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .aulario-service-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    list-style: none;
+    padding: 0;
+    margin-block: 15px;
+  }
+  .aulario-service-legend li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+  }
+  .venue-map-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .venue-eyebrow {
+    font:
+      9px/1.6 ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  h3 {
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin-top: 10px;
+  }
+  .venue-clear {
+    font-size: 11px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .venue-selectors {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 6px;
+  }
+  .venue-selectors label {
+    display: grid;
+    gap: 7px;
+    min-width: 0;
+    flex: 1;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .venue-selectors select {
+    min-height: 42px;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+  .venue-canvas {
+    position: relative;
+  }
+  .venue-drawing {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 850px;
+    touch-action: pan-y;
+    user-select: none;
+  }
+  .venue-building {
+    transform-origin: 460px 350px;
+  }
+  .venue-callout {
+    cursor: pointer;
+  }
+  .venue-callout path {
+    stroke: currentColor;
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.35;
+  }
+  .venue-callout circle {
+    fill: var(--paper);
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .venue-callout rect {
+    fill: var(--paper);
+    stroke: var(--line);
+  }
+  .venue-callout text {
+    fill: currentColor;
+    font:
+      11px 'Inter Variable',
+      Inter,
+      sans-serif;
+  }
+  .venue-callout .venue-label-meta {
+    font-size: 8px;
+    opacity: 0.6;
+  }
+  .venue-callout.is-selected path,
+  .venue-callout:hover path {
+    opacity: 0.9;
+    stroke-width: 2;
+  }
+  .venue-callout.is-selected circle,
+  .venue-callout:hover circle {
+    fill: currentColor;
+  }
+  .venue-callout.is-selected rect,
+  .venue-callout:hover rect {
+    stroke: currentColor;
+  }
+  .venue-callout:focus-visible {
+    outline: none;
+  }
+  .venue-callout:focus-visible rect {
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .venue-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 12px;
+    margin-bottom: 28px;
+  }
+  .venue-controls button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 16px;
+    place-items: center;
+    min-width: 38px;
+    min-height: 38px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-size: 11px;
+    color: var(--ink);
+  }
+  .venue-controls button:hover {
+    background: color-mix(in srgb, var(--ink) 7%, transparent);
+  }
+  .venue-controls button:disabled {
+    cursor: wait;
+    opacity: 0.45;
+  }
+  .venue-selection {
+    font-size: 11px;
+    line-height: 1.7;
+    padding: 15px 10px 0;
+    color: var(--muted);
+  }
+  button:focus-visible,
+  a:focus-visible,
+  select:focus-visible,
+  .venue-drawing:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  @media (max-width: 600px) {
+    .venue-map-heading {
+      align-items: start;
+      flex-wrap: wrap;
+    }
+    .venue-selectors {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .venue-callout:not(.is-selected) [data-venue-leader],
+    .venue-callout:not(.is-selected) [data-venue-label] {
+      display: none;
+    }
+    .venue-callout.is-selected {
+      isolation: isolate;
+    }
+    .venue-callout circle {
+      r: 8;
+    }
+  }
+  .venue-callout .venue-hit {
+    fill: transparent;
+    stroke: none;
+  }
+  .venue-callout.is-selected .venue-hit,
+  .venue-callout:hover .venue-hit {
+    fill: transparent;
+  }
+  .venue-label-dismiss {
+    display: none;
+  }
+  .venue-zoom {
+    position: absolute;
+    right: 0;
+    top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 3px;
+    background: var(--paper);
+  }
+  .venue-zoom button {
+    touch-action: manipulation;
+    display: grid;
+    place-items: center;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .venue-zoom button:disabled {
+    opacity: 0.35;
+  }
+  .venue-zoom button:hover:not(:disabled) {
+    background: var(--surface);
+  }
+  .venue-drawing[data-zoomed] {
+    touch-action: none;
+    cursor: grab;
+  }
+  .venue-drawing[data-zoomed]:active {
+    cursor: grabbing;
+  }
+  @media (max-width: 600px) {
+    .venue-label-dismiss {
+      display: block;
+    }
+    .venue-callout.is-selected [data-venue-label] {
+      filter: drop-shadow(0 3px 5px rgb(0 35 55 / 0.15));
+    }
+    .venue-selection {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .venue-zoom {
+      top: 0;
+    }
+  }
+</style>

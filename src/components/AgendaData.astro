@@ -1,0 +1,24 @@
+---
+import { program, programEdition } from '../data/program';
+import { agendaEntryId } from '../utils/personal-agenda.js';
+const entries = program.map((entry) => ({
+  key: agendaEntryId(entry, programEdition.year),
+  activityId: entry.id,
+  name: entry.name,
+  label: entry.label,
+  location: entry.location,
+  startsAt: entry.startsAt,
+  endsAt: entry.endsAt,
+  href: entry.href,
+  time: entry.time,
+}));
+const json = JSON.stringify({ year: programEdition.year, entries }).replaceAll(
+  '<',
+  '\\u003c',
+);
+---
+
+<script is:inline type="application/json" data-agenda-data set:html={json} />
+<script>
+  import '../scripts/personal-agenda';
+</script>

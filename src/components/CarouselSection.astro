@@ -1,5 +1,6 @@
 ---
 import { darkStyles } from '../utils/all';
+import { getFlickrPhotos } from '../utils/flickr.js';
 
 interface Props {
   albumId: string;
@@ -8,492 +9,502 @@ interface Props {
   height?: string;
   instanceId?: string;
   unlimitedHeight?: boolean;
+  featuredPhotoId?: string;
+  centeredSlides?: boolean;
+  shufflePhotos?: boolean;
 }
 
-const { 
-  albumId, 
-  userId, 
+const {
+  albumId,
+  userId,
   withBackground = true,
-  height = "600px",
+  height = '600px',
+  featuredPhotoId,
+  centeredSlides = false,
+  shufflePhotos = false,
   instanceId = `carousel-${albumId}`,
-  unlimitedHeight = false
 } = Astro.props;
-
-const containerClass = withBackground 
-  ? `bg-gray-1 ${darkStyles} pt-10 pb-8 lg:pt-[120px] lg:pb-[70px]`
-  : 'bg-transparent';
+const photos: string[] = await getFlickrPhotos(albumId, userId);
+const photoPreviews: string[] = await getFlickrPhotos(albumId, userId, {
+  preview: true,
+});
+const featuredIndex = featuredPhotoId
+  ? photos.findIndex((source) =>
+      new URL(source).pathname
+        .split('/')
+        .at(-1)
+        ?.startsWith(`${featuredPhotoId}_`),
+    )
+  : -1;
+const images =
+  featuredIndex > 0
+    ? [
+        photos[featuredIndex],
+        ...photos.filter((_, index) => index !== featuredIndex),
+      ]
+    : photos;
+const previews =
+  featuredIndex > 0
+    ? [
+        photoPreviews[featuredIndex],
+        ...photoPreviews.filter((_, index) => index !== featuredIndex),
+      ]
+    : photoPreviews;
+const albumUrl = `https://www.flickr.com/photos/${encodeURIComponent(userId)}/albums/${encodeURIComponent(albumId)}`;
+const firstImage =
+  previews[0] ?? images[0] ?? '/assets/about/sobre-nosotros.png';
 ---
 
-<section class={containerClass}>
-  <div class="container w-full px-4">
-    <div class="wow fadeInUp" data-wow-delay=".2s">
-      <div class="flex flex-wrap items-center border-solid border-10">
-        <div class="w-full px-4">
-          <div
-            x-data={`imageSlider('${albumId}', '${userId}')`}
-            class="relative mx-auto w-full max-w-[90rem] rounded-lg bg-transparent"
-          >
-            <div 
-              class={`relative rounded-lg aspect-w-16 aspect-h-9 bg-transparent`} 
-              style={`height: ${height}`}
-              data-album-id={albumId}
-              data-user-id={userId}
-              id={instanceId}
+<section
+  class={withBackground ? `bg-gray-1 ${darkStyles} py-10` : 'bg-transparent'}
+  id={instanceId}
+  data-photo-carousel
+  data-shuffle-photos={shufflePhotos || undefined}
+  data-photos={JSON.stringify(images)}
+  data-centered-slides={centeredSlides || undefined}
+  data-previews={JSON.stringify(previews)}
+  aria-label="Fotos de UGR LAN Party"
+  aria-roledescription="carrusel"
+>
+  <div class="container px-4">
+    <div
+      data-carousel-stage
+      class:list={['carousel-stage', { 'centered-slides': centeredSlides }]}
+      hidden={!images.length}
+      style={`--carousel-height: ${height}`}
+    >
+      {
+        centeredSlides &&
+          [-1, 1].map((offset) => (
+            <button
+              type="button"
+              class:list={[
+                'carousel-neighbor',
+                offset < 0 ? 'neighbor-previous' : 'neighbor-next',
+              ]}
+              data-carousel-neighbor={offset}
+              aria-label={
+                offset < 0 ? 'Ver foto anterior' : 'Ver foto siguiente'
+              }
+              hidden={images.length < 2}
             >
-              <button
-                @click="previous()"
-                class="group absolute left-8 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100/80 hover:bg-primary shadow-md backdrop-blur-sm"
-              >
-                <svg
-                  class="w-4 h-4 text-gray-800 group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 1 1 5l4 4"></path>
-                </svg>
-              </button>
-
-              <button
-                @click="forward()"
-                class="group absolute right-8 top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100/80 hover:bg-primary shadow-md backdrop-blur-sm"
-              >
-                <svg
-                  class="w-4 h-4 text-gray-800 group-hover:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 9 4-4-4-4"></path>
-                </svg>
-              </button>
-
-              <div class="h-full w-full flex items-center justify-center overflow-hidden">
-                <!-- Loading indicator -->
-                <div 
-                  x-show="loading" 
-                  class="absolute inset-0 flex items-center justify-center bg-gray-100/50 backdrop-blur-sm"
-                >
-                  <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-                </div>
-
-                <template x-for="(image, index) in images">
-                  <div
-                    x-show="currentIndex == index + 1"
-                    x-transition:enter="transition transform duration-300"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="transition transform duration-300"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    class="absolute inset-0 flex items-center justify-center"
-                    @touchstart="handleTouchStart($event)"
-                    @touchmove="handleTouchMove($event)"
-                    @touchend="handleTouchEnd($event)"
-                  >
-                    <img
-                      :src="image"
-                      alt="image"
-                      class="w-full h-full object-cover cursor-pointer"
-                      @click="showModal = true; selectedImage = image"
-                      loading="lazy"
-                      decoding="async"
-                      fetchpriority="high"
-                    />
-                  </div>
-                </template>
-              </div>
-            </div>
-
-            <!-- Thumbnails section -->
-            <div class="mt-8 flex gap-4 justify-between w-full">
-              <template x-for="i in 5">
-                <div
-                  class="w-1/5 cursor-pointer transition-transform duration-300"
-                  @click="currentIndex = getVisibleThumbnailIndex(i)"
-                >
-                  <img
-                    :src="getThumbnailImage(i)"
-                    alt="thumbnail"
-                    class="w-full h-full object-cover rounded-md hover:opacity-75 transition-opacity aspect-video"
-                    :class="{'border-2 border-primary': currentIndex === getVisibleThumbnailIndex(i)}"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </template>
-            </div>
-
-          <!-- Modal para imagen completa -->
-          <div
-            x-cloak
-            x-show="!loading && showModal"
-            x-transition.opacity
-            class="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-8"
-            @click="showModal = false"
-          >
-            <!-- Fondo con desenfoque y vista previa -->
-            <div 
-              class="absolute inset-0 bg-black/30 backdrop-blur-xl"
-              :style="`background-image: url('${selectedImage}'); background-size: cover; background-position: center; filter: blur(20px) brightness(0.3);`"
-            ></div>
-
-            <!-- Contenedor principal -->
-            <div 
-              class="relative max-w-[95vw] max-h-[90vh] rounded-xl overflow-hidden shadow-2xl"
-              @click.stop
-            >
-              <!-- Botón anterior en el modal -->
-              <button
-                @click="previousModal()"
-                class="group absolute left-4 top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 hover:bg-primary text-white shadow-md backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
-              >
-                <svg
-                  class="w-4 h-4"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 1 1 5l4 4"></path>
-                </svg>
-              </button>
-
-              <!-- Botón siguiente en el modal -->
-              <button
-                @click="forwardModal()"
-                class="group absolute right-4 top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 hover:bg-primary text-white shadow-md backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
-              >
-                <svg
-                  class="w-4 h-4"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 9 4-4-4-4"></path>
-                </svg>
-              </button>
-
-              <!-- Imagen -->
               <img
-                :src="selectedImage"
-                alt="Full size image"
-                class="w-full h-full object-contain max-h-[90vh]"
+                src={
+                  previews[(offset + images.length) % images.length] ??
+                  firstImage
+                }
+                alt=""
+                width="800"
+                height="600"
                 loading="lazy"
                 decoding="async"
               />
-
-              <!-- Botón de cierre mejorado -->
-              <button
-                @click="showModal = false"
-                class="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 backdrop-blur-sm transition-all duration-300 transform hover:scale-110"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </button>
-
-              <!-- Contador de imágenes en el modal -->
-              <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full backdrop-blur-sm text-sm">
-                <span x-text="(images.indexOf(selectedImage) + 1) + ' / ' + images.length"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </button>
+          ))
+      }
+      <a
+        data-carousel-zoom
+        href={images[0] ?? albumUrl}
+        aria-label="Ampliar foto 1"
+        class="carousel-photo"
+      >
+        <img
+          data-carousel-image
+          src={firstImage}
+          alt="Foto 1 de UGR LAN Party"
+          width="1600"
+          height="1067"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="zoom-hint" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M9 3H3v6m12-6h6v6m0 6v6h-6m-6 0H3v-6"></path></svg
+          >
+        </span>
+      </a>
+      <button
+        type="button"
+        data-carousel-previous
+        class="photo-control previous"
+        aria-label="Foto anterior"
+        hidden
+        ><svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg
+        ></button
+      >
+      <button
+        type="button"
+        data-carousel-next
+        class="photo-control next"
+        aria-label="Foto siguiente"
+        hidden
+        ><svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg
+        ></button
+      >
+      <p data-carousel-counter class="photo-counter" aria-live="polite">
+        Foto 1 de {images.length}
+      </p>
+    </div>
+    <p
+      data-carousel-empty
+      role="status"
+      hidden={Boolean(images.length)}
+      class="py-8 text-center dark:text-white"
+    >
+      No se han podido cargar las fotos. Puedes consultarlas en el álbum de
+      Flickr.
+    </p>
+    <p data-carousel-status class="carousel-status" role="status" hidden></p>
+    <div class="album-action">
+      <a
+        href={albumUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="album-link bg-primary text-white hover:bg-tertiary focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
+        >Ver álbum completo</a
+      >
     </div>
   </div>
+  <dialog data-carousel-dialog aria-label="Foto ampliada de UGR LAN Party">
+    <img
+      data-carousel-expanded
+      src={firstImage}
+      alt="Foto ampliada de UGR LAN Party"
+      width="1600"
+      height="1067"
+      loading="lazy"
+    />
+    <button
+      type="button"
+      data-carousel-close
+      class="photo-control close"
+      aria-label="Cerrar foto ampliada"
+      autofocus
+      ><svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg
+      ></button
+    >
+    <button
+      type="button"
+      data-expanded-previous
+      class="photo-control previous"
+      aria-label="Foto anterior ampliada"
+      hidden
+      ><svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg
+      ></button
+    >
+    <button
+      type="button"
+      data-expanded-next
+      class="photo-control next"
+      aria-label="Foto siguiente ampliada"
+      hidden
+      ><svg
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg
+      ></button
+    >
+  </dialog>
 </section>
 
-<!-- Cargar Alpine.js de manera más eficiente -->
 <script>
-  // Precargar Alpine.js
-  const alpineScript = document.createElement('script');
-  alpineScript.defer = true;
-  alpineScript.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js';
-  document.head.appendChild(alpineScript);
-</script>
-
-<script define:vars={{ albumId, userId }}>
-  async function getFlickrPhotos(albumId, userId) {
-    const API_KEY = '4f8fd63b2a81e73b7fa5425eb902e2b9';
-    const timestamp = new Date().getTime();
-    const cacheKey = `flickr_${albumId}_${userId}`;
-    
-    // Intentar obtener del cache
-    const cached = sessionStorage.getItem(cacheKey);
-    if (cached) {
-      return JSON.parse(cached);
-    }
-
-    const url = `https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${API_KEY}&photoset_id=${albumId}&user_id=${userId}&format=json&nojsoncallback=1&extras=url_k,url_h,url_b,url_c,o_dims&timestamp=${timestamp}`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      // IDs de los álbumes de la 5ª, 6ª y 7ª edición
-      const newEditionAlbums = [
-        //'72177720316026867', // 6ª edición
-        //'72177720308548822', // 5ª edición
-        '72177720328590176'  // 7ª edición
-      ];
-
-      const processedImages = data.photoset.photo
-        .map(photo => {
-          const bestUrl = photo.url_k || photo.url_h || photo.url_b || photo.url_c;
-          
-          if (newEditionAlbums.includes(albumId)) {
-            if (photo.width_k && photo.height_k && photo.width_k > photo.height_k) {
-              return bestUrl;
-            }
-            return null;
-          }
-          
-          return bestUrl;
-        })
-        .filter(url => url);
-
-      // Guardar en cache
-      sessionStorage.setItem(cacheKey, JSON.stringify(processedImages));
-      return processedImages;
-    } catch (error) {
-      console.error(`[Flickr API] Error fetching photos for album ${albumId}:`, error);
-      return [];
-    }
-  }
-
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('imageSlider', (albumId, userId) => ({
-      currentIndex: 1,
-      images: [],
-      loading: true,
-      showModal: false,
-      selectedImage: null,
-      albumId,
-      userId,
-      thumbnailStartIndex: 0, // Nueva propiedad para seguir el índice inicial de miniaturas
-
-      async init() {
-        this.loading = true;
-        this.images = await getFlickrPhotos(this.albumId, this.userId);
-        this.loading = false;
-        this.preloadAdjacentImages();
-
-        // Variables para control táctil y modal
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-        this.touchStartTime = 0;
-        this.minSwipeDistance = 50;
-        this.maxTapDuration = 200;
-        this.hasMoved = false;
-        this.showModal = false;
-        this.selectedImage = null;
-      },
-
-      previousModal() {
-        const currentIndex = this.images.indexOf(this.selectedImage);
-        if (currentIndex > 0) {
-          this.selectedImage = this.images[currentIndex - 1];
-          // Sincronizar el índice del carrusel principal
-          this.currentIndex = currentIndex; // currentIndex empieza en 1, pero array empieza en 0
-        } else {
-          // Ir a la última imagen si estamos en la primera
-          this.selectedImage = this.images[this.images.length - 1];
-          this.currentIndex = this.images.length;
-        }
-      },
-
-      forwardModal() {
-        const currentIndex = this.images.indexOf(this.selectedImage);
-        if (currentIndex < this.images.length - 1) {
-          this.selectedImage = this.images[currentIndex + 1];
-          this.currentIndex = currentIndex + 2; // +2 porque currentIndex empieza en 1 y array en 0
-        } else {
-          // Ir a la primera imagen si estamos en la última
-          this.selectedImage = this.images[0];
-          this.currentIndex = 1;
-        }
-      },
-
-      handleTouchStart(event) {
-        this.touchStartX = event.touches[0].clientX;
-        this.touchStartTime = new Date().getTime();
-        this.hasMoved = false;
-      },
-
-      handleTouchMove(event) {
-        this.touchEndX = event.touches[0].clientX;
-        this.hasMoved = true;
-      },
-
-      handleTouchEnd(event) {
-        const touchDuration = new Date().getTime() - this.touchStartTime;
-        const swipeDistance = this.touchEndX - this.touchStartX;
-
-        // Si no se movió y el toque fue corto, tratar como click
-        if (!this.hasMoved && touchDuration < this.maxTapDuration) {
-          this.showModal = true;
-          this.selectedImage = this.images[this.currentIndex - 1];
-          return;
-        }
-
-        // Solo procesar el swipe si la distancia es suficiente
-        if (Math.abs(swipeDistance) >= this.minSwipeDistance) {
-          if (swipeDistance > 0) {
-            this.previous();
-          } else {
-            this.forward();
-          }
-        }
-
-        // Resetear valores
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-        this.hasMoved = false;
-      },
-
-      getThumbnailIndex(position) {
-        // Si hay menos de 5 imágenes, usar el índice directamente
-        if (this.images.length <= 5) {
-          return position;
-        }
-        // Para más de 5 imágenes, usar la lógica original
-        let baseIndex = Math.floor((this.currentIndex - 1) / 5) * 5 + position;
-        return ((baseIndex - 1) % this.images.length) + 1;
-      },
-
-      getVisibleThumbnailIndex(position) {
-        return ((this.thumbnailStartIndex + position - 1) % this.images.length) + 1;
-      },
-
-      getThumbnailImage(position) {
-        const index = this.getVisibleThumbnailIndex(position) - 1;
-        return this.images[index] || '';
-      },
-
-      previous() {
-        if (this.currentIndex > 1) {
-          this.currentIndex--;
-        } else {
-          this.currentIndex = this.images.length;
-        }
-        this.updateThumbnailStartIndex();
-      },
-
-      forward() {
-        if (this.currentIndex < this.images.length) {
-          this.currentIndex++;
-        } else {
-          this.currentIndex = 1;
-        }
-        this.updateThumbnailStartIndex();
-      },
-
-      updateThumbnailStartIndex() {
-        // Calcula el índice inicial de las miniaturas para mantener la imagen actual centrada
-        let newStartIndex = this.currentIndex - 3;
-        
-        // Ajusta el índice si está fuera de los límites
-        if (newStartIndex < 0) {
-          newStartIndex = this.images.length + newStartIndex;
-        }
-        
-        this.thumbnailStartIndex = newStartIndex;
-      },
-
-      preloadAdjacentImages() {
-        const preloadImage = (index) => {
-          if (index >= 0 && index < this.images.length) {
-            const img = new Image();
-            img.src = this.images[index];
-          }
-        };
-
-        // Precargar siguiente y anterior
-        this.$watch('currentIndex', (index) => {
-          preloadImage(index);
-          preloadImage(index - 2);
-          preloadImage(index);
-        });
-      },
-    }));
-  });
+  import '../scripts/photo-carousel';
 </script>
 
 <style>
-  [x-cloak] {
+  [hidden] {
     display: none !important;
   }
-
-  /* Asegurar que todas las imágenes se ajustan correctamente */
-  [data-album-id] img {
-    object-fit: cover !important;
+  .carousel-stage.centered-slides {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .centered-slides .carousel-photo {
+    grid-column: 2;
+    grid-row: 1;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgb(0 35 55 / 0.12);
+  }
+  .centered-slides .carousel-photo img {
+    object-fit: cover;
+    object-position: center;
+  }
+  .carousel-neighbor {
+    display: block;
+    grid-row: 1;
+    min-width: 0;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+    opacity: 0.42;
+    filter: blur(1px) saturate(0.65);
+    transform: scale(0.94);
+    transition:
+      opacity 220ms ease,
+      filter 220ms ease;
+    cursor: pointer;
+  }
+  .carousel-neighbor:hover,
+  .carousel-neighbor:focus-visible {
+    opacity: 0.7;
+    filter: blur(0) saturate(0.85);
+  }
+  .carousel-neighbor:focus-visible {
+    outline: 2px solid var(--ink, #004465);
+    outline-offset: -3px;
+  }
+  .neighbor-previous {
+    grid-column: 1;
+  }
+  .neighbor-next {
+    grid-column: 3;
+  }
+  .carousel-neighbor img {
+    display: block;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
-
-  /* Mantener la vista completa en el modal */
-  .fixed.inset-0 img {
-    object-fit: contain !important;
+  .centered-slides .photo-counter {
+    left: calc(33.333% + 18px);
   }
-
-  /* Estilos para el modal */
-  .fixed.inset-0 {
-    perspective: 1000px;
+  .centered-slides .zoom-hint {
+    right: calc(33.333% + 18px);
   }
-
-  /* Animación suave para la apertura del modal */
-  .fixed.inset-0[x-show] {
-    animation: modalFadeIn 0.3s ease-out;
-  }
-
-  @keyframes modalFadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
+  @media (max-width: 700px) {
+    .carousel-stage.centered-slides {
+      grid-template-columns: repeat(3, 70%);
+      justify-content: center;
+      gap: 10px;
     }
-    to {
-      opacity: 1;
-      transform: scale(1);
+    .centered-slides .photo-counter {
+      left: calc(15% + 8px);
+      bottom: 10px;
+      font-size: 10px;
+      padding: 6px 9px;
+    }
+    .centered-slides .zoom-hint {
+      right: calc(15% + 8px);
+      bottom: 10px;
+      width: 32px;
+      height: 32px;
+    }
+    .centered-slides .photo-control {
+      width: 36px;
+      height: 36px;
+      top: calc(50% - 18px);
+    }
+    .centered-slides .previous {
+      left: 2px;
+    }
+    .centered-slides .next {
+      right: 2px;
     }
   }
-
-  /* Optimizar renderizado */
-  .backdrop-blur-xl {
-    will-change: backdrop-filter;
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-neighbor {
+      transition: none;
+    }
+  }
+  .carousel-status {
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+    margin-top: 16px;
+  }
+  .album-action {
+    display: flex;
+    justify-content: center;
+    padding-top: 18px;
+  }
+  .album-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .album-link::before {
+    content: '';
+    position: absolute;
+    inset: -5px 0;
+  }
+  .carousel-stage {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    width: min(100%, calc(min(var(--carousel-height), 75svh) * 4 / 3));
+    aspect-ratio: 4 / 3;
+    margin-inline: auto;
+    border: 0;
+    border-radius: 1.5rem;
+    background: #0d2438;
+    box-shadow: 0 16px 40px #0044651a;
+  }
+  .carousel-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: zoom-in;
+  }
+  .carousel-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo-control {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ffffff44;
+    border-radius: 50%;
+    background: #071b2dde;
+    color: white;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+  }
+  .photo-control:hover {
+    background: #006471;
+    transform: scale(1.05);
+  }
+  .photo-control:focus-visible,
+  .carousel-photo:focus-visible {
+    outline: 3px solid #96c1d6;
+    outline-offset: -5px;
+  }
+  .previous {
+    left: 0.75rem;
+    top: calc(50% - 24px);
+  }
+  .next {
+    right: 0.75rem;
+    top: calc(50% - 24px);
+  }
+  .close {
+    top: 1rem;
+    right: 1rem;
+  }
+  .photo-counter,
+  .zoom-hint {
+    position: absolute;
+    bottom: 0.8rem;
+    border-radius: 999px;
+    background: #071b2dde;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    pointer-events: none;
+  }
+  .photo-counter {
+    left: 0.8rem;
+  }
+  .zoom-hint {
+    right: 0.8rem;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 0.65rem;
+  }
+  dialog {
+    width: min(
+      calc(100vw - 2rem),
+      calc((100svh - 2rem) * var(--photo-ratio, 1.5))
+    );
+    max-width: 1440px;
+    height: auto;
+    aspect-ratio: var(--photo-ratio, 1.5);
+    max-height: calc(100svh - 2rem);
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 1.5rem;
+    background: transparent;
+  }
+  dialog::backdrop {
+    background: #020b16e8;
+    backdrop-filter: blur(8px);
+  }
+  dialog img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .carousel-stage,
+  dialog {
+    touch-action: pan-y pinch-zoom;
+  }
+  @media (max-width: 700px) {
+    [data-carousel-previous],
+    [data-carousel-next],
+    [data-expanded-previous],
+    [data-expanded-next] {
+      display: none;
+    }
   }
 </style>

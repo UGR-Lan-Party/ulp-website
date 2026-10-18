@@ -1,120 +1,98 @@
 ---
+import '../styles/proposal.css';
+import '../styles/reduced-motion.css';
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
-import { darkStyles } from '../utils/all';
-
+import PartnerStrip from '../components/PartnerStrip.astro';
+import PartnerLogoFilters from '../components/PartnerLogoFilters.astro';
 interface Props {
   description?: string;
   title?: string;
   image?: string;
+  noindex?: boolean;
 }
-
-const { description, title, image } = Astro.props;
+const { description, title, image, noindex = false } = Astro.props;
+const siteName = 'UGR LAN Party';
+const pageTitle =
+  title && title !== 'Inicio' ? `${title} | ${siteName}` : siteName;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  alternateName: 'ULP',
+  url: new URL('/', Astro.site).href,
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <link rel="canonical" href={canonicalUrl} />
+      )
+    }
+    <meta name="application-name" content={siteName} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    {!noindex && <meta property="og:url" content={canonicalUrl.href} />}
+    <meta property="og:type" content="website" />
+    <meta name="twitter:title" content={pageTitle} />
+    {
+      Astro.url.pathname === '/' && (
+        <script type="application/ld+json" set:html={JSON.stringify(website)} />
+      )
+    }
     <meta property="og:image" content={image} />
     <meta property="twitter:image" content={image} />
-
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('theme');
+        document.documentElement.classList.toggle(
+          'dark',
+          theme === 'dark' ||
+            (theme !== 'light' &&
+              matchMedia('(prefers-color-scheme: dark)').matches),
+        );
+      } catch {
+        document.documentElement.classList.toggle(
+          'dark',
+          matchMedia('(prefers-color-scheme: dark)').matches,
+        );
+      }
+    </script>
     <script
       defer
       src="https://analytics.wupp.dev/script.js"
       data-website-id="bf67b9c0-6b15-4d11-af7b-3c56661b8f2e"></script>
-
-    <title>{title ? title + ' | ULP' : 'UGR Lan Party'}</title>
+    <title>{pageTitle}</title>
   </head>
-  <body class={`h-screen ${darkStyles}`}>
+  <body>
+    <PartnerLogoFilters />
+    <a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
     <Header />
-    <!-- <Header client:load /> -->
-    <main class="min-h-screen mt-12 sm:mt-12 lg:mt-6">
-      <slot />
-    </main>
+    <main id="contenido-principal" tabindex="-1"><slot /></main>
+    {Astro.url.pathname !== '/' && <PartnerStrip />}
     <Footer />
     <BackToTop />
-    <style is:global>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .sticky-header {
-        @apply fixed z-[9999] bg-white/80 dark:bg-dark/80 transition;
-        backdrop-filter: blur(5px);
-        box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-      }
-
-      .sticky-header .navbar-logo {
-        @apply py-2;
-      }
-
-      .sticky-header #navbarToggler span {
-        @apply bg-dark dark:bg-white;
-      }
-
-      .sticky-header #navbarCollapse li > a {
-        @apply text-dark dark:text-white hover:text-primary dark:hover:text-primary hover:opacity-100;
-      }
-      #navbarCollapse li .ud-menu-scroll.active {
-        @apply opacity-70;
-      }
-      .sticky-header #navbarCollapse li .ud-menu-scroll.active {
-        @apply text-primary opacity-100;
-      }
-      .sticky-header .loginBtn {
-        @apply text-dark dark:text-white hover:text-primary dark:hover:text-primary hover:opacity-100;
-      }
-
-      .sticky-header .signUpBtn {
-        @apply bg-primary text-white hover:bg-blue-dark hover:text-white;
-      }
-
-      .sticky-header #themeSwitcher span {
-        @apply text-dark dark:text-white;
-      }
-
-      .navbarTogglerActive > span:nth-child(1) {
-        @apply top-[7px] rotate-45 transform;
-      }
-      .navbarTogglerActive > span:nth-child(2) {
-        @apply opacity-0;
-      }
-      .navbarTogglerActive > span:nth-child(3) {
-        @apply top-[-8px] rotate-[135deg];
-      }
-
-      .common-carousel .swiper-button-next:after,
-      .common-carousel .swiper-button-prev:after {
-        @apply hidden;
-      }
-
-      .common-carousel .swiper-button-next,
-      .common-carousel .swiper-button-prev {
-        @apply !static h-12 w-12 rounded-lg bg-white dark:bg-dark shadow-testimonial-btn text-dark dark:text-white m-0 ease-out duration-200 hover:bg-primary hover:text-white hover:shadow-none;
-      }
-
-      .common-carousel .swiper-button-next svg,
-      .common-carousel .swiper-button-prev svg {
-        @apply w-auto h-auto;
-      }
-    </style>
     <script>
-      import '../scripts/stickymenu.js';
       import '../scripts/dropdown.js';
       import '../scripts/darkMode.js';
-      import '../scripts/scrolltop.js';
+      import '../scripts/analytics';
+      import '../scripts/visual-motion';
     </script>
   </body>
 </html>

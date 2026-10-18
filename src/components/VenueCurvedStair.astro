@@ -1,0 +1,54 @@
+---
+interface Props {
+  x: number;
+  y: number;
+  innerRadius: number;
+  outerRadius: number;
+  startAngle: number;
+  endAngle: number;
+  steps?: number;
+}
+const {
+  x,
+  y,
+  innerRadius,
+  outerRadius,
+  startAngle,
+  endAngle,
+  steps = 10,
+} = Astro.props;
+const point = (radius: number, angle: number) => {
+  const radians = (angle * Math.PI) / 180;
+  return `${(x + radius * Math.cos(radians)).toFixed(3)} ${(y + radius * Math.sin(radians)).toFixed(3)}`;
+};
+const outline = `M${point(outerRadius, startAngle)}A${outerRadius} ${outerRadius} 0 0 1 ${point(outerRadius, endAngle)}L${point(innerRadius, endAngle)}A${innerRadius} ${innerRadius} 0 0 0 ${point(innerRadius, startAngle)}Z`;
+---
+
+<g class="venue-curved-stair">
+  <path class="stair-band" d={outline}></path>
+  {
+    Array.from({ length: steps - 1 }, (_, index) => {
+      const angle =
+        startAngle + ((index + 1) * (endAngle - startAngle)) / steps;
+      return (
+        <path
+          class="stair-riser"
+          d={`M${point(innerRadius, angle)}L${point(outerRadius, angle)}`}
+        />
+      );
+    })
+  }
+</g>
+<style>
+  path {
+    stroke: currentColor;
+    stroke-width: 0.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .stair-band {
+    fill: currentColor;
+    fill-opacity: 0.055;
+  }
+</style>

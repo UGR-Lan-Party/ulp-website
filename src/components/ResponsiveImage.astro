@@ -1,0 +1,30 @@
+---
+import manifest from '../data/image-manifest.json';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'img'> {
+  src: string;
+  alt: string;
+}
+const {
+  src,
+  alt,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 640px',
+  loading = 'lazy',
+  ...attributes
+} = Astro.props;
+const image = manifest[src as keyof typeof manifest];
+const sources = image?.sources;
+---
+
+<img
+  {...attributes}
+  src={sources?.at(-1)?.src ?? src}
+  srcset={sources?.map((source) => `${source.src} ${source.width}w`).join(', ')}
+  sizes={sources ? sizes : undefined}
+  width={image?.width ?? attributes.width}
+  height={image?.height ?? attributes.height}
+  alt={alt}
+  loading={loading}
+  decoding="async"
+/>

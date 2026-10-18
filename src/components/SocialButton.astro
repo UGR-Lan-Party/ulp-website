@@ -1,5 +1,7 @@
 ---
 import type { RRSSLink } from '../data/sponsors.ts';
+import TelegramIcon from '../../public/assets/icons/TelegramIcon.astro';
+import GitHubIcon from '../../public/assets/icons/GitHubIcon.astro';
 import XIcon from '../../public/assets/icons/XIcon.astro';
 import FacebookIcon from '../../public/assets/icons/FacebookIcon.astro';
 import InstagramIcon from '../../public/assets/icons/InstagramIcon.astro';
@@ -10,10 +12,15 @@ import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
 
 interface Props {
   sponsorLink: RRSSLink;
+  monochrome?: boolean;
+  compact?: boolean;
 }
-const { sponsorLink } = Astro.props as Props;
+const {
+  sponsorLink,
+  monochrome = false,
+  compact = false,
+} = Astro.props as Props;
 
-// 🎨 Colores oficiales por red
 const hoverColors: Record<string, string> = {
   X: 'hover:text-black dark:hover:text-white',
   Instagram: 'hover:text-pink-500 hover:dark:text-pink-400',
@@ -24,22 +31,84 @@ const hoverColors: Record<string, string> = {
   Web: 'hover:text-primary hover:dark:text-primary',
 };
 
+const supported = [
+  'X',
+  'Instagram',
+  'Facebook',
+  'LinkedIn',
+  'TikTok',
+  'YouTube',
+  'Web',
+  'Telegram',
+  'GitHub',
+  'Correo',
+  'Teléfono',
+].includes(sponsorLink.rrss);
 const hoverClass = hoverColors[sponsorLink.rrss] ?? 'hover:text-primary';
 ---
 
-<a
-  href={sponsorLink.link}
-  target="_blank"
-  rel="noopener noreferrer"
-  class={`text-gray-300 dark:text-gray-600 ${hoverClass}
-          transition-all duration-300 ease-in-out
+{
+  supported && (
+    <a
+      href={sponsorLink.link}
+      aria-label={
+        sponsorLink.rrss === 'Correo'
+          ? 'Enviar correo'
+          : sponsorLink.rrss === 'Teléfono'
+            ? 'Llamar por teléfono'
+            : sponsorLink.rrss === 'Web'
+              ? 'Visitar sitio web'
+              : sponsorLink.rrss
+      }
+      target="_blank"
+      rel="noopener noreferrer"
+      class={`inline-flex h-10 w-10 shrink-0 items-center justify-center ${compact ? 'social-compact' : ''} ${monochrome ? 'text-white' : `text-gray-300 dark:text-gray-600 ${hoverClass}`}
+          transition-transform duration-300 ease-in-out
           hover:scale-110`}
->
-  {sponsorLink.rrss === 'X' && <XIcon />}
-  {sponsorLink.rrss === 'Facebook' && <FacebookIcon />}
-  {sponsorLink.rrss === 'Web' && <WebIcon />}
-  {sponsorLink.rrss === 'Instagram' && <InstagramIcon />}
-  {sponsorLink.rrss === 'LinkedIn' && <LinkedInIcon />}
-  {sponsorLink.rrss === 'TikTok' && <TikTokIcon />}
-  {sponsorLink.rrss === 'YouTube' && <YouTubeIcon />}
-</a>
+    >
+      {sponsorLink.rrss === 'X' && <XIcon />}
+      {sponsorLink.rrss === 'Telegram' && <TelegramIcon />}
+      {sponsorLink.rrss === 'GitHub' && <GitHubIcon />}
+      {sponsorLink.rrss === 'Facebook' && <FacebookIcon />}
+      {sponsorLink.rrss === 'Web' && <WebIcon />}
+      {sponsorLink.rrss === 'Instagram' && <InstagramIcon />}
+      {sponsorLink.rrss === 'LinkedIn' && <LinkedInIcon />}
+      {sponsorLink.rrss === 'TikTok' && <TikTokIcon />}
+      {sponsorLink.rrss === 'YouTube' && <YouTubeIcon />}
+      {sponsorLink.rrss === 'Correo' && (
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <rect x="3" y="5" width="18" height="14" rx="3" />
+          <path d="m3 7 9 6 9-6" />
+        </svg>
+      )}
+      {sponsorLink.rrss === 'Teléfono' && (
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <path d="M7 3H4a1 1 0 0 0-1 1c0 9.4 7.6 17 17 17a1 1 0 0 0 1-1v-3l-5-2-2 2a14 14 0 0 1-7-7l2-2-2-5Z" />
+        </svg>
+      )}
+    </a>
+  )
+}
+
+<style>
+  .social-compact :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+</style>

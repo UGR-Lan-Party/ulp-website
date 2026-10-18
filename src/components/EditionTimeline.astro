@@ -1,0 +1,253 @@
+---
+import { pastEditions } from '../data/past-editions';
+const editions = [...pastEditions]
+  .sort((a, b) => a.year - b.year)
+  .map((edition) => ({
+    year: String(edition.year),
+    label: edition.title,
+    target: `#edicion-${edition.year}`,
+  }));
+const pauseIndex = editions.findIndex((edition) => edition.year === '2023');
+editions.splice(pauseIndex, 0, {
+  year: '2020–22',
+  label: 'Time-skip',
+  target: '',
+});
+editions.push({
+  year: '2026',
+  label: 'Octava edición',
+  target: '#edicion-2026',
+});
+---
+
+<section class="edition-timeline" aria-labelledby="timeline-title">
+  <header>
+    <div>
+      <span class="design-eyebrow">2016 — 2026</span><h2 id="timeline-title">
+        Una historia.<br /><em>Muchas partidas.</em>
+      </h2>
+    </div>
+  </header>
+  <nav aria-label="Cronograma de ediciones ULP">
+    <ol>
+      {
+        editions.map((edition, index) => (
+          <li
+            style={`--timeline-delay:${index * 110}ms`}
+            class:list={{
+              'timeline-pause': !edition.target,
+              'timeline-latest': edition.year === '2026',
+            }}
+          >
+            {edition.target ? (
+              <a href={edition.target}>
+                <span>{edition.label}</span>
+                <i aria-hidden="true" />
+                <strong>{edition.year}</strong>
+              </a>
+            ) : (
+              <div>
+                <span>{edition.label}</span>
+                <i aria-hidden="true" />
+                <strong>{edition.year}</strong>
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+</section>
+<script>
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  document
+    .querySelectorAll<HTMLElement>('.edition-timeline')
+    .forEach((timeline) => {
+      if (motion.matches) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          timeline.classList.add('timeline-enter');
+          observer.disconnect();
+        },
+        { threshold: 0.15 },
+      );
+      observer.observe(timeline);
+    });
+</script>
+<style>
+  .edition-timeline {
+    background: #062d43;
+    color: #f5f0e6;
+    border: 1px solid rgb(245 240 230 / 0.12);
+    border-radius: 20px;
+    padding: clamp(25px, 4vw, 48px);
+    margin-bottom: 55px;
+  }
+  header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 25px;
+  }
+  .design-eyebrow {
+    font-size: 9px;
+    opacity: 0.65;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(29px, 3.4vw, 45px);
+    font-weight: 750;
+    line-height: 1.05;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  nav {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-color: #527c89 #062d43;
+    scrollbar-width: thin;
+    margin-inline: -8px;
+    margin-top: 28px;
+    padding: 8px 8px 16px;
+    scroll-snap-type: x proximity;
+  }
+  ol {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(9, minmax(105px, 1fr));
+    min-width: 945px;
+  }
+  ol::before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    top: 70px;
+    left: 5.55%;
+    right: 5.55%;
+    background:
+      linear-gradient(
+        90deg,
+        transparent 40%,
+        #0094a1 46%,
+        #b1d7dd 50%,
+        #0094a1 54%,
+        transparent 60%
+      ),
+      linear-gradient(90deg, #527c89, #0094a1);
+    background-size:
+      250% 100%,
+      100% 100%;
+    background-position:
+      100% 0,
+      0 0;
+    background-repeat: no-repeat;
+    animation: timeline-tone 9s linear infinite;
+    pointer-events: none;
+  }
+  li {
+    position: relative;
+    text-align: center;
+    scroll-snap-align: center;
+  }
+  li a,
+  li > div {
+    display: grid;
+    grid-template-rows: 48px 18px auto;
+    justify-items: center;
+    align-items: end;
+    gap: 14px;
+    border-radius: 8px;
+  }
+  li span {
+    font-size: 11px;
+    line-height: 1.5;
+    max-width: 95px;
+  }
+  i {
+    width: 18px;
+    height: 18px;
+    background: #f5f0e6;
+    border: 4px solid #062d43;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px #7596a0;
+    transition:
+      transform 200ms ease,
+      background 200ms ease;
+  }
+  strong {
+    font-size: 16px;
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+  }
+  a:hover i {
+    transform: scale(1.3);
+    background: #00a7ad;
+  }
+  .timeline-pause {
+    opacity: 0.5;
+  }
+  .timeline-pause i {
+    background: #062d43;
+  }
+  .timeline-pause strong {
+    font-size: 13px;
+  }
+  .timeline-latest i {
+    background: #00a7ad;
+    box-shadow: 0 0 0 2px #00a7ad;
+  }
+  @keyframes timeline-tone {
+    from {
+      background-position:
+        100% 0,
+        0 0;
+    }
+    to {
+      background-position:
+        0% 0,
+        0 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ol::before {
+      animation: none;
+      background: linear-gradient(90deg, #527c89, #0094a1);
+    }
+    i {
+      transition: none;
+    }
+  }
+  @media (max-width: 650px) {
+    header {
+      align-items: start;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .edition-timeline {
+      margin-bottom: 35px;
+    }
+  }
+  .timeline-enter li i {
+    animation: timeline-point 420ms var(--timeline-delay) both
+      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes timeline-point {
+    from {
+      opacity: 0;
+      scale: 0.3;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-enter li i {
+      animation: none;
+    }
+  }
+</style>

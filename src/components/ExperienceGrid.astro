@@ -1,0 +1,264 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import ActivityTile from './ActivityTile.astro';
+import { getActivitiesByTag } from '../utils/activity-navigation';
+const featuredIds = ['mario-kart', 'hacking', 'league-of-legends'];
+const games = [
+  ...featuredIds,
+  ...getActivitiesByTag('competicion')
+    .map((game) => game.id)
+    .filter((id) => !featuredIds.includes(id)),
+];
+const heading = 'Compite en tus juegos favoritos';
+---
+
+<section id="experiencias" class="design-section design-container">
+  <div class="design-section-header">
+    <div>
+      <span class="design-eyebrow">01 / Encuentra tu partida</span><h2
+        class="design-heading"
+        id="experience-title"
+        aria-label={heading}
+        data-home-text-reveal
+      >
+        {
+          heading.split(' ').map((word, index) => (
+            <Fragment>
+              {index > 0 && ' '}
+              <span class="heading-word" data-text-word aria-hidden="true">
+                {word}
+              </span>
+            </Fragment>
+          ))
+        }
+      </h2>
+    </div>
+    <a class="design-link" href="/actividades"
+      >Explorar actividades <span aria-hidden="true"><ArrowUpRight /></span></a
+    >
+  </div>
+  <div
+    class="experience-carousel"
+    data-experience-carousel
+    role="region"
+    aria-roledescription="carrusel"
+    aria-labelledby="experience-title"
+  >
+    <div class="experience-rail">
+      <button
+        class="experience-arrow experience-previous"
+        type="button"
+        data-experience-previous
+        aria-label="Competiciones anteriores"
+        hidden
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"><path d="m14 6-6 6 6 6"></path></svg
+        >
+      </button>
+      <div class="experience-viewport" aria-live="off">
+        <div class="experience-track" data-experience-track>
+          {
+            games.map((id, index) => (
+              <div
+                class="experience-slide"
+                data-activity-id={id}
+                data-visible={index < 3 || undefined}
+                inert={index >= 3}
+                aria-hidden={index >= 3 ? 'true' : undefined}
+              >
+                <ActivityTile
+                  id={id}
+                  reveal={false}
+                  sizes="(max-width: 700px) 30vw, (max-width: 1360px) 28vw, 380px"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <button
+        class="experience-arrow experience-next"
+        type="button"
+        data-experience-next
+        aria-label="Competiciones siguientes"
+        hidden
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"><path d="m10 6 6 6-6 6"></path></svg
+        >
+      </button>
+    </div>
+    <div class="experience-bottom">
+      <p class="experience-note">
+        Un vistazo a las actividades de 2026. Estamos preparando la próxima
+        edición.
+      </p>
+    </div>
+    <p class="sr-only" role="status" data-experience-status></p>
+  </div>
+</section>
+<script>
+  import '../scripts/experience-carousel';
+</script>
+<style>
+  #experiencias {
+    padding-bottom: clamp(40px, 5vw, 70px);
+  }
+  [hidden] {
+    display: none !important;
+  }
+  .experience-rail {
+    position: relative;
+  }
+  .experience-viewport {
+    overflow: hidden;
+    padding-block: 12px 22px;
+    margin-block: -12px -22px;
+  }
+  .experience-track {
+    display: flex;
+    gap: 22px;
+    align-items: stretch;
+  }
+  .experience-slide {
+    flex: 0 0 calc((100% - 44px) / 3);
+    min-width: 0;
+  }
+  .experience-slide :global(.activity-tile) {
+    height: 100%;
+  }
+  .experience-arrow {
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+    transition:
+      background 200ms,
+      border-color 200ms;
+  }
+  .experience-arrow {
+    position: absolute;
+    top: 38%;
+    width: 38px;
+    height: 38px;
+    z-index: 4;
+  }
+  .experience-previous {
+    left: -20px;
+  }
+  .experience-next {
+    right: -20px;
+  }
+  .experience-arrow:hover {
+    background: var(--surface);
+    border-color: var(--ink);
+  }
+  .experience-arrow:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+  .experience-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 22px;
+  }
+  @media (max-width: 700px) {
+    .experience-track {
+      gap: 8px;
+    }
+    .experience-slide {
+      flex-basis: calc((100% - 16px) / 3);
+    }
+    .experience-slide :global(.activity-tile) {
+      border-radius: 10px;
+    }
+    .experience-slide :global(.activity-tile-media) {
+      aspect-ratio: 0.85;
+    }
+    .experience-slide :global(.activity-tile-content) {
+      padding: 12px 7px;
+    }
+    .experience-slide :global(h3) {
+      font-size: clamp(11px, 2.8vw, 18px);
+      line-height: 1.25;
+      margin-bottom: 0;
+      overflow-wrap: anywhere;
+    }
+    .experience-slide :global(.activity-tile-content p),
+    .experience-slide :global(.activity-tile-tag),
+    .experience-slide :global(.activity-tile-arrow) {
+      display: none;
+    }
+    .experience-slide :global(.activity-tile-logo) {
+      width: 38px;
+      height: 24px;
+      top: 8px;
+      left: 8px;
+    }
+    .experience-slide :global(.activity-tile-emblem) {
+      width: 20px;
+      height: 20px;
+    }
+    .experience-arrow {
+      width: 28px;
+      height: 28px;
+      top: 33%;
+    }
+    .experience-previous {
+      left: -12px;
+    }
+    .experience-next {
+      right: -12px;
+    }
+    .experience-bottom {
+      gap: 12px;
+      margin-top: 18px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .experience-arrow {
+      transition: none;
+    }
+  }
+
+  .heading-word {
+    display: inline-block;
+    transform-origin: left bottom;
+  }
+  .experience-note {
+    font:
+      10px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .experience-viewport {
+    touch-action: pan-y pinch-zoom;
+  }
+  @media (max-width: 700px) {
+    .experience-arrow {
+      display: none;
+    }
+  }
+</style>

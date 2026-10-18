@@ -1,17 +1,17 @@
 ---
+import ProgramTable from '../../components/ProgramTable.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Layout from '../../layouts/Layout.astro';
-import HorarioViernes from '../../components/HorarioViernes.astro';
-import HorarioSabado from '../../components/HorarioSabado.astro';
+import OfficialProgram from '../../components/OfficialProgram.astro';
 ---
 
 <Layout
-  description="Play Astro is a free and open-source Astro template, built for SaaS, startup, business and software website. Play crafted in a way that you can use with almost all sort of web project."
-  title="Localizacion y Horarios"
+  description="Consulta la agenda de ULP 2026, encuentra cada actividad en el plano de la ETSIIT y descubre el programa oficial."
+  title="Horarios y plano"
 >
   <Breadcrumb>
     <Fragment slot="title">Horarios</Fragment>
   </Breadcrumb>
-  <HorarioViernes />
-  <HorarioSabado />
+  <ProgramTable />
+  <OfficialProgram />
 </Layout>

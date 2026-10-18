@@ -1,0 +1,210 @@
+{
+  "ajedrez": {
+    "aspect": 0.841,
+    "frameWidth": 47.335,
+    "imageWidth": 121.748,
+    "imageHeight": 102.367,
+    "left": -13.689,
+    "top": -1.388
+  },
+  "minecraft": {
+    "aspect": 1.152,
+    "frameWidth": 64.875,
+    "imageWidth": 109.29,
+    "imageHeight": 110.327,
+    "left": -4.59,
+    "top": -4.66
+  },
+  "mario-kart": {
+    "aspect": 1.076,
+    "frameWidth": 60.577,
+    "imageWidth": 106.007,
+    "imageHeight": 109.125,
+    "left": -4.064,
+    "top": -5.894
+  },
+  "league-of-legends": {
+    "aspect": 0.637,
+    "frameWidth": 35.842,
+    "imageWidth": 115.467,
+    "imageHeight": 103.226,
+    "left": -7.467,
+    "top": -3.226
+  },
+  "rocket-league": {
+    "aspect": 1.267,
+    "frameWidth": 71.325,
+    "imageWidth": 104.849,
+    "imageHeight": 132.839,
+    "left": -2.508,
+    "top": -17.373
+  },
+  "wii-sports-tenis": {
+    "aspect": 0.78,
+    "frameWidth": 43.885,
+    "imageWidth": 103.283,
+    "imageHeight": 120.079,
+    "left": 0,
+    "top": -10.827
+  },
+  "wii-sports-bolos": {
+    "aspect": 0.979,
+    "frameWidth": 55.096,
+    "imageWidth": 113.793,
+    "imageHeight": 111.368,
+    "left": -9.528,
+    "top": -3.908
+  },
+  "smash": {
+    "aspect": 0.943,
+    "frameWidth": 53.101,
+    "imageWidth": 106.118,
+    "imageHeight": 112.961,
+    "left": -4.915,
+    "top": -12.204
+  },
+  "brawl-stars": {
+    "aspect": 0.733,
+    "frameWidth": 41.29,
+    "imageWidth": 103.285,
+    "imageHeight": 101.506,
+    "left": -1.643,
+    "top": -0.602
+  },
+  "clash-royale": {
+    "aspect": 0.54,
+    "frameWidth": 30.408,
+    "imageWidth": 100.619,
+    "imageHeight": 100.334,
+    "left": -0.31,
+    "top": -0.167
+  },
+  "2XKO": {
+    "aspect": 0.967,
+    "frameWidth": 54.42,
+    "imageWidth": 100,
+    "imageHeight": 100,
+    "left": 0,
+    "top": 0
+  },
+  "f1": {
+    "aspect": 0.603,
+    "frameWidth": 33.941,
+    "imageWidth": 100.955,
+    "imageHeight": 101.014,
+    "left": -0.955,
+    "top": -1.014
+  },
+  "futbolin": {
+    "aspect": 1.256,
+    "frameWidth": 70.699,
+    "imageWidth": 100,
+    "imageHeight": 141.083,
+    "left": 0,
+    "top": -41.083
+  },
+  "ping-pong": {
+    "aspect": 1.12,
+    "frameWidth": 63.078,
+    "imageWidth": 109.615,
+    "imageHeight": 122.821,
+    "left": -5.157,
+    "top": -13.222
+  },
+  "retro": {
+    "aspect": 1.165,
+    "frameWidth": 65.575,
+    "imageWidth": 108.197,
+    "imageHeight": 126.03,
+    "left": -4.918,
+    "top": -13.769
+  },
+  "street-fighter": {
+    "aspect": 0.81,
+    "frameWidth": 45.578,
+    "imageWidth": 128.221,
+    "imageHeight": 103.808,
+    "left": -18.609,
+    "top": -1.407
+  },
+  "beat-saber": {
+    "aspect": 1.043,
+    "frameWidth": 58.739,
+    "imageWidth": 110.973,
+    "imageHeight": 115.789,
+    "left": -6.903,
+    "top": -8.126
+  },
+  "hacking": {
+    "aspect": 1.123,
+    "frameWidth": 63.194,
+    "imageWidth": 100.147,
+    "imageHeight": 100.497,
+    "left": 0,
+    "top": -0.497
+  },
+  "tetris": {
+    "aspect": 1.057,
+    "frameWidth": 59.51,
+    "imageWidth": 116.76,
+    "imageHeight": 123.425,
+    "left": -8.287,
+    "top": -8.858
+  },
+  "cars": {
+    "aspect": 1.57,
+    "frameWidth": 80,
+    "imageWidth": 100,
+    "imageHeight": 100,
+    "left": 0,
+    "top": 0
+  },
+  "street-pass": {
+    "aspect": 0.587,
+    "frameWidth": 33.021,
+    "imageWidth": 128.367,
+    "imageHeight": 105.378,
+    "left": -7.45,
+    "top": -3.025
+  },
+  "watch-party": {
+    "aspect": 0.908,
+    "frameWidth": 51.137,
+    "imageWidth": 122.821,
+    "imageHeight": 111.566,
+    "left": -14.202,
+    "top": -6.317
+  },
+  "tcg": {
+    "aspect": 1.25,
+    "frameWidth": 85,
+    "imageWidth": 100,
+    "imageHeight": 100,
+    "left": 0,
+    "top": 0
+  },
+  "indie-fest": {
+    "aspect": 0.802,
+    "frameWidth": 45.14,
+    "imageWidth": 129.679,
+    "imageHeight": 103.98,
+    "left": -17.994,
+    "top": -2.073
+  },
+  "juego-libre": {
+    "aspect": 0.997,
+    "frameWidth": 56.147,
+    "imageWidth": 111.269,
+    "imageHeight": 110.973,
+    "left": -5.856,
+    "top": -6.372
+  },
+  "paella": {
+    "aspect": 1.362,
+    "frameWidth": 76.682,
+    "imageWidth": 103.21,
+    "imageHeight": 140.583,
+    "left": -2.305,
+    "top": -19.058
+  }
+}

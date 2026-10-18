@@ -1,0 +1,110 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import CarouselSection from './CarouselSection.astro';
+---
+
+<section class="design-section design-container community-album">
+  <header data-reveal>
+    <div>
+      <span class="design-eyebrow">Así se vive desde dentro</span><h2
+        class="design-heading"
+      >
+        Una escuela.<br /><em>Muchas partidas.</em>
+      </h2>
+    </div><div class="album-intro">
+      <p>
+        Entre aulas, mandos y conversaciones nacen los mejores recuerdos de la
+        ULP. Estas fotos nos devuelven a la edición de 2025.
+      </p><a href="/info/ediciones_anteriores" class="design-link"
+        >Todas nuestras ediciones <span aria-hidden="true"
+          ><ArrowUpRight /></span
+        ></a
+      >
+    </div>
+  </header>
+  <div class="album-frame">
+    <div class="album-meta">
+      <span>ULP 2025 / SÉPTIMA EDICIÓN</span><span>ETSIIT · GRANADA</span>
+    </div><CarouselSection
+      albumId="72177720328590176"
+      featuredPhotoId="54744102704"
+      userId="195749897@N03"
+      shufflePhotos
+      withBackground={false}
+      height="380px"
+      centeredSlides
+    />
+  </div>
+</section>
+<style>
+  .community-album {
+    padding-block: clamp(45px, 5vw, 70px);
+  }
+  header {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: end;
+    gap: 55px;
+    margin-bottom: 38px;
+  }
+  .design-eyebrow {
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+  }
+  h2 {
+    font-size: clamp(35px, 5vw, 65px);
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .album-intro {
+    max-width: 370px;
+    justify-self: end;
+  }
+  .album-intro p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .album-intro .design-link {
+    font-size: 11px;
+  }
+  .album-frame {
+    max-width: 1240px;
+    margin-inline: auto;
+  }
+  .album-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+  }
+  .album-frame :global([data-photo-carousel]) {
+    padding-block: 0;
+  }
+  .album-frame :global(.container) {
+    padding-inline: 0;
+  }
+  @media (max-width: 700px) {
+    header {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .album-intro {
+      justify-self: start;
+    }
+    .album-meta {
+      font-size: 7px;
+    }
+  }
+</style>

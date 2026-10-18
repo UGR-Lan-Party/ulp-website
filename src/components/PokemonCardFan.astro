@@ -1,0 +1,25 @@
+---
+interface Props {
+  loading?: 'eager' | 'lazy';
+}
+const { loading = 'lazy' } = Astro.props;
+---
+
+<div
+  class="pokemon-card-fan"
+  style="position:relative;width:100%;height:100%;transform:scale(.84);transform-origin:center"
+>
+  {
+    [-22, 0, 22].map((angle, index) => (
+      <img
+        src="/assets/competitions/characters/pokemon-card-back.webp"
+        alt=""
+        width="1024"
+        height="1420"
+        loading={loading}
+        decoding="async"
+        style={`position:absolute;width:49%;height:90%;object-fit:contain;left:${index * 15 + 10}%;top:3%;transform:rotate(${angle}deg);transform-origin:50% 90%;filter:drop-shadow(0 5px 8px #001b2d55)`}
+      />
+    ))
+  }
+</div>

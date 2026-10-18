@@ -8,4 +8,4 @@ export const getFormattedDate = (date) =>
       })
     : '';
 
-export const darkStyles = "dark:bg-gradient-to-r dark:from-[#0D1B3E] dark:to-[#004E7C]";
+export const darkStyles = "dark:bg-primary";

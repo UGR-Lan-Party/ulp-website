@@ -1,139 +1,218 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 interface Props {
   trophy: string;
+  label?: string;
+  background?: string;
 }
-const { trophy } = Astro.props;
+const { trophy, label = 'Trofeo ULP', background } = Astro.props;
+const dialogId = `trofeo-ampliado-${trophy.split('/').at(-1)?.replace(/\W/g, '-')}`;
 ---
 
-<div
-  id="three-container"
-  class="min-w-[350px] w-full max-w-[600px] h-[600px] mt-4 cursor-pointer"
-  data-trophy={trophy}
->
+<div class="trophy-viewer" data-trophy={trophy}>
+  <div data-trophy-inline>
+    <div
+      data-trophy-canvas
+      class="trophy-canvas"
+      aria-label={`Visor de ${label}`}
+      role="region"
+    >
+    </div>
+  </div>
+  <div class="trophy-actions">
+    <button
+      type="button"
+      data-trophy-expand
+      aria-label="Ampliar trofeo"
+      title="Ampliar trofeo"
+      aria-haspopup="dialog"
+      aria-controls={dialogId}
+      hidden
+    >
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"
+        aria-hidden="true"
+        ><path d="M9 3H3v6m12-6h6v6m0 6v6h-6m-6 0H3v-6"></path></svg
+      >
+    </button>
+  </div>
+  <p data-trophy-status role="status">Cargando trofeo 3D…</p>
+  <button type="button" class="trophy-retry" data-trophy-retry hidden
+    >Reintentar carga del trofeo</button
+  >
+  <dialog
+    id={dialogId}
+    class="trophy-dialog"
+    data-trophy-dialog
+    aria-label={`${label}, vista ampliada`}
+  >
+    {
+      background && (
+        <ResponsiveImage
+          src={background}
+          alt=""
+          class="trophy-modal-backdrop"
+          sizes="100vw"
+        />
+      )
+    }
+    <header class="trophy-modal-heading">
+      <div><span>ULP / VISTA 3D</span><h2>{label}</h2></div>
+      <button type="button" data-trophy-close aria-label="Cerrar visor ampliado"
+        ><svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"></path></svg
+        ></button
+      >
+    </header>
+    <div data-trophy-expanded></div>
+    <p>
+      Arrastra para girar · Rueda o dos dedos para acercar · Esc para cerrar
+    </p>
+  </dialog>
+  <noscript><p>Activa JavaScript para explorar el trofeo en 3D.</p></noscript>
 </div>
-
+<style>
+  .trophy-viewer {
+    width: 100%;
+    position: relative;
+    margin-inline: auto;
+  }
+  .trophy-canvas {
+    width: 100%;
+    max-width: 600px;
+    margin-inline: auto;
+    height: clamp(300px, 36vw, 430px);
+    overflow: hidden;
+  }
+  p {
+    max-width: 60ch;
+    margin: 10px auto 0;
+    color: rgb(245 240 230 / 0.65);
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .trophy-actions {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  [data-trophy-status] {
+    padding-inline: 40px;
+  }
+  .trophy-actions button,
+  .trophy-retry {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 9px 13px;
+    border-radius: 8px;
+    border: 1px solid rgb(245 240 230 / 0.25);
+    background: rgb(245 240 230 / 0.06);
+    color: #f5f0e6;
+    font-size: 11px;
+    font-weight: 550;
+    transition: background 180ms ease;
+  }
+  .trophy-actions button:hover,
+  .trophy-retry:hover {
+    background: rgb(245 240 230 / 0.14);
+  }
+  .trophy-actions button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 10px;
+  }
+  .trophy-retry {
+    display: block;
+    margin: 14px auto 0;
+  }
+  .trophy-dialog {
+    width: min(1100px, calc(100% - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    padding: 24px;
+    border: 1px solid rgb(245 240 230 / 0.2);
+    border-radius: 20px;
+    background: #062d43;
+    color: #f5f0e6;
+    overflow: auto;
+    isolation: isolate;
+  }
+  .trophy-dialog::backdrop {
+    background: rgb(3 17 28 / 0.82);
+    backdrop-filter: blur(7px);
+  }
+  .trophy-modal-backdrop {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.09;
+    filter: saturate(0.15);
+    pointer-events: none;
+  }
+  .trophy-modal-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .trophy-modal-heading span {
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    opacity: 0.6;
+  }
+  h2 {
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 650;
+    margin-top: 8px;
+  }
+  [data-trophy-close] {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgb(245 240 230 / 0.25);
+  }
+  [data-trophy-expanded] > .trophy-canvas {
+    max-width: none;
+    height: min(68dvh, 720px);
+    min-height: 230px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  @media (max-width: 600px) {
+    .trophy-dialog {
+      padding: 18px;
+    }
+    .trophy-dialog p {
+      font-size: 10px;
+    }
+  }
+</style>
 <script>
-  import * as THREE from 'three';
-  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-  import { ULPTrophy } from '../scripts/ThreeJs/ULPTrophy';
-
-  // Esperar a que el DOM esté listo
-  document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('three-container');
-    if (!container) {
-      console.error('Container not found');
-      return;
-    }
-
-    // Obtener el valor del html de data-competition, que contiene la ruta del trofeo
-    let trophy = container.dataset.trophy || '';
-
-    // Configuración básica
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    // Crear escena, renderer y cámara
-    const scene = new THREE.Scene();
-
-    const axisHelper = new THREE.AxesHelper(10);
-    //scene.add(axisHelper);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setClearColor(0x000000, 0); // Asegura transparencia total
-
-    renderer.setSize(width, height);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    container.appendChild(renderer.domElement);
-
-    let camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(15, 15, 15);
-    let look = new THREE.Vector3(0, 5, 0);
-    camera.lookAt(look);
-    let cameraControl = new OrbitControls(camera, renderer.domElement);
-    // Se configuran las velocidades de los movimientos
-    cameraControl.minDistance = 10;
-    cameraControl.maxDistance = 30;
-    cameraControl.maxPolarAngle = Math.PI / 2;
-    cameraControl.target = look;
-
-    let ulpTrophy = new ULPTrophy(trophy);
-    ulpTrophy.position.set(0, 0, 0);
-    scene.add(ulpTrophy);
-
-    const groundGeo = new THREE.BoxGeometry(100, 0.2, 100);
-    const groundMat = new THREE.MeshPhongMaterial({
-      color: 0x444444,
-    });
-    const ground = new THREE.Mesh(groundGeo, groundMat);
-    ground.position.set(0, -0.2, 0);
-    ground.receiveShadow = true;
-    ground.castShadow = true;
-    //scene.add(ground);
-
-    // Agregar luces
-    const ambientLight = new THREE.AmbientLight(0xffffff, 5);
-    scene.add(ambientLight);
-
-    let directionalLight = new THREE.DirectionalLight(0xffffff, 10);
-    directionalLight.castShadow = true;
-    directionalLight.position.set(20, 20, 20);
-    directionalLight.target = new THREE.Object3D();
-    directionalLight.target.position.set(0, 0, 0);
-
-    // Configurar la cámara de sombras para cubrir un área más amplia (hacer la luz "más ancha")
-    directionalLight.shadow.camera.left = -50;
-    directionalLight.shadow.camera.right = 50;
-    directionalLight.shadow.camera.top = 50;
-    directionalLight.shadow.camera.bottom = -50;
-    directionalLight.shadow.camera.near = 0.5;
-    directionalLight.shadow.camera.far = 500;
-
-    // Aumentar el tamaño del mapa de sombras para sombras más suaves y detalladas
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
-    /* 
-    const directionalLightHelper = new THREE.DirectionalLightHelper(
-      directionalLight,
-      10,
-    );
-    scene.add(directionalLightHelper); */
-    scene.add(directionalLight);
-
-    let directionalLight2 = new THREE.DirectionalLight(0xffffff, 10);
-    directionalLight2.castShadow = true;
-    directionalLight2.position.set(5, 8, -15);
-    directionalLight2.target = new THREE.Object3D();
-    directionalLight2.target.position.set(0, 0, 0);
-    /* const directionalLightHelper2 = new THREE.DirectionalLightHelper(
-      directionalLight2,
-      10,
-    );
-    scene.add(directionalLightHelper2); */
-    scene.add(directionalLight2);
-
-    // Manejar el redimensionamiento de la ventana
-    window.addEventListener('resize', () => {
-      const newWidth = container.clientWidth;
-      const newHeight = container.clientHeight;
-
-      camera.aspect = newWidth / newHeight;
-      camera.updateProjectionMatrix();
-
-      renderer.setSize(newWidth, newHeight);
-    });
-
-    // Función de animación
-    function animate() {
-      requestAnimationFrame(animate);
-
-      ulpTrophy.update();
-
-      cameraControl.update();
-
-      renderer.render(scene, camera);
-    }
-
-    animate();
-  });
+  import '../scripts/trophy-viewer';
 </script>

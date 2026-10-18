@@ -1,0 +1,43 @@
+---
+import type { VenueAmenityKind } from '../data/venue-amenities';
+interface Props {
+  kind: VenueAmenityKind;
+  size?: number;
+}
+const { kind, size = 18 } = Astro.props;
+const paths: Record<VenueAmenityKind, string> = {
+  stairs: 'M3 20h5v-5h5v-5h5V5h3M4 9l7-6M6 3h5v5',
+  lift: 'M4 3h16v18H4ZM9 8l3-3 3 3M9 16l3 3 3-3',
+  entry: 'M14 3h6v18h-6M3 12h12M10 7l5 5-5 5',
+  men: 'M9 9h6l1 7h-3v5h-2v-5H8Z',
+  women: 'M10 9h4l4 8h-5v4h-2v-4H6Z',
+  accessible: 'M10 8v5h7l3 6M10 10h6M7 11a6 6 0 1 0 8 9',
+  wc: 'M4 9v10M2 12h4M3 19v3M5 19v3M15 9l4 10h-8ZM14 19v3M16 19v3',
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {['men', 'women'].includes(kind) && <circle cx="12" cy="5" r="2" />}
+  {kind === 'accessible' && <circle cx="10" cy="4" r="2" />}
+  {
+    kind === 'wc' && (
+      <>
+        <>
+          <circle cx="4" cy="5" r="2" />
+          <circle cx="15" cy="5" r="2" />
+        </>
+      </>
+    )
+  }
+  <path d={paths[kind]}></path>
+</svg>

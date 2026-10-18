@@ -1,37 +1,20 @@
-FROM node:23.7.0-alpine3.20 AS node-builder
-
-
-# Enable and configure pnpm
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable 
+FROM node:24.21.0-alpine AS node-builder
 
 WORKDIR /app
-
-COPY . /app
-
-# Install dependencies and enable cache
+RUN npm install --global pnpm@10.34.7
+COPY package.json pnpm-lock.yaml .npmrc ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+COPY . .
+RUN pnpm build
+ARG VCS_REF=local
+RUN node --input-type=module -e "import {writeFileSync} from 'node:fs';writeFileSync('dist/version.json', JSON.stringify({commit:process.env.VCS_REF})+'\n');"
 
-# Build app
-RUN pnpm run build
-
-FROM nginx:alpine AS ningx-runtime
-
-# Remove default nginx static assets
-RUN rm -rf /usr/share/nginx/html
-
-# Copy built site
+FROM nginx:alpine AS nginx-runtime
+ARG VCS_REF=local
+LABEL org.opencontainers.image.source="https://github.com/UGR-Lan-Party/ulp-website"
+LABEL org.opencontainers.image.revision=$VCS_REF
 COPY --from=node-builder /app/dist /usr/share/nginx/html
-
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy custom nginx config
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose default Nginx port
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 CMD wget -q -O /dev/null http://127.0.0.1/version.json || exit 1
 EXPOSE 80
-
-# Start Nginx with global directives and daemon turned off
-ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,323 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+const pressEmail = 'mailto:ulp@ugr.es?subject=Prensa%20%7C%20UGR%20LAN%20Party';
+---
+
+<section class="press-section design-container" aria-labelledby="press-title">
+  <div class="press-heading">
+    <div>
+      <span class="design-eyebrow">Para contar lo que pasa aquí</span>
+      <h2 id="press-title">La ULP,<br /><em>también es noticia.</em></h2>
+    </div>
+    <p>
+      ¿Preparas una noticia o una entrevista? Escríbenos y te ayudamos con la
+      información y el material de la ULP.
+    </p>
+  </div>
+  <article class="press-card" data-spotlight>
+    <div class="press-copy">
+      <div class="press-meta">
+        <span>Nota de prensa · Archivo 2026</span>
+        <time datetime="2026-03-08">08 / 03 / 2026</time>
+      </div>
+      <h3>Videojuegos y comunidad universitaria en Granada.</h3>
+      <p>
+        La nota de presentación de la 8.ª edición de UGR LAN Party, celebrada
+        los días 20 y 21 de marzo de 2026 en la ETSIIT.
+      </p>
+      <ul class="press-highlights">
+        <li>
+          <span aria-hidden="true">01</span>Torneos, charlas, retos y juego
+          libre.
+        </li>
+        <li>
+          <span aria-hidden="true">02</span>Estudiantes, profesorado, empresas y
+          aficionados.
+        </li>
+        <li>
+          <span aria-hidden="true">03</span>Entrada gratuita e inscripción
+          previa en torneos.
+        </li>
+      </ul>
+      <div class="press-actions">
+        <a class="design-button" href={pressEmail}
+          >Contactar con prensa <span aria-hidden="true"><ArrowUpRight /></span
+          ></a
+        >
+        <a
+          class="press-open"
+          href="https://linktr.ee/ulpugr"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Redes de la ULP <span aria-hidden="true"><ArrowUpRight /></span></a
+        >
+      </div>
+    </div>
+    <aside class="press-preview" aria-label="Datos de la edición 2026">
+      <span class="press-preview-label">UGR LAN PARTY / 8.ª EDICIÓN</span>
+      <div class="press-poster">
+        <span class="press-poster-kicker">Granada · 2026</span>
+        <strong>20<span aria-hidden="true">—</span>21</strong>
+        <span class="press-month">de marzo</span>
+        <span class="press-poster-rule" aria-hidden="true"></span>
+        <p>Dos días.<br /><em>Muchas partidas.</em></p>
+        <span class="press-poster-location"
+          >ETSIIT<br />Universidad de Granada</span
+        >
+      </div>
+      <span class="press-preview-label">ARCHIVO / EDICIÓN FINALIZADA</span>
+    </aside>
+  </article>
+  <div class="press-contact">
+    <span>Para entrevistas, imágenes y consultas de medios</span>
+    <a href="mailto:ulp@ugr.es?subject=Prensa%20%7C%20UGR%20LAN%20Party"
+      >ulp@ugr.es <span aria-hidden="true"><ArrowUpRight /></span></a
+    >
+  </div>
+</section>
+<style>
+  .press-section {
+    padding-block: 24px clamp(56px, 7vw, 100px);
+    color: var(--ink);
+  }
+  .press-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 40px;
+    margin-bottom: 34px;
+  }
+  .press-heading .design-eyebrow {
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: clamp(34px, 4.5vw, 60px);
+    font-weight: 750;
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .press-heading > p {
+    max-width: 35ch;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+  .press-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.85fr);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--surface);
+  }
+  .press-copy {
+    padding: clamp(24px, 4vw, 48px);
+    min-width: 0;
+  }
+  .press-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    font:
+      9px/1.6 ui-monospace,
+      monospace;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 30px;
+  }
+  h3 {
+    font-size: clamp(25px, 3vw, 38px);
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    margin-bottom: 20px;
+  }
+  .press-copy > p {
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 58ch;
+  }
+  .press-highlights {
+    display: grid;
+    gap: 16px;
+    padding-block: 26px;
+    margin-block: 22px 28px;
+    border-block: 1px solid var(--line);
+  }
+  .press-highlights li {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .press-highlights li > span {
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .press-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  .press-actions .design-button {
+    gap: 18px;
+    font-size: 12px;
+  }
+  .press-open {
+    font-size: 12px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+  .press-open span {
+    margin-left: 8px;
+  }
+  .press-file {
+    display: block;
+    margin-top: 18px;
+    font:
+      9px/1.7 ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .press-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background:
+      radial-gradient(
+        350px circle at var(--pointer-x, 100%) var(--pointer-y, 40%),
+        rgb(0 100 113 / 0.65),
+        transparent 85%
+      ),
+      #063349;
+    color: #f5f0e6;
+  }
+  .press-preview-label {
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    opacity: 0.65;
+  }
+  .press-poster {
+    width: 100%;
+    max-width: 300px;
+    padding-block: 30px;
+  }
+  .press-poster-kicker {
+    font:
+      10px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.65;
+  }
+  .press-poster > strong {
+    display: block;
+    font-size: clamp(55px, 6vw, 84px);
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.07em;
+    margin-top: 24px;
+    white-space: nowrap;
+  }
+  .press-poster > strong > span {
+    font-weight: 300;
+    opacity: 0.35;
+    margin-inline: 4px;
+  }
+  .press-month {
+    font:
+      italic 34px Georgia,
+      serif;
+  }
+  .press-poster-rule {
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.4;
+    margin-block: 30px;
+  }
+  .press-poster p {
+    font-size: 24px;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+  .press-poster-location {
+    display: block;
+    margin-top: 26px;
+    font-size: 11px;
+    line-height: 1.8;
+    opacity: 0.7;
+  }
+  .press-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 24px;
+    font-size: 12px;
+  }
+  .press-contact > span {
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .press-contact a {
+    font-weight: 600;
+  }
+  a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 5px;
+  }
+  .press-preview:focus-visible {
+    outline-color: #f5f0e6;
+    outline-offset: -5px;
+  }
+  @media (max-width: 800px) {
+    .press-heading {
+      align-items: start;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .press-heading > p {
+      max-width: 55ch;
+    }
+    .press-card {
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 0.7fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .press-card {
+      grid-template-columns: 1fr;
+    }
+    .press-preview {
+      padding: 30px;
+    }
+    .press-poster {
+      padding-block: 10px;
+    }
+    .press-meta {
+      margin-bottom: 24px;
+    }
+  }
+</style>

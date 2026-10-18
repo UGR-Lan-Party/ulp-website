@@ -1,0 +1,188 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+const moments = [
+  {
+    src: '/assets/participan/gallery/colaboradores-stands-2025.webp',
+    title: 'Ideas que se comparten',
+    caption: 'Charlas · ULP 2025',
+    alt: 'Ponentes de Nazaríes hablando con el público en el salón de actos de la ETSIIT',
+    source: 'https://www.flickr.com/photos/rotograber/54744242270/',
+  },
+  {
+    src: '/assets/participan/gallery/colaboradores-charlas-2025.webp',
+    title: 'Conversaciones que conectan',
+    caption: 'Encuentros · ULP 2025',
+    alt: 'Participantes y representantes de T-Systems conversando en una mesa del evento',
+    source: 'https://www.flickr.com/photos/rotograber/54744182373/',
+  },
+  {
+    src: '/assets/participan/gallery/colaboradores-2024.webp',
+    title: 'Talento al otro lado de la mesa',
+    caption: 'Stands · ULP 2024',
+    alt: 'Representantes de Nazaríes en su stand con material para los asistentes',
+    source: 'https://www.flickr.com/photos/rotograber/53634340507/',
+  },
+  {
+    src: '/assets/participan/gallery/colaboradores-2026.webp',
+    title: 'Un viaje a los primeros píxeles',
+    caption: 'Juegos y comunidad · ULP 2026',
+    alt: 'Exposición de ordenadores y videojuegos retro en el vestíbulo de la ETSIIT',
+    source: '/assets/participan/gallery/colaboradores-2026.webp',
+  },
+];
+---
+
+<section
+  class="partner-moments design-container"
+  aria-labelledby="partner-moments-title"
+>
+  <header>
+    <div>
+      <span class="design-eyebrow">Mucho más que un logo</span><h2
+        id="partner-moments-title"
+      >
+        Nos encontramos.<br /><em>Y pasan cosas.</em>
+      </h2>
+    </div>
+    <p>
+      Durante la ULP, las entidades montan sus stands, dan charlas y pasan el
+      día con nosotros. Estas fotos son algunos de esos ratos.
+    </p>
+  </header>
+  <div class="moments-grid">
+    {
+      moments.map((moment) => (
+        <figure data-reveal>
+          <a
+            href={moment.source}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Ver fotografía: ${moment.title}`}
+          >
+            <ResponsiveImage
+              src={moment.src}
+              alt={moment.alt}
+              sizes="(max-width: 520px) 90vw, (max-width: 1000px) 45vw, 23vw"
+            />
+            <span aria-hidden="true">
+              <ArrowUpRight />
+            </span>
+          </a>
+          <figcaption>
+            <>
+              <span>{moment.caption}</span>
+              <h3>{moment.title}</h3>
+            </>
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</section>
+<style>
+  .partner-moments {
+    padding-block: 12px 45px;
+  }
+  header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 35px;
+    margin-bottom: 28px;
+  }
+  .design-eyebrow {
+    font-size: 9px;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(31px, 3.7vw, 50px);
+    line-height: 1.05;
+    font-weight: 750;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  header p {
+    max-width: 345px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .moments-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+  figure {
+    min-width: 0;
+  }
+  figure a {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--surface);
+  }
+  figure a :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 350ms ease;
+  }
+  figure a:hover :global(img) {
+    transform: scale(1.04);
+  }
+  figure a > span {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #062d43;
+    color: #f5f0e6;
+    font-size: 16px;
+  }
+  figcaption {
+    padding-top: 15px;
+  }
+  figcaption > span {
+    font:
+      8px/1.6 ui-monospace,
+      monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h3 {
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 650;
+    margin-top: 6px;
+  }
+  @media (max-width: 1000px) {
+    .moments-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px 18px;
+    }
+  }
+  @media (max-width: 650px) {
+    header {
+      flex-direction: column;
+      align-items: start;
+      gap: 20px;
+    }
+  }
+  @media (max-width: 520px) {
+    .moments-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    figure a :global(img) {
+      aspect-ratio: 16 / 10;
+    }
+  }
+</style>

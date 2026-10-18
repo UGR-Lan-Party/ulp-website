@@ -1,6 +1,5 @@
 <p align="center">
-  <img align="center" src="https://github.com/chelunike/ulp-website/blob/master/public/assets/logo/logo-black.png?raw=True#gh-light-mode-only" width="350" height="350">
-  <img align="center" src="https://github.com/chelunike/ulp-website/blob/master/public/assets/logo/logo-white.png?raw=True#gh-dark-mode-only" width="350" height="350">
+  <img src="docs/images/ulp-web-preview.png" alt="Vista de la página de inicio de UGR LAN Party" width="1200">
 </p>
 
 # ULP Website
@@ -9,17 +8,20 @@ Página web oficial de la UGR LAN Party.
 
 ## Instalación para desarrollo
 
-La página web usa la herramienta [Astro](https://astro.build/). Para poder usarla en el entorno de desarollo, sigue los siguientes pasos:
+La web está construida con Astro y utiliza Node.js y pnpm. El único lockfile es `pnpm-lock.yaml`.
 
-1. Descarga [NodeJS](https://nodejs.org/en) >= 19, recomendamos usar un gestor de versiones como [Volta](https://volta.sh/) o [NVM](https://github.com/nvm-sh/nvm).
+1. Instala Node.js.
+2. Ejecuta `npm install --global pnpm`.
+3. Instala con `pnpm install --frozen-lockfile`.
+4. Ejecuta `pnpm dev` y abre la dirección que muestra Astro.
 
-1. Instala las dependencias con `npm install`, `pnpm install` o equivalente.
+Antes de enviar cambios: `pnpm test` y `pnpm build`. Para regenerar imágenes: `pnpm images`; confirma sus variantes y el manifiesto. Consulta [imágenes](docs/imagenes.md) y [dependencias](docs/dependencias.md).
 
-1. Ejecuta el scipt de servidor de desarrollo `dev`, via `npm run dev`, `pnpm dev` o equivalente.
+No generes un segundo lockfile con npm.
 
 ## Producción con Docker
 
-1. Primero, en tu entorno de desarollo, construye la imagen de Docker:
+1. Primero, en tu entorno de desarrollo, construye la imagen de Docker:
 
 ```bash
    docker build -t ulp-website:latest .
@@ -31,3 +33,5 @@ La página web usa la herramienta [Astro](https://astro.build/). Para poder usar
 ```bash
    docker run -d -p 8080:80 ulp-website:latest
 ```
+
+La identificación de versiones, las comprobaciones y la vuelta atrás se describen en [despliegue](docs/despliegue.md).

@@ -1,95 +1,169 @@
 ---
-/*
-Secret point
- . .
-·...·
-
-flag{und3rc0v3r_p01nt_0n_th3_r34l_s0urc3}
-*/
+import ArrowUpRight from './ArrowUpRight.astro';
+import { edition } from '../data/edition';
+interface Props {
+  registrationLink?: string;
+  activityId?: string;
+  activityYear?: number;
+  participantsLink?: string;
+  registrationPeriodOpen?: boolean;
+}
 const {
   registrationLink,
+  activityId,
+  activityYear = edition.year,
   participantsLink,
-  background_img,
-  registrationPeriodOpen,
+  registrationPeriodOpen = false,
 } = Astro.props;
+const isCurrentEdition = activityYear === edition.year;
+const archiveUrl =
+  activityYear === 2026
+    ? '/horarios'
+    : isCurrentEdition
+      ? edition.archiveUrl
+      : `/ediciones/${activityYear}`;
+const isOpen = Boolean(
+  isCurrentEdition &&
+  edition.phase === 'registration-open' &&
+  registrationPeriodOpen &&
+  registrationLink,
+);
+const isFinished = !isCurrentEdition || edition.phase === 'finished';
+const canJoinOnSite =
+  isCurrentEdition &&
+  !registrationLink &&
+  ['registration-open', 'live'].includes(edition.phase);
+const title = isFinished
+  ? `Actividad de ULP ${activityYear}`
+  : isOpen
+    ? 'Inscripciones abiertas'
+    : canJoinOnSite
+      ? 'Participa durante el evento'
+      : edition.phase === 'announced'
+        ? 'Inscripciones aún no disponibles'
+        : 'Inscripciones cerradas';
 ---
 
-<!-- ====== Inscripción Section Start -->
-<section
-  class="relative w-full overflow-hidden bg-gradient-to-bl from-primary/80 from-30% via-secondary/85 via-70% to-tertiary/95 py-20 lg:py-[115px]"
->
-  <picture class="absolute inset-0 min-h-full min-w-full -z-10">
-    <img src={background_img} alt="" class="w-full h-full object-cover" />
-  </picture>
-  <div class="container relative z-10">
-    <div class="-mx-4 flex flex-wrap items-center">
-      <div class="w-full px-4">
-        <div
-          class="hero-content wow fadeInUp mx-auto max-w-[780px] text-center"
-          data-wow-delay=".2s"
-        >
-          {
-            registrationPeriodOpen &&
-              registrationLink &&
-              registrationLink !== '' && (
-                <div>
-                  <h1 class="mb-6 text-3xl font-bold leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]">
-                    ¡Anímate a participar!
-                  </h1>
-                  <p class="mx-auto mb-9 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]">
-                    Las inscripciones están abiertas.
-                  </p>
-                  <a
-                    href={registrationLink}
-                    class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
-                  >
-                    Inscribirme
-                  </a>
-                </div>
-              )
-          }
-          {
-            !registrationPeriodOpen &&
-              registrationLink &&
-              registrationLink !== '' && (
-                <div>
-                  <h1 class="mb-6 text-4xl font-bold leading-snug text-white lg:text-5xl lg:leading-[1.2]">
-                    ¡Lo habéis petado!
-                  </h1>
-                  <h3 class="mb-6 text-xl font-medium leading-snug text-white lg:text-2xl lg:leading-[1.2]">
-                    Inscripciones cerradas.
-                  </h3>
-                  {participantsLink && participantsLink !== '' && (
-                    <div>
-                      <p class="mx-auto mb-9 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]">
-                        Consulta el listado de participantes y suplentes.
-                      </p>
-                      <a
-                        href={participantsLink}
-                        class="inline-flex items-center justify-center rounded-md bg-white py-[14px] px-7 text-center text-base font-medium text-dark shadow-lg transition duration-300 ease-in-out hover:text-body-color hover:bg-gray-2"
-                      >
-                        Participantes
-                      </a>
-                    </div>
-                  )}
-                </div>
-              )
-          }
-          {
-            registrationLink == '' && (
-              <div>
-                <h1 class="mb-6 text-3xl font-bold leading-snug text-white sm:text-4xl sm:leading-snug lg:text-5xl lg:leading-[1.2]">
-                  ¡Anímate a participar!
-                </h1>
-                <p class="mx-auto mb-9 max-w-[600px] font-medium text-base text-white sm:text-lg sm:leading-[1.44]">
-                  Pásate por la ubicación y participa el mismo día del evento.
-                </p>
-              </div>
-            )
-          }
-        </div>
-      </div>
+<aside class="registration-card" aria-label="Inscripción">
+  <div class="registration-copy">
+    <span class="registration-indicator" aria-hidden="true"></span>
+    <div>
+      <h2>{title}</h2>
+      {
+        isFinished && (
+          <p>
+            Esta edición ha finalizado y las inscripciones están cerradas. La
+            información se conserva como archivo.
+          </p>
+        )
+      }
+      {
+        canJoinOnSite && (
+          <p>Pásate por la ubicación y participa el mismo día del evento.</p>
+        )
+      }
     </div>
   </div>
-</section>
-<!-- ====== Inscripción Section End -->
+  {
+    isOpen && (
+      <a
+        href={registrationLink}
+        data-analytics-event="registration-click"
+        data-analytics-edition={activityYear}
+        data-analytics-activity={activityId}
+        class="registration-action"
+      >
+        Inscribirme{' '}
+        <span aria-hidden="true">
+          <ArrowUpRight />
+        </span>
+      </a>
+    )
+  }
+  {
+    isFinished && (
+      <a href={archiveUrl} class="registration-action">
+        {activityYear === 2026
+          ? 'Consultar horarios'
+          : `Consultar edición ${activityYear}`}{' '}
+        <span aria-hidden="true">
+          <ArrowUpRight />
+        </span>
+      </a>
+    )
+  }
+  {
+    !isFinished && !isOpen && participantsLink && (
+      <a href={participantsLink} class="registration-action">
+        Consultar participantes{' '}
+        <span aria-hidden="true">
+          <ArrowUpRight />
+        </span>
+      </a>
+    )
+  }
+</aside>
+<style>
+  .registration-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 26px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+  .registration-copy {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    min-width: 0;
+  }
+  .registration-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+  h2 {
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+  p {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .registration-action {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 200ms ease;
+  }
+  .registration-action:hover {
+    background: color-mix(in srgb, var(--ink) 7%, transparent);
+  }
+  @media (max-width: 650px) {
+    .registration-card {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+    }
+  }
+</style>

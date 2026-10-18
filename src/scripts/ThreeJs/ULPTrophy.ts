@@ -2,42 +2,39 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 
-export class ULPTrophy extends THREE.Object3D {
-  constructor(competition: string) {
-    super();
+async function getText(path: string, signal: AbortSignal) {
+  const response = await fetch(path, { signal });
+  if (!response.ok)
+    throw new Error(`No se pudo cargar el modelo: ${response.status}`);
+  return response.text();
+}
 
-    // competition sería la ruta sin extensión, ej: '/assets/models/TrofeoULP'
-    // O puedes seguir pasando la ruta del .obj y derivar el .mtl
-    const mtlPath = competition.replace('.obj', '.mtl');
-
-    // --- Trofeo principal ---
-    const trophyMtlLoader = new MTLLoader();
-    trophyMtlLoader.load(mtlPath, (materials) => {
-      materials.preload();
-
-      // Forzar DoubleSide en todos los materiales del MTL
-      Object.values(materials.materials).forEach((mat) => {
-        mat.side = THREE.DoubleSide;
-      });
-
-      const objLoader = new OBJLoader();
-      objLoader.setMaterials(materials);
-      objLoader.load(competition, (object) => {
-        object.traverse((child) => {
-          if (child instanceof THREE.Mesh) {
-            // Recalcular normales por si acaso
-            child.geometry.computeVertexNormals();
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
+export async function loadTrophy(path: string, signal: AbortSignal) {
+  const base = path.slice(0, path.lastIndexOf('/') + 1);
+  const [materialText, objectText] = await Promise.all([
+    getText(path.replace(/\.obj$/, '.mtl'), signal),
+    getText(path, signal),
+  ]);
+  const materials = new MTLLoader().parse(materialText, base);
+  try {
+    const object = new OBJLoader().setMaterials(materials).parse(objectText);
+    object.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.geometry.computeVertexNormals();
+        const entries = Array.isArray(child.material)
+          ? child.material
+          : [child.material];
+        entries.forEach((material) => {
+          material.side = THREE.DoubleSide;
         });
-        object.scale.set(50, 50, 50);
-        this.add(object);
-      });
+      }
     });
-  }
-
-  update() {
-    this.rotation.y += 0.005;
+    object.scale.setScalar(50);
+    return object;
+  } catch (error) {
+    Object.values(materials.materials).forEach((material) =>
+      material.dispose(),
+    );
+    throw error;
   }
 }

@@ -1,24 +1,69 @@
-// ===== responsive navbar
-let navbarToggler = document.querySelector('#navbarToggler');
-const navbarCollapse = document.querySelector('#navbarCollapse');
+const menuButton = document.getElementById('navbarToggler');
+const navigation = document.getElementById('navbarCollapse');
+const desktop = window.matchMedia('(min-width: 1024px)');
+const disclosures = [...document.querySelectorAll('[data-submenu-toggle]')];
 
-navbarToggler.addEventListener('click', () => {
-  navbarToggler.classList.toggle('navbarTogglerActive');
-  navbarCollapse.classList.toggle('hidden');
+function setDisclosure(button, open) {
+  const panel = document.getElementById(button.getAttribute('aria-controls'));
+  button.setAttribute('aria-expanded', String(open));
+  if (panel) panel.hidden = !open;
+}
+
+function closeSubmenus() {
+  disclosures.forEach((button) => setDisclosure(button, false));
+}
+
+function setMenu(open) {
+  menuButton?.setAttribute('aria-expanded', String(open));
+  menuButton?.classList.toggle('navbarTogglerActive', open);
+  navigation?.classList.toggle('hidden', !open);
+  if (!open) closeSubmenus();
+}
+
+menuButton?.addEventListener('click', () => {
+  setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
 });
 
-//===== close navbar-collapse when a  clicked
-document.querySelectorAll('#navbarCollapse ul li:not(.submenu-item) a').forEach((e) =>
-  e.addEventListener('click', () => {
-    navbarToggler.classList.remove('navbarTogglerActive');
-    navbarCollapse.classList.add('hidden');
-  })
-);
-
-// ===== Sub-menu
-const submenuItems = document.querySelectorAll('.submenu-item');
-submenuItems.forEach((el) => {
-  el.querySelector('a').addEventListener('click', () => {
-    el.querySelector('.submenu').classList.toggle('hidden');
+disclosures.forEach((button) => {
+  button.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') !== 'true';
+    closeSubmenus();
+    setDisclosure(button, open);
   });
 });
+
+navigation?.addEventListener('click', (event) => {
+  if (event.target.closest('a')) setMenu(false);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  const openSubmenu = disclosures.find(
+    (button) => button.getAttribute('aria-expanded') === 'true',
+  );
+  if (openSubmenu) {
+    setDisclosure(openSubmenu, false);
+    openSubmenu.focus();
+  } else if (
+    !desktop.matches &&
+    menuButton?.getAttribute('aria-expanded') === 'true'
+  ) {
+    setMenu(false);
+    menuButton.focus();
+  }
+});
+
+document.addEventListener('click', (event) => {
+  if (
+    !navigation?.contains(event.target) &&
+    !menuButton?.contains(event.target)
+  )
+    setMenu(false);
+});
+
+document.addEventListener('focusin', (event) => {
+  if (!navigation?.contains(event.target) && event.target !== menuButton)
+    setMenu(false);
+});
+
+desktop.addEventListener('change', () => setMenu(false));

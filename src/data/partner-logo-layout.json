@@ -1,0 +1,30 @@
+{
+  "LSI": {
+    "aspect": 1.824,
+    "imageWidth": 117.972,
+    "imageHeight": 215.126,
+    "left": -11.06,
+    "top": -58.824
+  },
+  "DEIIT": {
+    "aspect": 5.453,
+    "imageWidth": 100.772,
+    "imageHeight": 503.158,
+    "left": -0.386,
+    "top": -201.053
+  },
+  "GDG Granada": {
+    "aspect": 3.39,
+    "imageWidth": 100,
+    "imageHeight": 338.983,
+    "left": 0,
+    "top": -119.774
+  },
+  "UGR": {
+    "aspect": 3.598,
+    "imageWidth": 104.467,
+    "imageHeight": 116.071,
+    "left": -2.233,
+    "top": -8.036
+  }
+}

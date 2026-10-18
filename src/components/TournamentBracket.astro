@@ -1,0 +1,210 @@
+---
+import type { TournamentBracket } from '../data/tournaments';
+interface Props {
+  bracket: TournamentBracket;
+  expanded?: boolean;
+}
+const { bracket, expanded = false } = Astro.props;
+---
+
+<details class="bracket" open={expanded} data-bracket>
+  <summary>{bracket.name}<span aria-hidden="true">+</span></summary>
+  <div
+    class="bracket-scroll"
+    tabindex="0"
+    role="region"
+    aria-label={`Cuadro ${bracket.name}. Desplázate para ver todas las rondas.`}
+  >
+    <div class="bracket-board" style={`--rounds: ${bracket.rounds.length}`}>
+      <svg class="bracket-lines" aria-hidden="true" data-bracket-lines></svg>
+      {
+        bracket.rounds.map((round) => (
+          <section class="bracket-round" aria-label={round.name}>
+            <h3>{round.name}</h3>
+            <div class="bracket-round-matches">
+              {round.matches.map((match) => (
+                <article
+                  class="bracket-match"
+                  data-match-id={match.id}
+                  data-next-match={match.nextId}
+                  aria-label={`${match.players[0]} contra ${match.players[1]}: ${match.scores[0]} a ${match.scores[1]}`}
+                >
+                  {match.players.map((player, index) => (
+                    <div
+                      class:list={[
+                        'bracket-player',
+                        { 'is-winner': match.winner === player },
+                      ]}
+                    >
+                      <span>
+                        {player}
+                        <span class="sr-only">
+                          {match.winner === player ? ', gana' : ''}
+                        </span>
+                      </span>
+                      <strong>{match.scores[index]}</strong>
+                    </div>
+                  ))}
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</details>
+<script>
+  import '../scripts/tournament-bracket';
+</script>
+<style>
+  .bracket {
+    margin-top: 18px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary > span {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 400;
+    transition: transform 0.2s;
+  }
+  [open] > summary > span {
+    transform: rotate(45deg);
+  }
+  .bracket-scroll {
+    overflow: auto;
+    max-height: 640px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    overscroll-behavior: contain;
+    padding: 8px 24px 28px;
+  }
+  .bracket-board {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--rounds), minmax(190px, 1fr));
+    gap: 46px;
+    min-width: max-content;
+    isolation: isolate;
+  }
+  .bracket-round {
+    display: flex;
+    flex-direction: column;
+    min-width: 190px;
+    max-width: 240px;
+  }
+  h3 {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+  .bracket-round-matches {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  .bracket-match {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper);
+    transition:
+      transform 0.25s,
+      border-color 0.25s,
+      box-shadow 0.25s;
+  }
+  .bracket-match:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+    box-shadow: 0 7px 16px color-mix(in srgb, var(--ink) 9%, transparent);
+  }
+  .bracket-player {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 12px 13px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .bracket-player > span {
+    overflow-wrap: anywhere;
+    max-width: 170px;
+  }
+  .bracket-player + .bracket-player {
+    border-top: 1px solid var(--line);
+  }
+  .is-winner {
+    color: var(--ink);
+    font-weight: 650;
+  }
+  .is-winner strong {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  strong {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    font:
+      11px ui-monospace,
+      monospace;
+  }
+  .bracket-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    color: var(--ink);
+  }
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: -4px;
+  }
+  @media (max-width: 500px) {
+    summary {
+      padding: 18px;
+    }
+    .bracket-scroll {
+      padding-inline: 18px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bracket-match,
+    summary > span {
+      transition: none;
+      transform: none !important;
+    }
+  }
+</style>

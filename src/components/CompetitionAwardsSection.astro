@@ -1,27 +1,69 @@
 ---
 import AwardCard from './AwardCard.astro';
-import type { Awards } from '../data/competitions-data.ts';
-
+import type { Awards } from '../data/competitions-data';
 interface Props {
   competitionAwards: Awards;
 }
-const { competitionAwards } = Astro.props as Props;
+const { competitionAwards } = Astro.props;
+const mvpAwards = competitionAwards.mvp ?? [];
+const positions = ['first', 'second', 'third'] as const;
+const podium = positions.filter(
+  (position) => competitionAwards[position].length > 0,
+);
 ---
 
-<section class="w-full flex flex-col items-center justify-center gap-6 py-12">
+<div class="competition-awards" aria-label="Premios por puesto">
   <div
-    class="w-full xl:h-[650px] flex flex-col xl:relative xl:flex-row items-center xl:items-start justify-center gap-6 py-12"
+    class:list={['awards-grid', { 'full-podium': podium.length === 3 }]}
+    style={`--award-columns:${podium.length};--award-max-width:${podium.length * 440}px`}
   >
-    <AwardCard position="first" awards={competitionAwards.first} />
-    <AwardCard position="second" awards={competitionAwards.second} />
-    <AwardCard position="third" awards={competitionAwards.third} />
+    {
+      podium.map((position) => (
+        <AwardCard position={position} awards={competitionAwards[position]} />
+      ))
+    }
   </div>
-
   {
-    competitionAwards.mvp && (
-      <div class="w-full xl:h-[450px] flex flex-col items-center justify-center">
-        <AwardCard position="mvp" awards={competitionAwards.mvp} />
+    mvpAwards.length > 0 && (
+      <div class="mvp-award">
+        <AwardCard position="mvp" awards={mvpAwards} />
       </div>
     )
   }
-</section>
+</div>
+<style>
+  .awards-grid {
+    width: 100%;
+    max-width: var(--award-max-width);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(var(--award-columns), minmax(0, 1fr));
+    align-items: start;
+    gap: 20px;
+  }
+  .mvp-award {
+    max-width: 440px;
+    margin: 24px auto 0;
+  }
+  @media (min-width: 901px) {
+    .full-podium :global(.award-card--first) {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .full-podium :global(.award-card--second) {
+      grid-column: 1;
+      grid-row: 1;
+      margin-top: 36px;
+    }
+    .full-podium :global(.award-card--third) {
+      grid-column: 3;
+      grid-row: 1;
+      margin-top: 60px;
+    }
+  }
+  @media (max-width: 900px) {
+    .awards-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
