@@ -149,10 +149,18 @@ const dialogId = `trofeo-ampliado-${trophy.split('/').at(-1)?.replace(/\W/g, '-'
     padding: 24px;
     border: 1px solid rgb(245 240 230 / 0.2);
     border-radius: 20px;
-    background: var(--trophy-background-color, #062d43);
+    background: #242424;
     color: #f5f0e6;
     overflow: auto;
     isolation: isolate;
+  }
+  .trophy-dialog::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgb(235 201 107 / 0.45);
+    border-radius: 12px;
+    pointer-events: none;
   }
   .trophy-dialog::backdrop {
     background: rgb(3 17 28 / 0.82);
@@ -166,7 +174,7 @@ const dialogId = `trofeo-ampliado-${trophy.split('/').at(-1)?.replace(/\W/g, '-'
     height: 100%;
     object-fit: cover;
     opacity: 0.09;
-    filter: saturate(var(--trophy-backdrop-saturation, 0.15));
+    filter: saturate(0);
     pointer-events: none;
   }
   .trophy-modal-heading {

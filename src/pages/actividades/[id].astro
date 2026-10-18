@@ -209,14 +209,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
               </span>
             </header>
             {competition.trophy && (
-              <div
-                class="trophy-showcase"
-                style={
-                  competition.id === 'league-of-legends'
-                    ? '--trophy-backdrop-saturation: 0; --trophy-background-color: #242424'
-                    : undefined
-                }
-              >
+              <div class="trophy-showcase">
                 {artwork && (
                   <ResponsiveImage
                     src={artwork.card}
@@ -227,7 +220,6 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
                 )}
                 <div class="trophy-heading">
                   <h3>Trofeo {competition.name}</h3>
-                  <span>El recuerdo de la partida</span>
                 </div>
                 <ULPTrophyCanvas
                   trophy={competition.trophy}
@@ -421,9 +413,17 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     padding: 24px;
     border: 1px solid rgb(245 240 230 / 0.16);
     border-radius: 24px;
-    background: var(--trophy-background-color, #062d43);
+    background: #242424;
     color: #f5f0e6;
     margin-bottom: 38px;
+  }
+  .trophy-showcase::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgb(235 201 107 / 0.45);
+    border-radius: 16px;
+    pointer-events: none;
   }
   .trophy-backdrop {
     position: absolute;
@@ -433,7 +433,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     height: 100%;
     object-fit: cover;
     opacity: 0.09;
-    filter: saturate(var(--trophy-backdrop-saturation, 0.15));
+    filter: saturate(0);
     pointer-events: none;
   }
   .trophy-showcase :global([data-trophy-status]),
@@ -451,12 +451,6 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     font-size: 16px;
     font-weight: 650;
     letter-spacing: -0.02em;
-  }
-  .trophy-heading > span {
-    color: rgb(245 240 230 / 0.65);
-    font:
-      9px/1.6 ui-monospace,
-      monospace;
   }
   .activity-ending {
     display: flex;
