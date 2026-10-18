@@ -150,6 +150,20 @@ test('Los filtros no se solapan a 320px y el pie móvil conserva los enlaces soc
   const reset = (await page
     .getByRole('button', { name: 'Restablecer', exact: true })
     .boundingBox())!;
+  const filterBounds = (await page
+    .locator('[data-program-filters]')
+    .boundingBox())!;
+  expect(time.x).toBeGreaterThanOrEqual(filterBounds.x);
+  expect(time.x + time.width).toBeLessThanOrEqual(
+    filterBounds.x + filterBounds.width,
+  );
+  await page.getByLabel('A las', { exact: true }).fill('23:59');
+  const filledTime = (await page
+    .getByLabel('A las', { exact: true })
+    .boundingBox())!;
+  expect(filledTime.x + filledTime.width).toBeLessThanOrEqual(
+    filterBounds.x + filterBounds.width,
+  );
   expect(reset.y).toBeGreaterThanOrEqual(time.y + time.height);
   await expect(
     page.locator('footer a[href="/actividades#competiciones"]'),

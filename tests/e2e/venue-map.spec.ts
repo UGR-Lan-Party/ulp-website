@@ -234,8 +234,8 @@ test('El Aulario mantiene las dos plantas sin asociar actividades ni inventar se
   ).toHaveCount(0);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.getByRole('button', { name: 'Rotar plano', exact: true }).click();
-  await expect(map).toHaveAttribute('data-orientation', '1');
-  await expect(map).toHaveCSS('--venue-label-turn', '-90deg');
+  await expect(map).toHaveAttribute('data-orientation', '3');
+  await expect(map).toHaveCSS('--venue-label-turn', '-270deg');
   await page.setViewportSize({ width: 320, height: 844 });
   expect(
     await page.evaluate(

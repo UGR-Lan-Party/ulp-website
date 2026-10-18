@@ -113,7 +113,11 @@ import furniture from '../data/venue-furniture.json';
     <g
       data-venue-floor-plan={plan}
       data-hidden
-      transform="translate(185 178) scale(.55)"
+      transform={
+        plan === 'prefabricadas-b'
+          ? 'translate(460 350) scale(.55) translate(-245 -312.5)'
+          : 'translate(185 178) scale(.55)'
+      }
     >
       {venueAmenities[plan]?.map((amenity) => (
         <VenueAmenityMarker {...amenity} size={22} />

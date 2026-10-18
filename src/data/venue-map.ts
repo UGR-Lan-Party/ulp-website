@@ -46,6 +46,13 @@ export const venuePlans = [
 export type VenuePlanId = (typeof venuePlans)[number]['id'];
 export type VenueOrientation = 0 | 1 | 2 | 3;
 
+export function getVenueInitialOrientation(
+  plan: VenuePlanId,
+): VenueOrientation {
+  if (plan === 'aulario-0') return 1;
+  return plan === 'aulario-1' ? 2 : 0;
+}
+
 const mainPoint = (x: number, y: number) => ({
   x: 185 + x * 0.55,
   y: 110 + y * 0.55,
@@ -126,7 +133,8 @@ export const venueZones = [
     id: 'b1',
     label: 'Prefabricada B1',
     plan: 'prefabricadas-b',
-    ...roomPoint(245, 300),
+    x: 460,
+    y: 350,
   },
 ] as const;
 

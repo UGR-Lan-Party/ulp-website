@@ -3,6 +3,7 @@ import {
   venueZones,
   venueLayouts,
   getVenueZones,
+  getVenueInitialOrientation,
 } from '../data/venue-map';
 import type { VenuePlanId, VenueOrientation } from '../data/venue-map';
 
@@ -155,6 +156,7 @@ export function createVenueMap(
   function setPlan(id: VenuePlanId) {
     stopTurn();
     planId = id;
+    orientation = getVenueInitialOrientation(id);
     zoom = 1;
     panX = panY = 0;
     resize();
@@ -295,7 +297,7 @@ export function createVenueMap(
     event.preventDefault();
     void turn(
       event.key === 'Home'
-        ? 0
+        ? getVenueInitialOrientation(planId)
         : orientation + (event.key === 'ArrowLeft' ? -1 : 1),
     );
   });
@@ -505,7 +507,10 @@ export function createVenueMap(
             (zone) => zone.plan === plan.id && counts.has(zone.id),
           ),
         );
-        if (plan) planId = plan.id;
+        if (plan) {
+          planId = plan.id;
+          orientation = getVenueInitialOrientation(plan.id);
+        }
       }
       stopTurn();
       draw();

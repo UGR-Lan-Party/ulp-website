@@ -147,6 +147,10 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
       .toBeGreaterThan(0);
   }
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  const whiteMars = list.locator('[data-partner-white-logo="Mars Gaming"]');
+  await expect(whiteMars).toBeVisible();
+  await expect(whiteMars).toHaveCSS('filter', 'brightness(0) invert(1)');
+  await expect(list.locator('[data-partner-logo="Mars Gaming"]')).toBeHidden();
   for (const name of names) {
     await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
       'filter',
@@ -154,6 +158,8 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
     );
   }
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  await expect(whiteMars).toBeHidden();
+  await expect(list.locator('[data-partner-logo="Mars Gaming"]')).toBeVisible();
   for (const name of names) {
     await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
       'filter',

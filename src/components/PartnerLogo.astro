@@ -134,7 +134,9 @@ const layoutStyle = layout
     display: block;
     filter: var(--logo-dark-filter, none);
   }
-  .white-variant[data-partner-white-logo='Mars Gaming'] {
+  .white-variant[data-partner-white-logo='Mars Gaming'][data-surface='dark'],
+  :global(.dark)
+    .white-variant[data-partner-white-logo='Mars Gaming'][data-surface='theme'] {
     filter: brightness(0) invert(1);
   }
 </style>
