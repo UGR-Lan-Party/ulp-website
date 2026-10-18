@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import LinkedInIcon from '../../public/assets/icons/LinkedInIcon.astro';
 import GitHubIcon from '../../public/assets/icons/GitHubIcon.astro';
 interface Props {
@@ -37,7 +38,8 @@ const { name, description, image, href, network, badge } = Astro.props;
         ) : (
           <GitHubIcon aria-hidden="true" />
         )
-      }<span>Ver {network}</span><span aria-hidden="true">↗</span></a
+      }<span>Ver {network}</span><span aria-hidden="true"><ArrowUpRight /></span
+      ></a
     >
   </div>
 </article>

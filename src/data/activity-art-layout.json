@@ -176,12 +176,12 @@
     "top": -6.317
   },
   "tcg": {
-    "aspect": 1.078,
-    "frameWidth": 60.706,
-    "imageWidth": 101.211,
-    "imageHeight": 109.138,
-    "left": -0.646,
-    "top": -4.526
+    "aspect": 1.25,
+    "frameWidth": 85,
+    "imageWidth": 100,
+    "imageHeight": 100,
+    "left": 0,
+    "top": 0
   },
   "indie-fest": {
     "aspect": 0.802,

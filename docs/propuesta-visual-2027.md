@@ -70,7 +70,7 @@ Participan reduce el espacio inicial entre la invitación y las entidades e inco
 
 La paella dispone de una ilustración transparente nueva y los cuatro iconos de actividades usan emblemas sólidos con la paleta corporativa. La presentación utiliza otra foto real de ULP 2025 a 2048 píxeles, guardada en `public/assets/about/ulp-2025-retro.jpg`; el sello pasa a «Hecho en la ETSIIT».
 
-Discord conserva el estilo del titular y se presenta en un panel azul con una tarjeta de comunidad. Sobre nosotros incorpora contexto para su álbum de 2024, Twitch con un morado algo más oscuro y tarjetas reutilizables para las tres personas del equipo técnico y los diez perfiles de desarrollo.
+Discord conserva el estilo del titular y se presenta en un panel azul con una tarjeta de comunidad. Sobre nosotros incorpora contexto para su álbum de 2025, Twitch con un morado algo más oscuro y tarjetas reutilizables para las tres personas del equipo técnico y los diez perfiles de desarrollo.
 
 Localización presenta dirección, enlace para llegar y mapa en un marco común. El aviso legal incorpora índice y bloques de lectura, conservando íntegros los textos existentes y pendiente del contenido aprobado para 2027. El footer mantiene sus siete iconos sociales y suma accesos de navegación.
 
@@ -244,9 +244,16 @@ El home muestra tres competiciones a la vez, también en móvil, y permite recor
 Granada, vista desde la ULP incorpora un dibujo decorativo de la Alhambra elegido por la organización, extendida hasta ambos bordes de la ventana, con azul corporativo y baja opacidad. En tema oscuro usa el acento de la paleta para conservar un contraste tenue. El dibujo queda limitado a la banda del encabezado y se desvanece hacia su borde inferior; no invade la zona de las fotografías. Se acorta moderadamente el espacio entre competiciones y cifras, se corrige «Fórmula 1» y Participan incorpora el botón «Contáctanos» dirigido a ulp@ugr.es.
 
 
-Las galerías triples de Home y Sobre nosotros utilizan previsualizaciones de proporción fija 16:9. Las fotografías se centran y recortan sin deformarse; al ampliarlas se usa la imagen de mayor resolución con su proporción completa. El logo de Mars Gaming aumenta ligeramente en la franja de partners.
+Las galerías triples de Home y Sobre nosotros utilizan previsualizaciones de proporción fija 4:3. Las fotografías se centran y recortan sin deformarse; al ampliarlas se usa la imagen de mayor resolución con su proporción completa. El logo de Mars Gaming aumenta ligeramente en la franja de partners.
 
 
 ## Validación conjunta para la PR Web ULP 2.0
 
 Revisión del 16 de octubre de 2026: compilación de 47 páginas con Flickr activo, 50 pruebas unitarias y 81 pruebas de navegador en Edge superadas. Se comprueban las rutas e imágenes locales, ambos temas, navegación móvil, galerías y fotos verticales, agenda y planos, emparejamientos, logos y render WebGL de trofeos. Los datos de torneos y cifras se publican como instantáneas históricas; no se activa ninguna sincronización externa.
+
+
+## Ajustes de interacción del 18 de octubre
+
+La portada prescinde del componente de Twitch; sigue disponible en Sobre nosotros. El álbum Una escuela, muchas partidas utiliza las fotos de 2025. El aviso de equipo explica el Excel compartido y utiliza un mosaico de hexágonos regulares.
+
+Las cartas holográficas responden al hover y al contacto táctil, con una actualización por frame y retorno al estado de reposo al terminar o cancelar el gesto. Se respeta la preferencia de movimiento reducido. La franja de partners diferencia el hover de ratón del toque, pausa durante el arrastre y reanuda tras terminar la inercia; el foco de teclado mantiene la pausa.

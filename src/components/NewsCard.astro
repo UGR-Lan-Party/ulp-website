@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import type { CollectionEntry } from 'astro:content';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { formatNewsDate } from '../utils/news';
@@ -28,7 +29,7 @@ const Heading = featured ? 'h2' : 'h3';
       <div class="news-meta">
         <time datetime={entry.data.publishDate.toISOString()}
           >{formatNewsDate(entry.data.publishDate)}</time
-        ><span>↗</span>
+        ><span><ArrowUpRight /></span>
       </div><Heading class="news-card-title">{entry.data.title}</Heading><p>
         {entry.data.snippet}
       </p><span class="news-read"
@@ -155,6 +156,73 @@ const Heading = featured ? 'h2' : 'h3';
     }
     .news-featured .news-card-title {
       font-size: 32px;
+    }
+  }
+  @media (max-width: 700px) {
+    .news-card {
+      border-radius: 14px;
+    }
+    .news-card > a {
+      display: grid;
+      grid-template-columns: minmax(88px, 0.75fr) minmax(0, 1.6fr);
+      align-items: stretch;
+    }
+    .news-media {
+      aspect-ratio: auto;
+      min-height: 150px;
+    }
+    .news-media :global(img) {
+      position: absolute;
+      inset: 0;
+    }
+    .news-card-copy {
+      padding: 16px;
+    }
+    .news-meta {
+      font-size: 8px;
+      margin-bottom: 9px;
+      gap: 8px;
+    }
+    .news-card-title {
+      font-size: 19px;
+      line-height: 1.2;
+      margin-bottom: 9px;
+    }
+    .news-card-copy > p {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      font-size: 11px;
+      line-height: 1.65;
+    }
+    .news-read {
+      font-size: 10px;
+      padding-top: 12px;
+      gap: 12px;
+    }
+    .news-image-label {
+      left: 8px;
+      bottom: 10px;
+      padding: 5px 7px;
+      font-size: 7px;
+      max-width: calc(100% - 16px);
+    }
+    .news-featured > a {
+      grid-template-columns: 1fr;
+    }
+    .news-featured .news-media {
+      aspect-ratio: 16 / 9;
+    }
+    .news-featured .news-card-copy {
+      padding: 22px;
+    }
+    .news-featured .news-card-title {
+      font-size: 27px;
+      margin-bottom: 12px;
+    }
+    .news-featured .news-card-copy > p {
+      font-size: 12px;
     }
   }
 </style>

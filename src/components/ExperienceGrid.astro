@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import ActivityTile from './ActivityTile.astro';
 import { getActivitiesByTag } from '../utils/activity-navigation';
 const featuredIds = ['mario-kart', 'hacking', 'league-of-legends'];
@@ -33,7 +34,7 @@ const heading = 'Compite en tus juegos favoritos';
       </h2>
     </div>
     <a class="design-link" href="/actividades"
-      >Explorar actividades <span aria-hidden="true">↗</span></a
+      >Explorar actividades <span aria-hidden="true"><ArrowUpRight /></span></a
     >
   </div>
   <div
@@ -251,5 +252,13 @@ const heading = 'Compite en tus juegos favoritos';
       10px ui-monospace,
       monospace;
     color: var(--muted);
+  }
+  .experience-viewport {
+    touch-action: pan-y pinch-zoom;
+  }
+  @media (max-width: 700px) {
+    .experience-arrow {
+      display: none;
+    }
   }
 </style>

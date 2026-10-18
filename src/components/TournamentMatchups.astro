@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import { getTournament } from '../data/tournaments';
 import TournamentBracket from './TournamentBracket.astro';
 
@@ -47,7 +48,10 @@ const tournament = getTournament(activityId);
           target="_blank"
           rel="noopener noreferrer"
         >
-          Ver cuadro oficial <span aria-hidden="true">↗</span>
+          Ver cuadro oficial{' '}
+          <span aria-hidden="true">
+            <ArrowUpRight />
+          </span>
         </a>
       )}
       {tournament.brackets.map((bracket, index) => (

@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import { faqs } from '../data/faqs';
 interface Props {
   page?: number;
@@ -28,7 +29,7 @@ const questions = isHome
       class="design-link"
       href={isHome ? '/info/preguntas_frecuentes' : '/contacto'}
       >{isHome ? 'Todas las preguntas' : 'Escríbenos'}
-      <span aria-hidden="true">↗</span></a
+      <span aria-hidden="true"><ArrowUpRight /></span></a
     >
   </div>
   <div id="preguntas" class="faq-list">

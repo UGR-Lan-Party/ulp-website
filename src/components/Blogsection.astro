@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import NewsCard from './NewsCard.astro';
 import { getPublishedNews } from '../utils/news';
 const stories = (await getPublishedNews()).slice(0, 3);
@@ -17,7 +18,10 @@ const stories = (await getPublishedNews()).slice(0, 3);
           </h2>
         </div>
         <a href="/blog" class="design-link">
-          Todas las noticias <span aria-hidden="true">↗</span>
+          Todas las noticias{' '}
+          <span aria-hidden="true">
+            <ArrowUpRight />
+          </span>
         </a>
       </div>
       <div class="design-grid">

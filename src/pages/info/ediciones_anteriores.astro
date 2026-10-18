@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import EditionTimeline from '../../components/EditionTimeline.astro';
@@ -17,7 +18,7 @@ import { pastEditions } from '../../data/past-editions';
     </Fragment>
     <Fragment slot="texto">
       De un proyecto de clase a llenar la ETSIIT. Recorre las ediciones,
-      encuentra tu foto y revive las partidas que nos trajeron hasta aquí.
+      encuentra tu foto y revive todo lo que nos trajo hasta aquí.
     </Fragment>
   </Breadcrumb>
   <div class="design-container archive-shell">
@@ -44,7 +45,8 @@ import { pastEditions } from '../../data/past-editions';
           consultarlo.
         </p>
         <a href="/horarios" class="design-button"
-          >Ver programa de 2026 <span aria-hidden="true">↗</span></a
+          >Ver programa de 2026 <span aria-hidden="true"><ArrowUpRight /></span
+          ></a
         >
       </div>
     </section>
@@ -54,11 +56,8 @@ import { pastEditions } from '../../data/past-editions';
       ))
     }
     <div class="archive-ending">
-      <span class="design-eyebrow"
-        >La siguiente página la escribimos juntos</span
-      >
       <a href="/" class="design-link"
-        >Volver a ULP 2027 <span aria-hidden="true">↗</span></a
+        >Volver a ULP 2027 <span aria-hidden="true"><ArrowUpRight /></span></a
       >
     </div>
   </div>

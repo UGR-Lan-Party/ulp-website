@@ -376,8 +376,8 @@ const Sponsors: SponsorData[] = [
     tier: 'silver',
     description:
       'Marca española referente en periféricos y componentes de hardware para videojuegos. Se especializa en productos con una relación calidad-precio competitiva, abarcando desde componentes y periféricos hasta mobiliario.',
-    logo: '/assets/participan/Logos/marsGaming.webp',
-    logoNeedsContrast: true,
+    logo: '/assets/participan/Logos/mars-gaming-color.svg',
+    logoWhite: '/assets/participan/Logos/mars-gaming-white.svg',
     cardBg: '/assets/participan/BG-Sponsors/marsgaming.webp',
     isSecret: false,
     bussiness: 'Periféricos y Componentes Gaming',
@@ -729,7 +729,7 @@ const Sponsors: SponsorData[] = [
     tier: 'regular',
     description:
       'La cafetería de la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT) de la Universidad de Granada es un espacio de encuentro para estudiantes, profesores y personal del centro. Ofrece una amplia variedad de alimentos y bebidas, creando un ambiente acogedor que complementa con la deliciosa paella de nuestro evento.',
-    logo: '/assets/participan/Logos/cafeteria.webp',
+    logo: '/assets/participan/Logos/cafeteria-horizontal.svg',
     cardBg: '/assets/participan/BG-Sponsors/cafeteria.webp',
     isSecret: false,
     bussiness: 'Cafetería de la ETSIIT',

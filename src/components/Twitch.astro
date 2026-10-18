@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import TwitchIcon from '../../public/assets/icons/TwitchIcon.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import latestStream from '../data/latest-stream.json';
@@ -21,7 +22,7 @@ const videoUrl = `https://www.twitch.tv/videos/${latestStream.videoId}`;
         href="https://www.twitch.tv/ugr_lan_party"
         target="_blank"
         rel="noopener noreferrer"
-        >Sigue el canal <span aria-hidden="true">↗</span></a
+        >Sigue el canal <span aria-hidden="true"><ArrowUpRight /></span></a
       >
     </div>
     <div
@@ -59,7 +60,7 @@ const videoUrl = `https://www.twitch.tv/videos/${latestStream.videoId}`;
         <span>Última retransmisión disponible</span><h3>
           {latestStream.title}
         </h3><a href={videoUrl} target="_blank" rel="noopener noreferrer"
-          >Abrir en Twitch ↗</a
+          >Abrir en Twitch <ArrowUpRight /></a
         >
       </div>
     </div>
@@ -67,6 +68,7 @@ const videoUrl = `https://www.twitch.tv/videos/${latestStream.videoId}`;
 </section>
 <style>
   .twitch-section {
+    padding-block: clamp(30px, 4vw, 48px);
     background:
       radial-gradient(ellipse at 15% 30%, #4a2575, transparent 65%), #291543;
     color: #f5f0e6;

@@ -73,6 +73,7 @@ const layoutStyle = layout
 </span>
 <style>
   .partner-logo-frame {
+    flex-shrink: 0;
     display: grid;
     place-items: center;
     width: var(--default-logo-width);
@@ -131,6 +132,9 @@ const layoutStyle = layout
   .white-variant[data-surface='dark'],
   :global(.dark) .white-variant[data-surface='theme'] {
     display: block;
-    filter: none;
+    filter: var(--logo-dark-filter, none);
+  }
+  .white-variant[data-partner-white-logo='Mars Gaming'] {
+    filter: brightness(0) invert(1);
   }
 </style>

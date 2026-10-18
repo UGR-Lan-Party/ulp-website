@@ -36,14 +36,27 @@ export function createVenueMap(
   );
   const clearButton =
     map.querySelector<HTMLButtonElement>('[data-venue-clear]')!;
-  const orientationButtons = Array.from(
-    map.querySelectorAll<HTMLButtonElement>('[data-venue-orientation]'),
-  );
   const rotationButtons = Array.from(
-    map.querySelectorAll<HTMLButtonElement>(
-      '[data-venue-rotate], [data-venue-orientation]',
-    ),
+    map.querySelectorAll<HTMLButtonElement>('[data-venue-rotate]'),
   );
+  const narrow = matchMedia('(max-width: 600px)');
+  let zoom = 1;
+  let panX = 0;
+  let panY = 0;
+  let pointer: {
+    id: number;
+    x: number;
+    y: number;
+    panX: number;
+    panY: number;
+  } | null = null;
+  let suppressClickUntil = 0;
+  let dragged = false;
+  let pinch: { distance: number; zoom: number } | null = null;
+  const zoomButtons = Array.from(
+    map.querySelectorAll<HTMLButtonElement>('[data-venue-zoom]'),
+  );
+  const zoomValue = map.querySelector<HTMLElement>('[data-venue-zoom-value]')!;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const floorNotes = Array.from(
     map.querySelectorAll<HTMLElement>('[data-venue-floor-note]'),
@@ -54,7 +67,6 @@ export function createVenueMap(
   let counts = new Map<string, number>();
   let turnVersion = 0;
   let turning = false;
-  let pointer: { id: number; x: number } | null = null;
 
   function syncControls() {
     const plan = venuePlans.find((plan) => plan.id === planId)!;
@@ -68,9 +80,6 @@ export function createVenueMap(
     }
     floorSelect.value = planId;
     floorSelect.disabled = floors.length === 1;
-    orientationButtons.forEach((button, index) =>
-      button.setAttribute('aria-pressed', String(index === orientation)),
-    );
     rotationButtons.forEach((button) => (button.disabled = turning));
     map!.dataset.venuePlan = planId;
     map!.dataset.orientation = String(orientation);
@@ -90,6 +99,7 @@ export function createVenueMap(
     );
     building.style.transform = `rotate(${orientation * 90}deg)`;
     const layout = venueLayouts[planId][orientation];
+    const view = drawing.viewBox.baseVal;
     zones.forEach((zone) => {
       const point = layout.find((point) => point.id === zone.dataset.venueZone);
       const count = counts.get(zone.dataset.venueZone!) ?? 0;
@@ -98,24 +108,37 @@ export function createVenueMap(
       zone.setAttribute('aria-hidden', String(hidden));
       zone.setAttribute('tabindex', hidden ? '-1' : '0');
       if (!point) return;
+      let labelX = point.labelX;
+      let labelY = point.labelY;
+      if (narrow.matches) {
+        labelX = Math.max(
+          view.x + 8,
+          Math.min(view.x + view.width - 168, point.x - 80),
+        );
+        labelY = point.y > view.y + 100 ? point.y - 84 : point.y + 35;
+        labelY = Math.max(
+          view.y + 8,
+          Math.min(view.y + view.height - 48, labelY),
+        );
+      }
       zone
         .querySelector('[data-venue-label]')!
-        .setAttribute(
-          'transform',
-          `translate(${point.labelX} ${point.labelY})`,
-        );
+        .setAttribute('transform', `translate(${labelX} ${labelY})`);
       zone
         .querySelector('[data-venue-leader]')!
         .setAttribute(
           'd',
-          `M${point.edgeX} ${point.labelY + 20}L${point.x} ${point.y}`,
+          `M${narrow.matches ? labelX + 80 : point.edgeX} ${narrow.matches ? labelY + (labelY < point.y ? 40 : 0) : labelY + 20}L${point.x} ${point.y}`,
         );
       zone
         .querySelector('[data-venue-point]')!
         .setAttribute('cx', String(point.x));
       zone
-        .querySelector('[data-venue-point]')!
-        .setAttribute('cy', String(point.y));
+        .querySelectorAll('[data-venue-point], [data-venue-hit]')
+        .forEach((marker) => {
+          marker.setAttribute('cx', String(point.x));
+          marker.setAttribute('cy', String(point.y));
+        });
     });
     syncControls();
   }
@@ -132,6 +155,9 @@ export function createVenueMap(
   function setPlan(id: VenuePlanId) {
     stopTurn();
     planId = id;
+    zoom = 1;
+    panX = panY = 0;
+    resize();
     if (activeZone) {
       clear();
       onZoneChange(null);
@@ -206,12 +232,17 @@ export function createVenueMap(
       clearButton.hidden = !next;
       selectZones(next ? [next] : []);
       if (next) {
+        zone.parentNode?.appendChild(zone);
         status.hidden = false;
-        status.textContent = `Zona: ${zone.querySelector('text')!.textContent}.`;
+        status.textContent = `Zona: ${venueZones.find((entry) => entry.id === next)!.label}.`;
       }
       onZoneChange(next);
     };
-    zone.addEventListener('click', choose);
+    zone.addEventListener('click', (event) => {
+      if (performance.now() < suppressClickUntil) return;
+      event.stopPropagation();
+      choose();
+    });
     zone.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
@@ -237,11 +268,7 @@ export function createVenueMap(
   map.querySelector<HTMLElement>('[data-venue-controls]')!.hidden = false;
   rotationButtons.forEach((button) =>
     button.addEventListener('click', () => {
-      void turn(
-        button.dataset.venueOrientation !== undefined
-          ? Number(button.dataset.venueOrientation)
-          : orientation + Number(button.dataset.venueRotate),
-      );
+      void turn(orientation + Number(button.dataset.venueRotate));
     }),
   );
   drawing.addEventListener('keydown', (event) => {
@@ -258,37 +285,178 @@ export function createVenueMap(
     );
   });
   drawing.addEventListener('pointerdown', (event) => {
-    if (
-      !event.isPrimary ||
-      event.button !== 0 ||
-      (event.target as Element).closest('[data-venue-zone]')
-    )
+    dragged = false;
+    suppressClickUntil = 0;
+    if (!event.isPrimary || event.button !== 0) return;
+    if (zoom === 1 && (event.target as Element).closest('[data-venue-zone]'))
       return;
-    pointer = { id: event.pointerId, x: event.clientX };
-    drawing.setPointerCapture(event.pointerId);
+    pointer = {
+      id: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      panX,
+      panY,
+    };
+    if (zoom > 1 && !(event.target as Element).closest('[data-venue-zone]'))
+      drawing.setPointerCapture(event.pointerId);
+  });
+  drawing.addEventListener('pointermove', (event) => {
+    if (!pointer || pointer.id !== event.pointerId || zoom === 1 || pinch)
+      return;
+    const bounds = drawing.getBoundingClientRect();
+    const scale = Math.min(
+      bounds.width / drawing.viewBox.baseVal.width,
+      bounds.height / drawing.viewBox.baseVal.height,
+    );
+    panX = pointer.panX - (event.clientX - pointer.x) / scale;
+    panY = pointer.panY - (event.clientY - pointer.y) / scale;
+    resize();
+    draw();
   });
   drawing.addEventListener('pointerup', (event) => {
     if (pointer?.id !== event.pointerId) return;
-    const distance = event.clientX - pointer.x;
+    const dx = event.clientX - pointer.x;
+    const dy = event.clientY - pointer.y;
     pointer = null;
-    if (Math.abs(distance) > 40)
-      void turn(orientation + (distance > 0 ? 1 : -1));
+    dragged = Math.hypot(dx, dy) > 12;
+    if (dragged) suppressClickUntil = performance.now() + 500;
+    if (zoom === 1 && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3)
+      void turn(orientation + (dx > 0 ? 1 : -1));
   });
-  drawing.addEventListener('pointercancel', () => (pointer = null));
-  drawing.addEventListener('lostpointercapture', () => (pointer = null));
+  const touchDistance = (touches: TouchList) =>
+    Math.hypot(
+      touches[0].clientX - touches[1].clientX,
+      touches[0].clientY - touches[1].clientY,
+    );
+  drawing.addEventListener(
+    'touchstart',
+    (event) => {
+      if (event.touches.length !== 2) return;
+      event.preventDefault();
+      pointer = null;
+      pinch = { distance: touchDistance(event.touches), zoom };
+    },
+    { passive: false },
+  );
+  drawing.addEventListener(
+    'touchmove',
+    (event) => {
+      if (!pinch || event.touches.length !== 2) return;
+      event.preventDefault();
+      zoom = Math.max(
+        1,
+        Math.min(
+          2.5,
+          (pinch.zoom * touchDistance(event.touches)) / pinch.distance,
+        ),
+      );
+      resize();
+      draw();
+    },
+    { passive: false },
+  );
+  const endPinch = () => {
+    if (!pinch) return;
+    pinch = null;
+    pointer = null;
+    suppressClickUntil = performance.now() + 500;
+  };
+  drawing.addEventListener(
+    'touchend',
+    (event) => {
+      if ((dragged || pinch) && event.cancelable) event.preventDefault();
+      endPinch();
+    },
+    { passive: false },
+  );
+  drawing.addEventListener('touchcancel', endPinch);
+  drawing.addEventListener('pointercancel', () => {
+    pointer = null;
+  });
+  drawing.addEventListener('lostpointercapture', () => {
+    pointer = null;
+  });
+  drawing.addEventListener('click', (event) => {
+    if (
+      performance.now() < suppressClickUntil ||
+      (event.target as Element).closest('[data-venue-zone]')
+    )
+      return;
+    if (activeZone) {
+      clear();
+      onZoneChange(null);
+    }
+  });
+  zoomButtons.forEach((button) =>
+    button.addEventListener('click', () => {
+      const direction = Number(button.dataset.venueZoom);
+      zoom = direction ? Math.max(1, Math.min(2.5, zoom + direction * 0.5)) : 1;
+      if (zoom === 1) panX = panY = 0;
+      resize();
+      draw();
+    }),
+  );
+  drawing.addEventListener(
+    'wheel',
+    (event) => {
+      if (!event.deltaY || event.shiftKey) return;
+      event.preventDefault();
+      const pixels =
+        event.deltaY *
+        (event.deltaMode === 1
+          ? 16
+          : event.deltaMode === 2
+            ? drawing.clientHeight
+            : 1);
+      const next = Math.max(1, Math.min(2.5, zoom * Math.exp(-pixels * 0.002)));
+      if (next === zoom) return;
+      const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(
+        drawing.getScreenCTM()!.inverse(),
+      );
+      const ratio = next / zoom;
+      panX = point.x - (point.x - (460 + panX)) / ratio - 460;
+      panY =
+        point.y -
+        (point.y - (narrow.matches ? 350 : 357.5) - panY) / ratio -
+        (narrow.matches ? 350 : 357.5);
+      zoom = next;
+      if (zoom === 1) panX = panY = 0;
+      resize();
+      draw();
+    },
+    { passive: false },
+  );
+  map.querySelector<HTMLElement>('[data-venue-zoom-controls]')!.hidden = false;
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches) {
       stopTurn();
       draw();
     }
   });
-  const narrow = matchMedia('(max-width: 600px)');
-  const resize = () =>
+  function resize() {
+    const [x, y, width, height] = narrow.matches
+      ? [170, 65, 580, 570]
+      : [0, 45, 920, 625];
+    const w = width / zoom;
+    const h = height / zoom;
+    panX = Math.max(-(width - w) / 2, Math.min((width - w) / 2, panX));
+    panY = Math.max(-(height - h) / 2, Math.min((height - h) / 2, panY));
     drawing.setAttribute(
       'viewBox',
-      narrow.matches ? '170 65 580 570' : '0 45 920 625',
+      `${x + (width - w) / 2 + panX} ${y + (height - h) / 2 + panY} ${w} ${h}`,
     );
-  narrow.addEventListener('change', resize);
+    drawing.toggleAttribute('data-zoomed', zoom > 1);
+    zoomValue.textContent = `${Math.round(zoom * 100)}%`;
+    zoomButtons.forEach((button) => {
+      button.disabled =
+        (button.dataset.venueZoom === '-1' && zoom === 1) ||
+        (button.dataset.venueZoom === '1' && zoom === 2.5);
+    });
+  }
+  narrow.addEventListener('change', () => {
+    resize();
+    draw();
+  });
   resize();
   draw();
 

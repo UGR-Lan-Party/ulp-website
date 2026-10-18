@@ -95,6 +95,13 @@ const layout = getVenueLayout('principal-0', 0);
                     }
                   />
                   <circle
+                    class="venue-hit"
+                    data-venue-hit
+                    cx={point?.x ?? zone.x}
+                    cy={point?.y ?? zone.y}
+                    r="26"
+                  />
+                  <circle
                     data-venue-point
                     cx={point?.x ?? zone.x}
                     cy={point?.y ?? zone.y}
@@ -109,6 +116,15 @@ const layout = getVenueLayout('principal-0', 0);
                     }
                   >
                     <rect width="160" height="40" rx="8" />
+                    <text
+                      class="venue-label-dismiss"
+                      x="146"
+                      y="15"
+                      text-anchor="middle"
+                      aria-hidden="true"
+                    >
+                      ×
+                    </text>
                     <text x="10" y="16">
                       {zone.label}
                     </text>
@@ -122,58 +138,61 @@ const layout = getVenueLayout('principal-0', 0);
           }
         </g>
       </svg>
-      <div class="venue-controls" hidden data-venue-controls>
-        <button
-          type="button"
-          data-venue-rotate="-1"
-          aria-label="Girar plano a la izquierda"
+      <div
+        class="venue-zoom"
+        data-venue-zoom-controls
+        hidden
+        role="group"
+        aria-label="Ampliar plano"
+      >
+        <button type="button" data-venue-zoom="-1" aria-label="Alejar plano"
           ><svg
             width="18"
             height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="1.5"
-            aria-hidden="true"
-            ><path d="M3 10h5M3 10V5m0 5a9 9 0 1 1 0 4"></path></svg
+            stroke-width="1.75"
+            aria-hidden="true"><path d="M5 12h14"></path></svg
           ></button
         >
-        <div
-          class="venue-orientations"
-          role="group"
-          aria-label="Orientación del plano"
-        >
-          {
-            [0, 1, 2, 3].map((index) => (
-              <button
-                type="button"
-                data-venue-orientation={index}
-                aria-label={`Orientación ${index + 1}`}
-                aria-pressed={index === 0}
-              >
-                {index + 1}
-              </button>
-            ))
-          }
-        </div>
         <button
           type="button"
-          data-venue-rotate="1"
-          aria-label="Girar plano a la derecha"
+          data-venue-zoom="0"
+          aria-label="Restablecer zoom del plano"
+          ><span data-venue-zoom-value>100%</span></button
+        >
+        <button type="button" data-venue-zoom="1" aria-label="Acercar plano"
           ><svg
             width="18"
             height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="1.5"
-            aria-hidden="true"
-            ><path d="M21 10h-5m5 0V5m0 5a9 9 0 1 0 0 4"></path></svg
+            stroke-width="1.75"
+            aria-hidden="true"><path d="M5 12h14m-7-7v14"></path></svg
           ></button
         >
       </div>
+      <div class="venue-controls" hidden data-venue-controls>
+        <button type="button" data-venue-rotate="1" aria-label="Rotar plano">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            ><path d="M21 10h-5m5 0V5m0 5a9 9 0 1 0 0 4"></path></svg
+          >
+          Rotar
+        </button>
+      </div>
       <span class="sr-only" data-venue-view-status role="status"
-        >Edificio principal, planta 0, orientación 1</span
+        >Edificio Principal, planta 0, orientación 1</span
       >
     </div>
   </div>
@@ -191,7 +210,6 @@ const layout = getVenueLayout('principal-0', 0);
             <strong>Sin actividades asignadas</strong>
           </>
         </div>
-        <p>{floor.description}</p>
         <ul class="aulario-service-legend" aria-label="Servicios del plano">
           {floor.services.map((service) => (
             <li>
@@ -200,9 +218,6 @@ const layout = getVenueLayout('principal-0', 0);
             </li>
           ))}
         </ul>
-        <a href={floor.source} target="_blank" rel="noopener noreferrer">
-          Consultar referencia de la ETSIIT <span aria-hidden="true">↗</span>
-        </a>
       </section>
     ))
   }
@@ -266,17 +281,6 @@ const layout = getVenueLayout('principal-0', 0);
   .aulario-note-heading strong {
     font-size: 13px;
     font-weight: 600;
-  }
-  .aulario-note p {
-    font-size: 12px;
-    line-height: 1.8;
-    color: var(--muted);
-    margin-block: 12px;
-  }
-  .aulario-note a {
-    font-size: 11px;
-    text-decoration: underline;
-    text-underline-offset: 4px;
   }
   .aulario-service-legend {
     display: flex;
@@ -411,10 +415,14 @@ const layout = getVenueLayout('principal-0', 0);
     justify-content: center;
     align-items: center;
     gap: 14px;
-    margin-top: 6px;
+    margin-top: 12px;
+    margin-bottom: 28px;
   }
   .venue-controls button {
-    display: grid;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 16px;
     place-items: center;
     min-width: 38px;
     min-height: 38px;
@@ -429,19 +437,6 @@ const layout = getVenueLayout('principal-0', 0);
   .venue-controls button:disabled {
     cursor: wait;
     opacity: 0.45;
-  }
-  .venue-orientations {
-    display: flex;
-    gap: 4px;
-  }
-  .venue-orientations button {
-    border-color: transparent;
-    min-width: 32px;
-  }
-  .venue-orientations button[aria-pressed='true'] {
-    border-color: var(--line);
-    background: var(--surface);
-    font-weight: 700;
   }
   .venue-selection {
     font-size: 11px;
@@ -465,13 +460,79 @@ const layout = getVenueLayout('principal-0', 0);
       flex-direction: column;
       gap: 12px;
     }
-    .venue-callout path,
-    .venue-callout rect,
-    .venue-callout text {
+    .venue-callout:not(.is-selected) [data-venue-leader],
+    .venue-callout:not(.is-selected) [data-venue-label] {
       display: none;
+    }
+    .venue-callout.is-selected {
+      isolation: isolate;
     }
     .venue-callout circle {
       r: 8;
+    }
+  }
+  .venue-callout .venue-hit {
+    fill: transparent;
+    stroke: none;
+  }
+  .venue-callout.is-selected .venue-hit,
+  .venue-callout:hover .venue-hit {
+    fill: transparent;
+  }
+  .venue-label-dismiss {
+    display: none;
+  }
+  .venue-zoom {
+    position: absolute;
+    right: 0;
+    top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 3px;
+    background: var(--paper);
+  }
+  .venue-zoom button {
+    touch-action: manipulation;
+    display: grid;
+    place-items: center;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .venue-zoom button:disabled {
+    opacity: 0.35;
+  }
+  .venue-zoom button:hover:not(:disabled) {
+    background: var(--surface);
+  }
+  .venue-drawing[data-zoomed] {
+    touch-action: none;
+    cursor: grab;
+  }
+  .venue-drawing[data-zoomed]:active {
+    cursor: grabbing;
+  }
+  @media (max-width: 600px) {
+    .venue-label-dismiss {
+      display: block;
+    }
+    .venue-callout.is-selected [data-venue-label] {
+      filter: drop-shadow(0 3px 5px rgb(0 35 55 / 0.15));
+    }
+    .venue-selection {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .venue-zoom {
+      top: 0;
     }
   }
 </style>

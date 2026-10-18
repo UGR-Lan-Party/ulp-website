@@ -8,11 +8,26 @@ document
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     let hovered = false;
     let focused = false;
+    let touching = false;
+    let fingerDown = false;
     let visible = false;
     let frame = 0;
     let lastTime = 0;
     let fractionalDistance = 0;
     let stopped = false;
+    let resumeTimer: number | undefined;
+
+    const canAnimate = () =>
+      !stopped &&
+      visible &&
+      !document.hidden &&
+      !reducedMotion.matches &&
+      !hovered &&
+      !focused &&
+      !touching;
+    const hasKeyboardFocus = () =>
+      root.contains(document.activeElement) &&
+      document.activeElement?.matches(':focus-visible') === true;
 
     function move(distance: number) {
       const width = list.offsetWidth;
@@ -20,16 +35,10 @@ document
         viewport.scrollLeft =
           (((viewport.scrollLeft + distance) % width) + width) % width;
     }
+
     function animate(time: number) {
       frame = 0;
-      if (
-        stopped ||
-        !visible ||
-        document.hidden ||
-        reducedMotion.matches ||
-        hovered ||
-        focused
-      ) {
+      if (!canAnimate()) {
         lastTime = 0;
         return;
       }
@@ -44,29 +53,68 @@ document
       lastTime = time;
       frame = requestAnimationFrame(animate);
     }
+
     function update() {
       cancelAnimationFrame(frame);
       lastTime = 0;
-      frame = requestAnimationFrame(animate);
+      root.dataset.rotation = canAnimate() ? 'running' : 'paused';
+      if (canAnimate()) frame = requestAnimationFrame(animate);
     }
-    root.addEventListener('pointerenter', () => {
+
+    function resumeAfterTouch() {
+      clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(() => {
+        touching = false;
+        focused = hasKeyboardFocus();
+        update();
+      }, 400);
+    }
+
+    root.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'touch') return;
       hovered = true;
       update();
     });
-    root.addEventListener('pointerleave', () => {
+    root.addEventListener('pointerleave', (event) => {
+      if (event.pointerType === 'touch') return;
       hovered = false;
       update();
     });
     root.addEventListener('focusin', () => {
-      focused = true;
+      focused = hasKeyboardFocus();
       update();
     });
-    root.addEventListener('focusout', () => {
+    root.addEventListener('focusout', () =>
       requestAnimationFrame(() => {
-        focused = root.contains(document.activeElement);
+        focused = hasKeyboardFocus();
         update();
-      });
-    });
+      }),
+    );
+    root.addEventListener(
+      'touchstart',
+      () => {
+        clearTimeout(resumeTimer);
+        fingerDown = touching = true;
+        hovered = focused = false;
+        update();
+      },
+      { passive: true },
+    );
+    const endTouch = (event: TouchEvent) => {
+      if (!touching || event.touches.length) return;
+      fingerDown = false;
+      resumeAfterTouch();
+    };
+    window.addEventListener('touchend', endTouch, { passive: true });
+    window.addEventListener('touchcancel', endTouch, { passive: true });
+    viewport.addEventListener(
+      'scroll',
+      () => {
+        if (touching && !fingerDown) resumeAfterTouch();
+      },
+      { passive: true },
+    );
+
     viewport.addEventListener(
       'wheel',
       (event) => {
@@ -110,13 +158,14 @@ document
     document.addEventListener('visibilitychange', update);
     window.addEventListener('pagehide', () => {
       stopped = true;
+      clearTimeout(resumeTimer);
       cancelAnimationFrame(frame);
       observer.disconnect();
     });
     window.addEventListener('pageshow', (event) => {
-      if (event.persisted) {
-        stopped = false;
-        observer.observe(root);
-      }
+      if (!event.persisted) return;
+      stopped = touching = fingerDown = hovered = false;
+      focused = hasKeyboardFocus();
+      observer.observe(root);
     });
   });

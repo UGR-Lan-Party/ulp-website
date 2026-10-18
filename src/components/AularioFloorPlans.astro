@@ -35,7 +35,7 @@ const firstFloorRooms = [
         <g transform="translate(392 103) scale(.45)">
           <path
             class="aulario-perimeter"
-            d="M0 0L238 137V240A65 65 0 0 1 238 370V1020L0 1150Z"
+            d="M0 0L238 137V240A65 65 0 0 1 238 370V760M238 825V910M238 960V1020L0 1150V0"
           />
           {rooms.map((room) => (
             <g data-aulario-room={room.number}>
@@ -51,7 +51,7 @@ const firstFloorRooms = [
           ))}
           <path
             class="aulario-wall"
-            d="M0 180H180M0 310H180M0 440H180M0 570H180M0 700H180M0 830H180M0 960H180M180 84V180M180 200V310M180 330V440M180 460V570M180 590V700M180 720V830M180 850V960M180 980V1018M238 137V240M238 370V760M238 825V910M238 960V1020M238 305H300M238 240V285M238 325V370"
+            d="M0 180H180M0 310H180M0 440H180M0 570H180M0 700H180M0 830H180M0 960H180M180 104V180M180 200V310M180 330V440M180 460V570M180 590V700M180 720V830M180 850V960M180 980V1018L60 1080H0M238 305H300M238 240V285M238 325V370"
           />
           <path
             class="aulario-stair"
@@ -129,9 +129,7 @@ const firstFloorRooms = [
     vector-effect: non-scaling-stroke;
   }
   .aulario-room {
-    stroke: currentColor;
-    stroke-opacity: 0.18;
-    stroke-width: 1;
+    stroke: none;
     fill: currentColor;
     fill-opacity: 0.045;
   }

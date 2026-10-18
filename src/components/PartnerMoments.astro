@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 const moments = [
   {
@@ -64,7 +65,9 @@ const moments = [
               alt={moment.alt}
               sizes="(max-width: 520px) 90vw, (max-width: 1000px) 45vw, 23vw"
             />
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true">
+              <ArrowUpRight />
+            </span>
           </a>
           <figcaption>
             <>

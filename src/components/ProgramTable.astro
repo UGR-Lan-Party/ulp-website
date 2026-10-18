@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import VenueMap from './VenueMap.astro';
 import PersonalAgenda from './PersonalAgenda.astro';
 import AgendaToggle from './AgendaToggle.astro';
@@ -194,7 +195,10 @@ const categoryLabels: Record<string, string> = {
                     {entry.href ? (
                       <a href={entry.href}>
                         {entry.name}
-                        <span aria-hidden="true"> ↗</span>
+                        <span aria-hidden="true">
+                          {' '}
+                          <ArrowUpRight />
+                        </span>
                       </a>
                     ) : (
                       <span class="activity-name">{entry.name}</span>
@@ -563,6 +567,27 @@ const categoryLabels: Record<string, string> = {
     .program-time span {
       padding: 0;
       background: transparent;
+    }
+  }
+  .program-filters input,
+  .program-filters select {
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  @media (max-width: 800px) {
+    .program-filters {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .program-filters > label,
+    .program-reset {
+      grid-column: 1 / -1;
+    }
+    .program-reset {
+      justify-self: stretch;
+    }
+    .program-filters input {
+      min-inline-size: 0;
+      max-inline-size: 100%;
     }
   }
 </style>

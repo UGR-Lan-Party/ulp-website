@@ -1,3 +1,4 @@
+import { enableTouchSwipe } from './touch-swipe';
 import { getCarouselOrder } from '../utils/carousel-order.js';
 
 function parsePhotos(value: string | undefined): string[] {
@@ -127,7 +128,7 @@ document
     function warmAdjacent() {
       if (!neighbors.length) return;
       for (const offset of [-1, 1]) {
-        void loadPhoto(photos[wrap(current + offset)]);
+        void loadPhoto(previews[wrap(current + offset)]);
         void loadPhoto(neighborSource(current + offset * 2));
       }
     }
@@ -139,7 +140,7 @@ document
     ) {
       const changed = index !== current;
       current = index;
-      image.src = photos[current];
+      image.src = previews[current];
       image.alt = `Foto ${current + 1} de UGR LAN Party`;
       if (loaded) updateRatio(loaded);
       zoom.href = photos[current];
@@ -175,7 +176,7 @@ document
       root.setAttribute('aria-busy', 'true');
       status.hidden = true;
       const [loaded, ...neighborImages] = await Promise.all([
-        loadPhoto(photos[target]),
+        loadPhoto(dialog.open ? photos[target] : previews[target]),
         ...neighbors.map((button) =>
           loadPhoto(
             neighborSource(target + Number(button.dataset.carouselNeighbor)),
@@ -187,7 +188,7 @@ document
       if (!loaded) {
         requested = current;
         status.textContent =
-          'No se ha podido cargar esta foto. Puedes volver a intentarlo o abrir el álbum.';
+          'No se ha podido cargar esta foto. Puedes volver a intentarlo o abrir el Ã¡lbum.';
         status.hidden = false;
         return;
       }
@@ -195,6 +196,8 @@ document
       warmAdjacent();
     }
 
+    enableTouchSwipe(stage, (direction) => void show(requested + direction));
+    enableTouchSwipe(dialog, (direction) => void show(requested + direction));
     neighbors.forEach((button) =>
       button.addEventListener(
         'click',
@@ -212,9 +215,14 @@ document
     }
     zoom.addEventListener('click', (event) => {
       event.preventDefault();
-      expanded.src = photos[current];
+      const index = current;
+      expanded.src = previews[index];
       expanded.alt = image.alt;
       dialog.showModal();
+      void loadPhoto(photos[index]).then((loaded) => {
+        if (loaded && dialog.open && current === index)
+          expanded.src = photos[index];
+      });
     });
     root
       .querySelector('[data-carousel-close]')!

@@ -121,8 +121,8 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   const list = page.locator('[data-partner-list]').first();
-  await expect(list.locator('.mars-logo')).toHaveCSS('width', '138px');
-  await expect(list.locator('.mars-logo')).toHaveCSS('height', '38px');
+  await expect(list.locator('.mars-logo')).toHaveCSS('width', '150px');
+  await expect(list.locator('.mars-logo')).toHaveCSS('height', '44px');
   const names = [
     'Nacon España',
     'DEIIT',
@@ -136,7 +136,9 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
     await image.scrollIntoViewIfNeeded();
     await expect(image).toHaveCSS(
       'filter',
-      ['Nacon España', 'Hackiit'].includes(name) ? 'none' : 'brightness(0)',
+      ['Nacon España', 'Hackiit', 'Mars Gaming'].includes(name)
+        ? 'none'
+        : 'brightness(0)',
     );
     await expect
       .poll(() =>
@@ -155,7 +157,9 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
   for (const name of names) {
     await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
       'filter',
-      ['Nacon España', 'Hackiit'].includes(name) ? 'none' : 'brightness(0)',
+      ['Nacon España', 'Hackiit', 'Mars Gaming'].includes(name)
+        ? 'none'
+        : 'brightness(0)',
     );
   }
 });

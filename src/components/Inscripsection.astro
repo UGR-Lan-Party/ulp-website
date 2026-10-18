@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import { edition } from '../data/edition';
 interface Props {
   registrationLink?: string;
@@ -51,7 +52,8 @@ const title = isFinished
       {
         isFinished && (
           <p>
-            Esta edición ha finalizado. La información se conserva como archivo.
+            Esta edición ha finalizado y las inscripciones están cerradas. La
+            información se conserva como archivo.
           </p>
         )
       }
@@ -71,7 +73,10 @@ const title = isFinished
         data-analytics-activity={activityId}
         class="registration-action"
       >
-        Inscribirme <span aria-hidden="true">↗</span>
+        Inscribirme{' '}
+        <span aria-hidden="true">
+          <ArrowUpRight />
+        </span>
       </a>
     )
   }
@@ -81,14 +86,19 @@ const title = isFinished
         {activityYear === 2026
           ? 'Consultar horarios'
           : `Consultar edición ${activityYear}`}{' '}
-        <span aria-hidden="true">↗</span>
+        <span aria-hidden="true">
+          <ArrowUpRight />
+        </span>
       </a>
     )
   }
   {
     !isFinished && !isOpen && participantsLink && (
       <a href={participantsLink} class="registration-action">
-        Consultar participantes <span aria-hidden="true">↗</span>
+        Consultar participantes{' '}
+        <span aria-hidden="true">
+          <ArrowUpRight />
+        </span>
       </a>
     )
   }

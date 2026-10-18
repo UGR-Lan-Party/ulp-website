@@ -56,7 +56,7 @@ test('La aleatoriedad conserva portada, parejas de resoluciones y recorrido por 
     .click();
   await expect(album.locator('[data-carousel-image]')).toHaveAttribute(
     'src',
-    order[1],
+    pairedPreviews[1],
   );
   await page.reload();
   await expect(album.locator('[data-carousel-next]')).toBeVisible();
@@ -67,7 +67,7 @@ test('La aleatoriedad conserva portada, parejas de resoluciones y recorrido por 
   ).toEqual(order);
   await expect(album.locator('[data-carousel-image]')).toHaveAttribute(
     'src',
-    sources[0],
+    previews[0],
   );
   await page.evaluate(() =>
     sessionStorage.setItem('ulp-photo-seed', 'otra-sesion'),

@@ -68,3 +68,10 @@ Los pictogramas de servicios y sus leyendas comparten componentes y datos. Se id
 Las fotografías públicas de [ESSIR 2013](https://www.ugr.es/~essir2013/venue.php) y la galería de la [ETSIIT](https://etsiit.ugr.es/) se usan para contrastar la disposición general del Salón de Actos y la geometría curva del hall. Las fotografías no sustituyen los planos para deducir muros o recorridos ocultos. No se incorporan esas fotografías como recursos publicados.
 
 La validación incluye límites del mobiliario, ausencia de cruces entre mesas y sillas, alineación de la columna, siete planos en cuatro orientaciones y dos temas, filtros, teclado, móvil y movimiento reducido.
+
+
+## Zoom y limpieza de trazos
+
+La rueda acerca o aleja el plano dentro del área de dibujo y actualiza los mismos controles y porcentaje que el zoom táctil. El zoom se limita entre 100 % y 250 %, mantiene el punto señalado por el cursor y permite desplazar el plano ampliado. Un único botón Rotar avanza en cuartos de vuelta; se conservan los atajos de teclado y el arrastre. Hay separación adicional antes de la leyenda de servicios.
+
+En el edificio principal se retiran segmentos repetidos entre el perímetro, el contorno de referencia y las paredes interiores. Los arcos del hall y del auditorio se dibujan por tramos complementarios. Las aulas del Aulario usan rellenos sin trazo: los límites y divisiones proceden de las paredes comunes, sin contornos superpuestos en las aulas contiguas.

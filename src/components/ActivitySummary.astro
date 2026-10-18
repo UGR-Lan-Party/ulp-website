@@ -1,8 +1,7 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import { program, programEdition } from '../data/program';
-import { edition } from '../data/edition';
 import { getTournament } from '../data/tournaments';
-import { getRegistrationState } from '../utils/registration.js';
 import { agendaEntryId } from '../utils/personal-agenda.js';
 import type { CompetitionData } from '../data/competitions-data';
 import AgendaToggle from './AgendaToggle.astro';
@@ -13,11 +12,6 @@ interface Props {
 const { competition } = Astro.props;
 const slots = program.filter((entry) => entry.id === competition.id);
 const format = getTournament(competition.id)?.format;
-const registration = getRegistrationState(
-  competition,
-  programEdition.year,
-  edition,
-);
 const day = new Intl.DateTimeFormat('es-ES', {
   timeZone: programEdition.timezone,
   weekday: 'long',
@@ -45,16 +39,6 @@ const facts = [
     value:
       format ||
       (competition.rules ? 'Consultar las reglas' : 'No especificado'),
-    note: '',
-  },
-  {
-    label: 'Inscripción',
-    value:
-      registration.label === 'N/A'
-        ? 'Sin inscripción previa'
-        : registration.label === 'Cerrada'
-          ? `Cerrada · archivo ${programEdition.year}`
-          : 'Abierta',
     note: '',
   },
 ];
@@ -98,7 +82,7 @@ const facts = [
         )
       }
       <a class="summary-agenda-link" href="/info/horarios#mi-agenda"
-        >Mi agenda <span aria-hidden="true">↗</span></a
+        >Mi agenda <span aria-hidden="true"><ArrowUpRight /></span></a
       >
     </div>
   </div>
@@ -115,7 +99,7 @@ const facts = [
   }
   dl {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
   }
   dt {

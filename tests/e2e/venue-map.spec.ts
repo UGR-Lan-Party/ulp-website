@@ -1,4 +1,18 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+async function rotateTo(page: Page, target: number) {
+  const current = Number(
+    await page.locator('[data-venue-map]').getAttribute('data-orientation'),
+  );
+  for (let turn = 0; turn < (target - current + 4) % 4; turn++) {
+    await page
+      .getByRole('button', { name: 'Rotar plano', exact: true })
+      .click();
+    await expect(page.locator('[data-venue-map]')).toHaveAttribute(
+      'aria-busy',
+      'false',
+    );
+  }
+}
 
 test.beforeEach(async ({ page }) => {
   await page.route('https://**', (route) =>
@@ -64,18 +78,18 @@ test('El plano ofrece cuatro orientaciones con transición limpia y admite tecla
   const drawing = page.locator('[data-venue-drawing]');
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await drawing.scrollIntoViewIfNeeded();
-  await page.getByRole('button', { name: 'Girar plano a la derecha' }).click();
+  await page.getByRole('button', { name: 'Rotar plano', exact: true }).click();
   await expect(map).toHaveAttribute('aria-busy', 'true');
-  await expect(page.locator('[data-venue-orientation="2"]')).toBeDisabled();
+  await expect(
+    page.getByRole('button', { name: 'Rotar plano', exact: true }),
+  ).toBeDisabled();
   await expect(map).toHaveAttribute('aria-busy', 'false');
   await expect(map).toHaveAttribute('data-orientation', '1');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const orientation of [2, 3, 0, 1]) {
-    await page.locator(`[data-venue-orientation="${orientation}"]`).click();
+    await rotateTo(page, orientation);
     await expect(map).toHaveAttribute('data-orientation', String(orientation));
-    await expect(
-      page.locator(`[data-venue-orientation="${orientation}"]`),
-    ).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-venue-orientation]')).toHaveCount(0);
     await expect(page.locator('[data-venue-building]')).toHaveCSS(
       'transform',
       /matrix/,
@@ -219,7 +233,7 @@ test('El Aulario mantiene las dos plantas sin asociar actividades ni inventar se
     ),
   ).toHaveCount(0);
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.getByRole('button', { name: 'Girar plano a la derecha' }).click();
+  await page.getByRole('button', { name: 'Rotar plano', exact: true }).click();
   await expect(map).toHaveAttribute('data-orientation', '1');
   await expect(map).toHaveCSS('--venue-label-turn', '-90deg');
   await page.setViewportSize({ width: 320, height: 844 });
@@ -257,7 +271,7 @@ test('Los siete planos mantienen servicios y rótulos legibles al girar en ambos
       const select = page.locator('[data-venue-floor-select]');
       if (!(await select.isDisabled())) await select.selectOption(floor);
       for (const orientation of [0, 1, 2, 3]) {
-        await page.locator(`[data-venue-orientation="${orientation}"]`).click();
+        await rotateTo(page, orientation);
         const upright = await page
           .locator(
             '[data-venue-floor-plan]:visible .aulario-label, [data-venue-floor-plan]:visible .floor-upright, [data-venue-floor-plan]:visible .venue-amenity-marker',

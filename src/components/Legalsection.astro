@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import { getEntry } from 'astro:content';
 const legalContent = await getEntry('legal', 'legal');
 const sections = legalContent?.data.sections ?? [];
@@ -18,7 +19,8 @@ const sections = legalContent?.data.sections ?? [];
         ))
       }
     </nav><a class="legal-contact" href="/contacto"
-      >¿Necesitas contactar?<span aria-hidden="true">↗</span></a>
+      >¿Necesitas contactar?<span aria-hidden="true"><ArrowUpRight /></span></a
+    >
   </aside>
   <div class="legal-sections">
     {

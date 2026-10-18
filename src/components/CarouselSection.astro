@@ -25,9 +25,9 @@ const {
   instanceId = `carousel-${albumId}`,
 } = Astro.props;
 const photos: string[] = await getFlickrPhotos(albumId, userId);
-const photoPreviews: string[] = centeredSlides
-  ? await getFlickrPhotos(albumId, userId, { preview: true })
-  : [];
+const photoPreviews: string[] = await getFlickrPhotos(albumId, userId, {
+  preview: true,
+});
 const featuredIndex = featuredPhotoId
   ? photos.findIndex((source) =>
       new URL(source).pathname
@@ -51,7 +51,8 @@ const previews =
       ]
     : photoPreviews;
 const albumUrl = `https://www.flickr.com/photos/${encodeURIComponent(userId)}/albums/${encodeURIComponent(albumId)}`;
-const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
+const firstImage =
+  previews[0] ?? images[0] ?? '/assets/about/sobre-nosotros.png';
 ---
 
 <section
@@ -61,7 +62,7 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
   data-shuffle-photos={shufflePhotos || undefined}
   data-photos={JSON.stringify(images)}
   data-centered-slides={centeredSlides || undefined}
-  data-previews={centeredSlides ? JSON.stringify(previews) : undefined}
+  data-previews={JSON.stringify(previews)}
   aria-label="Fotos de UGR LAN Party"
   aria-roledescription="carrusel"
 >
@@ -268,7 +269,7 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
   .centered-slides .carousel-photo {
     grid-column: 2;
     grid-row: 1;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     height: auto;
     border-radius: 18px;
     overflow: hidden;
@@ -283,7 +284,7 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
     grid-row: 1;
     min-width: 0;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     border-radius: 18px;
     overflow: hidden;
     opacity: 0.42;
@@ -388,11 +389,8 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    width: min(
-      100%,
-      calc(min(var(--carousel-height), 75svh) * var(--photo-ratio, 1.5))
-    );
-    aspect-ratio: var(--photo-ratio, 1.5);
+    width: min(100%, calc(min(var(--carousel-height), 75svh) * 4 / 3));
+    aspect-ratio: 4 / 3;
     margin-inline: auto;
     border: 0;
     border-radius: 1.5rem;
@@ -409,7 +407,7 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
   .photo-control {
     position: absolute;
@@ -496,5 +494,17 @@ const firstImage = images[0] ?? '/assets/about/sobre-nosotros.png';
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+  .carousel-stage,
+  dialog {
+    touch-action: pan-y pinch-zoom;
+  }
+  @media (max-width: 700px) {
+    [data-carousel-previous],
+    [data-carousel-next],
+    [data-expanded-previous],
+    [data-expanded-next] {
+      display: none;
+    }
   }
 </style>

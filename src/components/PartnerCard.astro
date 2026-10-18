@@ -135,6 +135,8 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
     margin-bottom: 17px;
   }
   .partner-card-description {
+    text-align: justify;
+    hyphens: auto;
     font-size: 13px;
     line-height: 1.75;
     color: rgb(245 240 230 / 0.88);
@@ -225,5 +227,8 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
       min-height: 460px;
       padding: 25px;
     }
+  }
+  .partner-card-logo :global(.mars-logo) {
+    --partner-logo-height: 80px;
   }
 </style>

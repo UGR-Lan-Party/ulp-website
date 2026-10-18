@@ -1,3 +1,5 @@
+import { enableTouchSwipe } from './touch-swipe';
+
 document
   .querySelectorAll<HTMLElement>('[data-experience-carousel]')
   .forEach((root) => {
@@ -115,6 +117,10 @@ document
       }
     }
 
+    enableTouchSwipe(
+      root.querySelector<HTMLElement>('.experience-viewport')!,
+      (direction) => void move(direction),
+    );
     previous.hidden = next.hidden = false;
     previous.addEventListener('click', () => void move(-1));
     next.addEventListener('click', () => void move(1));

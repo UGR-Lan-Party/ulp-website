@@ -1,5 +1,24 @@
 import { test, expect } from '@playwright/test';
 
+async function changePhoto(
+  root: import('@playwright/test').Locator,
+  direction: -1 | 1,
+) {
+  const expanded = (await root.getAttribute('data-carousel-dialog')) !== null;
+  if ((root.page().viewportSize()?.width ?? 1440) <= 700) {
+    await (expanded ? root : root.locator('[data-carousel-zoom]')).press(
+      direction > 0 ? 'ArrowRight' : 'ArrowLeft',
+    );
+    return;
+  }
+  await root
+    .getByRole('button', {
+      name: `Foto ${direction > 0 ? 'siguiente' : 'anterior'}${expanded ? ' ampliada' : ''}`,
+      exact: true,
+    })
+    .click();
+}
+
 test.beforeEach(async ({ page }) => {
   await page.route('https://**', (route) =>
     route.fulfill({ status: 200, body: '' }),
@@ -30,9 +49,7 @@ test('Cada álbum navega de forma independiente y amplía con cierre y Escape', 
   await expect(first.locator('[data-carousel-counter]')).toHaveText(
     'Foto 1 de 2',
   );
-  await first
-    .getByRole('button', { name: 'Foto siguiente', exact: true })
-    .click();
+  await changePhoto(first, 1);
   await expect(first.locator('[data-carousel-image]')).toHaveAttribute(
     'src',
     /sobre-nosotros-2/,
@@ -45,7 +62,7 @@ test('Cada álbum navega de forma independiente y amplía con cierre y Escape', 
     .click();
   const dialog = first.getByRole('dialog');
   await expect(dialog).toBeVisible();
-  await dialog.getByRole('button', { name: 'Foto anterior ampliada' }).click();
+  await changePhoto(dialog, -1);
   await expect(first.locator('[data-carousel-expanded]')).toHaveAttribute(
     'src',
     /sobre-nosotros.png$/,
@@ -70,9 +87,7 @@ test('El carrusel se adapta al móvil y no depende de movimiento automático', a
   const first = page.locator('[data-photo-carousel]').first();
   const box = await first.locator('[data-carousel-stage]').boundingBox();
   expect(box!.width).toBeLessThanOrEqual(360);
-  await first
-    .getByRole('button', { name: 'Foto anterior', exact: true })
-    .click();
+  await changePhoto(first, -1);
   await expect(first.locator('[data-carousel-counter]')).toHaveText(
     'Foto 2 de 2',
   );
@@ -82,7 +97,7 @@ test('El carrusel se adapta al móvil y no depende de movimiento automático', a
 });
 
 for (const width of [1440, 360]) {
-  test(`El marco sigue la proporción de cada foto sin bandas a ${width} px`, async ({
+  test(`El marco conserva 4:3 y amplía la foto completa a ${width} px`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height: 1000 });
@@ -107,7 +122,7 @@ for (const width of [1440, 360]) {
       await expect
         .poll(async () => {
           const box = (await stage.boundingBox())!;
-          return Math.abs(box.width / box.height - ratio);
+          return Math.abs(box.width / box.height - 4 / 3);
         })
         .toBeLessThan(0.01);
       await first.locator('[data-carousel-zoom]').click();
@@ -120,9 +135,7 @@ for (const width of [1440, 360]) {
       await dialog
         .getByRole('button', { name: 'Cerrar foto ampliada' })
         .click();
-      await first
-        .getByRole('button', { name: 'Foto siguiente', exact: true })
-        .click();
+      await changePhoto(first, 1);
       await expect(first.locator('[data-carousel-counter]')).toHaveText(
         `Foto ${((index + 1) % 2) + 1} de 2`,
       );
@@ -183,8 +196,8 @@ for (const width of [1440, 390]) {
     );
     const center = (await album.locator('[data-carousel-zoom]').boundingBox())!;
     const side = (await next.boundingBox())!;
-    expect(Math.abs(center.width / center.height - 16 / 9)).toBeLessThan(0.01);
-    expect(Math.abs(side.width / side.height - 16 / 9)).toBeLessThan(0.01);
+    expect(Math.abs(center.width / center.height - 4 / 3)).toBeLessThan(0.01);
+    expect(Math.abs(side.width / side.height - 4 / 3)).toBeLessThan(0.01);
     await expect(album.locator('[data-carousel-image]')).toHaveCSS(
       'object-fit',
       'cover',
@@ -200,9 +213,7 @@ for (const width of [1440, 390]) {
       'src',
       /sobre-nosotros.png$/,
     );
-    await album
-      .getByRole('button', { name: 'Foto siguiente', exact: true })
-      .click();
+    await changePhoto(album, 1);
     await expect(album.locator('[data-carousel-counter]')).toHaveText(
       'Foto 3 de 3',
     );
@@ -211,9 +222,7 @@ for (const width of [1440, 390]) {
       .click();
     const dialog = album.getByRole('dialog');
     await expect(dialog).toBeVisible();
-    await dialog
-      .getByRole('button', { name: 'Foto siguiente ampliada' })
-      .click();
+    await changePhoto(dialog, 1);
     await expect(album.locator('[data-carousel-counter]')).toHaveText(
       'Foto 1 de 3',
     );
@@ -268,17 +277,13 @@ test('Una carga lenta conserva la foto actual y varios clics rápidos muestran s
   await expect(album.locator('[data-carousel-counter]')).toHaveText(
     'Foto 1 de 3',
   );
-  await album
-    .getByRole('button', { name: 'Foto siguiente', exact: true })
-    .click();
+  await changePhoto(album, 1);
   await expect(album).toHaveAttribute('aria-busy', 'true');
   await expect(image).toHaveAttribute('src', /sobre-nosotros.png$/);
   await expect(album.locator('[data-carousel-counter]')).toHaveText(
     'Foto 1 de 3',
   );
-  await album
-    .getByRole('button', { name: 'Foto siguiente', exact: true })
-    .click();
+  await changePhoto(album, 1);
   release!();
   await expect(album.locator('[data-carousel-counter]')).toHaveText(
     'Foto 3 de 3',
@@ -294,7 +299,7 @@ test('Una carga lenta conserva la foto actual y varios clics rápidos muestran s
 });
 
 for (const width of [1440, 390]) {
-  test(`Las fotos verticales se recortan a 16:9 y se amplían completas a ${width} px`, async ({
+  test(`Las fotos verticales se recortan a 4:3 y se amplían completas a ${width} px`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height: 900 });
@@ -333,9 +338,7 @@ for (const width of [1440, 390]) {
     const preview = (await album
       .locator('[data-carousel-zoom]')
       .boundingBox())!;
-    expect(Math.abs(preview.width / preview.height - 16 / 9)).toBeLessThan(
-      0.01,
-    );
+    expect(Math.abs(preview.width / preview.height - 4 / 3)).toBeLessThan(0.01);
     await album.locator('[data-carousel-zoom]').click();
     const dialog = album.getByRole('dialog');
     await expect(dialog).toBeVisible();
@@ -345,9 +348,7 @@ for (const width of [1440, 390]) {
     const full = (await dialog.boundingBox())!;
     expect(Math.abs(full.width / full.height - 0.6)).toBeLessThan(0.01);
     await page.keyboard.press('Escape');
-    await album
-      .getByRole('button', { name: 'Foto siguiente', exact: true })
-      .click();
+    await changePhoto(album, 1);
     await expect(album.locator('[data-carousel-counter]')).toHaveText(
       'Foto 2 de 2',
     );

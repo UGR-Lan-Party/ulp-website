@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import { getActivityNeighbors } from '../../utils/activity-navigation';
 import { programEdition } from '../../data/program';
 import Layout from '../../layouts/Layout.astro';
@@ -78,7 +79,10 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
                   data-analytics-edition={programEdition.year}
                   data-analytics-activity={competition.id}
                 >
-                  Consultar Reglas y Formato <span aria-hidden="true">↗</span>
+                  Consultar Reglas y Formato{' '}
+                  <span aria-hidden="true">
+                    <ArrowUpRight />
+                  </span>
                 </a>
               )
             }
@@ -178,7 +182,9 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
           <span class="design-eyebrow">01 / Prepara tu visita</span>
           <h2 id="activity-information-title">Dónde y cuándo.</h2>
           <a class="design-link" href="/info/localizacion"
-            >Cómo llegar a la ETSIIT <span aria-hidden="true">↗</span></a
+            >Cómo llegar a la ETSIIT <span aria-hidden="true"
+              ><ArrowUpRight /></span
+            ></a
           >
         </div>
         <CompetitionTimePlace
@@ -232,10 +238,32 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
         )
       }
       <TournamentMatchups activityId={competition.id} />
+      {
+        neighbors && (
+          <nav
+            class="activity-bottom-navigation"
+            aria-label={`Más ${catalogSection}`}
+          >
+            <a href={`/actividades/${neighbors.previous.id}`} rel="prev">
+              <span class="activity-nav-caption">
+                <span aria-hidden="true">←</span> Anterior
+              </span>
+              <strong>{neighbors.previous.name}</strong>
+            </a>
+            <a href={`/actividades/${neighbors.next.id}`} rel="next">
+              <span class="activity-nav-caption">
+                Siguiente <span aria-hidden="true">→</span>
+              </span>
+              <strong>{neighbors.next.name}</strong>
+            </a>
+          </nav>
+        )
+      }
       <div class="activity-ending">
         <span class="design-eyebrow">Siempre hay otra partida</span>
         <a class="design-link" href={`/actividades#${catalogSection}`}
-          >Volver al catálogo <span aria-hidden="true">↗</span></a
+          >Volver al catálogo <span aria-hidden="true"><ArrowUpRight /></span
+          ></a
         >
       </div>
     </div>
@@ -453,5 +481,42 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     .trophy-showcase {
       padding: 18px;
     }
+  }
+  .activity-bottom-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 36px;
+  }
+  .activity-bottom-navigation a {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    transition: border-color 180ms;
+  }
+  .activity-bottom-navigation a:hover {
+    border-color: var(--ink);
+  }
+  .activity-bottom-navigation a:last-child {
+    text-align: right;
+  }
+  .activity-nav-caption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .activity-bottom-navigation a:last-child .activity-nav-caption {
+    justify-content: end;
+  }
+  .activity-bottom-navigation strong {
+    font-size: clamp(14px, 2vw, 20px);
+    font-weight: 650;
+    overflow-wrap: anywhere;
   }
 </style>

@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import PartnerLogo from './PartnerLogo.astro';
 import { partners } from '../data/sponsors';
 import { partnerTiers } from '../data/partner-tiers';
@@ -18,8 +19,8 @@ const groups = partnerTiers
   <div class="container partner-strip-inner">
     <a class="partner-strip-label" href="/participan"
       ><span class="design-eyebrow">Lo hacemos juntos</span><strong
-        >PARTNERS <span>↗</span></strong
-      ><small>COMUNIDAD ULP · 2026</small></a
+        >PARTNERS <span><ArrowUpRight /></span></strong
+      ></a
     >
     <div
       class="partner-viewport"
@@ -178,8 +179,8 @@ const groups = partnerTiers
     --partner-logo-height: 32px;
   }
   .partner-item :global(.mars-logo) {
-    width: 138px;
-    --partner-logo-height: 38px;
+    width: 150px;
+    --partner-logo-height: 44px;
   }
   .partner-item:has(.roomy-logo) {
     min-width: 144px;
@@ -246,6 +247,16 @@ const groups = partnerTiers
     }
     .partner-separator span {
       font-size: 8px;
+    }
+  }
+  @media (max-width: 700px) {
+    .partner-strip-label {
+      width: 72px;
+    }
+    .partner-strip-label strong {
+      font-size: 11px;
+      gap: 5px;
+      letter-spacing: -0.02em;
     }
   }
 </style>

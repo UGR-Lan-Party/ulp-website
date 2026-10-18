@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { getPublishedNews, formatNewsDate } from '../utils/news';
 
@@ -19,7 +20,10 @@ const stories = (await getPublishedNews()).slice(0, 2);
           </h2>
         </div>
         <a class="design-link" href="/blog">
-          Todas las noticias <span aria-hidden="true">↗</span>
+          Todas las noticias{' '}
+          <span aria-hidden="true">
+            <ArrowUpRight />
+          </span>
         </a>
       </header>
       <div class="home-news-list">
@@ -39,7 +43,10 @@ const stories = (await getPublishedNews()).slice(0, 2);
                 </time>
                 <h3>{entry.data.title}</h3>
                 <span class="home-news-read">
-                  Leer noticia <span aria-hidden="true">↗</span>
+                  Leer noticia{' '}
+                  <span aria-hidden="true">
+                    <ArrowUpRight />
+                  </span>
                 </span>
               </div>
             </a>
@@ -172,6 +179,49 @@ const stories = (await getPublishedNews()).slice(0, 2);
     .home-news-read > span {
       transition: none;
       transform: none !important;
+    }
+  }
+  @media (max-width: 700px) {
+    .home-news {
+      padding-block: 28px 32px;
+    }
+    .home-news-heading {
+      flex-direction: row;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .home-news-heading > a {
+      font-size: 10px;
+      white-space: normal;
+      max-width: 95px;
+      text-align: right;
+    }
+    .home-news-heading h2 {
+      font-size: 30px;
+    }
+    .home-news-list {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .home-news-story > a {
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 14px;
+      padding: 16px;
+    }
+    .home-news-copy h3 {
+      font-size: 15px;
+      line-height: 1.35;
+    }
+    .home-news-copy time {
+      font-size: 9px;
+      margin-bottom: 5px;
+    }
+    .home-news-read {
+      margin-top: 8px;
+      font-size: 9px;
     }
   }
 </style>

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { loadTrophy } from './ULPTrophy';
+import { applyTrophyFinish } from './trophy-finish';
 
 export async function mountTrophy(
   container: HTMLElement,
@@ -54,6 +55,7 @@ export async function mountTrophy(
 
   try {
     trophy = await loadTrophy(path, signal);
+    applyTrophyFinish(trophy);
     scene.add(trophy);
     signal.throwIfAborted();
   } catch (error) {

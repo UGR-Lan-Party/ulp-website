@@ -11,7 +11,7 @@ export function selectFlickrPhotos(
     if (landscape && !(Number(photo.width_k) > Number(photo.height_k)))
       return [];
     const source = preview
-      ? photo.url_c || photo.url_q || photo.url_b || photo.url_h || photo.url_k
+      ? photo.url_b || photo.url_c || photo.url_q || photo.url_h || photo.url_k
       : photo.url_k || photo.url_h || photo.url_b || photo.url_c;
     try {
       const url = new URL(source);

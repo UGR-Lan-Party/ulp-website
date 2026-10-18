@@ -36,7 +36,7 @@ test('Las 26 fichas conservan sus datos, reglas y premios en móvil sin JavaScri
       );
       await expect(
         page.locator('.holographic-competition-card img'),
-      ).toHaveCount(2);
+      ).toHaveCount(game.id === 'tcg' ? 4 : 2);
       await expect(page.locator('main')).not.toContainText(
         'Carta holográfica interactiva',
       );

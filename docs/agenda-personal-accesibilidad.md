@@ -24,11 +24,11 @@ Los favoritos anuncian su estado, conservan el foco tras quitar una franja y fun
 
 Auditoría axe-core 4.14.0 sobre ocho páginas en móvil, con ambos temas: Home, Horarios, Ajedrez, Participan, Ediciones anteriores, Noticias, Contacto y Sobre nosotros. Sin infracciones detectadas por las reglas WCAG A/AA aplicadas. En Horarios se incluye una actividad guardada y la fila en hover. Esta auditoría y las pruebas de teclado son parciales; no constituyen una certificación de conformidad.
 
-## Carga inicial
+## Medición anterior de carga bajo demanda
 
-Three.js y los cargadores de modelos se descargan cuando el visor se aproxima a la pantalla; el trofeo sigue arrancando automáticamente. GSAP y ScrollTrigger esperan a que se despliegue el programa oficial y no se solicitan con movimiento reducido. Se mantienen reintentos, cierre, retorno de foco y render WebGL.
+La medición siguiente corresponde a la versión anterior que descargaba Three.js al acercarse al visor. Desde el 18 de octubre, el trofeo empieza a cargar al abrir la ficha, por petición de la organización. Por tanto, la reducción de JavaScript indicada para Ajedrez ya no describe la carga inicial actual. GSAP y ScrollTrigger esperan a que se despliegue el programa oficial y no se solicitan con movimiento reducido. Se mantienen reintentos, cierre, retorno de foco y render WebGL.
 
-Medición local con Edge, versión compilada, viewport 390 × 844, sin caché entre páginas y movimiento reducido. Bytes de respuestas JavaScript de `/_astro/`, sin compresión de transporte; excluye analítica externa y herramientas de auditoría. Comparación de la visita inicial, antes de acercarse al trofeo o desplegar el programa:
+Medición local con Edge, versión compilada, viewport 390 × 844, sin caché entre páginas y movimiento reducido. Bytes de respuestas JavaScript de `/_astro/`, sin compresión de transporte; excluye analítica externa y herramientas de auditoría. Comparación histórica de la visita inicial, antes de acercarse al trofeo o desplegar el programa:
 
 | Ruta | Antes (bytes) | Después (bytes) | Reducción |
 | --- | ---: | ---: | ---: |

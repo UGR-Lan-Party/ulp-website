@@ -13,7 +13,9 @@ test('Guardar desde una ficha persiste solo IDs, se refleja en la tabla y permit
 }) => {
   await page.goto('/actividades/ajedrez/');
   const summary = page.getByRole('region', { name: 'Resumen de la actividad' });
-  await expect(summary).toContainText('Cerrada · archivo 2026');
+  await expect(page.locator('.registration-card')).toContainText(
+    'las inscripciones están cerradas',
+  );
   const save = summary.locator('[data-agenda-toggle]');
   await expect(save).toHaveAccessibleName('Guardar en mi agenda: Ajedrez');
   await save.focus();
@@ -107,14 +109,19 @@ test('La agenda sigue funcionando con almacenamiento bloqueado y cabe en 320 px'
   ).toBe(true);
 });
 
-test('Three.js y GSAP esperan a que el usuario se acerque o abra sus componentes', async ({
+test('El trofeo empieza a cargar al abrir la página y las animaciones ajenas siguen bajo demanda', async ({
   page,
 }) => {
   const requests: string[] = [];
   page.on('request', (request) => requests.push(request.url()));
   await page.goto('/actividades/ajedrez/');
-  expect(requests.some((url) => url.includes('trophy-scene'))).toBe(false);
-  expect(requests.some((url) => url.endsWith('.obj'))).toBe(false);
+  await expect
+    .poll(() => requests.some((url) => url.includes('trophy-scene')))
+    .toBe(true);
+  await expect
+    .poll(() => requests.some((url) => url.endsWith('.obj')))
+    .toBe(true);
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
   await page.goto('/info/horarios/');
   expect(requests.some((url) => url.includes('ScrollTrigger'))).toBe(false);
 });

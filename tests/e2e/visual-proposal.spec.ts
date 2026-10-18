@@ -87,7 +87,9 @@ test('Los logos de Participan conservan contraste sobre su superficie clara en a
         page.locator(`[data-partner-card] [data-partner-logo="${name}"]`),
       ).toHaveCSS(
         'filter',
-        ['Nacon España', 'Hackiit'].includes(name) ? 'none' : 'brightness(0)',
+        ['Nacon España', 'Hackiit', 'Mars Gaming'].includes(name)
+          ? 'none'
+          : 'brightness(0)',
       );
     }
     await page.getByRole('button', { name: 'Modo oscuro' }).click();

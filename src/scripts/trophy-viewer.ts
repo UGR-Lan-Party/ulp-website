@@ -73,25 +73,16 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
     expand.focus({ preventScroll: true });
   });
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry.isIntersecting) return;
-      observer.disconnect();
-      void start();
-    },
-    { rootMargin: '200px' },
-  );
-  observer.observe(viewer);
+  void start();
   retry.addEventListener('click', start);
   window.addEventListener('pagehide', () => {
     if (dialog.open) dialog.close();
-    observer.disconnect();
     controller?.abort();
     controller = null;
     dispose?.();
     dispose = undefined;
   });
   window.addEventListener('pageshow', (event) => {
-    if (event.persisted) observer.observe(viewer);
+    if (event.persisted) void start();
   });
 });

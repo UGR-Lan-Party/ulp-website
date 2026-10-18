@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import Layout from '../../layouts/Layout.astro';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import SocialButton from '../../components/SocialButton.astro';
@@ -87,7 +88,7 @@ const links = networks.flatMap(([key, rrss]) =>
         <figcaption>
           <span>{entry.data.bigImg.alt}</span><a
             href={entry.data.bigImg.src}
-            download>Descargar imagen original ↗</a
+            download>Descargar imagen original <ArrowUpRight /></a
           >
         </figcaption>
       </figure>
@@ -141,7 +142,9 @@ const links = networks.flatMap(([key, rrss]) =>
           )
         }
         <a href="/blog" class="article-return design-link"
-          >Más historias de la ULP <span aria-hidden="true">↗</span></a
+          >Más historias de la ULP <span aria-hidden="true"
+            ><ArrowUpRight /></span
+          ></a
         >
       </div>
     </div>
@@ -152,7 +155,10 @@ const links = networks.flatMap(([key, rrss]) =>
         <div class="design-section-header">
           <h2 class="design-heading">Sigue leyendo.</h2>
           <a href="/blog" class="design-link">
-            Todas las noticias <span aria-hidden="true">↗</span>
+            Todas las noticias{' '}
+            <span aria-hidden="true">
+              <ArrowUpRight />
+            </span>
           </a>
         </div>
         <div class="related-grid">
@@ -529,6 +535,44 @@ const links = networks.flatMap(([key, rrss]) =>
     }
     .related-grid {
       grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 700px) {
+    .news-article {
+      padding-top: 112px;
+    }
+    .article-topline {
+      margin-bottom: 24px;
+    }
+    .article-hero {
+      gap: 28px;
+      padding-bottom: 32px;
+    }
+    .article-meta {
+      margin-bottom: 16px;
+      gap: 10px;
+    }
+    h1 {
+      font-size: clamp(30px, 8vw, 42px);
+      letter-spacing: -0.035em;
+      margin-bottom: 18px;
+    }
+    .article-header > p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .article-byline,
+    .article-tags {
+      margin-top: 18px;
+    }
+    .article-figure {
+      padding: 10px;
+      transform: none;
+      box-shadow: none;
+    }
+    .article-reading-grid {
+      padding-block: 32px 44px;
+      gap: 24px;
     }
   }
 </style>

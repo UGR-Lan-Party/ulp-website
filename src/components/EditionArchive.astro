@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from './ArrowUpRight.astro';
 import CarouselSection from './CarouselSection.astro';
 import type { PastEdition } from '../data/past-editions';
 interface Props {
@@ -37,7 +38,10 @@ const [introduction, ...history] = edition.description.split(
           target="_blank"
           rel="noopener noreferrer"
         >
-          {edition.buttonText} <span aria-hidden="true">↗</span>
+          {edition.buttonText}{' '}
+          <span aria-hidden="true">
+            <ArrowUpRight />
+          </span>
         </a>
       )
     }
@@ -141,5 +145,10 @@ const [introduction, ...history] = edition.description.split(
     .archive-gallery {
       order: 1;
     }
+  }
+  .archive-year {
+    font-feature-settings: normal;
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: -0.025em;
   }
 </style>

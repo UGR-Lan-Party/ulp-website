@@ -252,3 +252,12 @@ Se utilizan people, controller, buildings y eye de Bootstrap Icons 1.13.1: https
 ## Dibujo de la Alhambra
 
 Fondo elegido por la organización: [boceto de la Alhambra en Depositphotos](https://st.depositphotos.com/1971443/4568/v/450/depositphotos_45687871-stock-illustration-urban-sketch-of-alhambra-in.jpg). Copia local de 600 × 400 px en `public/assets/about/alhambra-sketch.jpg`. El SVG convierte las líneas a la paleta corporativa, elimina visualmente el fondo blanco y aplica una máscara de opacidad hacia abajo. Se limita al encabezado de Granada, vista desde la ULP para que no se superponga a las galerías.
+
+
+## Cartas Pokémon y logotipos de entidades
+
+La composición de Pokémon TCG utiliza el reverso de carta de AtomicMonkeyTCG aportado por la organización. Se conserva en `public/assets/competitions/characters/pokemon-card-back.webp`, con 1024 × 1420 píxeles y compresión WebP sin pérdida. Las tres cartas se colocan con CSS, sin modificar la ilustración.
+
+La variante horizontal de Cafetería ETSIIT combina el logotipo original de la escuela con su nombre en `cafeteria-horizontal.svg`. Es una adaptación para esta web.
+
+Las variantes `mars-gaming-color.svg` y `mars-gaming-white.svg` ajustan el área visible mediante el viewBox, sin deformar ni cambiar los píxeles de los originales. La versión a color incorpora el PNG rojo y negro proporcionado por la organización; la versión para fondos oscuros conserva el logotipo horizontal y lo muestra en blanco.

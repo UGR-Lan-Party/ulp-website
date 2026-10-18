@@ -1,4 +1,5 @@
 ---
+import ArrowUpRight from '../components/ArrowUpRight.astro';
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import ActivityTile from '../components/ActivityTile.astro';
@@ -32,9 +33,9 @@ const sections = [
   title="Actividades"
 >
   <Breadcrumb current="Actividades">
-    <Fragment slot="title">Encuentra<br />tu partida.</Fragment><Fragment
-      slot="texto"
-    >
+    <Fragment slot="title">
+      <span class="catalog-title">Encuentra tu partida</span>
+    </Fragment><Fragment slot="texto">
       Competiciones, retos y actividades para todas las formas de jugar. Explora
       el catálogo de 2026 mientras preparamos la próxima edición.
     </Fragment>
@@ -50,17 +51,35 @@ const sections = [
         ))
       }
     </nav><a class="design-link" href="/info/horarios"
-      >Ver agenda <span aria-hidden="true">↗</span></a
+      >Ver agenda <span aria-hidden="true"><ArrowUpRight /></span></a
     >
   </div>
-  <div class="design-container team-callout" data-reveal>
-    <div>
-      <span class="design-eyebrow">El siguiente compañero está aquí</span><h2>
-        ¿Te falta equipo?
-      </h2><p>Encuentra gente con la que compartir la partida.</p>
-    </div><a class="design-button" href={teamFinderUrl}
-      >Buscar equipo <span aria-hidden="true">↗</span></a
-    >
+  <div class="design-container">
+    <div class="team-callout" data-reveal data-spotlight>
+      <svg class="team-mosaic" aria-hidden="true"
+        ><defs
+          ><pattern
+            id="team-hexagons"
+            width="56"
+            height="96"
+            patternUnits="userSpaceOnUse"
+            ><path
+              d="M28 4 52.25 18V46L28 60 3.75 46V18ZM0 52 24.25 66V94L0 108 -24.25 94V66ZM56 52 80.25 66V94L56 108 31.75 94V66Z"
+              fill="currentColor"></path></pattern
+          ></defs
+        ><rect width="100%" height="100%" fill="url(#team-hexagons)"
+        ></rect></svg
+      >
+      <div>
+        <span class="design-eyebrow"
+          >Encuentra gente con la que compartir la partida</span
+        ><h2>¿Te falta equipo?</h2><p>
+          Tenemos un Excel compartido para que encuentres equipo.
+        </p>
+      </div><a class="design-button" href={teamFinderUrl}
+        >Buscar equipo <span aria-hidden="true"><ArrowUpRight /></span></a
+      >
+    </div>
   </div>
   {
     sections.map((section, index) => (
@@ -87,7 +106,9 @@ const sections = [
   }
   <div class="design-container team-intro">
     <span>¿Te falta equipo?</span><a href={teamFinderUrl}
-      >Encuentra compañeros de partida <span aria-hidden="true">↗</span></a
+      >Encuentra compañeros de partida <span aria-hidden="true"
+        ><ArrowUpRight /></span
+      ></a
     >
   </div>
 </Layout>
@@ -187,5 +208,55 @@ const sections = [
     text-decoration: underline;
     text-underline-offset: 4px;
     padding-block: 10px;
+  }
+  :global(.page-intro:has(.catalog-title) h1) {
+    max-width: 100%;
+    font-size: clamp(27px, 6.8vw, 88px);
+  }
+  :global(.page-intro:has(.catalog-title) > .design-container > p) {
+    max-width: 820px;
+  }
+  .catalog-title {
+    white-space: nowrap;
+    letter-spacing: -0.045em;
+  }
+  .team-callout {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgb(245 240 230 / 0.2);
+    border-radius: 22px;
+    padding: clamp(24px, 4vw, 40px);
+    margin-block: 24px 0;
+    background:
+      radial-gradient(
+        400px circle at var(--pointer-x, 20%) var(--pointer-y, 50%),
+        rgb(0 100 113 / 0.6),
+        transparent
+      ),
+      #062d43;
+    color: #f5f0e6;
+  }
+  .team-callout .design-eyebrow,
+  .team-callout p {
+    color: rgb(245 240 230 / 0.75);
+  }
+  .team-callout .design-button {
+    background: #f5f0e6;
+    color: #004465;
+    flex-shrink: 0;
+  }
+  .team-mosaic {
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 0 auto;
+    width: 60%;
+    height: 100%;
+    opacity: 0.055;
+    mask-image: linear-gradient(to right, transparent, black);
+    pointer-events: none;
+  }
+  .team-callout h2 {
+    font-size: clamp(28px, 4vw, 42px);
   }
 </style>

@@ -2,13 +2,13 @@ export const venuePlans = [
   {
     id: 'principal-0',
     building: 'principal',
-    buildingLabel: 'Edificio principal',
+    buildingLabel: 'Edificio Principal',
     floor: 'Planta 0',
   },
   {
     id: 'principal-baja',
     building: 'principal',
-    buildingLabel: 'Edificio principal',
+    buildingLabel: 'Edificio Principal',
     floor: 'Planta baja',
   },
   {
