@@ -209,6 +209,7 @@ import HomeContourBackground from './HomeContourBackground.astro';
   }
   .hero-art {
     position: relative;
+    isolation: isolate;
     height: 520px;
     padding: 20px 24px 30px 0;
   }
@@ -261,6 +262,19 @@ import HomeContourBackground from './HomeContourBackground.astro';
     border-radius: 50%;
     top: -14px;
     right: -20px;
+  }
+  .hero-orbit::before {
+    content: '';
+    position: absolute;
+    inset: -120px;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse closest-side,
+      var(--paper) 0 80%,
+      transparent 100%
+    );
+    pointer-events: none;
   }
   .hero-orbit::after {
     content: '';
