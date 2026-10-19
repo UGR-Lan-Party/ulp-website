@@ -1,4 +1,5 @@
 ---
+import HomeContourBackground from '../../components/HomeContourBackground.astro';
 import Team from '../../components/Team.astro';
 import Aboutsection from '../../components/Aboutsection.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
@@ -13,9 +14,12 @@ import Twitch from '../../components/Twitch.astro';
   description="La UGR LAN Party es un evento de eSports organizado por profesores y estudiantes de la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación."
   title="Sobre Nosotros"
 >
-  <Breadcrumb>
-    <Fragment slot="title">¿Quiénes somos?</Fragment>
-  </Breadcrumb>
+  <div class="about-intro-pattern">
+    <HomeContourBackground />
+    <Breadcrumb>
+      <Fragment slot="title">¿Quiénes somos?</Fragment>
+    </Breadcrumb>
+  </div>
   <Aboutsection />
   <CTAsection />
   <CommunityAlbum />
@@ -23,3 +27,11 @@ import Twitch from '../../components/Twitch.astro';
   <Team />
   <Contributors />
 </Layout>
+
+<style>
+  .about-intro-pattern {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+</style>
