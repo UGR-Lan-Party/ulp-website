@@ -1,9 +1,11 @@
 ---
 import ArrowUpRight from './ArrowUpRight.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
+import HomeContourBackground from './HomeContourBackground.astro';
 ---
 
 <section id="home" class="design-hero" data-spotlight>
+  <HomeContourBackground />
   <div class="design-container hero-grid">
     <div class="hero-copy" data-reveal>
       <div class="hero-topline">
@@ -84,6 +86,7 @@ import ResponsiveImage from './ResponsiveImage.astro';
 </section>
 <style>
   .design-hero {
+    isolation: isolate;
     position: relative;
     overflow: hidden;
     padding-top: 158px;
