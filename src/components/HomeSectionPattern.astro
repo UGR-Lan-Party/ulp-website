@@ -1,7 +1,7 @@
 ---
 interface Props {
   id: string;
-  variant: 'halftone' | 'circuit' | 'arcs';
+  variant: 'halftone' | 'diamonds' | 'arcs';
 }
 const { id, variant } = Astro.props;
 ---
@@ -14,8 +14,8 @@ const { id, variant } = Astro.props;
   <defs>
     <pattern
       id={id}
-      width={variant === 'circuit' ? 144 : variant === 'arcs' ? 96 : 18}
-      height={variant === 'circuit' ? 144 : variant === 'arcs' ? 96 : 18}
+      width={variant === 'diamonds' ? 128 : variant === 'arcs' ? 96 : 18}
+      height={variant === 'diamonds' ? 128 : variant === 'arcs' ? 96 : 18}
       patternUnits="userSpaceOnUse"
     >
       {
@@ -24,24 +24,15 @@ const { id, variant } = Astro.props;
         )
       }
       {
-        variant === 'circuit' && (
+        variant === 'diamonds' && (
           <g
             fill="none"
             stroke="currentColor"
-            stroke-width="1"
-            stroke-linecap="round"
+            stroke-width="0.8"
             stroke-linejoin="round"
           >
-            <path d="M0 24H32Q40 24 40 32V48Q40 56 48 56H76Q84 56 84 64V92M144 104H116Q108 104 108 96V32Q108 24 116 24H144M16 144V112Q16 104 24 104H48Q56 104 56 96V80M64 0V16Q64 24 72 24H84V0M80 144V128Q80 120 88 120H96" />
-            <>
-              <circle cx="84" cy="96" r="4" />
-              <circle cx="56" cy="76" r="4" />
-              <circle cx="100" cy="120" r="4" />
-            </>
-            <>
-              <circle cx="16" cy="64" r="2" />
-              <path d="M12 64h8M16 60v8" />
-            </>
+            <path d="M64 0 128 64 64 128 0 64Z" />
+            <path d="M64 30 98 64 64 98 30 64Z" opacity="0.4" />
           </g>
         )
       }
@@ -74,8 +65,8 @@ const { id, variant } = Astro.props;
       linear-gradient(transparent, black 35%, transparent);
     mask-composite: intersect;
   }
-  .section-pattern--circuit {
-    opacity: 0.2;
+  .section-pattern--diamonds {
+    opacity: 0.16;
     mask-image: radial-gradient(ellipse at 50% 42%, transparent 12%, black 85%);
   }
   .section-pattern--arcs {
