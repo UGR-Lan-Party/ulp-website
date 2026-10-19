@@ -38,6 +38,7 @@ test('Arrastrar el plano ampliado evita selección y recuadros sin perder el foc
   page,
 }) => {
   await page.goto('/info/horarios/');
+  await page.locator('[data-venue-building-select]').selectOption('principal');
   const drawing = page.locator('[data-venue-drawing]');
   await drawing.scrollIntoViewIfNeeded();
   await page
@@ -79,6 +80,7 @@ test('La rotación mantiene las etiquetas orientadas y termina sin saltos ni ani
 }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/info/horarios/');
+  await page.locator('[data-venue-building-select]').selectOption('principal');
   const map = page.locator('[data-venue-map]');
   const building = page.locator('[data-venue-building]');
   for (let turn = 1; turn <= 4; turn++) {

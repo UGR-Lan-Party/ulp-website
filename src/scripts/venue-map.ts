@@ -1,9 +1,13 @@
+import { getVenueLeaderPath } from '../data/venue-leaders';
 import {
   venuePlans,
+  selectableVenuePlans,
   venueZones,
   venueLayouts,
   getVenueZones,
   getVenueInitialOrientation,
+  initialVenuePlan,
+  isVenueInformation,
 } from '../data/venue-map';
 import type { VenuePlanId, VenueOrientation } from '../data/venue-map';
 
@@ -40,6 +44,10 @@ export function createVenueMap(
   const rotationButtons = Array.from(
     map.querySelectorAll<HTMLButtonElement>('[data-venue-rotate]'),
   );
+  const unlock = map.querySelector<HTMLButtonElement>('[data-venue-unlock]')!;
+  const revealedPlans = new Set<VenuePlanId>();
+  const isLocked = () =>
+    planId.startsWith('prefabricadas-') && !revealedPlans.has(planId);
   const narrow = matchMedia('(max-width: 600px)');
   let zoom = 1;
   let panX = 0;
@@ -62,32 +70,60 @@ export function createVenueMap(
   const floorNotes = Array.from(
     map.querySelectorAll<HTMLElement>('[data-venue-floor-note]'),
   );
-  let planId: VenuePlanId = 'principal-0';
-  let orientation: VenueOrientation = 0;
+  let planId: VenuePlanId = initialVenuePlan;
+  let orientation: VenueOrientation = getVenueInitialOrientation(planId);
   let activeZone: string | null = null;
+  let activeInformation: string | null = null;
   let counts = new Map<string, number>();
   let turnVersion = 0;
   let turning = false;
+  let navigating = false;
+  let navigationVersion = 0;
+
+  const roomHeading = map.querySelector<HTMLElement>(
+    '[data-venue-room-heading]',
+  )!;
+  const zoomLimit = () => (planId === 'recinto' ? 6 : 2.5);
 
   function syncControls() {
     const plan = venuePlans.find((plan) => plan.id === planId)!;
     buildingSelect.disabled = false;
     buildingSelect.value = plan.building;
-    const floors = venuePlans.filter((item) => item.building === plan.building);
+    const parent =
+      'parent' in plan
+        ? selectableVenuePlans.find((item) => item.id === plan.parent)!
+        : plan;
+    const floors = selectableVenuePlans.filter(
+      (item) => item.building === parent.building,
+    );
+    roomHeading.hidden = !('parent' in plan);
+    roomHeading.querySelector('[data-venue-room-title]')!.textContent =
+      plan.floor;
+    roomHeading.querySelector('[data-venue-room-parent]')!.textContent =
+      parent.id === 'recinto'
+        ? 'Volver a Vista General'
+        : `Volver a la ${parent.floor.toLowerCase()}`;
     if (floorSelect.options[0]?.value !== floors[0].id) {
       floorSelect.replaceChildren(
         ...floors.map((floor) => new Option(floor.floor, floor.id)),
       );
     }
-    floorSelect.value = planId;
+    floorSelect.value = parent.id;
     floorSelect.disabled = floors.length === 1;
-    rotationButtons.forEach((button) => (button.disabled = turning));
+    rotationButtons.forEach(
+      (button) => (button.disabled = turning || navigating || isLocked()),
+    );
     map!.dataset.venuePlan = planId;
     map!.dataset.orientation = String(orientation);
     viewStatus.textContent = `${plan.buildingLabel}, ${plan.floor}, orientación ${orientation + 1}`;
   }
 
   function draw() {
+    const locked = isLocked();
+    map!.dataset.venueLocked = String(locked);
+    unlock.hidden = !locked;
+    drawing.setAttribute('tabindex', locked ? '-1' : '0');
+    drawing.setAttribute('aria-hidden', String(locked));
     floorNotes.forEach(
       (note) => (note.hidden = note.dataset.venueFloorNote !== planId),
     );
@@ -104,10 +140,11 @@ export function createVenueMap(
     zones.forEach((zone) => {
       const point = layout.find((point) => point.id === zone.dataset.venueZone);
       const count = counts.get(zone.dataset.venueZone!) ?? 0;
-      const hidden = !point || count === 0;
+      const hidden =
+        !point || (count === 0 && !isVenueInformation(zone.dataset.venueZone!));
       zone.toggleAttribute('data-hidden', hidden);
       zone.setAttribute('aria-hidden', String(hidden));
-      zone.setAttribute('tabindex', hidden ? '-1' : '0');
+      zone.setAttribute('tabindex', hidden || locked ? '-1' : '0');
       if (!point) return;
       let labelX = point.labelX;
       let labelY = point.labelY;
@@ -125,12 +162,19 @@ export function createVenueMap(
       zone
         .querySelector('[data-venue-label]')!
         .setAttribute('transform', `translate(${labelX} ${labelY})`);
-      zone
-        .querySelector('[data-venue-leader]')!
-        .setAttribute(
-          'd',
-          `M${narrow.matches ? labelX + 80 : point.edgeX} ${narrow.matches ? labelY + (labelY < point.y ? 40 : 0) : labelY + 20}L${point.x} ${point.y}`,
-        );
+      zone.querySelector('[data-venue-leader]')!.setAttribute(
+        'd',
+        getVenueLeaderPath(
+          {
+            x: narrow.matches ? labelX + 80 : point.edgeX,
+            y: narrow.matches
+              ? labelY + (labelY < point.y ? 40 : 0)
+              : point.edgeY,
+          },
+          point,
+          narrow.matches,
+        ),
+      );
       zone
         .querySelector('[data-venue-point]')!
         .setAttribute('cx', String(point.x));
@@ -146,6 +190,9 @@ export function createVenueMap(
 
   function stopTurn() {
     turnVersion++;
+    navigationVersion++;
+    navigating = false;
+    drawing.getAnimations().forEach((animation) => animation.cancel());
     building.getAnimations().forEach((animation) => animation.cancel());
     indicators.getAnimations().forEach((animation) => animation.cancel());
     indicators.style.opacity = '1';
@@ -160,7 +207,7 @@ export function createVenueMap(
     zoom = 1;
     panX = panY = 0;
     resize();
-    if (activeZone) {
+    if (activeZone || activeInformation) {
       clear();
       onZoneChange(null);
       planId = id;
@@ -168,9 +215,54 @@ export function createVenueMap(
     draw();
   }
 
+  async function openPlan(id: VenuePlanId, zone: SVGGElement) {
+    if (navigating) return;
+    if (reducedMotion.matches) {
+      setPlan(id);
+      drawing.focus({ preventScroll: true });
+      return;
+    }
+    stopTurn();
+    const version = navigationVersion;
+    navigating = true;
+    syncControls();
+    map!.setAttribute('aria-busy', 'true');
+    const marker = zone.querySelector<SVGCircleElement>('[data-venue-point]')!;
+    const point = new DOMPoint(
+      marker.cx.baseVal.value,
+      marker.cy.baseVal.value,
+    ).matrixTransform(marker.getScreenCTM()!);
+    const bounds = drawing.getBoundingClientRect();
+    drawing.style.transformOrigin = `${point.x - bounds.left}px ${point.y - bounds.top}px`;
+    try {
+      await drawing.animate(
+        [
+          { transform: 'scale(1)', opacity: 1 },
+          { transform: 'scale(1.8)', opacity: 0 },
+        ],
+        {
+          duration: 320,
+          easing: 'cubic-bezier(.4, 0, .2, 1)',
+          fill: 'forwards',
+        },
+      ).finished;
+      if (version !== navigationVersion) return;
+      setPlan(id);
+      drawing.style.transformOrigin = '50% 50%';
+      drawing.animate(
+        [
+          { transform: 'scale(.94)', opacity: 0 },
+          { transform: 'scale(1)', opacity: 1 },
+        ],
+        { duration: 260, easing: 'cubic-bezier(.2, .7, .3, 1)' },
+      );
+      drawing.focus({ preventScroll: true });
+    } catch {}
+  }
+
   async function turn(next: number) {
     const target = ((next + 4) % 4) as VenueOrientation;
-    if (turning || target === orientation) return;
+    if (turning || navigating || target === orientation) return;
     const previous = orientation;
     orientation = target;
     if (reducedMotion.matches) {
@@ -234,7 +326,9 @@ export function createVenueMap(
   }
 
   function clear() {
+    activeInformation = null;
     activeZone = null;
+    clearButton.textContent = 'Ver todas las zonas';
     clearButton.hidden = true;
     status.hidden = true;
     selectZones([]);
@@ -242,6 +336,35 @@ export function createVenueMap(
 
   zones.forEach((zone) => {
     const choose = () => {
+      if (isLocked()) return;
+      const id = zone.dataset.venueZone!;
+      const destination = venuePlans.find(
+        (plan) => plan.id === zone.dataset.venueOpenPlan,
+      );
+      if (destination) {
+        void openPlan(destination.id, zone);
+        return;
+      }
+      if (isVenueInformation(id)) {
+        activeInformation = activeInformation === id ? null : id;
+        selectZones(
+          [activeZone, activeInformation].filter((id): id is string =>
+            Boolean(id),
+          ),
+        );
+        clearButton.hidden = !activeZone && !activeInformation;
+        clearButton.textContent = activeZone
+          ? 'Ver todas las zonas'
+          : 'Cerrar información';
+        status.hidden = !activeZone && !activeInformation;
+        const selected = activeInformation ?? activeZone;
+        if (selected)
+          status.textContent = venueZones.find(
+            (zone) => zone.id === selected,
+          )!.label;
+        if (activeInformation) zone.parentNode?.appendChild(zone);
+        return;
+      }
       const next =
         activeZone === zone.dataset.venueZone ? null : zone.dataset.venueZone!;
       clear();
@@ -272,8 +395,21 @@ export function createVenueMap(
     clear();
     onZoneChange(null);
   });
+  unlock.addEventListener('click', () => {
+    revealedPlans.add(planId);
+    draw();
+    resize();
+    drawing.focus({ preventScroll: true });
+  });
+  map.querySelector('[data-venue-room-back]')!.addEventListener('click', () => {
+    const plan = venuePlans.find((plan) => plan.id === planId)!;
+    if ('parent' in plan) {
+      setPlan(plan.parent);
+      drawing.focus({ preventScroll: true });
+    }
+  });
   buildingSelect.addEventListener('change', () => {
-    const plan = venuePlans.find(
+    const plan = selectableVenuePlans.find(
       (plan) => plan.building === buildingSelect.value,
     );
     if (plan) setPlan(plan.id);
@@ -306,11 +442,19 @@ export function createVenueMap(
     suppressClickUntil = 0;
     if (!event.isPrimary || event.button !== 0) return;
     if (event.pointerType === 'mouse' && zoom > 1) event.preventDefault();
-    if (zoom === 1 && (event.target as Element).closest('[data-venue-zone]'))
+    if (
+      zoom === 1 &&
+      (event.target as Element).closest(
+        '[data-venue-zone], [data-venue-open-plan]',
+      )
+    )
       return;
     drawing.toggleAttribute(
       'data-panning',
-      zoom > 1 && !(event.target as Element).closest('[data-venue-zone]'),
+      zoom > 1 &&
+        !(event.target as Element).closest(
+          '[data-venue-zone], [data-venue-open-plan]',
+        ),
     );
     pointer = {
       id: event.pointerId,
@@ -319,7 +463,12 @@ export function createVenueMap(
       panX,
       panY,
     };
-    if (zoom > 1 && !(event.target as Element).closest('[data-venue-zone]'))
+    if (
+      zoom > 1 &&
+      !(event.target as Element).closest(
+        '[data-venue-zone], [data-venue-open-plan]',
+      )
+    )
       drawing.setPointerCapture(event.pointerId);
   });
   drawing.addEventListener('pointermove', (event) => {
@@ -373,7 +522,7 @@ export function createVenueMap(
       zoom = Math.max(
         1,
         Math.min(
-          2.5,
+          zoomLimit(),
           (pinch.zoom * touchDistance(event.touches)) / pinch.distance,
         ),
       );
@@ -408,10 +557,12 @@ export function createVenueMap(
   drawing.addEventListener('click', (event) => {
     if (
       performance.now() < suppressClickUntil ||
-      (event.target as Element).closest('[data-venue-zone]')
+      (event.target as Element).closest(
+        '[data-venue-zone], [data-venue-open-plan]',
+      )
     )
       return;
-    if (activeZone) {
+    if (activeZone || activeInformation) {
       clear();
       onZoneChange(null);
     }
@@ -419,7 +570,9 @@ export function createVenueMap(
   zoomButtons.forEach((button) =>
     button.addEventListener('click', () => {
       const direction = Number(button.dataset.venueZoom);
-      zoom = direction ? Math.max(1, Math.min(2.5, zoom + direction * 0.5)) : 1;
+      zoom = direction
+        ? Math.max(1, Math.min(zoomLimit(), zoom + direction * 0.5))
+        : 1;
       if (zoom === 1) panX = panY = 0;
       resize();
       draw();
@@ -437,17 +590,19 @@ export function createVenueMap(
           : event.deltaMode === 2
             ? drawing.clientHeight
             : 1);
-      const next = Math.max(1, Math.min(2.5, zoom * Math.exp(-pixels * 0.002)));
+      const next = Math.max(
+        1,
+        Math.min(zoomLimit(), zoom * Math.exp(-pixels * 0.002)),
+      );
       if (next === zoom) return;
       const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(
         drawing.getScreenCTM()!.inverse(),
       );
       const ratio = next / zoom;
       panX = point.x - (point.x - (460 + panX)) / ratio - 460;
-      panY =
-        point.y -
-        (point.y - (narrow.matches ? 350 : 357.5) - panY) / ratio -
-        (narrow.matches ? 350 : 357.5);
+      const [, viewportY, , viewportHeight] = getViewport();
+      const centerY = viewportY + viewportHeight / 2;
+      panY = point.y - (point.y - centerY - panY) / ratio - centerY;
       zoom = next;
       if (zoom === 1) panX = panY = 0;
       resize();
@@ -462,10 +617,13 @@ export function createVenueMap(
       draw();
     }
   });
+  function getViewport() {
+    if (planId === 'recinto')
+      return narrow.matches ? [105, -5, 710, 710] : [0, -5, 920, 710];
+    return narrow.matches ? [170, 65, 580, 570] : [0, 45, 920, 625];
+  }
   function resize() {
-    const [x, y, width, height] = narrow.matches
-      ? [170, 65, 580, 570]
-      : [0, 45, 920, 625];
+    const [x, y, width, height] = getViewport();
     const w = width / zoom;
     const h = height / zoom;
     panX = Math.max(-(width - w) / 2, Math.min((width - w) / 2, panX));
@@ -478,8 +636,9 @@ export function createVenueMap(
     zoomValue.textContent = `${Math.round(zoom * 100)}%`;
     zoomButtons.forEach((button) => {
       button.disabled =
+        isLocked() ||
         (button.dataset.venueZoom === '-1' && zoom === 1) ||
-        (button.dataset.venueZoom === '1' && zoom === 2.5);
+        (button.dataset.venueZoom === '1' && zoom === zoomLimit());
     });
   }
   narrow.addEventListener('change', () => {
@@ -498,9 +657,17 @@ export function createVenueMap(
         if (!visible.has(index)) return;
         for (const id of ids) counts.set(id, (counts.get(id) ?? 0) + 1);
       });
+      const currentPlan = venuePlans.find((plan) => plan.id === planId)!;
+      const locationPlanId =
+        'parent' in currentPlan && currentPlan.parent !== 'recinto'
+          ? currentPlan.parent
+          : planId;
       if (
+        planId !== 'recinto' &&
         !planId.startsWith('aulario-') &&
-        !venueZones.some((zone) => zone.plan === planId && counts.has(zone.id))
+        !venueZones.some(
+          (zone) => zone.plan === locationPlanId && counts.has(zone.id),
+        )
       ) {
         const plan = venuePlans.find((plan) =>
           venueZones.some(

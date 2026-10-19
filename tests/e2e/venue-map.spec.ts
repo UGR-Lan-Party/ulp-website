@@ -1,5 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 async function rotateTo(page: Page, target: number) {
+  const unlock = page.locator('[data-venue-unlock]');
+  if (await unlock.isVisible()) await unlock.click();
   const current = Number(
     await page.locator('[data-venue-map]').getAttribute('data-orientation'),
   );
@@ -19,6 +21,7 @@ test.beforeEach(async ({ page }) => {
     route.fulfill({ status: 200, body: '' }),
   );
   await page.goto('/info/horarios/');
+  await page.locator('[data-venue-building-select]').selectOption('principal');
 });
 
 test('El plano ocupa el ancho y los filtros sincronizan las plantas con la tabla abierta', async ({
@@ -56,11 +59,18 @@ test('El plano ocupa el ancho y los filtros sincronizan las plantas con la tabla
     'data-location',
     'Sala de Profesores Externos.',
   );
-  await expect(page.locator('[data-venue-zone]:visible')).toHaveCount(0);
+  await expect(
+    page.locator('[data-venue-zone="profesores-externos"]'),
+  ).toBeVisible();
+  await expect(page.locator('[data-venue-map]')).toHaveAttribute(
+    'data-venue-plan',
+    'principal-baja',
+  );
   await page.getByRole('button', { name: 'Restablecer', exact: true }).click();
   await page
     .locator('[data-venue-building-select]')
     .selectOption('prefabricadas-a');
+  await page.locator('[data-venue-unlock]').click();
   await page.locator('[data-venue-zone="a1"] [data-venue-label]').click();
   const count = await rows.count();
   expect(count).toBeGreaterThan(1);
@@ -294,4 +304,108 @@ test('Los siete planos mantienen servicios y rótulos legibles al girar en ambos
       }
     }
   }
+});
+
+test('Las dos plantas del Aulario conservan la huella arquitectónica y muestran accesos, columnas y servicios', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.locator('[data-venue-building-select]').selectOption('aulario');
+  const outlines: string[] = [];
+  for (const level of [0, 1]) {
+    await page
+      .locator('[data-venue-floor-select]')
+      .selectOption(`aulario-${level}`);
+    const plan = page.locator(`[data-venue-floor-plan="aulario-${level}"]`);
+    outlines.push(
+      (await plan.locator('.aulario-perimeter').getAttribute('d'))!,
+    );
+    await expect(plan.locator('[data-aulario-room]')).toHaveCount(8);
+    await expect(plan.locator('[data-aulario-door] .door-swing')).toHaveCount(
+      8,
+    );
+    await expect(plan.locator('[data-aulario-column]')).toHaveCount(
+      level === 0 ? 36 : 22,
+    );
+    await expect(plan.locator('[data-aulario-stair="straight"]')).toHaveCount(
+      2,
+    );
+    await expect(plan.locator('.stair-riser')).toHaveCount(13);
+    const core = plan.locator('[data-aulario-core]');
+    for (const kind of ['men', 'women']) {
+      const room = core.locator(`[data-aulario-washroom="${kind}"]`);
+      await expect(room.locator('[data-aulario-stall]')).toHaveCount(4);
+      await expect(room.locator('[data-aulario-basin]')).toHaveCount(1);
+    }
+    const geometry = await core.evaluate((element) => {
+      const circle =
+        element.querySelector<SVGCircleElement>('.core-background')!;
+      const band = element
+        .querySelector<SVGGraphicsElement>('.stair-band')!
+        .getBBox();
+      const lift = element
+        .querySelector<SVGGraphicsElement>('[data-aulario-lift]')!
+        .getBBox();
+      return {
+        radius: circle.r.baseVal.value,
+        x: band.x,
+        y: band.y,
+        width: band.width,
+        height: band.height,
+        liftLeft: lift.x,
+      };
+    });
+    expect(geometry.x).toBeCloseTo(-geometry.radius, 2);
+    expect(geometry.y).toBeCloseTo(0, 2);
+    expect(geometry.width).toBeCloseTo(geometry.radius * 2, 2);
+    expect(geometry.height).toBeCloseTo(geometry.radius, 2);
+    expect(geometry.liftLeft).toBeGreaterThan(geometry.radius);
+    const baths = await core
+      .locator('[data-aulario-washroom]')
+      .evaluateAll((rooms) =>
+        rooms.map((room) => {
+          const bounds = room.getBoundingClientRect();
+          return {
+            x: bounds.x,
+            y: bounds.y,
+            width: bounds.width,
+            height: bounds.height,
+          };
+        }),
+      );
+    expect(baths[0].width).toBeCloseTo(baths[1].width, 1);
+    expect(baths[0].height).toBeCloseTo(baths[1].height, 1);
+    expect(baths[0].y).toBeCloseTo(baths[1].y, 1);
+
+    for (const kind of ['men', 'women', 'lift', 'stairs', 'entry'])
+      await expect(
+        plan.locator(`[data-venue-amenity="${kind}"]`),
+      ).toBeVisible();
+    const bounds = (await plan.locator('.aulario-perimeter').boundingBox())!;
+    expect(bounds.width / bounds.height).toBeGreaterThan(3.5);
+    expect(bounds.width / bounds.height).toBeLessThan(4);
+    await page
+      .getByRole('button', { name: 'Acercar plano', exact: true })
+      .click();
+    await expect(page.locator('[data-venue-zoom-value]')).toHaveText('150%');
+    await page
+      .getByRole('button', { name: 'Restablecer zoom del plano', exact: true })
+      .click();
+  }
+  expect(outlines[0]).toBe(outlines[1]);
+  const doors0 = await page
+    .locator(
+      '[data-venue-floor-plan="aulario-0"] [data-aulario-door] .plan-door',
+    )
+    .evaluateAll((doors) =>
+      doors.map((door) => door.getAttribute('transform')),
+    );
+  const doors1 = await page
+    .locator(
+      '[data-venue-floor-plan="aulario-1"] [data-aulario-door] .plan-door',
+    )
+    .evaluateAll((doors) =>
+      doors.map((door) => door.getAttribute('transform')),
+    );
+  expect(doors0).not.toEqual(doors1);
 });

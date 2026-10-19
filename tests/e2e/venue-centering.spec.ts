@@ -16,6 +16,7 @@ for (const width of [1400, 390]) {
     await page
       .locator('[data-venue-building-select]')
       .selectOption('prefabricadas-b');
+    await page.locator('[data-venue-unlock]').click();
     const room = page.locator(
       '[data-venue-floor-plan="prefabricadas-b"] .floor-room',
     );

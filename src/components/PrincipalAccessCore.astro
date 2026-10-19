@@ -1,0 +1,43 @@
+<g class="principal-access-core" data-principal-access-core aria-hidden="true">
+  <path class="core-wall" d="M197 236H237V326"></path>
+  <g class="core-stair" data-principal-stairs>
+    <path d="M201 242H233V321H201ZM217 242V321"></path>
+    {
+      Array.from({ length: 10 }, (_, index) => (
+        <path d={`M201 ${247 + index * 7}H233`} />
+      ))
+    }
+  </g>
+  <g
+    transform="translate(245 282) rotate(-31.6)"
+    class="core-lift"
+    data-principal-lift
+  >
+    <rect x="0" y="0" width="46" height="32" rx="1"></rect>
+    <path d="M4 4H42V28H4ZM19 32V28M27 32V28"></path>
+  </g>
+</g>
+<style>
+  .principal-access-core {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  path,
+  rect {
+    vector-effect: non-scaling-stroke;
+  }
+  .core-wall {
+    stroke-width: 1.05;
+    opacity: 0.5;
+  }
+  .core-stair {
+    stroke-width: 0.6;
+    opacity: 0.48;
+  }
+  .core-lift {
+    stroke-width: 0.65;
+    opacity: 0.65;
+  }
+</style>

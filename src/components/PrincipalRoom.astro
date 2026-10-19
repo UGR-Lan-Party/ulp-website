@@ -1,0 +1,107 @@
+---
+import VenueFurniture from './VenueFurniture.astro';
+import AuditoriumDetails from './AuditoriumDetails.astro';
+import { auditoriumFurniture } from '../data/auditorium';
+import VenueDoor from './VenueDoor.astro';
+import { hallFurniture } from '../data/hall';
+import type { PrincipalRoomId } from '../data/principal-rooms';
+interface Props {
+  room: PrincipalRoomId;
+  detailed?: boolean;
+}
+const { room, detailed = false } = Astro.props;
+const pieces = room === 'hall' ? hallFurniture : auditoriumFurniture;
+---
+
+<g class="principal-room" data-principal-room={room}>
+  {
+    room === 'hall' ? (
+      <g data-principal-detail="hall">
+        {detailed && (
+          <path
+            class="room-ground"
+            d="M350 416L559 308Q739 360 692 546L473 670Q265 575 350 416Z"
+          />
+        )}
+        <path
+          class="room-wall"
+          d="M559 308Q739 360 692 546M350 416Q265 575 473 670"
+        />
+        <path class="hall-glazing" d="M559 308 692 546M350 416 473 670" />
+        {[
+          { x: 559, y: 308 },
+          { x: 692, y: 546 },
+          { x: 350, y: 416 },
+          { x: 473, y: 670 },
+          ...(!detailed ? [{ x: 318, y: 259 }] : []),
+        ].map(({ x, y }) => (
+          <rect
+            class="principal-column"
+            x={x - 4}
+            y={y - 4}
+            width="8"
+            height="8"
+            rx="1"
+          />
+        ))}
+      </g>
+    ) : (
+      <>
+        {detailed && (
+          <path
+            class="room-outline"
+            d="M336 440A186 186 0 0 1 692 546A186 186 0 1 1 336 440Z"
+          />
+        )}
+        <path
+          class="room-wall"
+          d={
+            detailed
+              ? 'M457 666 691 545'
+              : 'M336 440A186 186 0 0 1 692 546M457 666 691 545'
+          }
+        />
+        <AuditoriumDetails {detailed} />
+        <g data-principal-access="salon-actos">
+          <VenueDoor x={373.5} y={377.5} angle={-47.5} width={26} />
+        </g>
+      </>
+    )
+  }
+  <VenueFurniture pieces={pieces} />
+</g>
+<style>
+  path,
+  rect {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  path {
+    vector-effect: non-scaling-stroke;
+  }
+  .room-ground,
+  .room-outline {
+    fill: color-mix(in srgb, var(--ink) 3%, var(--paper));
+  }
+  .room-outline {
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+  .room-wall {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.05;
+    opacity: 0.5;
+  }
+  .hall-glazing {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.65;
+    stroke-dasharray: 12 4;
+    opacity: 0.32;
+  }
+  .principal-column {
+    fill: currentColor;
+    opacity: 0.65;
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+interface Props {
+  x?: number;
+  y?: number;
+  scale?: number;
+}
+const { x = 460, y = 350, scale = 1 } = Astro.props;
+---
+
+<g
+  data-venue-ping-pong-table
+  transform={`translate(${x} ${y}) scale(${scale})`}
+>
+  <title>Mesa de ping pong</title>
+  <rect class="table-frame" x="-70" y="-40" width="140" height="80" rx="3"
+  ></rect>
+  <rect class="table-surface" x="-67" y="-37" width="134" height="74" rx="1"
+  ></rect>
+  <path class="table-marking" d="M-67 0H67"></path>
+  <path class="table-net" d="M0-44V44M-2-37V37M2-37V37"></path>
+  <circle class="table-post" cx="0" cy="-44" r="2"></circle>
+  <circle class="table-post" cx="0" cy="44" r="2"></circle>
+  <svg
+    x="-30"
+    y="-10.2"
+    width="60"
+    height="20.4"
+    viewBox="0 0 738 251"
+    aria-hidden="true"
+  >
+    <image
+      href="/assets/venue/catedras-telefonica.png"
+      width="738"
+      height="251"
+      opacity=".48"
+      filter="url(#venue-telefonica-logo)"
+      data-pingpong-logo
+    />
+  </svg>
+</g>
+<style>
+  rect,
+  path,
+  circle {
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .table-frame {
+    fill: var(--venue-plan-background, var(--paper));
+    stroke: currentColor;
+    stroke-width: 1.4;
+  }
+  .table-surface {
+    fill: #176d87;
+    stroke: #f5f0e6;
+    stroke-width: 1;
+  }
+  .table-marking {
+    fill: none;
+    stroke: #f5f0e6;
+    stroke-width: 0.7;
+  }
+  .table-net {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.8;
+  }
+  .table-post {
+    fill: currentColor;
+  }
+</style>

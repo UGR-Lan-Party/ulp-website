@@ -39,3 +39,10 @@ test('La columna derecha de −1.2 está alineada con las mesas laterales', () =
   for (const desk of desks)
     assert.equal(column.x + column.width, desk.x + desk.width);
 });
+
+test('La mesa izquierda de la primera fila de A1 tiene cuatro sillas', () => {
+  const seats = fixtures.a1.filter(
+    (piece) => piece.kind === 'seat' && piece.y === 141 && piece.x < 151,
+  );
+  assert.equal(seats.length, 4);
+});

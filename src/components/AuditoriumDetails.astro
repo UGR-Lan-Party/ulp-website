@@ -1,0 +1,179 @@
+---
+import { auditoriumFrame, auditoriumTiers } from '../data/auditorium';
+interface Props {
+  detailed?: boolean;
+}
+const { detailed = false } = Astro.props;
+---
+
+<g
+  class="auditorium-details"
+  data-auditorium-details
+  transform={`translate(${auditoriumFrame.x} ${auditoriumFrame.y}) rotate(${auditoriumFrame.angle})`}
+>
+  <g data-auditorium-aisle>
+    <title>Pasillo lateral izquierdo</title>
+    <path
+      class="aisle-surface"
+      d="M-147-101Q-178-60-176 0Q-174 60-148 101L-138 95Q-162 54-164 0Q-166-50-134-94Z"
+    ></path>
+    <path class="aisle-edge" d="M-147-101Q-178-60-176 0Q-174 60-148 101"></path>
+  </g>
+  <g data-auditorium-tiers>
+    <title>Gradas superiores</title>
+    {
+      auditoriumTiers.map((row) => (
+        <g data-auditorium-tier>
+          {row.blocks.map((block) => (
+            <>
+              <rect
+                class="tier-platform"
+                x={block.left - 8.5}
+                y={row.y - 5.5}
+                width={block.right - block.left + 17}
+                height="11"
+                rx=".7"
+              />
+              <path
+                class="tier-riser"
+                d={`M${block.left - 8.5} ${row.y + 5.5}H${block.right + 8.5}`}
+              />
+            </>
+          ))}
+        </g>
+      ))
+    }
+    <path
+      class="tier-stair"
+      d="M-156-109H-139V-47H-156M-156-100H-139M-156-89H-139M-156-78H-139M-156-67H-139M-156-56H-139"
+    ></path>
+  </g>
+  {
+    [-1, 1].map((side) => (
+      <g data-auditorium-tv transform={`translate(${side * 166} 18)`}>
+        <title>{`Pantalla junto a la columna lateral ${side === -1 ? 'izquierda' : 'derecha'}`}</title>
+        <circle class="tv-column" data-auditorium-column r="4.5" />
+        <path class="tv-screen" d={`M${-side * 4.5} 0H${-side * 6.5}`} />
+        <g transform={`translate(${-side * 9} 0) rotate(${side * 90})`}>
+          <rect
+            class="tv-frame"
+            x="-13"
+            y="-2.5"
+            width="26"
+            height="5"
+            rx="1"
+          />
+          <path class="tv-screen" d="M-10-.5H10" />
+        </g>
+      </g>
+    ))
+  }
+  <g data-auditorium-projector transform="translate(-75 147) rotate(32)">
+    <title>Miniproyector orientado hacia los asientos</title>
+    <path class="projector-screen" d="M-17 0H17M0 0V-4"></path>
+  </g>
+  {
+    [-108, 108].map((x) => {
+      const y = 123.68 + ((x + 133.73) * (131.29 - 123.68)) / (129.6 + 133.73);
+      return (
+        <g data-auditorium-stage-stair transform={`translate(${x} ${y})`}>
+          <title>Escaleras laterales del escenario</title>
+          <rect
+            class="stage-stair-background"
+            x="-9"
+            y="-12"
+            width="18"
+            height="24"
+          />
+          <path class="stage-stair" d="M-9-12H9V12H-9ZM-9-6H9M-9 0H9M-9 6H9" />
+          <path class="stair-direction" d="M0-8V8m-3-4 3 4 3-4" />
+        </g>
+      );
+    })
+  }
+  {
+    detailed && (
+      <>
+        <g class="detail-label" transform="translate(0 -123)">
+          <text>Gradas</text>
+        </g>
+        <g class="detail-label" transform="translate(-164 -26)">
+          <text>Pasillo</text>
+        </g>
+      </>
+    )
+  }
+</g>
+<style>
+  .auditorium-details {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  path,
+  rect,
+  circle {
+    vector-effect: non-scaling-stroke;
+  }
+  .aisle-surface {
+    fill: currentColor;
+    fill-opacity: 0.035;
+    stroke: none;
+  }
+  .aisle-edge {
+    stroke-width: 0.5;
+    stroke-dasharray: 3 4;
+    opacity: 0.32;
+  }
+  .tier-platform {
+    fill: currentColor;
+    fill-opacity: 0.025;
+    stroke: none;
+  }
+  .tier-riser,
+  .tier-stair {
+    stroke-width: 0.45;
+    opacity: 0.35;
+  }
+  .tv-frame {
+    stroke-width: 0.85;
+    fill: currentColor;
+    fill-opacity: 0.12;
+  }
+  .tv-screen {
+    stroke-width: 0.5;
+    opacity: 0.7;
+  }
+  .tv-column {
+    fill: currentColor;
+    fill-opacity: 0.12;
+    stroke-width: 0.7;
+  }
+  .projector-screen {
+    stroke-width: 1.3;
+    opacity: 0.85;
+  }
+  .stage-stair-background {
+    fill: var(--venue-plan-background, var(--paper));
+    stroke: none;
+  }
+  .stage-stair {
+    stroke-width: 0.65;
+    opacity: 0.8;
+  }
+  .stair-direction {
+    stroke-width: 0.5;
+    opacity: 0.45;
+  }
+  .detail-label text {
+    transform: rotate(calc(var(--venue-label-turn, 0deg) + 29deg));
+    fill: currentColor;
+    stroke: none;
+    font:
+      7.5px 'Inter Variable',
+      sans-serif;
+    text-anchor: middle;
+    opacity: 0.65;
+  }
+</style>
