@@ -220,7 +220,8 @@ import furniture from '../data/venue-furniture.json';
   data-hidden
   transform="translate(185 178) scale(.55)"
 >
-  <path class="floor-wall" d="M500 0V194M500 264V458M489 527V625"></path>
+  <path class="floor-wall" d="M500 195V201M500 257V264M500 459V464M500 520V527"
+  ></path>
   {
     aulaFixtures.inferiores.map(({ kind, ...fixture }) => (
       <rect
@@ -396,7 +397,7 @@ import furniture from '../data/venue-furniture.json';
     vector-effect: non-scaling-stroke;
   }
   .floor-column {
-    fill: var(--paper);
+    fill: var(--venue-plan-background, var(--paper));
     stroke: currentColor;
     stroke-width: 1;
     vector-effect: non-scaling-stroke;

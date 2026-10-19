@@ -21,10 +21,11 @@ const { x = 460, y = 350, scale = 1 } = Astro.props;
   <circle class="table-post" cx="0" cy="-44" r="2"></circle>
   <circle class="table-post" cx="0" cy="44" r="2"></circle>
   <svg
-    x="-30"
-    y="-10.2"
-    width="60"
-    height="20.4"
+    class="table-logo"
+    x="-35"
+    y="-11.9"
+    width="70"
+    height="23.8"
     viewBox="0 0 738 251"
     aria-hidden="true"
   >
@@ -32,7 +33,7 @@ const { x = 460, y = 350, scale = 1 } = Astro.props;
       href="/assets/venue/catedras-telefonica.png"
       width="738"
       height="251"
-      opacity=".48"
+      opacity=".72"
       filter="url(#venue-telefonica-logo)"
       data-pingpong-logo
     />
@@ -44,6 +45,9 @@ const { x = 460, y = 350, scale = 1 } = Astro.props;
   circle {
     stroke-linejoin: round;
     stroke-linecap: round;
+  }
+  .table-logo {
+    mix-blend-mode: overlay;
   }
   .table-frame {
     fill: var(--venue-plan-background, var(--paper));
