@@ -1,0 +1,100 @@
+---
+interface Props {
+  id: string;
+  variant: 'halftone' | 'circuit' | 'arcs';
+}
+const { id, variant } = Astro.props;
+---
+
+<svg
+  class:list={['section-pattern', `section-pattern--${variant}`]}
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <pattern
+      id={id}
+      width={variant === 'circuit' ? 144 : variant === 'arcs' ? 96 : 18}
+      height={variant === 'circuit' ? 144 : variant === 'arcs' ? 96 : 18}
+      patternUnits="userSpaceOnUse"
+    >
+      {
+        variant === 'halftone' && (
+          <circle cx="3" cy="3" r="1.5" fill="currentColor" />
+        )
+      }
+      {
+        variant === 'circuit' && (
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M0 24H32Q40 24 40 32V48Q40 56 48 56H76Q84 56 84 64V92M144 104H116Q108 104 108 96V32Q108 24 116 24H144M16 144V112Q16 104 24 104H48Q56 104 56 96V80M64 0V16Q64 24 72 24H84V0M80 144V128Q80 120 88 120H96" />
+            <>
+              <circle cx="84" cy="96" r="4" />
+              <circle cx="56" cy="76" r="4" />
+              <circle cx="100" cy="120" r="4" />
+            </>
+            <>
+              <circle cx="16" cy="64" r="2" />
+              <path d="M12 64h8M16 60v8" />
+            </>
+          </g>
+        )
+      }
+      {
+        variant === 'arcs' && (
+          <g fill="none" stroke="currentColor" stroke-width="0.8">
+            <path d="M0 48A48 48 0 0 1 48 96M0 36A60 60 0 0 1 60 96M0 24A72 72 0 0 1 72 96M0 12A84 84 0 0 1 84 96M48 0A48 48 0 0 0 96 48M60 0A36 36 0 0 0 96 36M72 0A24 24 0 0 0 96 24M84 0A12 12 0 0 0 96 12" />
+          </g>
+        )
+      }
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill={`url(#${id})`}></rect>
+</svg>
+<style>
+  .section-pattern {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .section-pattern--halftone {
+    color: var(--ink);
+    opacity: 0.19;
+    mask-image:
+      linear-gradient(115deg, transparent 22%, rgb(0 0 0 / 0.15) 55%, black),
+      linear-gradient(transparent, black 35%, transparent);
+    mask-composite: intersect;
+  }
+  .section-pattern--circuit {
+    opacity: 0.2;
+    mask-image: radial-gradient(ellipse at 50% 42%, transparent 12%, black 85%);
+  }
+  .section-pattern--arcs {
+    left: auto;
+    width: 55%;
+    color: var(--ink);
+    opacity: 0.15;
+    mask-image:
+      linear-gradient(90deg, transparent, black),
+      linear-gradient(black, transparent 100%);
+    mask-composite: intersect;
+  }
+  @media (max-width: 700px) {
+    .section-pattern--halftone {
+      opacity: 0.12;
+    }
+    .section-pattern--arcs {
+      width: 66%;
+      opacity: 0.12;
+    }
+  }
+</style>

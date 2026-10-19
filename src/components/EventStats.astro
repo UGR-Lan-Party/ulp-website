@@ -2,6 +2,7 @@
 import program from '../data/program-2026.json';
 import metrics from '../data/home-metrics.json';
 import { partners } from '../data/sponsors';
+import HomeSectionPattern from './HomeSectionPattern.astro';
 import PeopleIcon from './icons/bootstrap/PeopleIcon.astro';
 import ControllerIcon from './icons/bootstrap/ControllerIcon.astro';
 import BuildingsIcon from './icons/bootstrap/BuildingsIcon.astro';
@@ -33,6 +34,7 @@ const statistics = [
 ---
 
 <section class="event-stats design-container" aria-labelledby="stats-title">
+  <HomeSectionPattern id="home-stats-pattern" variant="halftone" />
   <div class="stats-heading">
     <h2 id="stats-title">La ULP, <em>en cifras.</em></h2>
     <span>Lo que pasa cuando jugamos juntos.</span>
@@ -55,6 +57,8 @@ const statistics = [
 </section>
 <style>
   .event-stats {
+    position: relative;
+    isolation: isolate;
     padding-block: 28px 58px;
   }
   .stats-heading {

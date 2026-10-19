@@ -1,4 +1,5 @@
 ---
+import HomeSectionPattern from './HomeSectionPattern.astro';
 import ArrowUpRight from './ArrowUpRight.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { getPublishedNews, formatNewsDate } from '../utils/news';
@@ -13,6 +14,7 @@ const stories = (await getPublishedNews()).slice(0, 2);
       aria-labelledby="home-news-title"
     >
       <header class="home-news-heading">
+        <HomeSectionPattern id="home-news-pattern" variant="arcs" />
         <div>
           <span class="design-eyebrow">El tablón de la ULP</span>
           <h2 id="home-news-title">
@@ -68,6 +70,8 @@ const stories = (await getPublishedNews()).slice(0, 2);
     margin-inline: auto;
   }
   .home-news-heading {
+    position: relative;
+    isolation: isolate;
     display: flex;
     align-items: end;
     justify-content: space-between;

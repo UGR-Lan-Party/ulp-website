@@ -1,4 +1,5 @@
 ---
+import HomeSectionPattern from './HomeSectionPattern.astro';
 import ArrowUpRight from './ArrowUpRight.astro';
 import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
 ---
@@ -14,6 +15,11 @@ import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
       </p>
     </div>
     <div class="community-action">
+      {
+        Astro.url.pathname === '/' && (
+          <HomeSectionPattern id="home-discord-pattern" variant="circuit" />
+        )
+      }
       <span class="discord-orbit" aria-hidden="true"><DiscordIcon /></span>
       <a
         href="https://discord.gg/FWW9wKZjav"
@@ -71,6 +77,8 @@ import DiscordIcon from '../../public/assets/icons/DiscordIcon.astro';
     margin-top: 25px;
   }
   .community-action {
+    position: relative;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     align-items: center;
