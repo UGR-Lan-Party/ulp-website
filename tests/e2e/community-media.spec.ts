@@ -42,11 +42,13 @@ test('El visor ampliado conserva el render y devuelve el foco al cerrar', async 
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
   await expect(expand).toBeFocused();
-  expect(
-    await renderer!.evaluate((canvas) =>
-      Boolean(canvas.closest('[data-trophy-inline]')),
-    ),
-  ).toBe(true);
+  await expect
+    .poll(() =>
+      renderer!.evaluate((canvas) =>
+        Boolean(canvas.closest('[data-trophy-inline]')),
+      ),
+    )
+    .toBe(true);
   await expect(page.locator('html')).not.toHaveCSS('overflow', 'hidden');
 
   await page.setViewportSize({ width: 390, height: 844 });

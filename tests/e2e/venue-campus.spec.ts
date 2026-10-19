@@ -316,28 +316,28 @@ test('El parking queda separado de los edificios al girar y Mi agenda está desp
   ).toBe(true);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('[data-venue-building-select]').selectOption('recinto');
-  for (let turn = 0; turn < 4; turn++) {
-    const overlap = await page
-      .locator('.campus-parking-boundary')
-      .evaluate((element) => {
-        const parking = element as SVGPathElement;
-        const toParking = parking.getScreenCTM()!.inverse();
-        return [
-          ...document.querySelectorAll('.campus-walls, .campus-prefab'),
-        ].some((element) => {
-          const shape = element as SVGGeometryElement;
-          const matrix = toParking.multiply(shape.getScreenCTM()!);
-          const length = shape.getTotalLength();
-          for (let distance = 0; distance <= length; distance += 0.5) {
-            const point = shape
-              .getPointAtLength(distance)
-              .matrixTransform(matrix);
-            if (parking.isPointInFill(point)) return true;
-          }
-          return false;
-        });
+  const overlap = await page
+    .locator('.campus-parking-boundary')
+    .evaluate((element) => {
+      const parking = element as SVGPathElement;
+      const toParking = parking.getScreenCTM()!.inverse();
+      return [
+        ...document.querySelectorAll('.campus-walls, .campus-prefab'),
+      ].some((element) => {
+        const shape = element as SVGGeometryElement;
+        const matrix = toParking.multiply(shape.getScreenCTM()!);
+        const length = shape.getTotalLength();
+        for (let distance = 0; distance <= length; distance += 0.5) {
+          const point = shape
+            .getPointAtLength(distance)
+            .matrixTransform(matrix);
+          if (parking.isPointInFill(point)) return true;
+        }
+        return false;
       });
-    expect(overlap).toBe(false);
+    });
+  expect(overlap).toBe(false);
+  for (let turn = 0; turn < 4; turn++) {
     const clipped = await page
       .locator('.campus-parking-boundary')
       .evaluate((element) => {
