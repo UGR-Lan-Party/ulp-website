@@ -38,6 +38,7 @@ test('Arrastrar el plano ampliado evita selección y recuadros sin perder el foc
   page,
 }) => {
   await page.goto('/info/horarios/');
+  await page.locator('[data-venue-building-select]').selectOption('principal');
   const drawing = page.locator('[data-venue-drawing]');
   await drawing.scrollIntoViewIfNeeded();
   await page
@@ -79,24 +80,33 @@ test('La rotación mantiene las etiquetas orientadas y termina sin saltos ni ani
 }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/info/horarios/');
+  await page.locator('[data-venue-building-select]').selectOption('principal');
   const map = page.locator('[data-venue-map]');
   const building = page.locator('[data-venue-building]');
+  await building.evaluate((element) => {
+    const animate = element.animate.bind(element);
+    element.animate = (keyframes, options) => {
+      const animation = animate(keyframes, options);
+      animation.pause();
+      return animation;
+    };
+  });
   for (let turn = 1; turn <= 4; turn++) {
     await page
       .getByRole('button', { name: 'Rotar plano', exact: true })
       .click();
     await expect(map).toHaveAttribute('aria-busy', 'true');
-    await expect
-      .poll(() =>
-        building.evaluate((element) => {
-          const value = parseFloat(
-            getComputedStyle(element).getPropertyValue('--venue-label-turn'),
-          );
-          const animation = element.getAnimations()[0];
-          return !!animation && value !== 0 && value % 90 !== 0;
-        }),
-      )
-      .toBe(true);
+    const value = await building.evaluate((element) => {
+      const animation = element.getAnimations()[0];
+      animation.currentTime = 310;
+      const angle = parseFloat(
+        getComputedStyle(element).getPropertyValue('--venue-label-turn'),
+      );
+      animation.play();
+      return angle;
+    });
+    expect(Math.abs(value % 90)).toBeGreaterThan(1);
+    expect(Math.abs(value % 90)).toBeLessThan(89);
     await expect(map).toHaveAttribute('aria-busy', 'false');
     await expect(map).toHaveAttribute('data-orientation', String(turn % 4));
     expect(

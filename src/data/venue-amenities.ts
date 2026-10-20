@@ -10,11 +10,21 @@ export interface VenueAmenity {
 export const venueAmenities: Partial<Record<VenuePlanId, VenueAmenity[]>> = {
   'principal-0': [
     { kind: 'men', label: 'Aseo de hombres', x: 184, y: 84 },
-    { kind: 'women', label: 'Aseo de mujeres', x: 234, y: 141 },
+    { kind: 'women', label: 'Aseo de mujeres', x: 225, y: 148 },
     { kind: 'accessible', label: 'Aseo adaptado', x: 234, y: 48 },
-    { kind: 'stairs', label: 'Escaleras', x: 227, y: 282 },
+    { kind: 'stairs', label: 'Escaleras', x: 217, y: 282 },
+    { kind: 'lift', label: 'Ascensor', x: 273, y: 284 },
+    {
+      kind: 'entry',
+      label: 'Salida auxiliar del Salón de Grados',
+      x: 200,
+      y: 910,
+    },
   ],
-  'principal-baja': [{ kind: 'stairs', label: 'Escaleras', x: 227, y: 282 }],
+  'principal-baja': [
+    { kind: 'stairs', label: 'Escaleras', x: 217, y: 282 },
+    { kind: 'lift', label: 'Ascensor', x: 273, y: 284 },
+  ],
   'prefabricadas-a': [
     { kind: 'entry', label: 'Acceso A1', x: 170, y: 585 },
     { kind: 'entry', label: 'Acceso A2', x: 680, y: 585 },

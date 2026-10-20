@@ -1,0 +1,159 @@
+---
+interface Props {
+  campus?: boolean;
+}
+const { campus = false } = Astro.props;
+const formation = [
+  { team: 'red', players: 1 },
+  { team: 'red', players: 3 },
+  { team: 'white', players: 4 },
+  { team: 'red', players: 3 },
+  { team: 'white', players: 3 },
+  { team: 'red', players: 4 },
+  { team: 'white', players: 3 },
+  { team: 'white', players: 1 },
+];
+---
+
+<g data-benches-furniture>
+  <g
+    data-red-benches
+    transform={campus
+      ? 'translate(650 332.5) rotate(90) translate(-460 -220)'
+      : undefined}
+  >
+    {
+      [310, 460, 610].map((x) => (
+        <g class="red-bench" transform={`translate(${x} 220)`}>
+          <rect
+            class="red-table"
+            x="-30"
+            y="-38"
+            width="60"
+            height="76"
+            rx="4"
+          />
+          <rect class="red-seat" x="-47" y="-38" width="9" height="76" rx="2" />
+          <rect class="red-seat" x="38" y="-38" width="9" height="76" rx="2" />
+          <path d="M-30-25H30M-30 25H30" />
+        </g>
+      ))
+    }
+  </g>
+  <g
+    class="foosball"
+    transform={`translate(${campus ? 410 : 460} ${campus ? 335 : 365}) scale(.8)`}
+  >
+    <rect
+      class="foosball-frame"
+      x="-65"
+      y="-93"
+      width="130"
+      height="186"
+      rx="10"></rect>
+    <rect class="foosball-pitch" x="-55" y="-82" width="110" height="164" rx="3"
+    ></rect>
+    <path class="pitch-lines" d="M-55 0H55M-22-82V-57H22V-82M-22 82V57H22V82"
+    ></path>
+    <circle class="pitch-lines" r="18"></circle>
+    <path class="goal" d="M-18-93V-102H18V-93M-18 93V102H18V93"></path>
+    {
+      formation.map(({ team, players }, row) => (
+        <g
+          class="foosball-row"
+          data-team={team}
+          transform={`translate(0 ${-70 + row * 20})`}
+        >
+          <path class="foosball-rod" d="M-78 0H78" />
+          <rect
+            class="foosball-handle"
+            x={team === 'red' ? -93 : 78}
+            y="-4"
+            width="15"
+            height="8"
+            rx="3"
+          />
+          {Array.from(
+            { length: players },
+            (_, index) => (index - (players - 1) / 2) * 26,
+          ).map((x) => (
+            <rect
+              class:list={['foosball-player', `team-${team}`]}
+              x={x - 4}
+              y="-7"
+              width="8"
+              height="14"
+              rx="3"
+            />
+          ))}
+        </g>
+      ))
+    }
+  </g>
+</g>
+<style>
+  path,
+  rect,
+  circle {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .red-table {
+    fill: #ac5252;
+    fill-opacity: 0.65;
+    stroke: #ac5252;
+    stroke-width: 1.5;
+  }
+  .red-seat {
+    fill: var(--paper);
+    stroke: #ac5252;
+    stroke-width: 1.5;
+  }
+  .red-bench path {
+    fill: none;
+    stroke: #ac5252;
+    stroke-width: 1.2;
+  }
+  .foosball-frame {
+    fill: var(--paper);
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .foosball-pitch {
+    fill: currentColor;
+    fill-opacity: 0.1;
+    stroke: currentColor;
+    stroke-width: 1;
+  }
+  .pitch-lines {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.8;
+    opacity: 0.5;
+  }
+  .goal {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+  .foosball-rod {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    opacity: 0.5;
+  }
+  .foosball-handle {
+    fill: currentColor;
+  }
+  .foosball-player {
+    stroke: var(--paper);
+    stroke-width: 0.7;
+  }
+  .team-white {
+    fill: #f5f0e6;
+    stroke: #004465;
+  }
+  .team-red {
+    fill: #ac5252;
+  }
+</style>

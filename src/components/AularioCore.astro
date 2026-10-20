@@ -1,0 +1,124 @@
+---
+import VenueDoor from './VenueDoor.astro';
+import VenueCurvedStair from './VenueCurvedStair.astro';
+import { aularioCore } from '../data/aulario';
+const { x, y, radius, stairInnerRadius, lift } = aularioCore;
+const stalls = Array.from({ length: 4 }, (_, index) => ({
+  x: -19,
+  y: -64 + index * 15,
+}));
+---
+
+<g class="aulario-core" data-aulario-core transform={`translate(${x} ${y})`}>
+  <circle class="core-background" r={radius}></circle>
+  <path
+    class="core-divider"
+    d={`M0 ${-radius}V0M${-stairInnerRadius} 0H${stairInnerRadius}`}></path>
+  <VenueCurvedStair
+    x={0}
+    y={0}
+    innerRadius={stairInnerRadius}
+    outerRadius={radius}
+    startAngle={0}
+    endAngle={180}
+    steps={14}
+  />
+  {
+    ['women', 'men'].map((kind) => (
+      <g
+        data-aulario-washroom={kind}
+        transform={kind === 'men' ? 'scale(-1 1)' : undefined}
+      >
+        <title>
+          {kind === 'men' ? 'Aseo de hombres' : 'Aseo de mujeres'}: cuatro
+          cabinas y lavabo
+        </title>
+        <path
+          class="stall-wall"
+          d="M0-64H-19V-4H0M-19-49H0M-19-34H0M-19-19H0"
+        />
+        {stalls.map((stall) => (
+          <g data-aulario-stall transform={`translate(${stall.x} ${stall.y})`}>
+            <rect
+              class="toilet-tank"
+              x="14"
+              y="4"
+              width="3"
+              height="7"
+              rx="1"
+            />
+            <ellipse class="toilet-bowl" cx="10" cy="7.5" rx="4" ry="3" />
+            <g class="stall-door">
+              <VenueDoor x={0} y={3} angle={90} width={8} />
+            </g>
+          </g>
+        ))}
+        <g data-aulario-basin>
+          <rect
+            class="basin-outline"
+            x="-56"
+            y="-35"
+            width="8"
+            height="24"
+            rx="2"
+          />
+          <ellipse class="basin-bowl" cx="-52" cy="-23" rx="2.2" ry="8" />
+          <path class="basin-tap" d="M-57-23H-53" />
+        </g>
+        <VenueDoor x={-62} y={0} width={14} />
+      </g>
+    ))
+  }
+  <g data-aulario-lift>
+    <path class="lift-front" d={`M${lift.left} 0H${lift.right}M100 0V-3`}
+    ></path>
+  </g>
+</g>
+<style>
+  .aulario-core {
+    --venue-door-opening-width: 1.8;
+  }
+  .core-background {
+    fill: var(--venue-plan-background, var(--paper));
+    stroke: none;
+  }
+  path,
+  rect,
+  ellipse {
+    stroke: currentColor;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .core-divider,
+  .lift-front {
+    fill: none;
+    stroke-width: 0.85;
+  }
+  .aulario-core :global(.stair-band) {
+    stroke-width: 1.6;
+  }
+  .aulario-core :global(.door-leaf),
+  .aulario-core :global(.door-swing) {
+    stroke-width: 0.65;
+  }
+  .stall-wall {
+    fill: none;
+    stroke-width: 0.5;
+  }
+  .toilet-tank,
+  .toilet-bowl {
+    fill: currentColor;
+    fill-opacity: 0.04;
+    stroke-width: 0.45;
+  }
+  .stall-door {
+    --venue-door-opening-width: 1.1;
+  }
+  .basin-outline,
+  .basin-bowl,
+  .basin-tap {
+    fill: none;
+    stroke-width: 0.5;
+  }
+</style>

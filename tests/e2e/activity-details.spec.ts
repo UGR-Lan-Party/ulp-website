@@ -61,8 +61,8 @@ test('La carta mantiene la interacción y se detiene al reducir el movimiento', 
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/actividades/ajedrez/');
   const card = page.locator('#holo-card');
-  const bounds = (await card.boundingBox())!;
-  await page.mouse.move(bounds.x + 70, bounds.y + 90);
+  await page.evaluate(() => document.fonts.ready);
+  await card.hover({ position: { x: 70, y: 90 }, force: true });
   await expect
     .poll(() => card.evaluate((element) => element.style.transform))
     .toContain('rotate3d');

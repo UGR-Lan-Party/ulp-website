@@ -1,23 +1,38 @@
 ---
-import { venueZones, venuePlans, getVenueLayout } from '../data/venue-map';
+import {
+  venueZones,
+  venuePlans,
+  selectableVenuePlans,
+  getVenueLayout,
+  getVenueInitialOrientation,
+  initialVenuePlan,
+  isVenueInformation,
+} from '../data/venue-map';
+import { getVenueLeaderPath } from '../data/venue-leaders';
 import VenueFloorPlans from './VenueFloorPlans.astro';
+import VenuePingPongPlan from './VenuePingPongPlan.astro';
+import VenueCampusPlan from './VenueCampusPlan.astro';
+import VenueBenchesPlan from './VenueBenchesPlan.astro';
 import VenueAmenityIcon from './VenueAmenityIcon.astro';
 import { venueAmenities } from '../data/venue-amenities';
 import AularioFloorPlans from './AularioFloorPlans.astro';
 import { aularioFloors } from '../data/aulario';
 const buildings = [
   ...new Map(
-    venuePlans.map((plan) => [plan.building, plan.buildingLabel]),
+    selectableVenuePlans.map((plan) => [plan.building, plan.buildingLabel]),
   ).entries(),
 ];
-const layout = getVenueLayout('principal-0', 0);
+const initialPlan = venuePlans.find((plan) => plan.id === initialVenuePlan)!;
+const initialOrientation = getVenueInitialOrientation(initialVenuePlan);
+const layout = getVenueLayout(initialVenuePlan, initialOrientation);
 ---
 
 <div
   class="venue-explorer"
   data-venue-map
-  data-venue-plan="principal-0"
-  data-orientation="0"
+  data-venue-plan={initialVenuePlan}
+  data-orientation={initialOrientation}
+  style={`--venue-label-turn: ${-initialOrientation * 90}deg`}
 >
   <div class="venue-map-column">
     <header class="venue-map-heading">
@@ -34,23 +49,42 @@ const layout = getVenueLayout('principal-0', 0);
       <label
         >Edificio o zona<select data-venue-building-select
           >{
-            buildings.map(([id, label]) => <option value={id}>{label}</option>)
+            buildings.map(([id, label]) => (
+              <option value={id} selected={id === initialPlan.building}>
+                {label}
+              </option>
+            ))
           }</select
         ></label
       >
       <label
-        >Planta<select data-venue-floor-select
+        >Planta<select data-venue-floor-select disabled
           >{
-            venuePlans
-              .filter((plan) => plan.building === 'principal')
+            selectableVenuePlans
+              .filter((plan) => plan.building === initialPlan.building)
               .map((plan) => <option value={plan.id}>{plan.floor}</option>)
           }</select
         ></label
       >
     </div>
+    <div class="venue-room-heading" data-venue-room-heading hidden>
+      <strong data-venue-room-title></strong>
+      <button type="button" data-venue-room-back>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          aria-hidden="true"><path d="m12 5-7 7 7 7M5 12h14"></path></svg
+        >
+        <span data-venue-room-parent>Volver a la planta</span>
+      </button>
+    </div>
     <div class="venue-canvas">
       <svg
-        viewBox="0 45 920 625"
+        viewBox="0 -5 920 710"
         class="venue-drawing"
         data-venue-drawing
         role="group"
@@ -65,11 +99,28 @@ const layout = getVenueLayout('principal-0', 0);
             patternUnits="userSpaceOnUse"
             ><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".055"
             ></circle></pattern
-          ></defs
+          >
+          <filter
+            id="venue-telefonica-logo"
+            color-interpolation-filters="sRGB"
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+          >
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 2 2 2 0 -4.5"
+            ></feColorMatrix>
+          </filter></defs
         >
         <rect width="920" height="700" fill="url(#venue-grid)"></rect>
-        <g data-venue-building class="venue-building"
-          ><VenueFloorPlans /><AularioFloorPlans /></g
+        <g
+          data-venue-building
+          class="venue-building"
+          style={`transform: rotate(${initialOrientation * 90}deg)`}
+          ><VenueFloorPlans /><AularioFloorPlans /><VenueCampusPlan
+          /><VenueBenchesPlan /><VenuePingPongPlan /></g
         >
         <g data-venue-indicators>
           {
@@ -79,10 +130,17 @@ const layout = getVenueLayout('principal-0', 0);
                 <g
                   class="venue-callout"
                   data-venue-zone={zone.id}
+                  data-venue-open-plan={
+                    'openPlan' in zone ? zone.openPlan : undefined
+                  }
                   data-zone-plan={zone.plan}
                   role="button"
                   tabindex="0"
-                  aria-label={`Filtrar por ${zone.label}`}
+                  aria-label={
+                    'openPlan' in zone
+                      ? `Abrir plano: ${zone.label}`
+                      : `${isVenueInformation(zone.id) ? 'Información de' : 'Filtrar por'} ${zone.label}`
+                  }
                   data-hidden={!point || undefined}
                 >
                   <path
@@ -90,7 +148,10 @@ const layout = getVenueLayout('principal-0', 0);
                     fill="none"
                     d={
                       point
-                        ? `M${point.edgeX} ${point.labelY + 20}L${point.x} ${point.y}`
+                        ? getVenueLeaderPath(
+                            { x: point.edgeX, y: point.edgeY },
+                            point,
+                          )
                         : undefined
                     }
                   />
@@ -125,11 +186,27 @@ const layout = getVenueLayout('principal-0', 0);
                     >
                       ×
                     </text>
-                    <text x="10" y="16">
+                    <text
+                      x="10"
+                      y="16"
+                      textLength={
+                        zone.id === 'profesores-externos' ? 140 : undefined
+                      }
+                      lengthAdjust={
+                        zone.id === 'profesores-externos'
+                          ? 'spacingAndGlyphs'
+                          : undefined
+                      }
+                    >
                       {zone.label}
                     </text>
                     <text class="venue-label-meta" x="10" y="30">
-                      {venuePlans.find((plan) => plan.id === zone.plan)?.floor}
+                      {'openPlan' in zone
+                        ? 'Ver plano'
+                        : zone.id === 'acceso-principal'
+                          ? 'Deshabilitado'
+                          : venuePlans.find((plan) => plan.id === zone.plan)
+                              ?.floor}
                     </text>
                   </g>
                 </g>
@@ -138,6 +215,12 @@ const layout = getVenueLayout('principal-0', 0);
           }
         </g>
       </svg>
+      <button type="button" class="venue-construction" data-venue-unlock hidden>
+        <span class="construction-machine" aria-hidden="true"></span>
+        <strong>Tercer Edificio</strong>
+        <span class="construction-soon">Coming Soon</span>
+        <span class="construction-hint">Pulsa para ver las aulas de 2026</span>
+      </button>
       <div
         class="venue-zoom"
         data-venue-zoom-controls
@@ -192,7 +275,7 @@ const layout = getVenueLayout('principal-0', 0);
         </button>
       </div>
       <span class="sr-only" data-venue-view-status role="status"
-        >Edificio Principal, planta 0, orientación 1</span
+        >Vista General, recinto y exteriores, orientación 3</span
       >
     </div>
   </div>
@@ -225,11 +308,7 @@ const layout = getVenueLayout('principal-0', 0);
     venuePlans
       .filter((plan) => venueAmenities[plan.id]?.length)
       .map((plan) => (
-        <div
-          class="aulario-note"
-          data-venue-floor-note={plan.id}
-          hidden={plan.id !== 'principal-0'}
-        >
+        <div class="aulario-note" data-venue-floor-note={plan.id} hidden>
           <ul class="aulario-service-legend" aria-label="Servicios del plano">
             {venueAmenities[plan.id]!.map((service) => (
               <li>
@@ -341,6 +420,33 @@ const layout = getVenueLayout('principal-0', 0);
     text-decoration: underline;
     text-underline-offset: 4px;
   }
+  .venue-room-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0 12px;
+  }
+  .venue-room-heading[hidden] {
+    display: none;
+  }
+  .venue-room-heading strong {
+    font-size: clamp(18px, 2.5vw, 24px);
+    letter-spacing: -0.03em;
+  }
+  .venue-room-heading button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 11px;
+  }
+  .venue-room-heading button:hover {
+    background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+  }
   .venue-selectors {
     display: flex;
     gap: 18px;
@@ -365,10 +471,73 @@ const layout = getVenueLayout('principal-0', 0);
     font-size: 12px;
     padding: 9px 12px;
   }
+  .venue-construction {
+    position: absolute;
+    inset: 0 0 75px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--paper) 24%, transparent);
+    border-radius: 18px;
+    cursor: pointer;
+  }
+  .construction-machine {
+    width: clamp(130px, 22vw, 220px);
+    height: clamp(100px, 17vw, 165px);
+    background: currentColor;
+    mask: url('/assets/venue/excavadora.png') center / contain no-repeat;
+    opacity: 0.8;
+  }
+  .venue-construction strong {
+    font-size: clamp(23px, 3vw, 36px);
+    letter-spacing: -0.035em;
+  }
+  .construction-soon {
+    font:
+      italic clamp(22px, 3vw, 36px) Georgia,
+      serif;
+  }
+  .construction-hint {
+    font-size: 11px;
+    margin-top: 8px;
+  }
+  [data-venue-locked='true'] .venue-building,
+  [data-venue-locked='true'] [data-venue-indicators] {
+    filter: blur(6px);
+    pointer-events: none;
+  }
+  [data-venue-locked='true'] .venue-zoom {
+    display: none;
+  }
+  .venue-construction[hidden] {
+    display: none;
+  }
   .venue-canvas {
+    overflow: clip;
     position: relative;
   }
+  :global(.dark) .venue-canvas {
+    --venue-plan-background: var(--surface);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: clamp(8px, 1.2vw, 16px);
+  }
+  :global(.dark) .venue-zoom {
+    top: 16px;
+    right: 16px;
+  }
+  .venue-drawing:focus:not(:focus-visible),
+  .venue-callout:focus,
+  .venue-drawing :global([data-venue-open-plan]:focus) {
+    outline: none;
+  }
   .venue-drawing {
+    outline: none;
     display: block;
     width: 100%;
     height: auto;

@@ -1,0 +1,25 @@
+---
+import VenueFurniture from './VenueFurniture.astro';
+import VenueDoor from './VenueDoor.astro';
+import {
+  studentRoomFurniture,
+  studentRoomEntrance,
+} from '../data/student-room';
+---
+
+<g class="student-room" data-student-room>
+  <path class="student-room-wall" d="M197 208L317 132"></path>
+  <VenueFurniture pieces={studentRoomFurniture} />
+  <g data-student-room-entrance><VenueDoor {...studentRoomEntrance} /></g>
+</g>
+<style>
+  .student-room-wall {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.05;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.5;
+  }
+</style>

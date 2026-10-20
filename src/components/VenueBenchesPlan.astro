@@ -1,0 +1,40 @@
+---
+import VenueBenchesFurniture from './VenueBenchesFurniture.astro';
+---
+
+<g data-venue-floor-plan="bancos-rojos" data-hidden class="benches-plan">
+  <title>Bancos rojos y futbolín</title>
+  <path class="benches-floor" d="M235 165H685V500H235Z"></path>
+  <path class="benches-wall" d="M235 165H685"></path>
+  <path
+    class="benches-paving"
+    d="M235 250H685M235 335H685M235 420H685M310 165V500M385 165V500M460 165V500M535 165V500M610 165V500"
+  ></path>
+  <VenueBenchesFurniture />
+</g>
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+  path,
+  rect,
+  circle {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .benches-floor {
+    fill: currentColor;
+    fill-opacity: 0.025;
+  }
+  .benches-wall {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .benches-paving {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.6;
+    opacity: 0.1;
+  }
+</style>
