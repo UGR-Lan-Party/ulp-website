@@ -5,31 +5,6 @@ const watchUrl = 'https://www.youtube.com/watch?v=VBoMpaRcuSg';
 
 <section class="youtube-section" aria-labelledby="youtube-title">
   <div class="design-container youtube-grid">
-    <div data-reveal>
-      <span class="youtube-label"
-        ><svg
-          viewBox="0 0 24 24"
-          width="26"
-          height="26"
-          fill="currentColor"
-          aria-hidden="true"
-          ><path
-            d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.6 4.6 12 4.6 12 4.6s-5.6 0-7.5.5a3 3 0 0 0-2.1 2.1 31 31 0 0 0 0 9.6 3 3 0 0 0 2.1 2.1c1.9.5 7.5.5 7.5.5s5.6 0 7.5-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 0-9.6ZM10 15.2V8.8l5.5 3.2Z"
-          ></path></svg
-        > ULP en YouTube</span
-      >
-      <h2 id="youtube-title">La partida sigue<br /><em>cuando quieras</em></h2>
-      <p>
-        Momentos, retransmisiones y recuerdos para volver a la ULP, una y otra
-        vez.
-      </p>
-      <a
-        class="youtube-subscribe"
-        href="https://www.youtube.com/@ugrlanparty?sub_confirmation=1"
-        target="_blank"
-        rel="noopener noreferrer">Suscríbete al canal <ArrowUpRight /></a
-      >
-    </div>
     <div class="youtube-recording" data-youtube-recording>
       <div class="youtube-player" data-youtube-player>
         <a
@@ -59,8 +34,34 @@ const watchUrl = 'https://www.youtube.com/watch?v=VBoMpaRcuSg';
         <span>Del archivo de nuestra comunidad</span><h3>
           Así es la UGR LAN Party · ULP 2025
         </h3><a href={watchUrl} target="_blank" rel="noopener noreferrer"
-          >Ver en YouTube <ArrowUpRight /></a>
+          >Ver en YouTube <ArrowUpRight /></a
+        >
       </div>
+    </div>
+    <div class="youtube-copy" data-reveal>
+      <span class="youtube-label"
+        ><svg
+          viewBox="0 0 24 24"
+          width="26"
+          height="26"
+          fill="currentColor"
+          aria-hidden="true"
+          ><path
+            d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.6 4.6 12 4.6 12 4.6s-5.6 0-7.5.5a3 3 0 0 0-2.1 2.1 31 31 0 0 0 0 9.6 3 3 0 0 0 2.1 2.1c1.9.5 7.5.5 7.5.5s5.6 0 7.5-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 0-9.6ZM10 15.2V8.8l5.5 3.2Z"
+          ></path></svg
+        > ULP en YouTube</span
+      >
+      <h2 id="youtube-title">La partida sigue<br /><em>cuando quieras</em></h2>
+      <p>
+        Momentos, retransmisiones y recuerdos para volver a la ULP, una y otra
+        vez.
+      </p>
+      <a
+        class="youtube-subscribe"
+        href="https://www.youtube.com/@ugrlanparty?sub_confirmation=1"
+        target="_blank"
+        rel="noopener noreferrer">Suscríbete al canal <ArrowUpRight /></a
+      >
     </div>
   </div>
 </section>
@@ -102,11 +103,11 @@ const watchUrl = 'https://www.youtube.com/watch?v=VBoMpaRcuSg';
         transparent calc(100% - 85px),
         var(--paper)
       ),
-      radial-gradient(ellipse at 80% 45%, #d03535, transparent 70%), #8c1725;
+      radial-gradient(ellipse at 20% 45%, #007983, transparent 70%), #004465;
   }
   .youtube-grid {
     display: grid;
-    grid-template-columns: 0.8fr 1.3fr;
+    grid-template-columns: 1.3fr 0.8fr;
     align-items: center;
     gap: clamp(35px, 5vw, 75px);
   }
@@ -154,7 +155,7 @@ const watchUrl = 'https://www.youtube.com/watch?v=VBoMpaRcuSg';
     border: 1px solid rgb(245 240 230 / 0.2);
     border-radius: 18px;
     overflow: hidden;
-    background: rgb(50 0 10 / 0.3);
+    background: rgb(6 51 73 / 0.65);
   }
   .youtube-player,
   .youtube-preview {
@@ -177,8 +178,8 @@ const watchUrl = 'https://www.youtube.com/watch?v=VBoMpaRcuSg';
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: #d5202e;
-    box-shadow: 0 6px 25px #300a1460;
+    background: #006471;
+    box-shadow: 0 6px 25px rgb(0 35 51 / 0.25);
   }
   .youtube-caption {
     padding: 18px 22px;

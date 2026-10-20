@@ -57,6 +57,10 @@ for (const width of [1280, 390]) {
       .first()
       .boundingBox();
     expect(large!.height).toBeGreaterThan(small!.height);
+    const recording = (await page.locator('.youtube-recording').boundingBox())!;
+    const copy = (await page.locator('.youtube-copy').boundingBox())!;
+    if (width > 900) expect(recording.x + recording.width).toBeLessThan(copy.x);
+    else expect(recording.y + recording.height).toBeLessThan(copy.y);
     await expect(page.locator('.youtube-subscribe')).toHaveAttribute(
       'href',
       'https://www.youtube.com/@ugrlanparty?sub_confirmation=1',
