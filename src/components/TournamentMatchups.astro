@@ -2,6 +2,7 @@
 import ArrowUpRight from './ArrowUpRight.astro';
 import { getTournament } from '../data/tournaments';
 import TournamentBracket from './TournamentBracket.astro';
+import LolRoster from './LolRoster.astro';
 
 interface Props {
   activityId: string;
@@ -168,6 +169,7 @@ const tournament = getTournament(activityId);
               <li>{alias}</li>
             ))}
           </ul>
+          {activityId === 'league-of-legends' && <LolRoster />}
         </details>
       )}
     </section>
