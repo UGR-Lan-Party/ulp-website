@@ -111,3 +111,89 @@ test('Un fallo de red permite reintentar sin duplicar el visor', async ({
   await expect(retry).not.toBeVisible();
   await expect(viewer.locator('canvas')).toHaveCount(1);
 });
+
+test('El zoom máximo conserva todo el trofeo al girar, ampliar y cambiar a móvil', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/actividades/league-of-legends/');
+  const viewer = page.locator('[data-trophy]');
+  await expect(viewer.locator('[data-trophy-status]')).toContainText(
+    'Arrastra',
+  );
+  const canvas = viewer.locator('canvas');
+  async function checkMargins() {
+    await canvas.scrollIntoViewIfNeeded();
+    const bounds = (await canvas.boundingBox())!;
+    await page.mouse.move(
+      bounds.x + bounds.width / 2,
+      bounds.y + bounds.height / 2,
+    );
+    for (let index = 0; index < 8; index++) await page.mouse.wheel(0, -800);
+    // Wait for the frame requested by OrbitControls in reduced-motion mode.
+    await page.evaluate(
+      () =>
+        new Promise((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(resolve)),
+        ),
+    );
+    const { data, info } = await sharp(await canvas.screenshot())
+      .removeAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    await canvas.evaluate((element) => (element.style.visibility = 'hidden'));
+    const background = await sharp(await page.screenshot({ clip: bounds }))
+      .removeAlpha()
+      .raw()
+      .toBuffer();
+    await canvas.evaluate((element) => (element.style.visibility = 'visible'));
+    let count = 0;
+    let minX = info.width,
+      minY = info.height,
+      maxX = 0,
+      maxY = 0;
+    for (let y = 0; y < info.height; y++)
+      for (let x = 0; x < info.width; x++) {
+        const offset = (y * info.width + x) * info.channels;
+        if (
+          ![0, 1, 2].some(
+            (channel) =>
+              Math.abs(data[offset + channel] - background[offset + channel]) >
+              25,
+          )
+        )
+          continue;
+        count++;
+        minX = Math.min(minX, x);
+        maxX = Math.max(maxX, x);
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+      }
+    expect(count).toBeGreaterThan(200);
+    expect(minX).toBeGreaterThan(info.width * 0.025);
+    expect(minY).toBeGreaterThan(info.height * 0.025);
+    expect(maxX).toBeLessThan(info.width * 0.975);
+    expect(maxY).toBeLessThan(info.height * 0.975);
+  }
+  await checkMargins();
+  const bounds = (await canvas.boundingBox())!;
+  await page.mouse.move(
+    bounds.x + bounds.width / 2,
+    bounds.y + bounds.height / 2,
+  );
+  await page.mouse.down();
+  await page.mouse.move(
+    bounds.x + bounds.width * 0.8,
+    bounds.y + bounds.height * 0.3,
+    { steps: 8 },
+  );
+  await page.mouse.up();
+  await checkMargins();
+  await viewer.getByRole('button', { name: 'Ampliar trofeo' }).click();
+  await expect(viewer.locator('[data-trophy-dialog]')).toBeVisible();
+  await checkMargins();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await checkMargins();
+  await page.getByRole('button', { name: 'Cerrar visor ampliado' }).click();
+  await checkMargins();
+});

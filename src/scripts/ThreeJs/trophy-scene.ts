@@ -2,6 +2,10 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { loadTrophy } from './ULPTrophy';
 import { applyTrophyFinish } from './trophy-finish';
+import {
+  trophyFitDistance,
+  measureTrophyBounds,
+} from '../../utils/trophy-framing.js';
 
 export async function mountTrophy(
   container: HTMLElement,
@@ -15,13 +19,15 @@ export async function mountTrophy(
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-  camera.position.set(15, 15, 15);
+  camera.position.set(15, 10, 15);
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 5, 0);
-  controls.minDistance = 10;
-  controls.maxDistance = 30;
+  controls.target.set(0, 0, 0);
+  controls.enablePan = false;
   controls.maxPolarAngle = Math.PI / 2;
   scene.add(new THREE.AmbientLight(0xffffff, 1));
+  if (path.endsWith('/lol.obj')) {
+    scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+  }
   const light = new THREE.DirectionalLight(0xffffff, 2);
   light.position.set(20, 20, 20);
   scene.add(light);
@@ -33,6 +39,9 @@ export async function mountTrophy(
   let visible = true;
   let disposed = false;
   let trophy: THREE.Group;
+  let radius = 1;
+  let fitted = false;
+  const cameraOffset = new THREE.Vector3();
 
   function disposeScene() {
     scene.traverse((child) => {
@@ -54,8 +63,14 @@ export async function mountTrophy(
   }
 
   try {
-    trophy = await loadTrophy(path, signal);
-    applyTrophyFinish(trophy);
+    const model = await loadTrophy(path, signal);
+    applyTrophyFinish(model);
+    const sphere = measureTrophyBounds(model);
+    radius = sphere.radius || 1;
+    // Rotate about the model's center rather than the OBJ's export origin.
+    model.position.sub(sphere.center);
+    trophy = new THREE.Group();
+    trophy.add(model);
     scene.add(trophy);
     signal.throwIfAborted();
   } catch (error) {
@@ -97,7 +112,24 @@ export async function mountTrophy(
     const { clientWidth: width, clientHeight: height } = container;
     if (!width || !height) return;
     camera.aspect = width / height;
+    const previousMinimum = controls.minDistance;
+    const zoomRatio = fitted
+      ? camera.position.distanceTo(controls.target) / previousMinimum
+      : 1.2;
+    controls.minDistance = trophyFitDistance(radius, camera.fov, camera.aspect);
+    controls.maxDistance = controls.minDistance * 2.5;
+    cameraOffset.copy(camera.position).sub(controls.target).normalize();
+    camera.position
+      .copy(controls.target)
+      .addScaledVector(
+        cameraOffset,
+        controls.minDistance * THREE.MathUtils.clamp(zoomRatio, 1, 2.5),
+      );
+    camera.near = Math.max(radius * 0.001, 0.0001);
+    camera.far = controls.maxDistance + radius * 3;
     camera.updateProjectionMatrix();
+    controls.update();
+    fitted = true;
     renderer.setSize(width, height);
     updateVisibility();
   }
