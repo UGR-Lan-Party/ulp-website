@@ -102,6 +102,28 @@ const [introduction, ...history] = edition.description.split(
   }
   .archive-gallery {
     min-width: 0;
+    padding-inline: 48px;
+  }
+  .archive-gallery :global([data-carousel-stage]) {
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+  }
+  .archive-gallery :global(.carousel-photo) {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px #0044651a;
+  }
+  .archive-gallery :global([data-carousel-stage] > .photo-control) {
+    width: 36px;
+    height: 36px;
+    top: calc(50% - 18px);
+  }
+  .archive-gallery :global([data-carousel-stage] > .previous) {
+    left: -46px;
+  }
+  .archive-gallery :global([data-carousel-stage] > .next) {
+    right: -46px;
   }
   .archive-gallery :global([data-photo-carousel]) {
     padding-block: 0;
@@ -144,6 +166,11 @@ const [introduction, ...history] = edition.description.split(
     }
     .archive-gallery {
       order: 1;
+    }
+  }
+  @media (max-width: 700px) {
+    .archive-gallery {
+      padding-inline: 0;
     }
   }
   .archive-year {
