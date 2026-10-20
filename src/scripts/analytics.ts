@@ -10,7 +10,9 @@ declare global {
   }
 }
 
-document.addEventListener('click', (event) => {
+function trackActivityLink(event: MouseEvent) {
+  if (navigator.doNotTrack === '1') return;
+  if (event.type === 'auxclick' && event.button !== 1) return;
   if (!(event.target instanceof Element)) return;
   const link = event.target.closest<HTMLAnchorElement>(
     'a[data-analytics-event]',
@@ -38,4 +40,7 @@ document.addEventListener('click', (event) => {
     );
     Promise.resolve(pending).catch(() => {});
   } catch {}
-});
+}
+
+document.addEventListener('click', trackActivityLink);
+document.addEventListener('auxclick', trackActivityLink);
