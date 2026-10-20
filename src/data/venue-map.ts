@@ -210,6 +210,13 @@ export const venueZones = [
     ...mainPoint(650, 745),
   },
   {
+    id: 'sala-juntas',
+    label: 'Sala de juntas',
+    plan: 'principal-0',
+    informational: true,
+    ...mainPoint(200, 510),
+  },
+  {
     id: 'streaming',
     label: 'Sala de streaming',
     plan: 'principal-0',
