@@ -82,6 +82,12 @@ import furniture from '../data/venue-furniture.json';
       <VenueAmenityMarker
         {...amenity}
         size={amenity.kind === 'accessible' ? 16 : 22}
+        destination={
+          ['stairs', 'lift'].includes(amenity.kind)
+            ? 'principal-baja'
+            : undefined
+        }
+        destinationLabel="planta baja"
       />
     ))
   }
@@ -211,33 +217,60 @@ import furniture from '../data/venue-furniture.json';
   </g>
   {
     venueAmenities['principal-baja']!.map((amenity) => (
-      <VenueAmenityMarker {...amenity} size={22} />
+      <VenueAmenityMarker
+        {...amenity}
+        size={22}
+        destination={
+          ['stairs', 'lift'].includes(amenity.kind) ? 'principal-0' : undefined
+        }
+        destinationLabel="planta 0"
+      />
     ))
   }
 </g>
 <g
   data-venue-floor-plan="aulas-inferiores"
   data-hidden
-  transform="translate(185 178) scale(.55)"
+  transform="translate(185 178) scale(.48)"
 >
-  <path class="floor-wall" d="M500 195V201M500 257V264M500 459V464M500 520V527"
-  ></path>
+  <rect
+    class="floor-classroom-outline"
+    data-lower-room="aula11"
+    x="-12"
+    y="-14"
+    width="526"
+    height="660"
+    rx="18"></rect>
+  <rect
+    class="floor-classroom-outline"
+    data-lower-room="aula12"
+    x="618"
+    y="-14"
+    width="526"
+    height="660"
+    rx="18"></rect>
   {
-    aulaFixtures.inferiores.map(({ kind, ...fixture }) => (
+    aulaFixtures.inferiores.map(({ kind, x, ...fixture }) => (
       <rect
         class={`floor-${kind}`}
         data-venue-fixture={kind}
+        x={x >= 505 ? x + 130 : x}
         {...fixture}
         rx={kind === 'column' ? 4 : Math.min(9, fixture.height / 2)}
       />
     ))
   }
-  <g class="floor-fixed-label" transform="translate(250 -30)"
+  <g class="floor-fixed-label" transform="translate(250 -40)"
     ><g class="floor-upright"><text text-anchor="middle">Aula −1.1</text></g></g
   >
-  <g class="floor-fixed-label" transform="translate(750 -30)"
+  <g class="floor-fixed-label" transform="translate(880 -40)"
     ><g class="floor-upright"><text text-anchor="middle">Aula −1.2</text></g></g
   >
+  {
+    venueAmenities['aulas-inferiores']!.map((amenity) => (
+      <VenueAmenityMarker {...amenity} size={24} />
+    ))
+  }
 </g>
 {
   (['prefabricadas-a', 'prefabricadas-b'] as const).map((plan) => (
@@ -401,6 +434,16 @@ import furniture from '../data/venue-furniture.json';
     stroke: currentColor;
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
+  }
+  .floor-classroom-outline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.2;
+    stroke-dasharray: 5 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.45;
   }
   .floor-outline {
     fill: color-mix(in srgb, var(--ink) 3%, var(--paper));

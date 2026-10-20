@@ -68,6 +68,13 @@ export const venuePlans = [
     parent: 'principal-0',
   },
   {
+    id: 'principal-grados',
+    building: 'principal',
+    buildingLabel: 'Edificio Principal',
+    floor: 'Salón de Grados',
+    parent: 'principal-0',
+  },
+  {
     id: 'principal-actos',
     building: 'principal',
     buildingLabel: 'Edificio Principal',
@@ -256,6 +263,7 @@ export const venueZones = [
     id: 'grados',
     label: 'Salón de Grados',
     plan: 'principal-0',
+    openPlan: 'principal-grados',
     ...mainPoint(195, 735),
   },
   {
@@ -294,13 +302,15 @@ export const venueZones = [
     id: 'aula11',
     label: 'Aula −1.1',
     plan: 'aulas-inferiores',
-    ...roomPoint(240, 300),
+    x: 185 + 400 * 0.48,
+    y: 178 + 550 * 0.48,
   },
   {
     id: 'aula12',
     label: 'Aula −1.2',
     plan: 'aulas-inferiores',
-    ...roomPoint(750, 300),
+    x: 185 + 880 * 0.48,
+    y: 178 + 100 * 0.48,
   },
   {
     id: 'a1',
@@ -383,7 +393,19 @@ export function getVenueLayout(
             : x < 460
               ? 'left'
               : 'right';
-      return { id: zone.id, x, y, side };
+      const port =
+        zone.id === 'aula11'
+          ? { x: 185 - 30 * 0.48, y: 178 + 550 * 0.48 }
+          : zone.id === 'aula12'
+            ? { x: 185 + 1160 * 0.48, y: 178 + 100 * 0.48 }
+            : null;
+      const via = port
+        ? {
+            x: 460 + (port.x - 460) * cos - (port.y - 350) * sin,
+            y: 350 + (port.x - 460) * sin + (port.y - 350) * cos,
+          }
+        : undefined;
+      return { id: zone.id, x, y, side, via };
     });
   return ['left', 'right', 'top'].flatMap((side) => {
     const group = points

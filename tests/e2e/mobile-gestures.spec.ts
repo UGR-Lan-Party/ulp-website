@@ -77,8 +77,9 @@ test('El plano móvil permite seleccionar, volver a tocar para quitar el filtro,
 }) => {
   await page.goto('/info/horarios/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
-  const point = page.locator('[data-venue-zone="grados"] [data-venue-point]');
-  const zone = page.locator('[data-venue-zone="grados"]');
+  await page.locator('[data-venue-floor-select]').selectOption('principal-baja');
+  const point = page.locator('[data-venue-zone="cafeteria"] [data-venue-point]');
+  const zone = page.locator('[data-venue-zone="cafeteria"]');
   await point.scrollIntoViewIfNeeded();
   await point.tap();
   await expect(zone).toHaveAttribute('aria-pressed', 'true');
@@ -86,7 +87,7 @@ test('El plano móvil permite seleccionar, volver a tocar para quitar el filtro,
   const label = (await zone.locator('[data-venue-label]').boundingBox())!;
   expect(label.x).toBeGreaterThanOrEqual(0);
   expect(label.x + label.width).toBeLessThanOrEqual(390);
-  await expect(page.locator('[data-program-row]:visible')).toHaveCount(2);
+  await expect(page.locator('[data-program-row]:visible')).toHaveCount(3);
   await point.tap();
   await expect(zone).toHaveAttribute('aria-pressed', 'false');
   await expect(page.locator('[data-program-row]:visible')).toHaveCount(46);

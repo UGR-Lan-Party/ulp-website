@@ -143,12 +143,12 @@ test('Los puntos informativos no alteran los filtros y el clic no enmarca todo e
     .getByRole('button', { name: 'Cerrar información', exact: true })
     .click();
   await page.locator('[data-venue-zone="grados"] [data-venue-point]').click();
-  await expect(rows).toHaveCount(2);
-  await page
-    .locator('[data-venue-zone="streaming"] [data-venue-point]')
-    .click();
-  await expect(rows).toHaveCount(2);
-  await page.getByRole('button', { name: 'Ver todas las zonas' }).click();
+  await expect(page.locator('[data-venue-map]')).toHaveAttribute('data-venue-plan', 'principal-grados');
+  await expect(rows).toHaveCount(46);
+  await page.locator('[data-venue-room-back]').click();
+  await page.locator('[data-venue-zone="streaming"] [data-venue-point]').click();
+  await expect(rows).toHaveCount(46);
+  await page.getByRole('button', { name: 'Cerrar información' }).click();
   const drawing = page.locator('[data-venue-drawing]');
   await drawing.click({ position: { x: 20, y: 20 } });
   await expect(drawing).toHaveCSS('outline-style', 'none');
