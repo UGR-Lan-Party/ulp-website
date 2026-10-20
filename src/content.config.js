@@ -1,9 +1,11 @@
 // 1. Import utilities from `astro:content`
-import { z, defineCollection } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
 
 // 2. Define your collection(s)
 const blogCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     draft: z.boolean(),
     title: z.string(),
@@ -36,12 +38,14 @@ const blogCollection = defineCollection({
       paraFive: z.string(),
       paraSix: z.string().optional(),
     }),
-    socialLinks: z.object({
-      web: z.string().optional(),
-      twitter: z.string().optional(),
-      instagram: z.string().optional(),
-      tiktok: z.string().optional(),
-    }).optional(),
+    socialLinks: z
+      .object({
+        web: z.string().optional(),
+        twitter: z.string().optional(),
+        instagram: z.string().optional(),
+        tiktok: z.string().optional(),
+      })
+      .optional(),
     quotes: z.object({
       quote: z.string(),
       author: z.string(),
@@ -49,24 +53,22 @@ const blogCollection = defineCollection({
   }),
 });
 
-
 const legalCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: '**/*.md', base: './src/content/legal' }),
   schema: z.object({
     title: z.string(),
     sections: z.array(
       z.object({
         title: z.string(),
         content: z.string(),
-      })
+      }),
     ),
   }),
 });
 
-
 // 3. Export a single `collections` object to register your collection(s)
 //    This key should match your collection directory name in "src/content"
 export const collections = {
-  'blog': blogCollection,
-  'legal': legalCollection,
+  blog: blogCollection,
+  legal: legalCollection,
 };

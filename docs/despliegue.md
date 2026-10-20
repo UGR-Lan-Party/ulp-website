@@ -23,3 +23,8 @@ CI ensaya la sustitución entre una imagen candidata y otra imagen de prueba ide
 ## Coordinación
 
 Esta configuración incorpora la corrección necesaria de Nginx planteada en la PR #267 y añade resolución de directorios y página 404. Revisar ambas propuestas juntas antes de integrarlas para evitar cambios duplicados.
+
+
+## Cabeceras y proxy público
+
+La imagen protege contra clickjacking y bloquea archivos ocultos. Antes de dar el despliegue por válido, seguir [la guía del proxy](servidor-seguridad.md) para conservar esa protección a través de HTTPS y evitar duplicar cabeceras. CI ejecuta `node scripts/check-security-headers.mjs URL` sobre el contenedor real, además de comprobar su versión.
