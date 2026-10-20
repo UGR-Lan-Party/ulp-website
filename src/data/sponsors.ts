@@ -877,7 +877,8 @@ const Sponsors: SponsorData[] = [
     tier: 'regular',
     description:
       'Órgano de representación estudiantil de la Facultad de Ciencias de la UGR. Se encarga de canalizar las necesidades de los alumnos, dinamizar la vida universitaria mediante eventos y asegurar el cumplimiento de sus derechos académicos.',
-    logo: '/assets/participan/Logos/defc.webp',
+    logo: '/assets/participan/Logos/defc-commons.png',
+    logoWhiteFilter: 'partner-white-cutout',
     cardBg: '/assets/participan/BG-Sponsors/defc.webp',
     isSecret: false,
     bussiness: 'Representación Estudiantil',
