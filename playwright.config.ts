@@ -6,7 +6,7 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:4323',
     browserName: 'chromium',
     colorScheme: 'light',
-    channel: process.env.PLAYWRIGHT_CHANNEL,
+    channel: process.env.PLAYWRIGHT_CHANNEL || 'chrome',
     trace: 'retain-on-failure',
   },
   webServer: {
