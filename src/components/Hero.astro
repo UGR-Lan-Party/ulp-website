@@ -1,11 +1,9 @@
 ---
 import ArrowUpRight from './ArrowUpRight.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
-import HomeContourBackground from './HomeContourBackground.astro';
 ---
 
 <section id="home" class="design-hero" data-spotlight>
-  <HomeContourBackground />
   <div class="design-container hero-grid">
     <div class="hero-copy" data-reveal>
       <div class="hero-topline">
@@ -262,19 +260,6 @@ import HomeContourBackground from './HomeContourBackground.astro';
     border-radius: 50%;
     top: -14px;
     right: -20px;
-  }
-  .hero-orbit::before {
-    content: '';
-    position: absolute;
-    inset: -120px;
-    z-index: -1;
-    border-radius: 50%;
-    background: radial-gradient(
-      ellipse closest-side,
-      var(--paper) 0 80%,
-      transparent 100%
-    );
-    pointer-events: none;
   }
   .hero-orbit::after {
     content: '';
