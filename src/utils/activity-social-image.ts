@@ -83,15 +83,15 @@ export async function renderActivitySocial(
   const { width, height } = socialFormats[format];
   const story = format === 'historia';
   const baseSvg = portrait
-    ? `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="${width}" height="${height}" fill="#f5f0e6"/><rect x="0" y="${story ? 570 : 430}" width="1080" height="${story ? 900 : 570}" fill="url(#g)"/><circle cx="540" cy="${story ? 1010 : 710}" r="${story ? 340 : 240}" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><rect x="30" y="${story ? 600 : 460}" width="1020" height="${story ? 840 : 510}" rx="26" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><path d="M64 ${height - 155}H1016" stroke="#004465" stroke-opacity=".2"/></svg>`
-    : `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="1200" height="630" fill="#f5f0e6"/><rect x="770" width="430" height="630" fill="url(#g)"/><path d="M40 110H726M40 540H726" stroke="#004465" stroke-opacity=".2"/><rect x="800" y="30" width="370" height="570" rx="24" fill="none" stroke="#f5f0e6" stroke-opacity=".25"/><circle cx="985" cy="300" r="160" fill="none" stroke="#f5f0e6" stroke-opacity=".15"/></svg>`;
-  const mosaic = `<pattern id="granada-mosaic" width="56" height="96" patternUnits="userSpaceOnUse"><path d="M28 4 52.25 18V46L28 60 3.75 46V18ZM0 52 24.25 66V94L0 108 -24.25 94V66ZM56 52 80.25 66V94L56 108 31.75 94V66Z" fill="none" stroke="#006471" stroke-width="1.2"/></pattern>`;
+    ? `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="${width}" height="${height}" fill="#f5f0e6"/><rect x="0" y="${story ? 570 : 430}" width="1080" height="${story ? 900 : 570}" fill="url(#g)"/><circle cx="540" cy="${story ? 1010 : 710}" r="${story ? 340 : 240}" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><rect x="30" y="${story ? 600 : 460}" width="1020" height="${story ? 840 : 510}" rx="26" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><path d="M64 ${story ? 1834 : 1294}H1016" stroke="#004465" stroke-opacity=".2"/></svg>`
+    : `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="1200" height="630" fill="#f5f0e6"/><rect x="770" width="430" height="630" fill="url(#g)"/><path d="M40 110H726M40 598H726" stroke="#004465" stroke-opacity=".2"/><rect x="800" y="30" width="370" height="570" rx="24" fill="none" stroke="#f5f0e6" stroke-opacity=".25"/><circle cx="985" cy="300" r="160" fill="none" stroke="#f5f0e6" stroke-opacity=".15"/></svg>`;
+  const mosaic = `<pattern id="granada-mosaic" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M32 0 41.4 9.4H54.6V22.6L64 32 54.6 41.4V54.6H41.4L32 64 22.6 54.6H9.4V41.4L0 32 9.4 22.6V9.4H22.6Z" fill="#006471"/></pattern>`;
   const base = Buffer.from(
     baseSvg
       .replace('</defs>', mosaic + '</defs>')
       .replace(
         '</svg>',
-        `<rect width="${width}" height="${height}" fill="url(#granada-mosaic)" opacity=".065"/></svg>`,
+        `<rect width="${width}" height="${height}" fill="url(#granada-mosaic)" opacity=".035"/></svg>`,
       ),
   );
   const backgrounds: OverlayOptions[] = [];
@@ -194,7 +194,7 @@ export async function renderActivitySocial(
         {
           input: await text('ulp.ugr.es', 24, 950),
           left: 64,
-          top: story ? 1845 : 1290,
+          top: story ? 1851 : 1311,
         },
       ]
     : [
@@ -225,12 +225,12 @@ export async function renderActivitySocial(
           left: 46,
           top: 482,
         },
-        { input: await text('ulp.ugr.es', 18, 500), left: 46, top: 599 },
+        { input: await text('ulp.ugr.es', 16, 500), left: 46, top: 604 },
       ];
   const italic = await sharp({
     text: {
-      text: '<span foreground="#006471">Nos vemos en Granada</span>',
-      font: `EB Garamond Italic ${portrait ? 36 : 30}`,
+      text: '<span foreground="#006471">Nos vemos en la ETSIIT</span>',
+      font: `EB Garamond Italic ${portrait ? 28 : 24}`,
       fontfile: resolve('scripts/assets/EBGaramond-Italic.ttf'),
       rgba: true,
       width: portrait ? 700 : 500,
