@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import sharp from 'sharp';
+import jsQR from 'jsqr';
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.route('https://**', (r) =>
@@ -27,6 +29,20 @@ test('Compartir agenda genera un QR y la importación pide confirmación y conse
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('[data-agenda-qr]')).toBeVisible();
   const url = await dialog.locator('input').inputValue();
+  const qrData = await dialog
+    .locator('[data-agenda-qr]')
+    .evaluate((canvas) => (canvas as HTMLCanvasElement).toDataURL('image/png'));
+  const pixels = await sharp(Buffer.from(qrData.split(',')[1], 'base64'))
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  expect(
+    jsQR(
+      new Uint8ClampedArray(pixels.data),
+      pixels.info.width,
+      pixels.info.height,
+    )?.data,
+  ).toBe(url);
   expect(url).toContain('#agenda=v1.2026.');
   expect(url).not.toContain('ajedrez');
   await page.keyboard.press('Escape');
