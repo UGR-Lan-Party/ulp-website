@@ -24,10 +24,7 @@ const facts = [
     value: slots[0]
       ? `${day.format(new Date(slots[0].startsAt))} · ${slots[0].time}`
       : 'Horario por confirmar',
-    note:
-      slots.length > 1
-        ? `${slots.length} franjas · consulta el horario completo`
-        : '',
+    note: '',
   },
   {
     label: 'Dónde',
@@ -44,7 +41,11 @@ const facts = [
 ];
 ---
 
-<section class="activity-summary" aria-label="Resumen de la actividad">
+<section
+  id="informacion"
+  class="activity-summary"
+  aria-label="Resumen de la actividad"
+>
   <dl>
     {
       facts.map((fact) => (
@@ -52,8 +53,28 @@ const facts = [
           <>
             <dt>{fact.label}</dt>
             <dd>
-              {fact.value}
-              {fact.note && <small>{fact.note}</small>}
+              {fact.label === 'Cuándo' && slots.length ? (
+                <ul class="summary-schedule">
+                  {slots.map((slot) => (
+                    <li>
+                      <span>
+                        {day.format(new Date(slot.startsAt))} · {slot.time}
+                      </span>
+                      {slot.label && <small>{slot.label}</small>}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                fact.value
+              )}
+              {fact.label === 'Dónde' && (
+                <a class="summary-location-link" href="/info/localizacion">
+                  Cómo llegar{' '}
+                  <span aria-hidden="true">
+                    <ArrowUpRight />
+                  </span>
+                </a>
+              )}
             </dd>
           </>
         </div>
@@ -92,6 +113,7 @@ const facts = [
 <style>
   .activity-summary {
     margin-top: 32px;
+    scroll-margin-top: 110px;
     border: 1px solid var(--line);
     border-radius: 18px;
     background: var(--surface);
@@ -116,6 +138,26 @@ const facts = [
     font-weight: 600;
     line-height: 1.6;
     overflow-wrap: anywhere;
+  }
+  .summary-schedule {
+    display: grid;
+    gap: 12px;
+    list-style: none;
+  }
+  .summary-schedule li + li {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+  .summary-location-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   small {
     display: block;
