@@ -20,6 +20,34 @@ for (const width of [1280, 390]) {
       );
       await expect(tier.locator('.partner-logo-frame').first()).toBeVisible();
     }
+    for (const list of await wall.locator('.about-partner-logos').all()) {
+      const rows = await list.evaluate((element) => {
+        const bounds = element.getBoundingClientRect();
+        const groups = new Map<number, DOMRect[]>();
+        for (const item of element.children) {
+          const box = item.getBoundingClientRect();
+          const key = Math.round(box.top);
+          groups.set(key, [...(groups.get(key) ?? []), box]);
+        }
+        return [...groups.values()].map((items) =>
+          Math.abs(
+            (items[0].left + items.at(-1)!.right) / 2 -
+              (bounds.left + bounds.width / 2),
+          ),
+        );
+      });
+      expect(rows.every((offset) => offset < 2)).toBe(true);
+    }
+    expect(
+      await page.locator('#team').evaluate((element) =>
+        (() => {
+          let previous = element.previousElementSibling;
+          while (previous && previous.tagName !== 'SECTION')
+            previous = previous.previousElementSibling;
+          return previous?.classList.contains('youtube-section');
+        })(),
+      ),
+    ).toBe(true);
     const large = await wall
       .locator('[data-about-tier="diamond"] .partner-logo-frame')
       .first()
