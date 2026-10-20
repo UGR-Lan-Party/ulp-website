@@ -12,8 +12,20 @@ interface Props {
   title?: string;
   image?: string;
   noindex?: boolean;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 }
-const { description, title, image, noindex = false } = Astro.props;
+const {
+  description,
+  title,
+  image,
+  noindex = false,
+  imageAlt,
+  imageWidth,
+  imageHeight,
+} = Astro.props;
+const imageUrl = image ? new URL(image, Astro.site).href : undefined;
 const siteName = 'UGR LAN Party';
 const pageTitle =
   title && title !== 'Inicio' ? `${title} | ${siteName}` : siteName;
@@ -57,8 +69,21 @@ const website = {
         <script type="application/ld+json" set:html={JSON.stringify(website)} />
       )
     }
-    <meta property="og:image" content={image} />
-    <meta property="twitter:image" content={image} />
+    <meta property="og:image" content={imageUrl} />
+    {
+      imageUrl && (
+        <>
+          <>
+            <meta property="og:image:alt" content={imageAlt ?? pageTitle} />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:image:alt" content={imageAlt ?? pageTitle} />
+          </>
+        </>
+      )
+    }
+    {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+    {imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+    <meta name="twitter:image" content={imageUrl} />
     <script is:inline>
       try {
         const theme = localStorage.getItem('theme');
