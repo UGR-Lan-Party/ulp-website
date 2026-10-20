@@ -42,7 +42,6 @@ test('Información se recorre y se cierra con teclado', async ({ page }) => {
   const information = page.getByRole('button', { name: 'Información' });
   await information.press('Enter');
   await page.keyboard.press('Tab');
-  await page.keyboard.press('Tab');
   await expect(
     page.getByRole('link', { name: 'Horarios', exact: true }),
   ).toBeFocused();
