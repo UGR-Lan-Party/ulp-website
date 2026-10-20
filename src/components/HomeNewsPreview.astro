@@ -31,7 +31,7 @@ const stories = (await getPublishedNews()).slice(0, 2);
       <div class="home-news-list">
         {stories.map((entry) => (
           <article class="home-news-story">
-            <a href={`/blog/${entry.slug}`}>
+            <a href={`/blog/${entry.id}`}>
               <div class="home-news-image">
                 <ResponsiveImage
                   src={entry.data.image.src}
