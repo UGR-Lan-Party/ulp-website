@@ -1,35 +1,58 @@
 ---
-title: "Aviso Legal"
+title: 'Aviso legal y privacidad'
 sections:
-  - title: "Condiciones Generales de Utilización y Aceptación de las mismas"
+  - title: 'Propuesta pendiente de revisión'
     content: |
-      La navegación y la utilización de los servicios del portal suponen la aceptación como Usuario y sin reservas de ningún tipo, de todas las condiciones generales de utilización, de las condiciones generales de contratación y cualesquiera otras que puedan existir en relación con la prestación de servicios de la ULP.
-  - title: "Política de privacidad"
+      Revisión técnica: 20 de octubre de 2026. Este documento es una propuesta para revisar con la Universidad de Granada antes de su publicación definitiva para ULP 2027.
+      Falta confirmar la información específica de las inscripciones, el contacto, las imágenes, la analítica y los servicios externos: finalidades, bases jurídicas, conservación, destinatarios y posibles transferencias. La fecha indicada no acredita aprobación jurídica.
+  - title: 'Organización y contactos'
     content: |
-      En cumplimiento de la LOPD 15/1999 y de la LSSICE 34/2002 y demás disposiciones legales, se le informa que los datos de carácter personal que voluntariamente facilita, incluido el correo electrónico, pasarán a formar parte de un fichero propiedad de la UGR. Además, presta su consentimiento para remitirle información comercial sobre nuestras actividades, productos y servicios pudiendo emplear para ello el correo electrónico. En cumplimiento de lo establecido en la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico, rogamos que si no desea que incluyamos sus datos en nuestros ficheros ni recibir comunicaciones publicitarias vía correo electrónico o a través de otros medios de comunicación electrónica, o si desea ejercitar los derechos de acceso, rectificación, cancelación, y oposición al tratamiento de sus datos personales establecidos en el artículo 5 de la Ley 15/1999 de 13 de diciembre, de Protección de Datos de Carácter Personal, nos lo comunique a través de la sección contacto de la página web.
-      Los usuarios permiten el uso de forma atemporal de las imágenes recabadas (fotografías o vídeos), tomadas en instalaciones y/o durante las actividades organizadas por la ULP, en cualquier publicación o acción publicitaria (página web, folletos informativos, tablones de exposición o correos electrónicos).
-  - title: "Menores de edad"
+      Esta web ofrece información sobre la UGR LAN Party y sus actividades. El contacto de la organización es ulp@ugr.es.
+      La Universidad de Granada publica su información institucional de protección de datos a través de Secretaría General. Su Oficina de Protección de Datos atiende consultas en protecciondedatos@ugr.es y la Delegada de Protección de Datos en dpd@ugr.es. La UGR debe confirmar la actividad de tratamiento y las responsabilidades específicas correspondientes al evento.
+    links:
+      - label: 'Contactar con la organización'
+        href: 'mailto:ulp@ugr.es'
+      - label: 'Protección de datos en la UGR'
+        href: 'https://secretariageneral.ugr.es/unidades/oficina-proteccion-datos'
+      - label: 'Oficina de Protección de Datos'
+        href: 'mailto:protecciondedatos@ugr.es'
+      - label: 'Delegada de Protección de Datos'
+        href: 'mailto:dpd@ugr.es'
+  - title: 'Inscripciones, contacto y comunicaciones'
     content: |
-      Todos los participantes en las competiciones de la ULP deben de ser mayores de edad. Sin embargo, se permite la entrada al evento a menores, siempre y cuando vayan acompañados de su tutor/a legal.
-  - title: "Licencia de uso"
+      Las inscripciones enlazan a formularios externos; sus respuestas no se recogen en esta web estática. Antes de abrir los formularios de 2027 deberá incorporarse a cada uno la información de protección de datos aprobada para el evento, coherente con esta página.
+      El contacto por correo se inicia desde tu aplicación de correo. La organización debe confirmar la información aplicable a la gestión de esas consultas.
+      La navegación por la web y la participación en una actividad no se presentan como una autorización general para recibir publicidad. Cualquier comunicación opcional deberá distinguirse de la información necesaria para gestionar la participación, según el texto que apruebe la UGR.
+      Los listados y cuadros públicos de torneos emplean alias de juego y nombres de equipos. La web no consulta desde el navegador las hojas privadas de inscripción. Que un alias sea público no excluye que pueda identificar a una persona; su publicación también debe revisarse.
+  - title: 'Fotografías y vídeos del evento'
     content: |
-      Los usuarios tienen una licencia universal, no exclusiva, de libre uso y revocable en cualquier momento para:
-      Visualizar este Sitio Web y todo el material publicado en él (incluido el material de terceros) mediante el uso de un ordenador o dispositivo móvil a través de un navegador web.
-      Copiar y almacenar una copia de este Sitio Web o/y de todo el material publicado en él, en la memoria caché de su navegador web.
-      Imprimir las páginas a través de un dispositivo físico (impresora-papel) o dispositivo virtual (impresora-pdf) siempre y cuando sea, única y exclusivamente, para su uso personal y privado [y no tenga como fin un uso comercial].
-      Visualizar y descargar los documentos (jpg o pdf) publicados en Este Sitio Web destinado a dicho fin.
-  - title: "Ausencia de garantía y limitación de responsabilidades"
+      La web contiene fotografías y vídeos de ediciones anteriores. La información sobre captación, publicación y uso de imágenes de la edición de 2027 deberá concretarse antes del evento y reflejarse en los canales correspondientes.
+      La asistencia no se presenta como una cesión automática, ilimitada o irrevocable de la propia imagen. La organización debe confirmar los usos, la base jurídica, la conservación y el procedimiento para atender solicitudes relacionadas con imágenes, con especial atención a menores.
+    links:
+      - label: 'Consultar a la organización sobre una imagen'
+        href: 'mailto:ulp@ugr.es'
+  - title: 'Medición de visitas y clics'
     content: |
-      La organización no controla, en todo momento, la utilización que los Usuarios hacen de este Sitio Web, en este sentido, no se responsabiliza de los actos que, incumpliendo lo previsto en este documento, hayan podido realizar los Usuarios de la misma.
-      El usuario reconoce y acepta que la utilización de este Sitio Web y de sus servicios se realiza bajo su entera responsabilidad. La organización únicamente responderá de los daños que el Usuario pueda sufrir como consecuencia de la utilización del portal cuando dichos daños sean imputables a una actuación dolosa de la organización. No obstante, declaramos haber adoptado todas las medidas necesarias, dentro de sus posibilidades y del estado de la tecnología, para garantizar el funcionamiento de Este Sitio Web y evitar la existencia y transmisión de virus y otros componentes que puedan perjudicar al Usuario.
-      No obstante, no garantizamos la ausencia de virus en Este Sitio Web o en el Servidor que lo suministra o, asimismo, cualesquiera otros elementos que puedan producir alteraciones en el sistema informático del Usuario por actos de terceros, ni el establecimiento por terceros de hiperenlaces no autorizados.
-      La organización no puede garantizar la exactitud de sus contenidos ni la continuidad de los mismos reservándose el derecho a realizar variaciones o modificaciones en los mismos de forma unilateral, total o parcialmente, así como interrumpir o suspender el acceso cuando así lo considere.
-      El usuario puede acceder, a través de enlaces, a páginas de información o de servicios ofrecidos por terceros. Las operaciones que el usuario pueda realizar o la información que pueda encontrar, son responsabilidad y obligan, en su caso, al usuario y al titular de la página de destino, declinando la organización cualquier responsabilidad al respecto.
-  - title: "Links externos"
+      La web carga Umami desde analytics.wupp.dev para medir visitas y clics hacia inscripciones y reglamentos. Los eventos personalizados añaden únicamente la edición y el identificador de actividad; no incorporan nombres, correos, teléfonos ni respuestas de los formularios.
+      Un clic hacia una inscripción mide una salida al formulario, no acredita que se haya completado la inscripción ni la asistencia. La configuración y conservación del servicio de analítica, sus destinatarios, el tratamiento de los datos técnicos y su base jurídica quedan pendientes de confirmación con la UGR y el administrador del servicio.
+      Esta descripción del código no supone una declaración de anonimato de todos los datos tratados por el servicio.
+  - title: 'Servicios externos y preferencias del dispositivo'
     content: |
-      Los enlaces contenidos en este Sitio Web pueden dirigir a contenidos Web de terceros. La organización no asume ninguna responsabilidad por el contenido, informaciones o servicios que pudieran aparecer en dichos sitios, que tendrán exclusivamente carácter informativo y que en ningún caso implican relación alguna entre la organización y las personas o entidades titulares de tales contenidos o titulares de los sitios donde se encuentren. La organización tampoco será responsable del contenido de las páginas web de destino que se establezcan mediante vínculos en este Sitio Web ni tampoco de las infracciones de derechos de terceros en las que dichas páginas pudieran incurrir.
-  - title: "Fotografías durante el evento"
+      Algunas páginas incorporan mapas de Google Maps y vídeo de YouTube. Las páginas que ofrecen retransmisiones pueden cargar un reproductor de Twitch al activarlo. Las galerías pueden mostrar imágenes de Flickr y el equipo técnico consulta perfiles públicos de GitHub.
+      También hay enlaces a formularios, comunidades, perfiles de juego y plataformas de torneos. Cargar un recurso externo o seguir uno de estos enlaces puede comunicar datos técnicos al proveedor. Deben revisarse los proveedores realmente utilizados y su información de privacidad antes de aprobar el texto definitivo.
+      El dispositivo guarda preferencias de tema y la selección de Mi agenda mediante almacenamiento local. Guardar una actividad en Mi agenda no tramita una inscripción ni envía por sí mismo esa selección a la organización.
+  - title: 'Información institucional y ejercicio de derechos'
     content: |
-      Todos aquellos que en los días del evento se encuentren en las zonas habilitadas   para realización de la UGR LAN PARTY, podrán aparecer en las fotos que se realicen durante el evento.
+      La revisión se realiza tomando como marco el Reglamento General de Protección de Datos y la Ley Orgánica 3/2018. Se retira la referencia del texto anterior a la Ley Orgánica 15/1999 como norma vigente.
+      La UGR publica los procedimientos para solicitar acceso, rectificación, supresión, oposición, limitación y portabilidad, así como la retirada del consentimiento cuando corresponda. Sus canales oficiales ofrecen información sobre el ejercicio de derechos y las reclamaciones ante la autoridad de control competente.
+      Los enlaces siguientes son fuentes institucionales de consulta y no sustituyen la información específica que debe aprobarse para ULP 2027.
+    links:
+      - label: 'Información y procedimientos de protección de datos de la UGR'
+        href: 'https://secretariageneral.ugr.es/unidades/oficina-proteccion-datos'
+      - label: 'Sede electrónica de la UGR'
+        href: 'https://sede.ugr.es/'
+      - label: 'Reglamento General de Protección de Datos'
+        href: 'https://eur-lex.europa.eu/eli/reg/2016/679/oj?locale=es'
+      - label: 'Ley Orgánica 3/2018'
+        href: 'https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673'
 ---
-

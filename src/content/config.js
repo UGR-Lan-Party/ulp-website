@@ -36,12 +36,14 @@ const blogCollection = defineCollection({
       paraFive: z.string(),
       paraSix: z.string().optional(),
     }),
-    socialLinks: z.object({
-      web: z.string().optional(),
-      twitter: z.string().optional(),
-      instagram: z.string().optional(),
-      tiktok: z.string().optional(),
-    }).optional(),
+    socialLinks: z
+      .object({
+        web: z.string().optional(),
+        twitter: z.string().optional(),
+        instagram: z.string().optional(),
+        tiktok: z.string().optional(),
+      })
+      .optional(),
     quotes: z.object({
       quote: z.string(),
       author: z.string(),
@@ -49,24 +51,33 @@ const blogCollection = defineCollection({
   }),
 });
 
-
 const legalCollection = defineCollection({
-  type: "content",
+  type: 'content',
   schema: z.object({
     title: z.string(),
     sections: z.array(
       z.object({
         title: z.string(),
         content: z.string(),
-      })
+        links: z
+          .array(
+            z.object({
+              label: z.string(),
+              href: z
+                .string()
+                .url()
+                .refine((href) => /^(https:|mailto:)/.test(href)),
+            }),
+          )
+          .optional(),
+      }),
     ),
   }),
 });
 
-
 // 3. Export a single `collections` object to register your collection(s)
 //    This key should match your collection directory name in "src/content"
 export const collections = {
-  'blog': blogCollection,
-  'legal': legalCollection,
+  blog: blogCollection,
+  legal: legalCollection,
 };
