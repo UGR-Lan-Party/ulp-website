@@ -1,3 +1,4 @@
+import QRCode from 'qrcode';
 import sharp, { type OverlayOptions } from 'sharp';
 import { resolve } from 'node:path';
 import {
@@ -81,10 +82,17 @@ export async function renderActivitySocial(
   const portrait = format !== 'x';
   const { width, height } = socialFormats[format];
   const story = format === 'historia';
+  const baseSvg = portrait
+    ? `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="${width}" height="${height}" fill="#f5f0e6"/><rect x="0" y="${story ? 570 : 430}" width="1080" height="${story ? 900 : 570}" fill="url(#g)"/><circle cx="540" cy="${story ? 1010 : 710}" r="${story ? 340 : 240}" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><rect x="30" y="${story ? 600 : 460}" width="1020" height="${story ? 840 : 510}" rx="26" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><path d="M64 ${height - 155}H1016" stroke="#004465" stroke-opacity=".2"/></svg>`
+    : `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="1200" height="630" fill="#f5f0e6"/><rect x="770" width="430" height="630" fill="url(#g)"/><path d="M40 110H726M40 540H726" stroke="#004465" stroke-opacity=".2"/><rect x="800" y="30" width="370" height="570" rx="24" fill="none" stroke="#f5f0e6" stroke-opacity=".25"/><circle cx="985" cy="300" r="160" fill="none" stroke="#f5f0e6" stroke-opacity=".15"/></svg>`;
+  const mosaic = `<pattern id="granada-mosaic" width="56" height="96" patternUnits="userSpaceOnUse"><path d="M28 4 52.25 18V46L28 60 3.75 46V18ZM0 52 24.25 66V94L0 108 -24.25 94V66ZM56 52 80.25 66V94L56 108 31.75 94V66Z" fill="none" stroke="#006471" stroke-width="1.2"/></pattern>`;
   const base = Buffer.from(
-    portrait
-      ? `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="${width}" height="${height}" fill="#f5f0e6"/><rect x="0" y="${story ? 570 : 430}" width="1080" height="${story ? 900 : 570}" fill="url(#g)"/><circle cx="540" cy="${story ? 1010 : 710}" r="${story ? 340 : 240}" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><rect x="30" y="${story ? 600 : 460}" width="1020" height="${story ? 840 : 510}" rx="26" fill="none" stroke="#f5f0e6" stroke-opacity=".2"/><path d="M64 ${height - 155}H1016" stroke="#004465" stroke-opacity=".2"/></svg>`
-      : `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><defs><radialGradient id="g"><stop stop-color="#007983"/><stop offset="1" stop-color="#004465"/></radialGradient></defs><rect width="1200" height="630" fill="#f5f0e6"/><rect x="770" width="430" height="630" fill="url(#g)"/><path d="M40 110H726M40 540H726" stroke="#004465" stroke-opacity=".2"/><rect x="800" y="30" width="370" height="570" rx="24" fill="none" stroke="#f5f0e6" stroke-opacity=".25"/><circle cx="985" cy="300" r="160" fill="none" stroke="#f5f0e6" stroke-opacity=".15"/></svg>`,
+    baseSvg
+      .replace('</defs>', mosaic + '</defs>')
+      .replace(
+        '</svg>',
+        `<rect width="${width}" height="${height}" fill="url(#granada-mosaic)" opacity=".065"/></svg>`,
+      ),
   );
   const backgrounds: OverlayOptions[] = [];
   if (card?.card) {
@@ -166,7 +174,7 @@ export async function renderActivitySocial(
           top: story ? 302 : 178,
         },
         {
-          input: await text(social.date, 32, 950),
+          input: await text(social.date, 32, 730),
           left: 64,
           top: story ? 1530 : 1054,
         },
@@ -176,9 +184,9 @@ export async function renderActivitySocial(
               ? `Desde las ${social.time} · ${social.location}`
               : social.location,
             27,
-            950,
+            730,
             '#004465',
-            90,
+            75,
           ),
           left: 64,
           top: story ? 1595 : 1113,
@@ -186,7 +194,7 @@ export async function renderActivitySocial(
         {
           input: await text('ulp.ugr.es', 24, 950),
           left: 64,
-          top: story ? 1780 : 1240,
+          top: story ? 1845 : 1290,
         },
       ]
     : [
@@ -201,24 +209,61 @@ export async function renderActivitySocial(
           top: 140,
         },
         {
-          input: await text(activity.name, 72, 660, '#004465', 220, true),
+          input: await text(activity.name, 72, 660, '#004465', 190, true),
           left: 42,
           top: 194,
         },
-        { input: await text(social.date, 26, 660), left: 46, top: 438 },
+        { input: await text(social.date, 26, 510), left: 46, top: 438 },
         {
           input: await text(
             social.time
               ? `Desde las ${social.time} · ${social.location}`
               : social.location,
             20,
-            660,
+            510,
           ),
           left: 46,
           top: 482,
         },
-        { input: await text('ulp.ugr.es', 18, 600), left: 46, top: 567 },
+        { input: await text('ulp.ugr.es', 18, 500), left: 46, top: 599 },
       ];
+  const italic = await sharp({
+    text: {
+      text: '<span foreground="#006471">Nos vemos en Granada</span>',
+      font: `EB Garamond Italic ${portrait ? 36 : 30}`,
+      fontfile: resolve('scripts/assets/EBGaramond-Italic.ttf'),
+      rgba: true,
+      width: portrait ? 700 : 500,
+    },
+  })
+    .png()
+    .toBuffer();
+  overlays.push({
+    input: italic,
+    left: portrait ? 64 : 46,
+    top: portrait ? (story ? 1775 : 1220) : 553,
+  });
+  overlays.push({
+    input: await text('CUÁNDO / DÓNDE', portrait ? 15 : 12, 500),
+    left: portrait ? 64 : 46,
+    top: portrait ? (story ? 1495 : 1020) : 412,
+  });
+  const qrSize = portrait ? 154 : 128;
+  const qr = await QRCode.toBuffer(
+    `https://ulp.ugr.es/actividades/${encodeURIComponent(activity.id)}/`,
+    {
+      type: 'png',
+      width: qrSize,
+      margin: 4,
+      errorCorrectionLevel: 'M',
+      color: { dark: '#004465', light: '#f5f0e6' },
+    },
+  );
+  overlays.push({
+    input: qr,
+    left: portrait ? 862 : 598,
+    top: portrait ? (story ? 1680 : 1140) : 470,
+  });
   if (card?.character) {
     const artworkWidth = portrait ? 860 : 370;
     const artworkHeight = portrait ? (story ? 740 : 500) : 430;

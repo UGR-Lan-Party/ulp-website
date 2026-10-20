@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
+import jsQR from 'jsqr';
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.route('https://**', (r) =>
@@ -69,6 +70,18 @@ test('Las fichas sociales permiten elegir y descargar tres composiciones sin des
     expect(response.ok()).toBeTruthy();
     const metadata = await sharp(await response.body()).metadata();
     expect([metadata.width, metadata.height]).toEqual([width, height]);
+    const pixels = await sharp(await response.body())
+      .ensureAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    const decoded = jsQR(
+      new Uint8ClampedArray(pixels.data),
+      pixels.info.width,
+      pixels.info.height,
+    );
+    expect(decoded?.data).toBe(
+      'https://ulp.ugr.es/actividades/league-of-legends/',
+    );
   }
   const downloadEvent = page.waitForEvent('download');
   await panel.locator('[data-share-download]').click();
