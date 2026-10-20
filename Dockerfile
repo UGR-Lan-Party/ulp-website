@@ -1,3 +1,6 @@
+FROM nginx:alpine@sha256:892bb2152464f0c5d8972593a5f5afaf8054552580b699d95f8ff4af08c2d33d AS nginx-base
+RUN apk upgrade --no-cache
+
 FROM node:24.21.0-alpine AS node-builder
 
 WORKDIR /app
@@ -10,8 +13,7 @@ RUN pnpm build
 ARG VCS_REF=local
 RUN node --input-type=module -e "import {writeFileSync} from 'node:fs';writeFileSync('dist/version.json', JSON.stringify({commit:process.env.VCS_REF})+'\n');"
 
-FROM nginx:alpine@sha256:892bb2152464f0c5d8972593a5f5afaf8054552580b699d95f8ff4af08c2d33d AS nginx-runtime
-RUN apk upgrade --no-cache
+FROM nginx-base AS nginx-runtime
 ARG VCS_REF=local
 LABEL org.opencontainers.image.source="https://github.com/UGR-Lan-Party/ulp-website"
 LABEL org.opencontainers.image.revision=$VCS_REF

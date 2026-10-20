@@ -61,3 +61,22 @@ curl -sI https://ulp.ugr.es/
 ```
 
 Si Compose usa otro nombre de servicio o archivo, ajustar el comando a la salida de inspect; no usar un archivo nuevo ni perder la configuración existente. El acceso público debe continuar por 443. Descargar la imagen nueva y desplegarla siguiendo [despliegue](despliegue.md), conservando un digest anterior para recuperación. Después repetir la verificación de cabeceras y navegación por HTTPS.
+
+
+## Actualizar también la imagen del proxy
+
+El proxy público usa otra imagen (`nginx:alpine`), que no cambia al reconstruir el servicio `ulp`. El Dockerfile ofrece el target `nginx-base`, con el mismo digest y los paquetes Alpine actualizados, para sustituir esa imagen sin incorporar el sitio ni un proceso Node. CI construye y escanea tanto esa base como la web final.
+
+Desde el checkout de esta PR, construir la base:
+
+```bash
+docker build --target nginx-base -t ulp-proxy-secure:20261020 .
+```
+
+En el archivo Compose identificado antes, cambiar exclusivamente la imagen del servicio `nginx` a `ulp-proxy-secure:20261020`. Mantener todos sus volúmenes, certificados, redes y puertos. Validar la configuración montada con la imagen nueva antes de recrear:
+
+```bash
+docker compose run --rm --no-deps nginx nginx -t
+```
+
+Este contenedor temporal usa los volúmenes y la red del servicio Compose sin publicar sus puertos. No recrear el proxy si la validación falla. Después ejecutar `docker compose up -d --no-deps nginx` y comprobar HTTPS y las cabeceras. Conservar la imagen anterior para volver atrás. El contenedor de la web y el proxy se actualizan de forma independiente.

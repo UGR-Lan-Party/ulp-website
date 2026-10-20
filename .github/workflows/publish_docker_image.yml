@@ -45,10 +45,21 @@ jobs:
           tags: ulp-website:verify
           build-args: VCS_REF=${{ github.sha }}
           cache-from: type=gha
+      - name: Construir base del proxy público
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: nginx-base
+          load: true
+          tags: ulp-website:proxy
+          cache-from: type=gha
       - name: Escanear dependencias de la imagen de ejecución
         run: |
-          docker save ulp-website:verify -o /tmp/ulp-security-image.tar
-          docker run --rm -v /tmp/ulp-security-image.tar:/scan/image.tar:ro aquasec/trivy@sha256:166061a4a15c64a94a3aab430659e2c166dc0815fbc54a222c6d56d64132f552 image --input /scan/image.tar --scanners vuln --exit-code 1
+          for image in ulp-website:verify ulp-website:proxy; do
+            archive="/tmp/ulp-${image##*:}.tar"
+            docker save "$image" -o "$archive"
+            docker run --rm -v "$archive":/scan/image.tar:ro -v /tmp/ulp-trivy-cache:/root/.cache/trivy aquasec/trivy@sha256:166061a4a15c64a94a3aab430659e2c166dc0815fbc54a222c6d56d64132f552 image --input /scan/image.tar --scanners vuln --exit-code 1
+          done
       - name: Probar candidata y vuelta a la versión anterior
         run: |
           docker run -d --name ulp-test -p 127.0.0.1:8080:80 ulp-website:verify

@@ -79,6 +79,7 @@ test('Los iconos de las entidades permanecen blancos al ampliar en hover y en am
   page,
 }) => {
   await page.goto('/participan/');
+  await page.evaluate(() => document.fonts.ready);
   const links = page.locator('[data-partner-card] a');
   for (let index = 0; index < 2; index++) {
     expect(await links.count()).toBeGreaterThan(10);
@@ -87,6 +88,9 @@ test('Los iconos de las entidades permanecen blancos al ampliar en hover y en am
     );
     expect(colors.every((color) => color === 'rgb(245, 240, 230)')).toBe(true);
     const instagram = links.filter({ has: page.locator('svg') }).first();
+    await instagram.evaluate((element) =>
+      element.scrollIntoView({ block: 'center' }),
+    );
     await instagram.hover();
     await expect(instagram).toHaveCSS('color', 'rgb(245, 240, 230)');
     await expect
