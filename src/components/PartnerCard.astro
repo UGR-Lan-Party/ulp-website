@@ -234,6 +234,18 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
     :global(.partner-logo-frame) {
     --partner-logo-height: 88px;
   }
+  [data-partner-name='DEIIT'] .partner-card-logo :global(.partner-logo-content),
+  [data-partner-name='EMYCET']
+    .partner-card-logo
+    :global(.partner-logo-content),
+  [data-partner-name='GGTech Entertainment']
+    .partner-card-logo
+    :global(.partner-logo-content),
+  [data-partner-name='GDG Granada']
+    .partner-card-logo
+    :global(.partner-logo-content) {
+    scale: 0.9;
+  }
   .partner-card-logo :global(.mars-logo) {
     --partner-logo-height: 80px;
   }

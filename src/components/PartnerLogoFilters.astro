@@ -84,6 +84,32 @@
       <feFlood flood-color="white"></feFlood>
       <feComposite in2="radio" operator="in"></feComposite>
     </filter>
+    <filter id="partner-white-emycet" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 4 -8 0 -0.6"
+        result="yellow"></feColorMatrix>
+      <feFlood
+        flood-color="white"
+        x="0%"
+        y="0%"
+        width="22%"
+        height="100%"
+        result="symbolArea"></feFlood>
+      <feComposite
+        in="yellow"
+        in2="symbolArea"
+        operator="in"
+        result="silhouette"></feComposite>
+      <feComposite
+        in="SourceAlpha"
+        in2="silhouette"
+        operator="out"
+        result="monochrome"></feComposite>
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="monochrome" operator="in"></feComposite>
+    </filter>
     <filter id="partner-white-lettering" color-interpolation-filters="sRGB">
       <feColorMatrix
         in="SourceGraphic"
