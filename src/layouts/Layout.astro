@@ -2,6 +2,7 @@
 import '../styles/tailwind.css';
 import '../styles/proposal.css';
 import '../styles/reduced-motion.css';
+import GlobalSearch from '../components/GlobalSearch.astro';
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import BackToTop from '../components/layout/BackToTop.astro';
@@ -85,6 +86,7 @@ const website = {
     <PartnerLogoFilters />
     <a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
     <Header />
+    <GlobalSearch />
     <main id="contenido-principal" tabindex="-1"><slot /></main>
     {Astro.url.pathname !== '/' && <PartnerStrip />}
     <Footer />

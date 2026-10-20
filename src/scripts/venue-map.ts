@@ -70,7 +70,9 @@ export function createVenueMap(
   const floorNotes = Array.from(
     map.querySelectorAll<HTMLElement>('[data-venue-floor-note]'),
   );
-  let planId: VenuePlanId = initialVenuePlan;
+  const requestedPlan = new URLSearchParams(location.search).get('plano');
+  const linkedPlan = venuePlans.find((plan) => plan.id === requestedPlan);
+  let planId: VenuePlanId = linkedPlan?.id ?? initialVenuePlan;
   let orientation: VenueOrientation = getVenueInitialOrientation(planId);
   let activeZone: string | null = null;
   let activeInformation: string | null = null;
