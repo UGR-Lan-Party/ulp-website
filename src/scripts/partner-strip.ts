@@ -39,6 +39,7 @@ document
     function animate(time: number) {
       frame = 0;
       if (!canAnimate()) {
+        root.dataset.rotation = 'paused';
         lastTime = 0;
         return;
       }
