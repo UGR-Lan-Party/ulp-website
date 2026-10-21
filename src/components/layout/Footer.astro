@@ -81,7 +81,10 @@ const networks = [
       >
       <span class="footer-credit"
         >2016 — {new Date().getFullYear()} @ UGR LAN Party | Universidad de Granada</span
-      ><a href="/info/aviso_legal">Aviso legal</a>
+      ><nav class="footer-resources" aria-label="Recursos">
+        <a href="/info/prensa/">Prensa y colaboradores</a><a
+          href="/info/aviso_legal">Aviso legal</a>
+      </nav>
     </div>
   </div>
 </footer>
@@ -185,6 +188,12 @@ const networks = [
   .footer-registration {
     justify-self: start;
   }
+  .footer-resources {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    gap: 12px 18px;
+  }
   .footer-copyright > a:last-child {
     justify-self: end;
   }
@@ -214,6 +223,15 @@ const networks = [
       grid-template-columns: 1fr;
       gap: 0;
       padding-top: 14px;
+    }
+    .footer-resources {
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .footer-resources a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
     }
     .footer-copyright > a {
       display: none;
