@@ -169,7 +169,8 @@ test('Los filtros no se solapan a 320px y el pie móvil conserva los enlaces soc
   await expect(
     page.locator('footer a[href="/actividades#competiciones"]'),
   ).toBeHidden();
-  await expect(page.locator('footer a[href="/info/aviso_legal"]')).toBeHidden();
+  await expect(page.locator('footer a[href="/info/aviso_legal"]')).toBeVisible();
+  await expect(page.locator('footer a[href="/info/prensa/"]')).toBeVisible();
   await expect(page.locator('.footer-social-links a')).toHaveCount(7);
   expect(
     await page.evaluate(
