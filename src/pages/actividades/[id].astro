@@ -1,4 +1,6 @@
 ---
+import { getActivitySocial } from '../../utils/activity-social';
+import ActivityShareCards from '../../components/ActivityShareCards.astro';
 import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import { getActivityNeighbors } from '../../utils/activity-navigation';
 import { programEdition } from '../../data/program';
@@ -44,12 +46,16 @@ const hasAwards = Object.values(competition.awards ?? {}).some(
   (awards) => awards.length > 0,
 );
 const hasRewards = Boolean(competition.trophy || hasAwards);
+const social = getActivitySocial(competition.id, competition.name);
 ---
 
 <Layout
   title={competition.name}
-  description={competition.description ||
-    `Horarios, ubicación, normas y premios de ${competition.name} en ULP ${programEdition.year}.`}
+  description={social.description}
+  image={`/og/actividades/${competition.id}.png`}
+  imageAlt={`${competition.name} · ULP ${social.year}. ${social.date}${social.time ? `, desde las ${social.time}` : ''}`}
+  imageWidth={1200}
+  imageHeight={630}
 >
   <article class="activity-page">
     <header class="activity-header design-container">
@@ -237,6 +243,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
         )
       }
       <TournamentMatchups activityId={competition.id} />
+      <ActivityShareCards id={competition.id} name={competition.name} />
       {
         neighbors && (
           <nav
