@@ -10,6 +10,7 @@ import {
 } from '../data/venue-map';
 import { getVenueLeaderPath } from '../data/venue-leaders';
 import { venueCapacities, venueCapacitySource } from '../data/venue-capacities';
+import VenueRoutes from './VenueRoutes.astro';
 import VenueFloorPlans from './VenueFloorPlans.astro';
 import VenuePingPongPlan from './VenuePingPongPlan.astro';
 import VenueCampusPlan from './VenueCampusPlan.astro';
@@ -70,6 +71,7 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
         ></label
       >
     </div>
+    <VenueRoutes />
     <div class="venue-room-heading" data-venue-room-heading hidden>
       <strong data-venue-room-title></strong>
       <button type="button" data-venue-room-back>
@@ -130,7 +132,10 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
           class="venue-building"
           style={`transform: rotate(${initialOrientation * 90}deg)`}
           ><VenueFloorPlans /><AularioFloorPlans /><VenueCampusPlan
-          /><VenueBenchesPlan /><VenuePingPongPlan /><VenueGradosPlan /></g
+          /><VenueBenchesPlan /><VenuePingPongPlan /><VenueGradosPlan /><g
+            data-route-layer
+            style="pointer-events:none"
+            aria-hidden="true"></g></g
         >
         <g data-venue-indicators>
           {
@@ -172,7 +177,7 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
                     data-venue-hit
                     cx={point?.x ?? zone.x}
                     cy={point?.y ?? zone.y}
-                    r="26"
+                    r={zone.plan === 'aulario-0' ? 10 : 26}
                   />
                   <circle
                     data-venue-point
@@ -602,8 +607,16 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
     position: relative;
   }
   :global(.dark) .venue-canvas {
-    --venue-plan-background: var(--surface);
-    background: var(--surface);
+    --paper: #f5f0e6;
+    --surface: #faf7f0;
+    --ink: #004763;
+    --muted: #456273;
+    --line: rgba(0, 71, 99, 0.2);
+    --venue-plan-background: #f5f0e6;
+    --venue-route-color: #007b80;
+    color: var(--ink);
+    color-scheme: light;
+    background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 20px;
     padding: clamp(8px, 1.2vw, 16px);
