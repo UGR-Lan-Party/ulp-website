@@ -169,3 +169,49 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
     );
   }
 });
+
+test('Los logos ajustados conservan tamaño contenido y EMYCET blanco mantiene su mapa', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/participan/');
+  for (const name of [
+    'DEIIT',
+    'EMYCET',
+    'GGTech Entertainment',
+    'GDG Granada',
+  ]) {
+    const card = page.locator(
+      `[data-partner-card][data-partner-name="${name}"]`,
+    );
+    await expect(card.locator('.partner-logo-content')).toHaveCSS(
+      'scale',
+      '0.9',
+    );
+  }
+  await page.getByRole('button', { name: 'Modo oscuro' }).click();
+  await page.goto('/');
+  const image = page.locator('[data-partner-logo="EMYCET"]').first();
+  await expect(image).toHaveCSS('filter', /partner-white-emycet/);
+  await image.evaluate((source) => {
+    const copy = source.cloneNode(true) as HTMLImageElement;
+    copy.id = 'emycet-filter-sample';
+    copy.style.cssText +=
+      'position:fixed;left:10px;top:10px;width:1045px;height:233px;z-index:999999;max-width:none;object-fit:fill;';
+    document.body.append(copy);
+    return copy.decode();
+  });
+  const sharp = (await import('sharp')).default;
+  const { data, info } = await sharp(
+    await page.locator('#emycet-filter-sample').screenshot(),
+  )
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const pixel = (x: number, y: number) => [
+    ...data.subarray((y * info.width + x) * 4, (y * info.width + x) * 4 + 3),
+  ];
+  expect(Math.min(...pixel(35, 110))).toBeGreaterThan(220);
+  expect(Math.max(...pixel(110, 75))).toBeLessThan(150);
+});

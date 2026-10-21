@@ -1,5 +1,20 @@
 <svg class="partner-logo-filters" aria-hidden="true" width="0" height="0">
   <defs>
+    <filter
+      id="partner-color-cutout"
+      color-interpolation-filters="sRGB"
+      x="0%"
+      y="0%"
+      width="100%"
+      height="100%"
+    >
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -3 -3 -3 0 8"
+        result="inkMask"></feColorMatrix>
+      <feComposite in="SourceGraphic" in2="inkMask" operator="in"></feComposite>
+    </filter>
     <filter id="partner-white-details" color-interpolation-filters="sRGB">
       <feColorMatrix
         in="SourceGraphic"
@@ -68,6 +83,32 @@
         result="radio"></feComposite>
       <feFlood flood-color="white"></feFlood>
       <feComposite in2="radio" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-emycet" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 4 -8 0 -0.6"
+        result="yellow"></feColorMatrix>
+      <feFlood
+        flood-color="white"
+        x="0%"
+        y="0%"
+        width="22%"
+        height="100%"
+        result="symbolArea"></feFlood>
+      <feComposite
+        in="yellow"
+        in2="symbolArea"
+        operator="in"
+        result="silhouette"></feComposite>
+      <feComposite
+        in="SourceAlpha"
+        in2="silhouette"
+        operator="out"
+        result="monochrome"></feComposite>
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="monochrome" operator="in"></feComposite>
     </filter>
     <filter id="partner-white-lettering" color-interpolation-filters="sRGB">
       <feColorMatrix

@@ -546,6 +546,7 @@ const Sponsors: SponsorData[] = [
     description:
       'Agencia que se dedica a organizar circuitos, excursiones, viajes a medida y eventos, enfocándose en crear experiencias únicas y memorables para sus clientes. Su objetivo es inspirar a las personas a cumplir sus sueños a través del viaje y la diversión, promoviendo la felicidad y recuerdos inolvidables.',
     logo: '/assets/participan/Logos/emycet.webp',
+    logoWhiteFilter: 'partner-white-emycet',
     cardBg: '/assets/participan/BG-Sponsors/emycet.webp',
     isSecret: false,
     bussiness: 'Viajes y eventos',
@@ -877,7 +878,8 @@ const Sponsors: SponsorData[] = [
     tier: 'regular',
     description:
       'Órgano de representación estudiantil de la Facultad de Ciencias de la UGR. Se encarga de canalizar las necesidades de los alumnos, dinamizar la vida universitaria mediante eventos y asegurar el cumplimiento de sus derechos académicos.',
-    logo: '/assets/participan/Logos/defc.webp',
+    logo: '/assets/participan/Logos/defc-commons.png',
+    logoWhiteFilter: 'partner-white-cutout',
     cardBg: '/assets/participan/BG-Sponsors/defc.webp',
     isSecret: false,
     bussiness: 'Representación Estudiantil',
