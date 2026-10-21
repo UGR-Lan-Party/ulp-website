@@ -1,0 +1,33 @@
+---
+import VenueFurniture from './VenueFurniture.astro';
+import VenueDoor from './VenueDoor.astro';
+import furniture from '../data/venue-furniture.json';
+const pieces = furniture['principal-0'].filter(
+  (piece) => piece.x < 276 && piece.y >= 629,
+);
+---
+
+<g
+  data-venue-floor-plan="principal-grados"
+  data-hidden
+  transform="translate(460 350) scale(2) translate(-200 -739.5)"
+>
+  <title>Salón de Grados · vista ampliada</title>
+  <path class="grados-outline" d="M124 629H276V850H124Z"></path>
+  <VenueFurniture pieces={pieces} />
+  <VenueDoor x={276} y={679} angle={90} width={32} />
+  <VenueDoor x={218} y={850} angle={180} width={36} />
+</g>
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+  .grados-outline {
+    fill: color-mix(in srgb, var(--ink) 3%, var(--paper));
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+</style>

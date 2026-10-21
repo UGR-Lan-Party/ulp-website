@@ -116,7 +116,18 @@ import {
             </g>
           )}
           {floor.services.map((service) => (
-            <VenueAmenityMarker {...service} size={15} />
+            <VenueAmenityMarker
+              {...service}
+              size={15}
+              destination={
+                ['stairs', 'lift'].includes(service.kind)
+                  ? floor.level === 0
+                    ? 'aulario-1'
+                    : 'aulario-0'
+                  : undefined
+              }
+              destinationLabel={floor.level === 0 ? 'planta 1' : 'planta 0'}
+            />
           ))}
         </g>
       </g>

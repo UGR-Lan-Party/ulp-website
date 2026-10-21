@@ -1,3 +1,4 @@
+import { venueCapacities } from '../data/venue-capacities';
 import { getVenueLeaderPath } from '../data/venue-leaders';
 import {
   venuePlans,
@@ -70,7 +71,9 @@ export function createVenueMap(
   const floorNotes = Array.from(
     map.querySelectorAll<HTMLElement>('[data-venue-floor-note]'),
   );
-  let planId: VenuePlanId = initialVenuePlan;
+  const requestedPlan = new URLSearchParams(location.search).get('plano');
+  const linkedPlan = venuePlans.find((plan) => plan.id === requestedPlan);
+  let planId: VenuePlanId = linkedPlan?.id ?? initialVenuePlan;
   let orientation: VenueOrientation = getVenueInitialOrientation(planId);
   let activeZone: string | null = null;
   let activeInformation: string | null = null;
@@ -159,6 +162,13 @@ export function createVenueMap(
           Math.min(view.y + view.height - 48, labelY),
         );
       }
+      if (narrow.matches && planId === 'aulas-inferiores') {
+        if (orientation % 2 === 0) labelY = orientation === 0 ? 544 : 560;
+        else {
+          labelX = orientation === 1 ? view.x + 8 : view.x + view.width - 168;
+          labelY = point.y - 20;
+        }
+      }
       zone
         .querySelector('[data-venue-label]')!
         .setAttribute('transform', `translate(${labelX} ${labelY})`);
@@ -173,6 +183,7 @@ export function createVenueMap(
           },
           point,
           narrow.matches,
+          point.via,
         ),
       );
       zone
@@ -185,6 +196,19 @@ export function createVenueMap(
           marker.setAttribute('cy', String(point.y));
         });
     });
+    const capacityCard = map!.querySelector<HTMLElement>(
+      '[data-venue-room-capacity]',
+    )!;
+    const capacity =
+      planId === 'principal-actos'
+        ? venueCapacities.actos
+        : planId === 'principal-grados'
+          ? venueCapacities.grados
+          : null;
+    capacityCard.hidden = !capacity;
+    capacityCard.querySelector(
+      '[data-venue-room-capacity-value]',
+    )!.textContent = capacity ? String(capacity) : '';
     syncControls();
   }
 
@@ -391,6 +415,39 @@ export function createVenueMap(
       }
     });
   });
+  map
+    .querySelectorAll<SVGGElement>('[data-venue-go-floor]')
+    .forEach((marker) => {
+      const navigate = () => {
+        const destination = venuePlans.find(
+          (plan) => plan.id === marker.dataset.venueGoFloor,
+        );
+        const current = venuePlans.find((plan) => plan.id === planId);
+        if (
+          !destination ||
+          !current ||
+          destination.building !== current.building
+        )
+          return;
+        setPlan(destination.id);
+        map
+          .querySelector<SVGGElement>(
+            `[data-venue-floor-plan="${destination.id}"] [data-venue-amenity="${marker.dataset.venueAmenity}"][data-venue-go-floor]`,
+          )
+          ?.focus({ preventScroll: true });
+      };
+      marker.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (performance.now() < suppressClickUntil) return;
+        navigate();
+      });
+      marker.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        event.stopPropagation();
+        navigate();
+      });
+    });
   clearButton.addEventListener('click', () => {
     clear();
     onZoneChange(null);
@@ -441,11 +498,17 @@ export function createVenueMap(
     dragged = false;
     suppressClickUntil = 0;
     if (!event.isPrimary || event.button !== 0) return;
+    if (
+      (event.target as Element).closest(
+        '[data-venue-external], [data-venue-go-floor]',
+      )
+    )
+      return;
     if (event.pointerType === 'mouse' && zoom > 1) event.preventDefault();
     if (
       zoom === 1 &&
       (event.target as Element).closest(
-        '[data-venue-zone], [data-venue-open-plan]',
+        '[data-venue-zone], [data-venue-open-plan], [data-venue-external], [data-venue-go-floor]',
       )
     )
       return;
@@ -453,7 +516,7 @@ export function createVenueMap(
       'data-panning',
       zoom > 1 &&
         !(event.target as Element).closest(
-          '[data-venue-zone], [data-venue-open-plan]',
+          '[data-venue-zone], [data-venue-open-plan], [data-venue-external], [data-venue-go-floor]',
         ),
     );
     pointer = {
@@ -466,7 +529,7 @@ export function createVenueMap(
     if (
       zoom > 1 &&
       !(event.target as Element).closest(
-        '[data-venue-zone], [data-venue-open-plan]',
+        '[data-venue-zone], [data-venue-open-plan], [data-venue-external], [data-venue-go-floor]',
       )
     )
       drawing.setPointerCapture(event.pointerId);
@@ -558,7 +621,7 @@ export function createVenueMap(
     if (
       performance.now() < suppressClickUntil ||
       (event.target as Element).closest(
-        '[data-venue-zone], [data-venue-open-plan]',
+        '[data-venue-zone], [data-venue-open-plan], [data-venue-external], [data-venue-go-floor]',
       )
     )
       return;

@@ -25,6 +25,10 @@ export const venueAmenities: Partial<Record<VenuePlanId, VenueAmenity[]>> = {
     { kind: 'stairs', label: 'Escaleras', x: 217, y: 282 },
     { kind: 'lift', label: 'Ascensor', x: 273, y: 284 },
   ],
+  'aulas-inferiores': [
+    { kind: 'entry', label: 'Entrada al aula −1.1', x: 552, y: 606 },
+    { kind: 'entry', label: 'Entrada al aula −1.2', x: 880, y: 683 },
+  ],
   'prefabricadas-a': [
     { kind: 'entry', label: 'Acceso A1', x: 170, y: 585 },
     { kind: 'entry', label: 'Acceso A2', x: 680, y: 585 },

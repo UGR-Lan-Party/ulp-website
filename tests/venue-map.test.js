@@ -35,7 +35,7 @@ test('Las salas confirmadas reciben su ubicación y los accesos sin confirmar no
 });
 
 test('Cada zona pertenece a una planta existente y cada plano tiene geometría independiente', () => {
-  assert.equal(new Set(venuePlans.map((plan) => plan.id)).size, 12);
+  assert.equal(new Set(venuePlans.map((plan) => plan.id)).size, 13);
   assert.equal(selectableVenuePlans.length, 9);
   for (const plan of venuePlans.filter((plan) => 'parent' in plan))
     assert.ok(selectableVenuePlans.some((parent) => parent.id === plan.parent));

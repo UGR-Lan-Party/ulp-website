@@ -1,4 +1,5 @@
 ---
+import type { VenuePlanId } from '../data/venue-map';
 import type { VenueAmenityKind } from '../data/venue-amenities';
 import VenueAmenityIcon from './VenueAmenityIcon.astro';
 interface Props {
@@ -7,12 +8,32 @@ interface Props {
   kind: VenueAmenityKind;
   label: string;
   size?: number;
+  destination?: VenuePlanId;
+  destinationLabel?: string;
 }
-const { x, y, kind, label, size = 30 } = Astro.props;
+const {
+  x,
+  y,
+  kind,
+  label,
+  size = 30,
+  destination,
+  destinationLabel,
+} = Astro.props;
+const accessibleLabel = destination
+  ? `${label}: ir a ${destinationLabel}`
+  : label;
 ---
 
-<g transform={`translate(${x} ${y})`} data-venue-amenity={kind}>
-  <title>{label}</title>
+<g
+  transform={`translate(${x} ${y})`}
+  data-venue-amenity={kind}
+  data-venue-go-floor={destination}
+  role={destination ? 'button' : undefined}
+  tabindex={destination ? '0' : undefined}
+  aria-label={destination ? accessibleLabel : undefined}
+>
+  <title>{accessibleLabel}</title>
   <g class="venue-amenity-marker">
     <circle r={size * 0.68}></circle>
     <g transform={`translate(${-size / 2} ${-size / 2})`}
@@ -25,6 +46,18 @@ const { x, y, kind, label, size = 30 } = Astro.props;
     transform: rotate(
       calc(var(--venue-label-turn, 0deg) + var(--venue-label-offset, 0deg))
     );
+  }
+  [data-venue-go-floor] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-venue-go-floor]:focus {
+    outline: none;
+  }
+  [data-venue-go-floor]:hover circle,
+  [data-venue-go-floor]:focus-visible circle {
+    stroke-width: 1.8;
+    fill: var(--surface);
   }
   circle {
     fill: var(--paper);

@@ -37,19 +37,21 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
       time: time.value,
     };
     let count = 0;
-    const visibleIndices: number[] = [];
+    const mapIndices: number[] = [];
     entries.forEach((entry, index) => {
+      const matchesFilters = matchesProgramFilters(entry, filters);
+      // Selecting a map zone filters the table, not the other map destinations.
+      if (matchesFilters) mapIndices.push(index);
       const visible =
-        matchesProgramFilters(entry, filters) &&
+        matchesFilters &&
         (!activeZone || getVenueZones(entry.location).includes(activeZone));
       entry.row.hidden = !visible;
       if (visible) {
         entry.row.dataset.stripe = String(count % 2);
         count++;
-        visibleIndices.push(index);
       }
     });
-    venueMap.update(visibleIndices);
+    venueMap.update(mapIndices);
     status.textContent = `${count} de ${rows.length} actividades`;
     empty.hidden = count > 0;
     table.hidden = count === 0;
