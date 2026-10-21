@@ -110,9 +110,11 @@ const title = isFinished
     align-items: center;
     gap: 24px;
     padding: 22px 26px;
-    border: 1px solid var(--line);
+    margin-bottom: 32px;
+    border: 1px solid rgb(245 240 230 / 0.25);
     border-radius: 16px;
-    background: var(--surface);
+    background: #004465;
+    color: #f5f0e6;
   }
   .registration-copy {
     display: flex;
@@ -124,7 +126,7 @@ const title = isFinished
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--muted);
+    background: rgb(245 240 230 / 0.75);
     flex-shrink: 0;
   }
   h2 {
@@ -135,7 +137,7 @@ const title = isFinished
   }
   p {
     margin-top: 5px;
-    color: var(--muted);
+    color: rgb(245 240 230 / 0.75);
     font-size: 12px;
     line-height: 1.7;
   }
@@ -146,9 +148,9 @@ const title = isFinished
     gap: 18px;
     min-height: 42px;
     padding: 10px 14px;
-    border: 1px solid var(--line);
+    border: 1px solid rgb(245 240 230 / 0.3);
     border-radius: 8px;
-    color: var(--ink);
+    color: inherit;
     font-size: 12px;
     font-weight: 600;
     white-space: nowrap;
@@ -156,7 +158,7 @@ const title = isFinished
     transition: background 200ms ease;
   }
   .registration-action:hover {
-    background: color-mix(in srgb, var(--ink) 7%, transparent);
+    background: rgb(245 240 230 / 0.1);
   }
   @media (max-width: 650px) {
     .registration-card {

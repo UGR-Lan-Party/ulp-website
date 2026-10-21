@@ -14,6 +14,7 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
 <section
   class="design-partner-card"
   data-partner-card
+  data-partner-name={partner.name.trim()}
   data-tier={partner.tier}
   data-reveal
   data-spotlight
@@ -227,6 +228,23 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
       min-height: 460px;
       padding: 25px;
     }
+  }
+  [data-partner-name='Bibliomaker']
+    .partner-card-logo
+    :global(.partner-logo-frame) {
+    --partner-logo-height: 88px;
+  }
+  [data-partner-name='DEIIT'] .partner-card-logo :global(.partner-logo-content),
+  [data-partner-name='EMYCET']
+    .partner-card-logo
+    :global(.partner-logo-content),
+  [data-partner-name='GGTech Entertainment']
+    .partner-card-logo
+    :global(.partner-logo-content),
+  [data-partner-name='GDG Granada']
+    .partner-card-logo
+    :global(.partner-logo-content) {
+    scale: 0.9;
   }
   .partner-card-logo :global(.mars-logo) {
     --partner-logo-height: 80px;
