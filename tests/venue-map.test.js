@@ -87,7 +87,13 @@ test('Las dos plantas del Aulario no están vinculadas a actividades históricas
     floors.map((plan) => plan.floor),
     ['Planta 0', 'Planta 1'],
   );
-  for (const floor of floors) assert.deepEqual(getVenueLayout(floor.id, 0), []);
+  assert.deepEqual(
+    getVenueLayout('aulario-0', 0)
+      .map((point) => point.id)
+      .sort(),
+    ['aulario-aux-entry', 'aulario-entry'],
+  );
+  assert.deepEqual(getVenueLayout('aulario-1', 0), []);
   for (const location of ['Aula 0.1', 'Aula 1.1', 'Aula 2.1', 'Aula 3.1'])
     assert.deepEqual(getVenueZones(location), []);
 });

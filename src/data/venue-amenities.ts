@@ -16,7 +16,7 @@ export const venueAmenities: Partial<Record<VenuePlanId, VenueAmenity[]>> = {
     { kind: 'lift', label: 'Ascensor', x: 273, y: 284 },
     {
       kind: 'entry',
-      label: 'Salida auxiliar del Salón de Grados',
+      label: 'Salida auxiliar del Salón de Grados · Cerrada durante la ULP',
       x: 200,
       y: 910,
     },

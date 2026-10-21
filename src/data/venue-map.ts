@@ -1,3 +1,4 @@
+import { aularioEntrances, getAularioMapPoint } from './aulario.ts';
 export const venuePlans = [
   {
     id: 'recinto',
@@ -133,6 +134,13 @@ const prefabPoint = (id: 'a' | 'b') => {
 };
 
 export const venueZones = [
+  ...aularioEntrances.map((entry) => ({
+    id: entry.id,
+    label: entry.label,
+    plan: 'aulario-0' as const,
+    informational: true,
+    ...getAularioMapPoint(0, entry.x, entry.y),
+  })),
   {
     id: 'parking',
     label: 'Parking',
@@ -390,8 +398,12 @@ export function getVenueLayout(
       const dy = zone.y - 350;
       const x = 460 + dx * cos - dy * sin;
       const y = 350 + dx * sin + dy * cos;
-      const side =
-        zone.id === 'profesores-externos' && orientation === 0
+      const entrance =
+        plan === 'aulario-0' &&
+        aularioEntrances.some((entry) => entry.id === zone.id);
+      const side = entrance
+        ? ['right', 'bottom', 'left', 'top'][orientation]
+        : zone.id === 'profesores-externos' && orientation === 0
           ? 'top'
           : plan === 'principal-baja' &&
               orientation === 0 &&
@@ -414,17 +426,37 @@ export function getVenueLayout(
         : undefined;
       return { id: zone.id, x, y, side, via };
     });
-  return ['left', 'right', 'top'].flatMap((side) => {
+  return ['left', 'right', 'top', 'bottom'].flatMap((side) => {
     const group = points
       .filter((point) => point.side === side)
       .sort((a, b) => a.y - b.y || a.x - b.x);
     const positions = getVenueLabelPositions(group);
     return group.map((point, index) => ({
       ...point,
-      labelX: side === 'top' ? point.x - 80 : side === 'left' ? 12 : 748,
-      labelY: side === 'top' ? point.y - 110 : positions[index],
-      edgeX: side === 'top' ? point.x : side === 'left' ? 172 : 748,
-      edgeY: side === 'top' ? point.y - 70 : positions[index] + 20,
+      labelX:
+        side === 'top' || side === 'bottom'
+          ? point.x - 80
+          : side === 'left'
+            ? 12
+            : 748,
+      labelY:
+        side === 'top'
+          ? point.y - 110
+          : side === 'bottom'
+            ? point.y + 85
+            : positions[index],
+      edgeX:
+        side === 'top' || side === 'bottom'
+          ? point.x
+          : side === 'left'
+            ? 172
+            : 748,
+      edgeY:
+        side === 'top'
+          ? point.y - 70
+          : side === 'bottom'
+            ? point.y + 85
+            : positions[index] + 20,
     }));
   });
 }

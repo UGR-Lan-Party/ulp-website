@@ -1,3 +1,4 @@
+import { createVenueRoutes } from './venue-routes';
 import { venueCapacities } from '../data/venue-capacities';
 import { getVenueLeaderPath } from '../data/venue-leaders';
 import {
@@ -121,6 +122,7 @@ export function createVenueMap(
     viewStatus.textContent = `${plan.buildingLabel}, ${plan.floor}, orientación ${orientation + 1}`;
   }
 
+  let routes: ReturnType<typeof createVenueRoutes> | undefined;
   function draw() {
     const locked = isLocked();
     map!.dataset.venueLocked = String(locked);
@@ -162,6 +164,11 @@ export function createVenueMap(
           Math.min(view.y + view.height - 48, labelY),
         );
       }
+      if (narrow.matches && planId === 'aulario-0' && point.side === 'bottom')
+        labelY = Math.max(
+          point.y + 35,
+          Math.min(view.y + view.height - 48, point.labelY),
+        );
       if (narrow.matches && planId === 'aulas-inferiores') {
         if (orientation % 2 === 0) labelY = orientation === 0 ? 544 : 560;
         else {
@@ -210,6 +217,7 @@ export function createVenueMap(
       '[data-venue-room-capacity-value]',
     )!.textContent = capacity ? String(capacity) : '';
     syncControls();
+    routes?.refresh();
   }
 
   function stopTurn() {
@@ -708,6 +716,14 @@ export function createVenueMap(
     resize();
     draw();
   });
+  routes = createVenueRoutes(
+    map,
+    (id) => {
+      revealedPlans.add(id);
+      setPlan(id);
+    },
+    () => planId,
+  );
   resize();
   draw();
 
