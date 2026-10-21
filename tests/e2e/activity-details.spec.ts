@@ -62,10 +62,25 @@ test('La carta mantiene la interacción y se detiene al reducir el movimiento', 
   await page.goto('/actividades/ajedrez/');
   const card = page.locator('#holo-card');
   await page.evaluate(() => document.fonts.ready);
-  await card.hover({ position: { x: 70, y: 90 }, force: true });
-  await expect
-    .poll(() => card.evaluate((element) => element.style.transform))
-    .toContain('rotate3d');
+  await card
+    .locator('img')
+    .evaluateAll((images) =>
+      Promise.all(
+        images.map((image) =>
+          (image as HTMLImageElement).decode().catch(() => {}),
+        ),
+      ),
+    );
+  await expect(async () => {
+    await card.hover({ position: { x: 70, y: 90 }, force: true });
+    const bounds = (await card.boundingBox())!;
+    await page.mouse.move(bounds.x + 100, bounds.y + 120, { steps: 4 });
+    await expect
+      .poll(() => card.evaluate((element) => element.style.transform), {
+        timeout: 1500,
+      })
+      .toContain('rotate3d');
+  }).toPass({ timeout: 12000 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(card).toHaveCSS('transform', 'none');
   await expect(card).toHaveCSS('animation-name', 'none');
