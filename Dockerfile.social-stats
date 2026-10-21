@@ -1,0 +1,11 @@
+FROM node:24.21.0-alpine
+WORKDIR /app
+ENV NODE_ENV=production SOCIAL_STATS_HOST=0.0.0.0 SOCIAL_STATS_PORT=8788
+COPY scripts/social-stats ./scripts/social-stats
+COPY src/data/social-networks.js ./src/data/social-networks.js
+COPY src/utils/social-statistics.js ./src/utils/social-statistics.js
+RUN printf '{"type":"module"}\n' > package.json
+USER node
+EXPOSE 8788
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD node -e "fetch('http://127.0.0.1:8788/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+CMD ["node", "scripts/social-stats/server.mjs"]
