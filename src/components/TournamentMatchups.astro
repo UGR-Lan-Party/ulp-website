@@ -2,6 +2,7 @@
 import ArrowUpRight from './ArrowUpRight.astro';
 import { getTournament } from '../data/tournaments';
 import TournamentBracket from './TournamentBracket.astro';
+import TournamentFormat from './TournamentFormat.astro';
 import LolRoster from './LolRoster.astro';
 
 interface Props {
@@ -41,7 +42,7 @@ const tournament = getTournament(activityId);
           </li>
         ))}
       </ol>
-      <p class="matchups-notice">{tournament.notice}</p>
+      {tournament.notice && <p class="matchups-notice">{tournament.notice}</p>}
       {tournament.officialUrl && (
         <a
           class="design-button official-bracket"
@@ -55,9 +56,25 @@ const tournament = getTournament(activityId);
           </span>
         </a>
       )}
+      {!tournament.brackets.length && (
+        <TournamentFormat activityId={activityId} />
+      )}
+      {(tournament.brackets.length > 0 ||
+        tournament.groups.length > 0 ||
+        tournament.tables.length > 0) && (
+        <h3 class="matchups-subtitle">Datos registrados · ULP 2026</h3>
+      )}
       {tournament.brackets.map((bracket, index) => (
         <TournamentBracket bracket={bracket} expanded={index === 0} />
       ))}
+      {tournament.brackets.length > 0 && (
+        <details class="format-alternative">
+          <summary>
+            Probar otro número de plazas <span aria-hidden="true">+</span>
+          </summary>
+          <TournamentFormat activityId={activityId} />
+        </details>
+      )}
       {tournament.groups.length > 0 && (
         <>
           <h3 class="matchups-subtitle">
@@ -177,6 +194,27 @@ const tournament = getTournament(activityId);
 }
 
 <style>
+  .format-alternative {
+    margin: 24px 0;
+  }
+  .format-alternative > summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    list-style: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .format-alternative > summary::-webkit-details-marker {
+    display: none;
+  }
+  .format-alternative[open] > summary > span {
+    transform: rotate(45deg);
+  }
   .matchups {
     padding-block: clamp(36px, 5vw, 64px);
     border-top: 1px solid var(--line);
