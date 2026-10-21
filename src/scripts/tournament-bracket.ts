@@ -15,13 +15,16 @@ document
         'viewBox',
         `0 0 ${board.offsetWidth} ${board.offsetHeight}`,
       );
+      const bounds = board.getBoundingClientRect();
       const paths = matches.flatMap((match) => {
         const next = byId.get(match.dataset.nextMatch);
         if (!next) return [];
-        const x = match.offsetLeft + match.offsetWidth;
-        const y = match.offsetTop + match.offsetHeight / 2;
-        const targetX = next.offsetLeft;
-        const targetY = next.offsetTop + next.offsetHeight / 2;
+        const source = match.getBoundingClientRect(),
+          target = next.getBoundingClientRect();
+        const x = source.right - bounds.left;
+        const y = source.top + source.height / 2 - bounds.top;
+        const targetX = target.left - bounds.left;
+        const targetY = target.top + target.height / 2 - bounds.top;
         const mid = (x + targetX) / 2;
         const path = document.createElementNS(
           'http://www.w3.org/2000/svg',

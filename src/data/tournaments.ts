@@ -1,3 +1,4 @@
+import { getTournamentFormat } from '../utils/tournament-format.js';
 import data from './tournaments-2026.json';
 import { validateTournaments } from '../utils/tournaments.js';
 
@@ -45,5 +46,21 @@ export interface Tournament {
 }
 
 export function getTournament(activityId: string): Tournament | undefined {
-  return data.tournaments.find((tournament) => tournament.id === activityId);
+  const recorded = data.tournaments.find(
+    (tournament) => tournament.id === activityId,
+  );
+  if (activityId === 'league-of-legends' && recorded) return recorded;
+  const format = getTournamentFormat(activityId);
+  if (!format) return undefined;
+  return {
+    id: activityId,
+    format: format.name,
+    stages: [],
+    notice: '',
+    participants: [],
+    participantLabel: 'Participantes',
+    groups: [],
+    brackets: [],
+    tables: [],
+  };
 }

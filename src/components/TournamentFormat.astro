@@ -1,0 +1,415 @@
+---
+import {
+  getTournamentFormat,
+  getCapacityOptions,
+  buildTournamentFormat,
+  renderTournamentFormat,
+} from '../utils/tournament-format.js';
+interface Props {
+  activityId: string;
+}
+const { activityId } = Astro.props;
+const config = getTournamentFormat(activityId);
+---
+
+{
+  config && (
+    <div class="format-builder" data-format-builder={activityId}>
+      <header class="format-toolbar">
+        <>
+          <div>
+            <>
+              <span class="design-eyebrow">Explora el formato</span>
+              <h3>{config.name}</h3>
+            </>
+          </div>
+          <label>
+            Plazas
+            <select data-format-capacity aria-label="Plazas del torneo">
+              {getCapacityOptions(activityId).map((n) => (
+                <option value={n} selected={n === config.capacity}>
+                  {n}{' '}
+                  {['lol', 'rocket', 'brawl', 'unknown'].includes(config.kind)
+                    ? 'equipos'
+                    : 'participantes'}
+                </option>
+              ))}
+            </select>
+          </label>
+        </>
+      </header>
+      <p class="format-description">{config.note}</p>
+      <p class="format-source">Fuente: {config.source}</p>
+      <p class="format-explanation">
+        Cambia las plazas para explorar el cuadro. <b>TBD</b> indica una plaza
+        pendiente.
+      </p>
+      <p class="sr-only" data-format-status role="status" aria-live="polite" />
+      <div data-format-content>
+        <Fragment
+          set:html={renderTournamentFormat(
+            buildTournamentFormat(activityId, config.capacity),
+          )}
+        />
+      </div>
+      <noscript>
+        Activa JavaScript para cambiar el número de plazas. El formato inicial
+        sigue disponible aquí.
+      </noscript>
+    </div>
+  )
+}
+<script>
+  import '../scripts/tournament-format';
+</script>
+<style is:global>
+  .format-builder {
+    margin: 26px 0 38px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: clamp(18px, 3vw, 32px);
+    background: var(--surface);
+    min-width: 0;
+    overflow: hidden;
+  }
+  .format-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .format-toolbar h3 {
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    margin-top: 8px;
+  }
+  .format-toolbar label {
+    display: grid;
+    gap: 6px;
+    font:
+      10px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+  .format-toolbar select {
+    font: 12px inherit;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 10px 28px 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    max-width: 100%;
+  }
+  .format-description {
+    font-size: 12px;
+    line-height: 1.85;
+    max-width: 850px;
+    color: var(--muted);
+    margin-top: 18px;
+  }
+  .format-source {
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .format-explanation {
+    border-left: 2px solid #009293;
+    padding: 10px 14px;
+    background: color-mix(in srgb, #009293 6%, transparent);
+    font-size: 11px;
+    line-height: 1.7;
+    margin-top: 18px;
+  }
+  .format-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 22px 0;
+  }
+  .format-meta span {
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.025em;
+    padding: 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    color: var(--muted);
+  }
+  .format-meta span:first-child {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .format-phase {
+    margin-top: 26px;
+    min-width: 0;
+  }
+  .format-phase > header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 17px;
+  }
+  .format-phase-number {
+    display: grid;
+    place-items: center;
+    width: 29px;
+    height: 29px;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    font:
+      10px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .format-phase h4 {
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+  .format-phase header p {
+    font-size: 10px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .format-scroll {
+    overflow: auto;
+    padding: 4px 2px 18px;
+    max-height: 590px;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  .format-bracket {
+    display: grid;
+    position: relative;
+    isolation: isolate;
+    grid-template-columns: repeat(var(--format-rounds), 215px);
+    gap: 36px;
+    width: max-content;
+    min-width: 100%;
+    padding-bottom: 4px;
+  }
+  .format-bracket > svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    color: var(--ink);
+  }
+  .format-round {
+    display: flex;
+    flex-direction: column;
+    width: 215px;
+    min-width: 0;
+  }
+  .format-round > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 16px;
+  }
+  .format-builder h5 {
+    font:
+      10px ui-monospace,
+      monospace;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 13px;
+  }
+  .format-round h5 {
+    min-height: 38px;
+  }
+  .format-round h5 small {
+    display: block;
+    color: #008b8e;
+    font-size: 9px;
+  }
+  .format-match {
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .format-match > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 12px;
+    min-height: 53px;
+  }
+  .format-match > div + div {
+    border-top: 1px solid var(--line);
+  }
+  .format-match small {
+    display: block;
+    font:
+      8px ui-monospace,
+      monospace;
+    color: var(--muted);
+    margin-bottom: 4px;
+    overflow-wrap: anywhere;
+  }
+  .format-match b {
+    font:
+      600 12px ui-monospace,
+      monospace;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .format-score {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-radius: 4px;
+    width: 23px;
+    height: 23px;
+    font:
+      11px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .format-match > p {
+    font-size: 9px;
+    color: var(--muted);
+    padding: 7px 12px;
+    border-top: 1px dashed var(--line);
+  }
+  .format-pools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 12px;
+  }
+  .format-pool,
+  .format-ranking {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+    padding: 14px;
+    min-width: 0;
+    align-self: start;
+  }
+  .format-builder summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    list-style: none;
+  }
+  .format-builder summary::-webkit-details-marker {
+    display: none;
+  }
+  .format-builder summary:after {
+    content: '+';
+    font:
+      16px ui-monospace,
+      monospace;
+    margin-left: auto;
+  }
+  .format-builder details[open] > summary:after {
+    content: '−';
+  }
+  .format-builder summary span {
+    font:
+      9px ui-monospace,
+      monospace;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .format-pool > p {
+    font-size: 10px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 12px 0;
+  }
+  .format-pool .format-match {
+    margin-top: 8px;
+  }
+  .format-pool h5 {
+    margin: 16px 0 6px;
+  }
+  .format-pool > h5:first-child {
+    margin-top: 0;
+  }
+  .format-seats {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .format-seats li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font:
+      11px ui-monospace,
+      monospace;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .format-seats li:last-child {
+    border-bottom: 0;
+  }
+  .format-seats li > span {
+    width: 20px;
+    color: var(--muted);
+    font-size: 9px;
+  }
+  .format-seats b {
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .format-seats small {
+    margin-left: auto;
+    font-size: 9px;
+    color: var(--muted);
+  }
+  .format-ranking .format-seats {
+    columns: 2;
+    column-gap: 30px;
+  }
+  .format-ranking li {
+    break-inside: avoid;
+  }
+  .format-builder :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 4px;
+  }
+  @media (max-width: 600px) {
+    .format-toolbar {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .format-toolbar label {
+      grid-template-columns: 55px minmax(0, 1fr);
+      align-items: center;
+    }
+    .format-ranking .format-seats {
+      columns: 1;
+    }
+    .format-builder {
+      border-radius: 15px;
+    }
+    .format-description {
+      font-size: 11px;
+    }
+  }
+</style>
