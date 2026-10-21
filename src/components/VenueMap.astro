@@ -177,7 +177,7 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
                     data-venue-hit
                     cx={point?.x ?? zone.x}
                     cy={point?.y ?? zone.y}
-                    r="26"
+                    r={zone.plan === 'aulario-0' ? 10 : 26}
                   />
                   <circle
                     data-venue-point
