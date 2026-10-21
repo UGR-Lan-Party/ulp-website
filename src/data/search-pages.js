@@ -101,6 +101,22 @@ export const searchPages = [
     keywords: 'blog actualidad noticias novedades prensa',
   },
   {
+    title: 'Prensa y colaboradores',
+    description:
+      'Logos de ULP, descripción breve, colores corporativos y contacto.',
+    href: '/info/prensa/',
+    keywords:
+      'prensa medios logotipo logos identidad marca branding paleta colores hex recursos comunicación comunicacion kit colaboración colaboracion',
+  },
+  {
+    title: 'Redes sociales',
+    description:
+      'Perfiles oficiales y evolución de seguidores de la ULP por edición.',
+    href: '/info/rrss/',
+    keywords:
+      'redes sociales seguidores comunidad instagram twitter x discord twitch tiktok youtube facebook estadisticas',
+  },
+  {
     title: 'Contacto',
     description: 'Ponte en contacto con la organización de la ULP.',
     href: '/contacto/',
