@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import illustration from '../../public/assets/404.svg?raw';
 ---
 
 <Layout
@@ -8,12 +9,10 @@ import Layout from '../layouts/Layout.astro';
   description="Este enlace de ULP ya no está disponible. Consulta el programa de actividades o vuelve al inicio."
 >
   <section class="container mx-auto px-6 py-24 text-center dark:text-white">
-    <img
-      src="/assets/404.svg"
-      alt=""
-      width="360"
-      height="260"
-      class="mx-auto mb-8 max-w-full"
+    <div
+      class="not-found-illustration mx-auto mb-8 max-w-full"
+      aria-hidden="true"
+      set:html={illustration}
     />
     <h1 class="mb-4 text-3xl font-bold">No encontramos esta página</h1>
     <p class="mx-auto mb-8 max-w-xl">
@@ -31,3 +30,20 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 </Layout>
+
+<style>
+  .not-found-illustration {
+    --illustration-accent: #006471;
+    --illustration-ink: #004465;
+    width: 260px;
+  }
+  .not-found-illustration :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  :global(.dark) .not-found-illustration {
+    --illustration-accent: #8ed9ce;
+    --illustration-ink: #f5f0e6;
+  }
+</style>

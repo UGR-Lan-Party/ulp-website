@@ -183,8 +183,11 @@ test('Inscripciones lleva a las competiciones ordenadas por la encuesta inicial 
   await expect(
     page
       .locator('#home')
-      .getByRole('link', { name: 'Inscripciones', exact: true }),
-  ).toHaveAttribute('href', '/actividades#competiciones');
+      .getByRole('link', { name: 'Encuesta Inicial', exact: true }),
+  ).toHaveAttribute(
+    'href',
+    'https://docs.google.com/forms/d/e/1FAIpQLSdJMDi2FwLzRPnvwLks38jxdofGHqttSkozxzFmBewVAC_zOQ/viewform',
+  );
   await page
     .getByRole('navigation', { name: 'Principal', exact: true })
     .getByRole('link', { name: 'Inscripciones', exact: true })
