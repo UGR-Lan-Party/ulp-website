@@ -108,12 +108,12 @@ test('Los premios recuperan la tipografía retro y las animaciones respetan movi
   await expect(background).toHaveCSS('filter', 'saturate(0)');
   await expect(page.locator('.trophy-showcase')).toHaveCSS(
     'background-color',
-    'rgb(36, 36, 36)',
+    'rgb(245, 240, 230)',
   );
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
   await expect(page.locator('.trophy-showcase')).toHaveCSS(
     'background-color',
-    'rgb(36, 36, 36)',
+    'rgb(6, 51, 73)',
   );
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(medal).toHaveCSS('animation-name', 'none');
