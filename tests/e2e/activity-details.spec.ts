@@ -31,7 +31,7 @@ test('Las 26 fichas conservan sus datos, reglas y premios en móvil sin JavaScri
           ? Object.values(game.awards).flat()
           : [];
       await expect(page.locator('.awards-list li')).toHaveText(awards);
-      await expect(page.locator('.schedule-time')).toHaveCount(
+      await expect(page.locator('.summary-schedule li')).toHaveCount(
         game.schedule.length,
       );
       await expect(

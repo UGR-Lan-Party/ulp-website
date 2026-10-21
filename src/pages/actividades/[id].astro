@@ -11,7 +11,6 @@ import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
 import { Competitions, CompetitionsCards } from '../../data/competitions-data';
 import type { CompetitionData } from '../../data/competitions-data';
-import CompetitionTimePlace from '../../components/CompetitionTimePlace.astro';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import Inscripsection from '../../components/Inscripsection.astro';
 import TournamentMatchups from '../../components/TournamentMatchups.astro';
@@ -179,25 +178,6 @@ const social = getActivitySocial(competition.id, competition.name);
         registrationLink={competition.registration}
         participantsLink={competition.participants}
       />
-      <section
-        id="informacion"
-        class="activity-information"
-        aria-labelledby="activity-information-title"
-      >
-        <div class="activity-section-copy">
-          <span class="design-eyebrow">01 / Prepara tu visita</span>
-          <h2 id="activity-information-title">Dónde y cuándo.</h2>
-          <a class="design-link" href="/info/localizacion"
-            >Cómo llegar a la ETSIIT <span aria-hidden="true"
-              ><ArrowUpRight /></span
-            ></a
-          >
-        </div>
-        <CompetitionTimePlace
-          place={competition.place}
-          time={competition.schedule}
-        />
-      </section>
       {
         hasRewards && (
           <section
@@ -373,23 +353,11 @@ const social = getActivitySocial(competition.id, competition.name);
   .activity-next {
     right: 0;
   }
-  .activity-information {
-    display: grid;
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr);
-    gap: clamp(28px, 4vw, 60px);
-    align-items: center;
-    padding-block: 56px;
-    scroll-margin-top: 110px;
-  }
   h2 {
     font-size: clamp(30px, 3.2vw, 42px);
     font-weight: 750;
     line-height: 1.08;
     letter-spacing: -0.04em;
-  }
-  .activity-section-copy h2 {
-    margin-top: 15px;
-    margin-bottom: 24px;
   }
   .activity-rewards {
     padding-block: 36px 52px;
@@ -473,8 +441,7 @@ const social = getActivitySocial(competition.id, competition.name);
       padding-top: 104px;
       padding-bottom: 28px;
     }
-    .activity-hero,
-    .activity-information {
+    .activity-hero {
       grid-template-columns: minmax(0, 1fr);
     }
     .activity-hero {
@@ -482,9 +449,6 @@ const social = getActivitySocial(competition.id, competition.name);
     }
     .activity-art {
       padding-inline: 42px;
-    }
-    .activity-information {
-      padding-block: 36px;
     }
     .trophy-showcase {
       padding: 18px;
