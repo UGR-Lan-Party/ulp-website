@@ -1,0 +1,184 @@
+---
+interface Props {
+  name: string;
+  label: string;
+  caption: string;
+  options: { value: string; label: string }[];
+}
+const { name, label, caption, options } = Astro.props;
+const id = `play-${name}`;
+---
+
+<div class="play-filter" data-play-select>
+  <label class="play-filter-caption" for={id}>{caption}</label>
+  <select id={id} name={name} aria-label={label}
+    >{
+      options.map((option) => (
+        <option value={option.value}>{option.label}</option>
+      ))
+    }</select
+  >
+  <button
+    class="play-select-toggle"
+    type="button"
+    data-play-select-toggle
+    hidden
+    aria-label={`${label}: ${options[0].label}`}
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-controls={`${id}-options`}
+  >
+    <span data-play-select-value>{options[0].label}</span><svg
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg
+    >
+  </button>
+  <ul
+    id={`${id}-options`}
+    class="play-select-menu"
+    role="listbox"
+    aria-label={label}
+    hidden
+  >
+    {
+      options.map((option, index) => (
+        <li
+          role="option"
+          tabindex="-1"
+          aria-selected={index === 0 ? 'true' : 'false'}
+          data-play-option={option.value}
+        >
+          <>
+            <span>{option.label}</span>
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path d="m5 12 4 4L19 6" />
+            </svg>
+          </>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .play-filter {
+    position: relative;
+    min-width: 0;
+  }
+  .play-select-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding-block: 3px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .play-select-toggle > span {
+    min-width: 0;
+  }
+  .play-select-toggle svg {
+    flex-shrink: 0;
+    transition: transform 0.18s ease;
+  }
+  .play-select-toggle[aria-expanded='true'] svg {
+    transform: rotate(180deg);
+  }
+  .play-select-toggle[hidden],
+  select[hidden],
+  .play-select-menu[hidden] {
+    display: none;
+  }
+  .play-select-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 8px;
+    right: 8px;
+    min-width: 195px;
+    z-index: 5;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 4px;
+    background: var(--paper);
+    box-shadow: 0 20px 40px rgb(0 68 101 / 0.13);
+    max-height: min(240px, 50svh);
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+  }
+  .play-filter:first-child .play-select-menu {
+    left: 0;
+  }
+  .play-select-menu li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .play-select-menu li:hover,
+  .play-select-menu li:focus {
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
+  }
+  .play-select-menu li:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: -2px;
+  }
+  .play-select-menu li svg {
+    flex-shrink: 0;
+  }
+  .play-select-menu li[aria-selected='false'] svg {
+    visibility: hidden;
+  }
+  .play-select-menu li[aria-selected='true'] {
+    font-weight: 650;
+  }
+  @media (max-width: 1050px) {
+    .play-select-toggle {
+      font-size: 11px;
+    }
+  }
+  @media (max-width: 700px) {
+    .play-select-toggle {
+      font-size: 14px;
+      min-height: 28px;
+    }
+    .play-select-menu,
+    .play-filter:first-child .play-select-menu {
+      left: 0;
+      right: 0;
+      top: calc(100% + 4px);
+    }
+    .play-select-menu li {
+      padding-block: 9px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .play-select-toggle svg {
+      transition: none;
+    }
+  }
+</style>
