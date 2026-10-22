@@ -11,3 +11,5 @@ En el panel de Wupp/Umami, seleccionar el sitio de ULP y un intervalo que incluy
 Las pruebas locales usan un tracker simulado, comprueban un único evento y mantienen los enlaces si Umami falta, lanza un error o rechaza su promesa. No se inyectan visitas o inscripciones de prueba en el panel de producción. Queda pendiente una comprobación real en el panel tras integrar y desplegar, usando una actividad y un período de inscripción confirmados.
 
 El año del evento procede del catálogo de la actividad. Anunciar una edición nueva no atribuye los clics de las fichas antiguas a ese año ni abre sus inscripciones. El horario identifica explícitamente el año de sus datos.
+
+El tracker también elimina parámetros y fragmentos de las visitas y referencias mediante `data-exclude-search` y `data-exclude-hash`. Tanto el tracker como el dispatcher respetan Do Not Track. Los clics centrales se registran una sola vez; abrir el menú contextual no registra un evento.

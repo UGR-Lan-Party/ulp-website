@@ -106,3 +106,44 @@ test('El dispatcher registra inscripción una sola vez aunque se pulse un elemen
     data: { edition: '2027', activity: 'test-activity' },
   });
 });
+
+test('Do Not Track evita enviar eventos aunque el tracker esté disponible', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'doNotTrack', { get: () => '1' });
+    (window as any).trackingCalls = 0;
+    (window as any).umami = { track: () => (window as any).trackingCalls++ };
+  });
+  await page.goto('/actividades/ajedrez/');
+  await page.locator('[data-analytics-event="rules-click"]').click();
+  expect(await page.evaluate(() => (window as any).trackingCalls)).toBe(0);
+});
+
+test('El clic central se registra una vez y el botón derecho no registra eventos', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    (window as any).trackingCalls = 0;
+    (window as any).umami = { track: () => (window as any).trackingCalls++ };
+  });
+  await page.goto('/actividades/ajedrez/');
+  const link = page.locator('[data-analytics-event="rules-click"]');
+  await link.click({ button: 'right' });
+  expect(await page.evaluate(() => (window as any).trackingCalls)).toBe(0);
+  await page.keyboard.press('Escape');
+  await link.click({ button: 'middle' });
+  expect(await page.evaluate(() => (window as any).trackingCalls)).toBe(1);
+});
+
+test('El tracker excluye parámetros y fragmentos y respeta Do Not Track', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const tracker = page.locator(
+    'script[src="https://analytics.wupp.dev/script.js"]',
+  );
+  await expect(tracker).toHaveAttribute('data-exclude-search', 'true');
+  await expect(tracker).toHaveAttribute('data-exclude-hash', 'true');
+  await expect(tracker).toHaveAttribute('data-do-not-track', 'true');
+});
