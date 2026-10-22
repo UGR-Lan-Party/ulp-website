@@ -1,5 +1,27 @@
 import type { VenueAmenity } from './venue-amenities';
 
+export const aularioEntrances = [
+  {
+    id: 'aulario-entry',
+    label: 'Entrada principal',
+    x: 458,
+    y: 0,
+    campusX: 896,
+    campusY: 985,
+  },
+  {
+    id: 'aulario-aux-entry',
+    label: 'Entrada auxiliar',
+    x: 918,
+    y: 0,
+    campusX: 1180,
+    campusY: 985,
+  },
+] as const;
+export function getAularioMapPoint(level: number, x: number, y: number) {
+  const p = { x: 460 + (x - 590) * 0.46, y: 350 + (y - 90) * 0.46 };
+  return level === 0 ? { x: 460 - (p.y - 350), y: 350 + (p.x - 460) } : p;
+}
 const upperBoundary = (x: number) => ((x - 23) * 1180) / 593;
 const groundBoundaries = [200, 335, 470, 605, 740, 875, 1010];
 const firstBoundaries = [108, 157, 243, 319, 389, 463, 527].map(upperBoundary);
@@ -85,10 +107,7 @@ export const aularioFloors = [
     rooms: getAularioRooms(0).map((room) => room.number),
     source:
       'https://etsiit.ugr.es/sites/centros/etsiit/public/inline-files/ETSIIT_Aulas_Teor%C3%ADa.pdf',
-    services: [
-      ...coreServices,
-      { kind: 'entry', label: 'Acceso al Aulario', x: 458, y: 40 },
-    ],
+    services: [...coreServices],
   },
   {
     level: 1,

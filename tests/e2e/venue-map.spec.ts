@@ -228,7 +228,9 @@ test('El Aulario mantiene las dos plantas sin asociar actividades ni inventar se
     await expect(page.locator('[data-venue-floor-plan]:visible')).toHaveCount(
       1,
     );
-    await expect(page.locator('[data-venue-zone]:visible')).toHaveCount(0);
+    await expect(page.locator('[data-venue-zone]:visible')).toHaveCount(
+      level === 0 ? 2 : 0,
+    );
     await page
       .getByLabel('Actividad', { exact: true })
       .fill(level % 2 ? 'LEAGUE' : '');
@@ -377,7 +379,13 @@ test('Las dos plantas del Aulario conservan la huella arquitectónica y muestran
     expect(baths[0].height).toBeCloseTo(baths[1].height, 1);
     expect(baths[0].y).toBeCloseTo(baths[1].y, 1);
 
-    for (const kind of ['men', 'women', 'lift', 'stairs', 'entry'])
+    for (const kind of [
+      'men',
+      'women',
+      'lift',
+      'stairs',
+      ...(level === 1 ? ['entry'] : []),
+    ])
       await expect(
         plan.locator(`[data-venue-amenity="${kind}"]`),
       ).toBeVisible();

@@ -1,4 +1,6 @@
 ---
+import { getActivitySocial } from '../../utils/activity-social';
+import ActivityShareCards from '../../components/ActivityShareCards.astro';
 import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import { getActivityNeighbors } from '../../utils/activity-navigation';
 import { programEdition } from '../../data/program';
@@ -9,7 +11,6 @@ import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
 import { Competitions, CompetitionsCards } from '../../data/competitions-data';
 import type { CompetitionData } from '../../data/competitions-data';
-import CompetitionTimePlace from '../../components/CompetitionTimePlace.astro';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import Inscripsection from '../../components/Inscripsection.astro';
 import TournamentMatchups from '../../components/TournamentMatchups.astro';
@@ -44,12 +45,16 @@ const hasAwards = Object.values(competition.awards ?? {}).some(
   (awards) => awards.length > 0,
 );
 const hasRewards = Boolean(competition.trophy || hasAwards);
+const social = getActivitySocial(competition.id, competition.name);
 ---
 
 <Layout
   title={competition.name}
-  description={competition.description ||
-    `Horarios, ubicación, normas y premios de ${competition.name} en ULP ${programEdition.year}.`}
+  description={social.description}
+  image={`/og/actividades/${competition.id}.png`}
+  imageAlt={`${competition.name} · ULP ${social.year}. ${social.date}${social.time ? `, desde las ${social.time}` : ''}`}
+  imageWidth={1200}
+  imageHeight={630}
 >
   <article class="activity-page">
     <header class="activity-header design-container">
@@ -173,25 +178,6 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
         registrationLink={competition.registration}
         participantsLink={competition.participants}
       />
-      <section
-        id="informacion"
-        class="activity-information"
-        aria-labelledby="activity-information-title"
-      >
-        <div class="activity-section-copy">
-          <span class="design-eyebrow">01 / Prepara tu visita</span>
-          <h2 id="activity-information-title">Dónde y cuándo.</h2>
-          <a class="design-link" href="/info/localizacion"
-            >Cómo llegar a la ETSIIT <span aria-hidden="true"
-              ><ArrowUpRight /></span
-            ></a
-          >
-        </div>
-        <CompetitionTimePlace
-          place={competition.place}
-          time={competition.schedule}
-        />
-      </section>
       {
         hasRewards && (
           <section
@@ -237,6 +223,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
         )
       }
       <TournamentMatchups activityId={competition.id} />
+      <ActivityShareCards id={competition.id} name={competition.name} />
       {
         neighbors && (
           <nav
@@ -366,23 +353,11 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
   .activity-next {
     right: 0;
   }
-  .activity-information {
-    display: grid;
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr);
-    gap: clamp(28px, 4vw, 60px);
-    align-items: center;
-    padding-block: 56px;
-    scroll-margin-top: 110px;
-  }
   h2 {
     font-size: clamp(30px, 3.2vw, 42px);
     font-weight: 750;
     line-height: 1.08;
     letter-spacing: -0.04em;
-  }
-  .activity-section-copy h2 {
-    margin-top: 15px;
-    margin-bottom: 24px;
   }
   .activity-rewards {
     padding-block: 36px 52px;
@@ -411,10 +386,10 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     isolation: isolate;
     overflow: hidden;
     padding: 24px;
-    border: 1px solid rgb(245 240 230 / 0.16);
+    border: 1px solid var(--line);
     border-radius: 24px;
-    background: #242424;
-    color: #f5f0e6;
+    background: var(--paper);
+    color: var(--ink);
     margin-bottom: 38px;
   }
   .trophy-showcase::after {
@@ -438,7 +413,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
   }
   .trophy-showcase :global([data-trophy-status]),
   .trophy-showcase :global(noscript p) {
-    color: rgb(245 240 230 / 0.65);
+    color: var(--muted);
   }
   .trophy-heading {
     display: flex;
@@ -466,8 +441,7 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
       padding-top: 104px;
       padding-bottom: 28px;
     }
-    .activity-hero,
-    .activity-information {
+    .activity-hero {
       grid-template-columns: minmax(0, 1fr);
     }
     .activity-hero {
@@ -475,9 +449,6 @@ const hasRewards = Boolean(competition.trophy || hasAwards);
     }
     .activity-art {
       padding-inline: 42px;
-    }
-    .activity-information {
-      padding-block: 36px;
     }
     .trophy-showcase {
       padding: 18px;

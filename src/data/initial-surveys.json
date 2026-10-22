@@ -1,0 +1,100 @@
+[
+  {
+    "year": 2023,
+    "responses": 183,
+    "question": "¿A qué torneos te gustaría inscribirte si se realizaran?",
+    "source": "ULP 2023 - Encuesta Inicial.xlsx",
+    "votes": {
+      "Mario Kart": 46,
+      "League of Legends": 46,
+      "Rocket League": 40,
+      "FIFA": 39,
+      "VALORANT": 34,
+      "Super Smash Bros": 34,
+      "Counter Strike: Global Offensive": 33,
+      "Clash Royale": 31,
+      "Fortnite": 24,
+      "Pokémon": 24,
+      "Brawl Stars": 19,
+      "Tom Clancy's Rainbow Six: Siege": 16
+    }
+  },
+  {
+    "year": 2024,
+    "responses": 171,
+    "question": "¿De qué juegos te gustaría que se realizaran torneos?",
+    "source": "ULP 2024 - Encuesta Inicial.xlsx",
+    "votes": {
+      "Mario Kart": 66,
+      "League of Legends": 58,
+      "VALORANT": 57,
+      "Rocket League": 51,
+      "Wii Sports": 50,
+      "Super Smash Bros. Ultimate": 46,
+      "Minecraft": 45,
+      "Pokémon Showdown": 42,
+      "Counter Strike 2": 38,
+      "Fortnite": 34,
+      "Brawl Stars": 31,
+      "FIFA": 28,
+      "Tom Clancy's Rainbow Six: Siege": 20,
+      "Clash Royale": 18,
+      "Overwatch 2": 14
+    }
+  },
+  {
+    "year": 2025,
+    "responses": 258,
+    "question": "¿De qué juegos te gustaría que se realizaran torneos?",
+    "source": "https://docs.google.com/forms/d/e/1FAIpQLSeOtMJHKdpd69AOIbVFa32mxFa_PF6EavxwCDI9Dhy_wgEAVg/viewanalytics",
+    "votes": {
+      "Mario Kart": 112,
+      "Wii Sports": 109,
+      "VALORANT": 76,
+      "League of Legends": 71,
+      "Rocket League (2vs2)": 70,
+      "Brawl Stars": 65,
+      "Clash Royale": 62,
+      "Super Smash Bros. Ultimate": 61,
+      "FIFA (EA Sports FC)": 55,
+      "Minecraft": 54,
+      "Counter Strike 2": 50,
+      "Fortnite": 50,
+      "Pokémon Showdown": 45,
+      "Dragon Ball Sparking Zero": 43,
+      "Just Dance": 42,
+      "Dragon Ball FighterZ": 28,
+      "Tekken 8": 22,
+      "Street Fighter 6": 13
+    }
+  },
+  {
+    "year": 2026,
+    "responses": 342,
+    "question": "¿De qué juegos te gustaría que se realizaran torneos?",
+    "source": "ULP 2026 - Encuesta Inicial.xlsx",
+    "votes": {
+      "Mario Kart": 130,
+      "Clash Royale": 117,
+      "Super Smash Bros. Ultimate": 101,
+      "Wii Sports (Tennis)": 94,
+      "Futbolín": 91,
+      "Wii Sports (Bolos)": 81,
+      "Minecraft": 81,
+      "Ajedrez": 80,
+      "Brawl Stars": 80,
+      "VALORANT": 79,
+      "Counter Strike 2": 74,
+      "Rocket League (2vs2)": 72,
+      "League of Legends": 71,
+      "Tetris": 59,
+      "Just Dance": 58,
+      "EA Sports FC": 50,
+      "Inazuma Eleven: Victory Road": 50,
+      "Tekken 8": 23,
+      "Street Fighter 6": 22,
+      "Rematch": 18,
+      "2XKO": 17
+    }
+  }
+]

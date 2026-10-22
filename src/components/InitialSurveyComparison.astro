@@ -1,0 +1,535 @@
+---
+import {
+  initialSurveys,
+  surveyChart,
+  surveyLabel,
+} from '../utils/initial-surveys';
+const chart = surveyChart({ metric: 'votes' });
+---
+
+<section
+  class="survey-comparison"
+  id="encuestas-iniciales"
+  aria-labelledby="surveys-title"
+  data-survey-comparison
+  data-display="votes"
+>
+  <header class="survey-heading">
+    <div>
+      <span class="design-eyebrow">Lo que queríamos jugar</span><h2
+        id="surveys-title"
+      >
+        Así cambian<br />nuestras <em>preferencias.</em>
+      </h2>
+    </div>
+    <p>
+      Los torneos que elegisteis en las encuestas iniciales, edición a edición.
+    </p>
+  </header>
+  <div class="survey-editions" aria-label="Respuestas por edición">
+    {
+      initialSurveys.map((s) => (
+        <div class="survey-edition" data-year={s.year}>
+          <>
+            <span>ULP {s.year}</span>
+            <strong>{s.responses}</strong>
+            <small>respuestas</small>
+          </>
+        </div>
+      ))
+    }
+  </div>
+  <div class="survey-panel">
+    <div class="survey-controls">
+      <label
+        >Edición<select data-survey-year aria-label="Edición de la encuesta"
+          ><option value="all">Comparar ediciones</option>{
+            initialSurveys.map((s) => (
+              <option value={s.year}>ULP {s.year}</option>
+            ))
+          }</select
+        ></label
+      >
+      <label
+        >Mostrar<select
+          data-survey-metric
+          aria-label="Medida de las preferencias"
+          ><option value="percent">Porcentaje de respuestas</option><option
+            value="votes"
+            selected>Número de votos</option
+          ><option value="both">Ambas</option></select
+        ></label
+      >
+      <label class="survey-all"
+        ><input type="checkbox" data-survey-all />Todos los juegos</label
+      >
+    </div>
+    <div class="survey-chart-heading">
+      <h3 data-survey-caption>Preferencias de torneos</h3><span
+        data-survey-scale>Escala: 0–{chart.max} votos</span
+      >
+    </div>
+    <div class="survey-legend" aria-label="Leyenda">
+      {
+        initialSurveys.map((s) => (
+          <span data-year={s.year}>
+            <i aria-hidden="true" />
+            {s.year}
+          </span>
+        ))
+      }
+    </div>
+    <div class="survey-column-head" aria-hidden="true">
+      <span></span><span></span><span class="survey-value">Preferencia</span
+      ><span class="survey-votes">Votos</span>
+    </div>
+    <div
+      class="survey-chart"
+      data-survey-chart
+      role="list"
+      aria-label="Preferencias por juego y edición"
+    >
+      {
+        chart.rows.map((row) => (
+          <div class="survey-game" role="listitem">
+            <>
+              <h4>{row.name}</h4>
+              <div class="survey-game-bars">
+                {row.values.map((point) => (
+                  <div class="survey-bar-row" data-year={point.year}>
+                    <span class="survey-year">{point.year}</span>
+                    <div class="survey-track" aria-hidden="true">
+                      <div
+                        class="survey-bar"
+                        style={`width:${((point.value ?? 0) / chart.max) * 100}%`}
+                      />
+                    </div>
+                    <span class="survey-value">
+                      {surveyLabel(point, 'percent')}
+                    </span>
+                    <span
+                      class="survey-votes"
+                      aria-label={
+                        point.votes === null
+                          ? 'Sin votos disponibles'
+                          : `${point.votes} votos`
+                      }
+                    >
+                      {point.votes ?? '—'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </>
+          </div>
+        ))
+      }
+    </div>
+    <p class="survey-chart-status" data-survey-status aria-live="polite">
+      8 juegos comunes · ordenados por votos globales
+    </p>
+  </div>
+</section>
+<script>
+  import {
+    initialSurveys,
+    surveyChart,
+    surveyLabel,
+  } from '../utils/initial-surveys';
+  const root = document.querySelector<HTMLElement>('[data-survey-comparison]');
+  if (root) {
+    const year = root.querySelector<HTMLSelectElement>('[data-survey-year]')!;
+    const metric = root.querySelector<HTMLSelectElement>(
+      '[data-survey-metric]',
+    )!;
+    const all = root.querySelector<HTMLInputElement>('[data-survey-all]')!;
+    const container = root.querySelector<HTMLElement>('[data-survey-chart]')!;
+    function element(tag: string, className: string, text?: string) {
+      const node = document.createElement(tag);
+      node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+    function update() {
+      root!.dataset.display = metric.value;
+      const chartMetric = metric.value === 'votes' ? 'votes' : 'percent';
+      const chart = surveyChart({
+        year: year.value,
+        metric: chartMetric,
+        all: all.checked,
+      });
+      const fragment = document.createDocumentFragment();
+      for (const row of chart.rows) {
+        const group = element('div', 'survey-game');
+        group.setAttribute('role', 'listitem');
+        group.append(element('h4', '', row.name));
+        const bars = element('div', 'survey-game-bars');
+        for (const point of row.values) {
+          const line = element('div', 'survey-bar-row');
+          line.dataset.year = String(point.year);
+          const track = element('div', 'survey-track');
+          track.setAttribute('aria-hidden', 'true');
+          const bar = element('div', 'survey-bar');
+          bar.style.width = `${((point.value ?? 0) / chart.max) * 100}%`;
+          track.append(bar);
+          line.append(
+            element('span', 'survey-year', String(point.year)),
+            track,
+            element(
+              'span',
+              'survey-value',
+              surveyLabel(
+                {
+                  ...point,
+                  value:
+                    point.votes === null
+                      ? null
+                      : (point.votes /
+                          initialSurveys.find((s) => s.year === point.year)!
+                            .responses) *
+                        100,
+                },
+                'percent',
+              ),
+            ),
+            element(
+              'span',
+              'survey-votes',
+              point.votes === null ? '—' : String(point.votes),
+            ),
+          );
+          bars.append(line);
+        }
+        group.append(bars);
+        fragment.append(group);
+      }
+      container.replaceChildren(fragment);
+      root!.querySelector('[data-survey-caption]')!.textContent =
+        'Preferencias de torneos';
+      root!.querySelector('[data-survey-scale]')!.textContent =
+        `Escala: 0–${chart.max}${chartMetric === 'percent' ? ' %' : ' votos'}`;
+      root!.querySelector('[data-survey-status]')!.textContent =
+        `${chart.rows.length} juegos${year.value === 'all' && !all.checked ? ' comunes' : ''} · ordenados por votos globales`;
+      root!
+        .querySelectorAll<HTMLElement>('.survey-legend [data-year]')
+        .forEach(
+          (el) =>
+            (el.hidden = !chart.editions.some(
+              (s) => String(s.year) === el.dataset.year,
+            )),
+        );
+    }
+    [year, metric, all].forEach((control) =>
+      control.addEventListener('change', update),
+    );
+  }
+</script>
+<style is:global>
+  .survey-comparison {
+    --survey-value-columns: 94px 42px;
+  }
+  .survey-comparison[data-display='percent'],
+  .survey-comparison[data-display='votes'] {
+    --survey-value-columns: 94px;
+  }
+  .survey-comparison[data-display='percent'] .survey-votes,
+  .survey-comparison[data-display='votes'] .survey-value {
+    display: none;
+  }
+
+  .survey-comparison {
+    padding-block: 48px;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 110px;
+  }
+  .survey-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 28px;
+    margin-bottom: 24px;
+  }
+  .survey-heading h2 {
+    font-size: clamp(30px, 4.5vw, 54px);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+    margin-top: 16px;
+  }
+  .survey-heading h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .survey-heading > p {
+    max-width: 280px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .survey-editions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .survey-edition {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-top: 3px solid var(--survey-color);
+  }
+  .survey-edition > span {
+    font:
+      11px ui-monospace,
+      monospace;
+    margin-right: auto;
+  }
+  .survey-edition strong {
+    font-size: 28px;
+    letter-spacing: -0.04em;
+  }
+  .survey-edition small {
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .survey-comparison [data-year='2023'] {
+    --survey-color: #004465;
+  }
+  .survey-comparison [data-year='2024'] {
+    --survey-color: #008b8d;
+  }
+  .survey-comparison [data-year='2025'] {
+    --survey-color: #627ca1;
+  }
+  .dark .survey-comparison [data-year='2025'] {
+    --survey-color: #bcc1ed;
+  }
+  .survey-comparison [data-year='2026'] {
+    --survey-color: #a76835;
+  }
+  .dark .survey-comparison [data-year='2023'] {
+    --survey-color: #a8cfe6;
+  }
+  .dark .survey-comparison [data-year='2024'] {
+    --survey-color: #70d3c4;
+  }
+  .dark .survey-comparison [data-year='2026'] {
+    --survey-color: #e6b581;
+  }
+  .survey-panel {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    background: color-mix(in srgb, var(--paper) 92%, var(--ink) 8%);
+  }
+  .survey-controls {
+    display: flex;
+    gap: 18px;
+    align-items: end;
+    flex-wrap: wrap;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .survey-controls label {
+    display: grid;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .survey-controls select {
+    min-width: 220px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 32px 10px 12px;
+    font-size: 12px;
+  }
+  .survey-controls .survey-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    padding-bottom: 11px;
+    color: var(--ink);
+  }
+  .survey-all input {
+    accent-color: #006471;
+    width: 16px;
+    height: 16px;
+  }
+  .survey-chart-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 24px;
+    align-items: baseline;
+  }
+  .survey-chart-heading h3 {
+    font-size: 14px;
+    font-weight: 650;
+  }
+  .survey-chart-heading > span {
+    font:
+      10px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .survey-legend {
+    display: flex;
+    gap: 20px;
+    margin-block: 12px 18px;
+    font:
+      11px ui-monospace,
+      monospace;
+  }
+  .survey-legend > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .survey-legend > span[hidden] {
+    display: none;
+  }
+  .survey-legend i {
+    width: 9px;
+    height: 9px;
+    background: var(--survey-color);
+    border-radius: 3px;
+  }
+  .survey-game {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .survey-game h4 {
+    font-size: 12px;
+    font-weight: 650;
+    align-self: center;
+  }
+  .survey-game-bars {
+    display: grid;
+    gap: 5px;
+  }
+  .survey-bar-row {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) var(--survey-value-columns);
+    align-items: center;
+    gap: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .survey-year {
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .survey-column-head {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) var(--survey-value-columns);
+    gap: 12px;
+    margin-left: 204px;
+    text-align: right;
+    font-size: 9px;
+    color: var(--muted);
+    padding-bottom: 4px;
+  }
+  .survey-votes {
+    font-size: 11px;
+    font-weight: 650;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .survey-value {
+    font-size: 10px;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .survey-track {
+    height: 9px;
+    background: color-mix(in srgb, var(--ink) 7%, transparent);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .survey-bar {
+    height: 100%;
+    background: var(--survey-color);
+    border-radius: 5px;
+  }
+  .survey-chart-status {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 14px;
+  }
+  @media (max-width: 700px) {
+    .survey-editions {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .survey-comparison {
+      padding-block: 32px;
+    }
+    .survey-heading {
+      display: block;
+    }
+    .survey-heading > p {
+      margin-top: 18px;
+    }
+    .survey-edition {
+      padding: 12px;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+    }
+    .survey-edition > span {
+      width: 100%;
+      font-size: 10px;
+    }
+    .survey-edition strong {
+      font-size: 24px;
+    }
+    .survey-panel {
+      padding: 18px 14px;
+    }
+    .survey-controls {
+      gap: 14px;
+    }
+    .survey-controls label:not(.survey-all) {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+    .survey-controls select {
+      min-width: 0;
+      width: 100%;
+      font-size: 11px;
+    }
+    .survey-controls .survey-all {
+      margin-left: 0;
+      padding: 0;
+    }
+    .survey-chart-heading {
+      display: block;
+    }
+    .survey-chart-heading > span {
+      display: block;
+      margin-top: 8px;
+    }
+    .survey-game {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .survey-column-head {
+      margin-left: 0;
+      grid-template-columns: 30px minmax(0, 1fr) var(--survey-value-columns);
+      gap: 8px;
+    }
+    .survey-bar-row {
+      gap: 8px;
+      grid-template-columns: 30px minmax(0, 1fr) var(--survey-value-columns);
+    }
+  }
+</style>

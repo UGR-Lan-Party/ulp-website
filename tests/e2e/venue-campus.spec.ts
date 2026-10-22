@@ -60,8 +60,15 @@ test('La vista general permite abrir edificios y filtrar futbolín y ping pong e
   await expect(map).toHaveAttribute('data-venue-plan', 'recinto');
   await expect(map).toHaveAttribute('data-orientation', '2');
   await expect(page.locator('[data-venue-open-plan]:visible')).toHaveCount(7);
+  await expect(
+    page.getByRole('button', {
+      name: 'Abrir plano: Pasillo exterior',
+      exact: true,
+    }),
+  ).toHaveCount(0);
   await page
     .getByRole('button', { name: 'Abrir plano: Aulario', exact: true })
+    .locator('[data-venue-label]')
     .click();
   await expect(map).toHaveAttribute('data-venue-plan', 'aulario-0');
   for (const [zone, activity] of [
@@ -143,12 +150,17 @@ test('Los puntos informativos no alteran los filtros y el clic no enmarca todo e
     .getByRole('button', { name: 'Cerrar información', exact: true })
     .click();
   await page.locator('[data-venue-zone="grados"] [data-venue-point]').click();
-  await expect(rows).toHaveCount(2);
+  await expect(page.locator('[data-venue-map]')).toHaveAttribute(
+    'data-venue-plan',
+    'principal-grados',
+  );
+  await expect(rows).toHaveCount(46);
+  await page.locator('[data-venue-room-back]').click();
   await page
     .locator('[data-venue-zone="streaming"] [data-venue-point]')
     .click();
-  await expect(rows).toHaveCount(2);
-  await page.getByRole('button', { name: 'Ver todas las zonas' }).click();
+  await expect(rows).toHaveCount(46);
+  await page.getByRole('button', { name: 'Cerrar información' }).click();
   const drawing = page.locator('[data-venue-drawing]');
   await drawing.click({ position: { x: 20, y: 20 } });
   await expect(drawing).toHaveCSS('outline-style', 'none');
@@ -386,7 +398,7 @@ test('El parking queda separado de los edificios al girar y Mi agenda está desp
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
   await expect(page.locator('.venue-canvas')).toHaveCSS(
     'background-color',
-    'rgb(0, 68, 101)',
+    'rgb(245, 240, 230)',
   );
   await expect(page.locator('.venue-canvas')).toHaveCSS(
     'border-top-left-radius',

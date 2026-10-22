@@ -13,7 +13,9 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('La portada anuncia 2027 y dirige al catálogo', async ({ page }) => {
+test('La portada anuncia 2027 y dirige a su encuesta inicial', async ({
+  page,
+}) => {
   await page.goto('/');
   const hero = page.locator('#home');
   await expect(hero.getByText('ULP 2027', { exact: true })).toBeVisible();
@@ -21,8 +23,11 @@ test('La portada anuncia 2027 y dirige al catálogo', async ({ page }) => {
     hero.getByText('Próximamente ...', { exact: true }),
   ).toBeVisible();
   await expect(
-    hero.getByRole('link', { name: 'Inscripciones', exact: true }),
-  ).toHaveAttribute('href', '/actividades#competiciones');
+    hero.getByRole('link', { name: 'Encuesta Inicial', exact: true }),
+  ).toHaveAttribute(
+    'href',
+    'https://docs.google.com/forms/d/e/1FAIpQLSdJMDi2FwLzRPnvwLks38jxdofGHqttSkozxzFmBewVAC_zOQ/viewform',
+  );
 });
 
 test('Los datos de contacto son enlaces y el mapa tiene esquinas redondeadas', async ({

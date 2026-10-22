@@ -1,0 +1,320 @@
+---
+import { routeLocations } from '../utils/venue-routing';
+const categories = [...new Set(routeLocations.map((item) => item.category))];
+---
+
+<details class="venue-routes" data-route-panel>
+  <summary
+    ><span class="route-symbol" aria-hidden="true">↝</span><span
+      >Cómo ir de un aula a otra<small>Traza tu recorrido por la ETSIIT</small
+      ></span
+    ><span class="route-expand" aria-hidden="true">+</span></summary
+  >
+  <form data-route-form>
+    <div class="route-fields">
+      <label
+        >Desde<select data-route-origin
+          >{
+            categories.map((category) => (
+              <optgroup label={category}>
+                {routeLocations
+                  .filter((item) => item.category === category)
+                  .map((item) => (
+                    <option value={item.id} selected={item.id === 'hall'}>
+                      {item.label}
+                    </option>
+                  ))}
+              </optgroup>
+            ))
+          }</select
+        ></label
+      >
+      <button
+        type="button"
+        data-route-swap
+        aria-label="Intercambiar origen y destino">⇄</button
+      >
+      <label
+        >Hasta<select data-route-destination
+          >{
+            categories.map((category) => (
+              <optgroup label={category}>
+                {routeLocations
+                  .filter((item) => item.category === category)
+                  .map((item) => (
+                    <option
+                      value={item.id}
+                      selected={item.id === 'estudiantes'}
+                    >
+                      {item.label}
+                    </option>
+                  ))}
+              </optgroup>
+            ))
+          }</select
+        ></label
+      >
+    </div>
+    <div class="route-options">
+      <button class="design-button" type="submit"
+        >Ver recorrido <span aria-hidden="true">↗</span></button
+      >
+    </div>
+  </form>
+  <p class="route-error" data-route-error role="status" hidden></p>
+  <div class="route-result" data-route-result hidden>
+    <div class="route-result-heading">
+      <div>
+        <span class="route-kicker" data-route-progress aria-live="polite"
+        ></span><strong data-route-title></strong><p data-route-instruction></p>
+      </div><button type="button" data-route-close aria-label="Cerrar recorrido"
+        >×</button
+      >
+    </div>
+    <ol data-route-steps aria-label="Tramos del recorrido"></ol>
+    <div class="route-playback">
+      <button type="button" data-route-previous>← Anterior</button><button
+        type="button"
+        data-route-play>Reproducir recorrido</button
+      ><button type="button" data-route-next>Siguiente →</button>
+    </div>
+  </div>
+</details>
+<style>
+  :global(.venue-explorer) {
+    --venue-route-color: #007b80;
+  }
+  .venue-routes {
+    margin: 16px 0 20px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    color: var(--ink);
+    overflow: hidden;
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    cursor: pointer;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 650;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .route-symbol {
+    font-size: 27px;
+    color: var(--teal, var(--ink));
+  }
+  summary small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .route-expand {
+    margin-left: auto;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  [open] .route-expand {
+    transform: rotate(45deg);
+  }
+  form {
+    padding: 0 16px 12px;
+  }
+  .route-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 36px minmax(0, 1fr);
+    align-items: end;
+    gap: 12px;
+  }
+  .route-fields label {
+    display: grid;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  select {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 12px;
+    font-size: 12px;
+  }
+  .route-fields button {
+    height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-size: 22px;
+  }
+  .route-options {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .design-button {
+    padding: 11px 16px;
+    min-height: 40px;
+    font-size: 12px;
+  }
+  .route-result {
+    padding: 12px 16px;
+    border-top: 1px solid var(--line);
+  }
+  .route-result-heading {
+    display: flex;
+    gap: 14px;
+    justify-content: space-between;
+  }
+  .route-kicker {
+    display: block;
+    font:
+      10px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .route-result strong {
+    font-size: 14px;
+  }
+  .route-result-heading p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 3px;
+    color: var(--muted);
+  }
+  .route-result-heading > button {
+    align-self: start;
+    font-size: 23px;
+    line-height: 1;
+  }
+  .route-result ol {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    list-style: none;
+  }
+  .route-result :global(li button) {
+    padding: 6px 9px;
+    font-size: 11px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+  }
+  .route-result :global(li button[aria-current='step']) {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .route-playback {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .route-playback button {
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+  button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  .route-error {
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .route-error {
+    margin: 0 20px 16px;
+    color: var(--ink);
+    padding: 12px;
+    background: var(--paper);
+    border-left: 2px solid var(--ink);
+  }
+  [hidden] {
+    display: none !important;
+  }
+  button:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  @media (max-width: 600px) {
+    .route-fields {
+      grid-template-columns: minmax(0, 1fr) 36px;
+    }
+    .route-fields label:last-child {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .route-fields button {
+      grid-column: 2;
+      grid-row: 1/3;
+      align-self: center;
+    }
+    .route-options {
+      align-items: stretch;
+    }
+    .route-options > .design-button {
+      width: 100%;
+      justify-content: center;
+    }
+    summary {
+      padding: 15px;
+    }
+    .route-playback {
+      gap: 6px;
+    }
+    .route-playback button {
+      font-size: 10px;
+    }
+    .route-result,
+    form {
+      padding-inline: 15px;
+    }
+  }
+  .route-result {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px 16px;
+    align-items: center;
+  }
+  .route-result-heading {
+    grid-column: 1/-1;
+    align-items: center;
+  }
+  .route-result ol,
+  .route-playback {
+    margin-top: 0;
+  }
+  .route-playback {
+    gap: 6px;
+  }
+  .route-result-heading p:empty {
+    display: none;
+  }
+  @media (max-width: 700px) {
+    .route-result {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .route-playback {
+      justify-content: flex-start;
+    }
+  }
+</style>

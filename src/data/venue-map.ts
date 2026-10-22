@@ -1,3 +1,4 @@
+import { aularioEntrances, getAularioMapPoint } from './aulario.ts';
 export const venuePlans = [
   {
     id: 'recinto',
@@ -68,6 +69,13 @@ export const venuePlans = [
     parent: 'principal-0',
   },
   {
+    id: 'principal-grados',
+    building: 'principal',
+    buildingLabel: 'Edificio Principal',
+    floor: 'Salón de Grados',
+    parent: 'principal-0',
+  },
+  {
     id: 'principal-actos',
     building: 'principal',
     buildingLabel: 'Edificio Principal',
@@ -126,6 +134,13 @@ const prefabPoint = (id: 'a' | 'b') => {
 };
 
 export const venueZones = [
+  ...aularioEntrances.map((entry) => ({
+    id: entry.id,
+    label: entry.label,
+    plan: 'aulario-0' as const,
+    informational: true,
+    ...getAularioMapPoint(0, entry.x, entry.y),
+  })),
   {
     id: 'parking',
     label: 'Parking',
@@ -203,6 +218,13 @@ export const venueZones = [
     ...mainPoint(650, 745),
   },
   {
+    id: 'sala-juntas',
+    label: 'Sala de juntas',
+    plan: 'principal-0',
+    informational: true,
+    ...mainPoint(200, 510),
+  },
+  {
     id: 'streaming',
     label: 'Sala de streaming',
     plan: 'principal-0',
@@ -256,6 +278,7 @@ export const venueZones = [
     id: 'grados',
     label: 'Salón de Grados',
     plan: 'principal-0',
+    openPlan: 'principal-grados',
     ...mainPoint(195, 735),
   },
   {
@@ -294,13 +317,15 @@ export const venueZones = [
     id: 'aula11',
     label: 'Aula −1.1',
     plan: 'aulas-inferiores',
-    ...roomPoint(240, 300),
+    x: 185 + 400 * 0.48,
+    y: 178 + 550 * 0.48,
   },
   {
     id: 'aula12',
     label: 'Aula −1.2',
     plan: 'aulas-inferiores',
-    ...roomPoint(750, 300),
+    x: 185 + 880 * 0.48,
+    y: 178 + 100 * 0.48,
   },
   {
     id: 'a1',
@@ -373,8 +398,12 @@ export function getVenueLayout(
       const dy = zone.y - 350;
       const x = 460 + dx * cos - dy * sin;
       const y = 350 + dx * sin + dy * cos;
-      const side =
-        zone.id === 'profesores-externos' && orientation === 0
+      const entrance =
+        plan === 'aulario-0' &&
+        aularioEntrances.some((entry) => entry.id === zone.id);
+      const side = entrance
+        ? ['right', 'bottom', 'left', 'top'][orientation]
+        : zone.id === 'profesores-externos' && orientation === 0
           ? 'top'
           : plan === 'principal-baja' &&
               orientation === 0 &&
@@ -383,19 +412,51 @@ export function getVenueLayout(
             : x < 460
               ? 'left'
               : 'right';
-      return { id: zone.id, x, y, side };
+      const port =
+        zone.id === 'aula11'
+          ? { x: 185 - 30 * 0.48, y: 178 + 550 * 0.48 }
+          : zone.id === 'aula12'
+            ? { x: 185 + 1160 * 0.48, y: 178 + 100 * 0.48 }
+            : null;
+      const via = port
+        ? {
+            x: 460 + (port.x - 460) * cos - (port.y - 350) * sin,
+            y: 350 + (port.x - 460) * sin + (port.y - 350) * cos,
+          }
+        : undefined;
+      return { id: zone.id, x, y, side, via };
     });
-  return ['left', 'right', 'top'].flatMap((side) => {
+  return ['left', 'right', 'top', 'bottom'].flatMap((side) => {
     const group = points
       .filter((point) => point.side === side)
       .sort((a, b) => a.y - b.y || a.x - b.x);
     const positions = getVenueLabelPositions(group);
     return group.map((point, index) => ({
       ...point,
-      labelX: side === 'top' ? point.x - 80 : side === 'left' ? 12 : 748,
-      labelY: side === 'top' ? point.y - 110 : positions[index],
-      edgeX: side === 'top' ? point.x : side === 'left' ? 172 : 748,
-      edgeY: side === 'top' ? point.y - 70 : positions[index] + 20,
+      labelX:
+        side === 'top' || side === 'bottom'
+          ? point.x - 80
+          : side === 'left'
+            ? 12
+            : 748,
+      labelY:
+        side === 'top'
+          ? point.y - 110
+          : side === 'bottom'
+            ? point.y + 85
+            : positions[index],
+      edgeX:
+        side === 'top' || side === 'bottom'
+          ? point.x
+          : side === 'left'
+            ? 172
+            : 748,
+      edgeY:
+        side === 'top'
+          ? point.y - 70
+          : side === 'bottom'
+            ? point.y + 85
+            : positions[index] + 20,
     }));
   });
 }

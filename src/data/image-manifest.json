@@ -2384,5 +2384,23 @@
         "width": 1280
       }
     ]
+  },
+  "/assets/about/ulp-2023-comunidad.jpg": {
+    "width": 1024,
+    "height": 683,
+    "sources": [
+      {
+        "src": "/assets/optimized/ulp-2023-comunidad-360.webp",
+        "width": 360
+      },
+      {
+        "src": "/assets/optimized/ulp-2023-comunidad-720.webp",
+        "width": 720
+      },
+      {
+        "src": "/assets/optimized/ulp-2023-comunidad-1024.webp",
+        "width": 1024
+      }
+    ]
   }
 }

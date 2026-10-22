@@ -15,6 +15,7 @@ export default defineConfig({
     css: { postcss: { plugins: [tailwind(), autoprefixer()] } },
     optimizeDeps: {
       include: [
+        'qrcode',
         'three',
         'three/examples/jsm/controls/OrbitControls.js',
         'three/examples/jsm/loaders/OBJLoader.js',

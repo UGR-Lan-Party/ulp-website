@@ -1,0 +1,210 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+const watchUrl = 'https://www.youtube.com/watch?v=VBoMpaRcuSg';
+---
+
+<section class="youtube-section" aria-labelledby="youtube-title">
+  <div class="design-container youtube-grid">
+    <div class="youtube-recording" data-youtube-recording>
+      <div class="youtube-player" data-youtube-player>
+        <a
+          href={watchUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-youtube-play
+          class="youtube-preview"
+          aria-label="Reproducir Así es la UGR LAN Party, streaming ULP 2025"
+        >
+          <img
+            src="/assets/about/youtube-vbomparcusg.jpg"
+            width="480"
+            height="360"
+            loading="lazy"
+            decoding="async"
+            alt="Vista previa de Así es la UGR LAN Party, streaming ULP 2025"
+          />
+          <span class="youtube-play" aria-hidden="true"
+            ><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"
+              ><path d="m9 5 11 7-11 7Z"></path></svg
+            ></span
+          >
+        </a>
+      </div>
+      <div class="youtube-caption">
+        <span>Del archivo de nuestra comunidad</span><h3>
+          Así es la UGR LAN Party · ULP 2025
+        </h3><a href={watchUrl} target="_blank" rel="noopener noreferrer"
+          >Ver en YouTube <ArrowUpRight /></a
+        >
+      </div>
+    </div>
+    <div class="youtube-copy" data-reveal>
+      <span class="youtube-label"
+        ><svg
+          viewBox="0 0 24 24"
+          width="26"
+          height="26"
+          fill="currentColor"
+          aria-hidden="true"
+          ><path
+            d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.6 4.6 12 4.6 12 4.6s-5.6 0-7.5.5a3 3 0 0 0-2.1 2.1 31 31 0 0 0 0 9.6 3 3 0 0 0 2.1 2.1c1.9.5 7.5.5 7.5.5s5.6 0 7.5-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 0-9.6ZM10 15.2V8.8l5.5 3.2Z"
+          ></path></svg
+        > ULP en YouTube</span
+      >
+      <h2 id="youtube-title">La partida sigue<br /><em>cuando quieras</em></h2>
+      <p>
+        Momentos, retransmisiones y recuerdos para volver a la ULP, una y otra
+        vez.
+      </p>
+      <a
+        class="youtube-subscribe"
+        href="https://www.youtube.com/@ugrlanparty?sub_confirmation=1"
+        target="_blank"
+        rel="noopener noreferrer">Suscríbete al canal <ArrowUpRight /></a
+      >
+    </div>
+  </div>
+</section>
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-youtube-recording]')
+    .forEach((recording) => {
+      const link = recording.querySelector<HTMLAnchorElement>(
+        '[data-youtube-play]',
+      )!;
+      const player = recording.querySelector<HTMLElement>(
+        '[data-youtube-player]',
+      )!;
+      link.addEventListener('click', (event) => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
+          return;
+        event.preventDefault();
+        const iframe = document.createElement('iframe');
+        iframe.src =
+          'https://www.youtube-nocookie.com/embed/VBoMpaRcuSg?autoplay=1&rel=0';
+        iframe.title = 'Así es la UGR LAN Party · Streaming ULP 2025';
+        iframe.allow =
+          'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        iframe.allowFullscreen = true;
+        player.replaceChildren(iframe);
+        iframe.focus();
+      });
+    });
+</script>
+<style>
+  .youtube-section {
+    padding-block: clamp(90px, 9vw, 120px);
+    color: #f5f0e6;
+    background:
+      radial-gradient(ellipse at 20% 45%, #007983, transparent 70%), #004465;
+  }
+  .youtube-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.8fr;
+    align-items: center;
+    gap: clamp(35px, 5vw, 75px);
+  }
+  .youtube-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font:
+      10px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  h2 {
+    font-size: clamp(34px, 4.4vw, 60px);
+    line-height: 1.05;
+    font-weight: 750;
+    margin-block: 25px;
+    letter-spacing: -0.035em;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  p {
+    font-size: 13px;
+    line-height: 1.85;
+    opacity: 0.8;
+    max-width: 360px;
+  }
+  .youtube-subscribe {
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 26px;
+    padding: 13px 18px;
+    border: 1px solid rgb(245 240 230 / 0.35);
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .youtube-subscribe:hover {
+    background: rgb(245 240 230 / 0.12);
+  }
+  .youtube-recording {
+    border: 1px solid rgb(245 240 230 / 0.2);
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgb(6 51 73 / 0.65);
+  }
+  .youtube-player,
+  .youtube-preview {
+    display: block;
+    position: relative;
+    aspect-ratio: 16 / 9;
+  }
+  .youtube-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .youtube-play {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #006471;
+    box-shadow: 0 6px 25px rgb(0 35 51 / 0.25);
+  }
+  .youtube-caption {
+    padding: 18px 22px;
+  }
+  .youtube-caption > span {
+    font:
+      9px ui-monospace,
+      monospace;
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-block: 8px 12px;
+  }
+  .youtube-caption a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+  }
+  .youtube-player :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  @media (max-width: 900px) {
+    .youtube-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -19,16 +19,25 @@ for (const width of [1440, 390]) {
     for (const [parent, zone, detail, title] of [
       ['principal-0', 'hall', 'principal-hall', 'Hall principal'],
       ['principal-baja', 'actos', 'principal-actos', 'Salón de Actos'],
+      ['principal-0', 'grados', 'principal-grados', 'Salón de Grados'],
     ]) {
       await floors.selectOption(parent);
       await page.locator(`[data-venue-zone="${zone}"]`).focus();
       await page.keyboard.press('Enter');
       await expect(map).toHaveAttribute('data-venue-plan', detail);
       await expect(floors).toHaveValue(parent);
+      const capacity = page.locator('[data-venue-room-capacity]');
+      if (zone === 'hall') await expect(capacity).toBeHidden();
+      else {
+        await expect(capacity).toBeVisible();
+        await expect(
+          capacity.locator('[data-venue-room-capacity-value]'),
+        ).toHaveText(zone === 'actos' ? '196' : '60');
+      }
       await expect(floors.locator('option')).toHaveCount(2);
       await expect(
         page.locator(
-          'select option[value="principal-hall"], select option[value="principal-actos"]',
+          'select option[value="principal-hall"], select option[value="principal-actos"], select option[value="principal-grados"]',
         ),
       ).toHaveCount(0);
       await expect(page.locator('[data-venue-room-title]')).toHaveText(title);
@@ -149,3 +158,70 @@ test.describe('Pasillo exterior con interacción táctil', () => {
     );
   });
 });
+
+for (const width of [1440, 390]) {
+  test(`Volver del Salón de Grados mantiene accesible Hall principal a ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 1000 });
+    const hall = page.locator('[data-venue-zone="hall"]');
+    const grados = page.locator('[data-venue-zone="grados"]');
+    await expect(hall).toBeVisible();
+    await grados.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('[data-venue-map]')).toHaveAttribute(
+      'data-venue-plan',
+      'principal-grados',
+    );
+    await expect(page.locator('[data-venue-room-capacity-value]')).toHaveText(
+      '60',
+    );
+    await page.locator('[data-venue-room-back]').click();
+    await expect(hall).toBeVisible();
+    await expect(hall).toHaveAttribute('aria-hidden', 'false');
+    const rows = page.locator('[data-program-row]:visible');
+    await hall.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('[data-venue-map]')).toHaveAttribute(
+      'data-venue-plan',
+      'principal-hall',
+    );
+    await expect(rows).toHaveCount(46);
+  });
+}
+
+for (const width of [1440, 390]) {
+  test(`Escaleras y ascensor permiten subir y bajar de planta a ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 1000 });
+    const map = page.locator('[data-venue-map]');
+    for (const [building, lower, upper] of [
+      ['principal', 'principal-baja', 'principal-0'],
+      ['aulario', 'aulario-0', 'aulario-1'],
+    ]) {
+      await page.locator('[data-venue-building-select]').selectOption(building);
+      await page.locator('[data-venue-floor-select]').selectOption(lower);
+      for (const kind of ['stairs', 'lift']) {
+        const icon = (floor: string) =>
+          page.locator(
+            `[data-venue-floor-plan="${floor}"] [data-venue-amenity="${kind}"][data-venue-go-floor]`,
+          );
+        await expect(icon(lower)).toHaveAttribute('role', 'button');
+        await icon(lower).locator('circle').click();
+        await expect(map).toHaveAttribute('data-venue-plan', upper);
+        await expect(page.locator('[data-venue-floor-select]')).toHaveValue(
+          upper,
+        );
+        await expect(icon(upper)).toBeFocused();
+        await page.keyboard.press('Enter');
+        await expect(map).toHaveAttribute('data-venue-plan', lower);
+        await expect(icon(lower)).toBeFocused();
+        await page.keyboard.press('Space');
+        await expect(map).toHaveAttribute('data-venue-plan', upper);
+        await icon(upper).locator('circle').click();
+        await expect(map).toHaveAttribute('data-venue-plan', lower);
+      }
+    }
+  });
+}

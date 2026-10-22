@@ -25,6 +25,7 @@
     "autoprefixer": "^10.6.1",
     "gsap": "^3.15.0",
     "marked": "^17.0.6",
+    "qrcode": "^1.5.4",
     "sharp": "^0.35.5",
     "swiper": "^12.2.0",
     "tailwindcss": "^3.4.19",
@@ -33,6 +34,8 @@
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
+    "@types/qrcode": "^1.5.6",
+    "jsqr": "1.4.0",
     "parse5": "8.0.1",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^0.12.3",
