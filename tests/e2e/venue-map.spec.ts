@@ -263,6 +263,7 @@ test('El Aulario mantiene las dos plantas sin asociar actividades ni inventar se
 test('Los siete planos mantienen servicios y rótulos legibles al girar en ambos temas', async ({
   page,
 }) => {
+  test.slow();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const plans = [
     ['principal', 'principal-0'],

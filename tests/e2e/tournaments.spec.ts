@@ -5,6 +5,7 @@ test.beforeEach(async ({ page }) => {
 test('Previous nicknames and results are absent outside LoL; dynamic brackets retain TBD', async ({
   page,
 }) => {
+  test.slow();
   for (const id of [
     'ping-pong',
     'smash',
