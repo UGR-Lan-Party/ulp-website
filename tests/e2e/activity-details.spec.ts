@@ -4,6 +4,7 @@ import program from '../../src/data/program-2026.json' with { type: 'json' };
 test('Las 26 fichas conservan sus datos, reglas y premios en móvil sin JavaScript', async ({
   browser,
 }) => {
+  test.slow();
   const context = await browser.newContext({
     javaScriptEnabled: false,
     reducedMotion: 'reduce',

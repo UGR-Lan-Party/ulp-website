@@ -1,0 +1,23 @@
+# Combine with the production compose file from /home/ballenita/ulp-prod.
+# Copy website/deploy/social-stats.env.example to .env.social-stats there.
+# docker compose -f compose.yml -f website/compose.social-stats.yml up -d --build
+services:
+  social-stats:
+    build:
+      context: ${ULP_WEBSITE_PATH:-./website}
+      dockerfile: Dockerfile.social-stats
+    env_file:
+      - ${ULP_SOCIAL_ENV_FILE:-./.env.social-stats}
+    expose:
+      - '8788'
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: '5m'
+        max-file: '2'

@@ -1,4 +1,5 @@
 export const legacyRedirects = {
+  '/info/redes-sociales': '/info/rrss',
   '/horarios': '/info/horarios',
   '/201617': '/',
   '/201718': '/',

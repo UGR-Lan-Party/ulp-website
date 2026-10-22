@@ -1,0 +1,559 @@
+---
+import LinktreeCard from '../../components/LinktreeCard.astro';
+import Layout from '../../layouts/Layout.astro';
+import GranadaAccent from '../../components/GranadaAccent.astro';
+import ArrowUpRight from '../../components/ArrowUpRight.astro';
+import XIcon from '../../../public/assets/icons/XIcon.astro';
+import InstagramIcon from '../../../public/assets/icons/InstagramIcon.astro';
+import DiscordIcon from '../../../public/assets/icons/DiscordIcon.astro';
+import TwitchIcon from '../../../public/assets/icons/TwitchIcon.astro';
+import TikTokIcon from '../../../public/assets/icons/TikTokIcon.astro';
+import YouTubeIcon from '../../../public/assets/icons/YouTubeIcon.astro';
+import FacebookIcon from '../../../public/assets/icons/FacebookIcon.astro';
+import {
+  socialEditions,
+  socialEditionTotals,
+  socialNetworks,
+} from '../../data/social-networks.js';
+const icons: Record<string, typeof XIcon> = {
+  x: XIcon,
+  instagram: InstagramIcon,
+  discord: DiscordIcon,
+  twitch: TwitchIcon,
+  tiktok: TikTokIcon,
+  youtube: YouTubeIcon,
+  facebook: FacebookIcon,
+};
+const columns = socialEditions
+  .map((year, index) => ({ year, index }))
+  .reverse();
+const number = new Intl.NumberFormat('es-ES', {
+  useGrouping: true,
+  maximumFractionDigits: 0,
+});
+---
+
+<Layout
+  title="Redes sociales"
+  description="Sigue a UGR LAN Party en sus redes sociales y consulta la evolución de seguidores, suscriptores y miembros por edición."
+>
+  <article class="social-page design-container" data-social-stats>
+    <header class="social-heading">
+      <GranadaAccent id="social-mosaic" />
+      <div>
+        <span class="design-eyebrow">La comunidad, más allá de la ETSIIT</span
+        ><h1>Redes <em>sociales</em></h1><p>
+          Partidas, novedades y todo lo que compartimos entre una edición y la
+          siguiente.
+        </p>
+      </div>
+      <div class="social-heading-note">
+        <span>ENCUÉNTRANOS EN</span><strong
+          >7 canales<span aria-hidden="true">↗</span></strong
+        ><span>Una misma comunidad</span>
+      </div>
+    </header>
+
+    <section class="social-evolution" aria-labelledby="social-table-title">
+      <div class="social-section-heading">
+        <div>
+          <span class="social-eyebrow">Nuestra evolución</span><h2
+            id="social-table-title"
+          >
+            Seguimos sumando
+          </h2>
+        </div><div class="social-update">
+          <span data-social-status role="status" aria-live="polite"
+            >Contadores actuales</span
+          ><button type="button" data-social-refresh hidden
+            >Actualizar <span aria-hidden="true">↻</span></button
+          >
+        </div>
+      </div>
+      <p id="social-table-description" class="social-table-description">
+        Las cifras de cada edición son históricas. La columna Actual se consulta
+        automáticamente cada minuto.
+      </p>
+      <p class="social-scroll-hint">
+        Desliza para ver todas las ediciones <span aria-hidden="true">↔</span>
+      </p>
+      <div
+        class="social-table-scroll"
+        role="region"
+        aria-label="Evolución de redes sociales por edición"
+        tabindex="0"
+      >
+        <table aria-describedby="social-table-description">
+          <caption class="sr-only"
+            >Seguidores, suscriptores y miembros de UGR LAN Party en sus redes
+            sociales</caption
+          >
+          <thead
+            ><tr>
+              {columns.map(({ year }) => <th scope="col">Ed. {year}</th>)}
+              <th scope="col" class="current-column"
+                >Actual <span class="current-dot" aria-hidden="true"></span></th
+              >
+              <th scope="col" class="network-column">Red social / edición</th>
+            </tr></thead
+          >
+          <tbody
+            >{
+              socialNetworks.map((network) => {
+                const Icon = icons[network.id];
+                return (
+                  <tr data-social-network={network.id}>
+                    {columns.map(({ year, index }) => (
+                      <td data-edition={year}>
+                        {network.history[index] === null ? (
+                          <span class="no-record" aria-label="Sin datos">
+                            —
+                          </span>
+                        ) : (
+                          number.format(network.history[index]!)
+                        )}
+                      </td>
+                    ))}
+                    <td class="current-column">
+                      <>
+                        <span class="current-count" data-social-current>
+                          —
+                        </span>
+                        <small class="current-info" data-social-info>
+                          Sin consultar
+                        </small>
+                        <time data-social-time hidden />
+                      </>
+                    </td>
+                    <th scope="row" class="network-column">
+                      <a
+                        href={network.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <>
+                          <span class="social-network-icon">
+                            <Icon aria-hidden="true" />
+                          </span>
+                          <span>
+                            <>
+                              <strong>{network.name}</strong>
+                              <small>{network.handle}</small>
+                            </>
+                          </span>
+                          <span class="social-external" aria-hidden="true">
+                            <ArrowUpRight />
+                          </span>
+                        </>
+                      </a>
+                    </th>
+                  </tr>
+                );
+              })
+            }</tbody
+          >
+          <tfoot
+            ><tr>
+              {
+                columns.map(({ year, index }) => (
+                  <td data-edition-total={year}>
+                    {number.format(socialEditionTotals[index])}
+                  </td>
+                ))
+              }
+              <td class="current-column"
+                ><strong data-social-total>—</strong><small
+                  class="current-info"
+                  data-social-total-note>Sin datos actuales</small
+                ></td
+              >
+              <th scope="row" class="network-column"
+                >Total <small>Suma de los canales</small></th
+              >
+            </tr></tfoot
+          >
+        </table>
+      </div>
+
+      <noscript
+        ><p class="social-note">
+          Puedes consultar el histórico y visitar las redes. Activa JavaScript
+          para actualizar los contadores actuales.
+        </p></noscript
+      >
+    </section>
+  </article>
+  <LinktreeCard />
+</Layout>
+
+<script>
+  import '../../scripts/social-stats';
+</script>
+
+<style>
+  .social-page {
+    padding-top: 84px;
+    padding-bottom: clamp(48px, 7vw, 100px);
+  }
+  .social-heading {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 40px;
+    align-items: end;
+    padding-block: clamp(40px, 6vw, 76px) 44px;
+  }
+  .social-heading :global(.granada-accent) {
+    z-index: -1;
+  }
+  h1 {
+    font-size: clamp(40px, 6.3vw, 80px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-block: 22px;
+  }
+  h1 em {
+    font:
+      italic 1.1em Georgia,
+      serif;
+  }
+  .social-heading p {
+    max-width: 470px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .social-heading-note {
+    display: grid;
+    gap: 12px;
+    border-left: 1px solid var(--line);
+    padding: 8px 0 8px 28px;
+    justify-self: end;
+    min-width: 220px;
+  }
+  .social-heading-note > span:first-child,
+  .social-eyebrow {
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .social-heading-note strong {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    font-size: 32px;
+    font-weight: 750;
+    letter-spacing: -0.05em;
+  }
+  .social-heading-note > span:last-child {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .social-evolution {
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+  }
+  .social-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 750;
+    line-height: 1.1;
+    margin-top: 10px;
+  }
+  .social-update {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: end;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .social-update > span {
+    max-width: 300px;
+    text-align: right;
+    line-height: 1.6;
+  }
+  .social-update button {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-height: 44px;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .social-update button[hidden] {
+    display: none;
+  }
+  .social-update button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+  .social-update button:hover:not(:disabled) {
+    background: var(--surface);
+  }
+  .social-table-description,
+  .social-note {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .social-table-description {
+    margin-bottom: 20px;
+  }
+  .social-scroll-hint {
+    display: none;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  @media (max-width: 1100px) {
+    .social-scroll-hint {
+      display: block;
+    }
+  }
+  .social-table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+  table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  th,
+  td {
+    text-align: right;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  thead th {
+    color: #f5f0e6;
+    background: #004465;
+    font:
+      11px ui-monospace,
+      monospace;
+    letter-spacing: 0.03em;
+    padding-block: 15px;
+  }
+  thead th:last-child {
+    text-transform: uppercase;
+    text-align: left;
+  }
+  tbody th,
+  tfoot th {
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    text-align: left;
+    background: var(--paper);
+  }
+  tbody th {
+    padding: 0 20px;
+  }
+  tbody th a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 58px;
+  }
+  tbody th a:hover strong {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  tbody th strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  tbody th small {
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .social-network-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .social-network-icon :global(svg) {
+    width: 17px;
+    height: 17px;
+  }
+  .social-external {
+    margin-left: auto;
+    width: 13px;
+    opacity: 0.6;
+  }
+  .current-column {
+    background: var(--surface);
+    min-width: 148px;
+    border-inline: 1px solid var(--line);
+  }
+  thead .current-column {
+    background: #006471;
+  }
+  .current-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #f5f0e6;
+    margin-left: 8px;
+  }
+  thead .network-column {
+    position: sticky;
+    right: 0;
+    z-index: 2;
+  }
+  .network-column {
+    border-left: 1px solid var(--line);
+  }
+  tr[data-state='live'] .current-info {
+    display: none;
+  }
+  .current-count {
+    display: block;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+  .current-info,
+  td time {
+    display: block;
+    font-size: 9px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  td time[hidden] {
+    display: none;
+  }
+  tr[data-state='live'] .current-count {
+    color: #006471;
+  }
+  :global(.dark) tr[data-state='live'] .current-count {
+    color: #8ed9ce;
+  }
+  .no-record {
+    color: var(--muted);
+  }
+  tfoot th,
+  tfoot td {
+    font-weight: 750;
+    border-bottom: 0;
+    background: var(--surface);
+  }
+  tfoot th small {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  tfoot [data-social-total] {
+    display: block;
+    font-size: 17px;
+  }
+  .social-note {
+    margin-top: 16px;
+    max-width: 750px;
+  }
+  @media (max-width: 900px) {
+    .social-heading {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+    .social-heading-note {
+      justify-self: start;
+      min-width: 250px;
+    }
+  }
+  @media (max-width: 600px) {
+    .social-heading {
+      padding-top: 38px;
+    }
+    .social-heading .design-eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.06em;
+    }
+    h1 em {
+      display: block;
+    }
+    .social-section-heading {
+      align-items: start;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .social-update {
+      justify-content: start;
+    }
+    .social-update > span {
+      text-align: left;
+    }
+    table {
+      min-width: 870px;
+      font-size: 12px;
+    }
+    th,
+    td {
+      padding-inline: 16px;
+    }
+    tbody th {
+      padding-inline: 12px;
+      max-width: 164px;
+    }
+    tbody th a {
+      gap: 8px;
+      min-height: 58px;
+    }
+    tbody th strong {
+      font-size: 12px;
+    }
+    tbody th small {
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 9px;
+    }
+    .social-network-icon {
+      width: 27px;
+      height: 27px;
+      border-radius: 8px;
+    }
+    .social-network-icon :global(svg) {
+      width: 14px;
+      height: 14px;
+    }
+    .social-external {
+      display: none;
+    }
+    .current-column {
+      min-width: 130px;
+    }
+  }
+</style>

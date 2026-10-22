@@ -26,6 +26,7 @@ for (const width of [1280, 390]) {
       'Horarios',
       'Localización',
       'Sobre nosotros',
+      'Redes sociales',
       'Ediciones anteriores',
       'FAQs',
       'Aviso legal',
