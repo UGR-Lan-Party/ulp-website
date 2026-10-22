@@ -1,48 +1,1001 @@
 ---
-// juego-libre.astro
-import JuegoLibresection from '../components/JuegoLibresection.astro';
-import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Reemplaza estas URLs con las URLs reales de tus imágenes
-const imgJuegoLibre = '../assets/activities/juego-libre.png';
-const imgHackiit = '../assets/activities/hackiit.png';
-const imgRacing = '../assets/activities/racing.png';
-const imgVR = '../assets/activities/vr.png';
-const imgStreaming = '../assets/activities/streaming.png';
-const imgFightingGames = '../assets/activities/fighting.png';
-const linkTwitch = 'https://www.twitch.tv/ugr_lan_party';
-
-const juegoLibreDescripcion = `Las zonas de Juego Libre estarán habilitadas con el propósito de que los participantes de la ULP puedan acceder libremente, sin turno pre-asignado, para jugar en cualquier momento. Podréis encontrar gran variedad de opciones de juego: Consolas Retro, Playstation, Nintendo Switch, Nintendo Wii, Simulador de Fórmula 1, Gafas VR Meta Quest II, etc.`;
-const standsDescripcion = `En distintas zonas del evento estarán representantes de algunas empresas patrocinadoras de la UGR LAN Party, donde ofrecerán información sobre su papel en el sector tecnológico y el de los videojuegos. Los estudiantes podrán consultales sobre oportunidades de trabajo, perfiles en tendencia, tecnologías utilizadas y cualquier inquietud relacionada.`;
-const streamingDescripcion = `Se podrá seguir todo el evento en vivo a través del canal oficial de Twitch de la UGR LAN Party, donde se emitirán y comentarán las partidas más emocionantes de las distintas competiciones que se van a llevar a cabo.`;
-const hackiitDescripcion = `En colaboración con la asociación de Hackiit, se ha preparado una zona donde se llevarán a cabo retos de Hacking Ético donde se podrá aprender y/o poner en práctica habilidades relacionadas con el hacking ético.`;
-const racingDescripcion = `A modo de reto complementario se ha creado una zona donde aquellos que lo deseen podrán utilizar el simulador de carreras. Se anotará la marca de tiempo que hacen y al final de la LAN Party se anunciará la mejor marca y al ganador del reto. Este obtendrá una plaza en el campeonato regional de Racing de Granada y alguna sorpresa adicional.`;
-const vrDescripcion = `Se habilitará una zona de VR donde los asistentes podrán probar las gafas inmersivas de realidad virtual Meta Quest II y disfrutar de distintos juegos. En cualquier momento será posible pedir ayuda a los organizadores en caso de no conocer el funcionamiento de las mismas.`;
-const fightingGamesDescripcion = `La zona de fighting games estará habilitada con el propósito de que los asistentes a la ULP jueguen libremente contra otros participantes, sin turno pre-asignado. Podréis encontrar los siguientes juegos: Dragon Ball Fighterz, Guilty Gear Strive y Mortal Kombat 11.`;
-
+import ArrowUpRight from '../components/ArrowUpRight.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import GranadaAccent from '../components/GranadaAccent.astro';
+import FreePlayIcon from '../components/FreePlayIcon.astro';
+import FreePlaySelect from '../components/FreePlaySelect.astro';
+import { freePlayExperiences } from '../utils/free-play.js';
 ---
 
-<Layout>
-    <Breadcrumb>
-      <Fragment slot="title">Actividades</Fragment>
-      <Fragment slot="texto">Descubre todas las actividades disponibles en la zona de Juego Libre.</Fragment>
-    </Breadcrumb>
-  
-    <div class={`space-y-4 md:space-y-8 p-4 md:p-8  relative`}>
-      <JuegoLibresection titulo="Juego Libre" descripcion={juegoLibreDescripcion} imgPath={imgJuegoLibre} imgClass="rounded-lg shadow-lg" textClass="text-lg font-semibold text-gray-800" />
-
-      <JuegoLibresection titulo="Simulador de Racing" descripcion={racingDescripcion} imgPath={imgRacing} imgClass="rounded-lg shadow-lg" textClass="text-lg font-semibold text-gray-800" />
-
-      <JuegoLibresection titulo="Realidad Virtual" descripcion={vrDescripcion} imgPath={imgVR} imgClass="rounded-lg shadow-lg" textClass="text-lg font-semibold text-gray-800" />
-
-      <JuegoLibresection titulo="Fighting Games" descripcion={fightingGamesDescripcion} imgPath={imgFightingGames} imgClass="rounded-lg shadow-lg" textClass="text-lg font-semibold text-gray-800" />
-
-      <JuegoLibresection titulo="Reto Hacking Ético" descripcion={hackiitDescripcion} imgPath={imgHackiit} />
-
-      <JuegoLibresection titulo="Streaming" descripcion={streamingDescripcion} imgPath={imgStreaming} link={linkTwitch} linkClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" />
-    
-      <JuegoLibresection titulo="Stands" descripcion={standsDescripcion} />
+<Layout
+  title="Juego libre"
+  description="Encuentra tu próxima partida en UGR LAN Party: consolas, retro, realidad virtual, racing, ping pong y experiencias para compartir a tu ritmo."
+>
+  <div class="free-play-page" data-free-play>
+    <header class="play-hero design-container">
+      <div class="play-hero-copy">
+        <nav class="play-breadcrumb" aria-label="Migas de pan">
+          <a href="/">Inicio</a><span aria-hidden="true">/</span><span
+            aria-current="page">Juego libre</span
+          >
+        </nav>
+        <span class="design-eyebrow">Elige tu ritmo</span>
+        <h1>
+          Entra por<br />curiosidad.<br /><em>Quédate por<br />la partida.</em>
+        </h1>
+        <p>
+          Un clásico que recordar, un mando que compartir o algo que probar por
+          primera vez. Hay muchas formas de vivir la ULP.
+        </p>
+        <a class="design-button" href="#elige-tu-partida"
+          >Encuentra tu experiencia <ArrowUpRight /></a
+        >
+        <span class="play-edition"
+          ><i aria-hidden="true"></i>Experiencias de 2026 · preparando ULP 2027</span
+        >
+      </div>
+      <div class="play-hero-art">
+        <div class="play-photo-frame">
+          <ResponsiveImage
+            src="/assets/competitions/cards/juego-libre-ulp-2025.jpg"
+            alt="Participantes de la ULP jugando a clásicos en consolas retro"
+            sizes="(max-width: 700px) 90vw, 45vw"
+            loading="eager"
+            fetchpriority="high"
+          /><span class="play-photo-label">ETSIIT / GRANADA / ULP</span>
+        </div>
+        <div class="play-ticket" aria-hidden="true">
+          <span>UNA MÁS Y NOS VAMOS</span><FreePlayIcon
+            name="controller"
+          /><strong>Otra<br /><em>partida.</em></strong><span
+            class="play-ticket-code">PULSA START · ULP</span
+          >
+        </div>
+        <span class="play-orbit play-orbit-one" aria-hidden="true"></span><span
+          class="play-orbit play-orbit-two"
+          aria-hidden="true"></span>
+      </div>
+    </header>
+    <section
+      class="play-explorer design-container"
+      id="elige-tu-partida"
+      aria-labelledby="play-explorer-title"
+    >
+      <div class="play-section-heading">
+        <div>
+          <span class="design-eyebrow">01 / Tu siguiente partida</span><h2
+            id="play-explorer-title"
+          >
+            ¿Qué te apetece<br /><em>jugar hoy?</em>
+          </h2>
+        </div><p>
+          Encuentra una idea para tu próxima pausa, para venir con colegas o
+          para descubrir algo nuevo.
+        </p>
+      </div>
+      <form
+        class="play-filters"
+        data-play-filters
+        hidden
+        aria-label="Encuentra tu experiencia"
+      >
+        <FreePlaySelect
+          name="time"
+          label="Tiempo disponible"
+          caption="01 / Tengo…"
+          options={[
+            { value: 'any', label: 'Tiempo para explorar' },
+            { value: '15', label: 'Unos 15 minutos' },
+            { value: '30', label: 'Unos 30 minutos' },
+            { value: '60', label: 'Una hora o más' },
+          ]}
+        />
+        <FreePlaySelect
+          name="group"
+          label="Tu grupo"
+          caption="02 / Vengo…"
+          options={[
+            { value: 'any', label: 'Como surja' },
+            { value: 'solo', label: 'A mi aire' },
+            { value: 'duo', label: 'Con otra persona' },
+            { value: 'group', label: 'En grupo' },
+          ]}
+        />
+        <FreePlaySelect
+          name="mood"
+          label="Tipo de experiencia"
+          caption="03 / Me apetece…"
+          options={[
+            { value: 'any', label: 'Un poco de todo' },
+            { value: 'share', label: 'Compartir partida' },
+            { value: 'duel', label: 'Un buen duelo' },
+            { value: 'explore', label: 'Probar algo nuevo' },
+          ]}
+        />
+        <button type="button" class="play-reset" data-play-reset
+          >Reiniciar <span aria-hidden="true">↺</span></button
+        >
+      </form>
+      <div class="play-results-meta">
+        <p data-play-status role="status" aria-live="polite">
+          {freePlayExperiences.length} experiencias para explorar
+        </p><span>Tiempo sugerido para probar · no incluye la espera</span>
+      </div>
+      <div class="play-cards">
+        {
+          freePlayExperiences.map((item) => (
+            <article
+              class:list={[
+                'play-card',
+                { 'play-card-illustrated': !item.image },
+              ]}
+              data-experience={item.id}
+            >
+              <div class="play-card-art">
+                {item.image ? (
+                  <ResponsiveImage
+                    src={item.image}
+                    alt=""
+                    sizes="(max-width: 700px) 90vw, (max-width: 1050px) 43vw, 29vw"
+                  />
+                ) : (
+                  <>
+                    <GranadaAccent id={`play-${item.id}-mosaic`} />
+                    <div class="play-big-icon">
+                      <FreePlayIcon name={item.icon} />
+                    </div>
+                    <span class="play-illustration-note">
+                      LA PARTIDA SIGUE AQUÍ
+                    </span>
+                  </>
+                )}
+                <>
+                  <span class="play-card-number">{item.number} / ULP</span>
+                  <span class="play-card-category">
+                    <FreePlayIcon name={item.icon} />
+                    {item.category}
+                  </span>
+                </>
+              </div>
+              <div class="play-card-copy">
+                <>
+                  <div class="play-card-meta">
+                    <>
+                      <span>{item.duration}</span>
+                      <span>{item.players}</span>
+                    </>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <a
+                    class="play-card-link"
+                    href={`/info/horarios/?plano=${item.plan}#plano`}
+                    aria-label={`Ver ${item.category} en el plano de 2026`}
+                  >
+                    <>
+                      <span>
+                        <small>EN EL PLANO DE 2026</small>
+                        {item.location}
+                      </span>
+                      <ArrowUpRight />
+                    </>
+                  </a>
+                </>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="play-empty" data-play-empty hidden>
+        <FreePlayIcon name="controller" /><h3>Probamos otra combinación.</h3><p>
+          Amplía el tiempo o cambia el tipo de experiencia para descubrir más
+          opciones.
+        </p><button class="design-button" type="button" data-play-reset
+          >Ver todas las experiencias <ArrowUpRight /></button
+        >
+      </div>
+    </section>
+    <section
+      class="play-between design-container"
+      aria-labelledby="between-title"
+    >
+      <div class="play-between-intro">
+        <span class="design-eyebrow">02 / Entre partidas</span><h2
+          id="between-title"
+        >
+          También se viene<br /><em>a encontrarse.</em>
+        </h2><p>
+          Saluda, descubre lo que hacen otras personas y comparte la ULP desde
+          otro sitio.
+        </p>
+      </div>
+      <a class="play-side-card" href="/participan"
+        ><span class="play-side-number">01 / PERSONAS Y PROYECTOS</span><h3>
+          Conoce a quienes<br />lo hacen posible.
+        </h3><p>
+          Asociaciones, entidades y colaboradores de la comunidad.
+        </p><span class="play-side-action"
+          >Explorar entidades <ArrowUpRight /></span
+        ></a
+      >
+      <a
+        class="play-side-card play-side-stream"
+        href="https://www.twitch.tv/ugr_lan_party"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><span class="play-side-number">02 / DESDE LA GRADA</span><h3>
+          La siguiente partida,<br />desde Twitch.
+        </h3><p>Visita el canal de la ULP para ver sus retransmisiones.</p><span
+          class="play-side-action">Ir al canal <ArrowUpRight /></span
+        ></a
+      >
+    </section>
+    <div class="play-program design-container">
+      <div>
+        <span class="design-eyebrow">Para seguir explorando</span><h2>
+          Haz sitio para <em>otra experiencia.</em>
+        </h2>
+      </div><a href="/actividades" class="design-button"
+        >Ver todas las actividades <ArrowUpRight /></a
+      ><a href="/info/horarios" class="design-link"
+        >Programa de 2026 <ArrowUpRight /></a
+      >
     </div>
-  </Layout>
-  
+  </div>
+</Layout>
+<script>
+  import '../scripts/free-play';
+</script>
+<style>
+  .play-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(30px, 6vw, 90px);
+    align-items: center;
+    padding-block: 36px 70px;
+    overflow: hidden;
+  }
+  .play-breadcrumb {
+    display: flex;
+    gap: 12px;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 35px;
+  }
+  .play-breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  .play-hero h1 {
+    font-size: clamp(44px, 5.7vw, 78px);
+    font-weight: 850;
+    line-height: 0.99;
+    letter-spacing: -0.065em;
+    margin: 20px 0 24px;
+  }
+  .play-hero h1 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.055em;
+  }
+  .play-hero-copy > p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 390px;
+    margin-bottom: 26px;
+  }
+  .play-hero-copy > .design-button {
+    gap: 16px;
+    font-size: 12px;
+  }
+  .play-hero :global(.design-button svg) {
+    width: 17px;
+    height: 17px;
+  }
+  .play-edition {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font:
+      9px/1.6 ui-monospace,
+      monospace;
+    margin-top: 22px;
+    color: var(--muted);
+  }
+  .play-edition i {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .play-hero-art {
+    position: relative;
+    isolation: isolate;
+    padding: 40px 40px 60px 0;
+    min-width: 0;
+  }
+  .play-photo-frame {
+    transform: rotate(-3deg);
+    position: relative;
+    border-radius: 130px 18px 18px 18px;
+    overflow: hidden;
+    background: #004465;
+    border: 1px solid var(--line);
+  }
+  .play-photo-frame :global(img) {
+    width: 100%;
+    height: 490px;
+    object-fit: cover;
+    object-position: 55% center;
+  }
+  .play-photo-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 25px;
+    color: #f5f0e6;
+    background: #004465;
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+  }
+  .play-ticket {
+    position: absolute;
+    bottom: 4px;
+    right: 0;
+    transform: rotate(7deg);
+    background: #f5f0e6;
+    color: #004465;
+    border: 1px solid #00446526;
+    border-radius: 8px;
+    padding: 20px 23px;
+    box-shadow: 0 14px 28px #001a2926;
+    width: 190px;
+  }
+  .play-ticket > span:first-child {
+    font:
+      7px ui-monospace,
+      monospace;
+    letter-spacing: 0.05em;
+  }
+  .play-ticket :global(svg) {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: 14px 0 8px;
+  }
+  .play-ticket strong {
+    display: block;
+    font-size: 29px;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+  .play-ticket strong em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .play-ticket-code {
+    display: block;
+    border-top: 1px dashed #00446566;
+    margin-top: 18px;
+    padding-top: 10px;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+  }
+  .play-orbit {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    width: 85%;
+    aspect-ratio: 1;
+    top: 0;
+    right: 0;
+  }
+  .play-orbit-two {
+    width: 100%;
+    top: 45px;
+    right: 25px;
+    border-style: dashed;
+  }
+  .play-explorer {
+    padding-block: 50px 65px;
+    border-block: 1px solid var(--line);
+    scroll-margin-top: 105px;
+  }
+  .play-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .play-section-heading h2,
+  .play-between h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.05em;
+    margin-top: 16px;
+  }
+  .play-section-heading h2 em,
+  .play-between h2 em,
+  .play-program h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .play-section-heading > p {
+    max-width: 270px;
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+  .play-filters {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+    padding: 18px 22px;
+    align-items: end;
+  }
+  .play-filters[hidden] {
+    display: none;
+  }
+  .play-filters > :global(.play-filter) {
+    display: grid;
+    gap: 10px;
+    padding-inline: 18px;
+    border-right: 1px solid var(--line);
+  }
+  .play-filters > :global(.play-filter):first-child {
+    padding-left: 0;
+  }
+  .play-filters :global(.play-filter-caption) {
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .play-filters :global(select) {
+    color: var(--ink);
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    width: 100%;
+    padding-right: 22px;
+    min-width: 0;
+    cursor: pointer;
+    line-height: 1.5;
+  }
+  .play-filters :global(option) {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .play-reset {
+    font-size: 11px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 8px 0 0 18px;
+    min-height: 40px;
+  }
+  .play-reset > span {
+    font-size: 21px;
+    line-height: 1;
+  }
+  .play-reset:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .play-results-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 15px;
+    margin: 19px 0 22px;
+    font:
+      10px/1.6 ui-monospace,
+      monospace;
+  }
+  .play-results-meta > span {
+    font-size: 9px;
+    color: var(--muted);
+  }
+  .play-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+  .play-card {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .play-card[hidden] {
+    display: none;
+  }
+  .play-card-art {
+    position: relative;
+    background: #004465;
+    isolation: isolate;
+    overflow: hidden;
+    height: 205px;
+  }
+  .play-card-art :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .play-card:hover .play-card-art :global(img) {
+    transform: scale(1.035);
+  }
+  .play-card-number {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+    background: #f5f0e6;
+    color: #004465;
+    border-radius: 5px;
+    padding: 7px 9px;
+  }
+  .play-card-category {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f0e6;
+    color: #004465;
+    border-radius: 7px;
+    padding: 8px 11px;
+    font-size: 10px;
+    font-weight: 650;
+  }
+  .play-card-category :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .play-card-copy {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 21px 20px 0;
+  }
+  .play-card-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    font:
+      9px/1.7 ui-monospace,
+      monospace;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .play-card-meta > span + span {
+    border-left: 1px solid var(--line);
+    padding-left: 10px;
+  }
+  .play-card h3 {
+    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    font-weight: 750;
+    max-width: 280px;
+    margin-bottom: 12px;
+  }
+  .play-card-copy > p {
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 21px;
+  }
+  .play-card-link {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-top: 1px solid var(--line);
+    padding-block: 15px;
+    font-size: 10px;
+  }
+  .play-card-link small {
+    display: block;
+    font:
+      7px ui-monospace,
+      monospace;
+    color: var(--muted);
+    letter-spacing: 0.07em;
+    margin-bottom: 5px;
+  }
+  .play-card-link :global(svg) {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+  .play-card-link:hover > span {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .play-big-icon {
+    position: absolute;
+    inset: 15px 60px;
+    display: grid;
+    place-items: center;
+    color: #b4ded6;
+    transform: rotate(-12deg);
+  }
+  .play-big-icon :global(svg) {
+    height: 135px;
+    width: 135px;
+  }
+  .play-card-illustrated .play-card-art {
+    background: #063349;
+  }
+  .play-card-illustrated .play-card-art :global(.granada-accent) {
+    opacity: 0.08;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    color: #f5f0e6;
+  }
+  .play-illustration-note {
+    position: absolute;
+    top: 19px;
+    right: 14px;
+    font:
+      6px ui-monospace,
+      monospace;
+    writing-mode: vertical-rl;
+    letter-spacing: 0.1em;
+    color: #f5f0e6;
+  }
+  .play-empty {
+    padding: 48px 20px;
+    text-align: center;
+    border: 1px dashed var(--line);
+    border-radius: 16px;
+  }
+  .play-empty[hidden] {
+    display: none;
+  }
+  .play-empty > :global(svg) {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 15px;
+  }
+  .play-empty h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  .play-empty p {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 12px auto 24px;
+    max-width: 380px;
+  }
+  .play-empty .design-button {
+    gap: 14px;
+    font-size: 12px;
+  }
+  .play-empty :global(button svg) {
+    width: 16px;
+  }
+  .play-between {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 20px;
+    padding-block: 55px;
+  }
+  .play-between-intro > p {
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 270px;
+    margin-top: 18px;
+  }
+  .play-side-card {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 27px;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    background: var(--surface);
+  }
+  .play-side-number {
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .play-side-card h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin: 30px 0 14px;
+  }
+  .play-side-card p {
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .play-side-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    font-size: 11px;
+    margin-top: auto;
+  }
+  .play-side-action :global(svg) {
+    width: 19px;
+    height: 19px;
+  }
+  .play-side-card:hover .play-side-action {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .play-side-stream {
+    background: #004465;
+    color: #f5f0e6;
+  }
+  .play-side-stream .play-side-number,
+  .play-side-stream p {
+    color: #c1d0cd;
+  }
+  .play-program {
+    border-top: 1px solid var(--line);
+    padding-block: 30px 55px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .play-program > div {
+    margin-right: auto;
+  }
+  .play-program h2 {
+    font-size: 24px;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    margin-top: 12px;
+    font-weight: 750;
+  }
+  .play-program .design-button {
+    font-size: 11px;
+    gap: 14px;
+  }
+  .play-program .design-link {
+    font-size: 11px;
+    gap: 8px;
+  }
+  .play-program :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .play-card-art :global(img) {
+      transition: none;
+    }
+    .play-card:hover .play-card-art :global(img) {
+      transform: none;
+    }
+  }
+  @media (max-width: 1050px) {
+    .play-hero {
+      gap: 25px;
+    }
+    .play-photo-frame :global(img) {
+      height: 430px;
+    }
+    .play-ticket {
+      width: 155px;
+      padding: 17px;
+    }
+    .play-ticket strong {
+      font-size: 25px;
+    }
+    .play-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .play-filters {
+      padding: 15px;
+    }
+    .play-filters > :global(.play-filter) {
+      padding-inline: 12px;
+    }
+    .play-filters :global(select) {
+      font-size: 11px;
+    }
+    .play-between {
+      grid-template-columns: 1fr 1fr;
+    }
+    .play-between-intro {
+      grid-column: 1/-1;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+    .play-between-intro > .design-eyebrow {
+      width: 100%;
+    }
+    .play-between-intro h2 {
+      margin-top: 0;
+    }
+    .play-between-intro > p {
+      margin-top: 0;
+      max-width: 300px;
+    }
+  }
+  @media (max-width: 700px) {
+    .play-hero {
+      grid-template-columns: 1fr;
+      padding-block: 22px 40px;
+      gap: 15px;
+    }
+    .play-breadcrumb {
+      margin-bottom: 25px;
+    }
+    .play-hero h1 {
+      font-size: clamp(45px, 11vw, 68px);
+    }
+    .play-hero-copy > p {
+      font-size: 13px;
+    }
+    .play-hero-art {
+      max-width: 500px;
+      width: 100%;
+      padding: 18px 30px 40px 0;
+    }
+    .play-photo-frame {
+      border-top-left-radius: 90px;
+    }
+    .play-photo-frame :global(img) {
+      height: 300px;
+    }
+    .play-ticket {
+      width: 145px;
+      bottom: 0;
+      right: 6px;
+      padding: 15px;
+    }
+    .play-ticket :global(svg) {
+      width: 36px;
+      height: 36px;
+      margin-block: 10px 6px;
+    }
+    .play-ticket strong {
+      font-size: 24px;
+    }
+    .play-ticket > span:first-child {
+      font-size: 6px;
+    }
+    .play-ticket-code {
+      font-size: 7px;
+      margin-top: 12px;
+      padding-top: 8px;
+    }
+    .play-explorer {
+      padding-block: 34px 40px;
+    }
+    .play-section-heading {
+      display: block;
+      margin-bottom: 24px;
+    }
+    .play-section-heading > p {
+      margin-top: 16px;
+      max-width: 350px;
+    }
+    .play-section-heading h2,
+    .play-between h2 {
+      font-size: 36px;
+    }
+    .play-filters {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      padding: 20px;
+    }
+    .play-filters > :global(.play-filter),
+    .play-filters > :global(.play-filter):first-child {
+      padding: 0 0 13px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      gap: 8px;
+    }
+    .play-filters :global(select) {
+      font-size: 14px;
+      min-height: 28px;
+    }
+    .play-reset {
+      padding: 0;
+      justify-content: space-between;
+      min-height: 28px;
+    }
+    .play-results-meta {
+      display: block;
+      margin-block: 18px;
+    }
+    .play-results-meta > span {
+      display: block;
+      margin-top: 6px;
+      font-size: 8px;
+    }
+    .play-cards {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .play-card-art {
+      height: 220px;
+    }
+    .play-card-copy {
+      padding: 20px 20px 0;
+    }
+    .play-card h3 {
+      max-width: 100%;
+      font-size: 26px;
+    }
+    .play-between {
+      grid-template-columns: 1fr;
+      padding-block: 35px;
+      gap: 16px;
+    }
+    .play-between-intro {
+      display: block;
+      margin-bottom: 6px;
+    }
+    .play-between-intro h2 {
+      margin-top: 14px;
+    }
+    .play-between-intro > p {
+      margin-top: 16px;
+    }
+    .play-side-card {
+      padding: 24px;
+    }
+    .play-side-card h3 {
+      margin-top: 22px;
+    }
+    .play-program {
+      padding-block: 25px 35px;
+      gap: 20px;
+    }
+    .play-program > div {
+      width: 100%;
+    }
+    .play-program h2 {
+      font-size: 25px;
+    }
+  }
+</style>
