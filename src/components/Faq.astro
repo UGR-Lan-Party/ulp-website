@@ -35,7 +35,7 @@ const questions = isHome
   <div id="preguntas" class="faq-list">
     {
       questions.map((faq, index) => (
-        <details data-reveal>
+        <details id={`pregunta-${faq.id}`} data-reveal>
           <summary>
             <span class="faq-index">
               {String(offset + index + 1).padStart(2, '0')}
@@ -199,3 +199,9 @@ const questions = isHome
     }
   }
 </style>
+
+<script>
+  const target = document.getElementById(location.hash.slice(1));
+  if (target instanceof HTMLDetailsElement && /^pregunta-\d+$/.test(target.id))
+    target.open = true;
+</script>
