@@ -11,9 +11,9 @@ const [featured, ...stories] = await getPublishedNews();
   description="Noticias, colaboraciones e historias de la comunidad UGR LAN Party"
 >
   <Breadcrumb current="Noticias">
-    <Fragment slot="title">El tablón<br />de la ULP</Fragment><Fragment
-      slot="texto"
-    >
+    <Fragment slot="title">
+      <span class="news-board-title">El tablón de la ULP</span>
+    </Fragment><Fragment slot="texto">
       Lo que pasa antes, durante y después de encender las pantallas. Noticias y
       recuerdos de nuestra comunidad.
     </Fragment>

@@ -178,25 +178,6 @@ const social = getActivitySocial(competition.id, competition.name);
         registrationLink={competition.registration}
         participantsLink={competition.participants}
       />
-      <section
-        id="informacion"
-        class="activity-information"
-        aria-labelledby="activity-information-title"
-      >
-        <div class="activity-section-copy">
-          <span class="design-eyebrow">01 / Prepara tu visita</span>
-          <h2 id="activity-information-title">Dónde y cuándo</h2>
-          <a class="design-link" href="/info/localizacion"
-            >Cómo llegar a la ETSIIT <span aria-hidden="true"
-              ><ArrowUpRight /></span
-            ></a
-          >
-        </div>
-        <CompetitionTimePlace
-          place={competition.place}
-          time={competition.schedule}
-        />
-      </section>
       {
         hasRewards && (
           <section
