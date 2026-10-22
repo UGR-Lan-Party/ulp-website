@@ -951,7 +951,7 @@
     },
     {
       "id": "charla-3",
-      "nombre": "Presentación de la UGR LAN Party 8ª Ed.",
+      "nombre": "Presentación de la UGR LAN Party 8.ª edición",
       "ubicacion": "Salón de Actos de la ETSIIT",
       "descripcion": "Inauguración oficial del evento ULP con palabras de los organizadores, presentación del programa del día y sorteo de merchandising exclusivo entre los asistentes.",
       "logo": "/assets/logo/logo-black.png",
@@ -996,7 +996,7 @@
       "slot": {
         "startsAt": "2026-03-20T17:15:00+01:00",
         "endsAt": "2026-03-20T17:30:00+01:00",
-        "label": "Presentación de la UGR LAN Party 8ª Ed.",
+        "label": "Presentación de la UGR LAN Party 8.ª edición",
         "allDay": false
       }
     },
