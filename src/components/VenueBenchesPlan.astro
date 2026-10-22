@@ -1,0 +1,123 @@
+---
+import VenueBenchesFurniture from './VenueBenchesFurniture.astro';
+---
+
+<g data-venue-floor-plan="bancos-rojos" data-hidden class="benches-plan">
+  <title>Bancos rojos y futbolín</title>
+  <path class="benches-floor" d="M235 165H685V500H235Z"></path>
+  <path class="benches-wall" d="M235 165H685"></path>
+  <path
+    class="benches-paving"
+    d="M235 250H685M235 335H685M235 420H685M310 165V500M385 165V500M460 165V500M535 165V500M610 165V500"
+  ></path>
+  <VenueBenchesFurniture />
+  <g transform="translate(275 470)">
+    <a
+      class="benches-aesit"
+      data-venue-external
+      href="https://x.com/aesit_ugr"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="AESIT en X (Twitter), se abre en una pestaña nueva"
+    >
+      <title>AESIT en X / Twitter</title>
+      <rect class="aesit-hitarea" x="-27" y="-27" width="54" height="54" rx="8"
+      ></rect>
+      <image
+        href="/assets/participan/Logos/aesit.webp"
+        x="-18"
+        y="-18"
+        width="36"
+        height="36"
+      />
+      <g class="aesit-tooltip" aria-hidden="true">
+        <rect x="-146" y="-62" width="174" height="29" rx="6"></rect>
+        <text x="-135" y="-43">AESIT en X / Twitter</text>
+        <path d="M7-42l8-8m-7 0h7v7"></path>
+      </g>
+    </a>
+  </g>
+</g>
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+  path,
+  rect,
+  circle {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .benches-aesit {
+    transform: rotate(var(--venue-label-turn, 0deg));
+    cursor: pointer;
+  }
+  .aesit-hitarea {
+    fill: transparent;
+    stroke: transparent;
+  }
+  .benches-aesit image {
+    opacity: 0.85;
+  }
+  :global(.dark) .benches-aesit image {
+    filter: brightness(0) invert(1);
+  }
+  .benches-aesit:hover .aesit-hitarea,
+  .benches-aesit:focus-visible .aesit-hitarea {
+    fill: var(--paper);
+    stroke: var(--line);
+  }
+  .aesit-tooltip {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+  .aesit-tooltip rect {
+    fill: var(--surface);
+    stroke: var(--line);
+  }
+  .aesit-tooltip text {
+    fill: var(--ink);
+    font:
+      11px 'Inter Variable',
+      sans-serif;
+  }
+  .aesit-tooltip path {
+    stroke: var(--ink);
+    stroke-width: 1.2;
+    fill: none;
+  }
+  .benches-aesit:hover .aesit-tooltip,
+  .benches-aesit:focus-visible .aesit-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+  .benches-aesit:focus-visible {
+    outline: none;
+  }
+  .benches-aesit:focus-visible .aesit-hitarea {
+    stroke: var(--ink);
+    stroke-width: 2;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aesit-tooltip {
+      transition: none;
+    }
+  }
+  .benches-floor {
+    fill: currentColor;
+    fill-opacity: 0.025;
+  }
+  .benches-wall {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .benches-paving {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.6;
+    opacity: 0.1;
+  }
+</style>

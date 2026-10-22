@@ -18,12 +18,13 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm audit:security
       - run: pnpm test
       - run: pnpm build
         env:
           ULP_FLICKR_OFFLINE: '1'
       - run: pnpm check:site
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright install --with-deps chrome
       - run: pnpm test:e2e
       - uses: actions/upload-artifact@v4
         if: failure()

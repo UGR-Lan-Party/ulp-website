@@ -18,10 +18,11 @@ import { programEdition } from '../data/program';
     <span class="agenda-total" data-agenda-total>0 guardadas</span>
   </header>
   <p class="agenda-explanation">
-    Guarda las franjas que te interesan. Se conservan solo en este dispositivo;
-    no te inscriben en las actividades.
+    Guarda las franjas que te interesan. Se guardan en este dispositivo y puedes
+    compartir tu selección; no te inscriben en las actividades.
   </p>
   <p class="agenda-storage-notice" data-agenda-storage hidden></p>
+  <p class="agenda-storage-notice" data-agenda-link-error hidden></p>
   <p class="agenda-empty" data-agenda-empty>
     Todavía no has guardado ninguna. Usa «Guardar» en la tabla o en la ficha de
     una actividad.
@@ -33,14 +34,85 @@ import { programEdition } from '../data/program';
   <div class="agenda-tools">
     <button type="button" class="design-button" data-agenda-export disabled
       >Descargar calendario (.ics)</button
+    ><button
+      type="button"
+      class="design-button secondary"
+      data-agenda-share
+      disabled>Compartir agenda</button
     ><button type="button" class="agenda-clear" data-agenda-clear disabled
-      >Vaciar agenda</button>
+      >Vaciar agenda</button
+    >
   </div>
   <p class="agenda-footnote">
     Se muestra el archivo de {programEdition.year}. Sin hora de fin confirmada
     no se calcula el solapamiento ni se inventa una duración para el calendario.
   </p>
 </section>
+<dialog
+  class="agenda-share-dialog"
+  data-agenda-share-dialog
+  aria-labelledby="agenda-share-title"
+>
+  <div class="share-heading">
+    <span class="design-eyebrow">EL PLAN SE COMPARTE</span><button
+      type="button"
+      data-agenda-share-close
+      aria-label="Cerrar agenda compartida">✕</button
+    >
+  </div>
+  <h3 id="agenda-share-title">Nos vemos <em>allí</em></h3>
+  <div data-agenda-incoming hidden>
+    <p>
+      Acepta o rechaza cada actividad y guarda tu selección, o acepta todo de
+      una vez. Lo que ya tenías en tu agenda se conserva.
+    </p>
+    <ul data-agenda-incoming-list></ul>
+    <div class="incoming-actions">
+      <button
+        type="button"
+        class="design-button"
+        data-agenda-import-selected
+        disabled>Guardar selección (0)</button
+      >
+      <button type="button" class="incoming-accept-all" data-agenda-import
+        >Aceptar todo</button
+      >
+    </div>
+  </div>
+  <div data-agenda-outgoing>
+    <p>
+      Envía tu plan o deja que escaneen el QR. Solo se comparten las actividades
+      elegidas.
+    </p>
+    <canvas
+      data-agenda-qr
+      role="img"
+      aria-label="Código QR de la agenda compartida"
+      hidden></canvas>
+    <label class="share-url"
+      >Enlace de tu agenda<input
+        data-agenda-share-url
+        type="url"
+        readonly
+      /></label
+    >
+    <div class="share-buttons">
+      <button type="button" class="design-button" data-agenda-copy
+        >Copiar enlace</button
+      ><button
+        type="button"
+        class="design-button secondary"
+        data-agenda-native
+        hidden>Compartir…</button
+      >
+    </div>
+    <p class="share-note">
+      La selección no equivale a una inscripción. Quien abra el enlace decidirá
+      si la añade a su agenda.
+    </p>
+  </div>
+  <p data-agenda-share-status role="status" aria-live="polite"></p>
+</dialog>
 <p class="sr-only" data-agenda-status role="status" aria-live="polite"></p>
 <noscript
   ><p>
@@ -177,5 +249,153 @@ import { programEdition } from '../data/program';
       align-items: start;
       gap: 10px;
     }
+  }
+</style>
+
+<style>
+  .agenda-share-dialog {
+    width: min(500px, calc(100vw - 28px));
+    max-height: calc(100dvh - 36px);
+    padding: 28px;
+    margin: auto;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 24px 100px #001b3660;
+    overflow: auto;
+  }
+  .agenda-share-dialog::backdrop {
+    background: #001c30a6;
+    backdrop-filter: blur(7px);
+  }
+  .share-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .share-heading button {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .agenda-share-dialog h3 {
+    margin: 18px 0;
+    font-size: 34px;
+  }
+  .agenda-share-dialog p,
+  .agenda-share-dialog li {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .agenda-share-dialog ul {
+    margin: 16px 0;
+    display: grid;
+    gap: 8px;
+  }
+  .agenda-share-dialog :global(.incoming-activity) {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .agenda-share-dialog :global(.incoming-activity strong) {
+    display: block;
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .agenda-share-dialog :global(.incoming-time) {
+    display: block;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+  }
+  .agenda-share-dialog :global(.incoming-decisions),
+  .incoming-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .agenda-share-dialog :global(.incoming-decisions button),
+  .incoming-accept-all {
+    padding: 8px 12px;
+    min-height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .agenda-share-dialog
+    :global(.incoming-decisions button[aria-pressed='true']) {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .agenda-share-dialog :global(.incoming-activity[data-decision='accepted']) {
+    border-color: var(--accent);
+  }
+  .incoming-actions {
+    margin-top: 18px;
+    align-items: center;
+  }
+  .incoming-actions button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .agenda-share-dialog :global(.incoming-decisions button:focus-visible),
+  .incoming-actions button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .agenda-share-dialog :global(.incoming-hint) {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .agenda-share-dialog canvas {
+    display: block;
+    margin: 22px auto;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  .agenda-share-dialog [hidden] {
+    display: none;
+  }
+  .share-url {
+    display: grid;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted);
+    margin: 18px 0;
+  }
+  .share-url input {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 12px;
+  }
+  .share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .share-note {
+    margin-top: 18px;
+  }
+  .agenda-share-dialog [data-agenda-share-status] {
+    margin-top: 14px;
   }
 </style>

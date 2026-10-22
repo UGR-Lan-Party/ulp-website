@@ -1,4 +1,8 @@
 import {
+  createSharedAgendaUrl,
+  decodeSharedAgenda,
+} from '../utils/agenda-sharing.js';
+import {
   agendaKey,
   parseAgenda,
   findAgendaConflicts,
@@ -136,7 +140,7 @@ if (source) {
     );
     panel
       .querySelectorAll<HTMLButtonElement>(
-        '[data-agenda-export], [data-agenda-clear]',
+        '[data-agenda-export], [data-agenda-clear], [data-agenda-share]',
       )
       .forEach((button) => (button.disabled = !saved.length));
   }
@@ -175,6 +179,211 @@ if (source) {
       link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
+  const shareDialog = document.querySelector<HTMLDialogElement>(
+    '[data-agenda-share-dialog]',
+  );
+  if (shareDialog && panel) {
+    const outgoing = shareDialog.querySelector<HTMLElement>(
+      '[data-agenda-outgoing]',
+    )!;
+    const incoming = shareDialog.querySelector<HTMLElement>(
+      '[data-agenda-incoming]',
+    )!;
+    const urlInput = shareDialog.querySelector<HTMLInputElement>(
+      '[data-agenda-share-url]',
+    )!;
+    const shareStatus = shareDialog.querySelector<HTMLElement>(
+      '[data-agenda-share-status]',
+    )!;
+    const qr =
+      shareDialog.querySelector<HTMLCanvasElement>('[data-agenda-qr]')!;
+    let focusBefore: HTMLElement | null = null;
+    function openShare() {
+      focusBefore = document.activeElement as HTMLElement;
+      shareDialog!.showModal();
+    }
+    shareDialog
+      .querySelector('[data-agenda-share-close]')!
+      .addEventListener('click', () => shareDialog.close());
+    shareDialog.addEventListener('close', () => focusBefore?.focus());
+    shareDialog.addEventListener('click', (event) => {
+      if (event.target === shareDialog) {
+        const rect = shareDialog.getBoundingClientRect();
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        )
+          shareDialog.close();
+      }
+    });
+    panel
+      .querySelector('[data-agenda-share]')!
+      .addEventListener('click', async () => {
+        const url = createSharedAgendaUrl(
+          selected,
+          entries,
+          year,
+          location.origin,
+        );
+        if (!url) return;
+        outgoing.hidden = false;
+        incoming.hidden = true;
+        urlInput.value = url;
+        shareStatus.textContent = '';
+        qr.hidden = true;
+        openShare();
+        try {
+          const { default: QRCode } = await import('qrcode');
+          await QRCode.toCanvas(qr, url, {
+            width: 260,
+            margin: 4,
+            color: { dark: '#004465', light: '#ffffff' },
+            errorCorrectionLevel: 'M',
+          });
+          qr.hidden = false;
+        } catch {
+          shareStatus.textContent =
+            'El QR no está disponible. Puedes copiar el enlace.';
+        }
+      });
+    shareDialog
+      .querySelector('[data-agenda-copy]')!
+      .addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(urlInput.value);
+          shareStatus.textContent = 'Enlace copiado. ¡Pásalo al grupo!';
+        } catch {
+          urlInput.focus();
+          urlInput.select();
+          shareStatus.textContent =
+            'Mantén pulsado el enlace o usa Ctrl+C para copiarlo.';
+        }
+      });
+    const nativeButton = shareDialog.querySelector<HTMLButtonElement>(
+      '[data-agenda-native]',
+    )!;
+    nativeButton.hidden = typeof navigator.share !== 'function';
+    nativeButton.addEventListener('click', async () => {
+      try {
+        await navigator.share({
+          title: `Mi agenda · ULP ${year}`,
+          url: urlInput.value,
+        });
+      } catch (error) {
+        if (!(error instanceof DOMException && error.name === 'AbortError'))
+          shareStatus.textContent =
+            'No se ha podido compartir. Puedes copiar el enlace.';
+      }
+    });
+    const receiveSharedAgenda = () => {
+      if (!location.hash.startsWith('#agenda=')) return;
+      const shared = decodeSharedAgenda(
+        location.hash.slice(8),
+        entries,
+        year,
+      ) as Set<string> | null;
+      if (shared?.size) {
+        panel.querySelector<HTMLElement>('[data-agenda-link-error]')!.hidden =
+          true;
+        incoming.hidden = false;
+        outgoing.hidden = true;
+        const accepted = new Set<string>();
+        const saveSelection = shareDialog.querySelector<HTMLButtonElement>(
+          '[data-agenda-import-selected]',
+        )!;
+        const updateSelection = () => {
+          saveSelection.disabled = accepted.size === 0;
+          saveSelection.textContent = `Guardar selección (${accepted.size})`;
+          shareStatus.textContent = `${accepted.size} de ${shared.size} actividades aceptadas. No se guardan hasta confirmar.`;
+        };
+        shareDialog
+          .querySelector('[data-agenda-incoming-list]')!
+          .replaceChildren(
+            ...entries
+              .filter((entry) => shared.has(entry.key))
+              .map((entry) => {
+                const li = document.createElement('li');
+                li.className = 'incoming-activity';
+                li.dataset.agendaIncomingKey = entry.key;
+                li.dataset.decision = 'pending';
+                const copy = document.createElement('div');
+                const name = document.createElement('strong');
+                name.textContent = entry.name;
+                const time = document.createElement('span');
+                time.className = 'incoming-time';
+                time.textContent = describe(entry);
+                copy.append(name, time);
+                if (selected.has(entry.key)) {
+                  const existing = document.createElement('span');
+                  existing.className = 'incoming-hint';
+                  existing.textContent =
+                    'Ya está en tu agenda; rechazarla aquí no la elimina.';
+                  copy.append(existing);
+                }
+                const choices = document.createElement('div');
+                choices.className = 'incoming-decisions';
+                choices.setAttribute('role', 'group');
+                choices.setAttribute(
+                  'aria-label',
+                  `Decisión para ${entry.name}, ${describe(entry)}`,
+                );
+                const accept = document.createElement('button');
+                const reject = document.createElement('button');
+                accept.type = reject.type = 'button';
+                accept.textContent = 'Aceptar';
+                reject.textContent = 'Rechazar';
+                accept.setAttribute('aria-pressed', 'false');
+                reject.setAttribute('aria-pressed', 'false');
+                const decide = (include: boolean) => {
+                  if (include) accepted.add(entry.key);
+                  else accepted.delete(entry.key);
+                  li.dataset.decision = include ? 'accepted' : 'rejected';
+                  accept.setAttribute('aria-pressed', String(include));
+                  reject.setAttribute('aria-pressed', String(!include));
+                  updateSelection();
+                };
+                accept.addEventListener('click', () => decide(true));
+                reject.addEventListener('click', () => decide(false));
+                choices.append(accept, reject);
+                li.append(copy, choices);
+                return li;
+              }),
+          );
+        updateSelection();
+        if (!shareDialog.open) openShare();
+        const importSelection = (keys: Set<string>) => {
+          keys.forEach((key) => selected.add(key));
+          persist('Actividades compartidas añadidas a tu agenda.');
+          shareDialog.close();
+          history.replaceState(
+            null,
+            '',
+            location.pathname + location.search + '#mi-agenda',
+          );
+          panel.scrollIntoView({ block: 'start' });
+        };
+        saveSelection.onclick = () => {
+          if (accepted.size) importSelection(accepted);
+        };
+        shareDialog.querySelector<HTMLButtonElement>(
+          '[data-agenda-import]',
+        )!.onclick = () => importSelection(shared);
+      } else {
+        const errorMessage =
+          'El enlace de agenda no es válido o pertenece a otra versión del programa. Tu agenda no ha cambiado.';
+        const notice = panel.querySelector<HTMLElement>(
+          '[data-agenda-link-error]',
+        )!;
+        notice.hidden = false;
+        notice.textContent = errorMessage;
+        if (status) status.textContent = errorMessage;
+      }
+    };
+    receiveSharedAgenda();
+    window.addEventListener('hashchange', receiveSharedAgenda);
+  }
   window.addEventListener('storage', (event) => {
     if (event.key !== storageKey && event.key !== null) return;
     read();

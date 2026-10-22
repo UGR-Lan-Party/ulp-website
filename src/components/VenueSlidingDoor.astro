@@ -1,0 +1,47 @@
+---
+interface Props {
+  x: number;
+  y: number;
+  width: number;
+  angle?: number;
+  label?: string;
+}
+const {
+  x,
+  y,
+  width,
+  angle = 0,
+  label = 'Acceso principal: puerta corredera',
+} = Astro.props;
+---
+
+<g data-venue-sliding-door transform={`translate(${x} ${y}) rotate(${angle})`}>
+  <title>{label}</title>
+  <path class="sliding-opening" d={`M0 0H${width}`}></path>
+  <path class="sliding-track" d={`M-2-5H${width + 2}`}></path>
+  <path
+    class="sliding-panels"
+    d={`M0-2H${width / 2 + 2}V-4M${width / 2 - 2}-4H${width}M0-4V1M${width}-6V1`}
+  ></path>
+</g>
+<style>
+  path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .sliding-opening {
+    stroke: var(--venue-plan-background, var(--paper));
+    stroke-width: 4;
+  }
+  .sliding-track {
+    stroke: currentColor;
+    stroke-width: 0.45;
+    opacity: 0.4;
+  }
+  .sliding-panels {
+    stroke: currentColor;
+    stroke-width: 0.85;
+  }
+</style>

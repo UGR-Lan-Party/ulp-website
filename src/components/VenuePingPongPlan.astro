@@ -1,0 +1,38 @@
+---
+import VenuePingPongTable from './VenuePingPongTable.astro';
+---
+
+<g data-venue-floor-plan="bajo-exterior" data-hidden class="ping-pong-plan">
+  <title>Bajo exterior entre edificios: pasillo de ping pong</title>
+  <rect class="corridor-floor" x="150" y="260" width="620" height="180" rx="2"
+  ></rect>
+  <path class="corridor-wall" d="M150 280V260H770V280M150 420V440H770V420"
+  ></path>
+  <path
+    class="corridor-paving"
+    d="M230 260V440M310 260V440M390 260V440M470 260V440M550 260V440M630 260V440M710 260V440"
+  ></path>
+  <VenuePingPongTable />
+</g>
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+  .corridor-floor {
+    fill: currentColor;
+    fill-opacity: 0.025;
+  }
+  path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .corridor-wall {
+    stroke-width: 1.8;
+  }
+  .corridor-paving {
+    stroke-width: 0.5;
+    opacity: 0.09;
+  }
+</style>

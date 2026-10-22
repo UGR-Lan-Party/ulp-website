@@ -53,6 +53,14 @@ const [featured, ...stories] = await getPublishedNews();
   </section>
 </Layout>
 <style>
+  :global(.page-intro:has(.news-board-title) h1) {
+    max-width: 100%;
+    font-size: clamp(28px, 7.7vw, 88px);
+  }
+  .news-board-title {
+    white-space: nowrap;
+    letter-spacing: -0.045em;
+  }
   .news-index {
     padding-block: 45px 90px;
   }

@@ -38,6 +38,9 @@ const layoutStyle = layout
     <img
       src={partner.logo}
       alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
+      title={partner.name.trim() === 'DEFC'
+        ? 'DEFC · Jesusjmma · CC BY-SA 4.0 · Wikimedia Commons'
+        : undefined}
       width={width}
       height={height}
       loading="lazy"
@@ -119,6 +122,11 @@ const layoutStyle = layout
   .white-details[data-surface='light'],
   .white-details[data-surface='theme'] {
     filter: url(#partner-white-details);
+  }
+  .partner-logo[data-partner-logo='DEFC'][data-surface='light'],
+  :global(:root:not(.dark))
+    .partner-logo[data-partner-logo='DEFC'][data-surface='theme'] {
+    filter: url(#partner-color-cutout);
   }
   .partner-logo[data-surface='dark'],
   :global(.dark) .partner-logo[data-surface='theme'] {

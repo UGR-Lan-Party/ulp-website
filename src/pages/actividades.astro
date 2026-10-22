@@ -76,7 +76,11 @@ const sections = [
         ><h2>¿Te falta equipo?</h2><p>
           Tenemos un Excel compartido para que encuentres equipo.
         </p>
-      </div><a class="design-button" href={teamFinderUrl}
+      </div><a
+        class="design-button"
+        href={teamFinderUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         >Buscar equipo <span aria-hidden="true"><ArrowUpRight /></span></a
       >
     </div>
@@ -105,7 +109,10 @@ const sections = [
     ))
   }
   <div class="design-container team-intro">
-    <span>¿Te falta equipo?</span><a href={teamFinderUrl}
+    <span>¿Te falta equipo?</span><a
+      href={teamFinderUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       >Encuentra compañeros de partida <span aria-hidden="true"
         ><ArrowUpRight /></span
       ></a
@@ -149,8 +156,9 @@ const sections = [
     opacity: 0.6;
   }
   .catalog-section {
-    scroll-margin-top: 90px;
-    padding-block: 65px;
+    scroll-margin-top: 0;
+    margin-top: 65px;
+    padding-block: 0 65px;
   }
   .catalog-section .design-section-header > p {
     max-width: 280px;

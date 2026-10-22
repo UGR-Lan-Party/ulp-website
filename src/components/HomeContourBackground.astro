@@ -1,0 +1,98 @@
+---
+const contours = Array.from({ length: 32 }, (_, index) => ({
+  scale: 0.48 + index * 0.105,
+  opacity: index % 5 === 0 ? 0.88 : 0.58,
+}));
+const contour =
+  'M -380 -55 C -410 -220 -200 -355 -35 -290 C 100 -240 175 -330 285 -235 C 415 -110 315 35 360 165 C 415 350 145 410 -15 295 C -140 205 -305 215 -350 100 C -375 35 -330 15 -380 -55 Z';
+---
+
+<div class="home-contours" aria-hidden="true">
+  <svg
+    viewBox="0 0 1600 960"
+    preserveAspectRatio="xMidYMid slice"
+    focusable="false"
+  >
+    <defs>
+      <linearGradient id="home-contour-ink" x1="0" y1="1" x2="1" y2="0">
+        <stop stop-color="var(--contour-blue)"></stop>
+        <stop offset="0.6" stop-color="var(--contour-teal)"></stop>
+        <stop offset="1" stop-color="var(--contour-blue)"></stop>
+      </linearGradient>
+      <radialGradient id="home-contour-space" cx="28%" cy="43%" r="66%">
+        <stop stop-color="white" stop-opacity="0.06"></stop>
+        <stop offset="0.34" stop-color="white" stop-opacity="0.2"></stop>
+        <stop offset="0.75" stop-color="white" stop-opacity="0.95"></stop>
+        <stop offset="1" stop-color="white"></stop>
+      </radialGradient>
+      <linearGradient id="home-contour-edge" x1="0" y1="0" x2="0" y2="1">
+        <stop stop-color="white" stop-opacity="0.35"></stop>
+        <stop offset="0.15" stop-color="white"></stop>
+        <stop offset="0.76" stop-color="white"></stop>
+        <stop offset="1" stop-color="white" stop-opacity="0"></stop>
+      </linearGradient>
+      <mask id="home-contour-reading-space">
+        <rect width="1600" height="960" fill="url(#home-contour-space)"></rect>
+      </mask>
+      <mask id="home-contour-fade">
+        <rect width="1600" height="960" fill="url(#home-contour-edge)"></rect>
+      </mask>
+    </defs>
+    <g mask="url(#home-contour-fade)">
+      <g mask="url(#home-contour-reading-space)">
+        <g
+          transform="translate(1160 350) rotate(-18)"
+          fill="none"
+          stroke="url(#home-contour-ink)"
+          stroke-width="0.85"
+        >
+          {
+            contours.map(({ scale, opacity }) => (
+              <path
+                d={contour}
+                transform={`scale(${scale})`}
+                opacity={opacity}
+                vector-effect="non-scaling-stroke"
+              />
+            ))
+          }
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+<style>
+  .home-contours {
+    --contour-blue: #004465;
+    --contour-teal: #008b99;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.32;
+  }
+  .home-contours svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  :global(.dark) .home-contours {
+    --contour-blue: #9fc1cf;
+    --contour-teal: #59c4bc;
+    opacity: 0.3;
+  }
+  @media (max-width: 700px) {
+    .home-contours {
+      opacity: 0.25;
+    }
+    .home-contours svg {
+      width: 180%;
+      max-width: none;
+      margin-left: -60%;
+    }
+    :global(.dark) .home-contours {
+      opacity: 0.27;
+    }
+  }
+</style>

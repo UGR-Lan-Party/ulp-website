@@ -39,3 +39,35 @@ test('La columna derecha de −1.2 está alineada con las mesas laterales', () =
   for (const desk of desks)
     assert.equal(column.x + column.width, desk.x + desk.width);
 });
+
+test('La mesa izquierda de la primera fila de A1 tiene cuatro sillas', () => {
+  const seats = fixtures.a1.filter(
+    (piece) => piece.kind === 'seat' && piece.y === 141 && piece.x < 151,
+  );
+  assert.equal(seats.length, 4);
+});
+
+test('Las columnas de las aulas inferiores mantienen separación de mesas y sillas', () => {
+  const columns = fixtures.inferiores.filter(
+    (piece) => piece.kind === 'column',
+  );
+  const furniture = fixtures.inferiores.filter((piece) =>
+    ['desk', 'seat'].includes(piece.kind),
+  );
+  for (const column of columns) {
+    for (const piece of furniture) {
+      const horizontalGap = Math.max(
+        column.x - piece.x - piece.width,
+        piece.x - column.x - column.width,
+      );
+      const verticalGap = Math.max(
+        column.y - piece.y - piece.height,
+        piece.y - column.y - column.height,
+      );
+      assert.ok(
+        Math.max(horizontalGap, verticalGap) >= 4,
+        `Columna ${column.x}/${column.y} junto a ${piece.kind} ${piece.x}/${piece.y}`,
+      );
+    }
+  }
+});

@@ -1,4 +1,5 @@
 ---
+import { render } from 'astro:content';
 import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import Layout from '../../layouts/Layout.astro';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
@@ -11,12 +12,12 @@ import {
 } from '../../utils/news';
 export async function getStaticPaths() {
   return (await getPublishedNews()).map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const details = entry.data.postDetails;
 const initials = entry.data.author
   .split(/\s+/)

@@ -1,4 +1,5 @@
 ---
+import HomeSectionPattern from './HomeSectionPattern.astro';
 import PersonCard from './PersonCard.astro';
 
 const teams = [
@@ -30,6 +31,7 @@ const teams = [
 
 <section id="team" class="design-section design-container people-section">
   <header data-reveal>
+    <HomeSectionPattern id="about-team-pattern" variant="halftone" />
     <div>
       <span class="design-eyebrow">Profesorado</span><h2 class="design-heading">
         Las personas detrás<br />de cada edición
@@ -59,6 +61,8 @@ const teams = [
     padding-bottom: 28px;
   }
   header {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     align-items: end;

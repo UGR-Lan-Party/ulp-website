@@ -1,10 +1,12 @@
 ---
+import HomeSectionPattern from './HomeSectionPattern.astro';
 import ArrowUpRight from './ArrowUpRight.astro';
 import CarouselSection from './CarouselSection.astro';
 ---
 
 <section class="design-section design-container community-album">
   <header data-reveal>
+    <HomeSectionPattern id="about-album-pattern" variant="arcs" />
     <div>
       <span class="design-eyebrow">Así se vive desde dentro</span><h2
         class="design-heading"
@@ -41,6 +43,8 @@ import CarouselSection from './CarouselSection.astro';
     padding-block: clamp(45px, 5vw, 70px);
   }
   header {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     align-items: end;

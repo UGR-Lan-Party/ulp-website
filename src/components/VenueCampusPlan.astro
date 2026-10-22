@@ -1,0 +1,177 @@
+---
+import VenueDoor from './VenueDoor.astro';
+import VenueSlidingDoor from './VenueSlidingDoor.astro';
+import VenuePingPongTable from './VenuePingPongTable.astro';
+import VenueBenchesFurniture from './VenueBenchesFurniture.astro';
+import VenueAmenityMarker from './VenueAmenityMarker.astro';
+import trace from '../data/venue-campus-trace.json';
+import { campusPrefabs } from '../data/venue-map';
+
+const parking = { x: 170, y: 985, width: 305, height: 233.45, slant: 135 };
+const parkingRows = Array.from({ length: 7 }, (_, index) => {
+  const y = parking.y + 29 + index * 28;
+  return {
+    x: parking.x - ((y - parking.y) * parking.slant) / parking.height,
+    y,
+  };
+});
+---
+
+<g data-venue-floor-plan="recinto" class="campus-plan">
+  <title>Vista general de la ETSIIT y sus espacios exteriores</title>
+  <g data-campus-trace>
+    <path class="campus-site" d={trace.site} fill-rule="evenodd"></path>
+    <path class="campus-walls" d={trace.walls} fill-rule="evenodd"></path>
+  </g>
+  <g transform="translate(106.4 60) scale(.4)">
+    <path class="campus-walkway" d="M977 877H1195L1225 915H1360V980H977Z"
+    ></path>
+    <path
+      class="campus-terrace"
+      d="M1378 564.95H1381.30A586.74 586.74 0 0 1 1457.95 835.34H1378Z"></path>
+    <VenuePingPongTable x={1120} y={905} scale={0.5} />
+    <g data-campus-benches>
+      <path class="campus-benches-floor" d="M912 405L984 363L1028 434L954 477Z"
+      ></path>
+      <g
+        transform="translate(970 420) rotate(-30) scale(.16) translate(-460 -332.5)"
+      >
+        <VenueBenchesFurniture campus />
+      </g>
+    </g>
+    <g class="campus-parking" data-campus-parking>
+      <path
+        class="campus-parking-boundary"
+        d={`M${parking.x} ${parking.y}h${parking.width}l${-parking.slant} ${parking.height}h${-parking.width}Z`}
+      ></path>
+      {
+        parkingRows.map(({ x, y }) => (
+          <>
+            <path class="campus-parking-bay" d={`M${x + 12} ${y}h50v-22`} />
+            <path
+              class="campus-parking-bay"
+              d={`M${x + parking.width - 12} ${y}h-50v-22`}
+            />
+          </>
+        ))
+      }
+      <g data-campus-parking-entrance>
+        <title>Acceso al parking</title>
+        <VenueSlidingDoor
+          x={217}
+          y={parking.y + parking.height}
+          width={48}
+          label="Acceso al parking: puerta corredera"
+        />
+      </g>
+    </g>
+    {
+      campusPrefabs.map((module) => (
+        <g
+          transform={`translate(${module.x} ${module.y}) rotate(28)`}
+          data-campus-prefab={module.id}
+          style="--venue-label-offset: -28deg"
+        >
+          <rect class="campus-prefab" width="85" height="210" rx="3" />
+          <path
+            class="campus-partition"
+            d="M0 90H85M0 120H85M35 90V120M0 105H35"
+          />
+          <g data-campus-door="entrance">
+            <VenueDoor x={85} y={96} angle={90} width={18} />
+          </g>
+          <g data-campus-door="classroom-upper">
+            <VenueDoor x={72} y={120} angle={180} width={18} />
+          </g>
+          <g data-campus-door="classroom-lower">
+            <VenueDoor x={54} y={90} width={18} />
+          </g>
+          <g data-campus-door="women">
+            <VenueDoor x={35} y={91.5} angle={90} width={12} />
+          </g>
+          <g data-campus-door="men">
+            <VenueDoor x={35} y={106.5} angle={90} width={12} />
+          </g>
+          <VenueAmenityMarker
+            kind="men"
+            label="Aseo de hombres"
+            x={17.5}
+            y={112.5}
+            size={9}
+          />
+          <VenueAmenityMarker
+            kind="women"
+            label="Aseo de mujeres"
+            x={17.5}
+            y={97.5}
+            size={9}
+          />
+        </g>
+      ))
+    }
+  </g>
+</g>
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+  .campus-plan {
+    --venue-door-opening-width: 2;
+    color: var(--ink);
+  }
+  path,
+  rect,
+  circle {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .campus-site {
+    fill: currentColor;
+    opacity: 0.48;
+  }
+  .campus-walls {
+    fill: currentColor;
+    opacity: 0.9;
+  }
+  .campus-walkway {
+    fill: currentColor;
+    fill-opacity: 0.035;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 6;
+  }
+  .campus-terrace {
+    fill: currentColor;
+    fill-opacity: 0.04;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 6;
+  }
+  .campus-benches-floor {
+    fill: var(--venue-plan-background, var(--paper));
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .campus-prefab {
+    fill: color-mix(in srgb, var(--ink) 5%, var(--paper));
+    stroke: currentColor;
+    stroke-width: 3;
+  }
+  .campus-parking-boundary {
+    fill: currentColor;
+    fill-opacity: 0.025;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+  .campus-parking-bay {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    opacity: 0.5;
+  }
+  .campus-partition {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+</style>

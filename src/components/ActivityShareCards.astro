@@ -1,0 +1,272 @@
+---
+interface Props {
+  id: string;
+  name: string;
+}
+const { id, name } = Astro.props;
+const formats = [
+  {
+    id: 'x',
+    label: 'Post de X',
+    width: 1200,
+    height: 630,
+    src: `/og/actividades/${id}.png`,
+  },
+  {
+    id: 'historia',
+    label: 'Historia de Instagram',
+    width: 1080,
+    height: 1920,
+    src: `/og/actividades/${id}/historia.png`,
+  },
+  {
+    id: 'publicacion',
+    label: 'Publicación de Instagram',
+    width: 1080,
+    height: 1350,
+    src: `/og/actividades/${id}/publicacion.png`,
+  },
+];
+---
+
+<details class="share-cards" data-activity-share data-name={name}>
+  <summary
+    ><span>Comparte esta actividad</span><span class="share-caption"
+      >Fichas para redes <span aria-hidden="true">＋</span></span
+    ></summary
+  >
+  <div class="share-layout">
+    <div class="share-options">
+      <h2>Elige tu formato</h2>
+      <p>
+        Descarga la ficha con la edición y el horario de esta actividad, lista
+        para subir a tus redes.
+      </p>
+      <div class="share-formats" role="group" aria-label="Formato de la ficha">
+        {
+          formats.map((format, index) => (
+            <button
+              type="button"
+              aria-pressed={index === 0 ? 'true' : 'false'}
+              data-share-format
+              data-src={format.src}
+              data-width={format.width}
+              data-height={format.height}
+              data-format={format.id}
+              data-label={format.label}
+            >
+              <>
+                <strong>{format.label}</strong>
+                <span>
+                  {format.width} × {format.height} px
+                </span>
+              </>
+            </button>
+          ))
+        }
+      </div>
+      <a
+        class="design-button"
+        data-share-download
+        href={formats[0].src}
+        download={`ulp-${id}-x.png`}
+        >Descargar PNG <span aria-hidden="true">↓</span></a
+      >
+      <p class="share-current" data-share-status role="status">
+        Post de X · 1200 × 630 px
+      </p>
+      <noscript
+        ><p>
+          Otros formatos: <a href={formats[1].src} download
+            >Historia de Instagram</a
+          > · <a href={formats[2].src} download>Publicación de Instagram</a>
+        </p></noscript
+      >
+    </div>
+    <div class="share-preview">
+      <img
+        data-share-preview
+        src={formats[0].src}
+        width="1200"
+        height="630"
+        alt={`Ficha de ${name} para post de X`}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+</details>
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-activity-share]')
+    .forEach((root) => {
+      const preview = root.querySelector<HTMLImageElement>(
+        '[data-share-preview]',
+      );
+      const download = root.querySelector<HTMLAnchorElement>(
+        '[data-share-download]',
+      );
+      const status = root.querySelector<HTMLElement>('[data-share-status]');
+      const buttons = [
+        ...root.querySelectorAll<HTMLButtonElement>('[data-share-format]'),
+      ];
+      buttons.forEach((button) =>
+        button.addEventListener('click', () => {
+          if (!preview || !download || !status) return;
+          const { src, width, height, format, label } = button.dataset;
+          if (!src || !width || !height || !format || !label) return;
+          buttons.forEach((item) =>
+            item.setAttribute('aria-pressed', String(item === button)),
+          );
+          preview.src = src;
+          preview.width = Number(width);
+          preview.height = Number(height);
+          preview.alt = `Ficha de ${root.dataset.name} para ${label}`;
+          download.href = src;
+          download.download = `ulp-${src.split('/')[3]?.replace('.png', '')}-${format}.png`;
+          status.textContent = `${label} · ${width} × ${height} px`;
+        }),
+      );
+    });
+</script>
+<style>
+  .share-cards {
+    margin-block: 32px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 26px;
+    cursor: pointer;
+    font-weight: 650;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .share-caption {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .share-caption span {
+    font-size: 22px;
+    transition: transform 0.2s;
+  }
+  details[open] .share-caption span {
+    transform: rotate(45deg);
+  }
+  summary:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: -4px;
+  }
+  .share-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    padding: 6px 26px 26px;
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 10px;
+  }
+  .share-formats {
+    display: grid;
+    gap: 9px;
+    margin-block: 22px;
+  }
+  button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    text-align: left;
+    transition:
+      background 0.2s,
+      border-color 0.2s;
+  }
+  button strong {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  button span {
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  button[aria-pressed='true'] {
+    border-color: var(--ink);
+    background: var(--paper);
+    box-shadow: inset 3px 0 var(--ink);
+  }
+  button:hover {
+    border-color: var(--ink);
+  }
+  .share-preview {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    min-height: 260px;
+    padding: 22px;
+    border-radius: 14px;
+    background: rgb(0 68 101 / 0.08);
+    border: 1px solid var(--line);
+  }
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 470px;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.15);
+    border-radius: 4px;
+    object-fit: contain;
+  }
+  .share-current {
+    font-size: 11px;
+  }
+  @media (max-width: 760px) {
+    .share-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 22px;
+    }
+    summary {
+      padding: 20px;
+    }
+    .share-caption {
+      font-size: 0;
+    }
+    .share-layout {
+      padding: 0 20px 20px;
+    }
+    button {
+      flex-wrap: wrap;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    button,
+    .share-caption span {
+      transition: none;
+    }
+  }
+</style>

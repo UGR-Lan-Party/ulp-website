@@ -1,5 +1,14 @@
 ---
 import VenueAmenityMarker from './VenueAmenityMarker.astro';
+import VenueDoor from './VenueDoor.astro';
+import VenueSlidingDoor from './VenueSlidingDoor.astro';
+import PrincipalAccessCore from './PrincipalAccessCore.astro';
+import PrincipalWashrooms from './PrincipalWashrooms.astro';
+import StudentRoom from './StudentRoom.astro';
+import { isStudentRoomFurniture } from '../data/student-room';
+import PrincipalRoom from './PrincipalRoom.astro';
+import VenueFurniture from './VenueFurniture.astro';
+import { isPrincipalRoomFurniture } from '../data/principal-rooms';
 import { venueAmenities } from '../data/venue-amenities';
 import aulaFixtures from '../data/venue-aula-fixtures.json';
 import furniture from '../data/venue-furniture.json';
@@ -18,35 +27,68 @@ import furniture from '../data/venue-furniture.json';
 
 <g
   data-venue-floor-plan="principal-0"
+  data-hidden
   transform="translate(185 110) scale(.55)"
 >
-  <path class="floor-site" d="M421 68 884 65V850H473"></path>
   <path
     class="floor-outline"
-    d="M124 85L247 14L317 132L421 68L492 202H559V308A186 186 0 1 1 473 670V717H276V850H124V435H156V326H197V208Z"
-  ></path>
+    d="M124 85L247 14L317 132L421 68H884V850H124V435H156V326H197V208Z"></path>
   <path
     class="floor-wall"
-    d="M196 203 280 154M199 40 222 81 268 55M139 108 172 89M149 125 182 106M160 143 236 100M170 161 203 142M179 177 213 160M244 117 280 177M156 435H276V717M124 549H276M124 629H276M473 717H481L512 770M449 850V790H473V850M455 130H559M559 180V202"
+    d="M156 435H276V850M124 549H276M124 629H276M455 130H559M421 68 492 202H559V308M559 68V202"
   ></path>
-  <path class="floor-wall" d="M350 416A186 186 0 0 0 473 670"></path>
-  <path class="floor-wall" d="M274 326 345 285 292 199M237 326V236H197"></path>
-  {
-    furniture['principal-0'].map((piece) => (
-      <rect
-        class={piece.height < 12 ? 'floor-seat' : 'floor-desk'}
-        x={-piece.width / 2}
-        y={-piece.height / 2}
-        width={piece.width}
-        height={piece.height}
-        rx={Math.min(8, piece.height / 2)}
-        transform={`translate(${piece.x} ${piece.y}) rotate(${piece.angle})`}
-      />
-    ))
-  }
+  <PrincipalWashrooms />
+  <g data-principal-detail="ala-despachos" class="principal-context">
+    <path
+      class="floor-wall"
+      d="M667 68V237M760 68V546M559 237H884M760 315H884M760 391H884M760 467H884M692 546H760V577L826 774H884M773.401 617H884M801.208 700H884M276 717H473V790H512V850M473 717H520L585 827V850"
+    ></path>
+    {
+      [
+        { x: 637, y: 237 },
+        { x: 708, y: 237 },
+        { x: 760, y: 274, angle: 90 },
+        { x: 760, y: 350, angle: 90 },
+        { x: 760, y: 426, angle: 90 },
+        { x: 760, y: 501, angle: 90 },
+        { x: 352, y: 717 },
+      ].map((door) => <VenueDoor {...door} width={24} />)
+    }
+  </g>
+  <g data-principal-detail="secretaria">
+    <path class="floor-wall" d="M473 694L710 560L760 577M473 694V717"></path>
+    <VenueDoor x={670} y={582.616} angle={150.52} width={32} />
+  </g>
+  <PrincipalRoom room="hall" />
+  <path class="floor-wall" d="M274 326 345 285 292 199"></path>
+  <PrincipalAccessCore />
+  <VenueFurniture
+    pieces={furniture['principal-0'].filter(
+      (piece) => !isPrincipalRoomFurniture(piece, 'hall'),
+    )}
+  />
+  <g class="principal-detail" data-principal-detail="planta-0">
+    <VenueSlidingDoor x={345} y={115} angle={-31.6} width={40} />
+    <VenueDoor x={156} y={342} angle={90} width={24} />
+    <VenueDoor x={156} y={397} angle={90} width={24} />
+    <VenueDoor x={276} y={529} angle={90} width={20} />
+    <VenueDoor x={276} y={565} angle={90} width={26} />
+    <VenueDoor x={276} y={679} angle={90} width={32} />
+    <VenueDoor x={506} y={202} width={28} />
+    <VenueDoor x={218} y={850} angle={180} width={36} />
+  </g>
   {
     venueAmenities['principal-0']!.map((amenity) => (
-      <VenueAmenityMarker {...amenity} size={22} />
+      <VenueAmenityMarker
+        {...amenity}
+        size={amenity.kind === 'accessible' ? 16 : 22}
+        destination={
+          ['stairs', 'lift'].includes(amenity.kind)
+            ? 'principal-baja'
+            : undefined
+        }
+        destinationLabel="planta baja"
+      />
     ))
   }
 </g>
@@ -62,51 +104,173 @@ import furniture from '../data/venue-furniture.json';
   ></path>
   <path
     class="floor-wall"
-    d="M197 208 286 153 345 285 274 327M197 238H237V326H131M237 276V236H274L304 222 345 285M559 68V255M559 202H494L459 135M459 135 441 109M559 255H579Q579 272 559 272Q579 272 579 291H559V309M276 770H559V850M613 645 654 723V850M770 691H884M770 770H884"
+    d="M345 285 274 327M237 236H274L304 222 345 285M559 68V255M559 202H494L459 135M459 135 441 109M559 255V309"
   ></path>
-  <path class="floor-wall" d="M336 440A186 186 0 0 1 692 546"></path>
-  <path class="floor-wall" d="M457 666 691 545"></path>
-  {
-    furniture['principal-baja'].map((piece) => (
-      <rect
-        class={piece.height < 12 ? 'floor-seat' : 'floor-desk'}
-        x={-piece.width / 2}
-        y={-piece.height / 2}
-        width={piece.width}
-        height={piece.height}
-        rx={Math.min(8, piece.height / 2)}
-        transform={`translate(${piece.x} ${piece.y}) rotate(${piece.angle})`}
-      />
-    ))
-  }
+  <PrincipalRoom room="salon-actos" />
+  <PrincipalAccessCore />
+  <StudentRoom />
+  <VenueDoor x={559} y={255} angle={90} width={24} />
+  <VenueDoor x={559} y={303} angle={-90} width={24} />
+  <VenueFurniture
+    pieces={furniture['principal-baja'].filter(
+      (piece) =>
+        !isPrincipalRoomFurniture(piece, 'salon-actos') &&
+        !isStudentRoomFurniture(piece),
+    )}
+  />
+  <g data-principal-access="aulas-inferiores">
+    <title>Acceso a las aulas −1</title>
+    <VenueDoor x={345} y={115} angle={-31.6} width={40} />
+  </g>
+  <g class="cafeteria-detail" data-principal-detail="cafeteria">
+    <path class="floor-terrace" d="M904 105H995V600H904Z"></path>
+    <path class="cafe-counter" d="M607 338V315H755V617H727V603H741V329H621V338Z"
+    ></path>
+    {
+      [
+        { x: 642, y: 133 },
+        { x: 765, y: 133 },
+        { x: 642, y: 231 },
+        { x: 765, y: 231 },
+      ].map((table) => (
+        <g transform={`translate(${table.x} ${table.y})`} class="cafe-table">
+          <rect
+            class="floor-desk"
+            x="-26"
+            y="-17"
+            width="52"
+            height="34"
+            rx="5"
+          />
+          <path class="table-seam" d="M0-17V17" />
+          {[-1, 1].map((side) => (
+            <rect
+              class="floor-seat cafe-bench"
+              x="-24"
+              y={side === -1 ? -28 : 22}
+              width="48"
+              height="6"
+              rx="3"
+            />
+          ))}
+        </g>
+      ))
+    }
+    {
+      [350, 425, 500, 575, 650].map((y) => (
+        <g transform={`translate(810 ${y})`} class="cafe-round-table">
+          <circle class="floor-desk" r="17" />
+          {[-1, 1].map((side) => (
+            <>
+              <rect
+                class="floor-seat"
+                x="-8"
+                y={side === -1 ? -28 : 23}
+                width="16"
+                height="5"
+                rx="2.5"
+              />
+              <rect
+                class="floor-seat"
+                x={side === -1 ? -28 : 23}
+                y="-8"
+                width="5"
+                height="16"
+                rx="2.5"
+              />
+            </>
+          ))}
+        </g>
+      ))
+    }
+    {
+      [165, 235, 305, 375, 445, 515].map((y) => (
+        <g transform={`translate(950 ${y})`} class="terrace-table">
+          <circle class="floor-desk" r="15" />
+          <circle class="terrace-parasol" r="20" />
+          <path class="table-seam" d="M-14-14 14 14M-14 14 14-14" />
+          {[-1, 1].map((side) => (
+            <>
+              <rect
+                class="floor-seat"
+                x="-8"
+                y={side === -1 ? -28 : 23}
+                width="16"
+                height="5"
+                rx="2.5"
+              />
+              <rect
+                class="floor-seat"
+                x={side === -1 ? -28 : 23}
+                y="-8"
+                width="5"
+                height="16"
+                rx="2.5"
+              />
+            </>
+          ))}
+        </g>
+      ))
+    }
+    <VenueDoor x={884} y={335} angle={90} width={36} />
+    <VenueDoor x={884} y={613} angle={90} width={36} />
+  </g>
   {
     venueAmenities['principal-baja']!.map((amenity) => (
-      <VenueAmenityMarker {...amenity} size={22} />
+      <VenueAmenityMarker
+        {...amenity}
+        size={22}
+        destination={
+          ['stairs', 'lift'].includes(amenity.kind) ? 'principal-0' : undefined
+        }
+        destinationLabel="planta 0"
+      />
     ))
   }
 </g>
 <g
   data-venue-floor-plan="aulas-inferiores"
   data-hidden
-  transform="translate(185 178) scale(.55)"
+  transform="translate(185 178) scale(.48)"
 >
-  <path class="floor-wall" d="M500 0V194M500 264V458M489 527V625"></path>
+  <rect
+    class="floor-classroom-outline"
+    data-lower-room="aula11"
+    x="-12"
+    y="-14"
+    width="526"
+    height="660"
+    rx="18"></rect>
+  <rect
+    class="floor-classroom-outline"
+    data-lower-room="aula12"
+    x="618"
+    y="-14"
+    width="526"
+    height="660"
+    rx="18"></rect>
   {
-    aulaFixtures.inferiores.map(({ kind, ...fixture }) => (
+    aulaFixtures.inferiores.map(({ kind, x, ...fixture }) => (
       <rect
         class={`floor-${kind}`}
         data-venue-fixture={kind}
+        x={x >= 505 ? x + 130 : x}
         {...fixture}
         rx={kind === 'column' ? 4 : Math.min(9, fixture.height / 2)}
       />
     ))
   }
-  <g class="floor-fixed-label" transform="translate(250 -30)"
+  <g class="floor-fixed-label" transform="translate(250 -40)"
     ><g class="floor-upright"><text text-anchor="middle">Aula −1.1</text></g></g
   >
-  <g class="floor-fixed-label" transform="translate(750 -30)"
+  <g class="floor-fixed-label" transform="translate(880 -40)"
     ><g class="floor-upright"><text text-anchor="middle">Aula −1.2</text></g></g
   >
+  {
+    venueAmenities['aulas-inferiores']!.map((amenity) => (
+      <VenueAmenityMarker {...amenity} size={24} />
+    ))
+  }
 </g>
 {
   (['prefabricadas-a', 'prefabricadas-b'] as const).map((plan) => (
@@ -166,6 +330,20 @@ import furniture from '../data/venue-furniture.json';
   ))
 }
 
+<g
+  data-venue-floor-plan="principal-hall"
+  data-hidden
+  transform="translate(460 350) scale(1.15) translate(-510 -490)"
+>
+  <PrincipalRoom room="hall" detailed />
+</g>
+<g
+  data-venue-floor-plan="principal-actos"
+  data-hidden
+  transform="translate(460 350) scale(1.25) translate(-514 -493)"
+>
+  <PrincipalRoom room="salon-actos" detailed />
+</g>
 <style>
   [data-hidden] {
     display: none !important;
@@ -175,6 +353,37 @@ import furniture from '../data/venue-furniture.json';
   circle {
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+
+  .cafe-counter {
+    fill: url(#venue-desk-surface);
+    stroke: currentColor;
+    stroke-width: 1.1;
+    opacity: 0.8;
+  }
+  .floor-terrace {
+    fill: currentColor;
+    fill-opacity: 0.025;
+    stroke: currentColor;
+    stroke-width: 0.8;
+    stroke-dasharray: 4 5;
+    opacity: 0.6;
+  }
+  .terrace-parasol {
+    fill: currentColor;
+    fill-opacity: 0.045;
+    stroke: currentColor;
+    stroke-width: 0.7;
+    opacity: 0.5;
+  }
+  .table-seam {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 0.6;
+    opacity: 0.3;
+  }
+  .principal-context {
+    opacity: 0.58;
   }
   .floor-room {
     fill: none;
@@ -221,10 +430,20 @@ import furniture from '../data/venue-furniture.json';
     vector-effect: non-scaling-stroke;
   }
   .floor-column {
-    fill: var(--paper);
+    fill: var(--venue-plan-background, var(--paper));
     stroke: currentColor;
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
+  }
+  .floor-classroom-outline {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.2;
+    stroke-dasharray: 5 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.45;
   }
   .floor-outline {
     fill: color-mix(in srgb, var(--ink) 3%, var(--paper));

@@ -1,0 +1,726 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ArrowUpRight from '../../components/ArrowUpRight.astro';
+import GranadaAccent from '../../components/GranadaAccent.astro';
+
+const description =
+  'UGR LAN Party (ULP) es evento anual de videojuegos organizado por profesores, estudiantes y antiguos estudiantes de la Universidad de Granada. Se celebra en la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación, reuniendo a cientos de personas para llevar a cabo competiciones, charlas, conciertos y retos en un espacio para aprender, compartir y divertirse.';
+const logos = [
+  {
+    name: 'Logo a color',
+    file: '/assets/logo/logo-white.png',
+    download: 'ugr-lan-party-color.png',
+    svg: '/assets/prensa/ugr-lan-party-color.svg',
+    theme: 'light',
+    use: 'Para fondos claros',
+  },
+  {
+    name: 'Logo blanco',
+    file: '/assets/logo/logo-black.png',
+    download: 'ugr-lan-party-blanco.png',
+    svg: '/assets/prensa/ugr-lan-party-blanco.svg',
+    theme: 'dark',
+    use: 'Para fondos oscuros',
+  },
+];
+const colors = [
+  { name: 'Azul ULP', hex: '#004465', rgb: '0, 68, 101', light: true },
+  { name: 'Azul noche', hex: '#063349', rgb: '6, 51, 73', light: true },
+  { name: 'Turquesa', hex: '#006471', rgb: '0, 100, 113', light: true },
+  { name: 'Beige', hex: '#F5F0E6', rgb: '245, 240, 230', light: false },
+  { name: 'Marfil', hex: '#FCF8EF', rgb: '252, 248, 239', light: false },
+];
+const sections = [
+  { id: 'logos', name: 'Logos' },
+  { id: 'descripcion', name: 'La ULP en unas líneas' },
+  { id: 'colores', name: 'Paleta de colores' },
+  { id: 'contacto-prensa', name: 'Contacto' },
+];
+---
+
+<Layout
+  title="Prensa y colaboradores"
+  description="Logos de UGR LAN Party, descripción breve, paleta corporativa y contacto para medios y entidades colaboradoras."
+>
+  <article class="press-kit design-container" data-press-kit>
+    <header class="kit-header">
+      <GranadaAccent id="press-kit-mosaic" />
+      <div class="kit-intro">
+        <span class="design-eyebrow">Recursos de comunicación</span>
+        <h1>Prensa y<br /><em>colaboradores</em></h1>
+        <p>
+          Todo lo que necesitas para hablar de la ULP y acompañarnos con nuestra
+          identidad.
+        </p>
+      </div>
+      <nav class="kit-index" aria-label="En esta página">
+        {
+          sections.map((section, index) => (
+            <a href={`#${section.id}`}>
+              <span>0{index + 1}</span>
+              {section.name}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+
+    <section id="logos" aria-labelledby="logos-title" class="kit-section">
+      <div class="kit-section-heading">
+        <div>
+          <span class="kit-number">01 / Identidad</span><h2 id="logos-title">
+            Nuestro logo
+          </h2>
+        </div>
+        <a
+          href="/assets/prensa/ulp-logos.zip"
+          download="ugr-lan-party-logos.zip"
+          class="design-button"
+          >Descargar ambos logos <span aria-hidden="true">↓</span></a
+        >
+      </div>
+      <div class="logo-grid">
+        {
+          logos.map((logo) => (
+            <article class="logo-card">
+              <div class:list={['logo-preview', logo.theme]}>
+                <span class="preview-note">UGR LAN PARTY / GRANADA</span>
+                <img
+                  src={logo.file}
+                  alt={logo.name + ' de UGR LAN Party'}
+                  width="2000"
+                  height="2000"
+                />
+                <span class="preview-note">{logo.use}</span>
+              </div>
+              <div class="logo-download">
+                <>
+                  <div>
+                    <>
+                      <h3>{logo.name}</h3>
+                      <p>PNG · 2000 × 2000 px / SVG</p>
+                    </>
+                  </div>
+                  <div class="logo-file-links">
+                    <a
+                      href={logo.file}
+                      download={logo.download}
+                      aria-label={`Descargar ${logo.name.toLowerCase()} en PNG`}
+                    >
+                      PNG <span aria-hidden="true">↓</span>
+                    </a>
+                    <a
+                      href={logo.svg}
+                      download
+                      aria-label={`Descargar ${logo.name.toLowerCase()} en SVG`}
+                    >
+                      SVG <span aria-hidden="true">↓</span>
+                    </a>
+                  </div>
+                </>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <p class="kit-hint">
+        Mantén las proporciones del logo y deja espacio alrededor para que se
+        lea con claridad.
+      </p>
+    </section>
+
+    <section
+      id="descripcion"
+      aria-labelledby="description-title"
+      class="kit-section description-section"
+    >
+      <div>
+        <span class="kit-number">02 / Presentación</span><h2
+          id="description-title"
+        >
+          La ULP<br /><em>en unas líneas</em>
+        </h2>
+      </div>
+      <div class="description-card">
+        <span class="description-label">UGR LAN PARTY · ULP</span>
+        <p class="kit-description" id="ulp-description">{description}</p>
+        <button
+          type="button"
+          class="kit-copy"
+          data-copy-description
+          data-copy-label="Descripción de la ULP"
+          hidden
+          ><span data-copy-feedback>Copiar descripción</span><span
+            aria-hidden="true">↗</span
+          ></button
+        >
+      </div>
+    </section>
+
+    <section id="colores" aria-labelledby="colors-title" class="kit-section">
+      <div class="kit-section-heading">
+        <div>
+          <span class="kit-number">03 / Paleta</span><h2 id="colors-title">
+            Nuestros colores
+          </h2>
+        </div><p>
+          Los tonos que dan forma a la ULP.<br />Pulsa un código HEX para
+          copiarlo.
+        </p>
+      </div>
+      <div class="palette-grid">
+        {
+          colors.map((color) => (
+            <article class="color-card">
+              <div
+                class="color-swatch"
+                style={`--swatch:${color.hex};--swatch-ink:${color.light ? '#F5F0E6' : '#004465'}`}
+              >
+                <>
+                  <span aria-hidden="true">Aa</span>
+                  <span>{color.name}</span>
+                </>
+              </div>
+              <div class="color-details">
+                <>
+                  <h3>{color.name}</h3>
+                  <span class="color-hex">{color.hex}</span>
+                  <button
+                    type="button"
+                    class="color-copy"
+                    data-copy-text={color.hex}
+                    data-copy-label={color.name}
+                    aria-label={`Copiar ${color.name}: ${color.hex}`}
+                    hidden
+                  >
+                    <>
+                      <span data-copy-feedback>{color.hex}</span>
+                      <span aria-hidden="true">↗</span>
+                    </>
+                  </button>
+                  <small>RGB {color.rgb}</small>
+                </>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section
+      id="contacto-prensa"
+      aria-labelledby="contact-title"
+      class="kit-contact"
+    >
+      <GranadaAccent id="press-contact-mosaic" />
+      <div>
+        <span class="kit-number">04 / Contacto</span><h2 id="contact-title">
+          ¿Lo contamos<br /><em>juntos?</em>
+        </h2><p>
+          Para entrevistas, difusión o propuestas de colaboración, habla
+          directamente con la organización.
+        </p>
+      </div>
+      <div class="kit-contact-actions">
+        <a class="kit-email" href="mailto:ulp@ugr.es"
+          >ulp@ugr.es <span aria-hidden="true"><ArrowUpRight /></span></a
+        ><div>
+          <a href="mailto:ulp@ugr.es?subject=Prensa%20%7C%20UGR%20LAN%20Party"
+            >Soy un medio <span aria-hidden="true">↗</span></a
+          ><a
+            href="mailto:ulp@ugr.es?subject=Colaboraci%C3%B3n%20%7C%20UGR%20LAN%20Party"
+            >Quiero colaborar <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </div>
+    </section>
+    <p
+      class="sr-only"
+      data-kit-status
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+    </p>
+  </article>
+</Layout>
+
+<script>
+  const kit = document.querySelector<HTMLElement>('[data-press-kit]');
+  if (kit) {
+    const status = kit.querySelector<HTMLElement>('[data-kit-status]')!;
+    kit
+      .querySelectorAll<HTMLButtonElement>(
+        '[data-copy-text], [data-copy-description]',
+      )
+      .forEach((button) => {
+        const feedback = button.querySelector<HTMLElement>(
+          '[data-copy-feedback]',
+        )!;
+        const original = feedback.textContent;
+        let reset: number | undefined;
+        button.hidden = false;
+        button.closest('.color-details')?.classList.add('can-copy');
+        button.addEventListener('click', async () => {
+          const description =
+            kit.querySelector<HTMLElement>('#ulp-description')!;
+          const text =
+            button.dataset.copyText ?? description.textContent?.trim() ?? '';
+          try {
+            await navigator.clipboard.writeText(text);
+            feedback.textContent = 'Copiado';
+            status.textContent = `${button.dataset.copyLabel} copiado${button.dataset.copyText ? ': ' + text : ''}`;
+            window.clearTimeout(reset);
+            reset = window.setTimeout(() => {
+              feedback.textContent = original;
+            }, 1800);
+          } catch {
+            const target = button.hasAttribute('data-copy-description')
+              ? description
+              : feedback;
+            const range = document.createRange();
+            range.selectNodeContents(target);
+            const selection = window.getSelection();
+            selection?.removeAllRanges();
+            selection?.addRange(range);
+            status.textContent =
+              'Selecciona el texto y usa la opción Copiar de tu dispositivo.';
+          }
+        });
+      });
+  }
+</script>
+
+<style>
+  .press-kit {
+    padding-top: 84px;
+    padding-bottom: clamp(48px, 7vw, 100px);
+  }
+  .kit-header {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    align-items: end;
+    gap: 48px;
+    padding-block: clamp(45px, 7vw, 90px) 48px;
+  }
+  .kit-header :global(.granada-accent) {
+    z-index: -1;
+  }
+  h1 {
+    font-size: clamp(40px, 6.2vw, 82px);
+    line-height: 1;
+    font-weight: 800;
+    margin-block: 22px;
+  }
+  em {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+  }
+  .kit-intro > p {
+    max-width: 440px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .kit-index {
+    display: grid;
+    max-width: 350px;
+    width: 100%;
+    justify-self: end;
+  }
+  .kit-index a {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--line);
+    min-height: 48px;
+    font-size: 13px;
+  }
+  .kit-index a > span:first-child,
+  .kit-number {
+    font:
+      10px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .kit-index a:hover {
+    color: var(--accent);
+  }
+  :global(.dark) .kit-index a:hover {
+    color: #c1d0cd;
+  }
+  .kit-section {
+    padding-block: 42px;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 110px;
+  }
+  .kit-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: clamp(28px, 3.2vw, 42px);
+    font-weight: 750;
+    line-height: 1.1;
+    margin-top: 12px;
+  }
+  .kit-section-heading > p {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .kit-section-heading .design-button {
+    padding: 13px 18px;
+    font-size: 12px;
+    min-height: 44px;
+  }
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .logo-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+  }
+  .logo-preview {
+    position: relative;
+    min-height: 270px;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background-color: #f5f0e6;
+    color: #004465;
+    background-image: radial-gradient(currentColor 0.55px, transparent 0.55px);
+    background-size: 22px 22px;
+  }
+  .logo-preview.dark {
+    background-color: #004465;
+    color: #f5f0e6;
+  }
+  .logo-preview img {
+    display: block;
+    width: 255px;
+    height: 255px;
+    object-fit: contain;
+  }
+  .preview-note {
+    position: absolute;
+    left: 22px;
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: #f5f0e6;
+    padding: 3px 5px;
+  }
+  .dark .preview-note {
+    background: #004465;
+  }
+  .preview-note:first-child {
+    top: 18px;
+  }
+  .preview-note:last-child {
+    bottom: 18px;
+  }
+  .logo-download {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface);
+  }
+  .logo-download h3 {
+    font-size: 16px;
+    font-weight: 650;
+  }
+  .logo-download p {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+  .logo-file-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+  .logo-download a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 44px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .logo-download a:hover,
+  .kit-contact a:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+  .kit-hint {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .description-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 36px;
+  }
+  .description-card {
+    padding: clamp(22px, 3vw, 38px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+  }
+  .description-label {
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .kit-description {
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.65;
+    margin-block: 20px;
+  }
+  .kit-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 11px 16px;
+    font-size: 12px;
+    min-height: 44px;
+  }
+  .kit-copy:hover,
+  .color-copy:hover {
+    background: color-mix(in srgb, var(--ink) 7%, transparent);
+  }
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .color-card {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .color-swatch {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 160px;
+    padding: 20px;
+    background: var(--swatch);
+    color: var(--swatch-ink);
+  }
+  .color-swatch > span:first-child {
+    font:
+      italic 50px Georgia,
+      serif;
+    letter-spacing: -0.08em;
+  }
+  .color-swatch > span:last-child {
+    font:
+      9px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .color-details {
+    padding: 16px;
+    background: var(--surface);
+  }
+  .color-details h3 {
+    font-size: 13px;
+    font-weight: 650;
+    margin-bottom: 5px;
+  }
+  .color-hex {
+    display: block;
+    padding-block: 13px;
+    font:
+      12px ui-monospace,
+      monospace;
+  }
+  .can-copy .color-hex {
+    display: none;
+  }
+  .color-copy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 44px;
+    font:
+      12px ui-monospace,
+      monospace;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .color-details small {
+    display: block;
+    color: var(--muted);
+    font:
+      9px ui-monospace,
+      monospace;
+    margin-top: 4px;
+  }
+  .kit-contact {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: clamp(28px, 4vw, 52px);
+    margin-top: 20px;
+    background: #004465;
+    color: #f5f0e6;
+    border-radius: 24px;
+    overflow: hidden;
+    scroll-margin-top: 110px;
+  }
+  .kit-contact .kit-number {
+    color: #c1d0cd;
+  }
+  .kit-contact h2 {
+    font-size: clamp(34px, 4vw, 54px);
+  }
+  .kit-contact p {
+    max-width: 390px;
+    color: #c1d0cd;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-top: 20px;
+  }
+  .kit-contact > div {
+    position: relative;
+  }
+  .kit-contact-actions {
+    justify-self: end;
+    width: min(100%, 350px);
+  }
+  .kit-email {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: clamp(25px, 3vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    padding-block: 16px;
+    border-bottom: 1px solid rgb(245 240 230 / 0.25);
+  }
+  .kit-email > span {
+    width: 26px;
+  }
+  .kit-contact-actions > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 26px;
+    margin-top: 16px;
+  }
+  .kit-contact-actions > div a {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 44px;
+    font-size: 12px;
+  }
+  button[hidden] {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .palette-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .logo-download {
+      align-items: start;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .description-section {
+      grid-template-columns: 1fr 1.6fr;
+    }
+  }
+  @media (max-width: 600px) {
+    .kit-header {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding-bottom: 32px;
+    }
+    .kit-index {
+      max-width: none;
+    }
+    .kit-section {
+      padding-block: 30px;
+    }
+    .kit-section-heading {
+      align-items: start;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .logo-grid,
+    .description-section,
+    .kit-contact {
+      grid-template-columns: 1fr;
+    }
+    .logo-preview {
+      min-height: 235px;
+    }
+    .logo-preview img {
+      width: 225px;
+      height: 225px;
+    }
+    .logo-download {
+      flex-direction: row;
+      align-items: center;
+      padding: 16px;
+    }
+    .logo-download a {
+      gap: 10px;
+      font-size: 11px;
+    }
+    .logo-download p {
+      font-size: 9px;
+    }
+    .description-section {
+      gap: 20px;
+    }
+    .palette-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .color-swatch {
+      height: 140px;
+      padding: 16px;
+    }
+    .kit-contact {
+      gap: 18px;
+      padding: 26px;
+    }
+    .kit-contact-actions {
+      justify-self: start;
+    }
+  }
+</style>

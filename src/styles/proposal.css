@@ -268,18 +268,19 @@ summary:focus-visible,
   position: absolute;
   top: 100%;
   left: -20px;
-  width: 235px;
+  width: 195px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 10px;
+  padding: 4px;
   background: var(--paper);
   box-shadow: 0 20px 40px rgb(0 68 101 / 0.13);
 }
 .submenu a {
   display: block;
   border-radius: 6px;
-  padding: 12px;
+  padding: 6px 10px;
   font-size: 12px;
+  line-height: 1.4;
 }
 .submenu a:hover {
   background: color-mix(in srgb, var(--ink) 8%, transparent);

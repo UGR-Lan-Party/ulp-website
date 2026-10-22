@@ -31,7 +31,7 @@ test('Las 26 fichas conservan sus datos, reglas y premios en móvil sin JavaScri
           ? Object.values(game.awards).flat()
           : [];
       await expect(page.locator('.awards-list li')).toHaveText(awards);
-      await expect(page.locator('.schedule-time')).toHaveCount(
+      await expect(page.locator('.summary-schedule li')).toHaveCount(
         game.schedule.length,
       );
       await expect(
@@ -61,11 +61,26 @@ test('La carta mantiene la interacción y se detiene al reducir el movimiento', 
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/actividades/ajedrez/');
   const card = page.locator('#holo-card');
-  const bounds = (await card.boundingBox())!;
-  await page.mouse.move(bounds.x + 70, bounds.y + 90);
-  await expect
-    .poll(() => card.evaluate((element) => element.style.transform))
-    .toContain('rotate3d');
+  await page.evaluate(() => document.fonts.ready);
+  await card
+    .locator('img')
+    .evaluateAll((images) =>
+      Promise.all(
+        images.map((image) =>
+          (image as HTMLImageElement).decode().catch(() => {}),
+        ),
+      ),
+    );
+  await expect(async () => {
+    await card.hover({ position: { x: 70, y: 90 }, force: true });
+    const bounds = (await card.boundingBox())!;
+    await page.mouse.move(bounds.x + 100, bounds.y + 120, { steps: 4 });
+    await expect
+      .poll(() => card.evaluate((element) => element.style.transform), {
+        timeout: 1500,
+      })
+      .toContain('rotate3d');
+  }).toPass({ timeout: 12000 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(card).toHaveCSS('transform', 'none');
   await expect(card).toHaveCSS('animation-name', 'none');
@@ -90,15 +105,15 @@ test('Los premios recuperan la tipografía retro y las animaciones respetan movi
   );
   const background = page.locator('.trophy-backdrop');
   await expect(background).toHaveCSS('opacity', '0.09');
-  await expect(background).toHaveCSS('filter', 'saturate(0.15)');
+  await expect(background).toHaveCSS('filter', 'saturate(0)');
   await expect(page.locator('.trophy-showcase')).toHaveCSS(
     'background-color',
-    'rgb(6, 45, 67)',
+    'rgb(245, 240, 230)',
   );
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
   await expect(page.locator('.trophy-showcase')).toHaveCSS(
     'background-color',
-    'rgb(6, 45, 67)',
+    'rgb(6, 51, 73)',
   );
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(medal).toHaveCSS('animation-name', 'none');

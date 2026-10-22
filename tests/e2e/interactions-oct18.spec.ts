@@ -12,6 +12,7 @@ test('La rueda amplía el plano sin desplazar la página y el botón Rotar recor
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/info/horarios/');
+  await page.locator('[data-venue-building-select]').selectOption('principal');
   const drawing = page.locator('[data-venue-drawing]');
   const map = page.locator('[data-venue-map]');
   const controls = page.locator('[data-venue-controls]');

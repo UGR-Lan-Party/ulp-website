@@ -1,0 +1,138 @@
+---
+import VenueDoor from './VenueDoor.astro';
+const angle = Math.PI / 6;
+const outline = [
+  [124, 85],
+  [247, 14],
+  [317, 132],
+  [197, 208],
+].map(([x, y]) => ({
+  x: (x - 124) * Math.cos(angle) - (y - 85) * Math.sin(angle),
+  y: (x - 124) * Math.sin(angle) + (y - 85) * Math.cos(angle),
+}));
+const [bottomLeft, bottomRight] = [outline[3], outline[2]];
+const entranceAngle =
+  (Math.atan2(bottomRight.y - bottomLeft.y, bottomRight.x - bottomLeft.x) *
+    180) /
+  Math.PI;
+const entranceY =
+  bottomLeft.y +
+  ((112 - bottomLeft.x) * (bottomRight.y - bottomLeft.y)) /
+    (bottomRight.x - bottomLeft.x);
+const stalls = Array.from({ length: 6 }, (_, index) => (index * 70) / 3);
+---
+
+<g
+  class="principal-washrooms"
+  data-principal-washrooms
+  transform="translate(124 85) rotate(-30)"
+>
+  <defs>
+    <clipPath id="principal-washrooms-interior">
+      <polygon points={outline.map(({ x, y }) => `${x},${y}`).join(' ')}
+      ></polygon>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#principal-washrooms-interior)">
+    <path class="washroom-divider" d="M88-1V145M-1 70H88M88 48H145"></path>
+    <path class="stall-wall" d="M32-1V145"></path>
+    {
+      stalls.map((y, index) => (
+        <g data-principal-wc-stall>
+          {index !== 0 && index !== 3 && (
+            <path class="stall-wall" d={`M-1 ${y}H32`} />
+          )}
+          <rect
+            class="sanitary-fixture"
+            x="3"
+            y={y + 6.5}
+            width="5"
+            height="10"
+            rx="1"
+          />
+          <ellipse
+            class="sanitary-fixture"
+            cx="13"
+            cy={y + 11.5}
+            rx="6"
+            ry="4.5"
+          />
+          <VenueDoor x={32} y={y + 18} angle={-90} width={13} />
+        </g>
+      ))
+    }
+    {
+      [12, 38, 86, 108].map((y) => (
+        <g data-principal-wc-basin>
+          <rect
+            class="sanitary-fixture"
+            x="78"
+            y={y - 6}
+            width="8"
+            height="15"
+            rx="2"
+          />
+          <ellipse class="basin-bowl" cx="82" cy={y + 1.5} rx="2.5" ry="5" />
+          <path class="basin-tap" d={`M88 ${y + 1.5}H84`} />
+        </g>
+      ))
+    }
+    <g data-principal-wc-accessible>
+      <rect class="sanitary-fixture" x="95" y="2" width="8" height="4" rx="1"
+      ></rect>
+      <ellipse class="sanitary-fixture" cx="99" cy="11" rx="4" ry="5"></ellipse>
+      <rect class="sanitary-fixture" x="134" y="7" width="7" height="14" rx="2"
+      ></rect>
+      <ellipse class="basin-bowl" cx="137.5" cy="14" rx="2" ry="4.5"></ellipse>
+    </g>
+    <VenueDoor x={88} y={70} angle={-90} width={22} />
+    <VenueDoor x={88} y={137} angle={-90} width={18} />
+    <VenueDoor x={130} y={48} angle={180} width={22} />
+  </g>
+  <path
+    class="washroom-divider"
+    d={`M${bottomLeft.x} ${bottomLeft.y}L${bottomRight.x} ${bottomRight.y}`}
+  ></path>
+  <VenueDoor x={112} y={entranceY} angle={entranceAngle} width={24} />
+</g>
+<style>
+  .principal-washrooms {
+    --venue-door-opening-width: 1.7;
+  }
+  path,
+  rect,
+  ellipse {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .washroom-divider {
+    stroke-width: 0.9;
+    opacity: 0.65;
+  }
+  .stall-wall {
+    stroke-width: 0.6;
+    opacity: 0.55;
+  }
+  .sanitary-fixture {
+    stroke-width: 0.45;
+    fill: currentColor;
+    fill-opacity: 0.035;
+    opacity: 0.65;
+  }
+  .basin-bowl,
+  .basin-tap {
+    stroke-width: 0.4;
+    opacity: 0.6;
+  }
+  .principal-washrooms :global(.door-leaf) {
+    stroke-width: 0.6;
+    opacity: 0.75;
+  }
+  .principal-washrooms :global(.door-swing) {
+    stroke-width: 0.45;
+    opacity: 0.45;
+  }
+</style>

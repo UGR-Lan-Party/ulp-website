@@ -2,6 +2,7 @@
 import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumb from '../../components/layout/Breadcrumb.astro';
+import InitialSurveyComparison from '../../components/InitialSurveyComparison.astro';
 import EditionTimeline from '../../components/EditionTimeline.astro';
 import EditionArchive from '../../components/EditionArchive.astro';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
@@ -53,6 +54,7 @@ import { pastEditions } from '../../data/past-editions';
         <EditionArchive edition={edition} reversed={index % 2 === 1} />
       ))
     }
+    <InitialSurveyComparison />
     <div class="archive-ending">
       <a href="/" class="design-link"
         >Volver a ULP 2027 <span aria-hidden="true"><ArrowUpRight /></span></a

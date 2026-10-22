@@ -1,0 +1,54 @@
+---
+interface Props {
+  pieces: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    angle: number;
+    kind?: 'desk' | 'seat';
+  }[];
+}
+const { pieces } = Astro.props;
+---
+
+{
+  pieces.map((piece) => (
+    <rect
+      class={
+        piece.kind
+          ? `floor-${piece.kind}`
+          : piece.height < 12
+            ? 'floor-seat'
+            : 'floor-desk'
+      }
+      x={-piece.width / 2}
+      y={-piece.height / 2}
+      width={piece.width}
+      height={piece.height}
+      rx={
+        piece.kind === 'desk'
+          ? Math.min(4, piece.height / 4)
+          : Math.min(8, piece.height / 2)
+      }
+      transform={`translate(${piece.x} ${piece.y}) rotate(${piece.angle})`}
+    />
+  ))
+}
+<style>
+  rect {
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .floor-desk {
+    fill: url(#venue-desk-surface);
+    stroke-width: 1.1;
+    opacity: 0.8;
+  }
+  .floor-seat {
+    fill: url(#venue-seat-surface);
+    stroke-width: 0.8;
+    opacity: 0.58;
+  }
+</style>

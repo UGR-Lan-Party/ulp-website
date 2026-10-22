@@ -1,4 +1,5 @@
 ---
+import HomeSectionPattern from './HomeSectionPattern.astro';
 import ArrowUpRight from './ArrowUpRight.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { getPublishedNews, formatNewsDate } from '../utils/news';
@@ -13,6 +14,7 @@ const stories = (await getPublishedNews()).slice(0, 2);
       aria-labelledby="home-news-title"
     >
       <header class="home-news-heading">
+        <HomeSectionPattern id="home-news-pattern" variant="arcs" />
         <div>
           <span class="design-eyebrow">El tablón de la ULP</span>
           <h2 id="home-news-title">
@@ -29,7 +31,7 @@ const stories = (await getPublishedNews()).slice(0, 2);
       <div class="home-news-list">
         {stories.map((entry) => (
           <article class="home-news-story">
-            <a href={`/blog/${entry.slug}`}>
+            <a href={`/blog/${entry.id}`}>
               <div class="home-news-image">
                 <ResponsiveImage
                   src={entry.data.image.src}
@@ -59,7 +61,7 @@ const stories = (await getPublishedNews()).slice(0, 2);
 
 <style>
   .home-news {
-    padding-top: clamp(44px, 5vw, 68px);
+    padding-top: clamp(28px, 3.5vw, 44px);
     padding-bottom: clamp(20px, 2vw, 28px);
   }
   .home-news-heading,
@@ -68,6 +70,8 @@ const stories = (await getPublishedNews()).slice(0, 2);
     margin-inline: auto;
   }
   .home-news-heading {
+    position: relative;
+    isolation: isolate;
     display: flex;
     align-items: end;
     justify-content: space-between;
@@ -183,7 +187,7 @@ const stories = (await getPublishedNews()).slice(0, 2);
   }
   @media (max-width: 700px) {
     .home-news {
-      padding-block: 28px 32px;
+      padding-block: 18px 32px;
     }
     .home-news-heading {
       flex-direction: row;

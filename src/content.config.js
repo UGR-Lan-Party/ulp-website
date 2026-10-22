@@ -1,0 +1,74 @@
+// 1. Import utilities from `astro:content`
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
+
+// 2. Define your collection(s)
+const blogCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  schema: z.object({
+    draft: z.boolean(),
+    title: z.string(),
+    snippet: z.string(),
+    image: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+    bigImg: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+    authorImg: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+    publishDate: z.string().transform((str) => new Date(str)),
+    author: z.string().default('Pimjolabs'),
+    comments: z.string(),
+    views: z.string(),
+    category: z.string(),
+    tags: z.array(z.string()),
+    postDetails: z.object({
+      paraOne: z.string(),
+      paraTwo: z.string(),
+      title: z.string(),
+      paraThree: z.string(),
+      titleTwo: z.string(),
+      paraFour: z.string(),
+      paraFive: z.string(),
+      paraSix: z.string().optional(),
+    }),
+    socialLinks: z
+      .object({
+        web: z.string().optional(),
+        twitter: z.string().optional(),
+        instagram: z.string().optional(),
+        tiktok: z.string().optional(),
+      })
+      .optional(),
+    quotes: z.object({
+      quote: z.string(),
+      author: z.string(),
+    }),
+  }),
+});
+
+const legalCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/legal' }),
+  schema: z.object({
+    title: z.string(),
+    sections: z.array(
+      z.object({
+        title: z.string(),
+        content: z.string(),
+      }),
+    ),
+  }),
+});
+
+// 3. Export a single `collections` object to register your collection(s)
+//    This key should match your collection directory name in "src/content"
+export const collections = {
+  blog: blogCollection,
+  legal: legalCollection,
+};

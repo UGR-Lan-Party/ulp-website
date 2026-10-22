@@ -31,8 +31,12 @@ import ResponsiveImage from './ResponsiveImage.astro';
         </p>
       </div>
       <div class="hero-actions">
-        <a class="design-button" href="/actividades#competiciones"
-          >Inscripciones <span aria-hidden="true"><ArrowUpRight /></span></a
+        <a
+          class="design-button"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdJMDi2FwLzRPnvwLks38jxdofGHqttSkozxzFmBewVAC_zOQ/viewform"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Encuesta Inicial <span aria-hidden="true"><ArrowUpRight /></span></a
         ><a class="design-button secondary" href="/info/about"
           >Conoce la ULP <span aria-hidden="true">→</span></a
         >
@@ -84,6 +88,7 @@ import ResponsiveImage from './ResponsiveImage.astro';
 </section>
 <style>
   .design-hero {
+    isolation: isolate;
     position: relative;
     overflow: hidden;
     padding-top: 158px;
@@ -206,6 +211,7 @@ import ResponsiveImage from './ResponsiveImage.astro';
   }
   .hero-art {
     position: relative;
+    isolation: isolate;
     height: 520px;
     padding: 20px 24px 30px 0;
   }

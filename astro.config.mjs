@@ -1,15 +1,20 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwind from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 import sitemap from '@astrojs/sitemap';
 import { legacyRedirects } from './src/data/legacy-redirects.js';
 
 export default defineConfig({
   site: 'https://ulp.ugr.es',
-  integrations: [tailwind(), sitemap()],
+  output: 'static',
+  compressHTML: true,
+  integrations: [sitemap()],
   redirects: legacyRedirects,
   vite: {
+    css: { postcss: { plugins: [tailwind(), autoprefixer()] } },
     optimizeDeps: {
       include: [
+        'qrcode',
         'three',
         'three/examples/jsm/controls/OrbitControls.js',
         'three/examples/jsm/loaders/OBJLoader.js',
