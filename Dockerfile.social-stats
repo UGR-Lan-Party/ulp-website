@@ -1,4 +1,4 @@
-FROM node:24.21.0-alpine
+FROM node:24.22.1-alpine
 WORKDIR /app
 ENV NODE_ENV=production SOCIAL_STATS_HOST=0.0.0.0 SOCIAL_STATS_PORT=8788
 COPY scripts/social-stats ./scripts/social-stats
