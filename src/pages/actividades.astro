@@ -25,7 +25,20 @@ const sections = [
     title: 'Actividades',
     description: 'Descubre, comparte y juega a tu ritmo.',
   },
-].map((section) => ({ ...section, games: getActivitiesByTag(section.tag) }));
+].map((section) => {
+  const games = getActivitiesByTag(section.tag);
+  if (section.tag === 'competicion') {
+    const lolIndex = games.findIndex((game) => game.id === 'league-of-legends');
+    const futbolinIndex = games.findIndex((game) => game.id === 'futbolin');
+    if (lolIndex >= 0 && futbolinIndex >= 0) {
+      [games[lolIndex], games[futbolinIndex]] = [
+        games[futbolinIndex],
+        games[lolIndex],
+      ];
+    }
+  }
+  return { ...section, games };
+});
 ---
 
 <Layout
@@ -98,6 +111,11 @@ const sections = [
               {String(index + 1).padStart(2, '0')} / Elige cómo jugar
             </span>
             <h2 class="design-heading">{section.title}</h2>
+            {section.key === 'competiciones' && (
+              <p class="catalog-edition-note">
+                Todos los torneos de la ULP 2026
+              </p>
+            )}
           </div>
           <p>{section.description}</p>
         </div>

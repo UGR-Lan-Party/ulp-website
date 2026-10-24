@@ -1,5 +1,5 @@
 ---
-import LinktreeCard from '../../components/LinktreeCard.astro';
+import LinktreeShowcase from '../../components/LinktreeShowcase.astro';
 import Layout from '../../layouts/Layout.astro';
 import GranadaAccent from '../../components/GranadaAccent.astro';
 import ArrowUpRight from '../../components/ArrowUpRight.astro';
@@ -46,11 +46,6 @@ const number = new Intl.NumberFormat('es-ES', {
           Partidas, novedades y todo lo que compartimos entre una edición y la
           siguiente.
         </p>
-      </div>
-      <div class="social-heading-note">
-        <span>ENCUÉNTRANOS EN</span><strong
-          >7 canales<span aria-hidden="true">↗</span></strong
-        ><span>Una misma comunidad</span>
       </div>
     </header>
 
@@ -183,7 +178,7 @@ const number = new Intl.NumberFormat('es-ES', {
       >
     </section>
   </article>
-  <LinktreeCard />
+  <LinktreeShowcase />
 </Layout>
 
 <script>
@@ -515,45 +510,83 @@ const number = new Intl.NumberFormat('es-ES', {
     .social-update > span {
       text-align: left;
     }
+    .social-table-scroll {
+      border-radius: 12px;
+    }
     table {
-      min-width: 870px;
+      min-width: 426px;
+      table-layout: fixed;
       font-size: 12px;
     }
     th,
     td {
-      padding-inline: 16px;
+      width: 50px;
+      padding: 7px 6px;
     }
-    tbody th {
-      padding-inline: 12px;
-      max-width: 164px;
+    thead th {
+      white-space: normal;
+      font-size: 10px;
+      line-height: 1.35;
+      letter-spacing: 0;
     }
-    tbody th a {
-      gap: 8px;
-      min-height: 58px;
+    .network-column {
+      width: 106px;
+      white-space: normal;
     }
-    tbody th strong {
-      font-size: 12px;
-    }
-    tbody th small {
-      max-width: 100px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    thead .network-column {
       font-size: 9px;
     }
+    tbody th {
+      padding: 0 6px;
+    }
+    tbody th a {
+      gap: 6px;
+      min-height: 46px;
+    }
+    tbody th strong {
+      font-size: 10px;
+    }
+    tbody th small {
+      max-width: 66px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 8px;
+      margin-top: 2px;
+    }
     .social-network-icon {
-      width: 27px;
-      height: 27px;
-      border-radius: 8px;
+      width: 21px;
+      height: 21px;
+      border-radius: 6px;
     }
     .social-network-icon :global(svg) {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
     }
     .social-external {
       display: none;
     }
     .current-column {
-      min-width: 130px;
+      width: 70px;
+      min-width: 0;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .current-dot {
+      margin-left: 3px;
+    }
+    .current-count,
+    tfoot [data-social-total] {
+      font-size: 14px;
+    }
+    .current-info,
+    td time {
+      font-size: 8px;
+      line-height: 1.3;
+    }
+    tfoot th small {
+      font-size: 8px;
+      line-height: 1.3;
     }
   }
 </style>

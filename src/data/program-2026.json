@@ -1061,13 +1061,13 @@
     },
     {
       "id": "charla-6",
-      "nombre": "Concierto de Música de Videojuegos con Orquesta Virtual Sound",
+      "nombre": "Concierto de Música de Videojuegos con Orquesta Virtual Soul",
       "ubicacion": "Salón de Actos de la ETSIIT",
-      "descripcion": "Orquesta Virtual Sound es una orquesta sinfónica virtual especializada en la interpretación de música de videojuegos. En este concierto, nos deleitarán con una selección de piezas icónicas de la historia de los videojuegos. Desde las melodías épicas de los RPG hasta los temas más dinámicos de los juegos de acción, esta experiencia musical promete transportar a los asistentes a través de un viaje sonoro lleno de nostalgia y pasión por el mundo gamer.",
-      "logo": "/assets/activities/orquesta-virtual-sound.webp",
+      "descripcion": "Orquesta Virtual Soul es una orquesta sinfónica virtual especializada en la interpretación de música de videojuegos. En este concierto, nos deleitarán con una selección de piezas icónicas de la historia de los videojuegos. Desde las melodías épicas de los RPG hasta los temas más dinámicos de los juegos de acción, esta experiencia musical promete transportar a los asistentes a través de un viaje sonoro lleno de nostalgia y pasión por el mundo gamer.",
+      "logo": "/assets/activities/concierto/virtual-soul-logo.png",
       "ponentes": [
         {
-          "nombre": "Orquesta Virtual Sound",
+          "nombre": "Orquesta Virtual Soul",
           "role": "Orquesta de Música de Videojuegos",
           "links": [
             {
@@ -1075,7 +1075,7 @@
               "link": "https://www.tiktok.com/@orquestavs"
             }
           ],
-          "image": "/assets/activities/orquesta-virtual-sound.webp"
+          "image": "/assets/activities/concierto/virtual-soul-logo.png"
         }
       ],
       "aforo": "196",
@@ -1087,7 +1087,7 @@
       "slot": {
         "startsAt": "2026-03-20T19:00:00+01:00",
         "endsAt": "2026-03-20T20:00:00+01:00",
-        "label": "Concierto de Música de Videojuegos con Orquesta Virtual Sound",
+        "label": "Concierto de Música de Videojuegos con Orquesta Virtual Soul",
         "allDay": false
       }
     },

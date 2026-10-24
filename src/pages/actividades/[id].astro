@@ -5,7 +5,13 @@ import ArrowUpRight from '../../components/ArrowUpRight.astro';
 import { getActivityNeighbors } from '../../utils/activity-navigation';
 import { programEdition } from '../../data/program';
 import Layout from '../../layouts/Layout.astro';
+import ActivityPartners from '../../components/ActivityPartners.astro';
 import ActivitySummary from '../../components/ActivitySummary.astro';
+import Twitch from '../../components/Twitch.astro';
+import StreetPassGallery from '../../components/StreetPassGallery.astro';
+import ConcertExperience from '../../components/ConcertExperience.astro';
+import ConcertReplay from '../../components/ConcertReplay.astro';
+import TcgShowcase from '../../components/TcgShowcase.astro';
 import HolographicCard from '../../components/CompetitionCardHolographic.astro';
 import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
@@ -170,7 +176,7 @@ const social = getActivitySocial(competition.id, competition.name);
       </div>
       <ActivitySummary competition={competition} />
     </header>
-    <div class="design-container">
+    <div class="design-container activity-registration">
       <Inscripsection
         activityId={competition.id}
         activityYear={programEdition.year}
@@ -178,6 +184,15 @@ const social = getActivitySocial(competition.id, competition.name);
         registrationLink={competition.registration}
         participantsLink={competition.participants}
       />
+    </div>
+    {
+      competition.id === 'watch-party' && (
+        <div class="activity-stream">
+          <Twitch />
+        </div>
+      )
+    }
+    <div class="design-container">
       {
         hasRewards && (
           <section
@@ -222,6 +237,23 @@ const social = getActivitySocial(competition.id, competition.name);
           </section>
         )
       }
+      {
+        competition.id === 'concierto' && (
+          <>
+            <>
+              <ConcertExperience />
+              <ConcertReplay />
+            </>
+          </>
+        )
+      }
+      {competition.id === 'tcg' && <TcgShowcase />}
+      {competition.id === 'street-pass' && <StreetPassGallery />}
+      {
+        competition.id !== 'concierto' && (
+          <ActivityPartners activityId={competition.id} />
+        )
+      }
       <TournamentMatchups activityId={competition.id} />
       <ActivityShareCards id={competition.id} name={competition.name} />
       {
@@ -256,6 +288,12 @@ const social = getActivitySocial(competition.id, competition.name);
   </article>
 </Layout>
 <style>
+  .activity-registration {
+    display: flow-root;
+  }
+  .activity-stream {
+    margin-bottom: clamp(32px, 4vw, 56px);
+  }
   .activity-header {
     padding-top: 122px;
     padding-bottom: 42px;

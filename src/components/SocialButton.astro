@@ -9,6 +9,7 @@ import WebIcon from '../../public/assets/icons/WebIcon.astro';
 import TikTokIcon from '../../public/assets/icons/TikTokIcon.astro';
 import LinkedInIcon from '../../public/assets/icons/LinkedInIcon.astro';
 import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
+import LinktreeIcon from '../../public/assets/icons/LinktreeIcon.astro';
 
 interface Props {
   sponsorLink: RRSSLink;
@@ -38,6 +39,7 @@ const supported = [
   'LinkedIn',
   'TikTok',
   'YouTube',
+  'Linktree',
   'Web',
   'Telegram',
   'GitHub',
@@ -75,6 +77,7 @@ const hoverClass = hoverColors[sponsorLink.rrss] ?? 'hover:text-primary';
       {sponsorLink.rrss === 'LinkedIn' && <LinkedInIcon />}
       {sponsorLink.rrss === 'TikTok' && <TikTokIcon />}
       {sponsorLink.rrss === 'YouTube' && <YouTubeIcon />}
+      {sponsorLink.rrss === 'Linktree' && <LinktreeIcon />}
       {sponsorLink.rrss === 'Correo' && (
         <svg
           width="28"

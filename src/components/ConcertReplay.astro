@@ -1,0 +1,184 @@
+---
+import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
+import ArrowUpRight from './ArrowUpRight.astro';
+---
+
+<section class="concert-replay" aria-labelledby="concert-replay-title">
+  <div class="concert-recording">
+    <div
+      class="concert-video-preview"
+      aria-label="Concierto de ULP 2026: resubida a YouTube próximamente"
+    >
+      <img
+        src="/assets/activities/concierto/orquesta-1600.webp"
+        srcset="/assets/activities/concierto/orquesta-768.webp 768w, /assets/activities/concierto/orquesta-1600.webp 1600w, /assets/activities/concierto/orquesta-2400.webp 2400w"
+        sizes="(max-width: 900px) 90vw, 55vw"
+        width="6000"
+        height="4000"
+        alt="Orquesta Virtual Soul durante su concierto en ULP 2026"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="concert-video-status"
+        ><span aria-hidden="true"></span> Próximamente</span
+      >
+    </div>
+    <div class="concert-video-caption">
+      <span>Del escenario a tu pantalla</span>
+      <h3>Concierto de música de videojuegos</h3>
+      <p>Orquesta Virtual Soul · ULP 2026</p>
+    </div>
+  </div>
+  <div class="concert-video-copy">
+    <span class="concert-video-label"
+      ><YouTubeIcon aria-hidden="true" /> ULP en YouTube</span
+    >
+    <h2 id="concert-replay-title">
+      La música sigue<br /><em>cuando quieras.</em>
+    </h2>
+    <p>
+      Estamos preparando la resubida del concierto. Pronto podrás volver a
+      escuchar las bandas sonoras que sonaron en la ULP.
+    </p>
+    <a
+      class="concert-subscribe"
+      href="https://www.youtube.com/@ugrlanparty?sub_confirmation=1"
+      target="_blank"
+      rel="noopener noreferrer">Suscríbete al canal <ArrowUpRight /></a
+    >
+  </div>
+</section>
+<style>
+  .concert-replay {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: clamp(28px, 4vw, 56px);
+    margin-block: clamp(40px, 6vw, 80px);
+    padding: clamp(24px, 4.5vw, 56px);
+    border-radius: 24px;
+    color: #f5f0e6;
+    background:
+      radial-gradient(ellipse at 20% 45%, #007983, transparent 70%), #004465;
+  }
+  .concert-recording {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgb(245 240 230/0.2);
+    border-radius: 18px;
+    background: rgb(6 51 73/0.65);
+  }
+  .concert-video-preview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+  .concert-video-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .concert-video-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 45%, rgb(0 35 51/0.45));
+    pointer-events: none;
+  }
+  .concert-video-status {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid rgb(245 240 230/0.3);
+    border-radius: 99px;
+    background: #004465;
+    font-size: 11px;
+  }
+  .concert-video-status > span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #b8d9cf;
+  }
+  .concert-video-caption {
+    padding: 18px 22px;
+  }
+  .concert-video-caption > span {
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  h3 {
+    margin-block: 9px;
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.4;
+  }
+  .concert-video-caption p {
+    font-size: 11px;
+    opacity: 0.75;
+  }
+  .concert-video-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font:
+      10px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .concert-video-label :global(svg) {
+    width: 26px;
+    height: 26px;
+  }
+  h2 {
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 750;
+    line-height: 1.07;
+    letter-spacing: -0.035em;
+    margin-block: 24px;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .concert-video-copy > p {
+    max-width: 360px;
+    font-size: 13px;
+    line-height: 1.85;
+    opacity: 0.8;
+  }
+  .concert-subscribe {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    padding: 13px 18px;
+    margin-top: 26px;
+    border: 1px solid rgb(245 240 230/0.35);
+    border-radius: 8px;
+    font-size: 12px;
+    transition: background 200ms ease;
+  }
+  .concert-subscribe:hover {
+    background: rgb(245 240 230/0.1);
+  }
+  .concert-subscribe :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+  @media (max-width: 900px) {
+    .concert-replay {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

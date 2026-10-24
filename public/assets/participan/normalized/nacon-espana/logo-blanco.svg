@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="957" height="203" viewBox="0 0 957 203"><defs>
+    <filter
+      id="partner-color-cutout"
+      color-interpolation-filters="sRGB"
+      x="0%"
+      y="0%"
+      width="100%"
+      height="100%"
+    >
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -3 -3 -3 0 8"
+        result="inkMask"></feColorMatrix>
+      <feComposite in="SourceGraphic" in2="inkMask" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-details" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 5 5 0 -14"
+        result="whitePixels"></feColorMatrix>
+      <feComposite
+        in="whitePixels"
+        in2="SourceAlpha"
+        operator="in"
+        result="darkDetails"></feComposite>
+      <feComposite
+        in="SourceGraphic"
+        in2="darkDetails"
+        operator="out"
+        result="colors"></feComposite>
+      <feMerge
+        ><feMergeNode in="darkDetails"></feMergeNode><feMergeNode in="colors"
+        ></feMergeNode></feMerge
+      >
+    </filter>
+    <filter id="partner-white-cutout" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -3 -3 -3 0 8"
+        result="ink"></feColorMatrix>
+      <feComposite in="ink" in2="SourceAlpha" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-outline" color-interpolation-filters="sRGB">
+      <feMorphology
+        in="SourceAlpha"
+        operator="erode"
+        radius="0.8"
+        result="interior"></feMorphology>
+      <feComposite
+        in="SourceAlpha"
+        in2="interior"
+        operator="out"
+        result="outline"></feComposite>
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="outline" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-radio" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 4 -8 0 -0.6"
+        result="warmDetails"></feColorMatrix>
+      <feFlood
+        flood-color="white"
+        x="0%"
+        y="0%"
+        width="40%"
+        height="100%"
+        result="radioArea"></feFlood>
+      <feComposite
+        in="warmDetails"
+        in2="radioArea"
+        operator="in"
+        result="radioDetails"></feComposite>
+      <feComposite
+        in="SourceAlpha"
+        in2="radioDetails"
+        operator="out"
+        result="radio"></feComposite>
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="radio" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-emycet" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  4 4 -8 0 -0.6"
+        result="yellow"></feColorMatrix>
+      <feFlood
+        flood-color="white"
+        x="0%"
+        y="0%"
+        width="22%"
+        height="100%"
+        result="symbolArea"></feFlood>
+      <feComposite
+        in="yellow"
+        in2="symbolArea"
+        operator="in"
+        result="silhouette"></feComposite>
+      <feComposite
+        in="SourceAlpha"
+        in2="silhouette"
+        operator="out"
+        result="monochrome"></feComposite>
+      <feFlood flood-color="white"></feFlood>
+      <feComposite in2="monochrome" operator="in"></feComposite>
+    </filter>
+    <filter id="partner-white-lettering" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        in="SourceGraphic"
+        type="matrix"
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  4 4 -8 0 -0.6"
+        result="lettering"></feColorMatrix>
+      <feComposite in="lettering" in2="SourceAlpha" operator="in" result="top"
+      ></feComposite>
+      <feFlood flood-color="white" x="0%" y="55%" width="100%" height="45%"
+      ></feFlood>
+      <feComposite in2="SourceAlpha" operator="in" result="bottom"
+      ></feComposite>
+      <feMerge
+        ><feMergeNode in="top"></feMergeNode><feMergeNode in="bottom"
+        ></feMergeNode></feMerge
+      >
+    </filter>
+  <filter id="logo-black" color-interpolation-filters="sRGB"><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/></filter><filter id="logo-white" color-interpolation-filters="sRGB"><feFlood flood-color="white"/><feComposite in2="SourceAlpha" operator="in"/></filter></defs><image href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYWxxdWVfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA5NTcgMjAyLjkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDk1NyAyMDIuOTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4NCgkuc3Qwe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6IzFCMUMyODt9DQo8L3N0eWxlPg0KPHBhdGggY2xhc3M9InN0MCIgZD0iTTk0OCwxNzEuNmgtMTUuOGMtNSwwLTktNC05LTguOVY5OS44YzAtMTguNS0xNS4zLTMzLjYtMzQtMzMuNmwtMjYsMGMtNSwwLTksNC05LDguOXY4Ny42YzAsNC45LTQsOC45LTksOC45DQoJaC0xNS44Yy01LDAtOS00LTktOC45di0xMjFjMC00LjksNC04LjksOS04LjlsNTkuOCwwYzM2LjksMCw2NywyOS40LDY3LjgsNjUuOGgwdjY0LjJDOTU3LDE2Ny42LDk1MywxNzEuNiw5NDgsMTcxLjZ6IE03MzcsMTcxLjMNCgljLTM4LjUsMC02OS45LTMxLTY5LjktNjkuMkM2NjcuMSw2NCw2OTguNCwzMyw3MzcsMzNjMzguNSwwLDY5LjksMzEsNjkuOSw2OS4yQzgwNi45LDE0MC4zLDc3NS41LDE3MS4zLDczNywxNzEuM3ogTTczNyw2Ng0KCWMtMjAuMSwwLTM2LjUsMTYuMi0zNi41LDM2LjJzMTYuNCwzNi4yLDM2LjUsMzYuMmMyMC4xLDAsMzYuNS0xNi4yLDM2LjUtMzYuMlM3NTcuMSw2Niw3MzcsNjZ6IE02MTMuMywxMzcuOQ0KCWM4LjgsMC45LDE3LjEtMS4zLDIzLjktNS44YzMuNi0yLjMsOC4zLTIsMTEuMywxbDExLjUsMTEuNGMzLjgsMy44LDMuNCwxMC0wLjksMTMuMmMtMTEuNyw4LjctMjYuMiwxMy44LTQyLDEzLjgNCgljLTQwLjUsMC03My0zNC4xLTY5LjktNzQuN2MyLjUtMzMuNiwyOS43LTYwLjgsNjMuNS02My44YzE4LjItMS42LDM1LjEsMy43LDQ4LjQsMTMuNWM0LjMsMy4yLDQuNyw5LjQsMC45LDEzLjJsLTExLjUsMTEuNA0KCWMtMywzLTcuNywzLjQtMTEuMiwxLjFjLTUuOC0zLjgtMTIuNy02LTIwLjEtNmMtMjEuNCwwLTM4LjYsMTguNC0zNi4xLDQwLjFDNTgyLjgsMTIyLjksNTk2LjQsMTM2LjIsNjEzLjMsMTM3Ljl6IE01MjQuNCwxNzEuOQ0KCWMtMTYuNi0wLjEtNTEuMS0wLjMtNjEuMS0wLjNjLTM4LjcsMC03MC4xLTMxLjEtNzAuMS02OS40czMxLjUtNjkuNCw3MC4xLTY5LjRjMTAsMCw0NC41LTAuMiw2MS4xLTAuM2M1LDAsOS4xLDQsOS4xLDguOVYxNjMNCglDNTMzLjQsMTY3LjksNTI5LjQsMTcxLjksNTI0LjQsMTcxLjl6IE00OTkuNyw3NS4xYzAtNC45LTQtOC45LTktOC45aC0yNy40Yy0yMC41LDAtMzcuMSwxNi45LTM2LjMsMzcuNA0KCWMwLjcsMTkuNSwxNy41LDM0LjYsMzcuMiwzNC42aDI2LjVjNSwwLDktNCw5LTguOVY3NS4xeiBNMzcyLjQsMTcxLjZoLTE1LjhjLTUsMC05LTQtOS04LjlWOTkuOGMwLTE4LjUtMTUuMy0zMy42LTM0LTMzLjZsLTI2LDANCgljLTUsMC05LDQtOSw4Ljl2ODcuNmMwLDQuOS00LDguOS05LDguOWgtMTUuOGMtNSwwLTktNC05LTguOXYtMTIxYzAtNC45LDQtOC45LDktOC45bDU5LjgsMGMzNi45LDAsNjcsMjkuNCw2Ny43LDY1LjhoMHY2NC4yDQoJQzM4MS40LDE2Ny42LDM3Ny40LDE3MS42LDM3Mi40LDE3MS42eiBNMTAyLjYsMjAyLjlDNDYsMjAyLjksMCwxNTcuNCwwLDEwMS41QzAsNDUuNSw0NiwwLDEwMi42LDBjNTYuNiwwLDEwMi42LDQ1LjUsMTAyLjYsMTAxLjUNCglDMjA1LjEsMTU3LjQsMTU5LjEsMjAyLjksMTAyLjYsMjAyLjl6IE0xMDUuMSw2Ny4zYzguMy0zLjksMjktMTUuOSwzOS43LTIwLjZjNC4xLTUuNiw4LjItOC45LDE2LjYtMTIuMQ0KCUMxMjguNiwzNi4xLDExMS4yLDU3LjgsMTA1LjEsNjcuM3ogTTE4OC4zLDU0YzguOCwzMi41LTQuMiw3OS4zLTU0LjMsMTAxLjZjLTAuNywwLjMtNCwxLjktNy44LDEuNGMtNi41LTAuOC0xMS45LTMuNi0xNC40LTYuNg0KCWMtMS41LTEuNy0xLjUtMi4zLDAuNy00LjVjMjEuMy0yMSwyNi41LTUzLDE1LjctNzguN2MxMS4yLTYsMTcuMS05LjMsMjYuOC0xMy43YzQuMS0xLjgsMTMtNCwxNi45LDExYzUsMjMuMywwLjQsNTEuNi0yMC40LDc1LjYNCgljMCwwLDAsMCwwLjEtMC4xYy0wLjMsMC4zLTAuNiwwLjctMC45LDFjMC40LTAuNCwwLjctMC44LDEuMS0xLjJjMjMuMy0yMi42LDMwLTUxLjUsMjYuMy03NS41Yy0yLjUtMjAuNC0xMS40LTE4LjgtMTkuMS0xNS42DQoJYy0xMS42LDQuOS0yNywxNC4xLTM2LjcsMTkuNWMtNS45LDMuMi0xNS45LDguNy0yMy4yLDEwLjljLTMuOSw5LjctNy40LDI4LjMtMC43LDQ4LjFjLTEzLjctMTUuMy0xNi44LTM1LjgtMTMuNi01MS43DQoJYy0xLjctMi02LjUtOS44LTE3LjUtNi45Yy0wLjcsMTEuMywwLjMsMjcuOCw2LjUsNDQuNGMtMTcuNy0xNi41LTI5LjktNTQuOC0yLjEtODZjLTYuMiwxMS0yLjUsMjcuNC0yLjUsMjcuNFM3MywzMS43LDg0LjIsMTYuOQ0KCWM0LjEtMi40LDguNi00LjQsMTMuMy01LjljLTIzLjIsNS40LTQxLjYsMjMuMi00Ny43LDQ2Yy0xMC4zLDEyLTE2LjYsMjcuNC0xNi42LDQ0LjRjMCwzNy43LDMxLDcwLjIsNjkuMSw3MC4zDQoJYzQ5LjUtMC4xLDkwLjEtNDEuNSw5MC4xLTkwLjZDMTkyLjUsNzMsMTkxLjIsNjMuMywxODguMyw1NHoiLz4NCjwvc3ZnPg0K" width="957" height="203" filter="url(#logo-white)"/></svg>

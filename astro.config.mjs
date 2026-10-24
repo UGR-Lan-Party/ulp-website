@@ -11,7 +11,6 @@ export default defineConfig({
   integrations: [sitemap()],
   redirects: legacyRedirects,
   vite: {
-    server: { proxy: { '/api/social-stats': { target: 'http://127.0.0.1:8788' } } },
     css: { postcss: { plugins: [tailwind(), autoprefixer()] } },
     optimizeDeps: {
       include: [

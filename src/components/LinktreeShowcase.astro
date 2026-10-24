@@ -1,0 +1,593 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import GranadaAccent from './GranadaAccent.astro';
+import LinktreeIcon from '../../public/assets/icons/LinktreeIcon.astro';
+import InstagramIcon from '../../public/assets/icons/InstagramIcon.astro';
+import TikTokIcon from '../../public/assets/icons/TikTokIcon.astro';
+import YouTubeIcon from '../../public/assets/icons/YouTubeIcon.astro';
+import XIcon from '../../public/assets/icons/XIcon.astro';
+import TwitchIcon from '../../public/assets/icons/TwitchIcon.astro';
+const links = [
+  {
+    label: 'Instagram',
+    detail: 'Lo que se cuece en la ULP',
+    href: 'https://www.instagram.com/ulpugr/',
+    icon: InstagramIcon,
+  },
+  {
+    label: 'TikTok',
+    detail: 'Nuestros mejores momentos',
+    href: 'https://www.tiktok.com/@ugrlanparty',
+    icon: TikTokIcon,
+  },
+  {
+    label: 'YouTube',
+    detail: 'Revive cada edición',
+    href: 'https://www.youtube.com/@ugrlanparty',
+    icon: YouTubeIcon,
+  },
+  {
+    label: 'Twitch',
+    detail: 'Nos vemos en directo',
+    href: 'https://www.twitch.tv/ugr_lan_party',
+    icon: TwitchIcon,
+  },
+  {
+    label: 'Twitter / X',
+    detail: 'Las últimas novedades',
+    href: 'https://x.com/ulpugr',
+    icon: XIcon,
+  },
+];
+---
+
+<section
+  class="linktree-showcase design-container"
+  aria-labelledby="linktree-showcase-title"
+  data-linktree-showcase
+>
+  <div class="linktree-stage">
+    <GranadaAccent id="linktree-phone-mosaic" />
+    <div class="showcase-copy">
+      <span class="showcase-eyebrow"><LinktreeIcon /> @ulpugr</span>
+      <h2 id="linktree-showcase-title">
+        Toda la ULP.<br /><em>En tu mano.</em>
+      </h2>
+      <p>
+        Nuestras redes, los directos y la próxima quedada. Guarda un enlace y
+        ten a tu comunidad siempre cerca.
+      </p>
+      <a
+        class="showcase-action"
+        href="https://linktr.ee/ulpugr"
+        target="_blank"
+        rel="noopener noreferrer">Explora nuestro Linktree <ArrowUpRight /></a
+      >
+    </div>
+    <div class="phone-scene">
+      <div class="scene-halo" aria-hidden="true"></div>
+      <span class="scene-caption" aria-hidden="true"
+        >Encuentra todo aquí<svg viewBox="0 0 100 80"
+          ><path d="M4 8C43 8 72 32 83 68M70 60 83 68 85 53"></path></svg
+        ></span
+      >
+      <div class="phone-held">
+        <svg
+          class="hand-back"
+          viewBox="0 0 240 465"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <image
+            href="/assets/rrss/linktree-hand.webp"
+            x="-229"
+            y="-123"
+            width="715"
+            height="675"
+            preserveAspectRatio="none"
+          />
+        </svg>
+        <div class="preview-phone">
+          <div class="phone-island" aria-hidden="true"><i></i></div>
+          <div
+            class="phone-screen"
+            aria-label="Vista previa de los enlaces de la ULP"
+          >
+            <div class="phone-toolbar" aria-hidden="true">
+              <span>ulpugr</span><span>•••</span>
+            </div>
+            <div class="phone-profile">
+              <img
+                src="/assets/prensa/ugr-lan-party-color.svg"
+                alt=""
+                width="52"
+                height="52"
+                loading="lazy"
+              />
+              <strong>UGR LAN Party</strong><span>@ulpugr</span>
+              <p>Videojuegos, comunidad y mucho<br />por compartir. Granada.</p>
+            </div>
+            <div class="phone-links">
+              {
+                links.map(({ label, detail, href, icon: Icon }) => (
+                  <a
+                    href={href}
+                    target={href.startsWith('https:') ? '_blank' : undefined}
+                    rel={
+                      href.startsWith('https:')
+                        ? 'noopener noreferrer'
+                        : undefined
+                    }
+                  >
+                    <span class="phone-link-icon">
+                      {Icon ? <Icon /> : <span aria-hidden="true">ULP</span>}
+                    </span>
+                    <>
+                      <span>
+                        <>
+                          <strong>{label}</strong>
+                          <small>{detail}</small>
+                        </>
+                      </span>
+                      <span class="phone-link-arrow" aria-hidden="true">
+                        ↗
+                      </span>
+                    </>
+                  </a>
+                ))
+              }
+            </div>
+            <a
+              class="phone-linktree"
+              href="https://linktr.ee/ulpugr"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><LinktreeIcon /> Ver todos los enlaces</a
+            >
+          </div>
+          <div class="phone-home" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-linktree-showcase]')
+    .forEach((section) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          section.toggleAttribute('data-phone-visible', entry.isIntersecting);
+          if (entry.isIntersecting)
+            section.setAttribute('data-phone-revealed', '');
+        },
+        { threshold: 0.15 },
+      );
+      observer.observe(section);
+    });
+</script>
+<style>
+  .phone-held {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 95%;
+    animation: phone-in-hand 7s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  [data-phone-visible] .phone-held {
+    animation-play-state: running;
+  }
+  [data-phone-visible] .phone-held:hover,
+  [data-phone-visible] .phone-held:focus-within {
+    animation-play-state: paused;
+  }
+  [data-phone-revealed] .phone-links a {
+    animation: phone-link-arrival 650ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
+  [data-phone-revealed] .phone-links a:nth-child(1) {
+    animation-delay: 100ms;
+  }
+  [data-phone-revealed] .phone-links a:nth-child(2) {
+    animation-delay: 220ms;
+  }
+  [data-phone-revealed] .phone-links a:nth-child(3) {
+    animation-delay: 340ms;
+  }
+  [data-phone-revealed] .phone-links a:nth-child(4) {
+    animation-delay: 460ms;
+  }
+  [data-phone-revealed] .phone-links a:nth-child(5) {
+    animation-delay: 580ms;
+  }
+  @keyframes phone-in-hand {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-0.7deg);
+    }
+    50% {
+      transform: translateY(-9px) rotate(1deg);
+    }
+  }
+  @keyframes phone-link-arrival {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .linktree-showcase {
+    padding-block: 24px 64px;
+  }
+  .linktree-stage {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 600px;
+    overflow: hidden;
+    border-radius: 28px;
+    color: #f5f0e6;
+    background: #004465;
+  }
+  .linktree-stage :global(.granada-accent) {
+    z-index: -1;
+    opacity: 0.045;
+    width: 65%;
+  }
+  .showcase-copy {
+    min-width: 0;
+    align-self: center;
+    padding: 60px 0 60px clamp(28px, 4.5vw, 68px);
+    z-index: 2;
+  }
+  .showcase-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font:
+      11px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+  }
+  .showcase-eyebrow :global(svg) {
+    width: 23px;
+    height: 23px;
+  }
+  h2 {
+    margin: 28px 0 22px;
+    font-size: clamp(42px, 4.9vw, 67px);
+    line-height: 1.02;
+    font-weight: 750;
+    letter-spacing: -0.055em;
+  }
+  h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+    color: #c5ddcf;
+  }
+  .showcase-copy > p {
+    max-width: 33ch;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: rgb(245 240 230 / 0.78);
+  }
+  .showcase-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 50px;
+    margin-top: 30px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    color: #004465;
+    background: #f5f0e6;
+    font-size: 12px;
+    font-weight: 650;
+    transition:
+      background 180ms ease,
+      transform 180ms ease;
+  }
+  .showcase-action :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .showcase-action:hover {
+    transform: translateY(-2px);
+    background: #e0ebdf;
+  }
+  .phone-scene {
+    position: relative;
+    min-height: 600px;
+    width: 480px;
+    max-width: 100%;
+    justify-self: center;
+    align-self: end;
+  }
+  .scene-halo {
+    position: absolute;
+    width: 410px;
+    height: 410px;
+    top: 90px;
+    left: 15px;
+    border: 1px solid rgb(245 240 230 / 0.14);
+    border-radius: 50%;
+    background: #07516a;
+  }
+  .scene-halo::after {
+    content: '';
+    position: absolute;
+    inset: -24px;
+    border: 1px dashed rgb(245 240 230 / 0.14);
+    border-radius: inherit;
+  }
+  .scene-caption {
+    position: absolute;
+    top: 33px;
+    left: -130px;
+    width: max-content;
+    white-space: nowrap;
+    z-index: 2;
+    transform: rotate(-6deg);
+    font:
+      italic 18px Georgia,
+      serif;
+    color: #c5ddcf;
+  }
+  .scene-caption svg {
+    position: absolute;
+    top: 6px;
+    left: calc(100% + 10px);
+    width: 80px;
+    height: 64px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .hand-back {
+    position: absolute;
+    left: 101px;
+    top: 79px;
+    width: 240px;
+    height: 465px;
+    max-width: none;
+    overflow: visible;
+    pointer-events: none;
+    transform: rotate(-8deg);
+    filter: drop-shadow(8px 10px 8px rgb(0 27 42 / 0.15));
+  }
+  .preview-phone {
+    position: absolute;
+    left: 101px;
+    top: 79px;
+    width: 240px;
+    height: 465px;
+    padding: 8px;
+    border: 2px solid #7d9296;
+    border-radius: 37px;
+    background: #102c38;
+    box-shadow:
+      7px 5px 0 #082632,
+      17px 23px 30px rgb(0 20 35 / 0.3),
+      inset 0 0 0 2px #041d29;
+    transform: rotate(-8deg);
+  }
+  .phone-screen {
+    height: 100%;
+    padding: 32px 12px 12px;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #e4ebd9;
+    color: #004465;
+  }
+  .phone-island {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 76px;
+    height: 20px;
+    transform: translateX(-50%);
+    border-radius: 14px;
+    background: #102c38;
+  }
+  .phone-island i {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #234856;
+    background: #071c28;
+    border-radius: 50%;
+  }
+  .phone-toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 6px;
+    font:
+      9px ui-monospace,
+      monospace;
+    opacity: 0.65;
+  }
+  .phone-profile {
+    display: grid;
+    justify-items: center;
+    margin-top: 8px;
+  }
+  .phone-profile img {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    border-radius: 50%;
+    background: #f5f0e6;
+    object-fit: contain;
+  }
+  .phone-profile strong {
+    margin-top: 9px;
+    font-size: 15px;
+    letter-spacing: -0.04em;
+  }
+  .phone-profile > span {
+    margin-top: 2px;
+    font-size: 9px;
+    opacity: 0.7;
+  }
+  .phone-profile p {
+    margin: 6px 0 10px;
+    text-align: center;
+    font-size: 8.5px;
+    line-height: 1.5;
+  }
+  .phone-links {
+    display: grid;
+    gap: 6px;
+  }
+  .phone-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 35px;
+    padding: 4px 8px;
+    border: 1px solid rgb(0 68 101 / 0.15);
+    border-radius: 9px;
+    background: #f9f7ef;
+    box-shadow: 0 2px 0 rgb(0 68 101 / 0.1);
+    transition: background 160ms ease;
+  }
+  .phone-links a:hover {
+    background: #d3e6d5;
+  }
+  .phone-link-icon {
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 7px;
+    background: #e6ecdf;
+    font-size: 7px;
+    font-weight: 750;
+  }
+  .phone-link-icon :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+  .phone-links strong,
+  .phone-links small {
+    display: block;
+  }
+  .phone-links strong {
+    font-size: 9px;
+    font-weight: 650;
+  }
+  .phone-links small {
+    margin-top: 2px;
+    font-size: 6.5px;
+    opacity: 0.75;
+  }
+  .phone-link-arrow {
+    margin-left: auto;
+    font-size: 11px;
+  }
+  .phone-linktree {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    font-size: 8px;
+  }
+  .phone-linktree :global(svg) {
+    width: 13px;
+    height: 13px;
+  }
+  .phone-home {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    width: 65px;
+    height: 3px;
+    border-radius: 4px;
+    transform: translateX(-50%);
+    background: #102c38;
+    opacity: 0.75;
+  }
+  @media (max-width: 1000px) and (min-width: 761px) {
+    .phone-scene {
+      transform: translateX(-10px) scale(0.9);
+      transform-origin: bottom center;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .linktree-stage {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: auto;
+    }
+    .showcase-copy {
+      padding: 38px 28px 0;
+    }
+    h2 {
+      font-size: clamp(40px, 7.5vw, 58px);
+      margin-top: 22px;
+    }
+    .showcase-copy > p {
+      max-width: 38ch;
+    }
+    .phone-scene {
+      width: 480px;
+      max-width: none;
+      height: 540px;
+      min-height: 540px;
+      justify-self: center;
+      margin-top: 30px;
+      transform: scale(0.9);
+      transform-origin: bottom center;
+    }
+    .preview-phone,
+    .hand-back {
+      top: 24px;
+    }
+    .scene-halo {
+      top: 45px;
+    }
+    .scene-caption {
+      top: -34px;
+      left: 58px;
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 400px) {
+    .phone-scene {
+      height: 515px;
+      min-height: 515px;
+      transform: scale(0.82);
+      margin-top: 0;
+    }
+    .preview-phone,
+    .hand-back {
+      top: 0;
+    }
+    .scene-caption {
+      top: -42px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phone-held,
+    [data-phone-revealed] .phone-links a {
+      animation: none;
+    }
+    .showcase-action,
+    .phone-links a {
+      transition: none;
+    }
+    .showcase-action:hover {
+      transform: none;
+    }
+  }
+</style>
