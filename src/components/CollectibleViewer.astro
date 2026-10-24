@@ -1,0 +1,459 @@
+---
+import type { editionCollectibles } from '../data/edition-collectibles';
+interface Props {
+  kind: 'shirt' | 'skin';
+  label: string;
+  design?: (typeof editionCollectibles)[number];
+  duplicate?: boolean;
+  instance?: string;
+}
+const {
+  kind,
+  label,
+  design,
+  duplicate = false,
+  instance = 'skin',
+} = Astro.props;
+const dialogId = `coleccion-${instance}`;
+const tab = duplicate ? -1 : undefined;
+---
+
+<div
+  class:list={['collectible-viewer', kind]}
+  data-collectible={kind}
+  data-design={kind === 'shirt'
+    ? JSON.stringify(design)
+    : '/assets/activities/minecraft/ulp-skin.png'}
+>
+  <div data-model-inline>
+    <div
+      class="collectible-stage"
+      data-model-stage
+      role="region"
+      aria-label={`Visor de ${label}`}
+    >
+      {
+        kind === 'shirt' && design ? (
+          <svg
+            class="model-fallback"
+            viewBox="0 0 270 290"
+            role="img"
+            aria-label={`Camiseta ULP ${design.year}, vista previa de la espalda`}
+          >
+            <path
+              d="M135 42V26q0-12 9-12t3 12M79 47l56-16 56 16Z"
+              fill="none"
+              stroke="#a9997c"
+              stroke-width="2"
+            />
+            <path
+              d="M110 40Q135 55 160 40L195 45L250 80L235 125L205 110L208 250Q135 258 62 250L65 110L35 125L20 80L75 45Z"
+              fill={design.color}
+            />
+            {design.year === 2023 ? (
+              <>
+                <text
+                  x="135"
+                  y="100"
+                  text-anchor="middle"
+                  font-family="Arial,sans-serif"
+                  font-size="27"
+                  font-weight="900"
+                  fill="#222"
+                >
+                  STAFF
+                </text>
+                <text
+                  x="135"
+                  y="113"
+                  text-anchor="middle"
+                  font-family="Arial,sans-serif"
+                  font-size="7"
+                  fill="#222"
+                >
+                  UGR LAN PARTY
+                </text>
+              </>
+            ) : (
+              <image
+                href={design.back}
+                x={135 - design.printWidth * 50}
+                y={135 - design.printHeight * 50}
+                width={design.printWidth * 100}
+                height={design.printHeight * 100}
+                preserveAspectRatio="xMidYMid meet"
+              />
+            )}
+          </svg>
+        ) : (
+          <svg
+            class="model-fallback skin-fallback"
+            viewBox="0 0 96 142"
+            role="img"
+            aria-label="Vista frontal de la skin oficial de la ULP"
+            style="image-rendering:pixelated"
+          >
+            <svg x="32" y="4" width="32" height="32" viewBox="8 8 8 8">
+              <image
+                href="/assets/activities/minecraft/ulp-skin.png"
+                width="64"
+                height="64"
+              />
+            </svg>
+            <svg x="32" y="36" width="32" height="48" viewBox="20 20 8 12">
+              <image
+                href="/assets/activities/minecraft/ulp-skin.png"
+                width="64"
+                height="64"
+              />
+            </svg>
+            <svg x="16" y="36" width="16" height="48" viewBox="44 20 4 12">
+              <image
+                href="/assets/activities/minecraft/ulp-skin.png"
+                width="64"
+                height="64"
+              />
+            </svg>
+            <svg x="64" y="36" width="16" height="48" viewBox="36 52 4 12">
+              <image
+                href="/assets/activities/minecraft/ulp-skin.png"
+                width="64"
+                height="64"
+              />
+            </svg>
+            <svg x="32" y="84" width="16" height="48" viewBox="4 20 4 12">
+              <image
+                href="/assets/activities/minecraft/ulp-skin.png"
+                width="64"
+                height="64"
+              />
+            </svg>
+            <svg x="48" y="84" width="16" height="48" viewBox="20 52 4 12">
+              <image
+                href="/assets/activities/minecraft/ulp-skin.png"
+                width="64"
+                height="64"
+              />
+            </svg>
+          </svg>
+        )
+      }
+    </div>
+  </div>
+  <div class="model-controls">
+    {
+      kind === 'skin' && (
+        <button
+          type="button"
+          class="model-expand"
+          data-model-expand
+          aria-label={`Ampliar ${label}`}
+          aria-haspopup="dialog"
+          aria-controls={dialogId}
+          tabindex={tab}
+          hidden
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M9 3H3v6m12-6h6v6m0 6v6h-6m-6 0H3v-6" />
+          </svg>
+        </button>
+      )
+    }
+    {
+      kind === 'skin' && (
+        <button
+          type="button"
+          class="model-pause"
+          data-model-pause
+          aria-pressed="false"
+          tabindex={tab}
+        >
+          Pausar giro
+        </button>
+      )
+    }
+  </div>
+  <span
+    class="model-status"
+    data-model-status
+    role={duplicate ? undefined : 'status'}>Vista previa</span
+  >
+  <button
+    type="button"
+    class="model-retry"
+    data-model-retry
+    tabindex={tab}
+    hidden>Reintentar 3D</button
+  >
+  <dialog
+    class="collectible-dialog"
+    id={dialogId}
+    aria-label={`${label}, vista ampliada`}
+    data-model-dialog
+  >
+    <header>
+      <div><span>EL ARCHIVO ULP / 360°</span><h2>{label}</h2></div><button
+        type="button"
+        data-model-close
+        aria-label="Cerrar visor 3D">×</button
+      >
+    </header>
+    <div data-model-expanded></div>
+    <footer>
+      <span>Arrastra para girar · Rueda para acercar</span><button
+        type="button"
+        data-model-reset>Restablecer vista</button
+      >
+    </footer>
+  </dialog>
+  <noscript
+    ><span class="model-nojs"
+      >El diseño está disponible; activa JavaScript para girarlo en 3D.</span
+    ></noscript
+  >
+</div>
+<script>
+  import '../scripts/collectible-viewers';
+</script>
+<style>
+  .collectible-viewer {
+    position: relative;
+    min-width: 0;
+  }
+  .collectible-stage {
+    position: relative;
+    height: 390px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .shirt .collectible-stage::before {
+    content: '';
+    position: absolute;
+    inset: 16% 10% 10%;
+    background: radial-gradient(ellipse, rgb(0 15 24 / 0.13), transparent 68%);
+    filter: blur(18px);
+    pointer-events: none;
+  }
+  .skin .collectible-stage {
+    height: 370px;
+  }
+  .collectible-stage :global(canvas) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+  }
+  .collectible-stage :global(canvas:active) {
+    cursor: grabbing;
+  }
+  .collectible-stage :global(canvas:focus-visible) {
+    outline: 2px solid var(--ink);
+    outline-offset: -4px;
+    border-radius: 12px;
+  }
+  .model-fallback {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.2s;
+  }
+  .skin-fallback {
+    width: 150px;
+    display: block;
+    margin: auto;
+    padding: 20px;
+  }
+  [data-model-ready] .model-fallback {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .model-controls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  [data-ready] .model-controls {
+    visibility: visible;
+  }
+  .model-controls button {
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .model-controls [hidden],
+  .model-retry[hidden] {
+    display: none;
+  }
+  .model-expand {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #00446520;
+    background: #f5f0e6dc;
+    color: #004465;
+    border-radius: 50%;
+  }
+  .shirt .model-expand {
+    border: 0;
+    background: transparent;
+    opacity: 0.55;
+  }
+  .shirt .model-expand:hover,
+  .shirt .model-expand:focus-visible {
+    opacity: 1;
+  }
+  .model-pause {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 10px;
+    background: #f5f0e6dc;
+    border-radius: 20px;
+    padding: 7px 10px;
+    color: #004465;
+  }
+  .model-status {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  [data-ready] .model-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .model-retry {
+    position: absolute;
+    left: 12px;
+    bottom: 45px;
+    font-size: 10px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .model-nojs {
+    display: block;
+    font-size: 10px;
+    padding: 8px 12px;
+  }
+  .collectible-dialog {
+    width: min(820px, calc(100vw - 24px));
+    max-height: 94svh;
+    padding: 0;
+    border: 1px solid #00446520;
+    border-radius: 20px;
+    background: var(--paper, #f5f0e6);
+    color: var(--ink, #004465);
+    overflow: hidden;
+  }
+  .collectible-dialog::backdrop {
+    background: #001c2cbd;
+    backdrop-filter: blur(12px);
+  }
+  .collectible-dialog header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 24px 8px;
+  }
+  .collectible-dialog header span {
+    font:
+      9px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .collectible-dialog h2 {
+    font-size: 20px;
+    font-weight: 650;
+    margin-top: 5px;
+  }
+  .collectible-dialog [data-model-close] {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    font-size: 24px;
+    cursor: pointer;
+  }
+  .collectible-dialog [data-model-expanded] {
+    height: min(66svh, 580px);
+    background: radial-gradient(ellipse at 50% 40%, #d6e0db55, transparent 65%);
+  }
+  .collectible-dialog :global(.collectible-stage) {
+    height: 100%;
+  }
+  .collectible-dialog footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 24px 20px;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .collectible-dialog footer button {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  @media (max-width: 600px) {
+    .collectible-stage {
+      height: 350px;
+    }
+    .collectible-dialog header {
+      padding: 16px 16px 4px;
+    }
+    .collectible-dialog h2 {
+      font-size: 17px;
+    }
+    .collectible-dialog footer {
+      padding: 12px 16px 16px;
+      font-size: 9px;
+    }
+    .skin .collectible-stage {
+      height: 330px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .model-fallback {
+      transition: none;
+    }
+    .shirt .model-expand {
+      border: 0;
+      background: transparent;
+      opacity: 0.55;
+    }
+    .shirt .model-expand:hover,
+    .shirt .model-expand:focus-visible {
+      opacity: 1;
+    }
+    .model-pause {
+      display: none;
+    }
+  }
+</style>

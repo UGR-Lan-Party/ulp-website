@@ -12,6 +12,7 @@ import StreetPassGallery from '../../components/StreetPassGallery.astro';
 import ConcertExperience from '../../components/ConcertExperience.astro';
 import ConcertReplay from '../../components/ConcertReplay.astro';
 import TcgShowcase from '../../components/TcgShowcase.astro';
+import MinecraftSkin from '../../components/MinecraftSkin.astro';
 import HolographicCard from '../../components/CompetitionCardHolographic.astro';
 import ULPTrophyCanvas from '../../components/ULPTrophyCanvas.astro';
 import CompetitionAwardsSection from '../../components/CompetitionAwardsSection.astro';
@@ -248,6 +249,7 @@ const social = getActivitySocial(competition.id, competition.name);
         )
       }
       {competition.id === 'tcg' && <TcgShowcase />}
+      {competition.id === 'minecraft' && <MinecraftSkin />}
       {competition.id === 'street-pass' && <StreetPassGallery />}
       {
         competition.id !== 'concierto' && (

@@ -1,0 +1,180 @@
+---
+import CollectibleViewer from './CollectibleViewer.astro';
+---
+
+<section
+  class="minecraft-skin"
+  aria-labelledby="minecraft-skin-title"
+  data-minecraft-skin
+>
+  <div class="skin-model">
+    <span class="skin-coordinate" aria-hidden="true">ULP / PLAYER_01</span
+    ><CollectibleViewer kind="skin" label="Skin oficial" />
+  </div>
+  <div class="skin-copy">
+    <span class="design-eyebrow">EL EQUIPO, TAMBIÉN EN MINECRAFT</span>
+    <h2 id="minecraft-skin-title">Ponte la <em>skin de la ULP.</em></h2>
+    <p>Descarga nuestra skin oficial y llévala a tu próxima partida.</p>
+    <div class="skin-specs">
+      <span><i aria-hidden="true"></i> 64 × 64 px</span><span
+        >Modelo clásico</span
+      ><span>PNG original</span>
+    </div>
+    <a
+      class="design-button"
+      href="/assets/activities/minecraft/ulp-skin.png"
+      download="ULP-skin-minecraft.png"
+      data-skin-download
+      >Descargar skin <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.7"
+        aria-hidden="true"
+        ><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"></path></svg
+      ></a
+    >
+    <details>
+      <summary>Cómo usarla <span aria-hidden="true">⌄</span></summary><p>
+        En el launcher de Minecraft Java, abre <strong
+          >Aspectos → Nuevo aspecto</strong
+        >, elige el modelo <strong>Clásico</strong> y carga el PNG. Después pulsa
+        <strong>Guardar y usar</strong>. <a
+          href="https://www.minecraft.net/es-es/article/what-is-minecraft-skin"
+          target="_blank"
+          rel="noopener noreferrer">Guía oficial de Minecraft ↗</a
+        >
+      </p>
+    </details>
+  </div>
+</section>
+<style>
+  .minecraft-skin {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(25px, 5vw, 65px);
+    align-items: center;
+    padding: 24px 32px;
+    margin-block: 32px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .skin-model {
+    position: relative;
+    min-width: 0;
+    background: radial-gradient(ellipse, #88b5a32e, transparent 70%);
+    border-radius: 14px;
+  }
+  .skin-coordinate {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    z-index: 1;
+  }
+  .design-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(27px, 3.3vw, 42px);
+    font-weight: 650;
+    letter-spacing: -0.045em;
+    line-height: 1.1;
+    margin-bottom: 13px;
+  }
+  h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .skin-copy > p {
+    font-size: 13px;
+    line-height: 1.75;
+    max-width: 420px;
+    color: var(--muted);
+  }
+  .skin-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-block: 18px;
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .skin-specs > span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .skin-specs i {
+    width: 6px;
+    height: 6px;
+    background: #31a88b;
+  }
+  .design-button {
+    font-size: 12px;
+    min-height: 44px;
+    padding: 11px 17px;
+    gap: 12px;
+    border-radius: 8px;
+  }
+  details {
+    margin-top: 13px;
+    max-width: 420px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+    padding-block: 9px;
+    max-width: 180px;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  details p {
+    line-height: 1.8;
+    padding-top: 6px;
+  }
+  details a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 700px) {
+    .minecraft-skin {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 16px 18px 22px;
+      margin-block: 24px;
+    }
+    .skin-copy > p {
+      font-size: 12px;
+    }
+    h2 {
+      font-size: 30px;
+    }
+    .skin-specs {
+      margin-block: 14px;
+    }
+    .design-eyebrow {
+      margin-bottom: 9px;
+    }
+    .skin-coordinate {
+      font-size: 7px;
+    }
+  }
+</style>
