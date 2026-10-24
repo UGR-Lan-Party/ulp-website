@@ -24,7 +24,7 @@ import VenueBenchesFurniture from './VenueBenchesFurniture.astro';
       <rect class="aesit-hitarea" x="-27" y="-27" width="54" height="54" rx="8"
       ></rect>
       <image
-        href="/assets/participan/Logos/aesit.webp"
+        href="/assets/participan/normalized/aesit/logo-color.webp"
         x="-18"
         y="-18"
         width="36"
@@ -57,10 +57,9 @@ import VenueBenchesFurniture from './VenueBenchesFurniture.astro';
     stroke: transparent;
   }
   .benches-aesit image {
-    opacity: 0.85;
-  }
-  :global(.dark) .benches-aesit image {
-    filter: brightness(0) invert(1);
+    opacity: 1;
+    filter: none;
+    mix-blend-mode: normal;
   }
   .benches-aesit:hover .aesit-hitarea,
   .benches-aesit:focus-visible .aesit-hitarea {

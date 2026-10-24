@@ -43,6 +43,15 @@ const categoryLabels: Record<string, string> = {
   aria-labelledby="program-title"
   data-program
 >
+  <VenueMap>
+    <div slot="empty" class="program-empty" data-program-empty hidden>
+      <p>No hay actividades con estos filtros.</p><p>
+        Prueba otro nombre, ubicación u hora, o restablece los filtros.
+      </p>
+    </div>
+  </VenueMap>
+  <PersonalAgenda />
+
   <header class="program-header">
     <div class="program-icon" aria-hidden="true">
       <svg
@@ -124,14 +133,6 @@ const categoryLabels: Record<string, string> = {
       hora de inicio.
     </p>
   </form>
-  <VenueMap>
-    <div slot="empty" class="program-empty" data-program-empty hidden>
-      <p>No hay actividades con estos filtros.</p><p>
-        Prueba otro nombre, ubicación u hora, o restablece los filtros.
-      </p>
-    </div>
-  </VenueMap>
-  <PersonalAgenda />
   <details class="program-table-disclosure" data-program-table-disclosure open>
     <summary>Desplegar agenda <span aria-hidden="true">⌄</span></summary>
     <div
@@ -558,13 +559,13 @@ const categoryLabels: Record<string, string> = {
     tbody tr {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 16px;
-      padding: 20px 16px;
+      gap: 0 12px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--line);
     }
     tbody td,
     tbody th {
-      padding: 6px 0;
+      padding: 4px 0;
       border: 0;
       min-width: 0;
     }

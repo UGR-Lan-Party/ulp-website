@@ -76,6 +76,13 @@ export const venuePlans = [
     parent: 'principal-0',
   },
   {
+    id: 'principal-estudiantes',
+    building: 'principal',
+    buildingLabel: 'Edificio Principal',
+    floor: 'Sala de estudiantes',
+    parent: 'principal-baja',
+  },
+  {
     id: 'principal-actos',
     building: 'principal',
     buildingLabel: 'Edificio Principal',
@@ -125,15 +132,41 @@ export const campusPrefabs = [
   },
 ] as const;
 
-const prefabPoint = (id: 'a' | 'b') => {
+export const campusPrefabScale = 1.1;
+export function getCampusPrefabPoint(id: 'a' | 'b', x: number, y: number) {
   const module = campusPrefabs.find((module) => module.id === id)!;
-  return campusPoint(
-    module.x + 42.5 * Math.cos(prefabAngle) - 45 * Math.sin(prefabAngle),
-    module.y + 42.5 * Math.sin(prefabAngle) + 45 * Math.cos(prefabAngle),
-  );
+  const dx = 42.5 + (x - 42.5) * campusPrefabScale;
+  const dy = 105 + (y - 105) * campusPrefabScale;
+  return {
+    x: module.x + dx * Math.cos(prefabAngle) - dy * Math.sin(prefabAngle),
+    y: module.y + dx * Math.sin(prefabAngle) + dy * Math.cos(prefabAngle),
+  };
+}
+const prefabPoint = (id: 'a' | 'b') => {
+  const { x, y } = getCampusPrefabPoint(id, 42.5, 45);
+  return campusPoint(x, y);
+};
+const prefabAlignedEdge = getCampusPrefabPoint('a', 0, 0);
+const parkingLeftX = (y: number) =>
+  prefabAlignedEdge.x - (y - prefabAlignedEdge.y) * Math.tan(prefabAngle);
+export const campusParking = {
+  y: 985,
+  height: 233.45,
+  leftTopX: parkingLeftX(985),
+  leftBottomX: parkingLeftX(1218.45),
+  rightTopX: 475,
+  rightBottomX: 340,
 };
 
 export const venueZones = [
+  {
+    id: 'campus-tercer-edificio',
+    label: 'Tercer edificio',
+    plan: 'recinto',
+    informational: true,
+    x: 263,
+    y: 266,
+  },
   ...aularioEntrances.map((entry) => ({
     id: entry.id,
     label: entry.label,
@@ -298,6 +331,7 @@ export const venueZones = [
     id: 'estudiantes',
     label: 'Sala de estudiantes',
     plan: 'principal-baja',
+    openPlan: 'principal-estudiantes',
     ...mainPoint(254.55, 155.12),
   },
   {
@@ -312,6 +346,13 @@ export const venueZones = [
     label: 'Cafetería',
     plan: 'principal-baja',
     ...mainPoint(735, 310),
+  },
+  {
+    id: 'paella',
+    label: 'Paella',
+    plan: 'principal-baja',
+    informational: true,
+    ...mainPoint(853, 760),
   },
   {
     id: 'aula11',
