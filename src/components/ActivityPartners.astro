@@ -1,0 +1,76 @@
+---
+import PartnerLogo from './PartnerLogo.astro';
+import {
+  getActivityPartners,
+  partnerAnchor,
+} from '../utils/partner-activities';
+interface Props {
+  activityId: string;
+}
+const linked = getActivityPartners(Astro.props.activityId);
+---
+
+{
+  linked.length > 0 && (
+    <section
+      class="activity-partners"
+      aria-label="Entidades relacionadas con esta actividad"
+    >
+      <h2>Con la comunidad ULP</h2>
+      <div>
+        {linked.map((partner) => (
+          <a href={`/participan/#${partnerAnchor(partner.name)}`}>
+            <PartnerLogo partner={partner} width={110} height={48} />
+            <span>
+              <strong>{partner.name}</strong>
+              <small>Ficha y redes sociales ↗</small>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+<style>
+  .activity-partners {
+    margin-block: 36px;
+    padding-block: 28px;
+    border-block: 1px solid var(--line);
+  }
+  h2 {
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .activity-partners > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  a {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+  strong,
+  small {
+    display: block;
+  }
+  strong {
+    font-size: 14px;
+  }
+  small {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  @media (max-width: 600px) {
+    a {
+      width: 100%;
+    }
+  }
+</style>

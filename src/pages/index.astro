@@ -1,4 +1,5 @@
 ---
+import EventCountdown from '../components/EventCountdown.astro';
 import PartnerStrip from '../components/PartnerStrip.astro';
 import ExperienceGrid from '../components/ExperienceGrid.astro';
 import LinktreeCard from '../components/LinktreeCard.astro';
@@ -11,24 +12,76 @@ import CTAsection from '../components/CTAsection.astro';
 import MemoryGallery from '../components/MemoryGallery.astro';
 import HomeNewsPreview from '../components/HomeNewsPreview.astro';
 import TrailerSection from '../components/TrailerSection.astro';
+const showCountdown = false;
 ---
 
 <Layout
   description="La UGR LAN Party es un evento de eSports organizado por profesores y estudiantes de la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación de la Universidad de Granada."
 >
-  <Hero />
-  <PartnerStrip />
-  <ExperienceGrid />
-  <EventStats />
-  <LinktreeCard />
-  <About />
-  <TrailerSection />
-  <MemoryGallery />
-  <CTAsection />
-  <Faq />
-  <HomeNewsPreview />
+  <div class="home-page">
+    <Hero />
+    {showCountdown && <EventCountdown />}
+    <PartnerStrip />
+    <ExperienceGrid />
+    <EventStats />
+    <LinktreeCard />
+    <About />
+    <TrailerSection />
+    <MemoryGallery />
+    <CTAsection />
+    <Faq />
+    <HomeNewsPreview />
+  </div>
 </Layout>
 
 <script>
   import '../scripts/home-text-motion';
 </script>
+
+<style>
+  .home-page :global(#experiencias) {
+    padding-block: clamp(40px, 5vw, 72px) clamp(28px, 4vw, 48px);
+  }
+  .home-page :global(.community-cta) {
+    padding-block: clamp(26px, 3vw, 40px);
+  }
+  .home-page :global(.section-pattern--halftone) {
+    opacity: 0.1;
+  }
+  .home-page :global(.section-pattern--diamonds) {
+    opacity: 0.1;
+    mask-image:
+      radial-gradient(ellipse at 50% 42%, transparent 12%, black 85%),
+      linear-gradient(transparent, black 18%, black 80%, transparent);
+    mask-composite: intersect;
+  }
+  .home-page :global(.section-pattern--arcs) {
+    opacity: 0.085;
+    mask-image:
+      linear-gradient(90deg, transparent, black),
+      linear-gradient(transparent, black 15%, black 75%, transparent);
+    mask-composite: intersect;
+  }
+  .home-page :global(.design-section-header) {
+    margin-bottom: 28px;
+  }
+  @media (max-width: 700px) {
+    .home-page :global(.design-section) {
+      padding-block: 36px;
+    }
+    .home-page :global(.design-heading) {
+      font-size: clamp(32px, 8.5vw, 46px);
+      line-height: 1.08;
+    }
+    .home-page :global(.design-section-header) {
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .home-page :global(.section-pattern) {
+      opacity: 0.065;
+    }
+    .home-page :global(.about-copy > p) {
+      text-align: left;
+    }
+  }
+</style>

@@ -1,6 +1,8 @@
 import { program, programEdition } from '../data/program';
 export function getActivitySocial(id: string, name: string) {
-  const slots = program.filter((entry) => entry.id === id);
+  const slots = program.filter(
+    (entry) => entry.id === id || entry.href === `/actividades/${id}`,
+  );
   const first = slots[0];
   const date = first
     ? new Intl.DateTimeFormat('es-ES', {

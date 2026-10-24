@@ -10,7 +10,11 @@ interface Props {
   competition: CompetitionData;
 }
 const { competition } = Astro.props;
-const slots = program.filter((entry) => entry.id === competition.id);
+const slots = program.filter(
+  (entry) =>
+    entry.id === competition.id ||
+    entry.href === `/actividades/${competition.id}`,
+);
 const format = getTournament(competition.id)?.format;
 const day = new Intl.DateTimeFormat('es-ES', {
   timeZone: programEdition.timezone,
@@ -35,7 +39,11 @@ const facts = [
     label: 'Formato',
     value:
       format ||
-      (competition.rules ? 'Consultar las reglas' : 'No especificado'),
+      (competition.id === 'concierto'
+        ? 'Música de videojuegos en directo'
+        : competition.rules
+          ? 'Consultar las reglas'
+          : 'No especificado'),
     note: '',
   },
 ];

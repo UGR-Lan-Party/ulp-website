@@ -37,6 +37,7 @@ const softenBottom = [
       {
         'soft-bottom': softenBottom,
         'soft-sides': competition.id === 'futbolin',
+        'concert-art': competition.id === 'concierto',
       },
     ]}
     style={artStyle}
@@ -59,6 +60,10 @@ const softenBottom = [
   import '../scripts/holoCardsInteraction.js';
 </script>
 <style>
+  .concert-art :global(img) {
+    filter: brightness(0) saturate(100%) invert(94%) sepia(7%) saturate(435%)
+      hue-rotate(351deg) brightness(103%) contrast(93%);
+  }
   .holographic-competition-card {
     position: relative;
     width: min(100%, 320px);

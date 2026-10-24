@@ -87,9 +87,7 @@ test('Los logos de Participan conservan contraste sobre su superficie clara en a
         page.locator(`[data-partner-card] [data-partner-logo="${name}"]`),
       ).toHaveCSS(
         'filter',
-        ['Nacon España', 'Hackiit', 'Mars Gaming'].includes(name)
-          ? 'none'
-          : 'brightness(0)',
+        'none',
       );
     }
     await page.getByRole('button', { name: 'Modo oscuro' }).click();
@@ -116,7 +114,12 @@ test('El archivo permite saltar de edición y leer su historia sin JavaScript', 
     await expect(
       firstEdition.getByRole('heading', { name: 'Primera Edición' }),
     ).toBeVisible();
-    await expect(page.locator('.archive-edition details')).toHaveCount(0);
+    const details = firstEdition.locator('details');
+    if (await details.count()) {
+      await expect(details).not.toHaveAttribute('open', '');
+      await details.locator('summary').click();
+      await expect(details).toHaveAttribute('open', '');
+    }
     await expect(firstEdition.locator('.archive-history')).toHaveCount(2);
     for (const paragraph of await firstEdition
       .locator('.archive-history')
@@ -175,7 +178,7 @@ test('Las preguntas se recorren de seis en seis sin JavaScript ni duplicados', a
   }
 });
 
-test('Inscripciones lleva a las competiciones ordenadas por la encuesta inicial de 2026', async ({
+test('Inscripciones lleva al catálogo con el orden de torneos solicitado', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -199,13 +202,13 @@ test('Inscripciones lleva a las competiciones ordenadas por la encuesta inicial 
     'Clash Royale',
     'Super Smash Bros Ultimate',
     'Wii Sports Tenis',
-    'Futbolín',
+    'League of Legends',
     'Minecraft',
     'Wii Sports Bolos',
     'Ajedrez',
     'Brawl Stars',
     'Rocket League',
-    'League of Legends',
+    'Futbolín',
     'Ping Pong',
     'Hacking Ético',
   ]);

@@ -1,6 +1,7 @@
 ---
 import type { SponsorData } from '../data/sponsors';
 import logoLayouts from '../data/partner-logo-layout.json';
+import normalizedLogos from '../data/normalized-partner-logos.json';
 interface Props {
   partner: SponsorData;
   surface?: 'theme' | 'light' | 'dark';
@@ -15,7 +16,13 @@ const {
   height = 32,
   decorative = false,
 } = Astro.props;
-const layout = logoLayouts[partner.name.trim() as keyof typeof logoLayouts];
+const normalized =
+  normalizedLogos[partner.name.trim() as keyof typeof normalizedLogos];
+const colorLogo = normalized?.color ?? partner.logo;
+const whiteLogo = normalized?.white ?? partner.logoWhite;
+const layout = normalized
+  ? undefined
+  : logoLayouts[partner.name.trim() as keyof typeof logoLayouts];
 const layoutStyle = layout
   ? `--logo-aspect:${layout.aspect};--logo-image-width:${layout.imageWidth}%;--logo-image-height:${layout.imageHeight}%;--logo-left:${layout.left}%;--logo-top:${layout.top}%`
   : undefined;
@@ -36,7 +43,7 @@ const layoutStyle = layout
     style={layoutStyle}
   >
     <img
-      src={partner.logo}
+      src={colorLogo}
       alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
       title={partner.name.trim() === 'DEFC'
         ? 'DEFC · Jesusjmma · CC BY-SA 4.0 · Wikimedia Commons'
@@ -46,22 +53,22 @@ const layoutStyle = layout
       loading="lazy"
       data-partner-logo={partner.name.trim()}
       data-surface={surface}
-      style={partner.logoWhiteFilter
+      style={!normalized && partner.logoWhiteFilter
         ? `--logo-dark-filter:url(#${partner.logoWhiteFilter})`
         : undefined}
       class:list={[
         'partner-logo',
         {
-          'needs-contrast': partner.logoNeedsContrast,
-          'white-details': partner.logoWhiteDetails,
-          'has-white-variant': Boolean(partner.logoWhite),
+          'needs-contrast': !normalized && partner.logoNeedsContrast,
+          'white-details': !normalized && partner.logoWhiteDetails,
+          'has-white-variant': Boolean(whiteLogo),
         },
       ]}
     />
     {
-      partner.logoWhite && (
+      whiteLogo && (
         <img
-          src={partner.logoWhite}
+          src={whiteLogo}
           alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
           width={width}
           height={height}
@@ -128,8 +135,8 @@ const layoutStyle = layout
     .partner-logo[data-partner-logo='DEFC'][data-surface='theme'] {
     filter: url(#partner-color-cutout);
   }
-  .partner-logo[data-surface='dark'],
-  :global(.dark) .partner-logo[data-surface='theme'] {
+  .partner-logo:not(.has-white-variant)[data-surface='dark'],
+  :global(.dark) .partner-logo:not(.has-white-variant)[data-surface='theme'] {
     filter: var(--logo-dark-filter, brightness(0) invert(1));
   }
   .white-variant,

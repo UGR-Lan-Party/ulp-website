@@ -21,7 +21,7 @@ export const program = [
     name: talk.nombre,
     location: talk.ubicacion,
     category: 'charla',
-    href: null,
+    href: talk.id === 'charla-6' ? '/actividades/concierto' : null,
     slots: [talk.slot],
     registration: '',
     registrationPeriodOpen: false,

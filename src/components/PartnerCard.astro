@@ -2,6 +2,7 @@
 import type { SponsorData } from '../data/sponsors';
 import PartnerLogo from './PartnerLogo.astro';
 import SocialButton from './SocialButton.astro';
+import { partnerAnchor } from '../utils/partner-activities';
 import { partnerTiers } from '../data/partner-tiers';
 interface Props {
   partner: SponsorData;
@@ -12,6 +13,7 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
 ---
 
 <section
+  id={partnerAnchor(partner.name)}
   class="design-partner-card"
   data-partner-card
   data-partner-name={partner.name.trim()}
@@ -32,6 +34,21 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
   >
     {partner.bussiness}
   </p><p class="partner-card-description">{partner.description}</p>
+  {
+    partner.name.trim() !== 'Virtual Soul' && partner.activities?.length && (
+      <nav
+        class="partner-activities"
+        aria-label={`Actividades de ${partner.name.trim()}`}
+      >
+        {partner.activities.map((activity) => (
+          <a href={`/actividades/${activity.id}`}>
+            {activity.name}
+            <span aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </nav>
+    )
+  }
   <div class="partner-card-links">
     {
       partner.links
@@ -41,6 +58,29 @@ const tier = partnerTiers.find((tier) => tier.id === partner.tier)!;
   </div>
 </section>
 <style>
+  .design-partner-card {
+    scroll-margin-top: 110px;
+  }
+  .partner-activities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-block: 18px;
+  }
+  .partner-activities a {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 14px;
+    min-height: 42px;
+    border: 1px solid rgb(245 240 230 / 0.35);
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .partner-activities a:hover {
+    background: rgb(245 240 230 / 0.1);
+  }
+
   .design-partner-card {
     position: relative;
     isolation: isolate;
