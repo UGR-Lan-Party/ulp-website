@@ -83,3 +83,33 @@ test('Invalid destinations never generate a route', () => {
   ])
     assert.equal(findVenueRoute(...args), null);
 });
+
+test('Same-floor trips stay on their floor and never use the disabled Grados exit', () => {
+  for (const [origin, destination] of [
+    ['hall', 'grados'],
+    ['aulario-1.1', 'aulario-1.8'],
+    ['estudiantes', 'cafeteria'],
+  ]) {
+    const route = findVenueRoute(origin, destination);
+    assert.ok(route);
+    assert.equal(route.segments.length, 1);
+  }
+  for (const destination of routeLocations.filter(
+    (item) => item.id !== 'grados',
+  )) {
+    const route = findVenueRoute('grados', destination.id);
+    assert.ok(route);
+    assert.ok(
+      route.segments.every((segment) =>
+        segment.points.every(
+          (point) =>
+            segment.plan !== 'principal-0' ||
+            Math.hypot(
+              point.x - (185 + 218 * 0.55),
+              point.y - (110 + 850 * 0.55),
+            ) > 1,
+        ),
+      ),
+    );
+  }
+});

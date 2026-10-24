@@ -1,3 +1,4 @@
+import { getCampusPerimeterViewport } from '../data/venue-campus-landscape';
 import { createVenueRoutes } from './venue-routes';
 import { venueCapacities } from '../data/venue-capacities';
 import { getVenueLeaderPath } from '../data/venue-leaders';
@@ -49,7 +50,10 @@ export function createVenueMap(
   const unlock = map.querySelector<HTMLButtonElement>('[data-venue-unlock]')!;
   const revealedPlans = new Set<VenuePlanId>();
   const isLocked = () =>
-    planId.startsWith('prefabricadas-') && !revealedPlans.has(planId);
+    (planId.startsWith('prefabricadas-') && !revealedPlans.has(planId)) ||
+    (planId === 'recinto' &&
+      campusVersion === 'modern' &&
+      !modernCampusRevealed);
   const narrow = matchMedia('(max-width: 600px)');
   let zoom = 1;
   let panX = 0;
@@ -87,12 +91,44 @@ export function createVenueMap(
   const roomHeading = map.querySelector<HTMLElement>(
     '[data-venue-room-heading]',
   )!;
-  const zoomLimit = () => (planId === 'recinto' ? 6 : 2.5);
+  let campusVersion = 'legacy';
+  let modernCampusRevealed = false;
+  const campusSwitch = map.querySelector<HTMLFieldSetElement>(
+    '[data-campus-switch]',
+  )!;
+  const campusNote = map.querySelector<HTMLElement>(
+    '[data-campus-project-note]',
+  )!;
+  function setCampusVersion(value: string) {
+    campusVersion = value === 'legacy' ? 'legacy' : 'modern';
+    if (campusVersion === 'modern') routes?.clear();
+    map!.dataset.campusVersion = campusVersion;
+    campusSwitch
+      .querySelectorAll<HTMLInputElement>('input')
+      .forEach((input) => (input.checked = input.value === campusVersion));
+    draw();
+  }
+  campusSwitch.addEventListener('change', (event) =>
+    setCampusVersion((event.target as HTMLInputElement).value),
+  );
+  map
+    .querySelector('[data-route-form]')!
+    .addEventListener('submit', () => setCampusVersion('legacy'), {
+      capture: true,
+    });
+  const zoomLimit = () =>
+    planId === 'recinto' || planId === 'principal-estudiantes' ? 6 : 2.5;
 
   function syncControls() {
     const plan = venuePlans.find((plan) => plan.id === planId)!;
     buildingSelect.disabled = false;
     buildingSelect.value = plan.building;
+    const overviewOption = Array.from(buildingSelect.options).find(
+      (option) => option.value === 'recinto',
+    );
+    if (overviewOption)
+      overviewOption.textContent =
+        campusVersion === 'legacy' ? 'Vista General (Legacy)' : 'Vista General';
     const parent =
       'parent' in plan
         ? selectableVenuePlans.find((item) => item.id === plan.parent)!
@@ -125,8 +161,14 @@ export function createVenueMap(
   let routes: ReturnType<typeof createVenueRoutes> | undefined;
   function draw() {
     const locked = isLocked();
+    campusSwitch.hidden = planId !== 'recinto';
+    campusNote.hidden = planId !== 'recinto' || campusVersion === 'legacy';
     map!.dataset.venueLocked = String(locked);
     unlock.hidden = !locked;
+    unlock.querySelector('.construction-hint')!.textContent =
+      planId === 'recinto'
+        ? 'Pulsa para ver el proyecto de ampliación'
+        : 'Pulsa para ver las aulas de 2026';
     drawing.setAttribute('tabindex', locked ? '-1' : '0');
     drawing.setAttribute('aria-hidden', String(locked));
     floorNotes.forEach(
@@ -136,17 +178,23 @@ export function createVenueMap(
     plans.forEach((plan) =>
       plan.toggleAttribute(
         'data-hidden',
-        plan.dataset.venueFloorPlan !== planId,
+        plan.dataset.venueFloorPlan !== planId ||
+          (!!plan.dataset.campusVersion &&
+            plan.dataset.campusVersion !== campusVersion),
       ),
     );
     building.style.transform = `rotate(${orientation * 90}deg)`;
+    if (planId === 'recinto') resize();
     const layout = venueLayouts[planId][orientation];
     const view = drawing.viewBox.baseVal;
     zones.forEach((zone) => {
       const point = layout.find((point) => point.id === zone.dataset.venueZone);
       const count = counts.get(zone.dataset.venueZone!) ?? 0;
       const hidden =
-        !point || (count === 0 && !isVenueInformation(zone.dataset.venueZone!));
+        !point ||
+        (!!zone.dataset.campusOnly &&
+          zone.dataset.campusOnly !== campusVersion) ||
+        (count === 0 && !isVenueInformation(zone.dataset.venueZone!));
       zone.toggleAttribute('data-hidden', hidden);
       zone.setAttribute('aria-hidden', String(hidden));
       zone.setAttribute('tabindex', hidden || locked ? '-1' : '0');
@@ -461,7 +509,9 @@ export function createVenueMap(
     onZoneChange(null);
   });
   unlock.addEventListener('click', () => {
-    revealedPlans.add(planId);
+    if (planId === 'recinto' && campusVersion === 'modern')
+      modernCampusRevealed = true;
+    else revealedPlans.add(planId);
     draw();
     resize();
     drawing.focus({ preventScroll: true });
@@ -689,8 +739,7 @@ export function createVenueMap(
     }
   });
   function getViewport() {
-    if (planId === 'recinto')
-      return narrow.matches ? [105, -5, 710, 710] : [0, -5, 920, 710];
+    if (planId === 'recinto') return getCampusPerimeterViewport(orientation);
     return narrow.matches ? [170, 65, 580, 570] : [0, 45, 920, 625];
   }
   function resize() {

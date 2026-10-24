@@ -1,0 +1,17 @@
+---
+import StudentRoom from './StudentRoom.astro';
+---
+
+<g
+  data-venue-floor-plan="principal-estudiantes"
+  data-hidden
+  transform="translate(460 350) scale(3.1) translate(-71 -71)"
+>
+  <title>Sala de estudiantes · ajedrez · vista ampliada</title>
+  <StudentRoom detailed />
+</g>
+<style>
+  [data-hidden] {
+    display: none !important;
+  }
+</style>

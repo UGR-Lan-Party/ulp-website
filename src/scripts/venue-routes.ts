@@ -124,12 +124,12 @@ export function createVenueRoutes(
   }
   function show(at: number) {
     if (!route) return;
-    index = at;
+    index = Math.max(0, Math.min(at, route.segments.length - 1));
     const segment = route.segments[index];
     navigate(segment.plan as VenuePlanId);
     paint(true);
     map.querySelector('[data-route-progress]')!.textContent =
-      `${index + 1} / ${route.segments.length}`;
+      `Tramo ${index + 1} de ${route.segments.length}`;
     map.querySelector('[data-route-title]')!.textContent = planName(
       segment.plan,
     );
@@ -138,10 +138,41 @@ export function createVenueRoutes(
       (index === route.segments.length - 1
         ? `Llegada: ${route.destination.label}`
         : (segment.arrival ?? ''));
+    const upcoming = route.segments[index + 1];
+    const level = (plan: string) =>
+      plan === 'principal-baja' ? -1 : plan === 'aulario-1' ? 1 : 0;
+    const floorChange = upcoming?.transition === 'stairs';
+    const movement = floorChange
+      ? level(upcoming.plan) > level(segment.plan)
+        ? 'Sube'
+        : 'Baja'
+      : '';
+    const upcomingPanel = map.querySelector<HTMLElement>(
+      '[data-route-upcoming]',
+    )!;
+    upcomingPanel.hidden = !upcoming;
+    map.querySelector('[data-route-upcoming-title]')!.textContent = upcoming
+      ? planName(upcoming.plan)
+      : '';
+    if (floorChange)
+      map.querySelector('[data-route-instruction]')!.textContent =
+        `${movement} por las escaleras a ${venuePlans.find((p) => p.id === upcoming.plan)!.floor.toLocaleLowerCase('es')}.`;
     steps.querySelectorAll('button').forEach((button, i) => {
       button.toggleAttribute('aria-current', i === index);
+      button.toggleAttribute('data-upcoming', i === index + 1);
       if (i === index) button.setAttribute('aria-current', 'step');
     });
+    const activeStep = steps.querySelector<HTMLElement>(
+      '[aria-current="step"]',
+    );
+    if (activeStep) {
+      const activeBounds = activeStep.getBoundingClientRect(),
+        bounds = steps.getBoundingClientRect();
+      if (activeBounds.right > bounds.right)
+        steps.scrollLeft += activeBounds.right - bounds.right + 4;
+      if (activeBounds.left < bounds.left)
+        steps.scrollLeft -= bounds.left - activeBounds.left + 4;
+    }
     previous.disabled = index === 0;
     next.disabled = index === route.segments.length - 1;
   }
@@ -175,7 +206,12 @@ export function createVenueRoutes(
         const li = document.createElement('li'),
           button = document.createElement('button');
         button.type = 'button';
-        button.textContent = `${i + 1}. ${venuePlans.find((p) => p.id === segment.plan)!.floor}`;
+        const plan = venuePlans.find((p) => p.id === segment.plan)!;
+        const building = document.createElement('small');
+        building.textContent = plan.buildingLabel.replace('Edificio ', '');
+        const floor = document.createElement('span');
+        floor.textContent = `${i + 1}. ${plan.floor}`;
+        button.append(building, floor);
         button.addEventListener('click', () => {
           stop();
           show(i);
@@ -233,6 +269,13 @@ export function createVenueRoutes(
     if (document.hidden) stop();
   });
   return {
+    clear() {
+      stop();
+      route = null;
+      cancelAnimationFrame(frame);
+      layer.replaceChildren();
+      result.hidden = true;
+    },
     refresh() {
       if (route && route.segments[index].plan !== current()) stop();
       paint();

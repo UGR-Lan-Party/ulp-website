@@ -3,7 +3,11 @@ import {
   getAularioMapPoint,
   aularioEntrances,
 } from '../data/aulario.ts';
-import { campusPoint, campusPrefabs } from '../data/venue-map.ts';
+import {
+  campusPoint,
+  campusPrefabs,
+  getCampusPrefabPoint,
+} from '../data/venue-map.ts';
 
 export const routeNodes = [];
 export const routeEdges = [];
@@ -253,9 +257,7 @@ edge('campus-west', 'prefab-walkway', {
   kind: 'outside',
 });
 for (const module of campusPrefabs) {
-  const radians = (28 * Math.PI) / 180;
-  const x = module.x + 85 * Math.cos(radians) - 105 * Math.sin(radians),
-    y = module.y + 85 * Math.sin(radians) + 105 * Math.cos(radians);
+  const { x, y } = getCampusPrefabPoint(module.id, 85, 105);
   campus(`outside-prefab-${module.id}`, x, y);
   edge('prefab-walkway', `outside-prefab-${module.id}`, {
     kind: 'outside',
@@ -298,44 +300,65 @@ export function findVenueRoute(origin, destination) {
       .map((item) => [item.id, item]),
   );
   if (!byId.has(start.node) || !byId.has(end.node)) return null;
-  const distances = new Map([[start.node, 0]]),
-    previous = new Map(),
-    remaining = new Set(byId.keys());
+  const adjacency = new Map([...byId.keys()].map((id) => [id, []]));
+  for (const link of routeEdges) {
+    if (!byId.has(link.from) || !byId.has(link.to)) continue;
+    adjacency.get(link.from).push({ id: link.to, edge: link });
+    adjacency.get(link.to).push({ id: link.from, edge: link });
+  }
+  const firstKey = JSON.stringify([null, start.node]);
+  const states = new Map([[firstKey, { id: start.node, before: null }]]);
+  const distances = new Map([[firstKey, 0]]);
+  const previous = new Map();
+  const remaining = new Set([firstKey]);
+  let finalKey = null;
   while (remaining.size) {
-    const current = [...remaining].reduce((a, b) =>
-      (distances.get(a) ?? Infinity) < (distances.get(b) ?? Infinity) ? a : b,
+    const key = [...remaining].reduce((a, b) =>
+      distances.get(a) <= distances.get(b) ? a : b,
     );
-    if (!Number.isFinite(distances.get(current) ?? Infinity)) break;
-    if (current === end.node) break;
-    remaining.delete(current);
-    for (const link of routeEdges) {
-      const next =
-        link.from === current
-          ? link.to
-          : link.to === current
-            ? link.from
-            : null;
-      if (!next || !remaining.has(next)) continue;
-      const a = byId.get(current),
-        b = byId.get(next);
-      const distance =
-        distances.get(current) +
-        (link.cost ?? Math.hypot(a.x - b.x, a.y - b.y) + 1);
-      if (distance < (distances.get(next) ?? Infinity)) {
-        distances.set(next, distance);
-        previous.set(next, { id: current, edge: link });
+    remaining.delete(key);
+    const state = states.get(key),
+      a = byId.get(state.id);
+    if (state.id === end.node) {
+      finalKey = key;
+      break;
+    }
+    for (const link of adjacency.get(state.id)) {
+      if (link.id === state.before) continue;
+      const b = byId.get(link.id),
+        before = byId.get(state.before);
+      let bend = 0;
+      if (before?.plan === a.plan && a.plan === b.plan) {
+        const u = { x: a.x - before.x, y: a.y - before.y },
+          v = { x: b.x - a.x, y: b.y - a.y };
+        const lengths = Math.hypot(u.x, u.y) * Math.hypot(v.x, v.y);
+        if (lengths)
+          bend =
+            3 *
+            (1 - Math.max(-1, Math.min(1, (u.x * v.x + u.y * v.y) / lengths)));
+      }
+      const cost =
+        link.edge.cost ??
+        (a.plan === b.plan ? Math.hypot(a.x - b.x, a.y - b.y) + 1 : 24);
+      const nextKey = JSON.stringify([state.id, link.id]);
+      const distance = distances.get(key) + cost + bend;
+      if (distance < (distances.get(nextKey) ?? Infinity)) {
+        distances.set(nextKey, distance);
+        states.set(nextKey, { id: link.id, before: state.id });
+        previous.set(nextKey, { key, edge: link.edge });
+        remaining.add(nextKey);
       }
     }
   }
-  if (!previous.has(end.node)) return null;
-  const ids = [end.node],
+  if (!finalKey) return null;
+  const ids = [],
     links = [];
-  let cursor = end.node;
-  while (cursor !== start.node) {
+  let cursor = finalKey;
+  while (cursor) {
+    ids.unshift(states.get(cursor).id);
     const step = previous.get(cursor);
-    links.unshift(step.edge);
-    cursor = step.id;
-    ids.unshift(cursor);
+    if (step) links.unshift(step.edge);
+    cursor = step?.key;
   }
   let segments = [];
   ids.forEach((id, index) => {

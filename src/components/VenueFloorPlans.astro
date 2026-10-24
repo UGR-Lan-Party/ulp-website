@@ -212,6 +212,24 @@ import furniture from '../data/venue-furniture.json';
         </g>
       ))
     }
+    <g data-principal-detail="paella" aria-label="Dos arroceras">
+      {
+        [725, 795].map((y) => (
+          <g class="paella-pan" transform={`translate(810 ${y})`}>
+            <path
+              class="paella-handle"
+              d="M-17.4-6H-24Q-27-6-27-3V3Q-27 6-24 6H-17.4M17.4-6H24Q27-6 27-3V3Q27 6 24 6H17.4"
+            />
+            <circle class="paella-rim" r="18.7" />
+            <circle class="paella-basin" r="15.5" />
+            <path
+              class="paella-grains"
+              d="M-7-8l2 1M3-9l-1 2M8-3l2 1M-10 1l1 2M-2-2l2 1M3 5l2-1M-5 8l2-1M8 9l1-2"
+            />
+          </g>
+        ))
+      }
+    </g>
     <VenueDoor x={884} y={335} angle={90} width={36} />
     <VenueDoor x={884} y={613} angle={90} width={36} />
   </g>
@@ -355,6 +373,30 @@ import furniture from '../data/venue-furniture.json';
     stroke-linejoin: round;
   }
 
+  .paella-handle,
+  .paella-rim,
+  .paella-basin,
+  .paella-grains {
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 0.8;
+  }
+  .paella-handle,
+  .paella-grains {
+    fill: none;
+  }
+  .paella-rim {
+    fill: var(--paper);
+  }
+  .paella-basin {
+    fill: color-mix(in srgb, var(--ink) 12%, var(--paper));
+    stroke-width: 0.5;
+  }
+  .paella-grains {
+    opacity: 0.55;
+    stroke-width: 0.7;
+  }
   .cafe-counter {
     fill: url(#venue-desk-surface);
     stroke: currentColor;

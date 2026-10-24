@@ -113,7 +113,9 @@ test('Horarios abre Vista General por defecto en móvil y escritorio', async ({
     );
     await expect(page.locator('[data-venue-floor-select]')).toBeDisabled();
     await expect(
-      page.locator('[data-venue-floor-plan="recinto"]'),
+      page.locator(
+        '[data-venue-floor-plan="recinto"][data-campus-version="legacy"]',
+      ),
     ).toBeVisible();
     await expect(page.locator('[data-venue-floor-plan]:visible')).toHaveCount(
       1,

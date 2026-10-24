@@ -193,7 +193,7 @@ test('Los accesos de Vista General acercan la zona y permiten cancelar la transi
   const building = page.locator('[data-venue-building-select]');
   const map = page.locator('[data-venue-map]');
   await building.selectOption('recinto');
-  await expect(building.locator('option:checked')).toHaveText('Vista General');
+  await expect(building.locator('option:checked')).toHaveText('Vista General (Legacy)');
   await expect(page.locator('.campus-table')).toHaveCount(0);
   await page
     .locator('[data-venue-open-plan="principal-0"] [data-venue-point]')
@@ -323,7 +323,7 @@ test('El parking queda separado de los edificios al girar y Mi agenda está desp
   const map = page.locator('[data-venue-map]');
   expect(
     await map.evaluate((element) =>
-      element.nextElementSibling?.matches('[data-personal-agenda]'),
+      Boolean(element.compareDocumentPosition(document.querySelector('[data-personal-agenda]')!) & Node.DOCUMENT_POSITION_FOLLOWING),
     ),
   ).toBe(true);
   await page.setViewportSize({ width: 390, height: 844 });

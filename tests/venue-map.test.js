@@ -7,6 +7,9 @@ import {
   venuePlans,
   selectableVenuePlans,
   campusPrefabs,
+  campusPrefabScale,
+  getCampusPrefabPoint,
+  campusParking,
   getVenueLayout,
 } from '../src/data/venue-map.ts';
 
@@ -35,7 +38,7 @@ test('Las salas confirmadas reciben su ubicación y los accesos sin confirmar no
 });
 
 test('Cada zona pertenece a una planta existente y cada plano tiene geometría independiente', () => {
-  assert.equal(new Set(venuePlans.map((plan) => plan.id)).size, 13);
+  assert.equal(new Set(venuePlans.map((plan) => plan.id)).size, 14);
   assert.equal(selectableVenuePlans.length, 9);
   for (const plan of venuePlans.filter((plan) => 'parent' in plan))
     assert.ok(selectableVenuePlans.some((parent) => parent.id === plan.parent));
@@ -150,4 +153,27 @@ test('Los indicadores conservan las líneas rectas y redondean los codos de las 
     getVenueLeaderPath({ x: 100, y: 80 }, { x: 80, y: 60 }, true),
     'M100 80L100 68Q100 60 92 60L80 60',
   );
+});
+
+test('El borde del parking prolonga exactamente el lateral exterior de ambas prefabricadas ampliadas', () => {
+  const a = { x: campusParking.leftTopX, y: campusParking.y };
+  const b = {
+    x: campusParking.leftBottomX,
+    y: campusParking.y + campusParking.height,
+  };
+  const length = Math.hypot(b.x - a.x, b.y - a.y);
+  for (const module of campusPrefabs) {
+    for (const y of [0, 210]) {
+      const point = getCampusPrefabPoint(module.id, 0, y);
+      const distance =
+        ((b.x - a.x) * (point.y - a.y) - (b.y - a.y) * (point.x - a.x)) /
+        length;
+      assert.ok(Math.abs(distance) < 1e-8);
+    }
+  }
+  assert.ok(campusPrefabScale > 1 && campusPrefabScale <= 1.15);
+  assert.equal(campusParking.rightTopX, 475);
+  assert.equal(campusParking.rightBottomX, 340);
+  const gap = 266 - 210 * campusPrefabScale;
+  assert.ok(gap > 30);
 });
