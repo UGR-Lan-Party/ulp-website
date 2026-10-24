@@ -38,11 +38,20 @@ import { pastEditions } from '../../data/past-editions';
         <span class="design-eyebrow">08 / Última edición celebrada</span>
         <h2 id="latest-edition-title">ULP <span>2026</span></h2>
         <p class="archive-date">20 y 21 de marzo · ETSIIT, Granada</p>
-        <p>
-          Dos días para encontrarnos alrededor de los videojuegos y la
-          tecnología. El programa de la octava edición queda aquí para volver a
-          consultarlo.
-        </p>
+        <details class="latest-description" data-edition-description>
+          <summary
+            ><span class="description-closed">Leer descripción</span><span
+              class="description-open">Ocultar descripción</span
+            ><span aria-hidden="true">⌄</span></summary
+          >
+          <div>
+            <p>
+              Dos días para encontrarnos alrededor de los videojuegos y la
+              tecnología. El programa de la octava edición queda aquí para
+              volver a consultarlo.
+            </p>
+          </div>
+        </details>
         <a href="/horarios" class="design-button"
           >Ver programa de 2026 <span aria-hidden="true"><ArrowUpRight /></span
           ></a
@@ -62,7 +71,48 @@ import { pastEditions } from '../../data/past-editions';
     </div>
   </div>
 </Layout>
+<script>
+  import '../../scripts/edition-descriptions';
+</script>
 <style>
+  .latest-description p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 430px;
+  }
+  .latest-description summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    padding-block: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .description-open,
+  [open] .description-closed {
+    display: none;
+  }
+  [open] .description-open {
+    display: inline;
+  }
+  @media (min-width: 801px) {
+    .latest-description summary {
+      display: none;
+    }
+  }
+  @media (max-width: 800px) {
+    .latest-description p {
+      font-size: 13px;
+      line-height: 1.65;
+    }
+  }
+
   .archive-shell {
     padding-block: 32px 70px;
   }
@@ -98,6 +148,10 @@ import { pastEditions } from '../../data/past-editions';
   }
   .archive-latest h2 span {
     display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--ink);
   }
   .archive-latest-copy > p {
     font-size: 14px;

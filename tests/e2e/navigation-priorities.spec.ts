@@ -31,7 +31,7 @@ for (const width of [1280, 390]) {
       'FAQs',
       'Aviso legal',
     ]);
-    const title = page.locator('.news-board-title');
+    const title = page.locator('h1');
     await expect(title).toHaveText('El tablón de la ULP');
     const lines = await title.evaluate((el) => {
       const range = document.createRange();

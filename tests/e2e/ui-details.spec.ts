@@ -48,7 +48,7 @@ test('Los datos de contacto son enlaces y el mapa tiene esquinas redondeadas', a
     page.locator('#contact a').filter({ hasText: 'Periodista Daniel' }),
   ).toHaveAttribute('href', /maps.app.goo.gl/);
   const radius = await page
-    .locator('#contact iframe')
+    .locator('#contact [data-location-preview]')
     .evaluate((el) => parseFloat(getComputedStyle(el).borderRadius));
   expect(radius).toBeGreaterThan(0);
 });

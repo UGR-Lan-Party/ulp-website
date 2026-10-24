@@ -55,12 +55,19 @@ document
   });
 const header = document.querySelector<HTMLElement>('.ud-header');
 const backToTop = document.querySelector<HTMLElement>('.back-to-top');
+const footerCredits = document.querySelector<HTMLElement>('.footer-copyright');
 function updateScrollState() {
   header?.classList.toggle('is-scrolled', scrollY > 32);
-  if (backToTop) backToTop.style.display = scrollY > 600 ? 'flex' : 'none';
+  if (backToTop) {
+    backToTop.style.display = scrollY > 600 ? 'flex' : 'none';
+    const creditsTop =
+      footerCredits?.getBoundingClientRect().top ?? innerHeight;
+    backToTop.style.bottom = `${innerWidth <= 700 ? Math.max(24, innerHeight - creditsTop + 12) : 24}px`;
+  }
 }
 addEventListener('scroll', updateScrollState, { passive: true });
 addEventListener('pageshow', updateScrollState);
+addEventListener('resize', updateScrollState);
 backToTop?.addEventListener('click', () =>
   scrollTo({ top: 0, behavior: reducedMotion.matches ? 'instant' : 'smooth' }),
 );
