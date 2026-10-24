@@ -112,7 +112,8 @@ document
     let current = 0;
     let requested = 0;
     let version = 0;
-    const wrap = (index: number) => (index + photos.length) % photos.length;
+    const wrap = (index: number) =>
+      ((index % photos.length) + photos.length) % photos.length;
     const neighborSource = (index: number) =>
       previews[wrap(index)] ?? photos[wrap(index)];
 
@@ -139,15 +140,25 @@ document
       neighborImages?: (HTMLImageElement | null)[],
     ) {
       const changed = index !== current;
+      const direction =
+        index === wrap(current + 1) ? 1 : index === wrap(current - 1) ? -1 : 0;
       current = index;
       image.src = previews[current];
       image.alt = `Foto ${current + 1} de UGR LAN Party`;
       if (loaded) updateRatio(loaded);
       zoom.href = photos[current];
+      root.querySelector<HTMLAnchorElement>('[data-carousel-original]')!.href =
+        photos[current];
       zoom.setAttribute('aria-label', `Ampliar foto ${current + 1}`);
       counter.textContent = `Foto ${current + 1} de ${photos.length}`;
+      root.querySelector('[data-expanded-counter]')!.textContent =
+        counter.textContent;
       neighbors.forEach((button, offset) => {
-        button.hidden = photos.length < 2 || neighborImages?.[offset] === null;
+        button.hidden =
+          photos.length < 2 ||
+          Math.abs(Number(button.dataset.carouselNeighbor)) >
+            Math.max(1, Math.floor((photos.length - 1) / 2)) ||
+          neighborImages?.[offset] === null;
         if (!button.hidden)
           button.querySelector('img')!.src = neighborSource(
             current + Number(button.dataset.carouselNeighbor),
@@ -157,15 +168,28 @@ document
         expanded.src = photos[current];
         expanded.alt = image.alt;
       }
-      if (changed && neighbors.length && !reducedMotion.matches) {
-        image.getAnimations().forEach((animation) => animation.cancel());
-        image.animate(
-          [
-            { opacity: 0.85, transform: 'scale(1.025)' },
-            { opacity: 1, transform: 'scale(1)' },
-          ],
-          { duration: 260, easing: 'ease-out' },
-        );
+      if (changed && !reducedMotion.matches) {
+        if (neighbors.length) {
+          const step =
+            zoom.getBoundingClientRect().width + (innerWidth <= 700 ? 12 : 16);
+          for (const card of [zoom, ...neighbors]) {
+            card.getAnimations().forEach((animation) => animation.cancel());
+            card.animate(
+              [
+                { translate: `${direction * step}px 0`, opacity: 0.72 },
+                { translate: '0 0', opacity: 1 },
+              ],
+              { duration: 360, easing: 'cubic-bezier(.22,.7,.2,1)' },
+            );
+          }
+        }
+        if (dialog.open) {
+          expanded.getAnimations().forEach((animation) => animation.cancel());
+          expanded.animate([{ opacity: 0.6 }, { opacity: 1 }], {
+            duration: 180,
+            easing: 'ease-out',
+          });
+        }
       }
     }
 
@@ -188,7 +212,7 @@ document
       if (!loaded) {
         requested = current;
         status.textContent =
-          'No se ha podido cargar esta foto. Puedes volver a intentarlo o abrir el Ã¡lbum.';
+          'No se ha podido cargar esta foto. Puedes volver a intentarlo o abrir el álbum.';
         status.hidden = false;
         return;
       }
@@ -196,6 +220,35 @@ document
       warmAdjacent();
     }
 
+    let wheelAmount = 0;
+    let wheelAt = 0;
+    let wheelStepAt = -Infinity;
+    const navigateWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || photos.length < 2) return;
+      const delta =
+        Math.abs(event.deltaX) > Math.abs(event.deltaY)
+          ? event.deltaX
+          : event.deltaY;
+      if (!delta) return;
+      event.preventDefault();
+      const now = performance.now();
+      if (
+        now - wheelAt > 150 ||
+        (wheelAmount !== 0 && Math.sign(delta) !== Math.sign(wheelAmount))
+      )
+        wheelAmount = 0;
+      wheelAt = now;
+      if (now - wheelStepAt < 320) return;
+      wheelAmount +=
+        delta *
+        (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1);
+      if (Math.abs(wheelAmount) < 45) return;
+      wheelStepAt = now;
+      void show(requested + Math.sign(wheelAmount));
+      wheelAmount = 0;
+    };
+    stage.addEventListener('wheel', navigateWheel, { passive: false });
+    dialog.addEventListener('wheel', navigateWheel, { passive: false });
     enableTouchSwipe(stage, (direction) => void show(requested + direction));
     enableTouchSwipe(dialog, (direction) => void show(requested + direction));
     neighbors.forEach((button) =>
@@ -239,7 +292,9 @@ document
     });
     reducedMotion.addEventListener('change', () => {
       if (reducedMotion.matches)
-        image.getAnimations().forEach((animation) => animation.cancel());
+        [image, zoom, expanded, ...neighbors].forEach((element) =>
+          element.getAnimations().forEach((animation) => animation.cancel()),
+        );
     });
     commit(0);
     if (image.complete) updateRatio();

@@ -1,0 +1,390 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import map from '../data/location-map.json';
+---
+
+<div class="location-preview" data-location-preview>
+  <div class="location-preview-heading">
+    <span>GRANADA / AYNADAMAR</span><span class="preview-live"
+      ><i aria-hidden="true"></i> Nos vemos aquí</span
+    >
+  </div>
+  <div
+    class="location-preview-canvas"
+    data-location-canvas
+    tabindex="0"
+    role="region"
+    aria-label="Mapa de la ETSIIT; usa la rueda o los controles para ampliar y arrastra para desplazarte"
+  >
+    <svg
+      data-location-drawing
+      viewBox="0 0 800 600"
+      role="img"
+      aria-label="Mapa del entorno de la ETSIIT en el campus de Aynadamar, Granada"
+    >
+      <rect width="800" height="600" class="map-land"></rect>
+      <g class="map-green">{map.greens.map((d) => <path d={d} />)}</g>
+      <g class="map-building">{map.buildings.map((d) => <path d={d} />)}</g>
+      <g class="map-road-edge"
+        >{
+          map.roads.map((road) => (
+            <path d={road.d} stroke-width={road.major ? 14 : 8} />
+          ))
+        }</g
+      >
+      <g class="map-road"
+        >{
+          map.roads.map((road) => (
+            <path d={road.d} stroke-width={road.major ? 10 : 5} />
+          ))
+        }</g
+      >
+      <g class="map-walk">{map.paths.map((d) => <path d={d} />)}</g>
+      <g class="map-campus">{map.campus.map((d) => <path d={d} />)}</g>
+      <g class="map-labels"
+        ><text x="155" y="210" transform="rotate(64 155 210)"
+          >C. Periodista Daniel Saucedo Aranda</text
+        ><text x="350" y="515">C. Periodista Eugenio Sellés</text><text
+          x="650"
+          y="235"
+          transform="rotate(65 650 235)">Av. de Maracena</text
+        ></g
+      >
+    </svg>
+    <div class="location-zoom-controls" role="group" aria-label="Zoom del mapa">
+      <button type="button" data-location-zoom="in" aria-label="Acercar mapa"
+        >+</button
+      >
+      <button
+        type="button"
+        data-location-zoom="reset"
+        aria-label="Restablecer zoom del mapa"
+        ><span data-location-zoom-value>100%</span></button
+      >
+      <button type="button" data-location-zoom="out" aria-label="Alejar mapa"
+        >−</button
+      >
+    </div>
+    <span class="map-north" aria-hidden="true">N <span>↑</span></span>
+    <div class="map-scale" aria-hidden="true">
+      <span data-location-scale-bar></span><span data-location-scale-value
+        >100 m</span
+      >
+    </div>
+    <a
+      class="map-attribution"
+      href="https://www.openstreetmap.org/copyright"
+      target="_blank"
+      rel="noopener noreferrer">© OpenStreetMap</a
+    >
+  </div>
+  <div class="location-preview-bottom">
+    <div><strong>Tu próxima parada.</strong><p>La Chana · Granada</p></div><a
+      class="preview-plan-link"
+      href="/info/horarios/#plano"
+      aria-label="Explorar el plano interactivo de la ETSIIT"
+      >Explora la ETSIIT <ArrowUpRight /></a
+    >
+  </div>
+  <nav class="location-preview-actions" aria-label="Cómo llegar a la ETSIIT">
+    <a
+      href="https://maps.app.goo.gl/8c9WLkYAiw6cJRgu7"
+      target="_blank"
+      rel="noopener noreferrer"
+      ><svg
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        aria-hidden="true"
+        ><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle
+          cx="12"
+          cy="10"
+          r="3"></circle></svg
+      ><span>Google Maps</span><ArrowUpRight /></a
+    >
+    <a
+      href="https://maps.apple.com/?q=ETSIIT%20Universidad%20de%20Granada&ll=37.19704,-3.6245"
+      target="_blank"
+      rel="noopener noreferrer"
+      ><svg
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        aria-hidden="true"
+        ><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Zm6-3v15m6-12v15"
+        ></path></svg
+      ><span>Apple Maps</span><ArrowUpRight /></a
+    >
+  </nav>
+</div>
+<script>
+  import '../scripts/location-map';
+</script>
+<style>
+  .location-preview {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: 0 16px 48px rgb(0 68 101 / 0.07);
+  }
+  .location-preview-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 17px 20px;
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.07em;
+  }
+  .preview-live {
+    display: inline-flex;
+    gap: 7px;
+    align-items: center;
+    letter-spacing: 0;
+    font:
+      10px 'Inter Variable',
+      sans-serif;
+  }
+  .preview-live i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #008a80;
+  }
+  .location-preview-canvas {
+    position: relative;
+    overflow: hidden;
+    background: #e7eee7;
+  }
+  .location-preview-canvas > svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: cover;
+  }
+  .map-land {
+    fill: #e8e8dc;
+  }
+  .map-green {
+    fill: #d0dfc4;
+  }
+  .map-building {
+    fill: #d6d2c3;
+    stroke: #c6c7b7;
+    stroke-width: 1;
+  }
+  .map-road-edge {
+    fill: none;
+    stroke: #d3d7cb;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .map-road {
+    fill: none;
+    stroke: #faf8f0;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .map-walk {
+    fill: none;
+    stroke: #eeede1;
+    stroke-width: 2;
+  }
+  .map-campus {
+    fill: #98bec0;
+    fill-opacity: 0.55;
+    stroke: none;
+  }
+  .map-labels {
+    fill: #63756f;
+    font:
+      11px 'Inter Variable',
+      sans-serif;
+    paint-order: stroke;
+    stroke: #eeeee4;
+    stroke-width: 3px;
+    stroke-linejoin: round;
+  }
+  .location-zoom-controls {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    background: #fcf8efee;
+    color: #004465;
+    border: 1px solid #00446524;
+    border-radius: 9px;
+    box-shadow: 0 4px 16px #0044650a;
+  }
+  .location-zoom-controls button {
+    display: grid;
+    place-items: center;
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .location-zoom-controls button:nth-child(2) {
+    min-width: 48px;
+    font:
+      10px ui-monospace,
+      monospace;
+  }
+  .location-zoom-controls button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  .location-zoom-controls button:hover:not(:disabled) {
+    background: #0044650d;
+  }
+  [data-location-canvas][data-zoomed] > svg {
+    cursor: grab;
+    touch-action: none;
+  }
+  [data-location-canvas][data-dragging] > svg {
+    cursor: grabbing;
+  }
+  [data-location-canvas]:focus-visible {
+    outline: 2px solid #008b98;
+    outline-offset: -3px;
+  }
+  .map-north {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    display: grid;
+    justify-items: center;
+    font:
+      9px ui-monospace,
+      monospace;
+    color: #004465;
+  }
+  .map-north > span {
+    font-size: 26px;
+  }
+  .map-scale {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    font:
+      8px ui-monospace,
+      monospace;
+    color: #004465;
+  }
+  .map-scale [data-location-scale-bar] {
+    display: block;
+    height: 5px;
+    width: 60px;
+    border: 1px solid;
+    border-top: 0;
+    margin-bottom: 4px;
+  }
+  .map-attribution {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    padding: 3px 5px;
+    border-radius: 3px;
+    color: #004465;
+    background: #fcf8efda;
+    font-size: 8px;
+  }
+  .location-preview-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px 12px;
+  }
+  .location-preview-bottom strong {
+    font-size: 15px;
+    font-weight: 650;
+  }
+  .location-preview-bottom p {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .preview-plan-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+  }
+  .preview-plan-link svg {
+    width: 14px;
+    height: 14px;
+  }
+  .location-preview-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 20px 18px;
+  }
+  .location-preview-actions a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-size: 11px;
+    background: var(--paper);
+    transition: background 0.2s ease;
+  }
+  .location-preview-actions a > svg:last-child {
+    width: 13px;
+    height: 13px;
+    margin-left: auto;
+  }
+  .location-preview-actions a:first-child {
+    background: #004465;
+    color: #f5f0e6;
+    border-color: #004465;
+  }
+  .location-preview-actions a:hover {
+    background: var(--line);
+  }
+  .location-preview-actions a:first-child:hover {
+    background: #006471;
+  }
+  @media (max-width: 700px) {
+    .location-preview {
+      border-radius: 16px;
+    }
+    .location-preview-heading {
+      padding: 14px 16px;
+    }
+    .location-preview-bottom {
+      padding: 15px 16px 12px;
+    }
+    .location-preview-actions {
+      padding: 0 16px 16px;
+    }
+    .location-preview-actions a {
+      font-size: 10px;
+      gap: 6px;
+      padding: 8px;
+    }
+    .preview-plan-link {
+      max-width: 95px;
+      font-size: 9px;
+    }
+  }
+</style>

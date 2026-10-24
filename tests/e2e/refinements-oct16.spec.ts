@@ -31,8 +31,8 @@ test('La aleatoriedad conserva portada, parejas de resoluciones y recorrido por 
   });
   await page.goto('/info/about/');
   const album = page.locator('.community-album [data-photo-carousel]');
-  await expect(album.locator('[data-carousel-next]')).toBeVisible();
-  await expect(album.locator('[data-carousel-neighbor]')).toHaveCount(2);
+  await expect(album.locator('[data-carousel-image]')).toBeVisible();
+  await expect(album.locator('[data-carousel-neighbor]')).toHaveCount(6);
   const order = await album.evaluate((element) =>
     JSON.parse((element as HTMLElement).dataset.photos!),
   );
@@ -51,15 +51,14 @@ test('La aleatoriedad conserva portada, parejas de resoluciones y recorrido por 
       new URL(url, 'http://localhost').searchParams.get('photo'),
     ),
   );
-  await album
-    .getByRole('button', { name: 'Foto siguiente', exact: true })
-    .click();
+  await album.locator('[data-carousel-zoom]').focus();
+  await page.keyboard.press('ArrowRight');
   await expect(album.locator('[data-carousel-image]')).toHaveAttribute(
     'src',
     pairedPreviews[1],
   );
   await page.reload();
-  await expect(album.locator('[data-carousel-next]')).toBeVisible();
+  await expect(album.locator('[data-carousel-image]')).toBeVisible();
   expect(
     await album.evaluate((element) =>
       JSON.parse((element as HTMLElement).dataset.photos!),
@@ -73,7 +72,7 @@ test('La aleatoriedad conserva portada, parejas de resoluciones y recorrido por 
     sessionStorage.setItem('ulp-photo-seed', 'otra-sesion'),
   );
   await page.reload();
-  await expect(album.locator('[data-carousel-next]')).toBeVisible();
+  await expect(album.locator('[data-carousel-image]')).toBeVisible();
   const otherOrder = await album.evaluate((element) =>
     JSON.parse((element as HTMLElement).dataset.photos!),
   );

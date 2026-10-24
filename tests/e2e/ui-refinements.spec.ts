@@ -54,17 +54,17 @@ test('El catálogo intercambia los avisos de equipo y muestra el nombre e imagen
   ).toHaveAttribute('src', /32e99af1d2ff/);
 });
 
-test('La lectura del blog usa Inter y párrafos justificados sin desbordarse en móvil', async ({
+test('La lectura del blog usa Inter y una columna editorial sin desbordarse en móvil', async ({
   page,
 }) => {
   await page.goto('/blog/havefungamers/');
   const body = page.locator('.article-body');
   for (const paragraph of await body.locator(':scope > p').all()) {
-    await expect(paragraph).toHaveCSS('text-align', 'justify');
+    await expect(paragraph).toHaveCSS('text-align', 'start');
     await expect(paragraph).toHaveCSS('font-family', /Inter/);
   }
   const quote = body.locator('blockquote p');
-  await expect(quote).toHaveCSS('color', 'rgb(245, 240, 230)');
+  await expect(quote).toHaveCSS('color', 'rgb(0, 68, 101)');
   await expect(quote).toHaveCSS('text-align', 'start');
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: 844 });

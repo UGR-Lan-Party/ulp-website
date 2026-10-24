@@ -5,7 +5,10 @@ async function changePhoto(
   direction: -1 | 1,
 ) {
   const expanded = (await root.getAttribute('data-carousel-dialog')) !== null;
-  if ((root.page().viewportSize()?.width ?? 1440) <= 700) {
+  if (
+    (root.page().viewportSize()?.width ?? 1440) <= 700 ||
+    (!expanded && (await root.locator('[data-carousel-next]').count()) === 0)
+  ) {
     await (expanded ? root : root.locator('[data-carousel-zoom]')).press(
       direction > 0 ? 'ArrowRight' : 'ArrowLeft',
     );
@@ -129,7 +132,12 @@ for (const width of [1440, 360]) {
       const dialog = first.getByRole('dialog');
       await expect(dialog).toBeVisible();
       const box = (await dialog.boundingBox())!;
-      expect(Math.abs(box.width / box.height - ratio)).toBeLessThan(0.01);
+      const photoBox = (await first
+        .locator('[data-carousel-expanded]')
+        .boundingBox())!;
+      expect(Math.abs(photoBox.width / photoBox.height - ratio)).toBeLessThan(
+        0.01,
+      );
       expect(box.width).toBeLessThanOrEqual(width);
       expect(box.height).toBeLessThanOrEqual(1000);
       await dialog
@@ -159,7 +167,7 @@ for (const width of [1440, 360]) {
 }
 
 for (const width of [1440, 390]) {
-  test(`La galería del home muestra tres fotos y sincroniza laterales, flechas y zoom a ${width} px`, async ({
+  test(`La galería del home muestra tarjetas en perspectiva y sincroniza laterales, flechas y zoom a ${width} px`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height: 900 });
@@ -185,7 +193,7 @@ for (const width of [1440, 390]) {
     await album.scrollIntoViewIfNeeded();
     const previous = album.locator('.neighbor-previous');
     const next = album.locator('.neighbor-next');
-    await expect(album.locator('[data-carousel-neighbor]')).toHaveCount(2);
+    await expect(album.locator('[data-carousel-neighbor]')).toHaveCount(6);
     await expect(next.locator('img')).toHaveAttribute(
       'src',
       /sobre-nosotros-2/,
@@ -196,15 +204,16 @@ for (const width of [1440, 390]) {
     );
     const center = (await album.locator('[data-carousel-zoom]').boundingBox())!;
     const side = (await next.boundingBox())!;
-    expect(Math.abs(center.width / center.height - 4 / 3)).toBeLessThan(0.01);
-    expect(Math.abs(side.width / side.height - 4 / 3)).toBeLessThan(0.01);
+    expect(Math.abs(center.width / center.height - 3 / 4)).toBeLessThan(0.01);
+    expect(side.width).toBeGreaterThan(80);
+    expect(side.height).toBeGreaterThan(center.height * 0.9);
     await expect(album.locator('[data-carousel-image]')).toHaveCSS(
       'object-fit',
       'cover',
     );
-    expect(side.width / center.width).toBeGreaterThan(0.92);
-    expect(side.width / center.width).toBeLessThan(0.96);
-    await expect(next).toHaveCSS('opacity', '0.42');
+    expect(side.width / center.width).toBeGreaterThan(0.85);
+    expect(side.width / center.width).toBeLessThan(1.15);
+    await expect(next).toHaveCSS('opacity', '0.92');
     await next.click();
     await expect(album.locator('[data-carousel-counter]')).toHaveText(
       'Foto 2 de 3',
@@ -338,14 +347,14 @@ for (const width of [1440, 390]) {
     const preview = (await album
       .locator('[data-carousel-zoom]')
       .boundingBox())!;
-    expect(Math.abs(preview.width / preview.height - 4 / 3)).toBeLessThan(0.01);
+    expect(Math.abs(preview.width / preview.height - 3 / 4)).toBeLessThan(0.01);
     await album.locator('[data-carousel-zoom]').click();
     const dialog = album.getByRole('dialog');
     await expect(dialog).toBeVisible();
     const expanded = album.locator('[data-carousel-expanded]');
     await expect(expanded).toHaveAttribute('src', '/portrait-fixture.svg');
     await expect(expanded).toHaveCSS('object-fit', 'contain');
-    const full = (await dialog.boundingBox())!;
+    const full = (await expanded.boundingBox())!;
     expect(Math.abs(full.width / full.height - 0.6)).toBeLessThan(0.01);
     await page.keyboard.press('Escape');
     await changePhoto(album, 1);
