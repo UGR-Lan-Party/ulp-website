@@ -1,0 +1,269 @@
+---
+const years = [2026, 2025, 2024, 2023];
+---
+
+<section
+  class="edition-posters"
+  data-poster-gallery
+  data-collection-rail
+  aria-labelledby="poster-archive-title"
+>
+  <header>
+    <span class="design-eyebrow">CUATRO EDICIONES / CUATRO CARTELES</span><h2
+      id="poster-archive-title"
+    >
+      El cartel de <em>cada edición.</em>
+    </h2>
+  </header>
+  <div
+    class="poster-viewport"
+    data-rail-viewport
+    tabindex="0"
+    role="region"
+    aria-label="Carteles ULP de 2023 a 2026; desplázate con la rueda o las flechas"
+  >
+    <div class="poster-track" data-rail-track>
+      {
+        years.map((year, index) => (
+          <article
+            class="poster-card"
+            data-rail-item
+            style={`--poster-angle:${[-1.6, 1.1, -0.9, 1.5][index]}deg`}
+          >
+            <a
+              href={`/assets/archive/posters/${year}-large.webp`}
+              data-poster-open
+              data-year={year}
+              aria-label={`Ampliar cartel de ULP ${year}`}
+              aria-haspopup="dialog"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="poster-print">
+                <img
+                  src={`/assets/archive/posters/${year}.webp`}
+                  alt={`Cartel oficial de UGR LAN Party ${year}`}
+                  width="550"
+                  height="720"
+                  loading="lazy"
+                />
+              </div>
+              <div class="poster-caption">
+                <>
+                  <h3>{year}</h3>
+                  <span>
+                    Ver cartel <span aria-hidden="true">↗</span>
+                  </span>
+                </>
+              </div>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+  <dialog
+    class="poster-dialog"
+    aria-label="Cartel de ULP, vista ampliada"
+    data-poster-dialog
+  >
+    <header>
+      <h2 data-poster-title>Cartel ULP</h2><button
+        type="button"
+        data-poster-close
+        aria-label="Cerrar cartel">×</button
+      >
+    </header>
+    <img
+      data-poster-image
+      src="/assets/archive/posters/2026.webp"
+      alt="Cartel oficial de ULP 2026"
+      loading="lazy"
+    />
+    <footer>
+      <button type="button" data-poster-previous aria-label="Cartel anterior"
+        >←</button
+      ><a
+        href="/assets/archive/posters/2026-large.webp"
+        data-poster-original
+        target="_blank"
+        rel="noopener noreferrer">Abrir imagen ↗</a
+      ><button type="button" data-poster-next aria-label="Cartel siguiente"
+        >→</button
+      >
+    </footer>
+  </dialog>
+</section>
+<script>
+  import '../scripts/collection-rails';
+  import '../scripts/edition-posters';
+</script>
+<style>
+  .edition-posters {
+    padding-block: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+    min-width: 0;
+  }
+  .design-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    margin-bottom: 7px;
+  }
+  h2 {
+    font-size: clamp(21px, 2.3vw, 28px);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+  h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .poster-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    padding: 17px 4px 3px;
+  }
+  .poster-track {
+    display: flex;
+    gap: 20px;
+  }
+  .poster-card {
+    flex: 1 0 0;
+    min-width: 180px;
+  }
+  a {
+    display: block;
+    border-radius: 10px;
+  }
+  .poster-print {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 168px;
+    padding: 10px;
+    background: color-mix(in srgb, var(--surface) 65%, var(--paper));
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .poster-print img {
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    min-height: 0;
+    width: auto;
+    object-fit: contain;
+    transform: rotate(var(--poster-angle));
+    filter: drop-shadow(0 5px 7px #001c2c30);
+    transition: transform 0.3s ease;
+  }
+  a:hover img,
+  a:focus-visible img {
+    transform: rotate(0deg) scale(1.035);
+  }
+  .poster-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 9px 4px 4px;
+  }
+  h3 {
+    font:
+      600 21px/1 Georgia,
+      serif;
+  }
+  .poster-caption > span {
+    font-size: 9px;
+    color: var(--muted);
+  }
+  .poster-dialog {
+    max-width: calc(100vw - 24px);
+    width: min(740px, calc(100vw - 24px));
+    max-height: 94svh;
+    padding: 12px 18px;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    background: var(--paper, #f5f0e6);
+    color: var(--ink, #004465);
+    overflow: hidden;
+  }
+  .poster-dialog::backdrop {
+    background: #001c2cbd;
+    backdrop-filter: blur(12px);
+  }
+  .poster-dialog header,
+  .poster-dialog footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .poster-dialog h2 {
+    font-size: 15px;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+  .poster-dialog button {
+    display: grid;
+    place-items: center;
+    min-width: 32px;
+    height: 32px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  [data-poster-close] {
+    font-size: 22px;
+  }
+  [data-poster-image] {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: min(73svh, 780px);
+    object-fit: contain;
+    margin: 10px auto;
+  }
+  .poster-dialog footer {
+    font-size: 10px;
+  }
+  .poster-dialog a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 600px) {
+    .edition-posters {
+      padding-block: 14px 20px;
+    }
+    .poster-track {
+      gap: 14px;
+    }
+    .poster-card {
+      min-width: 154px;
+      flex: 0 0 154px;
+    }
+    .poster-print {
+      height: 170px;
+      padding: 8px;
+    }
+    .poster-viewport {
+      padding-top: 13px;
+    }
+    h2 {
+      font-size: 22px;
+      max-width: 290px;
+    }
+    .design-eyebrow {
+      font-size: 7px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .poster-print img {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>

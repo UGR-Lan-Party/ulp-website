@@ -1,0 +1,213 @@
+---
+import CollectibleViewer from './CollectibleViewer.astro';
+import { editionCollectibles } from '../data/edition-collectibles';
+---
+
+<section
+  class="edition-shirts"
+  data-collection-rail
+  data-rail-loop
+  aria-labelledby="shirt-archive-title"
+>
+  <header>
+    <div>
+      <span class="design-eyebrow">EL ARCHIVO TEXTIL / 2023—2026</span><h2
+        id="shirt-archive-title"
+      >
+        La ULP también <em>se lleva puesta.</em>
+      </h2>
+    </div>
+    <button
+      type="button"
+      data-rail-pause
+      aria-pressed="false"
+      aria-label="Pausar carrusel de camisetas"
+      ><span aria-hidden="true">Ⅱ</span><span data-rail-pause-label>Pausar</span
+      ></button
+    >
+  </header>
+  <div
+    class="shirt-viewport"
+    data-rail-viewport
+    tabindex="0"
+    role="region"
+    aria-label="Camisetas ULP de 2023 a 2026; usa la rueda o las flechas para recorrerlas"
+    aria-roledescription="carrusel"
+  >
+    <div class="shirt-track" data-rail-track>
+      {
+        [0, 1].map((copy) =>
+          editionCollectibles.map((design) => (
+            <article
+              class="shirt-card"
+              style={`--shirt-accent:${design.accent}`}
+              data-rail-item
+              data-rail-copy={copy === 1 ? '' : undefined}
+              aria-hidden={copy === 1 ? 'true' : undefined}
+            >
+              <CollectibleViewer
+                kind="shirt"
+                label={`Camiseta ULP ${design.year}`}
+                design={design}
+                duplicate={copy === 1}
+                instance={`shirt-${design.year}-${copy}`}
+              />
+              <footer>
+                <>
+                  <h3>{design.year}</h3>
+                </>
+              </footer>
+            </article>
+          )),
+        )
+      }
+    </div>
+  </div>
+  <p class="rail-hint">
+    <span aria-hidden="true">↔</span> Rueda para recorrer · Clic para ampliar · Arrastra
+    para girar
+  </p>
+</section>
+<script>
+  import '../scripts/collection-rails';
+</script>
+<style>
+  .edition-shirts {
+    padding-block: 24px 18px;
+    border-bottom: 1px solid var(--line);
+    margin-block: 28px 18px;
+    min-width: 0;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 8px;
+  }
+  .design-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    margin-bottom: 7px;
+  }
+  h2 {
+    font-size: clamp(21px, 2.3vw, 26px);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+  h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  [data-rail-pause] {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px;
+    min-height: 32px;
+    font-size: 10px;
+    white-space: nowrap;
+    cursor: pointer;
+    opacity: 0.65;
+  }
+  [data-rail-pause]:hover,
+  [data-rail-pause]:focus-visible {
+    opacity: 1;
+  }
+  .shirt-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    background: transparent;
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 28px,
+      #000 calc(100% - 28px),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 28px,
+      #000 calc(100% - 28px),
+      transparent
+    );
+  }
+  .shirt-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .shirt-viewport:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 4px;
+  }
+  .shirt-track {
+    display: flex;
+    width: max-content;
+    gap: 8px;
+  }
+  .shirt-card {
+    width: clamp(270px, 28vw, 340px);
+    flex: 0 0 auto;
+    background: none;
+    border: 0;
+  }
+  footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px 10px;
+  }
+  h3 {
+    font:
+      500 13px/1.4 ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .rail-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  @media (max-width: 600px) {
+    .edition-shirts {
+      padding-block: 20px 16px;
+      margin-block: 20px 12px;
+    }
+    header {
+      align-items: flex-end;
+    }
+    h2 {
+      max-width: 225px;
+      font-size: 22px;
+    }
+    .design-eyebrow {
+      font-size: 7px;
+    }
+    .shirt-card {
+      width: 270px;
+    }
+    [data-rail-pause] {
+      padding: 7px;
+      font-size: 9px;
+    }
+    [data-rail-pause-label] {
+      display: none;
+    }
+    .rail-hint {
+      font-size: 9px;
+      max-width: 290px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-rail-pause] {
+      display: none;
+    }
+  }
+</style>
