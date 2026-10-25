@@ -118,6 +118,7 @@ test('El zoom máximo conserva todo el trofeo al girar, ampliar y cambiar a móv
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/actividades/league-of-legends/');
   const viewer = page.locator('[data-trophy]');
+  await viewer.scrollIntoViewIfNeeded();
   await expect(viewer.locator('[data-trophy-status]')).toContainText(
     'Arrastra',
   );

@@ -77,6 +77,7 @@ document.querySelectorAll<HTMLElement>('.trophy-viewer').forEach((viewer) => {
   retry.addEventListener('click', start);
   window.addEventListener('pagehide', () => {
     if (dialog.open) dialog.close();
+    expand.hidden = true;
     controller?.abort();
     controller = null;
     dispose?.();
