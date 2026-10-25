@@ -4,7 +4,7 @@ test('The route to Aula 1.2 goes through the main entrance and both entrance cal
 }) => {
   await page.route('https://**', (r) => r.fulfill({ status: 200, body: '' }));
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-route-panel] summary').click();
   await page.locator('[data-route-destination]').selectOption('aulario-1.2');
   await page

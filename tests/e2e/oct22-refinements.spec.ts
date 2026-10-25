@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
 test('new campus and Legacy switch, routes and agenda order remain usable', async ({
   page,
 }, testInfo) => {
-  await page.goto('/info/horarios');
+  await page.goto('/info/mapa');
   const map = page.locator('[data-venue-map]');
   await expect(map).toHaveAttribute('data-campus-version', 'legacy');
   await expect(
@@ -363,10 +363,11 @@ test('new campus and Legacy switch, routes and agenda order remain usable', asyn
     .getByRole('button', { name: 'Ver recorrido', exact: false })
     .click();
   await expect(map).toHaveAttribute('data-campus-version', 'legacy');
+  await page.goto('/info/horarios/');
+  await expect(page.locator('[data-venue-map]')).toHaveCount(0);
   const order = await page.locator('[data-program]').evaluate((root) => {
     const y = (q: string) => root.querySelector(q)!.getBoundingClientRect().top;
     return [
-      y('[data-venue-map]'),
       y('#mi-agenda'),
       y('.program-header'),
       y('.program-filters'),

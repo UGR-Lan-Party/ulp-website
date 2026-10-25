@@ -24,10 +24,7 @@ test('La portada anuncia 2027 y dirige a su encuesta inicial', async ({
   ).toBeVisible();
   await expect(
     hero.getByRole('link', { name: 'Encuesta Inicial', exact: true }),
-  ).toHaveAttribute(
-    'href',
-    'https://docs.google.com/forms/d/e/1FAIpQLSdJMDi2FwLzRPnvwLks38jxdofGHqttSkozxzFmBewVAC_zOQ/viewform',
-  );
+  ).toHaveAttribute('href', 'https://forms.gle/32zwkMrrx2UrLdwx9');
 });
 
 test('Los datos de contacto son enlaces y el mapa tiene esquinas redondeadas', async ({

@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/layout/Breadcrumb.astro';
+import VenueMap from '../../components/VenueMap.astro';
+---
+
+<Layout
+  title="Mapa"
+  description="Explora el plano interactivo de la ETSIIT y encuentra la ruta entre aulas y edificios de UGR LAN Party."
+>
+  <Breadcrumb current="Mapa">
+    <Fragment slot="title">Encuentra tu sitio</Fragment><Fragment slot="texto">
+      El plano de la ETSIIT y las rutas entre aulas, en un mismo lugar.
+    </Fragment>
+  </Breadcrumb>
+  <section
+    class="map-page design-container"
+    data-map-page
+    aria-label="Mapa y rutas de la ETSIIT"
+  >
+    <div class="map-display-tools">
+      <a
+        href="/info/mapa/obs/?controles=1"
+        data-map-fullscreen
+        target="_blank"
+        rel="noopener">Pantalla completa <span aria-hidden="true">↗</span></a
+      >
+      <button type="button" data-map-copy-source>Copiar enlace para OBS</button>
+      <span class="map-source-status" data-map-source-status role="status"
+      ></span>
+      <input
+        data-map-source-fallback
+        aria-label="Enlace del mapa para OBS"
+        readonly
+        hidden
+      />
+    </div>
+    <VenueMap standalone />
+    <a class="map-program-link" href="/info/horarios/"
+      >Consultar horarios y mi agenda <span aria-hidden="true">↗</span></a
+    >
+  </section>
+</Layout>
+<script>
+  import { createVenueMap } from '../../scripts/venue-map';
+  import { initMapSourceTools } from '../../scripts/venue-map-source';
+  initMapSourceTools();
+  document
+    .querySelectorAll<HTMLElement>('[data-map-page]')
+    .forEach((root) => createVenueMap(root, () => {}));
+</script>
+<style>
+  .map-page {
+    padding-block: 0 48px;
+    min-width: 0;
+  }
+  .map-program-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    min-height: 44px;
+    margin-top: 22px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .map-program-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>
+
+<style>
+  .map-display-tools {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-size: 12px;
+    padding-top: 18px;
+  }
+  .map-display-tools a,
+  .map-display-tools button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: transparent;
+    font: inherit;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .map-display-tools a:hover,
+  .map-display-tools button:hover {
+    background: var(--surface);
+  }
+  .map-source-status {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .map-display-tools input {
+    flex-basis: 100%;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 11px;
+  }
+</style>

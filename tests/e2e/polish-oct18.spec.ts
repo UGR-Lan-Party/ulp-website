@@ -37,26 +37,43 @@ for (const width of [1400, 390]) {
 test('Arrastrar el plano ampliado evita selección y recuadros sin perder el foco de teclado', async ({
   page,
 }) => {
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
   const drawing = page.locator('[data-venue-drawing]');
   await drawing.scrollIntoViewIfNeeded();
   await page
     .getByRole('button', { name: 'Acercar plano', exact: true })
     .click();
-  const bounds = (await drawing.boundingBox())!;
   const before = await drawing.getAttribute('viewBox');
-  await page.mouse.move(
-    bounds.x + bounds.width * 0.45,
-    bounds.y + bounds.height * 0.5,
-  );
+  // Drag the visible background, avoiding room links and floor-change controls.
+  const start = await drawing.evaluate((svg) => {
+    const box = svg.getBoundingClientRect();
+    const top = Math.max(120, box.top + 20),
+      bottom = Math.min(innerHeight - 70, box.bottom - 70);
+    for (let y = top; y < bottom; y += 25)
+      for (
+        let x = box.left + 30;
+        x < Math.min(innerWidth - 70, box.right - 70);
+        x += 25
+      ) {
+        const target = document.elementFromPoint(x, y);
+        if (
+          target &&
+          (target === svg || svg.contains(target)) &&
+          !target.closest(
+            '[data-venue-zone], [data-venue-open-plan], [data-venue-external], [data-venue-go-floor], [role="button"], a',
+          )
+        )
+          return { x, y };
+      }
+    throw new Error(
+      'No visible non-interactive map area available for dragging',
+    );
+  });
+  await page.mouse.move(start.x, start.y);
   await page.mouse.down();
   await expect(drawing).toHaveAttribute('data-panning');
-  await page.mouse.move(
-    bounds.x + bounds.width * 0.6,
-    bounds.y + bounds.height * 0.6,
-    { steps: 8 },
-  );
+  await page.mouse.move(start.x + 50, start.y + 50, { steps: 8 });
   await expect(drawing).not.toHaveAttribute('viewBox', before!);
   await expect(drawing).toHaveCSS('outline-style', 'none');
   await expect(drawing.locator('[data-venue-building]')).toHaveCSS(
@@ -79,7 +96,7 @@ test('La rotación mantiene las etiquetas orientadas y termina sin saltos ni ani
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
   const map = page.locator('[data-venue-map]');
   const building = page.locator('[data-venue-building]');

@@ -24,6 +24,8 @@ for (const width of [1280, 390]) {
     expect(names.slice(0, 3)).toEqual(['Inicio', 'Actividades', 'Información']);
     expect(await page.locator('.submenu a').allTextContents()).toEqual([
       'Horarios',
+      'Mapa',
+      'Stands',
       'Localización',
       'Sobre nosotros',
       'Redes sociales',

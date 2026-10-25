@@ -10,7 +10,7 @@ for (const width of [1440, 390]) {
     page,
   }, testInfo) => {
     await page.setViewportSize({ width, height: 1000 });
-    await page.goto('/info/horarios/');
+    await page.goto('/info/mapa/');
     await page
       .locator('[data-venue-building-select]')
       .selectOption('principal');
@@ -130,7 +130,7 @@ for (const width of [1440, 390]) {
 test('La sala ampliada también se puede abrir con un enlace directo', async ({
   page,
 }) => {
-  await page.goto('/info/horarios/?plano=principal-estudiantes');
+  await page.goto('/info/mapa/?plano=principal-estudiantes');
   await expect(page.locator('[data-venue-map]')).toHaveAttribute(
     'data-venue-plan',
     'principal-estudiantes',

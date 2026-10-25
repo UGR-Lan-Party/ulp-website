@@ -13,6 +13,8 @@ const menuitems = [
     title: 'Información',
     children: [
       { title: 'Horarios', path: '/info/horarios' },
+      { title: 'Mapa', path: '/info/mapa' },
+      { title: 'Stands', path: '/info/stands' },
       { title: 'Localización', path: '/info/localizacion' },
       { title: 'Sobre nosotros', path: '/info/about' },
       { title: 'Redes sociales', path: '/info/rrss' },
@@ -179,6 +181,13 @@ const menuitems = [
     </div>
   </div>
 </header>
+<div
+  class="mobile-menu-backdrop"
+  data-mobile-menu-backdrop
+  hidden
+  aria-hidden="true"
+>
+</div>
 
 <style>
   .global-search-trigger {

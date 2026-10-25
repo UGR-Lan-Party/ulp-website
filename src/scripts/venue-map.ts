@@ -18,6 +18,7 @@ export function createVenueMap(
   root: HTMLElement,
   onZoneChange: (id: string | null) => void,
 ) {
+  const standalone = root.hasAttribute('data-map-page');
   const map = root.querySelector<HTMLElement>('[data-venue-map]');
   if (!map) return { update: (_indices: number[]) => {}, clear: () => {} };
   const drawing = map.querySelector<SVGSVGElement>('[data-venue-drawing]')!;
@@ -44,6 +45,9 @@ export function createVenueMap(
   );
   const clearButton =
     map.querySelector<HTMLButtonElement>('[data-venue-clear]')!;
+  const parentButton = map.querySelector<HTMLButtonElement>(
+    '[data-venue-parent-back]',
+  )!;
   const rotationButtons = Array.from(
     map.querySelectorAll<HTMLButtonElement>('[data-venue-rotate]'),
   );
@@ -76,10 +80,15 @@ export function createVenueMap(
   const floorNotes = Array.from(
     map.querySelectorAll<HTMLElement>('[data-venue-floor-note]'),
   );
-  const requestedPlan = new URLSearchParams(location.search).get('plano');
+  const parameters = new URLSearchParams(location.search);
+  const requestedPlan = parameters.get('plano');
   const linkedPlan = venuePlans.find((plan) => plan.id === requestedPlan);
   let planId: VenuePlanId = linkedPlan?.id ?? initialVenuePlan;
-  let orientation: VenueOrientation = getVenueInitialOrientation(planId);
+  const requestedOrientation = parameters.get('orientacion');
+  let orientation: VenueOrientation =
+    requestedOrientation !== null && /^[0-3]$/.test(requestedOrientation)
+      ? (Number(requestedOrientation) as VenueOrientation)
+      : getVenueInitialOrientation(planId);
   let activeZone: string | null = null;
   let activeInformation: string | null = null;
   let counts = new Map<string, number>();
@@ -91,7 +100,8 @@ export function createVenueMap(
   const roomHeading = map.querySelector<HTMLElement>(
     '[data-venue-room-heading]',
   )!;
-  let campusVersion = 'legacy';
+  let campusVersion =
+    parameters.get('vista') === 'moderna' ? 'modern' : 'legacy';
   let modernCampusRevealed = false;
   const campusSwitch = map.querySelector<HTMLFieldSetElement>(
     '[data-campus-switch]',
@@ -119,6 +129,14 @@ export function createVenueMap(
   const zoomLimit = () =>
     planId === 'recinto' || planId === 'principal-estudiantes' ? 6 : 2.5;
 
+  function parentPlan(): VenuePlanId | null {
+    const plan = venuePlans.find((plan) => plan.id === planId)!;
+    return 'parent' in plan
+      ? plan.parent
+      : plan.id === 'recinto'
+        ? null
+        : 'recinto';
+  }
   function syncControls() {
     const plan = venuePlans.find((plan) => plan.id === planId)!;
     buildingSelect.disabled = false;
@@ -139,10 +157,12 @@ export function createVenueMap(
     roomHeading.hidden = !('parent' in plan);
     roomHeading.querySelector('[data-venue-room-title]')!.textContent =
       plan.floor;
-    roomHeading.querySelector('[data-venue-room-parent]')!.textContent =
-      parent.id === 'recinto'
+    const destination = venuePlans.find((plan) => plan.id === parentPlan());
+    parentButton.hidden = !destination;
+    parentButton.querySelector('[data-venue-room-parent]')!.textContent =
+      destination?.id === 'recinto'
         ? 'Volver a Vista General'
-        : `Volver a la ${parent.floor.toLowerCase()}`;
+        : `Volver a la ${destination?.floor.toLowerCase() ?? 'planta'}`;
     if (floorSelect.options[0]?.value !== floors[0].id) {
       floorSelect.replaceChildren(
         ...floors.map((floor) => new Option(floor.floor, floor.id)),
@@ -194,7 +214,9 @@ export function createVenueMap(
         !point ||
         (!!zone.dataset.campusOnly &&
           zone.dataset.campusOnly !== campusVersion) ||
-        (count === 0 && !isVenueInformation(zone.dataset.venueZone!));
+        (!standalone &&
+          count === 0 &&
+          !isVenueInformation(zone.dataset.venueZone!));
       zone.toggleAttribute('data-hidden', hidden);
       zone.setAttribute('aria-hidden', String(hidden));
       zone.setAttribute('tabindex', hidden || locked ? '-1' : '0');
@@ -516,12 +538,14 @@ export function createVenueMap(
     resize();
     drawing.focus({ preventScroll: true });
   });
-  map.querySelector('[data-venue-room-back]')!.addEventListener('click', () => {
-    const plan = venuePlans.find((plan) => plan.id === planId)!;
-    if ('parent' in plan) {
-      setPlan(plan.parent);
-      drawing.focus({ preventScroll: true });
-    }
+  parentButton.addEventListener('click', () => {
+    const destination = parentPlan();
+    if (!destination) return;
+    routes?.clear();
+    setPlan(destination);
+    if (!parentButton.hidden) parentButton.focus({ preventScroll: true });
+    else if (isLocked()) unlock.focus({ preventScroll: true });
+    else drawing.focus({ preventScroll: true });
   });
   buildingSelect.addEventListener('change', () => {
     const plan = selectableVenuePlans.find(
@@ -775,6 +799,10 @@ export function createVenueMap(
   );
   resize();
   draw();
+  campusSwitch
+    .querySelectorAll<HTMLInputElement>('input')
+    .forEach((input) => (input.checked = input.value === campusVersion));
+  window.addEventListener('resize', resize);
 
   return {
     clear,

@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
     route.fulfill({ status: 200, body: '' }),
   );
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
 });
 
@@ -51,7 +51,7 @@ test('La excavadora cubre las prefabricadas y se retira al pulsar o usar el tecl
   await expect(gate).toBeHidden();
 });
 
-test('La vista general permite abrir edificios y filtrar futbolín y ping pong en sus espacios exteriores', async ({
+test('La vista general permite abrir edificios y destacar futbolín y ping pong en sus espacios exteriores', async ({
   page,
 }) => {
   const building = page.locator('[data-venue-building-select]');
@@ -71,10 +71,7 @@ test('La vista general permite abrir edificios y filtrar futbolín y ping pong e
     .locator('[data-venue-label]')
     .click();
   await expect(map).toHaveAttribute('data-venue-plan', 'aulario-0');
-  for (const [zone, activity] of [
-    ['bancos-rojos', 'Futbolín'],
-    ['bajo-exterior', 'Ping Pong'],
-  ]) {
+  for (const zone of ['bancos-rojos', 'bajo-exterior']) {
     await building.selectOption('recinto');
     if (zone === 'bancos-rojos') {
       await page
@@ -109,12 +106,11 @@ test('La vista general permite abrir edificios y filtrar futbolín y ping pong e
     await page
       .locator(`[data-venue-zone="${zone}"] [data-venue-point]`)
       .click();
-    const rows = page.locator('[data-program-row]:visible');
-    expect(await rows.count()).toBeGreaterThan(0);
-    for (const row of await rows.all())
-      await expect(row).toContainText(activity, { ignoreCase: true });
+    const selected = page.locator(`[data-venue-zone="${zone}"]`);
+    await expect(selected).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-program]')).toHaveCount(0);
     await page.getByRole('button', { name: 'Ver todas las zonas' }).click();
-    await expect(rows).toHaveCount(46);
+    await expect(selected).toHaveAttribute('aria-pressed', 'false');
   }
   await page.setViewportSize({ width: 320, height: 844 });
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
@@ -125,10 +121,10 @@ test('La vista general permite abrir edificios y filtrar futbolín y ping pong e
   ).toBe(true);
 });
 
-test('Los puntos informativos no alteran los filtros y el clic no enmarca todo el plano', async ({
+test('Los puntos informativos se abren sin agenda embebida y el clic no enmarca todo el plano', async ({
   page,
 }) => {
-  const rows = page.locator('[data-program-row]:visible');
+  const program = page.locator('[data-program]');
   for (const id of [
     'acceso-principal',
     'conserjeria',
@@ -141,11 +137,11 @@ test('Los puntos informativos no alteran los filtros y el clic no enmarca todo e
   await page
     .locator('[data-venue-zone="secretaria"] [data-venue-point]')
     .click();
-  await expect(rows).toHaveCount(46);
+  await expect(program).toHaveCount(0);
   await page
     .locator('[data-venue-zone="conserjeria"] [data-venue-point]')
     .click();
-  await expect(rows).toHaveCount(46);
+  await expect(program).toHaveCount(0);
   await page
     .getByRole('button', { name: 'Cerrar información', exact: true })
     .click();
@@ -154,12 +150,12 @@ test('Los puntos informativos no alteran los filtros y el clic no enmarca todo e
     'data-venue-plan',
     'principal-grados',
   );
-  await expect(rows).toHaveCount(46);
+  await expect(program).toHaveCount(0);
   await page.locator('[data-venue-room-back]').click();
   await page
     .locator('[data-venue-zone="streaming"] [data-venue-point]')
     .click();
-  await expect(rows).toHaveCount(46);
+  await expect(program).toHaveCount(0);
   await page.getByRole('button', { name: 'Cerrar información' }).click();
   const drawing = page.locator('[data-venue-drawing]');
   await drawing.click({ position: { x: 20, y: 20 } });
@@ -183,7 +179,7 @@ test('Los puntos informativos no alteran los filtros y el clic no enmarca todo e
   const terrace = page.locator('[data-venue-zone="terraza-cafeteria"]');
   await terrace.locator('[data-venue-point]').click();
   await expect(terrace.locator('[data-venue-label]')).toBeVisible();
-  await expect(rows).toHaveCount(46);
+  await expect(program).toHaveCount(0);
 });
 
 test('Los accesos de Vista General acercan la zona y permiten cancelar la transición cambiando de edificio', async ({
@@ -193,7 +189,9 @@ test('Los accesos de Vista General acercan la zona y permiten cancelar la transi
   const building = page.locator('[data-venue-building-select]');
   const map = page.locator('[data-venue-map]');
   await building.selectOption('recinto');
-  await expect(building.locator('option:checked')).toHaveText('Vista General (Legacy)');
+  await expect(building.locator('option:checked')).toHaveText(
+    'Vista General (Legacy)',
+  );
   await expect(page.locator('.campus-table')).toHaveCount(0);
   await page
     .locator('[data-venue-open-plan="principal-0"] [data-venue-point]')
@@ -317,15 +315,13 @@ test('Vista General distingue parking y aseos y el futbolín conserva las mesas 
   );
 });
 
-test('El parking queda separado de los edificios al girar y Mi agenda está después del plano', async ({
+test('El parking queda separado de los edificios al girar y el mapa enlaza con Mi agenda', async ({
   page,
 }) => {
-  const map = page.locator('[data-venue-map]');
-  expect(
-    await map.evaluate((element) =>
-      Boolean(element.compareDocumentPosition(document.querySelector('[data-personal-agenda]')!) & Node.DOCUMENT_POSITION_FOLLOWING),
-    ),
-  ).toBe(true);
+  await expect(page.locator('[data-personal-agenda]')).toHaveCount(0);
+  await expect(
+    page.getByRole('link', { name: 'Consultar horarios y mi agenda' }),
+  ).toHaveAttribute('href', '/info/horarios/');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('[data-venue-building-select]').selectOption('recinto');
   const overlap = await page
@@ -390,11 +386,10 @@ test('El parking queda separado de los edificios al girar y Mi agenda está desp
   await page
     .locator('[data-venue-zone="profesores-externos"] [data-venue-point]')
     .click();
-  await expect(page.locator('[data-program-row]:visible')).toHaveCount(1);
-  await expect(page.locator('[data-program-row]:visible')).toHaveAttribute(
-    'data-location',
-    'Sala de Profesores Externos.',
-  );
+  await expect(
+    page.locator('[data-venue-zone="profesores-externos"]'),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('[data-program]')).toHaveCount(0);
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
   await expect(page.locator('.venue-canvas')).toHaveCSS(
     'background-color',

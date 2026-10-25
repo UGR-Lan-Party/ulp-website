@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 test.beforeEach(async ({ page }) => {
   await page.route('https://**', (r) => r.fulfill({ status: 200, body: '' }));
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
 });
 test('Routes use stairs and rounded curves; the step controls stay compact', async ({
   page,

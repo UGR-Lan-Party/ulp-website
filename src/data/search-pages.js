@@ -1,6 +1,20 @@
 // Public navigation destinations and common ways of asking for them.
 export const searchPages = [
   {
+    title: 'Voluntariado ULP 2027',
+    description: 'Únete al equipo de voluntariado de la próxima UGR LAN Party.',
+    href: '/#voluntariado',
+    keywords:
+      'voluntarios voluntario staff colaborar ayudar equipo organizacion montaje',
+  },
+  {
+    title: 'Stands',
+    description: 'Conoce los stands de la última edición de UGR LAN Party.',
+    href: '/info/stands/',
+    keywords:
+      'stands expositores entidades deiit motril2047 mcdonalds geng iction game kitchen pokecrew',
+  },
+  {
     title: 'Inicio',
     description: 'La UGR LAN Party de un vistazo.',
     href: '/',
@@ -21,9 +35,10 @@ export const searchPages = [
     keywords: 'favoritos guardar compartir qr calendario personal',
   },
   {
-    title: 'Plano interactivo',
-    description: 'Explora los edificios, aulas y espacios de la ETSIIT.',
-    href: '/info/horarios/#plano',
+    title: 'Mapa y rutas',
+    description:
+      'Explora los edificios y encuentra rutas entre aulas y espacios de la ETSIIT.',
+    href: '/info/mapa/#plano',
     keywords:
       'mapa planos aulario prefabricadas banos baños parking aparcamiento',
   },

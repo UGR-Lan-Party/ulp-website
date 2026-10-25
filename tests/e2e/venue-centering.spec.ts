@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.route('https://**', (route) =>
     route.fulfill({ status: 200, body: '' }),
   );
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
 });
 
 for (const width of [1400, 390]) {

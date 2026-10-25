@@ -20,65 +20,41 @@ test.beforeEach(async ({ page }) => {
   await page.route('https://**', (route) =>
     route.fulfill({ status: 200, body: '' }),
   );
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
 });
 
-test('El plano ocupa el ancho y los filtros sincronizan las plantas con la tabla abierta', async ({
+test('Mapa y agenda tienen páginas propias y sus enlaces permiten ir de una a otra', async ({
   page,
 }) => {
-  const search = page.getByLabel('Actividad', { exact: true });
-  const rows = page.locator('[data-program-row]:visible');
+  test.setTimeout(60000);
+  await expect(page.locator('[data-program]')).toHaveCount(0);
+  const width = await page
+    .locator('.venue-map-column')
+    .evaluate((el) => el.getBoundingClientRect().width);
+  const full = await page
+    .locator('[data-venue-map]')
+    .evaluate((el) => el.getBoundingClientRect().width);
+  expect(width).toBeGreaterThan(full * 0.95);
+  await expect(page.locator('[data-venue-zone="hall"]')).toBeVisible();
+  await page
+    .getByRole('link', { name: 'Consultar horarios y mi agenda' })
+    .click();
+  await expect(page).toHaveURL(/info\/horarios/);
+  await expect(page.locator('[data-venue-map]')).toHaveCount(0);
   await expect(page.locator('[data-program-table-disclosure]')).toHaveAttribute(
     'open',
   );
-  await expect(page.locator('.venue-results')).toHaveCount(0);
-  const mapWidth = await page
-    .locator('.venue-map-column')
-    .evaluate((element) => element.getBoundingClientRect().width);
-  const containerWidth = await page
-    .locator('[data-venue-map]')
-    .evaluate((element) => element.getBoundingClientRect().width);
-  expect(mapWidth).toBeGreaterThan(containerWidth * 0.95);
-  await search.fill('LEAGUE OF LEGENDS');
-  await expect(rows).toHaveCount(4);
+  await page.getByLabel('Actividad', { exact: true }).fill('LEAGUE OF LEGENDS');
+  await expect(page.locator('[data-program-row]:visible')).toHaveCount(4);
+  await page
+    .getByRole('link', { name: 'Ver mapa y rutas entre aulas' })
+    .click();
+  await expect(page).toHaveURL(/info\/mapa/);
   await expect(page.locator('[data-venue-map]')).toHaveAttribute(
     'data-venue-plan',
-    'prefabricadas-a',
+    'recinto',
   );
-  await expect(page.locator('[data-venue-zone="a2"]')).toBeVisible();
-  await page
-    .locator('[data-venue-building-select]')
-    .selectOption('prefabricadas-b');
-  await expect(page.locator('[data-venue-zone="b1"]')).toBeVisible();
-  await search.fill('HACKING');
-  await expect(page.locator('[data-venue-map]')).not.toContainText(
-    'pendiente de situar',
-  );
-  await expect(rows.first()).toHaveAttribute(
-    'data-location',
-    'Sala de Profesores Externos.',
-  );
-  await expect(
-    page.locator('[data-venue-zone="profesores-externos"]'),
-  ).toBeVisible();
-  await expect(page.locator('[data-venue-map]')).toHaveAttribute(
-    'data-venue-plan',
-    'principal-baja',
-  );
-  await page.getByRole('button', { name: 'Restablecer', exact: true }).click();
-  await page
-    .locator('[data-venue-building-select]')
-    .selectOption('prefabricadas-a');
-  await page.locator('[data-venue-unlock]').click();
-  await page.locator('[data-venue-zone="a1"] [data-venue-label]').click();
-  const count = await rows.count();
-  expect(count).toBeGreaterThan(1);
-  expect(count).toBeLessThan(46);
-  for (const row of await rows.all())
-    await expect(row).toHaveAttribute('data-location', /A1/);
-  await page.getByRole('button', { name: 'Ver todas las zonas' }).click();
-  await expect(rows).toHaveCount(46);
 });
 
 test('El plano ofrece cuatro orientaciones con transición limpia y admite teclado y móvil', async ({
@@ -155,10 +131,12 @@ test('Los edificios y plantas tienen planos distintos sobre el fondo de la web',
     'background-color',
     'rgba(0, 0, 0, 0)',
   );
+  await page.goto('/info/horarios/');
   await expect(page.locator('[data-program-filters]')).toHaveCSS(
     'background-color',
     'rgb(0, 68, 101)',
   );
+  await page.goto('/info/mapa/');
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
   await expect(page.locator('.venue-map-column')).toHaveCSS(
     'background-color',
@@ -170,6 +148,7 @@ test('El programa oficial está plegado y recupera sus animaciones al abrirlo y 
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/info/horarios/');
   const program = page.locator('[data-official-program]');
   const summary = program.locator(':scope > summary');
   await expect(program).not.toHaveAttribute('open');
@@ -181,6 +160,7 @@ test('El programa oficial está plegado y recupera sus animaciones al abrirlo y 
   expect(
     await page.evaluate(() => document.documentElement.scrollHeight),
   ).toBeGreaterThan(compactHeight + 3000);
+  await expect(page.locator('#tl-track')).not.toHaveCSS('height', '0px');
   const outer = page.locator('#timeline-outer');
   await outer.evaluate((element) =>
     scrollTo({
@@ -231,9 +211,6 @@ test('El Aulario mantiene las dos plantas sin asociar actividades ni inventar se
     await expect(page.locator('[data-venue-zone]:visible')).toHaveCount(
       level === 0 ? 2 : 0,
     );
-    await page
-      .getByLabel('Actividad', { exact: true })
-      .fill(level % 2 ? 'LEAGUE' : '');
     await expect(map).toHaveAttribute('data-venue-plan', `aulario-${level}`);
     await expect(
       page.locator(`[data-venue-floor-note="aulario-${level}"]`),

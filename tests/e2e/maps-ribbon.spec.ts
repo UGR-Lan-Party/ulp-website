@@ -27,7 +27,7 @@ for (const width of [320, 390, 1440]) {
       ).toHaveAttribute('href', /maps.apple.com.*37.19704,-3.6245/);
       await expect(
         preview.getByRole('link', { name: /Explorar el plano/ }),
-      ).toHaveAttribute('href', '/info/horarios/#plano');
+      ).toHaveAttribute('href', '/info/mapa/#plano');
       await expect(
         preview.getByRole('link', { name: /OpenStreetMap/ }),
       ).toBeVisible();

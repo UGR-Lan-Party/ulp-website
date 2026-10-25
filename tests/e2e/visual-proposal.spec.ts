@@ -85,10 +85,7 @@ test('Los logos de Participan conservan contraste sobre su superficie clara en a
     for (const name of names) {
       await expect(
         page.locator(`[data-partner-card] [data-partner-logo="${name}"]`),
-      ).toHaveCSS(
-        'filter',
-        'none',
-      );
+      ).toHaveCSS('filter', 'none');
     }
     await page.getByRole('button', { name: 'Modo oscuro' }).click();
   }
@@ -187,10 +184,7 @@ test('Inscripciones lleva al catálogo con el orden de torneos solicitado', asyn
     page
       .locator('#home')
       .getByRole('link', { name: 'Encuesta Inicial', exact: true }),
-  ).toHaveAttribute(
-    'href',
-    'https://docs.google.com/forms/d/e/1FAIpQLSdJMDi2FwLzRPnvwLks38jxdofGHqttSkozxzFmBewVAC_zOQ/viewform',
-  );
+  ).toHaveAttribute('href', 'https://forms.gle/32zwkMrrx2UrLdwx9');
   await page
     .getByRole('navigation', { name: 'Principal', exact: true })
     .getByRole('link', { name: 'Inscripciones', exact: true })

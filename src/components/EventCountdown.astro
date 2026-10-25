@@ -1,11 +1,26 @@
 ---
 import GranadaAccent from './GranadaAccent.astro';
+interface Props {
+  startsAt?: string;
+}
+const { startsAt } = Astro.props;
+const startTimestamp = startsAt ? Date.parse(startsAt) : NaN;
+const hasConfirmedDate = Number.isFinite(startTimestamp);
+const dateLabel = hasConfirmedDate
+  ? new Intl.DateTimeFormat('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'Europe/Madrid',
+    }).format(startTimestamp)
+  : 'Fecha por confirmar';
 ---
 
 <section
   class="countdown"
   aria-labelledby="countdown-title"
   data-event-countdown
+  data-countdown-target={hasConfirmedDate ? startTimestamp : undefined}
 >
   <GranadaAccent id="countdown-mosaic" />
   <div class="design-container countdown-inner">
@@ -15,10 +30,16 @@ import GranadaAccent from './GranadaAccent.astro';
       >
         Nos vemos en <em>la ETSIIT.</em>
       </h2><p>
-        <time datetime="2027-03-12">12-13 de marzo de 2027</time> · Granada
+        {
+          hasConfirmedDate ? (
+            <time datetime={startsAt}>{dateLabel}</time>
+          ) : (
+            dateLabel
+          )
+        } · Granada
       </p>
     </div>
-    <div>
+    <div hidden={!hasConfirmedDate}>
       <div
         class="countdown-clock"
         role="timer"
@@ -45,8 +66,8 @@ import GranadaAccent from './GranadaAccent.astro';
 </section>
 <script>
   const root = document.querySelector<HTMLElement>('[data-event-countdown]');
-  if (root) {
-    const target = Date.parse('2027-03-12T17:30:00+01:00');
+  const target = Number(root?.dataset.countdownTarget);
+  if (root && Number.isFinite(target)) {
     const update = () => {
       const seconds = Math.max(0, Math.floor((target - Date.now()) / 1000));
       const values = {

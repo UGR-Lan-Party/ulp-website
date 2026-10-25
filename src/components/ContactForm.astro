@@ -1,0 +1,228 @@
+<section class="mail-section design-container" aria-labelledby="mail-title">
+  <div class="mail-intro">
+    <span class="design-eyebrow">UN MENSAJE Y EMPEZAMOS</span><h2
+      id="mail-title"
+    >
+      Cuéntanos<br /><em>tu idea.</em>
+    </h2><p>
+      Prepara tu mensaje aquí y termínalo en tu aplicación de correo.
+    </p><p class="mail-note">
+      Estos campos se quedan en tu navegador. El correo se envía cuando tú lo
+      confirmas en tu aplicación.
+    </p>
+  </div>
+  <form data-contact-form aria-label="Preparar correo de contacto">
+    <div class="mail-pair">
+      <label
+        >Nombre<input
+          name="name"
+          autocomplete="name"
+          maxlength="80"
+          required
+        /></label
+      ><label
+        >Tu correo<input
+          name="email"
+          type="email"
+          autocomplete="email"
+          maxlength="254"
+          required
+        /></label
+      >
+    </div>
+    <label
+      >Asunto<input
+        name="subject"
+        maxlength="100"
+        required
+        placeholder="¿En qué podemos ayudarte?"
+      /></label
+    >
+    <label
+      >Mensaje<textarea
+        name="message"
+        rows="5"
+        maxlength="2000"
+        required
+        placeholder="Te leemos…"></textarea></label
+    >
+    <div class="mail-actions">
+      <button type="submit" disabled
+        >Abrir correo <span aria-hidden="true">↗</span></button
+      ><button type="button" data-contact-copy disabled>Copiar mensaje</button>
+    </div>
+    <p class="mail-status" role="status" data-contact-status aria-live="polite">
+    </p>
+    <a data-contact-draft hidden>Volver a abrir el borrador ↗</a>
+    <label data-contact-fallback hidden
+      >Mensaje preparado<textarea
+        readonly
+        rows="7"
+        aria-label="Mensaje preparado para copiar"></textarea></label
+    >
+    <noscript
+      ><p>
+        Puedes escribirnos directamente a <a href="mailto:ulp@ugr.es"
+          >ulp@ugr.es</a
+        >.
+      </p></noscript
+    >
+  </form>
+</section>
+<script>
+  import '../scripts/contact-form';
+</script>
+<style>
+  .mail-section {
+    display: grid;
+    grid-template-columns: 0.85fr 1.3fr;
+    gap: 64px;
+    padding-block: 8px 72px;
+    border-top: 1px solid var(--line);
+  }
+  .mail-intro,
+  form {
+    padding-top: 32px;
+    min-width: 0;
+  }
+  h2 {
+    font-size: clamp(34px, 4.5vw, 56px);
+    line-height: 1.05;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    margin: 18px 0;
+  }
+  h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  .mail-intro p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 330px;
+  }
+  .mail-intro .mail-note {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+  form {
+    display: grid;
+    gap: 16px;
+  }
+  .mail-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  label {
+    display: grid;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 0;
+  }
+  input,
+  textarea {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 13px 14px;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.75;
+    font-weight: 400;
+  }
+  .mail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+  button {
+    min-height: 46px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  button[type='submit'] {
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    justify-content: space-between;
+    gap: 34px;
+  }
+  button:hover {
+    opacity: 0.82;
+  }
+  button:disabled {
+    opacity: 0.5;
+  }
+  .mail-status {
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  [data-contact-draft] {
+    font-size: 12px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  @media (max-width: 800px) {
+    .mail-section {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding-bottom: 40px;
+    }
+    .mail-intro {
+      padding-top: 24px;
+    }
+    form {
+      padding-top: 16px;
+    }
+    h2 br {
+      display: none;
+    }
+    h2 em::before {
+      content: ' ';
+    }
+    .mail-intro p {
+      max-width: 100%;
+    }
+    .mail-intro .mail-note {
+      margin-top: 8px;
+    }
+  }
+  @media (max-width: 400px) {
+    .mail-pair {
+      grid-template-columns: 1fr;
+    }
+    .mail-actions button {
+      flex: 1;
+      padding-inline: 12px;
+    }
+  }
+</style>

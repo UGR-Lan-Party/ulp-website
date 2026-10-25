@@ -6,8 +6,8 @@ import OfficialProgram from '../../components/OfficialProgram.astro';
 ---
 
 <Layout
-  description="Consulta la agenda de ULP 2026, encuentra cada actividad en el plano de la ETSIIT y descubre el programa oficial."
-  title="Horarios y plano"
+  description="Consulta la agenda de ULP 2026 y descubre el programa oficial."
+  title="Horarios"
 >
   <Breadcrumb>
     <Fragment slot="title">Horarios</Fragment>
@@ -15,3 +15,16 @@ import OfficialProgram from '../../components/OfficialProgram.astro';
   <ProgramTable />
   <OfficialProgram />
 </Layout>
+
+<script>
+  // Keep previously shared map links working after moving the explorer.
+  if (
+    new URLSearchParams(location.search).has('plano') ||
+    location.hash === '#plano'
+  ) {
+    const target = new URL('/info/mapa/', location.origin);
+    target.search = location.search;
+    target.hash = '#plano';
+    location.replace(target.href);
+  }
+</script>
