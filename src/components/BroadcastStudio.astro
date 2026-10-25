@@ -1,0 +1,600 @@
+---
+import { Competitions, CompetitionsCards } from '../data/competitions-data';
+import program from '../data/program-2026.json';
+import BroadcastPreview from './BroadcastPreview.astro';
+const categories = [
+  ['competicion', 'Competiciones'],
+  ['reto', 'Retos'],
+  ['actividad', 'Actividades'],
+] as const;
+const choices = [
+  {
+    id: 'general',
+    name: 'Directo general',
+    category: 'General',
+    image: '/assets/about/sobre-nosotros.png',
+  },
+  ...Competitions.map((activity) => ({
+    id: activity.id,
+    name: activity.name,
+    category:
+      categories.find(([tag]) => tag === activity.tag)?.[1] ?? 'Actividades',
+    image:
+      CompetitionsCards.find((card) => card.id === activity.id)?.card ?? '',
+  })),
+  ...program.talks
+    .filter((talk) => talk.id !== 'charla-6')
+    .map((talk) => ({
+      id: talk.id,
+      name: talk.nombre,
+      category: 'Charlas',
+      image: talk.imagenes[0] ?? '',
+    })),
+  {
+    id: 'personalizada',
+    name: 'Otra actividad',
+    category: 'General',
+    image: '/assets/about/sobre-nosotros.png',
+  },
+];
+---
+
+<section
+  class="broadcast-studio"
+  data-broadcast-studio
+  id="estudio"
+  aria-labelledby="studio-title"
+>
+  <div class="studio-heading">
+    <div>
+      <span class="studio-dot"></span><h2 id="studio-title">
+        ULP <span>Broadcast Studio</span>
+      </h2>
+    </div><span class="studio-chip">DISEÑA. PREVISUALIZA. EMITE.</span>
+  </div>
+  <div class="studio-workspace">
+    <div class="studio-preview-column">
+      <div class="studio-scene-tabs" aria-label="Escena de la vista previa">
+        {
+          [
+            ['live', 'Directo'],
+            ['webcam', 'Webcam'],
+            ['dual', 'Doble webcam'],
+            ['interview', 'Entrevista'],
+            ['rotulo', 'Rótulo'],
+            ['marcador', 'Marcador'],
+            ['countdown', 'Cuenta atrás'],
+            ['inicio', 'Inicio'],
+            ['pausa', 'Pausa'],
+            ['final', 'Cierre'],
+          ].map(([id, label]) => (
+            <button
+              type="button"
+              data-studio-scene={id}
+              aria-pressed={id === 'live'}
+            >
+              {label}
+            </button>
+          ))
+        }
+      </div>
+      <label class="studio-program-preset"
+        >Momento del programa
+        <select data-studio-program-preset aria-label="Momento del programa">
+          <option value="">Configuración libre</option>
+          <option value="mesa">Mesa de casters</option>
+          <option value="lol">League of Legends · espectador y caster</option>
+          <option value="rocket">Rocket League · espectador y caster</option>
+          <option value="minecraft">Minecraft · jugador y webcam</option>
+          <option value="irl">IRL · stands, público y recorrido</option>
+          <option value="acto">Salón de actos · bienvenida y premios</option>
+          <option value="video">Vídeo de presentación o colaboradores</option>
+        </select>
+      </label>
+      <p class="studio-program-note" data-studio-program-note hidden></p>
+      <div class="studio-previews" data-studio-previews>
+        <BroadcastPreview output="horizontal" />
+        <BroadcastPreview output="vertical" />
+      </div>
+      <div class="studio-preview-bar">
+        <span
+          ><i></i><span data-studio-preview-label>Ambos formatos · Directo</span
+          ></span
+        ><div>
+          <button
+            type="button"
+            data-studio-transparent
+            aria-pressed="false"
+            title="Ver el canal alfa del diseño">Transparencia</button
+          ><button
+            type="button"
+            data-studio-motion
+            aria-pressed="true"
+            aria-label="Pausar animación">Ⅱ</button
+          >
+        </div>
+      </div>
+      <div class="studio-countdown-controls" data-countdown-controls hidden>
+        <output data-countdown-readout aria-label="Tiempo restante"
+          >05:00</output
+        >
+        <button type="button" data-countdown-start>Iniciar</button><button
+          type="button"
+          data-countdown-reset>Reiniciar</button
+        >
+        <small
+          >La descarga HTML comienza al cargar la fuente en OBS. Puedes
+          reiniciarla actualizando esa fuente.</small
+        >
+      </div>
+      <div class="studio-designs" aria-label="Estilo gráfico">
+        {
+          [
+            ['arena', 'Arena', 'Precisión competitiva'],
+            ['glass', 'Cristal', 'Luz y profundidad'],
+            ['minimal', 'Esencial', 'Solo lo importante'],
+          ].map(([id, name, detail]) => (
+            <button
+              type="button"
+              data-studio-design={id}
+              aria-pressed={id === 'arena'}
+            >
+              <>
+                <span
+                  class={`studio-design-swatch swatch-${id}`}
+                  aria-hidden="true"
+                >
+                  <svg viewBox="0 0 48 40" fill="none" aria-hidden="true">
+                    {id === 'arena' ? (
+                      <>
+                        <path
+                          d="M6 11 11 6H42V25L37 30H6Z"
+                          stroke="white"
+                          stroke-width="1.5"
+                        />
+                        <path d="M7 34H31" stroke="white" stroke-width="2" />
+                      </>
+                    ) : id === 'glass' ? (
+                      <>
+                        <rect
+                          x="6"
+                          y="6"
+                          width="36"
+                          height="23"
+                          rx="6"
+                          fill="white"
+                          fill-opacity=".12"
+                          stroke="white"
+                          stroke-width="1.5"
+                        />
+                        <rect
+                          x="10"
+                          y="32"
+                          width="25"
+                          height="3"
+                          rx="1.5"
+                          fill="white"
+                          fill-opacity=".6"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <path
+                          d="M6 14V6H18M30 6H42V14M42 22V29H30M18 29H6V22"
+                          stroke="white"
+                          stroke-width="1.5"
+                        />
+                        <path d="M6 35H33" stroke="white" />
+                      </>
+                    )}
+                  </svg>
+                </span>
+                <span>
+                  <>
+                    <strong>{name}</strong>
+                    <small>{detail}</small>
+                  </>
+                </span>
+                <span class="studio-design-check" aria-hidden="true">
+                  ↗
+                </span>
+              </>
+            </button>
+          ))
+        }
+      </div>
+      <p class="studio-profile-note" data-studio-profile-note></p>
+      <p class="studio-preview-note">
+        Vista de ejemplo. El PNG de directo conserva transparentes el juego y el
+        interior de la webcam.
+      </p>
+    </div>
+    <form
+      class="studio-controls"
+      data-studio-form
+      aria-label="Diseñar mi directo"
+      novalidate
+    >
+      <div class="studio-controls-heading">
+        <span>LA MESA DE EDICIÓN</span><button
+          type="reset"
+          title="Restablecer diseño">Restablecer ↺</button
+        >
+      </div>
+      <p class="studio-format-note">
+        Multistream: misma identidad y textos, composición propia para cada
+        pantalla. En vertical se reserva espacio para la interfaz; comprueba la
+        vista real antes de emitir.
+      </p>
+      <label class="studio-field studio-activity-label"
+        >Actividad<span class="studio-select"
+          ><select data-studio-activity name="activity" aria-label="Actividad"
+            >{
+              [
+                'General',
+                'Competiciones',
+                'Retos',
+                'Actividades',
+                'Charlas',
+              ].map((category) => (
+                <optgroup label={category}>
+                  {choices
+                    .filter((c) => c.category === category)
+                    .map((c) => (
+                      <option value={c.id} data-image={c.image}>
+                        {c.name}
+                      </option>
+                    ))}
+                </optgroup>
+              ))
+            }</select
+          ><span aria-hidden="true">⌄</span></span
+        ></label
+      >
+      <label class="studio-field" data-studio-custom-name hidden
+        >Nombre de la actividad<input
+          data-studio-field="customActivity"
+          value="Mi actividad"
+          maxlength="64"
+          autocomplete="off"
+        /></label
+      >
+      <label class="studio-field"
+        >Formato de la captura<span class="studio-select"
+          ><select
+            data-studio-field="captureRatio"
+            aria-label="Formato de la captura"
+            ><option value="auto">Recomendado para la actividad</option><option
+              value="16:9">16:9 · Panorámico</option
+            ><option value="4:3">4:3 · Consola / Retro</option><option
+              value="9:16">9:16 · Juego vertical</option
+            ><option value="1:1">1:1 · Tablero</option></select
+          ><span aria-hidden="true">⌄</span></span
+        ></label
+      >
+      <details open class="studio-control-group">
+        <summary
+          ><span>01 <strong>Identidad y rótulos</strong></span><span>⌄</span
+          ></summary
+        ><div class="studio-group-content">
+          <label class="studio-field"
+            >Nombre del canal<input
+              data-studio-field="channel"
+              value="UGR LAN Party"
+              maxlength="40"
+              autocomplete="off"
+            /></label
+          >
+          <div class="studio-field-pair">
+            <label class="studio-field"
+              >Etiqueta<input
+                data-studio-field="eyebrow"
+                value="EN DIRECTO"
+                maxlength="32"
+                autocomplete="off"
+              /></label
+            ><label class="studio-field"
+              >Subtítulo<input
+                data-studio-field="subtitle"
+                value="ETSIIT · Granada"
+                maxlength="60"
+                autocomplete="off"
+              /></label
+            >
+          </div>
+          <label class="studio-field"
+            >Título del rótulo<input
+              data-studio-field="title"
+              value="La próxima partida empieza aquí"
+              maxlength="64"
+              autocomplete="off"
+            /></label
+          >
+          <div class="studio-field-pair">
+            <label class="studio-field"
+              >Red social / usuario<input
+                data-studio-field="social"
+                value="@ugrlanparty"
+                maxlength="40"
+                autocomplete="off"
+              /></label
+            ><label class="studio-field"
+              >Ronda o fase<input
+                data-studio-field="round"
+                value="Gran final · BO3"
+                maxlength="36"
+                autocomplete="off"
+              /></label
+            >
+          </div>
+        </div>
+      </details>
+      <details open class="studio-control-group">
+        <summary><span>02 <strong>Webcam</strong></span><span>⌄</span></summary
+        ><div class="studio-group-content">
+          <label class="studio-switch"
+            ><span>Mostrar marco de webcam</span><input
+              type="checkbox"
+              data-studio-field="webcam"
+              checked
+            /><i aria-hidden="true"></i></label
+          >
+          <label class="studio-field"
+            >Texto de la webcam<input
+              data-studio-field="webcamLabel"
+              value="Tu nombre / caster"
+              maxlength="36"
+              autocomplete="off"
+            /></label
+          >
+          <label class="studio-field"
+            >Texto de la segunda webcam<input
+              data-studio-field="webcamLabel2"
+              value="Segundo caster"
+              maxlength="36"
+              autocomplete="off"
+            /></label
+          >
+          <div class="studio-field-pair">
+            <label class="studio-field"
+              >Formato<span class="studio-select"
+                ><select data-studio-field="ratio" aria-label="Formato"
+                  ><option value="16:9">16:9 · Panorámica</option><option
+                    value="4:3">4:3 · Clásica</option
+                  ><option value="1:1">1:1 · Cuadrada</option></select
+                ><span aria-hidden="true">⌄</span></span
+              ></label
+            ><label class="studio-field"
+              >Posición<span class="studio-select"
+                ><select data-studio-field="position" aria-label="Posición"
+                  ><option value="right">Inferior derecha</option><option
+                    value="left">Inferior izquierda</option
+                  ></select
+                ><span aria-hidden="true">⌄</span></span
+              ></label
+            >
+          </div>
+        </div>
+      </details>
+      <details class="studio-control-group">
+        <summary
+          ><span>03 <strong>Marcador y capas</strong></span><span>⌄</span
+          ></summary
+        ><div class="studio-group-content">
+          <label class="studio-field"
+            >Tipo de marcador<span class="studio-select"
+              ><select
+                data-studio-field="scoreMode"
+                aria-label="Tipo de marcador"
+                ><option value="auto">Según la actividad</option><option
+                  value="duel">Equipos / Jugadores</option
+                ><option value="record">Marca / Tiempo / Puntos</option></select
+              ><span aria-hidden="true">⌄</span></span
+            ></label
+          >
+          <div class="studio-field-pair">
+            <label class="studio-field"
+              >Etiqueta de la marca<input
+                data-studio-field="resultLabel"
+                value="Mejor marca"
+                maxlength="32"
+              /></label
+            ><label class="studio-field"
+              >Marca o tiempo<input
+                data-studio-field="resultValue"
+                value="—"
+                maxlength="32"
+              /></label
+            >
+          </div>
+          <label class="studio-switch"
+            ><span>Mostrar marcador</span><input
+              type="checkbox"
+              data-studio-field="scoreboard"
+              checked
+            /><i aria-hidden="true"></i></label
+          >
+          <div class="studio-team-inputs">
+            <label class="studio-field"
+              >Equipo A<input
+                data-studio-field="teamA"
+                value="Equipo A"
+                maxlength="36"
+                autocomplete="off"
+              /></label
+            ><label class="studio-field"
+              >Puntos A<input
+                type="number"
+                min="0"
+                max="99"
+                step="1"
+                data-studio-field="scoreA"
+                value="0"
+                inputmode="numeric"
+              /></label
+            ><label class="studio-field"
+              >Equipo B<input
+                data-studio-field="teamB"
+                value="Equipo B"
+                maxlength="36"
+                autocomplete="off"
+              /></label
+            ><label class="studio-field"
+              >Puntos B<input
+                type="number"
+                min="0"
+                max="99"
+                step="1"
+                data-studio-field="scoreB"
+                value="0"
+                inputmode="numeric"
+              /></label
+            >
+          </div>
+          <label class="studio-switch"
+            ><span>Mostrar rótulo inferior</span><input
+              type="checkbox"
+              data-studio-field="caption"
+              checked
+            /><i aria-hidden="true"></i></label
+          >
+          <label class="studio-switch"
+            ><span>Contorno blanco del directo</span><input
+              type="checkbox"
+              data-studio-field="border"
+              checked
+            /><i aria-hidden="true"></i></label
+          >
+          <label class="studio-field"
+            >Texto de inicio<input
+              data-studio-field="opening"
+              value="Enseguida empezamos"
+              maxlength="64"
+              autocomplete="off"
+            /></label
+          ><label class="studio-field"
+            >Texto de pausa<input
+              data-studio-field="pause"
+              value="Volvemos en un momento"
+              maxlength="64"
+              autocomplete="off"
+            /></label
+          ><label class="studio-field"
+            >Texto de cierre<input
+              data-studio-field="ending"
+              value="Gracias por estar ahí"
+              maxlength="64"
+              autocomplete="off"
+            /></label
+          >
+        </div>
+      </details>
+      <details class="studio-control-group" data-countdown-settings>
+        <summary
+          ><span>04 <strong>Cuenta atrás</strong></span><span>⌄</span></summary
+        ><div class="studio-group-content">
+          <label class="studio-field"
+            >Duración en minutos<input
+              type="number"
+              min="1"
+              max="180"
+              step="1"
+              value="5"
+              data-studio-field="countdownMinutes"
+            /></label
+          >
+          <label class="studio-field"
+            >Título de cuenta atrás<input
+              value="Empezamos en"
+              maxlength="48"
+              data-studio-field="countdownTitle"
+            /></label
+          >
+          <label class="studio-field"
+            >Texto al terminar<input
+              value="¡Empezamos!"
+              maxlength="48"
+              data-studio-field="countdownDone"
+            /></label
+          >
+        </div>
+      </details>
+      <details open class="studio-control-group">
+        <summary
+          ><span>05 <strong>Chat y entrevistas</strong></span><span>⌄</span
+          ></summary
+        ><div class="studio-group-content">
+          <label class="studio-switch"
+            ><span>Reservar zona de chat</span><input
+              type="checkbox"
+              data-studio-field="chat"
+              checked
+            /><i aria-hidden="true"></i></label
+          ><label class="studio-field"
+            >Título de la entrevista<input
+              data-studio-field="interviewTitle"
+              value="Conversamos con la comunidad"
+              maxlength="64"
+            /></label
+          ><p class="studio-format-note">
+            Añade tu widget en la escena «Tu chat» de OBS. Los mensajes de la
+            vista previa son solo ejemplos y no se exportan.
+          </p>
+        </div>
+      </details>
+      <div class="studio-export">
+        <button type="button" data-studio-obs class="studio-primary"
+          >Pack OBS · Horizontal + Vertical <span aria-hidden="true">↗</span
+          ></button
+        ><small
+          >PNG estático · HTML animado para OBS · Todo en tu navegador</small
+        ><p role="status" aria-live="polite" data-studio-status></p>
+      </div>
+    </form>
+  </div>
+  <details class="studio-help">
+    <summary>Del diseño al directo: importar en OBS <span>↗</span></summary><ol>
+      <li>Descarga y descomprime el pack en una carpeta permanente.</li><li>
+        En OBS, abre <strong>Colección de escenas → Importar</strong> y selecciona
+        <strong>coleccion-ulp.json</strong>.
+      </li><li>
+        Añade tu captura en <strong>Tu juego</strong> y tu cámara en <strong
+          >Tu webcam</strong
+        >. El pack incluye Webcam y Doble webcam. Añade la segunda cámara en Tu
+        webcam 2. Para el chat, añade tu widget en <strong>Tu chat</strong>: su
+        escena se sitúa bajo los marcos de inicio, pausa, cuenta atrás, webcam y
+        entrevista. La web no conecta ni combina chats de plataformas.
+      </li><li>
+        Si aparecen archivos ausentes, selecciona la carpeta <strong
+          >recursos</strong
+        > del pack. Las escenas HTML incluyen el logo y la fuente y funcionan sin
+        conexión. La cuenta atrás se reinicia al cargar su fuente. Comprueba el audio
+        y el lienzo: 1920 × 1080 en horizontal o 1080 × 1920 en vertical. El pack
+        multistream incluye una colección independiente para cada formato; configura
+        las salidas simultáneas en tu herramienta de emisión.
+      </li>
+    </ol>
+  </details>
+  <dialog
+    class="studio-dialog"
+    data-studio-dialog
+    aria-labelledby="studio-dialog-title"
+  >
+    <header>
+      <h2 id="studio-dialog-title">Tu diseño · Vista ampliada</h2><button
+        type="button"
+        data-studio-close
+        aria-label="Cerrar diseño ampliado">×</button
+      >
+    </header><div data-studio-expanded></div>
+  </dialog>
+  <noscript
+    ><p>
+      Activa JavaScript para personalizar el diseño. Más abajo puedes descargar
+      los recursos originales de 2026.
+    </p></noscript
+  >
+</section>
+<script>
+  import '../scripts/broadcast-studio';
+</script>

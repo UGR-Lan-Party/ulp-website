@@ -1,0 +1,286 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BroadcastStudio from '../../components/BroadcastStudio.astro';
+import '../../styles/broadcast-studio.css';
+import StreamOverlayEditor from '../../components/StreamOverlayEditor.astro';
+import '../../styles/stream-overlay-editor.css';
+import kit from '../../data/stream-kit.json';
+import '../../styles/stream-kit.css';
+const formatSize = (bytes: number) =>
+  bytes >= 1e6
+    ? `${(bytes / 1e6).toFixed(1).replace('.', ',')} MB`
+    : `${Math.ceil(bytes / 1e3)} KB`;
+---
+
+<Layout
+  title="Kit para streamers"
+  description="Diseña tu directo con ULP Broadcast Studio: webcam, marcadores y rótulos personalizables para todas las actividades. Descarga PNG y escenas para OBS desde tu navegador."
+>
+  <article class="stream-kit design-container" data-stream-kit>
+    <header class="stream-heading">
+      <div>
+        <a class="stream-back" href="/info/prensa/"
+          >← Recursos de comunicación</a
+        ><span class="design-eyebrow"
+          >HERRAMIENTAS PARA CREADORES / UGR LAN PARTY</span
+        ><h1>
+          Tu directo.<br /><em>Tu identidad.</em>
+        </h1>
+      </div>
+      <div class="stream-intro">
+        <p>
+          Una cámara, mil formas de contar la ULP. Crea tus marcos, rótulos y
+          escenas con una identidad que juega en tu equipo.
+        </p><a class="design-button" href="#estudio"
+          >Diseñar mi directo <span aria-hidden="true">↓</span></a
+        ><small>Horizontal + TikTok · Webcam · Marcador · Escenas OBS</small>
+      </div>
+    </header>
+    <BroadcastStudio />
+    <details class="studio-archive" data-stream-archive id="archivo">
+      <summary
+        ><span
+          >Recursos originales de 2026<small
+            >Los 7 PNG del archivo, sus capas y packs por juego.</small
+          ></span
+        ><span aria-hidden="true">＋</span></summary
+      ><a class="studio-archive-download" href={kit.zip} download
+        >Descargar originales completos ↓</a
+      >
+      <nav class="stream-games" aria-label="Juego del kit">
+        {
+          kit.profiles.map((p, i) => (
+            <a
+              href={`#archive-${p.id}`}
+              data-stream-game={p.id}
+              aria-label={`Ver kit de ${p.name}`}
+              aria-current={i === 0 ? 'true' : undefined}
+            >
+              <span class="stream-game-code" aria-hidden="true">
+                {p.short}
+              </span>
+              {p.name}
+              <span class="stream-game-count">{p.assets.length} recursos</span>
+            </a>
+          ))
+        }
+      </nav>
+      {
+        kit.profiles.map((profile) => (
+          <section
+            id={`archive-${profile.id}`}
+            data-stream-profile={profile.id}
+            data-profile-name={profile.name}
+            class="stream-profile"
+            aria-label={`Kit de ${profile.name}`}
+          >
+            <div class="stream-monitor">
+              <div class="monitor-bar">
+                <>
+                  <span>
+                    <i aria-hidden="true" />
+                    VISTA PREVIA
+                  </span>
+                  <span>16:9 / {profile.short}</span>
+                  <button
+                    type="button"
+                    data-stream-expand
+                    aria-label={`Ampliar vista previa de ${profile.name}`}
+                    hidden
+                  >
+                    Ampliar ↗
+                  </button>
+                </>
+              </div>
+              <div class="stream-stage" data-stream-stage>
+                {profile.assets.map((id) => {
+                  const asset = kit.assets.find((a) => a.id === id)!;
+                  return (
+                    <img
+                      src={asset.preview}
+                      data-original={asset.file}
+                      data-layer={id}
+                      data-kind={asset.kind}
+                      alt={asset.label}
+                      width={asset.width}
+                      height={asset.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  );
+                })}
+                <div class="stream-capture" aria-hidden="true">
+                  <>
+                    <span class="capture-corner" />
+                    <span class="capture-play">▷</span>
+                    <strong>
+                      {profile.name === 'General'
+                        ? 'UGR LAN Party'
+                        : profile.name}
+                    </strong>
+                    <small>Espacio para tu partida</small>
+                  </>
+                </div>
+              </div>
+              <div class="stream-preview-tools" data-stream-tools hidden>
+                <>
+                  <div
+                    class="stream-layers"
+                    aria-label="Capas de la vista previa"
+                  >
+                    {profile.assets.map((id) => {
+                      const a = kit.assets.find((a) => a.id === id)!;
+                      return (
+                        <label>
+                          <input
+                            type="checkbox"
+                            data-stream-layer={id}
+                            checked
+                          />
+                          {a.kind === 'fondo'
+                            ? 'Fondo'
+                            : a.kind === 'overlay'
+                              ? 'Overlay'
+                              : 'Rótulo'}
+                        </label>
+                      );
+                    })}
+                  </div>
+                  <button
+                    type="button"
+                    data-stream-transparency
+                    aria-pressed="false"
+                  >
+                    Ver transparencia
+                  </button>
+                </>
+              </div>
+              <p class="stream-preview-note">
+                Composición de muestra. Cada capa se descarga por separado.
+              </p>
+            </div>
+            <aside class="stream-downloads">
+              <>
+                <span class="design-eyebrow">EL PACK / {profile.short}</span>
+                <h2>{profile.name}</h2>
+                <p>{profile.description}</p>
+              </>
+              <StreamOverlayEditor
+                id={`archive-${profile.id}`}
+                name={profile.name}
+              />
+              <ul>
+                {profile.assets.map((id) => {
+                  const a = kit.assets.find((a) => a.id === id)!;
+                  return (
+                    <li>
+                      <div>
+                        <strong>{a.label}</strong>
+                        <small>
+                          {a.width} × {a.height} · PNG
+                          {a.alpha ? ' transparente' : ''} ·{' '}
+                          {formatSize(a.bytes)}
+                        </small>
+                      </div>
+                      <a
+                        href={a.file}
+                        download
+                        aria-label={`Descargar ${a.label} de ${profile.name}`}
+                        title="Descargar PNG original"
+                      >
+                        ↓
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+              <a class="design-button stream-pack" href={profile.zip} download>
+                Descargar pack <span aria-hidden="true">↓</span>
+              </a>
+              <span class="stream-pack-detail">
+                {profile.assets.length} archivos PNG · ZIP
+              </span>
+            </aside>
+          </section>
+        ))
+      }
+      <section class="stream-setup" aria-labelledby="stream-setup-title">
+        <div>
+          <span class="design-eyebrow">DE LA PREVIA AL DIRECTO</span><h2
+            id="stream-setup-title"
+          >
+            Tres capas.<br /><em>Tu próxima partida.</em>
+          </h2>
+        </div><ol>
+          <li>
+            <span>01</span><div>
+              <strong>Prepara tu escena</strong><p>
+                Usa un lienzo de 1920 × 1080. El fondo ULP de 4K también se
+                adapta a este formato.
+              </p>
+            </div>
+          </li><li>
+            <span>02</span><div>
+              <strong>Ordena las capas</strong><p>
+                Fondo debajo de la captura; marco y rótulos transparentes por
+                encima.
+              </p>
+            </div>
+          </li><li>
+            <span>03</span><div>
+              <strong>Elige el momento</strong><p>
+                Activa el rótulo de ganador al finalizar el torneo. Puedes
+                ocultarlo durante la partida.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+      <details class="stream-all">
+        <summary>Todos los archivos originales <span>7 PNG ↓</span></summary><ul
+        >
+          {
+            kit.assets.map((a) => (
+              <li>
+                <a href={a.file} download>
+                  <>
+                    <strong>{a.label}</strong>
+                    <small>
+                      {a.width} × {a.height} · {formatSize(a.bytes)}
+                    </small>
+                    <span aria-hidden="true">↓</span>
+                  </>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </details>
+    </details>
+    <dialog
+      class="stream-dialog"
+      data-stream-dialog
+      aria-labelledby="stream-dialog-title"
+    >
+      <header>
+        <h2 id="stream-dialog-title">Vista previa</h2><button
+          type="button"
+          data-stream-close
+          aria-label="Cerrar vista previa">×</button
+        >
+      </header><div data-stream-expanded></div><p>
+        Vista de las capas originales · ULP 2026
+      </p>
+    </dialog>
+    <noscript
+      ><p class="stream-nojs">
+        Puedes recorrer los packs y descargar todos los originales. Activa
+        JavaScript para probar las capas.
+      </p></noscript
+    >
+  </article>
+</Layout>
+<script>
+  import '../../scripts/stream-kit';
+  import '../../scripts/stream-overlay-editor';
+</script>

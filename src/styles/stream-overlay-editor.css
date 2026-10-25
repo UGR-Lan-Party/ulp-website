@@ -1,0 +1,218 @@
+.overlay-customizer {
+  margin-block: 16px;
+  border-block: 1px solid var(--line);
+}
+.overlay-editor-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.overlay-editor-toggle[aria-expanded='true'] {
+  margin-bottom: 10px;
+}
+[data-overlay-form] {
+  padding-bottom: 14px;
+}
+[data-overlay-form] fieldset {
+  padding: 0;
+  border: 0;
+  margin: 0 0 14px;
+}
+[data-overlay-form] legend,
+[data-overlay-form] > div > label,
+.overlay-teams > label {
+  font-size: 11px;
+  font-weight: 550;
+}
+.overlay-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.overlay-modes legend {
+  margin-bottom: 7px;
+}
+.overlay-modes label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 6px 9px;
+  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.overlay-modes label:has(:checked) {
+  background: var(--ink);
+  color: var(--paper);
+}
+.overlay-modes input {
+  accent-color: var(--accent);
+}
+.overlay-teams {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.overlay-teams label,
+.overlay-caption-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.overlay-caption-fields {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+[data-overlay-form] input:is([type='text'], [type='number']) {
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.overlay-export-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.overlay-export-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px !important;
+  min-height: 40px;
+  cursor: pointer;
+}
+.overlay-export-options input {
+  accent-color: var(--accent);
+}
+.overlay-export-options button {
+  min-height: 40px;
+  font-size: 10px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+[data-overlay-export] {
+  width: 100%;
+  justify-content: space-between;
+  font-size: 11px;
+  padding: 13px 12px;
+  min-height: 46px;
+}
+[data-overlay-export]:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.overlay-local-note,
+.overlay-status {
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.overlay-status:empty {
+  display: none;
+}
+.stream-custom-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 4;
+  pointer-events: none;
+}
+@media (max-width: 700px) {
+  .overlay-modes label {
+    min-height: 44px;
+    flex: 1;
+  }
+  .overlay-export-options label,
+  .overlay-export-options button {
+    min-height: 44px;
+  }
+  [data-overlay-form] input:is([type='text'], [type='number']) {
+    font-size: 16px;
+  }
+}
+
+.stream-profile[data-custom-overlay='true'] .stream-downloads > ul,
+.stream-profile[data-custom-overlay='true'] .stream-downloads > .stream-pack,
+.stream-profile[data-custom-overlay='true']
+  .stream-downloads
+  > .stream-pack-detail {
+  display: none;
+}
+
+.overlay-obs-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--surface);
+  color: var(--ink);
+}
+.overlay-obs-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.overlay-obs-guide {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.overlay-obs-guide summary {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--ink);
+}
+.overlay-obs-guide summary::after {
+  content: '+';
+  margin-left: auto;
+}
+.overlay-obs-guide[open] summary::after {
+  content: '−';
+}
+.overlay-obs-guide ol {
+  list-style: decimal;
+  padding-left: 18px;
+  margin-block: 8px;
+}
+.overlay-obs-guide li {
+  margin-block: 7px;
+}
+.overlay-obs-guide p {
+  margin-block: 7px;
+}
