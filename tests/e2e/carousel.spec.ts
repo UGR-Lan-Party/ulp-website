@@ -280,7 +280,8 @@ test('Una carga lenta conserva la foto actual y varios clics rápidos muestran s
       );
     await route.fulfill({ response, body: html });
   });
-  await page.goto('/');
+  // Neighbor previews load eagerly; the delayed fixture must not block page load.
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
   const album = page.locator('.memory-gallery [data-photo-carousel]');
   const image = album.locator('[data-carousel-image]');
   await expect(album.locator('[data-carousel-counter]')).toHaveText(

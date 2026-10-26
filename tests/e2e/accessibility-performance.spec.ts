@@ -89,6 +89,6 @@ test('Los originales de la galería se reservan para el visor ampliado', async (
   expect(requested).toEqual([]);
   await expect(gallery.locator('[data-carousel-image]')).toHaveAttribute(
     'loading',
-    'lazy',
+    'eager',
   );
 });
