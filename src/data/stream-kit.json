@@ -1,0 +1,124 @@
+{
+  "edition": 2026,
+  "assets": [
+    {
+      "id": "fondo-ulp",
+      "label": "Fondo ULP",
+      "kind": "fondo",
+      "file": "/assets/streamers/2026/originales/fondo-ulp.png",
+      "preview": "/assets/streamers/2026/previews/fondo-ulp.webp",
+      "width": 3840,
+      "height": 2160,
+      "bytes": 4893758,
+      "alpha": false,
+      "sha256": "34cc3fca3a09d12d06f9dc30516c8a3f87ccfb5017f2f0609812d6a8f9c355a5"
+    },
+    {
+      "id": "fondo-minecraft",
+      "label": "Fondo Minecraft",
+      "kind": "fondo",
+      "file": "/assets/streamers/2026/originales/fondo-minecraft.png",
+      "preview": "/assets/streamers/2026/previews/fondo-minecraft.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 729320,
+      "alpha": false,
+      "sha256": "f91084be66733c8bef29920c1ee35f455548732b320c57aa6b1810bc308274fa"
+    },
+    {
+      "id": "marco-general",
+      "label": "Marco general",
+      "kind": "overlay",
+      "file": "/assets/streamers/2026/originales/marco-general.png",
+      "preview": "/assets/streamers/2026/previews/marco-general.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 16502,
+      "alpha": true,
+      "sha256": "a1207c336e203729282b44051b182f7a5e47a733aea112dbe20b86ea26b8b43a"
+    },
+    {
+      "id": "overlay-rocket",
+      "label": "Overlay Rocket League",
+      "kind": "overlay",
+      "file": "/assets/streamers/2026/originales/overlay-rocket.png",
+      "preview": "/assets/streamers/2026/previews/overlay-rocket.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 37174,
+      "alpha": true,
+      "sha256": "0379fe992144b3f0d5ed44b8619c6b1020d7f5e94e2bab2407f66666f0b8b01f"
+    },
+    {
+      "id": "ganador-lol",
+      "label": "Ganador · League of Legends",
+      "kind": "rotulo",
+      "file": "/assets/streamers/2026/originales/ganador-lol.png",
+      "preview": "/assets/streamers/2026/previews/ganador-lol.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 27538,
+      "alpha": true,
+      "sha256": "db71652141f11c0f6a4b7b96f9bed2a1d58c09ccd7f85e1b889bf6a983b9b171"
+    },
+    {
+      "id": "ganador-minecraft",
+      "label": "Ganador · Minecraft",
+      "kind": "rotulo",
+      "file": "/assets/streamers/2026/originales/ganador-minecraft.png",
+      "preview": "/assets/streamers/2026/previews/ganador-minecraft.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 30984,
+      "alpha": true,
+      "sha256": "0edf8d014541be3360b27bf84b5c4cedf8bc98212eeece1c428cc3bc963ccaba"
+    },
+    {
+      "id": "ganador-rocket",
+      "label": "Ganador · Rocket League",
+      "kind": "rotulo",
+      "file": "/assets/streamers/2026/originales/ganador-rocket.png",
+      "preview": "/assets/streamers/2026/previews/ganador-rocket.webp",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 32469,
+      "alpha": true,
+      "sha256": "9f08b125016c6e8030abee2f0ea8f0c4d4da1e6ff349542e2187c2d61247e331"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "general",
+      "name": "General",
+      "short": "ULP",
+      "description": "La identidad de la ULP para charlas, entrevistas y entre partidas.",
+      "assets": ["fondo-ulp", "marco-general"],
+      "zip": "/assets/streamers/2026/ulp-stream-general-2026.zip"
+    },
+    {
+      "id": "lol",
+      "name": "League of Legends",
+      "short": "LoL",
+      "description": "Fondo corporativo, marco y rótulo para el ganador del torneo.",
+      "assets": ["fondo-ulp", "marco-general", "ganador-lol"],
+      "zip": "/assets/streamers/2026/ulp-stream-lol-2026.zip"
+    },
+    {
+      "id": "minecraft",
+      "name": "Minecraft",
+      "short": "MC",
+      "description": "El fondo de Minecraft y sus capas de la edición de 2026.",
+      "assets": ["fondo-minecraft", "marco-general", "ganador-minecraft"],
+      "zip": "/assets/streamers/2026/ulp-stream-minecraft-2026.zip"
+    },
+    {
+      "id": "rocket-league",
+      "name": "Rocket League",
+      "short": "RL",
+      "description": "Overlay con espacio para dos equipos y rótulo de ganador.",
+      "assets": ["fondo-ulp", "overlay-rocket", "ganador-rocket"],
+      "zip": "/assets/streamers/2026/ulp-stream-rocket-league-2026.zip"
+    }
+  ],
+  "zip": "/assets/streamers/2026/ulp-stream-completo-2026.zip"
+}

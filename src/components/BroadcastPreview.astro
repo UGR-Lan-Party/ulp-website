@@ -1,0 +1,93 @@
+---
+interface Props {
+  output: 'horizontal' | 'vertical';
+}
+const { output } = Astro.props;
+const label = output === 'vertical' ? 'Vertical' : 'Horizontal';
+---
+
+<figure
+  class="studio-view"
+  data-studio-view={output}
+  aria-label={`Vista ${output}`}
+>
+  <figcaption>
+    <strong>{label}</strong><small
+      >{output === 'vertical' ? '1080 × 1920' : '1920 × 1080'}</small
+    >
+  </figcaption>
+  <div class="studio-preview" data-studio-preview data-output={output}>
+    <img
+      src="/assets/about/sobre-nosotros.png"
+      alt=""
+      class="studio-game-image"
+      data-studio-image
+      width="1280"
+      height="720"
+    />
+    <div class="studio-capture-note" data-studio-placeholder aria-hidden="true">
+      <span>CAPTURA DE EJEMPLO</span><strong data-studio-game-label
+        >Directo general</strong
+      ><small>Tu contenido, en primer plano.</small>
+    </div>
+    <div class="studio-camera-demo" data-studio-camera-demo aria-hidden="true">
+      <span>CAM</span><svg viewBox="0 0 100 100" fill="none"
+        ><circle cx="50" cy="36" r="17" fill="currentColor"></circle><path
+          d="M18 89c0-26 64-26 64 0"
+          fill="currentColor"></path></svg
+      >
+    </div>
+    <div
+      class="studio-camera-demo"
+      data-studio-camera-demo-second
+      aria-hidden="true"
+      hidden
+    >
+      <span>CAM 2</span><svg viewBox="0 0 100 100" fill="none"
+        ><circle cx="50" cy="36" r="17" fill="currentColor"></circle><path
+          d="M18 89c0-26 64-26 64 0"
+          fill="currentColor"></path></svg
+      >
+    </div>
+    <div
+      class="studio-chat-demo"
+      data-studio-chat-demo
+      aria-hidden="true"
+      hidden
+    >
+      <small>VISTA DE EJEMPLO</small><p>
+        <b>Comunidad ULP</b><span>¡Nos vemos en la LAN!</span>
+      </p><p>
+        <b>Player 02</b><span>Qué ganas de la próxima partida 💙</span>
+      </p><p><b>Invitada</b><span>¡Vamos equipo!</span></p>
+    </div>
+    <canvas
+      width={output === 'vertical' ? 1080 : 1920}
+      height={output === 'vertical' ? 1920 : 1080}
+      data-studio-canvas
+      role="img"
+      aria-label="Vista previa del overlay personalizado"></canvas>
+  </div>
+  <div class="studio-view-actions">
+    <button
+      type="button"
+      data-studio-export
+      data-output={output}
+      aria-label={`Descargar PNG ${output}`}
+      >PNG <span aria-hidden="true">↓</span></button
+    >
+    <button
+      type="button"
+      data-studio-html
+      data-output={output}
+      aria-label={`Descargar escena animada ${output}`}
+      >HTML <span aria-hidden="true">↓</span></button
+    >
+    <button
+      type="button"
+      data-studio-expand
+      data-output={output}
+      aria-label={`Ampliar diseño ${output}`}>↗</button
+    >
+  </div>
+</figure>

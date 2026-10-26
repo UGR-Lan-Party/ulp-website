@@ -1,0 +1,160 @@
+---
+interface Props {
+  id: string;
+  name: string;
+}
+const { id, name } = Astro.props;
+---
+
+<div class="overlay-customizer" data-overlay-customizer>
+  <button
+    type="button"
+    class="overlay-editor-toggle"
+    data-overlay-toggle
+    hidden
+    aria-expanded="false"
+    aria-controls={`overlay-editor-${id}`}
+    ><span data-overlay-toggle-label>Personalizar overlay</span>
+    <span aria-hidden="true">↗</span></button
+  >
+  <form
+    id={`overlay-editor-${id}`}
+    data-overlay-form
+    hidden
+    novalidate
+    aria-label={`Personalizar overlay de ${name}`}
+  >
+    <fieldset class="overlay-modes">
+      <legend>Diseño</legend>{
+        [
+          ['both', 'Ambos'],
+          ['scoreboard', 'Marcador'],
+          ['caption', 'Rótulo'],
+        ].map(([value, label]) => (
+          <label>
+            <input
+              type="radio"
+              name={`mode-${id}`}
+              value={value}
+              data-overlay-mode
+              checked={value === 'both'}
+            />
+            {label}
+          </label>
+        ))
+      }
+    </fieldset>
+    <div class="overlay-teams" data-overlay-teams>
+      <label
+        >Equipo A<input
+          type="text"
+          name="teamA"
+          value="Equipo A"
+          maxlength="36"
+          autocomplete="off"
+          spellcheck="false"
+          data-overlay-field="teamA"
+        /></label
+      >
+      <label
+        >Equipo B<input
+          type="text"
+          name="teamB"
+          value="Equipo B"
+          maxlength="36"
+          autocomplete="off"
+          spellcheck="false"
+          data-overlay-field="teamB"
+        /></label
+      >
+      <label
+        >Marcador A<input
+          type="number"
+          name="scoreA"
+          value="0"
+          min="0"
+          max="99"
+          step="1"
+          inputmode="numeric"
+          data-overlay-field="scoreA"
+        /></label
+      >
+      <label
+        >Marcador B<input
+          type="number"
+          name="scoreB"
+          value="0"
+          min="0"
+          max="99"
+          step="1"
+          inputmode="numeric"
+          data-overlay-field="scoreB"
+        /></label
+      >
+    </div>
+    <div class="overlay-caption-fields" data-overlay-caption-fields>
+      <label
+        >Texto del rótulo<input
+          type="text"
+          name="caption"
+          value="En directo"
+          maxlength="32"
+          autocomplete="off"
+          data-overlay-field="caption"
+        /></label
+      ><label
+        >Jugador o equipo<input
+          type="text"
+          name="player"
+          value="UGR LAN Party"
+          maxlength="48"
+          autocomplete="off"
+          spellcheck="false"
+          data-overlay-field="player"
+        /></label
+      >
+    </div>
+    <div class="overlay-export-options">
+      <label
+        ><input type="checkbox" data-overlay-frame checked />Incluir marco
+        original</label
+      ><button type="reset">Restablecer</button>
+    </div>
+    <button type="submit" class="design-button" data-overlay-export
+      >Descargar PNG personalizado <span aria-hidden="true">↓</span></button
+    >
+    <button type="button" class="overlay-obs-button" data-overlay-obs
+      >Descargar escenas para OBS <span aria-hidden="true">↓</span></button
+    >
+    <details class="overlay-obs-guide">
+      <summary>Cómo importarlo en OBS</summary><p>
+        El ZIP incluye Inicio, Partida, Pausa, Final y Tu juego.
+      </p><ol>
+        <li>Descomprime el ZIP completo en una carpeta permanente.</li><li>
+          En OBS, abre <strong>Colección de escenas → Importar</strong> y elige <strong
+            >coleccion-ulp.json</strong
+          >.
+        </li><li>
+          Selecciona la colección importada. Añade tu captura en <strong
+            >Tu juego</strong
+          > y comprueba el audio y el lienzo de 1920 × 1080.
+        </li>
+      </ol><p>
+        Si OBS indica archivos ausentes, selecciona la carpeta <strong
+          >recursos</strong
+        > del pack. Los marcadores quedan guardados en el PNG; puedes generar otro
+        pack cuando cambien.
+      </p>
+    </details>
+    <p class="overlay-local-note">
+      1920 × 1080 · Transparente · Se genera en tu navegador
+    </p>
+    <p
+      class="overlay-status"
+      data-overlay-status
+      role="status"
+      aria-live="polite"
+    >
+    </p>
+  </form>
+</div>

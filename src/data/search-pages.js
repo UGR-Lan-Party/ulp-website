@@ -15,6 +15,14 @@ export const searchPages = [
       'stands expositores entidades deiit motril2047 mcdonalds geng iction game kitchen pokecrew',
   },
   {
+    title: 'Kit para streamers',
+    description:
+      'Diseña marcos de webcam, rótulos, marcadores y escenas OBS para todas las actividades de la ULP.',
+    href: '/info/streamers/',
+    keywords:
+      'stream streaming streamer twitch youtube obs overlays overlay fondos rotulos kit directo retransmision descarga webcam camara marcador estudio personalizar',
+  },
+  {
     title: 'Inicio',
     description: 'La UGR LAN Party de un vistazo.',
     href: '/',

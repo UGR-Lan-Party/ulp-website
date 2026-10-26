@@ -66,6 +66,14 @@ const sections = [
       </nav>
     </header>
 
+    <a class="stream-kit-link" href="/info/streamers/">
+      <span
+        ><strong>Kit para streamers</strong><small
+          >Overlays, fondos y rótulos de 2026 · Previsualiza y descarga por
+          juego</small
+        ></span
+      ><span aria-hidden="true">↗</span>
+    </a>
     <section id="logos" aria-labelledby="logos-title" class="kit-section">
       <div class="kit-section-heading">
         <div>
@@ -293,6 +301,29 @@ const sections = [
 </script>
 
 <style>
+  .stream-kit-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    margin-block: 4px 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+  .stream-kit-link strong {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .stream-kit-link small {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 5px;
+  }
   .press-kit {
     padding-top: 84px;
     padding-bottom: clamp(48px, 7vw, 100px);
