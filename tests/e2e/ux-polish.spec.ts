@@ -240,3 +240,67 @@ test('El tema sigue al sistema hasta elegirlo y los estados conservan contraste 
     ),
   ).toBe(true);
 });
+
+test('Las páginas siguen navegando con sus controles y los efectos agrupan lecturas por frame', async ({
+  page,
+}, testInfo) => {
+  await page.addInitScript(() => {
+    (window as any).uxDiagnostics = { longTasks: 0, layoutShift: 0 };
+    for (const type of ['longtask', 'layout-shift']) {
+      if (!PerformanceObserver.supportedEntryTypes.includes(type)) continue;
+      new PerformanceObserver((list) =>
+        list.getEntries().forEach((entry) => {
+          if (type === 'longtask') (window as any).uxDiagnostics.longTasks++;
+          else if (!(entry as any).hadRecentInput)
+            (window as any).uxDiagnostics.layoutShift += (entry as any).value;
+        }),
+      ).observe({ type, buffered: true });
+    }
+  });
+  await page.goto('/');
+  const reads = await page.locator('#home').evaluate(async (el) => {
+    let count = 0;
+    const getBox = el.getBoundingClientRect;
+    el.getBoundingClientRect = () => {
+      count++;
+      return getBox.call(el);
+    };
+    for (let i = 0; i < 100; i++)
+      el.dispatchEvent(
+        new PointerEvent('pointermove', {
+          clientX: 180 + i,
+          clientY: 200,
+          pointerType: 'mouse',
+        }),
+      );
+    await new Promise(requestAnimationFrame);
+    el.getBoundingClientRect = getBox;
+    return count;
+  });
+  expect(reads).toBe(1);
+  expect(
+    await page
+      .locator('#contenido-principal')
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe('none');
+  await page
+    .getByRole('link', { name: 'Actividades', exact: true })
+    .first()
+    .click();
+  await expect(page.locator('.catalog-title')).toBeVisible();
+  await page.keyboard.press('Control+k');
+  await expect(page.locator('[data-global-search]')).toBeVisible();
+  const diagnostics = await page.evaluate(() => ({
+    ...(window as any).uxDiagnostics,
+    navigation: performance
+      .getEntriesByType('navigation')
+      .map((n) => ({ duration: n.duration })),
+    paints: performance
+      .getEntriesByType('paint')
+      .map((p) => ({ name: p.name, start: p.startTime })),
+  }));
+  await testInfo.attach('ux-diagnostics.json', {
+    body: JSON.stringify(diagnostics, null, 2),
+    contentType: 'application/json',
+  });
+});

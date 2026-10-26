@@ -10,7 +10,7 @@ const {
   src,
   alt,
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 640px',
-  loading = 'lazy',
+  loading = 'eager',
   ...attributes
 } = Astro.props;
 const image = manifest[src as keyof typeof manifest];

@@ -373,6 +373,7 @@ const N = schedule.length;
 />
 
 <script>
+  import { siteMotion } from '../utils/site-motion.js';
   let initialized = false;
 
   const ENTER_END = 0.22;
@@ -394,7 +395,7 @@ const N = schedule.length;
       '[data-official-program]',
     );
     if (disclosure && !disclosure.open) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (siteMotion().matches) return;
     const motion = await Promise.all([
       import('gsap'),
       import('gsap/ScrollTrigger'),
@@ -405,7 +406,7 @@ const N = schedule.length;
       requestAnimationFrame(() => ScrollTrigger.refresh());
       return;
     }
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (siteMotion().matches) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -689,7 +690,7 @@ const N = schedule.length;
     });
   }
 
-  matchMedia('(prefers-reduced-motion: reduce)').addEventListener(
+  siteMotion().addEventListener(
     'change',
     initSabadoTimeline,
   );

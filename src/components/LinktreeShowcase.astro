@@ -199,6 +199,21 @@ const links = [
   [data-phone-revealed] .phone-links a:nth-child(5) {
     animation-delay: 580ms;
   }
+  @keyframes phone-link-arrival-solid {
+    from {
+      opacity: 1;
+      transform: translateY(8px) scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @media (max-width: 767px), (hover: none), (pointer: coarse) {
+    [data-phone-revealed] .phone-links a {
+      animation-name: phone-link-arrival-solid;
+    }
+  }
   @keyframes phone-in-hand {
     0%,
     100% {
