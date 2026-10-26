@@ -1,0 +1,175 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
+---
+
+<section class="concert-experience" aria-labelledby="concert-live-title">
+  <div class="concert-story">
+    <div class="concert-copy">
+      <span class="design-eyebrow">La banda sonora de la ULP</span>
+      <h2 id="concert-live-title">
+        De la pantalla<br /><em>al escenario.</em>
+      </h2>
+      <p>
+        Las melodías que nos acompañan mientras jugamos también tienen su sitio
+        en la LAN Party. Orquesta Virtual Soul puso música al Salón de Actos con
+        un concierto dedicado a los videojuegos.
+      </p>
+    </div>
+    <figure>
+      <a
+        href="/assets/activities/concierto/orquesta-2400.webp"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ampliar fotografía del concierto de ULP 2026"
+      >
+        <img
+          src="/assets/activities/concierto/orquesta-1600.webp"
+          srcset="/assets/activities/concierto/orquesta-768.webp 768w, /assets/activities/concierto/orquesta-1600.webp 1600w, /assets/activities/concierto/orquesta-2400.webp 2400w"
+          sizes="(max-width: 900px) 90vw, 65vw"
+          width="6000"
+          height="4000"
+          alt="Orquesta Virtual Soul interpretando música de videojuegos en el Salón de Actos durante ULP 2026"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="concert-photo-link">Ver fotografía <ArrowUpRight /></span>
+      </a>
+      <figcaption>Orquesta Virtual Soul · ULP 2026</figcaption>
+    </figure>
+  </div>
+  <div class="concert-orchestra">
+    <ResponsiveImage
+      src="/assets/activities/concierto/virtual-soul-logo.png"
+      alt="Orquesta Virtual Soul"
+      width="96"
+      height="96"
+    />
+    <div>
+      <span class="design-eyebrow">Sobre el escenario</span>
+      <h3>Orquesta Virtual Soul</h3>
+      <p>
+        Una selección de bandas sonoras para reencontrarte con tus videojuegos
+        favoritos a través de la música.
+      </p>
+    </div>
+    <a class="design-link" href="/participan/#partner-virtual-soul"
+      >Ficha y redes sociales <ArrowUpRight /></a
+    >
+  </div>
+</section>
+<style>
+  .concert-experience {
+    margin-block: clamp(36px, 6vw, 80px);
+  }
+  .concert-story {
+    display: grid;
+    grid-template-columns: 0.75fr 1.4fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  h2 {
+    margin-block: 20px;
+    font-size: clamp(32px, 4vw, 54px);
+    line-height: 1.08;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+  figure {
+    margin: 0;
+    min-width: 0;
+  }
+  figure a {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+  }
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .concert-photo-link {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: #004465;
+    color: #f5f0e6;
+    font-size: 11px;
+  }
+  .concert-photo-link :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+  figcaption {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .concert-orchestra {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding: 24px;
+    margin-top: 32px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+  .concert-orchestra > :global(img) {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .concert-orchestra > div {
+    flex: 1;
+  }
+  h3 {
+    margin-block: 8px;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .concert-orchestra p {
+    max-width: 52ch;
+    font-size: 12px;
+  }
+  .concert-orchestra > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+    .concert-story {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .concert-orchestra {
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 18px;
+    }
+    .concert-orchestra > div {
+      flex-basis: calc(100% - 92px);
+    }
+    .concert-orchestra > a {
+      width: 100%;
+    }
+  }
+</style>

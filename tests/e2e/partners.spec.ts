@@ -134,12 +134,8 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
   for (const name of names) {
     const image = list.locator(`[data-partner-logo="${name}"]`);
     await image.scrollIntoViewIfNeeded();
-    await expect(image).toHaveCSS(
-      'filter',
-      ['Nacon España', 'Hackiit', 'Mars Gaming'].includes(name)
-        ? 'none'
-        : 'brightness(0)',
-    );
+    await expect(image).toHaveCSS('filter', 'none');
+    await expect(image).toHaveAttribute('src', /\/normalized\//);
     await expect
       .poll(() =>
         image.evaluate((element: HTMLImageElement) => element.naturalWidth),
@@ -152,21 +148,18 @@ test('Los logos de las entidades conservan su color en claro y contrastan en osc
   await expect(whiteMars).toHaveCSS('filter', 'brightness(0) invert(1)');
   await expect(list.locator('[data-partner-logo="Mars Gaming"]')).toBeHidden();
   for (const name of names) {
-    await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
-      'filter',
-      'brightness(0) invert(1)',
-    );
+    const white = list.locator(`[data-partner-white-logo="${name}"]`);
+    await white.scrollIntoViewIfNeeded();
+    await expect(white).toBeVisible();
+    await expect(list.locator(`[data-partner-logo="${name}"]`)).toBeHidden();
+    await expect.poll(() => white.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
   }
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
   await expect(whiteMars).toBeHidden();
   await expect(list.locator('[data-partner-logo="Mars Gaming"]')).toBeVisible();
   for (const name of names) {
-    await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS(
-      'filter',
-      ['Nacon España', 'Hackiit', 'Mars Gaming'].includes(name)
-        ? 'none'
-        : 'brightness(0)',
-    );
+    await expect(list.locator(`[data-partner-logo="${name}"]`)).toBeVisible();
+    await expect(list.locator(`[data-partner-logo="${name}"]`)).toHaveCSS('filter', 'none');
   }
 });
 
@@ -192,8 +185,9 @@ test('Los logos ajustados conservan tamaño contenido y EMYCET blanco mantiene s
   }
   await page.getByRole('button', { name: 'Modo oscuro' }).click();
   await page.goto('/');
-  const image = page.locator('[data-partner-logo="EMYCET"]').first();
-  await expect(image).toHaveCSS('filter', /partner-white-emycet/);
+  const image = page.locator('[data-partner-white-logo="EMYCET"]').first();
+  await expect(image).toBeVisible();
+  await expect(image).toHaveAttribute('src', /normalized\/emycet\/logo-blanco/);
   await image.evaluate((source) => {
     const copy = source.cloneNode(true) as HTMLImageElement;
     copy.id = 'emycet-filter-sample';

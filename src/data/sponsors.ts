@@ -11,6 +11,7 @@ export interface SponsorData {
   bussiness: string;
   description: string;
   links: RRSSLink[];
+  activities?: { id: string; name: string }[];
 }
 
 export interface RRSSLink {
@@ -290,6 +291,7 @@ const Sponsors: SponsorData[] = [
     cardBg: '/assets/participan/BG-Sponsors/aesit.webp',
     isSecret: false,
     bussiness: 'Asociación de Antiguos Estudiantes',
+    activities: [{ id: 'futbolin', name: 'Futbolín' }],
     links: [
       {
         rrss: 'Web',
@@ -734,6 +736,7 @@ const Sponsors: SponsorData[] = [
     cardBg: '/assets/participan/BG-Sponsors/cafeteria.webp',
     isSecret: false,
     bussiness: 'Cafetería de la ETSIIT',
+    activities: [{ id: 'paella', name: 'Paella' }],
     links: [
       {
         rrss: 'Instagram',
@@ -911,6 +914,7 @@ const Sponsors: SponsorData[] = [
     cardBg: '/assets/participan/BG-Sponsors/amat.webp',
     isSecret: false,
     bussiness: 'Representación Estudiantil',
+    activities: [{ id: 'ajedrez', name: 'Ajedrez' }],
     links: [
       {
         rrss: 'Web',
@@ -1014,6 +1018,23 @@ const Sponsors: SponsorData[] = [
         rrss: 'Instagram',
         link: 'https://www.instagram.com/csircugr/',
       },
+    ],
+  },
+  {
+    name: 'Virtual Soul',
+    tier: 'regular',
+    logo: '/assets/activities/concierto/virtual-soul-logo.png',
+    cardBg: '/assets/activities/concierto/orquesta-1600.webp',
+    isSecret: false,
+    bussiness: 'Asociación de videojuegos y música',
+    description:
+      'La orquesta de Virtual Soul reúne a miembros de la asociación apasionados por la música y los videojuegos para interpretar algunas de sus melodías más conocidas. Colaboró en ULP 2026 con su concierto de música de videojuegos.',
+    activities: [{ id: 'concierto', name: 'Concierto' }],
+    links: [
+      { rrss: 'Web', link: 'https://virtualsoul.es/orquestavs.html' },
+      { rrss: 'Instagram', link: 'https://www.instagram.com/orquestavs' },
+      { rrss: 'TikTok', link: 'https://www.tiktok.com/@orquestavs' },
+      { rrss: 'Linktree', link: 'https://linktr.ee/orquestavs' },
     ],
   },
 ];

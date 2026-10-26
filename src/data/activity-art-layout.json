@@ -206,5 +206,13 @@
     "imageHeight": 140.583,
     "left": -2.305,
     "top": -19.058
+  },
+  "concierto": {
+    "aspect": 1,
+    "frameWidth": 72,
+    "imageWidth": 100,
+    "imageHeight": 100,
+    "left": 0,
+    "top": 0
   }
 }

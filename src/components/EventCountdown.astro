@@ -1,0 +1,155 @@
+---
+import GranadaAccent from './GranadaAccent.astro';
+---
+
+<section
+  class="countdown"
+  aria-labelledby="countdown-title"
+  data-event-countdown
+>
+  <GranadaAccent id="countdown-mosaic" />
+  <div class="design-container countdown-inner">
+    <div>
+      <span class="design-eyebrow">UGR LAN PARTY 9ª EDICIÓN</span><h2
+        id="countdown-title"
+      >
+        Nos vemos en <em>la ETSIIT.</em>
+      </h2><p>
+        <time datetime="2027-03-12">12-13 de marzo de 2027</time> · Granada
+      </p>
+    </div>
+    <div>
+      <div
+        class="countdown-clock"
+        role="timer"
+        aria-label="Tiempo hasta el inicio de ULP 2027"
+      >
+        {
+          [
+            ['days', 'Días'],
+            ['hours', 'Horas'],
+            ['minutes', 'Minutos'],
+            ['seconds', 'Segundos'],
+          ].map(([key, label]) => (
+            <div>
+              <>
+                <strong data-countdown-unit={key}>—</strong>
+                <span>{label}</span>
+              </>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const root = document.querySelector<HTMLElement>('[data-event-countdown]');
+  if (root) {
+    const target = Date.parse('2027-03-12T17:30:00+01:00');
+    const update = () => {
+      const seconds = Math.max(0, Math.floor((target - Date.now()) / 1000));
+      const values = {
+        days: Math.floor(seconds / 86400),
+        hours: Math.floor(seconds / 3600) % 24,
+        minutes: Math.floor(seconds / 60) % 60,
+        seconds: seconds % 60,
+      };
+      Object.entries(values).forEach(([key, value]) => {
+        root.querySelector<HTMLElement>(
+          `[data-countdown-unit="${key}"]`,
+        )!.textContent = String(value).padStart(2, '0');
+      });
+    };
+    update();
+    let timer = window.setInterval(update, 1000);
+    document.addEventListener('visibilitychange', () => {
+      clearInterval(timer);
+      if (!document.hidden) {
+        update();
+        timer = window.setInterval(update, 1000);
+      }
+    });
+    window.addEventListener('pagehide', () => clearInterval(timer));
+  }
+</script>
+<style>
+  .countdown {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: clamp(28px, 4vw, 50px);
+  }
+  .countdown :global(.granada-accent) {
+    opacity: 0.055;
+  }
+  .countdown-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    position: relative;
+  }
+  .countdown .design-eyebrow {
+    color: inherit;
+    opacity: 0.7;
+  }
+  h2 {
+    font-size: clamp(24px, 3vw, 42px);
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    margin: 8px 0;
+  }
+  em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  p {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  .countdown-clock {
+    display: flex;
+    gap: clamp(18px, 3vw, 44px);
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown-clock div {
+    display: grid;
+    text-align: center;
+    gap: 5px;
+    min-width: 48px;
+  }
+  strong {
+    font-size: clamp(30px, 4vw, 56px);
+    line-height: 1;
+    font-weight: 650;
+    letter-spacing: -0.06em;
+  }
+  .countdown-clock span {
+    font:
+      9px ui-monospace,
+      monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+  }
+  .countdown-status {
+    text-align: right;
+    margin-top: 14px;
+    font-size: 10px;
+  }
+  @media (max-width: 700px) {
+    .countdown-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .countdown-clock {
+      gap: clamp(20px, 6vw, 42px);
+    }
+    .countdown-status {
+      text-align: left;
+    }
+  }
+</style>

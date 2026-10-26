@@ -1,0 +1,90 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+---
+
+<section class="tcg-showcase" aria-labelledby="tcg-showcase-title">
+  <header>
+    <span class="design-eyebrow">El stand · ULP 2026</span>
+    <h2 id="tcg-showcase-title">Tu próxima carta favorita.</h2>
+    <p>
+      Colecciones, sobres y cartas Pokémon para descubrir entre partida y
+      partida.
+    </p>
+  </header>
+  <figure>
+    <a
+      href="/assets/activities/tcg/stand-0895.webp"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Ampliar fotografía del stand de Pokémon TCG"
+    >
+      <img
+        src="/assets/activities/tcg/stand-0895.webp"
+        alt="Colecciones, cajas de sobres y cartas Pokémon TCG expuestas en el stand de ULP 2026"
+        width="2400"
+        height="1600"
+        loading="lazy"
+        decoding="async"
+      />
+      <span>Ver fotografía <ArrowUpRight /></span>
+    </a>
+    <figcaption>Pokémon TCG en el hall de la ETSIIT · ULP 2026</figcaption>
+  </figure>
+</section>
+<style>
+  .tcg-showcase {
+    margin-block: clamp(36px, 6vw, 72px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  h2 {
+    margin-top: 12px;
+    font-size: clamp(28px, 3.5vw, 42px);
+    line-height: 1.15;
+    font-weight: 750;
+    letter-spacing: -0.035em;
+  }
+  p {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  figure {
+    margin: 28px 0 0;
+  }
+  figure a {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  figure a > span {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #004465;
+    color: #f5f0e6;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+  }
+  figure a :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+  figcaption {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>

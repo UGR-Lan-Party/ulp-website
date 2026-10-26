@@ -1,3 +1,4 @@
+import { fetchBrowserSocialSnapshot } from '../utils/browser-social-statistics.js';
 import {
   normalizeSocialSnapshot,
   SOCIAL_REFRESH_MS,
@@ -16,6 +17,7 @@ if (panel) {
     hour: '2-digit',
     minute: '2-digit',
   });
+  const lastKnown = new Map();
   let timer: number | undefined,
     busy = false,
     failures = 0;
@@ -40,13 +42,9 @@ if (panel) {
     busy = true;
     button.disabled = true;
     try {
-      const response = await fetch('/api/social-stats', {
-        cache: 'no-store',
-        signal: AbortSignal.timeout(12_000),
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) throw new Error('Unavailable');
-      const records = normalizeSocialSnapshot(await response.json());
+      const records = normalizeSocialSnapshot(
+        await fetchBrowserSocialSnapshot(fetch, lastKnown),
+      );
       let live = 0,
         known = 0,
         total = 0;
@@ -66,7 +64,7 @@ if (panel) {
               ? 'Último dato disponible'
               : item.state === 'unconfigured'
                 ? 'Pendiente de conexión'
-                : 'No disponible';
+                : 'No disponible desde este navegador';
         const time = row.querySelector<HTMLTimeElement>('[data-social-time]')!;
         time.hidden = !item.updatedAt;
         if (item.updatedAt) {
@@ -101,7 +99,7 @@ if (panel) {
               : 'Contadores actuales aún no disponibles';
       failures = 0;
     } catch {
-      status.textContent = 'Sin conexión con los contadores · reintentando';
+      status.textContent = 'Consultas públicas no disponibles · reintentando';
       panel!
         .querySelectorAll<HTMLElement>('[data-social-network]')
         .forEach((row) => {

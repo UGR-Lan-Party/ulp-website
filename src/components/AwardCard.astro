@@ -58,9 +58,14 @@ const tier = tiers[position];
   </div>
   <h3>{tier.label}</h3>
   <div class="award-divider" aria-hidden="true"></div>
-  <ul class="awards-list">
-    {awards.map((award) => <li>{award}</li>)}
-  </ul>
+  <div class="award-reveal" data-award-reveal>
+    <ul class="awards-list" data-award-list>
+      {awards.map((award) => <li>{award}</li>)}
+    </ul>
+    <button class="award-reveal-button" type="button" data-award-show hidden>
+      Mostrar premios de la edición de 2026 <span aria-hidden="true">↗</span>
+    </button>
+  </div>
 </section>
 <style>
   @font-face {
@@ -267,5 +272,64 @@ const tier = tiers[position];
     .award-card {
       transition: none;
     }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>('[data-award-reveal]')
+    .forEach((root) => {
+      const list = root.querySelector<HTMLElement>('[data-award-list]')!;
+      const button =
+        root.querySelector<HTMLButtonElement>('[data-award-show]')!;
+      root.dataset.concealed = 'true';
+      button.hidden = false;
+      list.setAttribute('aria-hidden', 'true');
+      list.inert = true;
+      button.addEventListener('click', () => {
+        delete root.dataset.concealed;
+        button.hidden = true;
+        list.removeAttribute('aria-hidden');
+        list.inert = false;
+        list.tabIndex = -1;
+        list.focus({ preventScroll: true });
+      });
+    });
+</script>
+<style>
+  .award-reveal {
+    position: relative;
+    min-height: 76px;
+  }
+  [data-concealed] .awards-list {
+    filter: blur(6px);
+    user-select: none;
+    pointer-events: none;
+  }
+  .award-reveal-button {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    padding: 12px;
+    background: transparent;
+    text-shadow:
+      0 2px 8px #001b2d,
+      0 0 16px #001b2d;
+    color: #f5f0e6;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .award-reveal-button[hidden] {
+    display: none;
+  }
+  .award-reveal-button:focus-visible {
+    outline: 2px solid #f5f0e6;
+    outline-offset: 4px;
   }
 </style>

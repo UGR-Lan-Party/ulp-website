@@ -1,0 +1,115 @@
+---
+const posters = [
+  {
+    title: 'Quedada en Granada',
+    alt: 'Quedada StreetPass Granada: sábado 21 de marzo de 2026 a las 16:00 en la cafetería de la ETSIIT, con StreetPass Málaga.',
+  },
+  {
+    title: 'Horarios y torneos',
+    alt: 'Horarios: Super Smash Bros. 3DS a las 10:30, Mario Kart 7 a las 11:30 y 16:30, quedada StreetPass a las 16:00 y Pokémon Ultrasol / Ultraluna a las 18:00.',
+  },
+  {
+    title: 'Zona StreetPass',
+    alt: 'La ULP será zona StreetPass. Trae tu Nintendo 3DS o 2DS para conectar con más gente en la ETSIIT.',
+  },
+];
+const base = '/assets/activities/street-pass';
+---
+
+<section class="streetpass-gallery" aria-labelledby="streetpass-gallery-title">
+  <header>
+    <span class="design-eyebrow">StreetPass · ULP 2026</span>
+    <h2 id="streetpass-gallery-title">La quedada, al detalle</h2>
+  </header>
+  <div class="streetpass-posters">
+    {
+      posters.map((poster, index) => (
+        <figure>
+          <a
+            class="streetpass-poster"
+            href="https://www.instagram.com/p/DWEMVZajEA7"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Ver ${poster.title} en Instagram (abre en otra pestaña)`}
+            title="Ver publicación en Instagram"
+          >
+            <img
+              src={`${base}/streetpass-${index + 1}-768.webp`}
+              srcset={`${base}/streetpass-${index + 1}-768.webp 768w, ${base}/streetpass-${index + 1}-1536.webp 1536w, ${base}/streetpass-${index + 1}-full.webp 3376w`}
+              sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) 31vw, 400px"
+              width="3376"
+              height="4219"
+              alt={poster.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        </figure>
+      ))
+    }
+  </div>
+</section>
+<style>
+  .streetpass-gallery {
+    margin-block: clamp(32px, 5vw, 64px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  h2 {
+    margin-top: 12px;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+  .streetpass-posters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2.5vw, 28px);
+    margin-top: 28px;
+  }
+  figure {
+    min-width: 0;
+    margin: 0;
+  }
+  .streetpass-poster {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease,
+      border-color 200ms ease;
+  }
+  .streetpass-poster:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 5px;
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .streetpass-poster:hover {
+    transform: translateY(-4px);
+    border-color: #006471;
+    box-shadow: 0 12px 24px rgb(0 68 101 / 0.12);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .streetpass-poster {
+      transition: none;
+    }
+    .streetpass-poster:hover {
+      transform: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .streetpass-posters {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+    }
+  }
+</style>

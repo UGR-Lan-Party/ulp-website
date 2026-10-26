@@ -35,7 +35,32 @@ export interface Awards {
   mvp?: string[];
 }
 
-export const Competitions: CompetitionData[] = data.games.map(
+const concert = data.talks.find((talk) => talk.id === 'charla-6')!;
+const catalogGames = [
+  ...data.games,
+  {
+    id: 'concierto',
+    name: 'Concierto',
+    rules: '',
+    registration: '',
+    registrationPeriodOpen: false,
+    participants: '',
+    place: concert.ubicacion,
+    tag: 'actividad',
+    backgroundImage: '',
+    trophy: '',
+    description:
+      'Las bandas sonoras de los videojuegos cobran vida con Orquesta Virtual Soul. Revive el concierto de música de videojuegos de ULP 2026.',
+    schedule: [concert.slot],
+    card: {
+      card: '/assets/activities/concierto/orquesta-1600.webp',
+      logo: '/assets/activities/concierto/virtual-soul-logo.png',
+      character: '/assets/activities/concierto/virtual-soul-logo.png',
+    },
+  },
+];
+
+export const Competitions: CompetitionData[] = catalogGames.map(
   ({ schedule, card, ...game }) => ({
     ...game,
     schedule: schedule.map((slot) => ({
@@ -45,7 +70,7 @@ export const Competitions: CompetitionData[] = data.games.map(
   }),
 );
 
-export const CompetitionsCards: CompetitionCardData[] = data.games.map(
+export const CompetitionsCards: CompetitionCardData[] = catalogGames.map(
   (game) => ({
     id: game.id,
     type: game.tag,
