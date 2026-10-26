@@ -1,0 +1,143 @@
+:where(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  canvas,
+  [tabindex]
+):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+:where(a, button, input, select, textarea, summary, canvas, [tabindex]) {
+  scroll-margin-top: 112px;
+  scroll-margin-bottom: 32px;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+dialog :where(button, a, input, select, textarea):focus-visible {
+  outline-offset: 3px;
+}
+.monitor-bar {
+  min-height: 44px;
+  padding-block: 0;
+}
+.monitor-bar > span:nth-child(2) {
+  opacity: 1;
+  color: #c1d0cd;
+}
+.monitor-bar button {
+  min-height: 44px;
+  padding-inline: 4px;
+}
+.stream-game-count {
+  opacity: 1;
+  color: var(--muted);
+}
+.stream-games a[aria-current] .stream-game-count {
+  color: inherit;
+}
+.stream-games a {
+  min-height: 44px;
+}
+.stream-dialog header button {
+  width: 44px;
+  height: 44px;
+}
+@media (max-width: 700px), (pointer: coarse) {
+  .ud-header .header-actions .global-search-trigger,
+  .ud-header .header-actions #themeSwitcher,
+  .ud-header .header-actions #navbarToggler {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+  .ud-header .header-actions #navbarToggler span {
+    top: 18px;
+  }
+  .ud-header .header-actions #navbarToggler span:last-child {
+    top: 25px;
+  }
+  .stream-downloads li a {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+  .stream-layers label,
+  .stream-preview-tools button {
+    min-height: 44px;
+  }
+  .stream-preview-tools {
+    padding-block: 2px;
+    flex-wrap: wrap;
+  }
+  .stream-layers input {
+    width: 18px;
+    height: 18px;
+  }
+  .collectible-viewer .model-expand {
+    width: 44px;
+    height: 44px;
+  }
+  .collectible-viewer .model-pause,
+  .collectible-viewer .model-retry {
+    min-height: 44px;
+  }
+  .collectible-dialog [data-model-close] {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+  .collectible-dialog [data-model-reset] {
+    min-height: 44px;
+  }
+  .trophy-viewer [data-trophy-expand],
+  .trophy-viewer [data-trophy-close],
+  .trophy-viewer [data-trophy-retry] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  [data-search-close] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  [data-rail-pause] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+@media (max-width: 360px) {
+  .ud-header .header-brand {
+    gap: 6px;
+  }
+  .ud-header .header-brand img {
+    width: 32px;
+    height: 32px;
+  }
+  .header-actions {
+    gap: 4px;
+  }
+}
+@media (forced-colors: active) {
+  :where(
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary,
+    canvas,
+    [tabindex]
+  ):focus-visible {
+    outline-color: Highlight;
+  }
+  button,
+  [role='option'] {
+    forced-color-adjust: auto;
+  }
+}

@@ -60,6 +60,7 @@ for (const width of [320, 390, 1440]) {
     page,
   }, testInfo) => {
     await page.setViewportSize({ width, height: 1000 });
+    await page.clock.install();
     const images = [
       '/assets/about/sobre-nosotros.png',
       '/assets/about/sobre-nosotros-2.png',
@@ -123,6 +124,8 @@ for (const width of [320, 390, 1440]) {
           .evaluate((el) => el.getAnimations().length),
       )
       .toBe(0);
+    // A new wheel gesture starts after the carousel's 320 ms burst guard.
+    await page.clock.fastForward(350);
     await page.mouse.wheel(120, 0);
     await expect(album.locator('[data-carousel-counter]')).toHaveText(
       'Foto 3 de 7',
