@@ -1,7 +1,7 @@
 FROM nginx:alpine@sha256:892bb2152464f0c5d8972593a5f5afaf8054552580b699d95f8ff4af08c2d33d AS nginx-base
 RUN apk upgrade --no-cache
 
-FROM node:24.21.0-alpine AS node-builder
+FROM node:24.22.1-alpine AS node-builder
 
 WORKDIR /app
 RUN npm install --global pnpm@10.34.7
