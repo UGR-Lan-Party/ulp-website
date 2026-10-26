@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 import {
   drawStudio,
   drawStudioBackground,
@@ -49,7 +50,7 @@ if (root) {
       '[data-studio-field]',
     ),
   );
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const reduced = siteMotion();
   let scene = 'live',
     design = 'arena',
     pending = 0,
