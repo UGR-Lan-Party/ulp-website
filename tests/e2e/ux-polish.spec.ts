@@ -12,6 +12,9 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('El footer conserva su diseño y el movimiento sigue solo al sistema', async ({ page }) => {
+  const epoch = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: epoch });
+  await page.clock.pauseAt(new Date(epoch.getTime() + 1000));
   await page.addInitScript(() => localStorage.setItem('ulp-motion', 'reduce'));
   await page.goto('/');
   await expect(page.locator('[data-site-preferences]')).toHaveCount(0);
@@ -19,9 +22,21 @@ test('El footer conserva su diseño y el movimiento sigue solo al sistema', asyn
   const carousel = page.locator('[data-experience-carousel]');
   await carousel.scrollIntoViewIfNeeded();
   await expect(carousel).toHaveAttribute('data-rotation', 'running');
+  const firstActivity = await carousel.getAttribute('data-first-activity');
   await page.emulateMedia({ reducedMotion: 'reduce' });
+  // Wait for native media evaluation, then dispatch a controlled rendering frame.
+  await expect.poll(() => page.evaluate(() =>
+    matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )).toBe(true);
+  await page.clock.runFor(32);
   await expect(carousel).toHaveAttribute('data-rotation', 'paused');
+  await page.clock.fastForward(5500);
+  await expect(carousel).toHaveAttribute('data-first-activity', firstActivity!);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await expect.poll(() => page.evaluate(() =>
+    matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )).toBe(false);
+  await page.clock.runFor(32);
   await expect(carousel).toHaveAttribute('data-rotation', 'running');
 });
 
