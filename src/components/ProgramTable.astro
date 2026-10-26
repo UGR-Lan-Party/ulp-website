@@ -1,6 +1,7 @@
 ---
 import ArrowUpRight from './ArrowUpRight.astro';
 import PersonalAgenda from './PersonalAgenda.astro';
+import FeedbackState from './FeedbackState.astro';
 import AgendaToggle from './AgendaToggle.astro';
 import { agendaEntryId } from '../utils/personal-agenda.js';
 import { program, programEdition } from '../data/program';
@@ -131,9 +132,12 @@ const categoryLabels: Record<string, string> = {
   <details class="program-table-disclosure" data-program-table-disclosure open>
     <summary>Desplegar agenda <span aria-hidden="true">⌄</span></summary>
     <div class="program-empty" data-program-empty hidden>
-      <p>No hay actividades con estos filtros.</p><p>
-        Prueba otro nombre, ubicación u hora, o restablece los filtros.
-      </p>
+      <FeedbackState
+        title="No hay actividades con estos filtros."
+        message="Prueba otro nombre, ubicación u hora, o vuelve a ver la agenda completa."
+      >
+        <button type="button" data-program-clear>Limpiar filtros</button>
+      </FeedbackState>
     </div>
     <div
       class="program-table-wrap"

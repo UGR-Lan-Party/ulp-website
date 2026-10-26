@@ -1,3 +1,7 @@
+---
+import FeedbackState from './FeedbackState.astro';
+---
+
 <dialog
   class="global-search"
   data-global-search
@@ -39,6 +43,17 @@
     aria-label="Resultados de búsqueda"
   >
   </ul>
+  <div class="search-state" data-search-state hidden>
+    <FeedbackState
+      title="Preparando la búsqueda"
+      message="Cargando actividades, aulas y páginas…"
+      compact
+    >
+      <button type="button" data-search-retry hidden>Reintentar búsqueda</button
+      >
+      <button type="button" data-search-clear hidden>Limpiar búsqueda</button>
+    </FeedbackState>
+  </div>
   <footer>
     <span>↑ ↓ para moverte · Enter para abrir</span><span>Ctrl / ⌘ K</span>
   </footer>
@@ -164,6 +179,12 @@
     font-size: 10px;
     color: var(--muted);
     align-self: center;
+  }
+  .search-state {
+    margin-top: 12px;
+  }
+  .search-state[hidden] {
+    display: none;
   }
   footer {
     display: flex;

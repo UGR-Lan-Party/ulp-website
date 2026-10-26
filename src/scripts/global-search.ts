@@ -16,6 +16,37 @@ if (dialog) {
   let entries: SearchEntry[] | null = null;
   let pending: Promise<void> | null = null;
   let previous: HTMLElement | null = null;
+  const state = dialog.querySelector<HTMLElement>('[data-search-state]')!;
+  const stateTitle = state.querySelector<HTMLElement>('[data-feedback-title]')!;
+  const stateMessage = state.querySelector<HTMLElement>(
+    '[data-feedback-message]',
+  )!;
+  const retry = state.querySelector<HTMLButtonElement>('[data-search-retry]')!;
+  const clear = state.querySelector<HTMLButtonElement>('[data-search-clear]')!;
+  function showState(kind: 'ready' | 'loading' | 'empty' | 'error') {
+    state.hidden = kind === 'ready';
+    state.dataset.state = kind;
+    results.hidden = kind !== 'ready';
+    results.setAttribute('aria-busy', String(kind === 'loading'));
+    retry.hidden = kind !== 'error';
+    clear.hidden = kind !== 'empty';
+    const messages = {
+      ready: ['', ''],
+      loading: [
+        'Preparando la búsqueda',
+        'Cargando actividades, aulas y páginas…',
+      ],
+      empty: [
+        'No encontramos coincidencias',
+        'Prueba con el nombre de un juego, un aula o una actividad.',
+      ],
+      error: [
+        'El buscador no está disponible',
+        'Puedes reintentarlo aquí. Tu búsqueda se conserva.',
+      ],
+    };
+    [stateTitle.textContent, stateMessage.textContent] = messages[kind];
+  }
   function render() {
     if (!entries) return;
     const matches = searchSite(entries, input.value) as SearchEntry[];
@@ -35,21 +66,22 @@ if (dialog) {
         return li;
       }),
     );
+    showState(matches.length ? 'ready' : 'empty');
     feedback.textContent = input.value.trim()
       ? `${matches.length} ${matches.length === 1 ? 'resultado' : 'resultados'}`
       : 'Empieza por una actividad o busca un aula.';
   }
-  async function open() {
-    if (dialog!.open) return;
-    previous = document.activeElement as HTMLElement;
-    dialog!.showModal();
-    input.focus();
-    if (entries) {
-      render();
-      return;
-    }
+  async function loadIndex() {
+    if (pending) return pending;
+    const refocus = document.activeElement === retry;
+    showState('loading');
     feedback.textContent = 'Preparando la búsqueda…';
-    pending ??= fetch('/buscar.json', { credentials: 'omit' })
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    pending = fetch('/buscar.json', {
+      credentials: 'omit',
+      signal: controller.signal,
+    })
       .then(async (response) => {
         if (!response.ok) throw Error('Index unavailable');
         const data: unknown = await response.json();
@@ -66,17 +98,33 @@ if (dialog) {
             entry.kind.length <= 40 &&
             Boolean(safeInternalHref(entry.href)),
         );
+        render();
       })
       .catch(() => {
-        feedback.textContent =
-          'No se ha podido cargar el buscador. Cierra y vuelve a intentarlo.';
+        showState('error');
+        feedback.textContent = 'No se ha podido cargar el buscador.';
       })
       .finally(() => {
+        clearTimeout(timeout);
         pending = null;
+        if (refocus && dialog!.open) (entries ? input : retry).focus();
       });
-    await pending;
-    render();
+    return pending;
   }
+  async function open() {
+    if (dialog!.open) return;
+    previous = document.activeElement as HTMLElement;
+    dialog!.showModal();
+    input.focus();
+    if (entries) render();
+    else await loadIndex();
+  }
+  retry.addEventListener('click', () => void loadIndex());
+  clear.addEventListener('click', () => {
+    input.value = '';
+    render();
+    input.focus();
+  });
   document
     .querySelectorAll<HTMLButtonElement>('[data-search-open]')
     .forEach((button) => {

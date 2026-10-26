@@ -1,0 +1,104 @@
+---
+interface Props {
+  title: string;
+  message: string;
+  compact?: boolean;
+}
+const { title, message, compact = false } = Astro.props;
+---
+
+<div class:list={['feedback-state', { compact }]}>
+  <span class="feedback-icon" aria-hidden="true"
+    ><svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      ><circle cx="10.5" cy="10.5" r="6.5"></circle><path
+        d="m16 16 5 5M8 10.5h5"></path></svg
+    ></span
+  >
+  <div class="feedback-copy">
+    <p class="feedback-title" data-feedback-title>{title}</p><p
+      class="feedback-message"
+      data-feedback-message
+    >
+      {message}
+    </p><div class="feedback-actions"><slot /></div>
+  </div>
+</div>
+<style>
+  .feedback-state {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .feedback-icon {
+    display: grid;
+    flex: 0 0 44px;
+    height: 44px;
+    place-items: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .feedback-copy {
+    min-width: 0;
+  }
+  .feedback-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+  .feedback-message {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+    margin-top: 5px;
+    max-width: 54ch;
+  }
+  .feedback-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .feedback-actions :global(button) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: 14px;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 650;
+  }
+  .feedback-actions :global(button[hidden]) {
+    display: none;
+  }
+  .compact {
+    padding: 18px;
+  }
+  @media (max-width: 500px) {
+    .feedback-state {
+      padding: 18px;
+      gap: 12px;
+    }
+    .feedback-icon {
+      flex-basis: 36px;
+      height: 36px;
+      border-radius: 11px;
+    }
+  }
+</style>
