@@ -372,6 +372,40 @@ summary:focus-visible,
   border-radius: 16px;
 }
 
+.mobile-menu-backdrop {
+  display: none;
+}
+@keyframes mobile-menu-focus {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 1023px) {
+  html.mobile-menu-open {
+    overflow: hidden;
+  }
+  .mobile-menu-backdrop:not([hidden]) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgb(0 24 39 / 0.22);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    animation: mobile-menu-focus 180ms ease-out both;
+  }
+  #navbarCollapse {
+    overscroll-behavior: contain;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu-backdrop {
+    animation: none !important;
+  }
+}
 @media (min-width: 1024px) {
   #navbarCollapse.hidden {
     display: block;

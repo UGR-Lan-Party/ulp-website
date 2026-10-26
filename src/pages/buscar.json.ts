@@ -21,7 +21,7 @@ export async function GET() {
         venuePlans.find((plan) => plan.id === zone.plan)?.buildingLabel ??
         'Plano de la ETSIIT',
       kind: 'Espacio',
-      href: `/info/horarios/?plano=${zone.plan}#plano`,
+      href: `/info/mapa/?plano=${zone.plan}#plano`,
       keywords: `aula ${zone.label.replaceAll('−', '-')}`,
     })),
     ...posts.map((post) => ({

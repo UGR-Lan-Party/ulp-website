@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
     route.fulfill({ status: 200, body: '' }),
   );
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
 });
 
@@ -50,7 +50,7 @@ for (const width of [1440, 390]) {
       await expect(page.locator('[data-venue-floor-plan]:visible')).toHaveCount(
         1,
       );
-      await expect(page.locator('[data-program-row]:visible')).toHaveCount(46);
+      await expect(page.locator('[data-program]')).toHaveCount(0);
       await page.locator('[data-venue-room-back]').click();
       await expect(map).toHaveAttribute('data-venue-plan', parent);
       await expect(page.locator('[data-venue-room-heading]')).toBeHidden();
@@ -94,12 +94,12 @@ test('Vista General amplía hasta el 600% con botones y rueda, y restaura el zoo
   await expect(closer).toBeDisabled();
 });
 
-test('Horarios abre Vista General por defecto en móvil y escritorio', async ({
+test('Mapa abre Vista General por defecto en móvil y escritorio', async ({
   page,
 }) => {
   for (const width of [390, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
-    await page.goto('/info/horarios/');
+    await page.goto('/info/mapa/');
     await expect(page.locator('[data-venue-map]')).toHaveAttribute(
       'data-venue-plan',
       'recinto',
@@ -147,10 +147,10 @@ test.describe('Pasillo exterior con interacción táctil', () => {
     await page
       .locator('[data-venue-zone="bajo-exterior"] [data-venue-point]')
       .tap();
-    await expect(page.locator('[data-program-row]:visible')).toHaveCount(1);
-    await expect(page.locator('[data-program-row]:visible')).toContainText(
-      'Ping Pong',
-    );
+    await expect(
+      page.locator('[data-venue-zone="bajo-exterior"]'),
+    ).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-program]')).toHaveCount(0);
     await page.getByRole('button', { name: 'Ver todas las zonas' }).click();
     await expect(plan).toBeVisible();
     await page.getByRole('button', { name: 'Volver a Vista General' }).click();
@@ -181,14 +181,14 @@ for (const width of [1440, 390]) {
     await page.locator('[data-venue-room-back]').click();
     await expect(hall).toBeVisible();
     await expect(hall).toHaveAttribute('aria-hidden', 'false');
-    const rows = page.locator('[data-program-row]:visible');
+    const program = page.locator('[data-program]');
     await hall.focus();
     await page.keyboard.press('Enter');
     await expect(page.locator('[data-venue-map]')).toHaveAttribute(
       'data-venue-plan',
       'principal-hall',
     );
-    await expect(rows).toHaveCount(46);
+    await expect(program).toHaveCount(0);
   });
 }
 

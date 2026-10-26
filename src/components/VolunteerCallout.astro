@@ -1,0 +1,150 @@
+---
+import GranadaAccent from './GranadaAccent.astro';
+import ArrowUpRight from './ArrowUpRight.astro';
+import volunteering from '../data/volunteering.json';
+---
+
+<section
+  class="volunteer-section design-container"
+  id="voluntariado"
+  aria-labelledby="volunteer-title"
+>
+  <div class="volunteer-panel">
+    <div class="volunteer-copy">
+      <span class="design-eyebrow"
+        >Forma parte del equipo · {volunteering.edition}</span
+      ><h2 id="volunteer-title">La ULP también<br />la haces <em>tú.</em></h2><p
+      >
+        Detrás de cada partida hay un equipo que la hace posible. Ayúdanos con
+        el montaje, los torneos, los stands o la comunicación. No necesitas
+        experiencia: ven con ganas de sumar.
+      </p>
+    </div>
+    <div class="volunteer-action">
+      <GranadaAccent id="volunteer-mosaic" /><span
+        class="volunteer-pass"
+        aria-hidden="true"
+        ><svg viewBox="0 0 100 108" fill="none"
+          ><path
+            d="m34 8 16 29L66 8M23 35h54a7 7 0 0 1 7 7v53a7 7 0 0 1-7 7H23a7 7 0 0 1-7-7V42a7 7 0 0 1 7-7Z"
+            stroke="currentColor"
+            stroke-width="2"></path><path
+            d="M42 47h16M32 82h36M38 90h24"
+            stroke="currentColor"
+            stroke-width="2"></path><circle
+            cx="50"
+            cy="65"
+            r="8"
+            stroke="currentColor"
+            stroke-width="2"></circle></svg
+        ><span>STAFF / ULP</span></span
+      ><a
+        href={volunteering.formUrl}
+        class="design-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-volunteer-link>Hazte voluntario <ArrowUpRight /></a
+      ><span class="volunteer-date">Fecha por confirmar · ETSIIT</span>
+    </div>
+  </div>
+</section>
+<style>
+  .volunteer-section {
+    padding-block: 32px;
+  }
+  .volunteer-panel {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .volunteer-copy {
+    padding: clamp(26px, 4vw, 48px) clamp(0px, 2vw, 24px) clamp(26px, 4vw, 48px)
+      0;
+  }
+  h2 {
+    font-size: clamp(35px, 4.2vw, 58px);
+    line-height: 1.02;
+    letter-spacing: -0.055em;
+    font-weight: 750;
+    margin-block: 18px;
+  }
+  h2 em {
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+  p {
+    max-width: 500px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+  .volunteer-action {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 25px;
+    isolation: isolate;
+  }
+  .volunteer-action > :not(svg) {
+    position: relative;
+  }
+  .volunteer-action :global(.granada-accent) {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.045;
+    mask-image: radial-gradient(ellipse, black, transparent 75%);
+  }
+  .volunteer-pass {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: rotate(8deg);
+    color: var(--ink);
+  }
+  .volunteer-pass svg {
+    width: 78px;
+    height: 84px;
+  }
+  .volunteer-pass span {
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.15em;
+    margin-top: 6px;
+  }
+  .volunteer-date {
+    font:
+      9px ui-monospace,
+      monospace;
+    color: var(--muted);
+  }
+  .volunteer-action .design-button {
+    min-height: 44px;
+  }
+  @media (max-width: 600px) {
+    .volunteer-panel {
+      grid-template-columns: 1fr;
+    }
+    .volunteer-copy {
+      padding: 26px 0 4px;
+    }
+    .volunteer-action {
+      padding: 18px 0 26px;
+      gap: 12px;
+    }
+    .volunteer-pass {
+      display: none;
+    }
+    p {
+      font-size: 12px;
+    }
+    .volunteer-section {
+      padding-block: 20px;
+    }
+  }
+</style>

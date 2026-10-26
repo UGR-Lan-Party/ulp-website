@@ -90,7 +90,7 @@ test('La ruta al aulario anticipa los tramos y anuncia el cambio de planta', asy
 }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-route-panel] summary').click();
   await page.locator('[data-route-destination]').selectOption('aulario-1.2');
   await page

@@ -37,6 +37,7 @@ export async function mountTrophy(
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let frame = 0;
   let visible = true;
+  let paused = false;
   let disposed = false;
   let trophy: THREE.Group;
   let radius = 1;
@@ -79,18 +80,76 @@ export async function mountTrophy(
   }
 
   container.appendChild(renderer.domElement);
-  renderer.domElement.setAttribute('aria-label', 'Trofeo 3D interactivo');
+  renderer.domElement.setAttribute(
+    'aria-label',
+    'Trofeo 3D; flechas para girar, más y menos para zoom, Inicio para restablecer y espacio para pausar',
+  );
+  renderer.domElement.setAttribute(
+    'aria-keyshortcuts',
+    'ArrowLeft ArrowRight ArrowUp ArrowDown Home',
+  );
   renderer.domElement.style.touchAction = 'pan-y';
   renderer.domElement.tabIndex = 0;
-  controls.listenToKeyEvents(renderer.domElement);
+  renderer.domElement.addEventListener(
+    'keydown',
+    (event) => {
+      if (
+        ![
+          'ArrowLeft',
+          'ArrowRight',
+          'ArrowUp',
+          'ArrowDown',
+          'Home',
+          '+',
+          '=',
+          '-',
+          ' ',
+        ].includes(event.key)
+      )
+        return;
+      event.preventDefault();
+      if (event.key === ' ') {
+        paused = !paused;
+        updateVisibility();
+        return;
+      }
+      const offset = camera.position.clone().sub(controls.target);
+      const spherical = new THREE.Spherical().setFromVector3(offset);
+      if (event.key === 'Home') {
+        spherical.setFromVector3(new THREE.Vector3(15, 10, 15));
+        spherical.radius = controls.minDistance * 1.2;
+      } else if (event.key === 'ArrowLeft') spherical.theta -= 0.16;
+      else if (event.key === 'ArrowRight') spherical.theta += 0.16;
+      else if (event.key === 'ArrowUp') spherical.phi -= 0.12;
+      else if (event.key === 'ArrowDown') spherical.phi += 0.12;
+      else spherical.radius *= event.key === '-' ? 1.1 : 0.9;
+      spherical.phi = THREE.MathUtils.clamp(
+        spherical.phi,
+        0.12,
+        controls.maxPolarAngle,
+      );
+      spherical.radius = THREE.MathUtils.clamp(
+        spherical.radius,
+        controls.minDistance,
+        controls.maxDistance,
+      );
+      camera.position
+        .copy(controls.target)
+        .add(offset.setFromSpherical(spherical));
+      controls.update();
+      renderInteraction();
+    },
+    { signal },
+  );
 
   function render() {
     frame = 0;
     if (disposed || !visible || document.hidden) return;
-    if (!reducedMotion.matches) trophy.rotation.y += 0.005;
+    if (!reducedMotion.matches && !paused) trophy.rotation.y += 0.005;
     controls.update();
     renderer.render(scene, camera);
-    if (!reducedMotion.matches) frame = requestAnimationFrame(render);
+    if (!reducedMotion.matches && !paused)
+      frame = requestAnimationFrame(render);
   }
   function updateVisibility() {
     cancelAnimationFrame(frame);
@@ -98,7 +157,8 @@ export async function mountTrophy(
     if (!disposed && visible && !document.hidden) render();
   }
   function renderInteraction() {
-    if (reducedMotion.matches && !frame) frame = requestAnimationFrame(render);
+    if ((reducedMotion.matches || paused) && !frame)
+      frame = requestAnimationFrame(render);
   }
   controls.addEventListener('change', renderInteraction);
   reducedMotion.addEventListener('change', updateVisibility);

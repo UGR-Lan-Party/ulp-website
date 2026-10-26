@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 import { findVenueRoute, getVenueRoutePath } from '../utils/venue-routing';
 import { venuePlans } from '../data/venue-map.ts';
 import type { VenuePlanId } from '../data/venue-map.ts';
@@ -19,7 +20,7 @@ export function createVenueRoutes(
     play = map.querySelector<HTMLButtonElement>('[data-route-play]')!,
     previous = map.querySelector<HTMLButtonElement>('[data-route-previous]')!,
     next = map.querySelector<HTMLButtonElement>('[data-route-next]')!;
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = siteMotion();
   let route: ReturnType<typeof findVenueRoute> = null,
     index = 0,
     timer: ReturnType<typeof setTimeout> | undefined,
@@ -173,6 +174,9 @@ export function createVenueRoutes(
       if (activeBounds.left < bounds.left)
         steps.scrollLeft -= bounds.left - activeBounds.left + 4;
     }
+    map.dataset.routeOrigin = origin.value;
+    map.dataset.routeDestination = destination.value;
+    map.dataset.routeStep = String(index);
     previous.disabled = index === 0;
     next.disabled = index === route.segments.length - 1;
   }
@@ -189,6 +193,9 @@ export function createVenueRoutes(
     event.preventDefault();
     stop();
     error.hidden = true;
+    delete map.dataset.routeOrigin;
+    delete map.dataset.routeDestination;
+    delete map.dataset.routeStep;
     route = findVenueRoute(origin.value, destination.value);
     if (!route) {
       layer.replaceChildren();
@@ -250,6 +257,9 @@ export function createVenueRoutes(
   map.querySelector('[data-route-close]')!.addEventListener('click', () => {
     stop();
     route = null;
+    delete map.dataset.routeOrigin;
+    delete map.dataset.routeDestination;
+    delete map.dataset.routeStep;
     cancelAnimationFrame(frame);
     layer.replaceChildren();
     result.hidden = true;
@@ -268,10 +278,26 @@ export function createVenueRoutes(
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stop();
   });
+  const params = new URLSearchParams(location.search);
+  const from = params.get('desde'),
+    to = params.get('hasta');
+  if (
+    Array.from(origin.options).some((o) => o.value === from) &&
+    Array.from(destination.options).some((o) => o.value === to)
+  ) {
+    origin.value = from!;
+    destination.value = to!;
+    form.requestSubmit();
+    const step = Number(params.get('tramo'));
+    if (Number.isInteger(step) && step >= 0) show(step);
+  }
   return {
     clear() {
       stop();
       route = null;
+      delete map.dataset.routeOrigin;
+      delete map.dataset.routeDestination;
+      delete map.dataset.routeStep;
       cancelAnimationFrame(frame);
       layer.replaceChildren();
       result.hidden = true;

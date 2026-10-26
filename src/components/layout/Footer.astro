@@ -221,6 +221,22 @@ const networks = [
     text-underline-offset: 4px;
   }
   @media (max-width: 700px) {
+    .footer-original-grid > div {
+      min-width: 0;
+    }
+    .footer-social-links {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      width: min(100%, 344px);
+      margin-inline: auto;
+      gap: clamp(3px, 1vw, 8px);
+    }
+    .footer-social-links a {
+      width: 100%;
+      height: 44px;
+      min-width: 0;
+    }
+
     .footer-original-grid {
       grid-template-columns: 1fr;
       gap: 20px;

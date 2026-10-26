@@ -1,6 +1,5 @@
 ---
 import ArrowUpRight from './ArrowUpRight.astro';
-import VenueMap from './VenueMap.astro';
 import PersonalAgenda from './PersonalAgenda.astro';
 import AgendaToggle from './AgendaToggle.astro';
 import { agendaEntryId } from '../utils/personal-agenda.js';
@@ -43,14 +42,10 @@ const categoryLabels: Record<string, string> = {
   aria-labelledby="program-title"
   data-program
 >
-  <VenueMap>
-    <div slot="empty" class="program-empty" data-program-empty hidden>
-      <p>No hay actividades con estos filtros.</p><p>
-        Prueba otro nombre, ubicación u hora, o restablece los filtros.
-      </p>
-    </div>
-  </VenueMap>
   <PersonalAgenda />
+  <a class="program-map-link" href="/info/mapa/"
+    >Ver mapa y rutas entre aulas <span aria-hidden="true">↗</span></a
+  >
 
   <header class="program-header">
     <div class="program-icon" aria-hidden="true">
@@ -135,6 +130,11 @@ const categoryLabels: Record<string, string> = {
   </form>
   <details class="program-table-disclosure" data-program-table-disclosure open>
     <summary>Desplegar agenda <span aria-hidden="true">⌄</span></summary>
+    <div class="program-empty" data-program-empty hidden>
+      <p>No hay actividades con estos filtros.</p><p>
+        Prueba otro nombre, ubicación u hora, o restablece los filtros.
+      </p>
+    </div>
     <div
       class="program-table-wrap"
       data-program-table
@@ -257,6 +257,21 @@ const categoryLabels: Record<string, string> = {
 </script>
 
 <style>
+  .program-map-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    margin: 22px 0;
+    min-height: 44px;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .program-map-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
   [hidden] {
     display: none !important;
   }

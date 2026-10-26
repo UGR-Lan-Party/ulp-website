@@ -68,7 +68,9 @@ test('El carrusel avanza a los cinco segundos, se pausa al interactuar y respeta
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await page.clock.install();
+  const epoch = new Date('2026-01-01T00:00:00Z');
+  await page.clock.install({ time: epoch });
+  await page.clock.pauseAt(new Date(epoch.getTime() + 1000));
   await page.goto('/');
   const carousel = page.locator('[data-experience-carousel]');
   await carousel.scrollIntoViewIfNeeded();

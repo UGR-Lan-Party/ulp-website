@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 test('Grados routes exclude the closed auxiliary exit', async ({page}) => {
   await page.route('https://**', r => r.fulfill({status: 200, body: ''}));
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-route-panel] summary').click();
   await page.locator('[data-route-origin]').selectOption('grados');
   await page.locator('[data-route-destination]').selectOption('bancos-rojos');

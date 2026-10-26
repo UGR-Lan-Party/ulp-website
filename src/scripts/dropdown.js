@@ -1,6 +1,7 @@
 const menuButton = document.getElementById('navbarToggler');
 const navigation = document.getElementById('navbarCollapse');
 const desktop = window.matchMedia('(min-width: 1024px)');
+const menuBackdrop = document.querySelector('[data-mobile-menu-backdrop]');
 const disclosures = [...document.querySelectorAll('[data-submenu-toggle]')];
 
 function setDisclosure(button, open) {
@@ -14,11 +15,19 @@ function closeSubmenus() {
 }
 
 function setMenu(open) {
+  const mobileOpen = open && !desktop.matches;
+  document.documentElement.classList.toggle('mobile-menu-open', mobileOpen);
+  if (menuBackdrop) menuBackdrop.hidden = !mobileOpen;
   menuButton?.setAttribute('aria-expanded', String(open));
   menuButton?.classList.toggle('navbarTogglerActive', open);
   navigation?.classList.toggle('hidden', !open);
   if (!open) closeSubmenus();
 }
+
+menuBackdrop?.addEventListener('click', () => {
+  setMenu(false);
+  menuButton?.focus();
+});
 
 menuButton?.addEventListener('click', () => {
   setMenu(menuButton.getAttribute('aria-expanded') !== 'true');

@@ -6,7 +6,7 @@ for (const width of [320, 390, 1440]) {
   }, testInfo) => {
     await page.setViewportSize({ width, height: 1000 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/info/horarios/');
+    await page.goto('/info/mapa/');
     const choose = async (kind: string, value: string) => {
       const button = page.locator(`[data-venue-select="${kind}"]`);
       await button.click();
@@ -140,7 +140,7 @@ test('Virtual Soul conserva sus redes sin botón Concierto y los logos del plano
   await expect(
     page.locator('#partner-virtual-soul .partner-card-links a'),
   ).toHaveCount(4);
-  await page.goto('/info/horarios/?plano=bancos-rojos');
+  await page.goto('/info/mapa/?plano=bancos-rojos');
   for (const dark of [false, true]) {
     await page.evaluate(
       (dark) => document.documentElement.classList.toggle('dark', dark),

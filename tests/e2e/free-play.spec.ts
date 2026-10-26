@@ -48,7 +48,7 @@ for (const width of [1440, 390, 320]) {
     const map = page.locator('[data-experience="ping-pong"] a');
     await expect(map).toHaveAttribute(
       'href',
-      '/info/horarios/?plano=bajo-exterior#plano',
+      '/info/mapa/?plano=bajo-exterior#plano',
     );
     expect(errors).toEqual([]);
   });

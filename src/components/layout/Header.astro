@@ -13,6 +13,8 @@ const menuitems = [
     title: 'Información',
     children: [
       { title: 'Horarios', path: '/info/horarios' },
+      { title: 'Mapa', path: '/info/mapa' },
+      { title: 'Stands', path: '/info/stands' },
       { title: 'Localización', path: '/info/localizacion' },
       { title: 'Sobre nosotros', path: '/info/about' },
       { title: 'Redes sociales', path: '/info/rrss' },
@@ -111,8 +113,13 @@ const menuitems = [
           ))
         }
         <li>
-          <a class="navigation-registration" href="/actividades#competiciones">
-            Inscripciones <span aria-hidden="true"><ArrowUpRight /></span>
+          <a
+            class="navigation-registration"
+            href="https://forms.gle/32zwkMrrx2UrLdwx9"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Encuesta inicial <span aria-hidden="true"><ArrowUpRight /></span>
           </a>
         </li>
       </ul>
@@ -179,6 +186,13 @@ const menuitems = [
     </div>
   </div>
 </header>
+<div
+  class="mobile-menu-backdrop"
+  data-mobile-menu-backdrop
+  hidden
+  aria-hidden="true"
+>
+</div>
 
 <style>
   .global-search-trigger {

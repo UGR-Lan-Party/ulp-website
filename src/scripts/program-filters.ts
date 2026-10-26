@@ -1,5 +1,3 @@
-import { createVenueMap } from './venue-map';
-import { getVenueZones } from '../data/venue-map';
 import { matchesProgramFilters } from '../utils/program-filters.js';
 
 document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
@@ -23,12 +21,6 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
     end: row.dataset.end ?? '',
   }));
 
-  let activeZone: string | null = null;
-  const venueMap = createVenueMap(root, (zone) => {
-    activeZone = zone;
-    update();
-  });
-
   function update() {
     const filters = {
       name: name.value.slice(0, 120),
@@ -37,21 +29,15 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
       time: time.value,
     };
     let count = 0;
-    const mapIndices: number[] = [];
-    entries.forEach((entry, index) => {
+    entries.forEach((entry) => {
       const matchesFilters = matchesProgramFilters(entry, filters);
-      // Selecting a map zone filters the table, not the other map destinations.
-      if (matchesFilters) mapIndices.push(index);
-      const visible =
-        matchesFilters &&
-        (!activeZone || getVenueZones(entry.location).includes(activeZone));
+      const visible = matchesFilters;
       entry.row.hidden = !visible;
       if (visible) {
         entry.row.dataset.stripe = String(count % 2);
         count++;
       }
     });
-    venueMap.update(mapIndices);
     status.textContent = `${count} de ${rows.length} actividades`;
     empty.hidden = count > 0;
     table.hidden = count === 0;
@@ -59,13 +45,9 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
   form.hidden = false;
   form.addEventListener('submit', (event) => event.preventDefault());
   form.addEventListener('input', () => {
-    activeZone = null;
-    venueMap.clear();
     update();
   });
   form.addEventListener('reset', () => {
-    activeZone = null;
-    venueMap.clear();
     requestAnimationFrame(update);
   });
   update();

@@ -162,6 +162,9 @@ document.querySelectorAll<HTMLElement>('[data-collectible]').forEach((root) => {
     controller = null;
     api?.dispose();
     api = undefined;
+    root.removeAttribute('data-ready');
+    stage.removeAttribute('data-model-ready');
+    if (expand) expand.hidden = true;
     observer.disconnect();
   });
   window.addEventListener('pageshow', (e) => {

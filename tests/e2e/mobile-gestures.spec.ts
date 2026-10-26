@@ -80,7 +80,7 @@ for (const path of ['/', '/info/about/', '/info/ediciones_anteriores/']) {
 test('El plano móvil permite seleccionar, volver a tocar para quitar el filtro, ampliar y desplazar', async ({
   page,
 }) => {
-  await page.goto('/info/horarios/');
+  await page.goto('/info/mapa/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
   await page
     .locator('[data-venue-floor-select]')
@@ -96,10 +96,10 @@ test('El plano móvil permite seleccionar, volver a tocar para quitar el filtro,
   const label = (await zone.locator('[data-venue-label]').boundingBox())!;
   expect(label.x).toBeGreaterThanOrEqual(0);
   expect(label.x + label.width).toBeLessThanOrEqual(390);
-  await expect(page.locator('[data-program-row]:visible')).toHaveCount(3);
+  await expect(page.locator('[data-program-row]')).toHaveCount(0);
   await point.tap();
   await expect(zone).toHaveAttribute('aria-pressed', 'false');
-  await expect(page.locator('[data-program-row]:visible')).toHaveCount(46);
+  await expect(page.locator('[data-program-row]')).toHaveCount(0);
   const drawing = page.locator('[data-venue-drawing]');
   const original = await drawing.getAttribute('viewBox');
   await page.getByRole('button', { name: 'Acercar plano', exact: true }).tap();

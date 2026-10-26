@@ -40,8 +40,11 @@ const sessionSeed = getSessionSeed();
 const decodedPhotos = new Map<string, Promise<HTMLImageElement | null>>();
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-function loadPhoto(source: string): Promise<HTMLImageElement | null> {
-  const cached = decodedPhotos.get(source);
+function loadPhoto(
+  source: string,
+  retain = true,
+): Promise<HTMLImageElement | null> {
+  const cached = retain ? decodedPhotos.get(source) : undefined;
   if (cached) return cached;
   const image = new Image();
   image.decoding = 'async';
@@ -59,7 +62,7 @@ function loadPhoto(source: string): Promise<HTMLImageElement | null> {
         resolve(null);
       });
   });
-  decodedPhotos.set(source, promise);
+  if (retain) decodedPhotos.set(source, promise);
   promise.then((image) => {
     if (!image && decodedPhotos.get(source) === promise)
       decodedPhotos.delete(source);
@@ -127,21 +130,46 @@ document
     image.addEventListener('load', () => updateRatio());
 
     function warmAdjacent() {
-      if (!neighbors.length) return;
+      const connection = (
+        navigator as Navigator & {
+          connection?: { saveData?: boolean; effectiveType?: string };
+        }
+      ).connection;
+      if (
+        !neighbors.length ||
+        connection?.saveData ||
+        ['slow-2g', '2g'].includes(connection?.effectiveType ?? '')
+      )
+        return;
       for (const offset of [-1, 1]) {
         void loadPhoto(previews[wrap(current + offset)]);
         void loadPhoto(neighborSource(current + offset * 2));
       }
     }
 
-    function commit(
-      index: number,
-      loaded?: HTMLImageElement,
-      neighborImages?: (HTMLImageElement | null)[],
-    ) {
+    let dragOffset = 0;
+    let releaseOffset = 0;
+    const movingCards = neighbors.length ? [zoom, ...neighbors] : [image];
+    function resetDrag(animate = false) {
+      const offset = dragOffset;
+      movingCards.forEach((card) => {
+        card.style.translate = '';
+        if (animate && offset && !reducedMotion.matches)
+          card.animate([{ translate: `${offset}px 0` }, { translate: '0 0' }], {
+            duration: 180,
+            easing: 'ease-out',
+          });
+      });
+      dragOffset = 0;
+      releaseOffset = 0;
+    }
+
+    function commit(index: number, loaded?: HTMLImageElement) {
       const changed = index !== current;
       const direction =
         index === wrap(current + 1) ? 1 : index === wrap(current - 1) ? -1 : 0;
+      const fromDrag = releaseOffset;
+      resetDrag();
       current = index;
       image.src = previews[current];
       image.alt = `Foto ${current + 1} de UGR LAN Party`;
@@ -153,12 +181,11 @@ document
       counter.textContent = `Foto ${current + 1} de ${photos.length}`;
       root.querySelector('[data-expanded-counter]')!.textContent =
         counter.textContent;
-      neighbors.forEach((button, offset) => {
+      neighbors.forEach((button) => {
         button.hidden =
           photos.length < 2 ||
           Math.abs(Number(button.dataset.carouselNeighbor)) >
-            Math.max(1, Math.floor((photos.length - 1) / 2)) ||
-          neighborImages?.[offset] === null;
+            Math.max(1, Math.floor((photos.length - 1) / 2));
         if (!button.hidden)
           button.querySelector('img')!.src = neighborSource(
             current + Number(button.dataset.carouselNeighbor),
@@ -176,12 +203,26 @@ document
             card.getAnimations().forEach((animation) => animation.cancel());
             card.animate(
               [
-                { translate: `${direction * step}px 0`, opacity: 0.72 },
+                { translate: `${direction * step + fromDrag}px 0`, opacity: 1 },
                 { translate: '0 0', opacity: 1 },
               ],
-              { duration: 360, easing: 'cubic-bezier(.22,.7,.2,1)' },
+              {
+                duration: innerWidth <= 700 ? 260 : 360,
+                easing: 'cubic-bezier(.22,.7,.2,1)',
+              },
             );
           }
+        } else {
+          image.animate(
+            [
+              {
+                translate: `${direction * Math.min(stage.clientWidth, 120) + fromDrag}px 0`,
+                opacity: 0.8,
+              },
+              { translate: '0 0', opacity: 1 },
+            ],
+            { duration: 220, easing: 'ease-out' },
+          );
         }
         if (dialog.open) {
           expanded.getAnimations().forEach((animation) => animation.cancel());
@@ -199,24 +240,30 @@ document
       const request = ++version;
       root.setAttribute('aria-busy', 'true');
       status.hidden = true;
-      const [loaded, ...neighborImages] = await Promise.all([
-        loadPhoto(dialog.open ? photos[target] : previews[target]),
-        ...neighbors.map((button) =>
-          loadPhoto(
-            neighborSource(target + Number(button.dataset.carouselNeighbor)),
-          ),
-        ),
-      ]);
+      const loaded = await loadPhoto(
+        dialog.open ? photos[target] : previews[target],
+        !dialog.open,
+      );
       if (request !== version) return;
       root.setAttribute('aria-busy', 'false');
       if (!loaded) {
+        resetDrag(true);
         requested = current;
         status.textContent =
           'No se ha podido cargar esta foto. Puedes volver a intentarlo o abrir el álbum.';
         status.hidden = false;
         return;
       }
-      commit(target, loaded, neighborImages);
+      commit(target, loaded);
+      // Peripheral previews must never delay the selected photo.
+      neighbors.forEach((button) => {
+        const source = neighborSource(
+          target + Number(button.dataset.carouselNeighbor),
+        );
+        void loadPhoto(source).then((result) => {
+          if (request === version && !result) button.hidden = true;
+        });
+      });
       warmAdjacent();
     }
 
@@ -249,7 +296,27 @@ document
     };
     stage.addEventListener('wheel', navigateWheel, { passive: false });
     dialog.addEventListener('wheel', navigateWheel, { passive: false });
-    enableTouchSwipe(stage, (direction) => void show(requested + direction));
+    enableTouchSwipe(stage, (direction) => void show(requested + direction), {
+      onStart() {
+        movingCards.forEach((card) =>
+          card.getAnimations().forEach((animation) => animation.cancel()),
+        );
+      },
+      onDrag(distance) {
+        dragOffset = Math.max(
+          -stage.clientWidth,
+          Math.min(stage.clientWidth, distance),
+        );
+        if (!reducedMotion.matches)
+          movingCards.forEach((card) => {
+            card.style.translate = `${dragOffset}px 0`;
+          });
+      },
+      onRelease(committed) {
+        if (committed) releaseOffset = dragOffset;
+        else resetDrag(true);
+      },
+    });
     enableTouchSwipe(dialog, (direction) => void show(requested + direction));
     neighbors.forEach((button) =>
       button.addEventListener(
@@ -272,7 +339,7 @@ document
       expanded.src = previews[index];
       expanded.alt = image.alt;
       dialog.showModal();
-      void loadPhoto(photos[index]).then((loaded) => {
+      void loadPhoto(photos[index], false).then((loaded) => {
         if (loaded && dialog.open && current === index)
           expanded.src = photos[index];
       });
@@ -283,7 +350,10 @@ document
     dialog.addEventListener('click', (event) => {
       if (event.target === dialog) dialog.close();
     });
-    dialog.addEventListener('close', () => zoom.focus({ preventScroll: true }));
+    dialog.addEventListener('close', () => {
+      expanded.removeAttribute('src');
+      zoom.focus({ preventScroll: true });
+    });
     root.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();

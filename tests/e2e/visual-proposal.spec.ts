@@ -85,10 +85,7 @@ test('Los logos de Participan conservan contraste sobre su superficie clara en a
     for (const name of names) {
       await expect(
         page.locator(`[data-partner-card] [data-partner-logo="${name}"]`),
-      ).toHaveCSS(
-        'filter',
-        'none',
-      );
+      ).toHaveCSS('filter', 'none');
     }
     await page.getByRole('button', { name: 'Modo oscuro' }).click();
   }
@@ -178,7 +175,7 @@ test('Las preguntas se recorren de seis en seis sin JavaScript ni duplicados', a
   }
 });
 
-test('Inscripciones lleva al catálogo con el orden de torneos solicitado', async ({
+test('El navbar lleva a la encuesta inicial y el catálogo conserva el orden de torneos', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -187,14 +184,16 @@ test('Inscripciones lleva al catálogo con el orden de torneos solicitado', asyn
     page
       .locator('#home')
       .getByRole('link', { name: 'Encuesta Inicial', exact: true }),
-  ).toHaveAttribute(
-    'href',
-    'https://docs.google.com/forms/d/e/1FAIpQLSdJMDi2FwLzRPnvwLks38jxdofGHqttSkozxzFmBewVAC_zOQ/viewform',
-  );
-  await page
+  ).toHaveAttribute('href', 'https://forms.gle/32zwkMrrx2UrLdwx9');
+  const survey = page
     .getByRole('navigation', { name: 'Principal', exact: true })
-    .getByRole('link', { name: 'Inscripciones', exact: true })
-    .click();
+    .getByRole('link', { name: 'Encuesta inicial', exact: true });
+  await expect(survey).toHaveAttribute(
+    'href',
+    'https://forms.gle/32zwkMrrx2UrLdwx9',
+  );
+  await expect(survey).toHaveAttribute('target', '_blank');
+  await page.goto('/actividades/#competiciones');
   await expect(page).toHaveURL(/\/actividades\/?#competiciones$/);
   await expect(page.locator('#competiciones h2')).toBeInViewport();
   await expect(page.locator('#competiciones .activity-tile h3')).toHaveText([

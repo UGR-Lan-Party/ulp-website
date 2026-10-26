@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
 test('Las aulas están separadas y sus líneas discontinuas no atraviesan el mobiliario', async ({
   page,
 }) => {
-  await page.goto('/info/horarios/?plano=aulas-inferiores#plano');
+  await page.goto('/info/mapa/?plano=aulas-inferiores#plano');
   const plan = page.locator('[data-venue-floor-plan="aulas-inferiores"]');
   await expect(plan).not.toHaveAttribute('data-hidden');
   const frames = await plan
@@ -50,7 +50,7 @@ test('Las aulas están separadas y sus líneas discontinuas no atraviesan el mob
 test('Los rótulos de aulas evitan mesas y sillas en los cuatro giros', async ({
   page,
 }) => {
-  await page.goto('/info/horarios/?plano=aulas-inferiores#plano');
+  await page.goto('/info/mapa/?plano=aulas-inferiores#plano');
   for (let turn = 0; turn < 4; turn++) {
     await expect(page.locator('[data-venue-map]')).toHaveAttribute(
       'data-orientation',
