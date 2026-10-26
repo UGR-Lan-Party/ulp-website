@@ -5,6 +5,8 @@ import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import InitialSurveyComparison from '../../components/InitialSurveyComparison.astro';
 import EditionTimeline from '../../components/EditionTimeline.astro';
 import EditionArchive from '../../components/EditionArchive.astro';
+import EditionShirts from '../../components/EditionShirts.astro';
+import EditionPosters from '../../components/EditionPosters.astro';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
 import { pastEditions } from '../../data/past-editions';
 ---
@@ -22,6 +24,9 @@ import { pastEditions } from '../../data/past-editions';
   </Breadcrumb>
   <div class="design-container archive-shell">
     <EditionTimeline />
+    <nav class="archive-collection-links" aria-label="Colecciones del archivo">
+      <a href="#camisetas">Camisetas 3D ↗</a><a href="#carteles">Carteles ↗</a>
+    </nav>
     <section
       id="edicion-2026"
       class="archive-latest"
@@ -63,7 +68,9 @@ import { pastEditions } from '../../data/past-editions';
         <EditionArchive edition={edition} reversed={index % 2 === 1} />
       ))
     }
+    <div id="camisetas" class="archive-collection"><EditionShirts /></div>
     <InitialSurveyComparison />
+    <div id="carteles" class="archive-collection"><EditionPosters /></div>
     <div class="archive-ending">
       <a href="/" class="design-link"
         >Volver a ULP 2027 <span aria-hidden="true"><ArrowUpRight /></span></a
@@ -75,6 +82,25 @@ import { pastEditions } from '../../data/past-editions';
   import '../../scripts/edition-descriptions';
 </script>
 <style>
+  .archive-collection {
+    scroll-margin-top: 100px;
+    min-width: 0;
+  }
+  .archive-collection-links {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 10px;
+    color: var(--muted);
+    margin-block: 14px 4px;
+  }
+  .archive-collection-links a {
+    text-underline-offset: 4px;
+  }
+  .archive-collection-links a:hover {
+    text-decoration: underline;
+  }
   .latest-description p {
     font-size: 14px;
     line-height: 1.85;
