@@ -173,9 +173,6 @@ export function createVenueRoutes(
       if (activeBounds.left < bounds.left)
         steps.scrollLeft -= bounds.left - activeBounds.left + 4;
     }
-    map.dataset.routeOrigin = origin.value;
-    map.dataset.routeDestination = destination.value;
-    map.dataset.routeStep = String(index);
     previous.disabled = index === 0;
     next.disabled = index === route.segments.length - 1;
   }

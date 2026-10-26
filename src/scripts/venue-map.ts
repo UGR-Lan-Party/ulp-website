@@ -100,8 +100,7 @@ export function createVenueMap(
   const roomHeading = map.querySelector<HTMLElement>(
     '[data-venue-room-heading]',
   )!;
-  let campusVersion =
-    parameters.get('vista') === 'moderna' ? 'modern' : 'legacy';
+  let campusVersion = 'legacy';
   let modernCampusRevealed = false;
   const campusSwitch = map.querySelector<HTMLFieldSetElement>(
     '[data-campus-switch]',
@@ -214,9 +213,7 @@ export function createVenueMap(
         !point ||
         (!!zone.dataset.campusOnly &&
           zone.dataset.campusOnly !== campusVersion) ||
-        (!standalone &&
-          count === 0 &&
-          !isVenueInformation(zone.dataset.venueZone!));
+        (count === 0 && !isVenueInformation(zone.dataset.venueZone!));
       zone.toggleAttribute('data-hidden', hidden);
       zone.setAttribute('aria-hidden', String(hidden));
       zone.setAttribute('tabindex', hidden || locked ? '-1' : '0');

@@ -42,10 +42,14 @@ const categoryLabels: Record<string, string> = {
   aria-labelledby="program-title"
   data-program
 >
+  <VenueMap>
+    <div slot="empty" class="program-empty" data-program-empty hidden>
+      <p>No hay actividades con estos filtros.</p><p>
+        Prueba otro nombre, ubicación u hora, o restablece los filtros.
+      </p>
+    </div>
+  </VenueMap>
   <PersonalAgenda />
-  <a class="program-map-link" href="/info/mapa/"
-    >Ver mapa y rutas entre aulas <span aria-hidden="true">↗</span></a
-  >
 
   <header class="program-header">
     <div class="program-icon" aria-hidden="true">
@@ -130,11 +134,6 @@ const categoryLabels: Record<string, string> = {
   </form>
   <details class="program-table-disclosure" data-program-table-disclosure open>
     <summary>Desplegar agenda <span aria-hidden="true">⌄</span></summary>
-    <div class="program-empty" data-program-empty hidden>
-      <p>No hay actividades con estos filtros.</p><p>
-        Prueba otro nombre, ubicación u hora, o restablece los filtros.
-      </p>
-    </div>
     <div
       class="program-table-wrap"
       data-program-table
