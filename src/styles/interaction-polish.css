@@ -1,0 +1,78 @@
+/* Control states and contrast; existing component animations stay unchanged. */
+:root {
+  color-scheme: light;
+  --shadow-soft: 0 8px 24px #0044650c;
+  --line-strong: #00446545;
+}
+:root.dark {
+  color-scheme: dark;
+  --surface: #0b4057;
+  --line: #f5f0e63b;
+  --line-strong: #f5f0e67a;
+  --shadow-soft: 0 12px 32px #00121f38;
+}
+:where(button, input, select, textarea, summary) {
+  accent-color: var(--accent);
+}
+:where(button:not(:disabled), summary, select) {
+  cursor: pointer;
+}
+:where(button:disabled, [aria-disabled='true']) {
+  cursor: not-allowed;
+}
+:where(button, .design-button, .play-select-toggle, [role='option']) {
+  -webkit-tap-highlight-color: #0064711f;
+}
+:where(
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not(
+      [type='color']
+    ),
+  select,
+  textarea
+):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+:where(.play-select-toggle, .program-reset, .feedback-actions button):active {
+  background: var(--surface);
+}
+@media (hover: hover) and (pointer: fine) {
+  .feedback-actions button:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-soft);
+  }
+}
+.dark
+  :where(
+    .activity-tile,
+    .stand-card,
+    .news-card,
+    .official-program,
+    .global-search,
+    .feedback-state
+  ) {
+  box-shadow: var(--shadow-soft);
+}
+.dark .activity-tile-content {
+  background: var(--surface);
+}
+.dark .global-search::backdrop {
+  background: #00121fcc;
+}
+.dark .design-button:not(.secondary) {
+  box-shadow: 0 3px 14px #00121f24;
+}
+.carousel-retry {
+  display: block;
+  min-height: 44px;
+  padding: 9px 16px;
+  margin: 10px auto 14px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 650;
+}
+.carousel-retry[hidden] {
+  display: none;
+}

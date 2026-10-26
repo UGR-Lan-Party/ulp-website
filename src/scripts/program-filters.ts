@@ -42,6 +42,11 @@ document.querySelectorAll<HTMLElement>('[data-program]').forEach((root) => {
     empty.hidden = count > 0;
     table.hidden = count === 0;
   }
+  root.querySelector('[data-program-clear]')?.addEventListener('click', () => {
+    form.reset();
+    update();
+    name.focus();
+  });
   form.hidden = false;
   form.addEventListener('submit', (event) => event.preventDefault());
   form.addEventListener('input', () => {

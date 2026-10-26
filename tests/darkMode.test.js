@@ -35,6 +35,23 @@ function createPage({
   let stored = theme;
   let onReady;
   let onClick;
+  let onSystemChange;
+  const windowEvents = new Map();
+  const addWindowListener = (name, listener) =>
+    windowEvents.set(name, listener);
+  const mediaQuery = {
+    get matches() {
+      return systemDark;
+    },
+    addEventListener(name, listener) {
+      assert.equal(name, 'change');
+      onSystemChange = listener;
+    },
+  };
+  const matchMedia = (query) => {
+    assert.equal(query, '(prefers-color-scheme: dark)');
+    return mediaQuery;
+  };
   const elements = {
     themeSwitcher: {
       setAttribute: () => {},
@@ -47,6 +64,8 @@ function createPage({
     'img-modo-claro': lightLogo,
   };
   runInNewContext(source, {
+    matchMedia,
+    addEventListener: addWindowListener,
     document: {
       documentElement: { classList: root },
       body: { classList: createClassList(sticky ? ['sticky-active'] : []) },
@@ -58,10 +77,8 @@ function createPage({
     },
     window: {
       location: { pathname: path },
-      matchMedia: (query) => {
-        assert.equal(query, '(prefers-color-scheme: dark)');
-        return { matches: systemDark };
-      },
+      matchMedia,
+      addEventListener: addWindowListener,
     },
     localStorage: {
       getItem(key) {
@@ -76,13 +93,25 @@ function createPage({
       },
     },
   });
-  onReady();
+  onReady?.();
   return {
     isDark: () => root.contains('dark'),
     storedTheme: () => stored,
     darkLogoVisible: () => !darkLogo.classList.contains('hidden'),
     lightLogoVisible: () => !lightLogo.classList.contains('hidden'),
     click: () => onClick(),
+    setSystemDark(value) {
+      systemDark = value;
+      onSystemChange?.({ matches: value });
+    },
+    changeStorage(value) {
+      stored = value;
+      windowEvents.get('storage')?.({ key: 'theme' });
+    },
+    restoreFromHistory(value = stored) {
+      stored = value;
+      windowEvents.get('pageshow')?.({ persisted: true });
+    },
   };
 }
 
@@ -151,4 +180,39 @@ test('Blocked storage falls back to system and still allows switching', () => {
   result.click();
   assert.equal(result.isDark(), false);
   assert.equal(result.storedTheme(), null);
+});
+
+test('Automatic theme follows system changes while explicit choices remain selected', () => {
+  const page = createPage();
+  page.setSystemDark(true);
+  assert.equal(page.isDark(), true);
+  page.setSystemDark(false);
+  assert.equal(page.isDark(), false);
+  page.click();
+  page.setSystemDark(true);
+  page.setSystemDark(false);
+  assert.equal(page.isDark(), true);
+  assert.equal(page.storedTheme(), 'dark');
+});
+
+test('Another page can update or clear the stored theme', () => {
+  const page = createPage({ theme: 'light', systemDark: true });
+  page.changeStorage('dark');
+  assert.equal(page.isDark(), true);
+  page.changeStorage(null);
+  page.setSystemDark(false);
+  assert.equal(page.isDark(), false);
+  assert.equal(page.lightLogoVisible(), true);
+});
+
+test('History restoration refreshes persisted choices and retains a volatile choice', () => {
+  const page = createPage({ theme: 'light' });
+  page.restoreFromHistory('dark');
+  assert.equal(page.isDark(), true);
+  const blocked = createPage({ systemDark: true, storageBlocked: true });
+  blocked.click();
+  blocked.restoreFromHistory();
+  blocked.setSystemDark(false);
+  blocked.setSystemDark(true);
+  assert.equal(blocked.isDark(), false);
 });

@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 import { enableTouchSwipe } from './touch-swipe';
 import { getCarouselOrder } from '../utils/carousel-order.js';
 
@@ -38,7 +39,7 @@ function getSessionSeed() {
 const sessionSeed = getSessionSeed();
 
 const decodedPhotos = new Map<string, Promise<HTMLImageElement | null>>();
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const reducedMotion = siteMotion();
 
 function loadPhoto(
   source: string,
@@ -112,6 +113,8 @@ document
     const neighbors = Array.from(
       root.querySelectorAll<HTMLButtonElement>('[data-carousel-neighbor]'),
     );
+    const retry = root.querySelector<HTMLButtonElement>('[data-carousel-retry]');
+    let failedTarget: number | null = null;
     let current = 0;
     let requested = 0;
     let version = 0;
@@ -240,6 +243,7 @@ document
       const request = ++version;
       root.setAttribute('aria-busy', 'true');
       status.hidden = true;
+      if (retry) retry.hidden = true;
       const loaded = await loadPhoto(
         dialog.open ? photos[target] : previews[target],
         !dialog.open,
@@ -249,11 +253,14 @@ document
       if (!loaded) {
         resetDrag(true);
         requested = current;
+        failedTarget = target;
+        if (retry) retry.hidden = false;
         status.textContent =
           'No se ha podido cargar esta foto. Puedes volver a intentarlo o abrir el álbum.';
         status.hidden = false;
         return;
       }
+      failedTarget = null;
       commit(target, loaded);
       // Peripheral previews must never delay the selected photo.
       neighbors.forEach((button) => {
@@ -267,6 +274,9 @@ document
       warmAdjacent();
     }
 
+    retry?.addEventListener('click', () => {
+      if (failedTarget !== null) void show(failedTarget);
+    });
     let wheelAmount = 0;
     let wheelAt = 0;
     let wheelStepAt = -Infinity;

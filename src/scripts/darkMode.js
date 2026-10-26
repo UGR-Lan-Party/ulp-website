@@ -1,44 +1,41 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const themeSwitcher = document.getElementById('themeSwitcher');
-  const darkLogo = document.getElementById('img-modo-oscuro');
-  const lightLogo = document.getElementById('img-modo-claro');
-  let storedTheme;
-
+const themeSwitcher = document.getElementById('themeSwitcher');
+const darkLogo = document.getElementById('img-modo-oscuro');
+const lightLogo = document.getElementById('img-modo-claro');
+const systemTheme = matchMedia('(prefers-color-scheme: dark)');
+function readTheme(fallback = null) {
   try {
-    storedTheme = localStorage.getItem('theme');
+    const value = localStorage.getItem('theme');
+    return value === 'dark' || value === 'light' ? value : null;
   } catch {
-    storedTheme = null;
+    return fallback;
   }
-
-  const updateLogo = () => {
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    themeSwitcher?.setAttribute('aria-pressed', String(isDarkMode));
-    const shouldShowDarkLogo = isDarkMode;
-
-    darkLogo?.classList.toggle('hidden', !shouldShowDarkLogo);
-    lightLogo?.classList.toggle('hidden', shouldShowDarkLogo);
-  };
-
-  const initializeTheme = () => {
-    const systemPrefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
-    ).matches;
-    const isDarkMode =
-      storedTheme === 'dark' || (storedTheme !== 'light' && systemPrefersDark);
-
-    document.documentElement.classList.toggle('dark', isDarkMode);
-    updateLogo();
-  };
-
-  const toggleTheme = () => {
-    const isDarkMode = document.documentElement.classList.toggle('dark');
-
-    try {
-      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    } catch {}
-    updateLogo();
-  };
-
-  themeSwitcher?.addEventListener('click', toggleTheme);
-  initializeTheme();
+}
+let storedTheme = readTheme();
+function updateTheme() {
+  const isDark =
+    storedTheme === 'dark' || (storedTheme !== 'light' && systemTheme.matches);
+  document.documentElement.classList.toggle('dark', isDark);
+  themeSwitcher?.setAttribute('aria-pressed', String(isDark));
+  darkLogo?.classList.toggle('hidden', !isDark);
+  lightLogo?.classList.toggle('hidden', isDark);
+}
+themeSwitcher?.addEventListener('click', () => {
+  storedTheme = document.documentElement.classList.contains('dark')
+    ? 'light'
+    : 'dark';
+  try {
+    localStorage.setItem('theme', storedTheme);
+  } catch {}
+  updateTheme();
 });
+systemTheme.addEventListener('change', updateTheme);
+addEventListener('storage', (event) => {
+  if (event.key !== 'theme' && event.key !== null) return;
+  storedTheme = readTheme();
+  updateTheme();
+});
+addEventListener('pageshow', () => {
+  storedTheme = readTheme(storedTheme);
+  updateTheme();
+});
+updateTheme();
