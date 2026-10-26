@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 import { getCampusPerimeterViewport } from '../data/venue-campus-landscape';
 import { createVenueRoutes } from './venue-routes';
 import { venueCapacities } from '../data/venue-capacities';
@@ -7,6 +8,7 @@ import {
   selectableVenuePlans,
   venueZones,
   venueLayouts,
+  getVenueLayout,
   getVenueZones,
   getVenueInitialOrientation,
   initialVenuePlan,
@@ -21,6 +23,7 @@ export function createVenueMap(
   const standalone = root.hasAttribute('data-map-page');
   const map = root.querySelector<HTMLElement>('[data-venue-map]');
   if (!map) return { update: (_indices: number[]) => {}, clear: () => {} };
+  map.setAttribute('aria-busy', 'false');
   const drawing = map.querySelector<SVGSVGElement>('[data-venue-drawing]')!;
   const building = map.querySelector<SVGGElement>('[data-venue-building]')!;
   const indicators = map.querySelector<SVGGElement>('[data-venue-indicators]')!;
@@ -59,6 +62,8 @@ export function createVenueMap(
       campusVersion === 'modern' &&
       !modernCampusRevealed);
   const narrow = matchMedia('(max-width: 600px)');
+  let viewportFrame = 0;
+  let wheelInput: { pixels: number; x: number; y: number } | null = null;
   let zoom = 1;
   let panX = 0;
   let panY = 0;
@@ -68,6 +73,7 @@ export function createVenueMap(
     y: number;
     panX: number;
     panY: number;
+    scale: number;
   } | null = null;
   let suppressClickUntil = 0;
   let dragged = false;
@@ -76,7 +82,7 @@ export function createVenueMap(
     map.querySelectorAll<HTMLButtonElement>('[data-venue-zoom]'),
   );
   const zoomValue = map.querySelector<HTMLElement>('[data-venue-zoom-value]')!;
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const reducedMotion = siteMotion();
   const floorNotes = Array.from(
     map.querySelectorAll<HTMLElement>('[data-venue-floor-note]'),
   );
@@ -100,7 +106,8 @@ export function createVenueMap(
   const roomHeading = map.querySelector<HTMLElement>(
     '[data-venue-room-heading]',
   )!;
-  let campusVersion = 'legacy';
+  let campusVersion =
+    parameters.get('vista') === 'moderna' ? 'modern' : 'legacy';
   let modernCampusRevealed = false;
   const campusSwitch = map.querySelector<HTMLFieldSetElement>(
     '[data-campus-switch]',
@@ -205,7 +212,6 @@ export function createVenueMap(
     building.style.transform = `rotate(${orientation * 90}deg)`;
     if (planId === 'recinto') resize();
     const layout = venueLayouts[planId][orientation];
-    const view = drawing.viewBox.baseVal;
     zones.forEach((zone) => {
       const point = layout.find((point) => point.id === zone.dataset.venueZone);
       const count = counts.get(zone.dataset.venueZone!) ?? 0;
@@ -213,53 +219,14 @@ export function createVenueMap(
         !point ||
         (!!zone.dataset.campusOnly &&
           zone.dataset.campusOnly !== campusVersion) ||
-        (count === 0 && !isVenueInformation(zone.dataset.venueZone!));
+        (!standalone &&
+          count === 0 &&
+          !isVenueInformation(zone.dataset.venueZone!));
       zone.toggleAttribute('data-hidden', hidden);
       zone.setAttribute('aria-hidden', String(hidden));
       zone.setAttribute('tabindex', hidden || locked ? '-1' : '0');
       if (!point) return;
-      let labelX = point.labelX;
-      let labelY = point.labelY;
-      if (narrow.matches) {
-        labelX = Math.max(
-          view.x + 8,
-          Math.min(view.x + view.width - 168, point.x - 80),
-        );
-        labelY = point.y > view.y + 100 ? point.y - 84 : point.y + 35;
-        labelY = Math.max(
-          view.y + 8,
-          Math.min(view.y + view.height - 48, labelY),
-        );
-      }
-      if (narrow.matches && planId === 'aulario-0' && point.side === 'bottom')
-        labelY = Math.max(
-          point.y + 35,
-          Math.min(view.y + view.height - 48, point.labelY),
-        );
-      if (narrow.matches && planId === 'aulas-inferiores') {
-        if (orientation % 2 === 0) labelY = orientation === 0 ? 544 : 560;
-        else {
-          labelX = orientation === 1 ? view.x + 8 : view.x + view.width - 168;
-          labelY = point.y - 20;
-        }
-      }
-      zone
-        .querySelector('[data-venue-label]')!
-        .setAttribute('transform', `translate(${labelX} ${labelY})`);
-      zone.querySelector('[data-venue-leader]')!.setAttribute(
-        'd',
-        getVenueLeaderPath(
-          {
-            x: narrow.matches ? labelX + 80 : point.edgeX,
-            y: narrow.matches
-              ? labelY + (labelY < point.y ? 40 : 0)
-              : point.edgeY,
-          },
-          point,
-          narrow.matches,
-          point.via,
-        ),
-      );
+      positionLabel(zone, point);
       zone
         .querySelector('[data-venue-point]')!
         .setAttribute('cx', String(point.x));
@@ -287,6 +254,123 @@ export function createVenueMap(
     routes?.refresh();
   }
 
+  function positionLabel(
+    zone: SVGGElement,
+    point: ReturnType<typeof getVenueLayout>[number],
+  ) {
+    const view = drawing.viewBox.baseVal;
+    let labelX = point.labelX;
+    let labelY = point.labelY;
+    if (narrow.matches) {
+      labelX = Math.max(
+        view.x + 8,
+        Math.min(view.x + view.width - 168, point.x - 80),
+      );
+      labelY = point.y > view.y + 100 ? point.y - 84 : point.y + 35;
+      labelY = Math.max(
+        view.y + 8,
+        Math.min(view.y + view.height - 48, labelY),
+      );
+    }
+    if (narrow.matches && planId === 'aulario-0' && point.side === 'bottom')
+      labelY = Math.max(
+        point.y + 35,
+        Math.min(view.y + view.height - 48, point.labelY),
+      );
+    if (narrow.matches && planId === 'aulas-inferiores') {
+      if (orientation % 2 === 0) labelY = orientation === 0 ? 544 : 560;
+      else {
+        labelX = orientation === 1 ? view.x + 8 : view.x + view.width - 168;
+        labelY = point.y - 20;
+      }
+    }
+    zone
+      .querySelector('[data-venue-label]')!
+      .setAttribute('transform', `translate(${labelX} ${labelY})`);
+    zone.querySelector('[data-venue-leader]')!.setAttribute(
+      'd',
+      getVenueLeaderPath(
+        {
+          x: narrow.matches ? labelX + 80 : point.edgeX,
+          y: narrow.matches
+            ? labelY + (labelY < point.y ? 40 : 0)
+            : point.edgeY,
+        },
+        point,
+        narrow.matches,
+        point.via,
+      ),
+    );
+  }
+
+  // Gesture frames only move the viewport and the visible mobile labels.
+  // Plan visibility, selectors and route geometry change independently.
+  function renderViewport() {
+    viewportFrame = 0;
+    if (wheelInput) {
+      const input = wheelInput;
+      wheelInput = null;
+      const next = Math.max(
+        1,
+        Math.min(zoomLimit(), zoom * Math.exp(-input.pixels * 0.002)),
+      );
+      const matrix = drawing.getScreenCTM();
+      if (matrix && next !== zoom) {
+        const point = new DOMPoint(input.x, input.y).matrixTransform(
+          matrix.inverse(),
+        );
+        const ratio = next / zoom;
+        const [x, y, width, height] = getViewport();
+        const centerX = x + width / 2,
+          centerY = y + height / 2;
+        panX = point.x - (point.x - centerX - panX) / ratio - centerX;
+        panY = point.y - (point.y - centerY - panY) / ratio - centerY;
+        zoom = next;
+        if (zoom === 1) panX = panY = 0;
+      }
+    }
+    resize();
+    if (narrow.matches) {
+      const layout = venueLayouts[planId][orientation];
+      for (const zone of zones) {
+        if (
+          !zone.classList.contains('is-selected') ||
+          zone.hasAttribute('data-hidden')
+        )
+          continue;
+        const point = layout.find(
+          (point) => point.id === zone.dataset.venueZone,
+        );
+        if (point) positionLabel(zone, point);
+      }
+    }
+  }
+  function scheduleViewport() {
+    if (!viewportFrame) viewportFrame = requestAnimationFrame(renderViewport);
+  }
+  function flushViewport() {
+    if (!viewportFrame) return;
+    cancelAnimationFrame(viewportFrame);
+    renderViewport();
+  }
+  function cancelViewport() {
+    cancelAnimationFrame(viewportFrame);
+    viewportFrame = 0;
+    wheelInput = null;
+    pointer = null;
+    pinch = null;
+    drawing.removeAttribute('data-panning');
+  }
+  function drawingScale() {
+    const bounds = drawing.getBoundingClientRect();
+    return (
+      Math.min(
+        bounds.width / drawing.viewBox.baseVal.width,
+        bounds.height / drawing.viewBox.baseVal.height,
+      ) || 1
+    );
+  }
+
   function stopTurn() {
     turnVersion++;
     navigationVersion++;
@@ -300,6 +384,7 @@ export function createVenueMap(
   }
 
   function setPlan(id: VenuePlanId) {
+    cancelViewport();
     stopTurn();
     planId = id;
     orientation = getVenueInitialOrientation(id);
@@ -362,6 +447,7 @@ export function createVenueMap(
   async function turn(next: number) {
     const target = ((next + 4) % 4) as VenueOrientation;
     if (turning || navigating || target === orientation) return;
+    flushViewport();
     const previous = orientation;
     orientation = target;
     if (reducedMotion.matches) {
@@ -421,6 +507,12 @@ export function createVenueMap(
       const selected = ids.includes(zone.dataset.venueZone!);
       zone.classList.toggle('is-selected', selected);
       zone.setAttribute('aria-pressed', String(selected));
+      if (selected && narrow.matches) {
+        const point = venueLayouts[planId][orientation].find(
+          (point) => point.id === zone.dataset.venueZone,
+        );
+        if (point) positionLabel(zone, point);
+      }
     });
   }
 
@@ -577,6 +669,7 @@ export function createVenueMap(
     dragged = false;
     suppressClickUntil = 0;
     if (!event.isPrimary || event.button !== 0) return;
+    flushViewport();
     if (
       (event.target as Element).closest(
         '[data-venue-external], [data-venue-go-floor]',
@@ -604,6 +697,7 @@ export function createVenueMap(
       y: event.clientY,
       panX,
       panY,
+      scale: zoom > 1 ? drawingScale() : 1,
     };
     if (
       zoom > 1 &&
@@ -618,20 +712,17 @@ export function createVenueMap(
       return;
     if (Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) <= 4)
       return;
-    drawing.setAttribute('data-panning', '');
-    drawing.setPointerCapture(event.pointerId);
-    const bounds = drawing.getBoundingClientRect();
-    const scale = Math.min(
-      bounds.width / drawing.viewBox.baseVal.width,
-      bounds.height / drawing.viewBox.baseVal.height,
-    );
-    panX = pointer.panX - (event.clientX - pointer.x) / scale;
-    panY = pointer.panY - (event.clientY - pointer.y) / scale;
-    resize();
-    draw();
+    if (!drawing.hasAttribute('data-panning'))
+      drawing.setAttribute('data-panning', '');
+    if (!drawing.hasPointerCapture(event.pointerId))
+      drawing.setPointerCapture(event.pointerId);
+    panX = pointer.panX - (event.clientX - pointer.x) / pointer.scale;
+    panY = pointer.panY - (event.clientY - pointer.y) / pointer.scale;
+    scheduleViewport();
   });
   drawing.addEventListener('pointerup', (event) => {
     if (pointer?.id !== event.pointerId) return;
+    flushViewport();
     const dx = event.clientX - pointer.x;
     const dy = event.clientY - pointer.y;
     pointer = null;
@@ -651,8 +742,12 @@ export function createVenueMap(
     (event) => {
       if (event.touches.length !== 2) return;
       event.preventDefault();
+      flushViewport();
       pointer = null;
-      pinch = { distance: touchDistance(event.touches), zoom };
+      const distance = touchDistance(event.touches);
+      if (!distance) return;
+      pinch = { distance, zoom };
+      drawing.setAttribute('data-panning', '');
     },
     { passive: false },
   );
@@ -668,13 +763,14 @@ export function createVenueMap(
           (pinch.zoom * touchDistance(event.touches)) / pinch.distance,
         ),
       );
-      resize();
-      draw();
+      scheduleViewport();
     },
     { passive: false },
   );
   const endPinch = () => {
     if (!pinch) return;
+    flushViewport();
+    drawing.removeAttribute('data-panning');
     pinch = null;
     pointer = null;
     suppressClickUntil = performance.now() + 500;
@@ -689,10 +785,12 @@ export function createVenueMap(
   );
   drawing.addEventListener('touchcancel', endPinch);
   drawing.addEventListener('pointercancel', () => {
+    flushViewport();
     drawing.removeAttribute('data-panning');
     pointer = null;
   });
   drawing.addEventListener('lostpointercapture', () => {
+    flushViewport();
     drawing.removeAttribute('data-panning');
     pointer = null;
   });
@@ -711,13 +809,13 @@ export function createVenueMap(
   });
   zoomButtons.forEach((button) =>
     button.addEventListener('click', () => {
+      flushViewport();
       const direction = Number(button.dataset.venueZoom);
       zoom = direction
         ? Math.max(1, Math.min(zoomLimit(), zoom + direction * 0.5))
         : 1;
       if (zoom === 1) panX = panY = 0;
-      resize();
-      draw();
+      scheduleViewport();
     }),
   );
   drawing.addEventListener(
@@ -732,23 +830,12 @@ export function createVenueMap(
           : event.deltaMode === 2
             ? drawing.clientHeight
             : 1);
-      const next = Math.max(
-        1,
-        Math.min(zoomLimit(), zoom * Math.exp(-pixels * 0.002)),
-      );
-      if (next === zoom) return;
-      const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(
-        drawing.getScreenCTM()!.inverse(),
-      );
-      const ratio = next / zoom;
-      panX = point.x - (point.x - (460 + panX)) / ratio - 460;
-      const [, viewportY, , viewportHeight] = getViewport();
-      const centerY = viewportY + viewportHeight / 2;
-      panY = point.y - (point.y - centerY - panY) / ratio - centerY;
-      zoom = next;
-      if (zoom === 1) panX = panY = 0;
-      resize();
-      draw();
+      wheelInput = {
+        pixels: (wheelInput?.pixels ?? 0) + pixels,
+        x: event.clientX,
+        y: event.clientY,
+      };
+      scheduleViewport();
     },
     { passive: false },
   );
@@ -769,17 +856,18 @@ export function createVenueMap(
     const h = height / zoom;
     panX = Math.max(-(width - w) / 2, Math.min((width - w) / 2, panX));
     panY = Math.max(-(height - h) / 2, Math.min((height - h) / 2, panY));
-    drawing.setAttribute(
-      'viewBox',
-      `${x + (width - w) / 2 + panX} ${y + (height - h) / 2 + panY} ${w} ${h}`,
-    );
+    const viewBox = `${x + (width - w) / 2 + panX} ${y + (height - h) / 2 + panY} ${w} ${h}`;
+    if (drawing.getAttribute('viewBox') !== viewBox)
+      drawing.setAttribute('viewBox', viewBox);
     drawing.toggleAttribute('data-zoomed', zoom > 1);
-    zoomValue.textContent = `${Math.round(zoom * 100)}%`;
+    const value = `${Math.round(zoom * 100)}%`;
+    if (zoomValue.textContent !== value) zoomValue.textContent = value;
     zoomButtons.forEach((button) => {
-      button.disabled =
+      const disabled =
         isLocked() ||
         (button.dataset.venueZoom === '-1' && zoom === 1) ||
         (button.dataset.venueZoom === '1' && zoom === zoomLimit());
+      if (button.disabled !== disabled) button.disabled = disabled;
     });
   }
   narrow.addEventListener('change', () => {
@@ -799,7 +887,7 @@ export function createVenueMap(
   campusSwitch
     .querySelectorAll<HTMLInputElement>('input')
     .forEach((input) => (input.checked = input.value === campusVersion));
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', scheduleViewport);
 
   return {
     clear,

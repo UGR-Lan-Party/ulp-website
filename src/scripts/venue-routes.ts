@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 import { findVenueRoute, getVenueRoutePath } from '../utils/venue-routing';
 import { venuePlans } from '../data/venue-map.ts';
 import type { VenuePlanId } from '../data/venue-map.ts';
@@ -19,7 +20,7 @@ export function createVenueRoutes(
     play = map.querySelector<HTMLButtonElement>('[data-route-play]')!,
     previous = map.querySelector<HTMLButtonElement>('[data-route-previous]')!,
     next = map.querySelector<HTMLButtonElement>('[data-route-next]')!;
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = siteMotion();
   let route: ReturnType<typeof findVenueRoute> = null,
     index = 0,
     timer: ReturnType<typeof setTimeout> | undefined,
@@ -173,6 +174,9 @@ export function createVenueRoutes(
       if (activeBounds.left < bounds.left)
         steps.scrollLeft -= bounds.left - activeBounds.left + 4;
     }
+    map.dataset.routeOrigin = origin.value;
+    map.dataset.routeDestination = destination.value;
+    map.dataset.routeStep = String(index);
     previous.disabled = index === 0;
     next.disabled = index === route.segments.length - 1;
   }
