@@ -1,22 +1,20 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import furniture from '../src/data/venue-furniture.json' with { type: 'json' };
 import {
   studentRoomFurniture,
-  isStudentRoomFurniture,
+  studentRoomTables,
+  studentRoomBoards,
+  studentRoomLocalFurniture,
 } from '../src/data/student-room.ts';
 
-test('La sala de estudiantes conserva sus nueve mesas y treinta y cuatro sillas', () => {
-  const original = furniture['principal-baja'].filter(isStudentRoomFurniture);
-  assert.equal(original.filter((piece) => piece.width > 20).length, 9);
-  assert.equal(original.filter((piece) => piece.width <= 20).length, 34);
+test('La sala de estudiantes conserva sus nueve mesas y treinta y dos sillas', () => {
   assert.equal(
     studentRoomFurniture.filter((piece) => piece.kind === 'desk').length,
     9,
   );
   assert.equal(
     studentRoomFurniture.filter((piece) => piece.kind === 'seat').length,
-    34,
+    32,
   );
 });
 
@@ -40,10 +38,42 @@ test('Las mesas y sillas de la sala de estudiantes quedan separadas y dentro del
     );
     for (const other of bounds.slice(index + 1))
       assert.ok(
-        box.right < other.left ||
-          other.right < box.left ||
-          box.bottom < other.top ||
-          other.bottom < box.top,
+        box.right <= other.left + 0.0001 ||
+          other.right <= box.left + 0.0001 ||
+          box.bottom + 1 < other.top ||
+          other.bottom + 1 < box.top,
       );
+  }
+});
+
+test('Cada par de sillas enfrentadas comparte un tablero centrado dentro de su mesa', () => {
+  const chairs = studentRoomLocalFurniture.filter(
+    (piece) => piece.kind === 'seat',
+  );
+  assert.equal(studentRoomBoards.length, 16);
+  assert.equal(chairs.length, studentRoomBoards.length * 2);
+  for (const table of studentRoomTables) {
+    const boards = studentRoomBoards.filter(
+      (board) => board.table === table.id,
+    );
+    assert.equal(boards.length, table.pairs.length);
+    for (const board of boards) {
+      for (const side of [-1, 1]) {
+        assert.equal(
+          chairs.filter(
+            (chair) =>
+              chair.x === board.x &&
+              chair.y === board.y + side * table.chairOffset,
+          ).length,
+          1,
+        );
+      }
+      assert.ok(Math.abs(board.x - table.x) + board.size / 2 < table.width / 2);
+      assert.ok(board.size < table.height);
+      for (const other of boards) {
+        if (board === other) continue;
+        assert.ok(Math.abs(board.x - other.x) > (board.size + other.size) / 2);
+      }
+    }
   }
 });

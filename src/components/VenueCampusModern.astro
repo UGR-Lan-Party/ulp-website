@@ -1,0 +1,154 @@
+---
+import {
+  modernCourtyardPath,
+  modernCourtyardPaving,
+} from '../data/venue-campus-landscape';
+import {
+  modernCampusPaths as paths,
+  modernCampusTransform,
+  modernCampusScale,
+  modernCampusColumns,
+  modernCampusOutline,
+  modernCampusLectureRooms as lectureRooms,
+} from '../data/venue-campus-modern';
+---
+
+<g class="modern-campus" transform="rotate(180 460 350)">
+  <defs>
+    <clipPath id="modern-courtyard-unpaved">
+      <path
+        d={`M0 0H920V700H0Z${modernCourtyardPaving.promenade}`}
+        clip-rule="evenodd"
+        fill-rule="evenodd"></path>
+    </clipPath>
+  </defs>
+  <path
+    class="garden"
+    d={modernCourtyardPath}
+    clip-path="url(#modern-courtyard-unpaved)"
+    data-modern-courtyard></path>
+  <g data-modern-courtyard-paving>
+    <path
+      class="patio-paving"
+      d={modernCourtyardPaving.promenade}
+      data-modern-patio-promenade></path>
+  </g>
+  <g
+    transform={modernCampusTransform}
+    style={`--campus-stroke-scale: ${1 / modernCampusScale}`}
+  >
+    <path class="garden-path" d={paths.gardenPath}></path>
+    <path class="gallery" d={paths.gallery} data-modern-gallery></path>
+    <path class="building-fill" d={paths.third} data-campus-new-building></path>
+    <path class="wall" d={modernCampusOutline} data-modern-building-outline
+    ></path>
+    <path class="detail" d={paths.galleryEdge} data-modern-gallery-edge></path>
+    <path class="partition" d={paths.partitions}></path>
+    <path class="detail" d={paths.access}></path>
+    <g data-modern-third-interior>
+      {
+        lectureRooms.map((room) => (
+          <g>
+            {Array.from({ length: room.rows }, (_, row) => (
+              <path
+                class="seating"
+                d={`M${room.x} ${room.y + (row * room.height) / (room.rows - 1)}h${room.width}`}
+              />
+            ))}
+          </g>
+        ))
+      }
+      <path class="partition" d={paths.stairs}></path>
+    </g>
+    <g data-modern-structural-columns>
+      {
+        modernCampusColumns.map(({ x, y }) => (
+          <rect
+            class="structural-column"
+            x={x - 1.05 / modernCampusScale}
+            y={y - 1.05 / modernCampusScale}
+            width={2.1 / modernCampusScale}
+            height={2.1 / modernCampusScale}
+            rx={0.18 / modernCampusScale}
+          />
+        ))
+      }
+    </g>
+    <g data-modern-patio-details>
+      <path class="garden-edge" d="M586 352V626M580 638H592"></path>
+      <path class="garden-path" d="M580 595H592V614H580Z"></path>
+      {
+        [0, 1, 2, 3].map((i) => (
+          <circle class="column" cx={586} cy={590 + i * 17} r="2" />
+        ))
+      }
+    </g>
+  </g>
+</g>
+<style>
+  .modern-campus {
+    color: var(--ink);
+  }
+  path,
+  circle {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .building-fill {
+    fill: var(--venue-plan-background, var(--paper));
+    stroke: none;
+  }
+  .wall {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: calc(0.8px * var(--campus-stroke-scale, 1));
+    stroke-opacity: 0.9;
+  }
+  .garden {
+    fill: #dce9cf;
+  }
+  .patio-paving {
+    fill: var(--venue-plan-background, var(--paper));
+    stroke: none;
+  }
+  .gallery {
+    fill: currentColor;
+    fill-opacity: 0.035;
+    stroke: none;
+  }
+  .garden-path {
+    fill: var(--venue-plan-background, var(--paper));
+    fill-opacity: 0.7;
+    stroke: currentColor;
+    stroke-opacity: 0.25;
+    stroke-width: 0.7;
+  }
+  .partition {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: calc(0.52px * var(--campus-stroke-scale, 1));
+    opacity: 0.75;
+  }
+  .detail,
+  .garden-edge {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: calc(0.45px * var(--campus-stroke-scale, 1));
+    opacity: 0.48;
+  }
+  .structural-column {
+    fill: currentColor;
+    opacity: 0.9;
+  }
+  .column {
+    fill: currentColor;
+    opacity: 0.6;
+  }
+  .seating {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: calc(0.38px * var(--campus-stroke-scale, 1));
+    stroke-dasharray: 2.5 1.5;
+    opacity: 0.35;
+  }
+</style>

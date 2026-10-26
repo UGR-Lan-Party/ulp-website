@@ -7,51 +7,83 @@ type RoomFurniture = {
   kind: 'desk' | 'seat';
 };
 
-const angle = Math.PI / 6;
-const tables = [
-  ...[35, 98].map((x) => ({ x, y: 27, width: 50, height: 20 })),
-  ...[70, 99].flatMap((y) =>
-    [23, 63, 103].map((x) => ({ x, y, width: 32, height: 9.5 })),
+export const studentRoomTables = [
+  ...[48.5, 93.5].map((x, index) => ({
+    id: `large-${index}`,
+    x,
+    y: 22,
+    width: 50,
+    height: 20,
+    pairs: [-16, 0, 16],
+    chairOffset: 18,
+  })),
+  ...[61, 99].flatMap((y, row) =>
+    [42.2, 71, 99.8].map((x, column) => ({
+      id: `row-${row}-${column}`,
+      x,
+      y,
+      width: 32,
+      height: 14,
+      pairs: (row + column) % 2 === 0 ? [-8, 8] : [0],
+      chairOffset: 12,
+    })),
   ),
-  { x: 23, y: 128, width: 21.7, height: 9.5 },
-];
-const chairs = [
-  ...[35, 98].flatMap((x) =>
-    [-1, 1].flatMap((side) =>
-      [-16, 0, 16].map((offset) => ({ x: x + offset, y: 27 + side * 18 })),
+  {
+    id: 'end',
+    x: 42.2,
+    y: 128,
+    width: 26,
+    height: 12,
+    pairs: [0],
+    chairOffset: 10,
+  },
+].map((table) => ({
+  ...table,
+  width: table.width * 0.9,
+  height: table.height * 0.9,
+  pairs: table.pairs.map((x) => x * 0.9),
+  chairOffset: table.chairOffset * 0.9,
+}));
+
+export const studentRoomLocalFurniture: RoomFurniture[] =
+  studentRoomTables.flatMap((table) => [
+    {
+      x: table.x,
+      y: table.y,
+      width: table.width,
+      height: table.height,
+      angle: 0,
+      kind: 'desk',
+    },
+    ...table.pairs.flatMap((offset) =>
+      [-1, 1].map((side) => ({
+        x: table.x + offset,
+        y: table.y + side * table.chairOffset,
+        width: 10.5 * 0.9,
+        height: 4.8 * 0.9,
+        angle: 0,
+        kind: 'seat' as const,
+      })),
     ),
-  ),
-  ...[70, 99].flatMap((y) =>
-    [23, 63, 103].flatMap((x) => [
-      { x: x - 8, y: y - 10 },
-      { x: x + 8, y: y - 10 },
-      { x, y: y + 10 },
-    ]),
-  ),
-  ...[-1, 1].flatMap((side) =>
-    [-6.5, 6.5].map((offset) => ({ x: 23 + offset, y: 128 + side * 10 })),
-  ),
-];
+  ]);
 
-function place(
-  piece: { x: number; y: number; width: number; height: number },
-  kind: RoomFurniture['kind'],
-): RoomFurniture {
-  return {
-    ...piece,
-    x: 124 + piece.x * Math.cos(angle) + piece.y * Math.sin(angle),
-    y: 85 - piece.x * Math.sin(angle) + piece.y * Math.cos(angle),
-    angle: -30,
-    kind,
-  };
-}
+export const studentRoomBoards = studentRoomTables.flatMap((table) =>
+  table.pairs.map((offset, index) => ({
+    id: `${table.id}-${index}`,
+    table: table.id,
+    x: table.x + offset,
+    y: table.y,
+    size: Math.min(table.height - 1.8, table.width / table.pairs.length - 1.8),
+  })),
+);
 
-export const studentRoomFurniture = [
-  ...tables.map((piece) => place(piece, 'desk')),
-  ...chairs.map((piece) =>
-    place({ ...piece, width: 10.5, height: 4.8 }, 'seat'),
-  ),
-];
+const angle = Math.PI / 6;
+export const studentRoomFurniture = studentRoomLocalFurniture.map((piece) => ({
+  ...piece,
+  x: 124 + piece.x * Math.cos(angle) + piece.y * Math.sin(angle),
+  y: 85 - piece.x * Math.sin(angle) + piece.y * Math.cos(angle),
+  angle: -30,
+}));
 
 export function isStudentRoomFurniture(piece: { x: number; y: number }) {
   return piece.x < 310 && piece.y < 210;

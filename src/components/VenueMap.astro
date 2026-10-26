@@ -16,6 +16,8 @@ import VenuePingPongPlan from './VenuePingPongPlan.astro';
 import VenueCampusPlan from './VenueCampusPlan.astro';
 import VenueBenchesPlan from './VenueBenchesPlan.astro';
 import VenueGradosPlan from './VenueGradosPlan.astro';
+import VenueStudentPlan from './VenueStudentPlan.astro';
+import VenueChessPieces from './VenueChessPieces.astro';
 import VenueAmenityIcon from './VenueAmenityIcon.astro';
 import { venueAmenities } from '../data/venue-amenities';
 import AularioFloorPlans from './AularioFloorPlans.astro';
@@ -35,6 +37,7 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
   class="venue-explorer"
   data-venue-map
   data-venue-plan={initialVenuePlan}
+  data-campus-version="legacy"
   data-orientation={initialOrientation}
   style={`--venue-label-turn: ${-initialOrientation * 90}deg`}
 >
@@ -49,6 +52,7 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
         >Ver todas las zonas</button
       >
     </header>
+    <VenueRoutes />
     <div class="venue-selectors">
       <label
         >Edificio o zona<select data-venue-building-select
@@ -71,7 +75,25 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
         ></label
       >
     </div>
-    <VenueRoutes />
+    <fieldset class="campus-version-switch" data-campus-switch>
+      <legend>Plano del campus</legend>
+      <label
+        ><input type="radio" name="campus-version" value="modern" />Vista
+        General</label
+      >
+      <label
+        ><input
+          type="radio"
+          name="campus-version"
+          value="legacy"
+          checked
+        />Vista General (Legacy)</label
+      >
+    </fieldset>
+    <p class="campus-project-note" data-campus-project-note>
+      Distribución orientativa del tercer edificio en construcción. El archivo
+      de actividades y recorridos de 2026 utiliza la vista Legacy.
+    </p>
     <div class="venue-room-heading" data-venue-room-heading hidden>
       <strong data-venue-room-title></strong>
       <button type="button" data-venue-room-back>
@@ -122,7 +144,7 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
           >
             <feColorMatrix
               type="matrix"
-              values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 2 2 2 0 -4.5"
+              values="0 0 0 0 0 0 0 0 0 .4 0 0 0 0 1 2 2 2 0 -4.5"
             ></feColorMatrix>
           </filter></defs
         >
@@ -131,8 +153,9 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
           data-venue-building
           class="venue-building"
           style={`transform: rotate(${initialOrientation * 90}deg)`}
-          ><VenueFloorPlans /><AularioFloorPlans /><VenueCampusPlan
-          /><VenueBenchesPlan /><VenuePingPongPlan /><VenueGradosPlan /><g
+          ><VenueChessPieces /><VenueFloorPlans /><AularioFloorPlans
+          /><VenueCampusPlan modern /><VenueCampusPlan /><VenueBenchesPlan
+          /><VenuePingPongPlan /><VenueGradosPlan /><VenueStudentPlan /><g
             data-route-layer
             style="pointer-events:none"
             aria-hidden="true"></g></g
@@ -145,6 +168,17 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
                 <g
                   class="venue-callout"
                   data-venue-zone={zone.id}
+                  data-campus-only={
+                    zone.id === 'campus-tercer-edificio'
+                      ? 'modern'
+                      : [
+                            'parking',
+                            'campus-prefabricadas-a',
+                            'campus-prefabricadas-b',
+                          ].includes(zone.id)
+                        ? 'legacy'
+                        : undefined
+                  }
                   data-venue-open-plan={
                     'openPlan' in zone ? zone.openPlan : undefined
                   }
@@ -222,10 +256,12 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
                         ? `${venueCapacities[zone.id]} plazas`
                         : 'openPlan' in zone
                           ? 'Ver plano'
-                          : zone.id === 'acceso-principal'
-                            ? 'Deshabilitado'
-                            : venuePlans.find((plan) => plan.id === zone.plan)
-                                ?.floor}
+                          : zone.id === 'campus-tercer-edificio'
+                            ? 'En construcción'
+                            : zone.id === 'acceso-principal'
+                              ? 'Deshabilitado'
+                              : venuePlans.find((plan) => plan.id === zone.plan)
+                                  ?.floor}
                     </text>
                   </g>
                 </g>
@@ -833,3 +869,51 @@ const layout = getVenueLayout(initialVenuePlan, initialOrientation);
     display: none;
   }
 </style>
+
+<style>
+  .campus-version-switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin: 16px 0 8px;
+    border: 0;
+    padding: 0;
+    color: var(--ink);
+  }
+  .campus-version-switch legend {
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .campus-version-switch label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 9px 12px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .campus-version-switch label:has(:checked) {
+    background: var(--surface);
+    border-color: var(--accent);
+  }
+  .campus-version-switch input {
+    accent-color: var(--accent);
+  }
+  .campus-version-switch[hidden],
+  .campus-project-note[hidden] {
+    display: none;
+  }
+  .campus-project-note {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+</style>
+
+<script>
+  import '../scripts/venue-selects';
+</script>

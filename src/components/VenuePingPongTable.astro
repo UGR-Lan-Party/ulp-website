@@ -29,11 +29,12 @@ const { x = 460, y = 350, scale = 1 } = Astro.props;
     viewBox="0 0 738 251"
     aria-hidden="true"
   >
+    <rect x="0" y="0" width="738" height="251" rx="22" fill="#f5f0e6"></rect>
     <image
       href="/assets/venue/catedras-telefonica.png"
       width="738"
       height="251"
-      opacity=".72"
+      opacity="1"
       filter="url(#venue-telefonica-logo)"
       data-pingpong-logo
     />
@@ -47,7 +48,7 @@ const { x = 460, y = 350, scale = 1 } = Astro.props;
     stroke-linecap: round;
   }
   .table-logo {
-    mix-blend-mode: overlay;
+    mix-blend-mode: normal;
   }
   .table-frame {
     fill: var(--venue-plan-background, var(--paper));

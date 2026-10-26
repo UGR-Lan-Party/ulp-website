@@ -1,0 +1,107 @@
+---
+interface Props {
+  x: number;
+  y: number;
+  size: number;
+  id: string;
+  table: string;
+}
+const { x, y, size, id, table } = Astro.props;
+const backRank = [
+  'rook',
+  'knight',
+  'bishop',
+  'queen',
+  'king',
+  'bishop',
+  'knight',
+  'rook',
+];
+---
+
+<g
+  data-chess-board={id}
+  data-chess-table={table}
+  transform={`translate(${x - size / 2} ${y - size / 2}) scale(${size / 10})`}
+>
+  <title>Tablero de ajedrez con 32 piezas en posición inicial</title>
+  <rect class="board-frame" width="10" height="10" rx=".3"></rect>
+  <rect fill="#f2e7cb" x="1" y="1" width="8" height="8"></rect>
+  {
+    Array.from({ length: 64 }, (_, cell) => {
+      const row = Math.floor(cell / 8);
+      const col = cell % 8;
+      return (
+        (row + col) % 2 === 1 && (
+          <rect fill="#67908d" x={col + 1} y={row + 1} width="1" height="1" />
+        )
+      );
+    })
+  }
+  {
+    [-1, 1].map((side) =>
+      [0, 1].map((rank) =>
+        Array.from({ length: 8 }, (_, file) => {
+          const row = side === -1 ? rank : 7 - rank;
+          const piece = rank === 1 ? 'pawn' : backRank[file];
+          return (
+            <g
+              class={side === -1 ? 'black-piece' : 'white-piece'}
+              transform={`translate(${file + 1.5} ${row + 1.5}) rotate(${side === -1 ? 180 : 0})`}
+            >
+              <use
+                href={`#venue-chess-${piece}`}
+                x="-.42"
+                y="-.46"
+                width=".84"
+                height=".92"
+              />
+            </g>
+          );
+        }),
+      ),
+    )
+  }
+  {
+    Array.from({ length: 8 }, (_, i) => (
+      <>
+        <>
+          <text class="coordinate" x={i + 1.5} y="9.65">
+            {String.fromCharCode(97 + i)}
+          </text>
+          <text class="coordinate" x=".5" y={i + 1.7}>
+            {8 - i}
+          </text>
+        </>
+      </>
+    ))
+  }
+</g>
+<style>
+  .board-frame {
+    fill: #315c65;
+    stroke: #004465;
+    stroke-width: 0.12;
+  }
+  .white-piece {
+    color: #fff9e9;
+    --chess-piece-edge: #50665f;
+  }
+  .black-piece {
+    color: #073b4d;
+    --chess-piece-edge: #e4dfca;
+  }
+  use {
+    fill: currentColor;
+    stroke: var(--chess-piece-edge);
+    stroke-width: 0.5;
+    stroke-linejoin: round;
+  }
+  .coordinate {
+    fill: #f5f0e6;
+    font:
+      0.65px ui-monospace,
+      monospace;
+    text-anchor: middle;
+  }
+</style>
