@@ -394,6 +394,24 @@ test('survey menus use rounded popup and keyboard selection', async ({
 }) => {
   await page.goto('/info/ediciones_anteriores');
   const control = page.locator('.survey-select-button').nth(1);
+  const arrow = control.locator('.survey-select-arrow svg');
+  const geometry = await control.evaluate((button) => {
+    const box = button.getBoundingClientRect();
+    const arrow = button
+      .querySelector('.survey-select-arrow')!
+      .getBoundingClientRect();
+    const svg = button.querySelector('svg')!.getBoundingClientRect();
+    return {
+      gap: box.right - arrow.right,
+      center: Math.abs(svg.top + svg.height / 2 - (box.top + box.height / 2)),
+      separator: getComputedStyle(button.querySelector('.survey-select-arrow')!)
+        .borderLeftWidth,
+    };
+  });
+  await expect(arrow).toBeVisible();
+  expect(geometry.gap).toBeLessThan(2);
+  expect(geometry.center).toBeLessThan(1);
+  expect(geometry.separator).toBe('1px');
   await control.click();
   const option = page.getByRole('option', {
     name: 'Número de votos',

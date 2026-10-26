@@ -10,6 +10,28 @@ document
     button.className = 'survey-select-button';
     button.setAttribute('aria-haspopup', 'listbox');
     button.setAttribute('aria-expanded', 'false');
+    const selectedLabel = document.createElement('span');
+    selectedLabel.className = 'survey-select-label';
+    const arrow = document.createElement('span');
+    arrow.className = 'survey-select-arrow';
+    arrow.setAttribute('aria-hidden', 'true');
+    const chevron = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'svg',
+    );
+    chevron.setAttribute('viewBox', '0 0 16 16');
+    chevron.setAttribute('width', '14');
+    chevron.setAttribute('height', '14');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'm4 6 4 4 4-4');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    chevron.append(path);
+    arrow.append(chevron);
+    button.append(selectedLabel, arrow);
     const menu = document.createElement('ul');
     menu.className = 'survey-select-menu';
     menu.id = `survey-options-${index}`;
@@ -27,7 +49,7 @@ document
       return li;
     });
     const sync = () => {
-      button.textContent = `${select.selectedOptions[0].label} ⌄`;
+      selectedLabel.textContent = select.selectedOptions[0].label;
       button.setAttribute(
         'aria-label',
         `${select.getAttribute('aria-label')}: ${select.selectedOptions[0].label}`,
