@@ -175,7 +175,7 @@ test('Las preguntas se recorren de seis en seis sin JavaScript ni duplicados', a
   }
 });
 
-test('Inscripciones lleva al catálogo con el orden de torneos solicitado', async ({
+test('El navbar lleva a la encuesta inicial y el catálogo conserva el orden de torneos', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -185,10 +185,15 @@ test('Inscripciones lleva al catálogo con el orden de torneos solicitado', asyn
       .locator('#home')
       .getByRole('link', { name: 'Encuesta Inicial', exact: true }),
   ).toHaveAttribute('href', 'https://forms.gle/32zwkMrrx2UrLdwx9');
-  await page
+  const survey = page
     .getByRole('navigation', { name: 'Principal', exact: true })
-    .getByRole('link', { name: 'Inscripciones', exact: true })
-    .click();
+    .getByRole('link', { name: 'Encuesta inicial', exact: true });
+  await expect(survey).toHaveAttribute(
+    'href',
+    'https://forms.gle/32zwkMrrx2UrLdwx9',
+  );
+  await expect(survey).toHaveAttribute('target', '_blank');
+  await page.goto('/actividades/#competiciones');
   await expect(page).toHaveURL(/\/actividades\/?#competiciones$/);
   await expect(page.locator('#competiciones h2')).toBeInViewport();
   await expect(page.locator('#competiciones .activity-tile h3')).toHaveText([

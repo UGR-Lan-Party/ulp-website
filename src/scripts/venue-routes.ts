@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 import { findVenueRoute, getVenueRoutePath } from '../utils/venue-routing';
 import { venuePlans } from '../data/venue-map.ts';
 import type { VenuePlanId } from '../data/venue-map.ts';
@@ -19,7 +20,7 @@ export function createVenueRoutes(
     play = map.querySelector<HTMLButtonElement>('[data-route-play]')!,
     previous = map.querySelector<HTMLButtonElement>('[data-route-previous]')!,
     next = map.querySelector<HTMLButtonElement>('[data-route-next]')!;
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = siteMotion();
   let route: ReturnType<typeof findVenueRoute> = null,
     index = 0,
     timer: ReturnType<typeof setTimeout> | undefined,
