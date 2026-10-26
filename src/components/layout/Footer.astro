@@ -80,10 +80,18 @@ const networks = [
         >Inscripciones <span aria-hidden="true"><ArrowUpRight /></span></a
       >
       <span class="footer-credit"
-        >2016 — {new Date().getFullYear()} @ UGR LAN Party | Universidad de Granada</span
+        ><span class="footer-credit-date"
+          >2016 — {new Date().getFullYear()}
+        </span><a
+          href="https://www.ugr.es/"
+          class="footer-university"
+          target="_blank"
+          rel="noopener noreferrer">@ Universidad de Granada</a
+        ></span
       ><nav class="footer-resources" aria-label="Recursos">
         <a href="/info/prensa/">Prensa y colaboradores</a><a
-          href="/info/aviso_legal">Aviso legal</a>
+          href="/info/aviso_legal">Aviso legal</a
+        >
       </nav>
     </div>
   </div>
@@ -204,41 +212,64 @@ const networks = [
   .footer-inner {
     position: relative;
   }
-  @media (max-width: 700px) {
-    .footer-original-grid {
-      grid-template-columns: 1fr;
-      gap: 28px;
-    }
-    .footer-copyright {
-      grid-template-columns: 1fr 1fr;
-      font-size: 9px;
-    }
-    .footer-credit {
-      grid-column: 1 / -1;
-      grid-row: 1;
-    }
+  .footer-university {
+    white-space: nowrap;
+  }
+  .footer-university:hover,
+  .footer-university:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
   @media (max-width: 700px) {
-    .footer-copyright {
-      grid-template-columns: 1fr;
-      gap: 0;
-      padding-top: 14px;
-    }
-    .footer-resources {
-      justify-content: center;
-      margin-top: 12px;
-    }
-    .footer-resources a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 36px;
-    }
-    .footer-copyright > a {
-      display: none;
-    }
     .footer-original-grid {
+      grid-template-columns: 1fr;
       gap: 20px;
       padding-bottom: 18px;
+    }
+    .footer-copyright {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 8px;
+      padding-top: 14px;
+      align-items: center;
+      font-size: 9px;
+    }
+    .footer-registration {
+      display: none;
+    }
+    .footer-credit {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      font-size: 9px;
+      line-height: 1.6;
+    }
+    .footer-credit-date {
+      display: block;
+      white-space: nowrap;
+    }
+    .footer-resources {
+      display: contents;
+    }
+    .footer-resources a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 44px;
+      font-size: 9px;
+      line-height: 1.6;
+    }
+    .footer-resources a:first-child {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .footer-resources a:last-child {
+      grid-column: 3;
+      grid-row: 1;
     }
   }
 </style>

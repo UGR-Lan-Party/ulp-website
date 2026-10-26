@@ -28,8 +28,17 @@ const [introduction, ...history] = edition.description.split(
         <p>{edition.date} · ETSIIT</p>
       </div>
     </header>
-    <p class="archive-introduction">{introduction}</p>
-    {history.map((paragraph) => <p class="archive-history">{paragraph}</p>)}
+    <details class="archive-description" data-edition-description>
+      <summary
+        ><span class="description-closed">Leer descripción</span><span
+          class="description-open">Ocultar descripción</span
+        ><span aria-hidden="true">⌄</span></summary
+      >
+      <div>
+        <p class="archive-introduction">{introduction}</p>
+        {history.map((paragraph) => <p class="archive-history">{paragraph}</p>)}
+      </div>
+    </details>
     {
       edition.externalLink && (
         <a
@@ -58,6 +67,34 @@ const [introduction, ...history] = edition.description.split(
   </div>
 </section>
 <style>
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 40px;
+    padding-block: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    list-style: none;
+    color: var(--ink);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .description-open,
+  [open] .description-closed {
+    display: none;
+  }
+  [open] .description-open {
+    display: inline;
+  }
+  @media (min-width: 801px) {
+    summary {
+      display: none;
+    }
+  }
+
   .archive-edition {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
@@ -75,7 +112,8 @@ const [introduction, ...history] = edition.description.split(
   }
   .archive-year {
     font-size: clamp(48px, 5.4vw, 74px);
-    font-weight: 850;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
     letter-spacing: -0.06em;
     line-height: 1;
     color: transparent;
@@ -155,8 +193,17 @@ const [introduction, ...history] = edition.description.split(
     .archive-edition,
     .reversed {
       grid-template-columns: 1fr;
-      gap: 25px;
-      padding-block: 32px;
+      gap: 18px;
+      padding-block: 24px;
+    }
+    .archive-introduction {
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .archive-history {
+      font-size: 12px;
+      line-height: 1.7;
+      margin-top: 10px;
     }
     .archive-story {
       order: 0;

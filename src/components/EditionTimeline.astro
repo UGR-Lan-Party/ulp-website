@@ -1,5 +1,16 @@
 ---
 import { pastEditions } from '../data/past-editions';
+const editionColors: Record<string, string> = {
+  '2016': '#e6b86a',
+  '2017': '#ed957c',
+  '2018': '#e99ec4',
+  '2019': '#b8a5ed',
+  '2020–22': '#7596a0',
+  '2023': '#85b8ed',
+  '2024': '#9acb99',
+  '2025': '#83b6c7',
+  '2026': '#30d2df',
+};
 const editions = [...pastEditions]
   .sort((a, b) => a.year - b.year)
   .map((edition) => ({
@@ -33,7 +44,7 @@ editions.push({
       {
         editions.map((edition, index) => (
           <li
-            style={`--timeline-delay:${index * 110}ms`}
+            style={`--timeline-delay:${index * 110}ms;--edition-color:${editionColors[edition.year]};--edition-next:${editionColors[editions[Math.min(index + 1, editions.length - 1)].year]}`}
             class:list={{
               'timeline-pause': !edition.target,
               'timeline-latest': edition.year === '2026',
@@ -120,31 +131,19 @@ editions.push({
     grid-template-columns: repeat(9, minmax(105px, 1fr));
     min-width: 945px;
   }
-  ol::before {
+  li:not(:last-child)::after {
     content: '';
     position: absolute;
     height: 2px;
     top: 70px;
-    left: 5.55%;
-    right: 5.55%;
-    background:
-      linear-gradient(
-        90deg,
-        transparent 40%,
-        #0094a1 46%,
-        #b1d7dd 50%,
-        #0094a1 54%,
-        transparent 60%
-      ),
-      linear-gradient(90deg, #527c89, #0094a1);
-    background-size:
-      250% 100%,
-      100% 100%;
-    background-position:
-      100% 0,
-      0 0;
-    background-repeat: no-repeat;
-    animation: timeline-tone 9s linear infinite;
+    left: 50%;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--edition-color),
+      var(--edition-next)
+    );
+    opacity: 0.65;
     pointer-events: none;
   }
   li {
@@ -169,23 +168,30 @@ editions.push({
   i {
     width: 18px;
     height: 18px;
-    background: #f5f0e6;
+    position: relative;
+    z-index: 1;
+    background: var(--edition-color);
     border: 4px solid #062d43;
     border-radius: 50%;
-    box-shadow: 0 0 0 1px #7596a0;
+    box-shadow: 0 0 0 1px var(--edition-color);
     transition:
       transform 200ms ease,
       background 200ms ease;
   }
   strong {
+    color: var(--edition-color);
     font-size: 16px;
     font-weight: 550;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.03em;
   }
+  a:focus-visible {
+    outline: 2px solid var(--edition-color);
+    outline-offset: 4px;
+  }
   a:hover i {
     transform: scale(1.3);
-    background: #00a7ad;
+    background: var(--edition-color);
   }
   .timeline-pause {
     opacity: 0.5;
@@ -197,26 +203,10 @@ editions.push({
     font-size: 13px;
   }
   .timeline-latest i {
-    background: #00a7ad;
-    box-shadow: 0 0 0 2px #00a7ad;
-  }
-  @keyframes timeline-tone {
-    from {
-      background-position:
-        100% 0,
-        0 0;
-    }
-    to {
-      background-position:
-        0% 0,
-        0 0;
-    }
+    background: var(--edition-color);
+    box-shadow: 0 0 0 2px var(--edition-color);
   }
   @media (prefers-reduced-motion: reduce) {
-    ol::before {
-      animation: none;
-      background: linear-gradient(90deg, #527c89, #0094a1);
-    }
     i {
       transition: none;
     }

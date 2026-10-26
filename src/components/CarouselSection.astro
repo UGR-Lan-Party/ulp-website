@@ -69,29 +69,42 @@ const firstImage =
   <div class="container px-4">
     <div
       data-carousel-stage
+      tabindex="0"
+      role="group"
+      aria-label="Galería de fotos; usa las flechas o la rueda para navegar"
       class:list={['carousel-stage', { 'centered-slides': centeredSlides }]}
       hidden={!images.length}
       style={`--carousel-height: ${height}`}
     >
       {
         centeredSlides &&
-          [-1, 1].map((offset) => (
+          [-3, -2, -1, 1, 2, 3].map((offset) => (
             <button
               type="button"
               class:list={[
                 'carousel-neighbor',
-                offset < 0 ? 'neighbor-previous' : 'neighbor-next',
+                {
+                  'neighbor-previous': offset === -1,
+                  'neighbor-next': offset === 1,
+                },
               ]}
               data-carousel-neighbor={offset}
+              data-ribbon-offset={offset}
+              style={`--ribbon-offset:${offset};--ribbon-turn:${offset * -7}deg;--ribbon-rise:${Math.abs(offset) * -6}px`}
               aria-label={
-                offset < 0 ? 'Ver foto anterior' : 'Ver foto siguiente'
+                offset === -1
+                  ? 'Ver foto anterior'
+                  : offset === 1
+                    ? 'Ver foto siguiente'
+                    : `Ver foto ${Math.abs(offset)} posiciones ${offset < 0 ? 'antes' : 'después'}`
               }
               hidden={images.length < 2}
             >
               <img
                 src={
-                  previews[(offset + images.length) % images.length] ??
-                  firstImage
+                  previews[
+                    ((offset % images.length) + images.length) % images.length
+                  ] ?? firstImage
                 }
                 alt=""
                 width="800"
@@ -107,6 +120,10 @@ const firstImage =
         href={images[0] ?? albumUrl}
         aria-label="Ampliar foto 1"
         class="carousel-photo"
+        data-ribbon-offset={centeredSlides ? 0 : undefined}
+        style={centeredSlides
+          ? '--ribbon-offset:0;--ribbon-turn:0deg;--ribbon-rise:0px'
+          : undefined}
       >
         <img
           data-carousel-image
@@ -131,39 +148,55 @@ const firstImage =
           >
         </span>
       </a>
-      <button
-        type="button"
-        data-carousel-previous
-        class="photo-control previous"
-        aria-label="Foto anterior"
-        hidden
-        ><svg
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg
-        ></button
+      {
+        !centeredSlides && (
+          <>
+            <button
+              type="button"
+              data-carousel-previous
+              class="photo-control previous"
+              aria-label="Foto anterior"
+              hidden
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="m15 6-6 6 6 6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              data-carousel-next
+              class="photo-control next"
+              aria-label="Foto siguiente"
+              hidden
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+          </>
+        )
+      }
+      <p
+        data-carousel-counter
+        class:list={['photo-counter', { 'ribbon-counter': centeredSlides }]}
+        aria-live="polite"
       >
-      <button
-        type="button"
-        data-carousel-next
-        class="photo-control next"
-        aria-label="Foto siguiente"
-        hidden
-        ><svg
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg
-        ></button
-      >
-      <p data-carousel-counter class="photo-counter" aria-live="polite">
         Foto 1 de {images.length}
       </p>
     </div>
@@ -188,6 +221,15 @@ const firstImage =
     </div>
   </div>
   <dialog data-carousel-dialog aria-label="Foto ampliada de UGR LAN Party">
+    <div class="expanded-heading">
+      <span class="expanded-brand">ULP <span>/ ARCHIVO ABIERTO</span></span><a
+        data-carousel-original
+        href={images[0] ?? albumUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        >Ver original <span aria-hidden="true">↗</span></a
+      >
+    </div>
     <img
       data-carousel-expanded
       src={firstImage}
@@ -212,38 +254,43 @@ const firstImage =
         aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg
       ></button
     >
-    <button
-      type="button"
-      data-expanded-previous
-      class="photo-control previous"
-      aria-label="Foto anterior ampliada"
-      hidden
-      ><svg
-        viewBox="0 0 24 24"
-        width="24"
-        height="24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg
-      ></button
-    >
-    <button
-      type="button"
-      data-expanded-next
-      class="photo-control next"
-      aria-label="Foto siguiente ampliada"
-      hidden
-      ><svg
-        viewBox="0 0 24 24"
-        width="24"
-        height="24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg
-      ></button
-    >
+    <div class="expanded-navigation">
+      <button
+        type="button"
+        data-expanded-previous
+        class="photo-control previous"
+        aria-label="Foto anterior ampliada"
+        hidden
+        ><svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg
+        ><span class="expanded-button-label">Anterior</span></button
+      >
+      <span data-expanded-counter class="expanded-counter" aria-live="polite"
+        >Foto 1 de {images.length}</span
+      >
+      <button
+        type="button"
+        data-expanded-next
+        class="photo-control next"
+        aria-label="Foto siguiente ampliada"
+        hidden
+        ><svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg
+        ><span class="expanded-button-label">Siguiente</span></button
+      >
+    </div>
   </dialog>
 </section>
 
@@ -256,100 +303,106 @@ const firstImage =
     display: none !important;
   }
   .carousel-stage.centered-slides {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: center;
-    gap: 16px;
+    container-type: inline-size;
+    --ribbon-width: clamp(140px, 16cqw, 202px);
+    --ribbon-step: calc(var(--ribbon-width) + 16px);
+    position: relative;
     width: 100%;
+    height: clamp(226px, 24vw, 302px);
     aspect-ratio: auto;
     border-radius: 0;
     background: transparent;
     box-shadow: none;
+    perspective: 1100px;
+    overflow: hidden;
+    isolation: isolate;
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      black 3%,
+      black 97%,
+      transparent
+    );
+  }
+  .centered-slides .carousel-photo,
+  .carousel-neighbor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--ribbon-width);
+    height: auto;
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    overflow: hidden;
+    transform: translate(
+        calc(-50% + var(--ribbon-offset) * var(--ribbon-step)),
+        calc(-50% + var(--ribbon-rise))
+      )
+      rotateY(var(--ribbon-turn));
+    box-shadow: 0 8px 24px rgb(0 35 55 / 0.12);
+    background: #004465;
+    outline-offset: -4px;
+    backface-visibility: hidden;
   }
   .centered-slides .carousel-photo {
-    grid-column: 2;
-    grid-row: 1;
-    aspect-ratio: 4 / 3;
-    height: auto;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 10px 28px rgb(0 35 55 / 0.12);
+    z-index: 2;
   }
-  .centered-slides .carousel-photo img {
-    object-fit: cover;
-    object-position: center;
-  }
-  .carousel-neighbor {
-    display: block;
-    grid-row: 1;
-    min-width: 0;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    border-radius: 18px;
-    overflow: hidden;
-    opacity: 0.42;
-    filter: blur(1px) saturate(0.65);
-    transform: scale(0.94);
-    transition:
-      opacity 220ms ease,
-      filter 220ms ease;
-    cursor: pointer;
-  }
-  .carousel-neighbor:hover,
-  .carousel-neighbor:focus-visible {
-    opacity: 0.7;
-    filter: blur(0) saturate(0.85);
-  }
-  .carousel-neighbor:focus-visible {
-    outline: 2px solid var(--ink, #004465);
-    outline-offset: -3px;
-  }
-  .neighbor-previous {
-    grid-column: 1;
-  }
-  .neighbor-next {
-    grid-column: 3;
-  }
+  .centered-slides .carousel-photo img,
   .carousel-neighbor img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
   }
-  .centered-slides .photo-counter {
-    left: calc(33.333% + 18px);
+  .carousel-neighbor {
+    cursor: pointer;
+    opacity: 0.92;
+    transition:
+      opacity 180ms ease,
+      filter 180ms ease;
+  }
+  .carousel-neighbor:hover,
+  .carousel-neighbor:focus-visible {
+    opacity: 1;
+    filter: brightness(1.06);
+  }
+  .centered-slides .ribbon-counter {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   .centered-slides .zoom-hint {
-    right: calc(33.333% + 18px);
+    width: 30px;
+    height: 30px;
+    bottom: 9px;
+    right: 9px;
+    border-radius: 8px;
+    background: #063349ad;
+    backdrop-filter: blur(6px);
+  }
+  .centered-slides .zoom-hint svg {
+    width: 17px;
+    height: 17px;
+  }
+  .carousel-stage:focus-visible {
+    outline: 2px solid var(--accent, #008b98);
+    outline-offset: 4px;
   }
   @media (max-width: 700px) {
     .carousel-stage.centered-slides {
-      grid-template-columns: repeat(3, 70%);
-      justify-content: center;
-      gap: 10px;
+      --ribbon-width: clamp(138px, 46cqw, 210px);
+      --ribbon-step: calc(var(--ribbon-width) + 12px);
+      height: 250px;
     }
-    .centered-slides .photo-counter {
-      left: calc(15% + 8px);
-      bottom: 10px;
-      font-size: 10px;
-      padding: 6px 9px;
-    }
-    .centered-slides .zoom-hint {
-      right: calc(15% + 8px);
-      bottom: 10px;
-      width: 32px;
-      height: 32px;
-    }
-    .centered-slides .photo-control {
-      width: 36px;
-      height: 36px;
-      top: calc(50% - 18px);
-    }
-    .centered-slides .previous {
-      left: 2px;
-    }
-    .centered-slides .next {
-      right: 2px;
+    .centered-slides .carousel-photo,
+    .carousel-neighbor {
+      border-radius: 13px;
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -470,40 +523,161 @@ const firstImage =
     border-radius: 0.65rem;
   }
   dialog {
-    width: min(
-      calc(100vw - 2rem),
-      calc((100svh - 2rem) * var(--photo-ratio, 1.5))
+    --viewer-width: min(
+      calc(100vw - 24px),
+      1200px,
+      max(280px, calc((100svh - 128px) * var(--photo-ratio, 1.5)))
     );
-    max-width: 1440px;
-    height: auto;
-    aspect-ratio: var(--photo-ratio, 1.5);
-    max-height: calc(100svh - 2rem);
+    width: var(--viewer-width);
+    height: min(
+      calc(var(--viewer-width) / var(--photo-ratio, 1.5) + 104px),
+      calc(100svh - 24px)
+    );
+    max-width: calc(100vw - 24px);
+    max-height: calc(100svh - 24px);
     margin: auto;
     padding: 0;
     overflow: hidden;
-    border: 0;
-    border-radius: 1.5rem;
-    background: transparent;
+    border: 1px solid #f5f0e625;
+    border-radius: 18px;
+    background: #072b3d;
+    color: #f5f0e6;
+    box-shadow: 0 28px 100px #0006;
+  }
+  dialog[open] {
+    display: grid;
+    grid-template-rows: 44px minmax(0, 1fr) 60px;
   }
   dialog::backdrop {
-    background: #020b16e8;
-    backdrop-filter: blur(8px);
+    background: #03151ce8;
+    backdrop-filter: blur(14px);
   }
-  dialog img {
+  dialog > img {
     display: block;
     width: 100%;
     height: 100%;
+    min-height: 0;
     object-fit: contain;
+    background: #031f2e;
+  }
+  .expanded-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    min-width: 0;
+    padding: 10px 52px 10px 16px;
+    border-bottom: 1px solid #f5f0e615;
+  }
+  .expanded-brand {
+    font-size: 13px;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .expanded-brand > span {
+    font:
+      8px ui-monospace,
+      monospace;
+    letter-spacing: 0.08em;
+    margin-left: 7px;
+    opacity: 0.6;
+  }
+  .expanded-heading a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    white-space: nowrap;
+    text-underline-offset: 3px;
+  }
+  .expanded-heading a:hover {
+    text-decoration: underline;
+  }
+  .expanded-heading a::before {
+    content: '';
+    position: absolute;
+    height: 44px;
+    width: 82px;
+  }
+  dialog .close {
+    top: 5px;
+    right: 7px;
+    width: 32px;
+    height: 32px;
+    background: #ffffff0d;
+    border-color: #f5f0e630;
+  }
+  dialog .close svg {
+    width: 16px;
+    height: 16px;
+  }
+  dialog .close::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+  .expanded-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 8px 12px;
+  }
+  .expanded-navigation .photo-control {
+    position: static;
+    display: inline-flex;
+    justify-content: center;
+    gap: 7px;
+    width: auto;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 9px;
+    font-size: 11px;
+    border-color: #f5f0e630;
+    background: transparent;
+  }
+  .expanded-navigation .photo-control:hover {
+    background: #ffffff0d;
+    transform: none;
+  }
+  .expanded-navigation svg {
+    width: 16px;
+    height: 16px;
+  }
+  .expanded-counter {
+    font:
+      10px ui-monospace,
+      monospace;
+    color: #c1d0cd;
+    white-space: nowrap;
   }
   .carousel-stage,
   dialog {
     touch-action: pan-y pinch-zoom;
   }
   @media (max-width: 700px) {
-    [data-carousel-previous],
-    [data-carousel-next],
-    [data-expanded-previous],
-    [data-expanded-next] {
+    dialog {
+      border-radius: 13px;
+    }
+    .expanded-heading {
+      padding-left: 12px;
+      gap: 10px;
+    }
+    .expanded-brand > span {
+      display: none;
+    }
+    .expanded-navigation {
+      justify-content: space-between;
+      gap: 6px;
+      padding-inline: 8px;
+    }
+    .expanded-navigation .photo-control {
+      padding: 0 10px;
+      font-size: 10px;
+    }
+    [data-carousel-stage]:not(.centered-slides) > [data-carousel-previous],
+    [data-carousel-stage]:not(.centered-slides) > [data-carousel-next] {
       display: none;
     }
   }

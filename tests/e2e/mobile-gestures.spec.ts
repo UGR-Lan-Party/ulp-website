@@ -30,7 +30,7 @@ test('Deslizar las competiciones cambia las tres tarjetas sin navegar por accide
 });
 
 for (const path of ['/', '/info/about/', '/info/ediciones_anteriores/']) {
-  test(`Las fotos admiten gestos y zoom sin botones de avance en móvil: ${path}`, async ({
+  test(`Las fotos admiten gestos y el visor ampliado también ofrece botones en móvil: ${path}`, async ({
     page,
   }) => {
     await page.route(`http://127.0.0.1:4323${path}`, async (route) => {
@@ -50,7 +50,9 @@ for (const path of ['/', '/info/about/', '/info/ediciones_anteriores/']) {
     await page.goto(path);
     const album = page.locator('[data-photo-carousel]').first();
     const stage = album.locator('[data-carousel-stage]');
-    await expect(album.locator('[data-carousel-next]')).toBeHidden();
+    if (path === '/info/ediciones_anteriores/')
+      await expect(album.locator('[data-carousel-next]')).toBeHidden();
+    else await expect(album.locator('[data-carousel-next]')).toHaveCount(0);
     await swipe(page, stage, 1);
     await expect(album.locator('[data-carousel-counter]')).toHaveText(
       'Foto 2 de 2',
@@ -59,7 +61,7 @@ for (const path of ['/', '/info/about/', '/info/ediciones_anteriores/']) {
     await album.locator('[data-carousel-zoom]').tap();
     const dialog = album.locator('dialog');
     await expect(dialog).toBeVisible();
-    await expect(album.locator('[data-expanded-next]')).toBeHidden();
+    await expect(album.locator('[data-expanded-next]')).toBeVisible();
     await swipe(page, dialog, -1);
     await expect(album.locator('[data-carousel-counter]')).toHaveText(
       'Foto 1 de 2',
@@ -68,7 +70,10 @@ for (const path of ['/', '/info/about/', '/info/ediciones_anteriores/']) {
     await dialog.locator('[data-carousel-close]').tap();
     await expect(dialog).not.toBeVisible();
     const box = (await album.locator('[data-carousel-zoom]').boundingBox())!;
-    expect(box.width / box.height).toBeCloseTo(4 / 3, 2);
+    expect(box.width / box.height).toBeCloseTo(
+      path === '/info/ediciones_anteriores/' ? 4 / 3 : 3 / 4,
+      2,
+    );
   });
 }
 
@@ -77,8 +82,12 @@ test('El plano móvil permite seleccionar, volver a tocar para quitar el filtro,
 }) => {
   await page.goto('/info/horarios/');
   await page.locator('[data-venue-building-select]').selectOption('principal');
-  await page.locator('[data-venue-floor-select]').selectOption('principal-baja');
-  const point = page.locator('[data-venue-zone="cafeteria"] [data-venue-point]');
+  await page
+    .locator('[data-venue-floor-select]')
+    .selectOption('principal-baja');
+  const point = page.locator(
+    '[data-venue-zone="cafeteria"] [data-venue-point]',
+  );
   const zone = page.locator('[data-venue-zone="cafeteria"]');
   await point.scrollIntoViewIfNeeded();
   await point.tap();
@@ -170,7 +179,9 @@ test('Los filtros no se solapan a 320px y el pie móvil conserva los enlaces soc
   await expect(
     page.locator('footer a[href="/actividades#competiciones"]'),
   ).toBeHidden();
-  await expect(page.locator('footer a[href="/info/aviso_legal"]')).toBeVisible();
+  await expect(
+    page.locator('footer a[href="/info/aviso_legal"]'),
+  ).toBeVisible();
   await expect(page.locator('footer a[href="/info/prensa/"]')).toBeVisible();
   await expect(page.locator('.footer-social-links a')).toHaveCount(7);
   expect(
