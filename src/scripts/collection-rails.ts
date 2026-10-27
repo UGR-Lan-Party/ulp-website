@@ -1,9 +1,10 @@
+import { siteMotion } from '../utils/site-motion.js';
 document
   .querySelectorAll<HTMLElement>('[data-collection-rail]')
   .forEach((root) => {
     const viewport = root.querySelector<HTMLElement>('[data-rail-viewport]')!;
     const pause = root.querySelector<HTMLButtonElement>('[data-rail-pause]');
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const reduced = siteMotion();
     const loop = root.hasAttribute('data-rail-loop');
     let frame = 0,
       last = 0,

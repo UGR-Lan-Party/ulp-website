@@ -52,6 +52,11 @@ for (const width of [320, 390, 1440])
     );
     await page.keyboard.press('Escape');
     await expect(dialog).not.toBeVisible();
+    // The asynchronous close handler clears the preview and restores its trigger.
+    await expect(page.locator('[data-stream-expanded]')).toBeEmpty();
+    await expect(
+      visible.getByRole('button', { name: 'Ampliar vista previa de Minecraft' }),
+    ).toBeFocused();
     await page.getByRole('link', { name: 'Ver kit de Rocket League' }).focus();
     await page.keyboard.press('Enter');
     await expect(visible).toHaveAttribute(

@@ -50,7 +50,7 @@ const layoutStyle = layout
         : undefined}
       width={width}
       height={height}
-      loading="lazy"
+      loading="eager"
       data-partner-logo={partner.name.trim()}
       data-surface={surface}
       style={!normalized && partner.logoWhiteFilter
@@ -72,7 +72,7 @@ const layoutStyle = layout
           alt={decorative ? '' : `Logotipo de ${partner.name.trim()}`}
           width={width}
           height={height}
-          loading="lazy"
+          loading="eager"
           data-partner-white-logo={partner.name.trim()}
           data-surface={surface}
           class="partner-logo white-variant"

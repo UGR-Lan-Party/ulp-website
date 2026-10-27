@@ -1,4 +1,6 @@
-const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+import { siteMotion, scrollEntryMotion } from '../utils/site-motion.js';
+const motionPreference = siteMotion();
+const scrollEntries = scrollEntryMotion();
 const hero = document.querySelector<HTMLElement>('#home');
 const driftItems = Array.from(
   document.querySelectorAll<HTMLElement>('[data-home-drift]'),
@@ -31,54 +33,71 @@ function scheduleDrift() {
   }
 }
 
+const playedHeadings = new WeakSet<Element>();
+function revealHeading(heading: Element) {
+  playedHeadings.add(heading);
+  if (motionPreference.matches) return;
+  heading
+    .querySelectorAll<HTMLElement>('[data-text-word]')
+    .forEach((word, index) => {
+      const animation = word.animate(
+        [
+          {
+            opacity: 0.15,
+            transform: 'translate3d(-24px, 18px, 0) rotate(-3deg)',
+            filter: 'blur(5px)',
+          },
+          {
+            opacity: 1,
+            transform: 'translate3d(0, 0, 0) rotate(0deg)',
+            filter: 'blur(0)',
+          },
+        ],
+        {
+          duration: 800,
+          delay: index * 85,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          fill: 'backwards',
+        },
+      );
+      animations.add(animation);
+      animation.onfinish = animation.oncancel = () =>
+        animations.delete(animation);
+    });
+}
+
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting || entry.intersectionRatio < 0.25) {
-        visibleHeadings.delete(entry.target);
-        entry.target
-          .getAnimations({ subtree: true })
-          .forEach((animation) => animation.cancel());
+        if (scrollEntries.matches) {
+          visibleHeadings.delete(entry.target);
+          entry.target
+            .getAnimations({ subtree: true })
+            .forEach((animation) => animation.cancel());
+        }
         return;
       }
-      if (visibleHeadings.has(entry.target)) return;
+      if (
+        visibleHeadings.has(entry.target) ||
+        (!scrollEntries.matches && playedHeadings.has(entry.target))
+      )
+        return;
       visibleHeadings.add(entry.target);
-      if (motionPreference.matches) return;
-      entry.target
-        .querySelectorAll<HTMLElement>('[data-text-word]')
-        .forEach((word, index) => {
-          const animation = word.animate(
-            [
-              {
-                opacity: 0.15,
-                transform: 'translate3d(-24px, 18px, 0) rotate(-3deg)',
-                filter: 'blur(5px)',
-              },
-              {
-                opacity: 1,
-                transform: 'translate3d(0, 0, 0) rotate(0deg)',
-                filter: 'blur(0)',
-              },
-            ],
-            {
-              duration: 800,
-              delay: index * 85,
-              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-              fill: 'backwards',
-            },
-          );
-          animations.add(animation);
-          animation.onfinish = animation.oncancel = () =>
-            animations.delete(animation);
-        });
+      revealHeading(entry.target);
+      if (!scrollEntries.matches) revealObserver.unobserve(entry.target);
     });
   },
   { threshold: 0.25, rootMargin: '0px 0px -8% 0px' },
 );
 
-document
-  .querySelectorAll('[data-home-text-reveal]')
-  .forEach((heading) => revealObserver.observe(heading));
+document.querySelectorAll('[data-home-text-reveal]').forEach((heading) => {
+  revealObserver.observe(heading);
+});
+scrollEntries.addEventListener('change', () => {
+  if (!scrollEntries.matches)
+    animations.forEach((animation) => animation.cancel());
+});
 addEventListener('scroll', scheduleDrift, { passive: true });
 addEventListener('resize', scheduleDrift, { passive: true });
 addEventListener('pageshow', scheduleDrift);

@@ -1,5 +1,6 @@
+import { siteMotion } from '../utils/site-motion.js';
 const card = document.getElementById('holo-card');
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const reducedMotion = siteMotion();
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
 let pointerId = null;
 let bounds = null;

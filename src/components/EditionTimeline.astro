@@ -70,7 +70,8 @@ editions.push({
   </nav>
 </section>
 <script>
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  import { siteMotion } from '../utils/site-motion.js';
+  const motion = siteMotion();
   document
     .querySelectorAll<HTMLElement>('.edition-timeline')
     .forEach((timeline) => {
@@ -234,6 +235,21 @@ editions.push({
     to {
       opacity: 1;
       scale: 1;
+    }
+  }
+  @keyframes timeline-point-solid {
+    from {
+      opacity: 1;
+      scale: 0.3;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+  @media (max-width: 767px), (hover: none), (pointer: coarse) {
+    .timeline-enter li i {
+      animation-name: timeline-point-solid;
     }
   }
   @media (prefers-reduced-motion: reduce) {

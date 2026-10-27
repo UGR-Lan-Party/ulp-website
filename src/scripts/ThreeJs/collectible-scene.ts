@@ -1,3 +1,4 @@
+import { siteMotion } from '../../utils/site-motion.js';
 import * as THREE from 'three';
 import {
   nearestEquivalentAngle,
@@ -71,7 +72,7 @@ export async function mountCollectible(
   canvas.tabIndex = stage.closest('[data-rail-copy]') ? -1 : 0;
   canvas.style.touchAction = 'pan-y';
   stage.append(canvas);
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const reduced = siteMotion();
   const defaultYaw = kind === 'shirt' ? Math.PI - 0.24 : 0.4;
   const defaultPitch = kind === 'shirt' ? 0.03 : 0.08;
   const defaultZoom = 1;

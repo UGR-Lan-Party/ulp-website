@@ -29,7 +29,7 @@ const Heading = featured ? 'h2' : 'h3';
       <ResponsiveImage
         src={entry.data.image.src}
         alt={entry.data.image.alt}
-        loading={featured ? 'eager' : 'lazy'}
+        loading="eager"
         sizes={featured
           ? '(max-width: 700px) 100vw, 55vw'
           : '(max-width: 700px) 100vw, 33vw'}

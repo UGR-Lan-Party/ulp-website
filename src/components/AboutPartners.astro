@@ -69,34 +69,51 @@ const sizes = [76, 66, 58, 52, 46, 40];
   }
 </section>
 <script>
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  import { siteMotion, scrollEntryMotion } from '../utils/site-motion.js';
+  const reduced = siteMotion();
+  const scrollEntries = scrollEntryMotion();
+  const revealed = new WeakSet<Element>();
+  const logos = document.querySelectorAll<HTMLElement>('[data-partner-rise]');
+  function revealLogo(logo: HTMLElement) {
+    if (revealed.has(logo)) return;
+    revealed.add(logo);
+    if (reduced.matches) return;
+    logo.animate(
+      [
+        {
+          opacity: scrollEntries.matches ? 0 : 1,
+          transform: 'translateY(24px)',
+        },
+        { opacity: 1, transform: 'translateY(0)' },
+      ],
+      {
+        duration: 750,
+        delay: Number(logo.dataset.riseDelay ?? 0),
+        easing: 'cubic-bezier(.16, 1, .3, 1)',
+        fill: 'backwards',
+      },
+    );
+  }
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        if (!reduced.matches)
-          entry.target.animate(
-            [
-              { opacity: 0, transform: 'translateY(24px)' },
-              { opacity: 1, transform: 'translateY(0)' },
-            ],
-            {
-              duration: 750,
-              delay: Number(
-                (entry.target as HTMLElement).dataset.riseDelay ?? 0,
-              ),
-              easing: 'cubic-bezier(.16, 1, .3, 1)',
-              fill: 'backwards',
-            },
-          );
+        revealLogo(entry.target as HTMLElement);
         observer.unobserve(entry.target);
       });
     },
     { threshold: 0.12 },
   );
-  document
-    .querySelectorAll('[data-partner-rise]')
-    .forEach((logo) => observer.observe(logo));
+  logos.forEach((logo) => {
+    observer.observe(logo);
+  });
+  scrollEntries.addEventListener('change', () => {
+    if (!scrollEntries.matches) {
+      logos.forEach((logo) =>
+        logo.getAnimations().forEach((animation) => animation.cancel()),
+      );
+    }
+  });
 </script>
 <style>
   .about-partners {

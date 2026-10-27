@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 import { enableTouchSwipe } from './touch-swipe';
 
 document
@@ -11,7 +12,7 @@ document
       '[data-experience-next]',
     )!;
     const status = root.querySelector<HTMLElement>('[data-experience-status]')!;
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const reducedMotion = siteMotion();
     let timer: number | undefined;
     let inView = false;
     let hovered = false;

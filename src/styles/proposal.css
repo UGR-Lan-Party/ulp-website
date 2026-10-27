@@ -463,9 +463,15 @@ summary:focus-visible,
   }
 }
 @media (max-width: 360px) {
-  .header-inner { gap: 8px; }
-  .header-brand { gap: 8px; }
-  .header-actions { gap: 6px; }
+  .header-inner {
+    gap: 8px;
+  }
+  .header-brand {
+    gap: 8px;
+  }
+  .header-actions {
+    gap: 6px;
+  }
 }
 @media (max-width: 700px) {
   .design-grid {

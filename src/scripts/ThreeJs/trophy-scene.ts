@@ -1,3 +1,4 @@
+import { siteMotion } from '../../utils/site-motion.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { loadTrophy } from './ULPTrophy';
@@ -34,7 +35,7 @@ export async function mountTrophy(
   const backLight = new THREE.DirectionalLight(0xffffff, 1);
   backLight.position.set(5, 8, -15);
   scene.add(backLight);
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reducedMotion = siteMotion();
   let frame = 0;
   let visible = true;
   let paused = false;

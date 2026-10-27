@@ -1,3 +1,4 @@
+import { siteMotion } from '../utils/site-motion.js';
 document
   .querySelectorAll<HTMLElement>('[data-partner-strip]')
   .forEach((root) => {
@@ -5,7 +6,7 @@ document
       '[data-partner-viewport]',
     )!;
     const list = root.querySelector<HTMLElement>('[data-partner-list]')!;
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const reducedMotion = siteMotion();
     let hovered = false;
     let focused = false;
     let touching = false;
