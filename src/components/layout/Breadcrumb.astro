@@ -3,17 +3,56 @@ interface Props {
   current?: string;
 }
 const { current } = Astro.props;
+const hasArt = Astro.slots.has('art');
 ---
 
 <section class="page-intro">
-  <div class="design-container">
-    <span class="design-eyebrow">UGR LAN Party · Explora</span>
-    <h1><slot name="title">ULP</slot></h1>
-    <p><slot name="texto" /></p>
-    <nav aria-label="Ruta de navegación">
-      <a href="/">Inicio</a><span aria-hidden="true">/</span><span
-        aria-current="page">{current ?? <slot name="title">ULP</slot>}</span
-      >
-    </nav>
+  <div class:list={['design-container', { 'intro-with-art': hasArt }]}>
+    <div class="intro-copy">
+      <span class="design-eyebrow">UGR LAN Party · Explora</span>
+      <h1><slot name="title">ULP</slot></h1>
+      <p><slot name="texto" /></p>
+      <nav aria-label="Ruta de navegación">
+        <a href="/">Inicio</a><span aria-hidden="true">/</span><span
+          aria-current="page">{current ?? <slot name="title">ULP</slot>}</span
+        >
+      </nav>
+    </div>
+    {
+      hasArt && (
+        <div class="intro-art">
+          <slot name="art" />
+        </div>
+      )
+    }
   </div>
 </section>
+
+<style>
+  .intro-with-art {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(170px, 20vw, 240px);
+    align-items: center;
+    gap: 44px;
+  }
+  .intro-copy {
+    min-width: 0;
+  }
+  @media (max-width: 700px) {
+    .intro-with-art {
+      grid-template-columns: minmax(0, 1fr) 90px;
+      gap: 16px;
+    }
+    .intro-with-art h1 {
+      font-size: clamp(32px, 8vw, 42px);
+    }
+    .intro-with-art .design-eyebrow {
+      font-size: 8px;
+      letter-spacing: 0.08em;
+    }
+    .intro-with-art nav {
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+  }
+</style>
