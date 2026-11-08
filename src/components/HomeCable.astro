@@ -1,0 +1,123 @@
+<div class="home-cable" data-home-cable aria-hidden="true">
+  <svg fill="none" focusable="false" data-cable-svg>
+    <defs>
+      <g id="home-network-plug">
+        <path d="M-4 12v-5h8v5" class="plug-boot"></path>
+        <rect x="-7" y="-12" width="14" height="20" rx="3" class="plug-body"
+        ></rect>
+        <path d="M-4-12v-4h8v4M-4 3h8M-4 5h8" class="plug-detail"></path>
+        <path d="M-4-9v5M-1.3-9v5M1.3-9v5M4-9v5" class="plug-contacts"></path>
+        <path d="M-3-1h6v8h-6z" class="plug-latch"></path>
+      </g>
+    </defs>
+    <path data-cable-guide class="cable-guide"></path>
+    <g class="cable-drawing">
+      <path data-cable-path pathLength="1" class="cable-jacket"></path>
+      <path data-cable-path pathLength="1" class="cable-highlight"></path>
+    </g>
+    <use href="#home-network-plug" data-cable-start></use>
+    <use href="#home-network-plug" data-cable-end class="cable-end"></use>
+    <circle r="2.5" data-cable-tip class="cable-tip"></circle>
+  </svg>
+</div>
+
+<script>
+  import '../scripts/home-cable';
+</script>
+
+<style>
+  .home-cable {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    contain: paint;
+    --cable-blue: #006471;
+    --cable-edge: #004465;
+  }
+  .home-cable[data-ready] {
+    visibility: visible;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  path {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .cable-guide {
+    stroke: none;
+  }
+  .cable-drawing path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: var(--cable-gap, 1);
+  }
+  .cable-jacket {
+    stroke: var(--cable-blue);
+    stroke-width: 2.5;
+    opacity: 0.5;
+  }
+  .cable-highlight {
+    stroke: #a3d4d0;
+    stroke-width: 0.65;
+    opacity: 0.4;
+  }
+  .plug-body {
+    fill: #f5f0e6;
+    stroke: var(--cable-edge);
+    stroke-width: 1.4;
+  }
+  .plug-boot {
+    fill: var(--cable-blue);
+    stroke: var(--cable-edge);
+    stroke-width: 1;
+  }
+  .plug-detail {
+    stroke: var(--cable-edge);
+    stroke-width: 1;
+  }
+  .plug-contacts {
+    stroke: #b48c48;
+    stroke-width: 1.25;
+  }
+  .plug-latch {
+    fill: var(--cable-blue);
+    fill-opacity: 0.14;
+    stroke: var(--cable-edge);
+    stroke-width: 0.7;
+  }
+  .cable-end {
+    opacity: var(--cable-complete, 0);
+  }
+  .cable-tip {
+    fill: #f5f0e6;
+    stroke: var(--cable-blue);
+    stroke-width: 0.8;
+    stroke-opacity: 0.5;
+  }
+  :global(.dark) .home-cable {
+    --cable-blue: #77b6bb;
+    --cable-edge: #a4cdd0;
+  }
+  @media (max-width: 700px) {
+    .cable-jacket {
+      stroke-width: 1.7;
+    }
+    .cable-highlight {
+      stroke-width: 0.5;
+    }
+    .cable-tip {
+      r: 1.8px;
+    }
+  }
+  @media print {
+    .home-cable {
+      display: none;
+    }
+  }
+</style>

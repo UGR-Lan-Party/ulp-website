@@ -13,6 +13,7 @@ import CTAsection from '../components/CTAsection.astro';
 import MemoryGallery from '../components/MemoryGallery.astro';
 import HomeNewsPreview from '../components/HomeNewsPreview.astro';
 import TrailerSection from '../components/TrailerSection.astro';
+import HomeCable from '../components/HomeCable.astro';
 const showCountdown = false;
 ---
 
@@ -20,6 +21,7 @@ const showCountdown = false;
   description="La UGR LAN Party es un evento de eSports organizado por profesores y estudiantes de la Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación de la Universidad de Granada."
 >
   <div class="home-page">
+    <HomeCable />
     <Hero />
     {showCountdown && <EventCountdown />}
     <PartnerStrip />
@@ -41,6 +43,10 @@ const showCountdown = false;
 </script>
 
 <style>
+  .home-page {
+    position: relative;
+    isolation: isolate;
+  }
   .home-page :global(#experiencias) {
     padding-block: clamp(40px, 5vw, 72px) clamp(28px, 4vw, 48px);
   }
