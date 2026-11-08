@@ -1,0 +1,92 @@
+---
+import { readFileSync } from 'node:fs';
+const officialLogo = readFileSync(
+  'public/assets/prensa/ugr-lan-party-color.svg',
+  'utf8',
+);
+const outline = officialLogo.match(/<path\b[^>]*\bd="([^"]+)"/)?.[1] ?? '';
+const pieces = outline.match(/M[^M]+/g) ?? [];
+---
+
+<figure
+  class="logo-assembly"
+  data-logo-assembly
+  role="group"
+  aria-label="Nuestro símbolo, pieza a pieza"
+>
+  <svg
+    viewBox="280 430 1420 1140"
+    role="img"
+    aria-label="Logotipo de UGR LAN Party"
+  >
+    <defs>
+      <linearGradient
+        id="assembled-ulp-blue"
+        gradientUnits="userSpaceOnUse"
+        x1="300"
+        y1="450"
+        x2="1700"
+        y2="1570"
+      >
+        <stop class="logo-stop-start" offset="0" stop-color="#004465"></stop>
+        <stop class="logo-stop-end" offset="1" stop-color="#008492"></stop>
+      </linearGradient>
+      {
+        pieces.map((piece, index) => (
+          <clipPath
+            id={`ulp-piece-slot-${index}`}
+            clipPathUnits="userSpaceOnUse"
+          >
+            <path d={piece} clip-rule="evenodd" />
+          </clipPath>
+        ))
+      }
+    </defs>
+    <path d={outline} class="logo-blueprint" data-logo-blueprint pathLength="1"
+    ></path>
+    <g fill="url(#assembled-ulp-blue)" fill-rule="evenodd">
+      {
+        pieces.map((piece, index) => (
+          <g clip-path={`url(#ulp-piece-slot-${index})`} data-logo-slot>
+            <path d={piece} data-logo-piece />
+          </g>
+        ))
+      }
+    </g>
+  </svg>
+</figure>
+
+<script>
+  import '../scripts/logo-assembly';
+</script>
+
+<style>
+  .logo-assembly {
+    margin: 0;
+    width: 100%;
+  }
+  .logo-assembly > svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  [data-logo-piece] {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .logo-blueprint {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 0.65px;
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1;
+    opacity: 0;
+  }
+  :global(.dark) .logo-stop-start {
+    stop-color: #f5f0e6;
+  }
+  :global(.dark) .logo-stop-end {
+    stop-color: #9fcdd0;
+  }
+</style>
