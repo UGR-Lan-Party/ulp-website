@@ -76,3 +76,42 @@
 .carousel-retry[hidden] {
   display: none;
 }
+
+/* A short key travel for action buttons; selectors and map tools keep their geometry. */
+:is(
+  .design-button,
+  .navigation-registration,
+  .carousel-retry,
+  .program-reset,
+  .feedback-actions button
+) {
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--ink) 17%, transparent);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+:is(
+    .design-button,
+    .navigation-registration,
+    .carousel-retry,
+    .program-reset,
+    .feedback-actions button
+  ):active:not(:disabled):not([aria-disabled='true']) {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--ink) 12%, transparent),
+    inset 0 1px 2px rgb(0 25 40 / 0.08);
+  transition-duration: 65ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(
+      .design-button,
+      .navigation-registration,
+      .carousel-retry,
+      .program-reset,
+      .feedback-actions button
+    ):active:not(:disabled):not([aria-disabled='true']) {
+    transform: none;
+  }
+}
