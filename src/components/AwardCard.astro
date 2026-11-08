@@ -40,6 +40,9 @@ const tier = tiers[position];
   style={`--award-accent:${tier.accent}`}
   aria-label={tier.label}
 >
+  <span class="award-vitrine" aria-hidden="true">
+    <span class="award-light" data-award-light></span>
+  </span>
   <span class="award-corner top-left" aria-hidden="true"></span>
   <span class="award-corner top-right" aria-hidden="true"></span>
   <span class="award-corner bottom-left" aria-hidden="true"></span>
@@ -109,6 +112,28 @@ const tier = tiers[position];
       rgb(0 8 20 / 0.12) 3px 4px
     );
     z-index: -1;
+  }
+  .award-vitrine {
+    position: absolute;
+    inset: 1px;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .award-light {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateX(-120%) skewX(-14deg);
+    background: linear-gradient(
+      90deg,
+      transparent 20%,
+      rgb(245 240 230 / 0.025) 38%,
+      rgb(245 240 230 / 0.18) 49%,
+      rgb(245 240 230 / 0.06) 56%,
+      transparent 76%
+    );
   }
   .award-card:hover {
     box-shadow:
@@ -276,6 +301,23 @@ const tier = tiers[position];
 </style>
 
 <script>
+  import { siteMotion } from '../utils/site-motion.js';
+  const awardMotion = siteMotion();
+  const revealAnimations = new Set<Animation>();
+  function revealAnimation(
+    element: Element,
+    frames: Keyframe[],
+    options: KeyframeAnimationOptions,
+  ) {
+    const animation = element.animate(frames, options);
+    revealAnimations.add(animation);
+    animation.onfinish = animation.oncancel = () =>
+      revealAnimations.delete(animation);
+  }
+  awardMotion.addEventListener('change', () => {
+    if (awardMotion.matches)
+      revealAnimations.forEach((animation) => animation.cancel());
+  });
   document
     .querySelectorAll<HTMLElement>('[data-award-reveal]')
     .forEach((root) => {
@@ -293,6 +335,42 @@ const tier = tiers[position];
         list.inert = false;
         list.tabIndex = -1;
         list.focus({ preventScroll: true });
+        root.dataset.awardOpened = 'true';
+        if (awardMotion.matches) return;
+        const card = root.closest<HTMLElement>('.award-card')!;
+        revealAnimation(
+          card.querySelector('[data-award-light]')!,
+          [
+            { transform: 'translateX(-120%) skewX(-14deg)', opacity: 0 },
+            { opacity: 1, offset: 0.25 },
+            { opacity: 1, offset: 0.65 },
+            { transform: 'translateX(120%) skewX(-14deg)', opacity: 0 },
+          ],
+          { duration: 1100, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
+        );
+        revealAnimation(
+          card.querySelector('.award-emblem')!,
+          [
+            { transform: 'translateY(5px) scale(0.98)' },
+            { transform: 'translateY(0) scale(1)' },
+          ],
+          { duration: 650, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+        );
+        list.querySelectorAll('li').forEach((item, index) => {
+          revealAnimation(
+            item,
+            [
+              { opacity: 0.3, transform: 'translateY(7px)' },
+              { opacity: 1, transform: 'translateY(0)' },
+            ],
+            {
+              duration: 450,
+              delay: Math.min(index * 65, 325),
+              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+              fill: 'backwards',
+            },
+          );
+        });
       });
     });
 </script>
